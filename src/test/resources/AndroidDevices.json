@@ -1,0 +1,9 @@
+{
+	"devices": [{
+			"name": "LENOVO_VibeZ2Pro_Android_5.0.2",
+			"version": "5.0.2"
+		},{
+			"name": "ASUS_Zenfone3_Android_8.0.0",
+			"version": "8.0.0"
+		}]
+}
