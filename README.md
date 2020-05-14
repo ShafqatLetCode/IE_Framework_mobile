@@ -1,12 +1,12 @@
 
-#pCloudy Android
-Please run below command in root directory
+**pCloudy Android**</br>
+Please run below command in root directory</br>
 `mvn clean test -Dsurefire.suiteXmlFiles=pcloudyAndroid.xml`
 
-#pCloudy IOS
-Please run below command in root directory
+**pCloudy IOS**</br>
+Please run below command in root directory</br>
 `mvn clean test -Dsurefire.suiteXmlFiles=pCloudyIos.xml`
 
-#Local
-Please run below command in root directory
+**Local**</br>
+Please run below command in root directory</br>
 `mvn clean test -Dsurefire.suiteXmlFiles=local.xml`
