@@ -6,9 +6,7 @@ import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +22,6 @@ import org.testng.log4testng.Logger;
 
 import com.crestech.appium.utils.ConfigurationManager;
 import com.crestech.common.utilities.ExcelUtils;
-import com.crestech.config.ContextManager;
 import com.crestech.report.factory.ExtentTestManager;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -40,10 +37,10 @@ import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import io.qameta.allure.Description;
 
 /**
- *
- * @author Shibu Prasad Panda
- *
- */
+ *
+ * @author Shibu Prasad Panda
+ *
+ */
 
 public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
@@ -84,7 +81,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		Thread.sleep(2000);
 		try {
 			this.driver = startingServerInstance(androidCaps, os);
-			ContextManager.setAndroidDriver(this.driver);
+			//ContextManager.setAndroidDriver(this.driver);
 		} catch (Exception e) {
 			report.log(LogStatus.SKIP, device + " is not reachable");
 			StringWriter sw = new StringWriter();
@@ -237,148 +234,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		return capabilities;
 	}
 
-	/**
-	 * This method will read the Desired Capabilities from fill property method and
-	 * rest conditions from
-	 * 
-	 * @param deviceProperties
-	 * @return
-	 */
-	public synchronized DesiredCapabilities applicationCapabilities(HashMap<String, String> deviceProperties) {
-		try {
-			DesiredCapabilities capabilities = new DesiredCapabilities();
-			for (Entry<String, String> prop : deviceProperties.entrySet()) {
-				fillProperty(capabilities, prop.getKey(), prop.getValue());
-			}
-			return capabilities;
-		} catch (Exception e) {
-			System.err.println("Error while initializing capabilities");
-			throw e;
-		}
-	}
-
-	/**
-	 * This method will fill the properties of all
-	 * 
-	 * @param capabilities
-	 * @param propertyName
-	 * @param propertyValue
-	 * @return
-	 */
-	public DesiredCapabilities fillProperty(DesiredCapabilities capabilities, String propertyName,
-			String propertyValue) {
-		boolean isVersionSix = false;
-		switch (propertyName) {
-		case MobileCapabilityType.PLATFORM_NAME:
-			setPlatformProperty(capabilities, propertyValue);
-			break;
-		case MobileCapabilityType.DEVICE_NAME:
-			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, propertyValue);
-			break;
-		case MobileCapabilityType.PLATFORM_VERSION:
-			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, propertyValue);
-			isVersionSix = checkDeviceVersion(propertyValue);
-			break;
-		case AndroidMobileCapabilityType.APP_ACTIVITY:
-			capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, propertyValue);
-			break;
-		case AndroidMobileCapabilityType.APP_PACKAGE:
-			capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, propertyValue);
-			break;
-		case MobileCapabilityType.UDID:
-			capabilities.setCapability(MobileCapabilityType.UDID, propertyValue);
-			break;
-		case MobileCapabilityType.BROWSER_NAME:
-			capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
-			break;
-		case MobileCapabilityType.APP:
-			capabilities.setCapability(MobileCapabilityType.APP, propertyValue);
-			break;
-		case MobileCapabilityType.AUTOMATION_NAME:
-			String platform = capabilities.getPlatform() != null ? capabilities.getPlatform().name() : "";
-			if ((platform.equalsIgnoreCase("Android") || platform.equalsIgnoreCase("pCloudyAndroid"))) {
-				setVersionConfig(capabilities, isVersionSix);
-			} else {
-				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, propertyValue);
-			}
-			break;
-		case "pCloudy_Username":
-			capabilities.setCapability("pCloudy_Username", propertyValue);
-			break;
-		case "pCloudy_ApiKey":
-			capabilities.setCapability("pCloudy_ApiKey", propertyValue);
-			break;
-		case "pCloudy_ApplicationName":
-			capabilities.setCapability("pCloudy_ApplicationName", propertyValue);
-			break;
-		case "pCloudy_DurationInMinutes":
-			capabilities.setCapability("pCloudy_DurationInMinutes", propertyValue);
-			break;
-		case "pCloudy_DeviceFullName":
-			capabilities.setCapability("pCloudy_DeviceFullName", propertyValue);
-			break;
-		case "bundleId":
-			capabilities.setCapability("bundleId", propertyValue);
-			break;
-		case "xcodeOrgId":
-			capabilities.setCapability("xcodeOrgId", propertyValue);
-			break;
-		case "xcodeSigningId":
-			capabilities.setCapability("xcodeSigningId", propertyValue);
-			break;
-		case "webkitDebugProxyPort":
-			capabilities.setCapability("webkitDebugProxyPort", propertyValue);
-			break;
-
-		default:
-			System.err.println("Invalid property.");
-			capabilities = null;
-		}
-
-		/*
-		 * default: System.out.
-		 * println("Please Select pCloudyAndroid OR pCloudyIOS in properties File");
-		 * capabilities = null; }
-		 */
-
-		return capabilities;
-	}
-
-	private void setPlatformProperty(DesiredCapabilities capabilities, String propertyValue) {
-		switch (propertyValue) {
-		case "Android":
-			if (dontStopAppOnReset == true) {
-				capabilities.setCapability(AndroidMobileCapabilityType.DONT_STOP_APP_ON_RESET, true);
-			} else {
-				capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
-			}
-			capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 600);
-			break;
-
-		case "ios_Safari":
-			capabilities.setCapability("startIWDP", true);
-		case "pCloudyAndroid":
-			capabilities.setCapability("newCommandTimeout", 600);
-			capabilities.setCapability("launchTimeout", 90000);
-			capabilities.setCapability("noReset", true);
-			break;
-		case "pCloudyIOS":
-			capabilities.setCapability("newCommandTimeout", 600);
-			capabilities.setCapability("launchTimeout", 90000);
-			capabilities.setCapability("acceptAlerts", true);
-
-		}
-	}
-
-	private void setVersionConfig(DesiredCapabilities capabilities, boolean isVersionSix) {
-		if (isVersionSix) {
-			capabilities.setCapability("automationName", "UiAutomator2");
-			capabilities.setCapability("uiautomator2ServerLaunchTimeout", 90000);
-			capabilities.setCapability("noSign", true);
-		} else {
-			capabilities.setCapability("automationName", "UiAutomator1");
-		}
-	}
+	
 
 	/**
 	 * This will Start the Server
@@ -403,9 +259,14 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			builder.withCapabilities(androidCaps);
 			builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
 
-			// Start the server with the builder service =
-			AppiumDriverLocalService.buildService(builder);
+			// Start the server with the builder 
+			service =AppiumDriverLocalService.buildService(builder);
+			try {
 			service.start();
+			}
+			finally {
+				service.stop();
+			}
 			driver = new AndroidDriver<RemoteWebElement>(androidCaps);
 		} else if (os.equalsIgnoreCase("pCloudyAndroid")) {
 			driver = new AndroidDriver<RemoteWebElement>(
@@ -437,7 +298,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	 * This method is to check Memory is reverted or not
 	 *
 	 * @param availableMemoryBeforeCancel -Memory Space At start
-	 * @param availableMemoryAfterCancel  -Memory Space After Cancellation
+	 * @param availableMemoryAfterCancel  -Memory Space After Cancellation
 	 * @return-return the boolean value
 	 */
 	public boolean isMemoryReverted(double availableMemoryAfterCancel, double availableMemoryBeforeCancel) {
