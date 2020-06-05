@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="1" failed="1" ignored="0" total="2" passed="0">
+<testng-results skipped="1" failed="0" ignored="0" total="2" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Migo Suite" duration-ms="64199" started-at="2020-06-02T12:31:03Z" finished-at="2020-06-02T12:32:07Z">
+  <suite name="Migo Suite" duration-ms="75236" started-at="2020-06-05T08:39:09Z" finished-at="2020-06-05T08:40:24Z">
     <groups>
     </groups>
-    <test name="APPLE_iPhone6sPlus_iOS_13.3.1" duration-ms="3899" started-at="2020-06-02T12:31:03Z" finished-at="2020-06-02T12:31:07Z">
+    <test name="APPLE_iPhone6sPlus_iOS_13.4.1" duration-ms="5204" started-at="2020-06-05T08:39:09Z" finished-at="2020-06-05T08:39:14Z">
       <class name="com.crestech.android.tests.pCloudyIosTest">
-        <test-method status="FAIL" signature="startApp(java.lang.String, java.lang.String, java.lang.reflect.Method, java.lang.String)[pri:0, instance:[pCloudyIosTest passed=0 failed=0 skipped=0]]" name="startApp" is-config="true" duration-ms="3733" started-at="2020-06-02T18:01:03Z" finished-at="2020-06-02T18:01:07Z">
+        <test-method status="FAIL" signature="startApp(java.lang.String, java.lang.String, java.lang.reflect.Method, java.lang.String)[pri:0, instance:[pCloudyIosTest passed=0 failed=0 skipped=0]]" name="startApp" is-config="true" duration-ms="5032" started-at="2020-06-05T14:09:09Z" finished-at="2020-06-05T14:09:14Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[APPLE_iPhone6sPlus_iOS_13.3.1]]>
+                <![CDATA[APPLE_iPhone6sPlus_iOS_13.4.1]]>
               </value>
             </param>
             <param index="1">
               <value>
-                <![CDATA[13.3.1]]>
+                <![CDATA[13.4.1]]>
               </value>
             </param>
             <param index="2">
               <value>
-                <![CDATA[public void com.crestech.android.tests.pCloudyIosTest.sampleIosTest(java.lang.String) throws java.lang.InterruptedException]]>
+                <![CDATA[public void com.crestech.android.tests.pCloudyIosTest.sampleIosTest(java.lang.String,java.lang.String)]]>
               </value>
             </param>
             <param index="3">
@@ -32,8 +32,8 @@
           </params>
           <exception class="org.openqa.selenium.SessionNotCreatedException">
             <message>
-              <![CDATA[Unable to create a new remote session. Please check the server log for more details. Original error: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'APPLE_iPhone6sPlus_iOS_13.3.1'name not found/already booked. (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 900 milliseconds
+              <![CDATA[Unable to create a new remote session. Please check the server log for more details. Original error: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'APPLE_iPhone6sPlus_iOS_13.4.1'name not found/already booked. (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 2.25 seconds
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
 System info: host: 'DESKTOP-9OLEHDV', ip: '192.168.233.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_66'
 Driver info: driver.version: IOSDriver
@@ -42,8 +42,8 @@ System info: host: 'DESKTOP-9OLEHDV', ip: '192.168.233.1', os.name: 'Windows 10'
 Driver info: driver.version: IOSDriver]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.SessionNotCreatedException: Unable to create a new remote session. Please check the server log for more details. Original error: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'APPLE_iPhone6sPlus_iOS_13.3.1'name not found/already booked. (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 900 milliseconds
+              <![CDATA[org.openqa.selenium.SessionNotCreatedException: Unable to create a new remote session. Please check the server log for more details. Original error: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'APPLE_iPhone6sPlus_iOS_13.4.1'name not found/already booked. (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 2.25 seconds
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
 System info: host: 'DESKTOP-9OLEHDV', ip: '192.168.233.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_66'
 Driver info: driver.version: IOSDriver
@@ -64,8 +64,8 @@ Driver info: driver.version: IOSDriver
 	at io.appium.java_client.AppiumDriver.<init>(AppiumDriver.java:86)
 	at io.appium.java_client.AppiumDriver.<init>(AppiumDriver.java:96)
 	at io.appium.java_client.ios.IOSDriver.<init>(IOSDriver.java:92)
-	at com.crestech.base.UserBaseTest.startingServerInstance(UserBaseTest.java:415)
-	at com.crestech.base.UserBaseTest.startApp(UserBaseTest.java:86)
+	at com.crestech.base.UserBaseTest.startingServerInstance(UserBaseTest.java:275)
+	at com.crestech.base.UserBaseTest.startApp(UserBaseTest.java:85)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -95,8 +95,8 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at java.lang.reflect.Method.invoke(Method.java:497)
 	at io.appium.java_client.remote.AppiumCommandExecutor$1.createSession(AppiumCommandExecutor.java:186)
 	... 37 more
-Caused by: org.openqa.selenium.SessionNotCreatedException: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'APPLE_iPhone6sPlus_iOS_13.3.1'name not found/already booked. (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 900 milliseconds
+Caused by: org.openqa.selenium.SessionNotCreatedException: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'APPLE_iPhone6sPlus_iOS_13.4.1'name not found/already booked. (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 2.25 seconds
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
 System info: host: 'DESKTOP-9OLEHDV', ip: '192.168.233.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_66'
 Driver info: driver.version: IOSDriver
@@ -126,11 +126,11 @@ Driver info: driver.version: IOSDriver
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startApp -->
-        <test-method status="SKIP" signature="sampleIosTest(java.lang.String)[pri:0, instance:[pCloudyIosTest passed=0 failed=0 skipped=0]]" name="sampleIosTest" duration-ms="1" started-at="2020-06-02T18:01:07Z" description="Sample test for iOS" finished-at="2020-06-02T18:01:07Z">
+        <test-method status="SKIP" signature="sampleIosTest(java.lang.String, java.lang.String)[pri:0, instance:[pCloudyIosTest passed=0 failed=0 skipped=0]]" name="sampleIosTest" duration-ms="1" started-at="2020-06-05T14:09:14Z" description="Sample test for iOS" finished-at="2020-06-05T14:09:14Z">
           <exception class="org.openqa.selenium.SessionNotCreatedException">
             <message>
-              <![CDATA[Unable to create a new remote session. Please check the server log for more details. Original error: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'APPLE_iPhone6sPlus_iOS_13.3.1'name not found/already booked. (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 900 milliseconds
+              <![CDATA[Unable to create a new remote session. Please check the server log for more details. Original error: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'APPLE_iPhone6sPlus_iOS_13.4.1'name not found/already booked. (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 2.25 seconds
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
 System info: host: 'DESKTOP-9OLEHDV', ip: '192.168.233.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_66'
 Driver info: driver.version: IOSDriver
@@ -139,8 +139,8 @@ System info: host: 'DESKTOP-9OLEHDV', ip: '192.168.233.1', os.name: 'Windows 10'
 Driver info: driver.version: IOSDriver]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.SessionNotCreatedException: Unable to create a new remote session. Please check the server log for more details. Original error: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'APPLE_iPhone6sPlus_iOS_13.3.1'name not found/already booked. (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 900 milliseconds
+              <![CDATA[org.openqa.selenium.SessionNotCreatedException: Unable to create a new remote session. Please check the server log for more details. Original error: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'APPLE_iPhone6sPlus_iOS_13.4.1'name not found/already booked. (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 2.25 seconds
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
 System info: host: 'DESKTOP-9OLEHDV', ip: '192.168.233.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_66'
 Driver info: driver.version: IOSDriver
@@ -161,8 +161,8 @@ Driver info: driver.version: IOSDriver
 	at io.appium.java_client.AppiumDriver.<init>(AppiumDriver.java:86)
 	at io.appium.java_client.AppiumDriver.<init>(AppiumDriver.java:96)
 	at io.appium.java_client.ios.IOSDriver.<init>(IOSDriver.java:92)
-	at com.crestech.base.UserBaseTest.startingServerInstance(UserBaseTest.java:415)
-	at com.crestech.base.UserBaseTest.startApp(UserBaseTest.java:86)
+	at com.crestech.base.UserBaseTest.startingServerInstance(UserBaseTest.java:275)
+	at com.crestech.base.UserBaseTest.startApp(UserBaseTest.java:85)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -192,8 +192,8 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at java.lang.reflect.Method.invoke(Method.java:497)
 	at io.appium.java_client.remote.AppiumCommandExecutor$1.createSession(AppiumCommandExecutor.java:186)
 	... 37 more
-Caused by: org.openqa.selenium.SessionNotCreatedException: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'APPLE_iPhone6sPlus_iOS_13.3.1'name not found/already booked. (WARNING: The server did not provide any stacktrace information)
-Command duration or timeout: 900 milliseconds
+Caused by: org.openqa.selenium.SessionNotCreatedException: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'APPLE_iPhone6sPlus_iOS_13.4.1'name not found/already booked. (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 2.25 seconds
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
 System info: host: 'DESKTOP-9OLEHDV', ip: '192.168.233.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_66'
 Driver info: driver.version: IOSDriver
@@ -223,19 +223,19 @@ Driver info: driver.version: IOSDriver
           <reporter-output>
           </reporter-output>
         </test-method> <!-- sampleIosTest -->
-        <test-method status="PASS" signature="flushReport()[pri:0, instance:[pCloudyIosTest passed=0 failed=0 skipped=0]]" name="flushReport" is-config="true" duration-ms="1" started-at="2020-06-02T18:02:07Z" finished-at="2020-06-02T18:02:07Z">
+        <test-method status="PASS" signature="flushReport()[pri:0, instance:[pCloudyIosTest passed=0 failed=0 skipped=0]]" name="flushReport" is-config="true" duration-ms="0" started-at="2020-06-05T14:10:24Z" finished-at="2020-06-05T14:10:24Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- flushReport -->
       </class> <!-- com.crestech.android.tests.pCloudyIosTest -->
-    </test> <!-- APPLE_iPhone6sPlus_iOS_13.3.1 -->
-    <test name="SAMSUNG_GalaxyS9_Android_8.0.0" duration-ms="64199" started-at="2020-06-02T12:31:03Z" finished-at="2020-06-02T12:32:07Z">
+    </test> <!-- APPLE_iPhone6sPlus_iOS_13.4.1 -->
+    <test name="SAMSUNG_GalaxyS8_Android_8.0.0" duration-ms="75236" started-at="2020-06-05T08:39:09Z" finished-at="2020-06-05T08:40:24Z">
       <class name="com.crestech.android.tests.pCloudyIosTest">
-        <test-method status="PASS" signature="startApp(java.lang.String, java.lang.String, java.lang.reflect.Method, java.lang.String)[pri:0, instance:[pCloudyIosTest passed=0 failed=0 skipped=0]]" name="startApp" is-config="true" duration-ms="36754" started-at="2020-06-02T18:01:03Z" finished-at="2020-06-02T18:01:40Z">
+        <test-method status="PASS" signature="startApp(java.lang.String, java.lang.String, java.lang.reflect.Method, java.lang.String)[pri:0, instance:[pCloudyIosTest passed=0 failed=0 skipped=0]]" name="startApp" is-config="true" duration-ms="49948" started-at="2020-06-05T14:09:09Z" finished-at="2020-06-05T14:09:59Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[SAMSUNG_GalaxyS9_Android_8.0.0]]>
+                <![CDATA[SAMSUNG_GalaxyS8_Android_8.0.0]]>
               </value>
             </param>
             <param index="1">
@@ -245,7 +245,7 @@ Driver info: driver.version: IOSDriver
             </param>
             <param index="2">
               <value>
-                <![CDATA[public void com.crestech.android.tests.pCloudyIosTest.sampleIosTest(java.lang.String) throws java.lang.InterruptedException]]>
+                <![CDATA[public void com.crestech.android.tests.pCloudyIosTest.sampleIosTest(java.lang.String,java.lang.String)]]>
               </value>
             </param>
             <param index="3">
@@ -257,116 +257,27 @@ Driver info: driver.version: IOSDriver
           <reporter-output>
           </reporter-output>
         </test-method> <!-- startApp -->
-        <test-method status="FAIL" signature="sampleIosTest(java.lang.String)[pri:0, instance:[pCloudyIosTest passed=0 failed=0 skipped=0]]" name="sampleIosTest" duration-ms="24655" started-at="2020-06-02T18:01:40Z" description="Sample test for iOS" finished-at="2020-06-02T18:02:05Z">
+        <test-method status="PASS" signature="sampleIosTest(java.lang.String, java.lang.String)[pri:0, instance:[pCloudyIosTest passed=0 failed=0 skipped=0]]" name="sampleIosTest" duration-ms="24808" started-at="2020-06-05T14:09:59Z" description="Sample test for iOS" finished-at="2020-06-05T14:10:24Z">
           <params>
             <param index="0">
               <value>
                 <![CDATA[8.0.0]]>
               </value>
             </param>
+            <param index="1">
+              <value>
+                <![CDATA[SAMSUNG_GalaxyS8_Android_8.0.0]]>
+              </value>
+            </param>
           </params>
-          <exception class="org.openqa.selenium.TimeoutException">
-            <message>
-              <![CDATA[Expected condition failed: waiting for visibility of Located by By.id: emailID (tried for 20 second(s) with 500 milliseconds interval)]]>
-            </message>
-            <full-stacktrace>
-              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of Located by By.id: emailID (tried for 20 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:95)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:272)
-	at com.crestech.common.utilities.WaitUtils.waitForElementInSeconds(WaitUtils.java:52)
-	at com.crestech.pages.pCloudySampleIOSpage.clickOnEmail(pCloudySampleIOSpage.java:39)
-	at com.crestech.android.tests.pCloudyIosTest.sampleIosTest(pCloudyIosTest.java:31)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:497)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
-	at org.testng.internal.Invoker.invokeMethod(Invoker.java:661)
-	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:869)
-	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1193)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:126)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
-	at org.testng.TestRunner.privateRun(TestRunner.java:744)
-	at org.testng.TestRunner.run(TestRunner.java:602)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:380)
-	at org.testng.SuiteRunner.access$000(SuiteRunner.java:39)
-	at org.testng.SuiteRunner$SuiteWorker.run(SuiteRunner.java:414)
-	at org.testng.internal.thread.ThreadUtil$1.call(ThreadUtil.java:52)
-	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
-	at java.lang.Thread.run(Thread.java:745)
-Caused by: org.openqa.selenium.NoSuchElementException: Can't locate an element by this strategy: By.id: emailID
-	at io.appium.java_client.pagefactory.AppiumElementLocator.findElement(AppiumElementLocator.java:126)
-	at io.appium.java_client.pagefactory.interceptors.InterceptorOfASingleElement.intercept(InterceptorOfASingleElement.java:59)
-	at io.appium.java_client.android.AndroidElement$$EnhancerByCGLIB$$b598166c.isDisplayed(<generated>)
-	at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedConditions.java:314)
-	at org.openqa.selenium.support.ui.ExpectedConditions.access$000(ExpectedConditions.java:43)
-	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:300)
-	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:297)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:249)
-	... 23 more
-Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction@44a90524 (tried for 5 second(s) with 500 milliseconds interval)
-	at org.openqa.selenium.support.ui.FluentWait.timeoutException(FluentWait.java:304)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:272)
-	at io.appium.java_client.pagefactory.AppiumElementLocator.waitFor(AppiumElementLocator.java:99)
-	at io.appium.java_client.pagefactory.AppiumElementLocator.findElement(AppiumElementLocator.java:119)
-	... 30 more
-Caused by: org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters.
-For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
-Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
-System info: host: 'DESKTOP-9OLEHDV', ip: '192.168.233.1', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_66'
-Driver info: io.appium.java_client.android.AndroidDriver
-Capabilities {app: /home/radmin/build/raid-dat..., appActivity: com.example.android.apis.Ap..., appPackage: com.example.android.apis, automationName: UiAutomator2, chromedriverPort: 31292, databaseEnabled: false, desired: {app: /home/radmin/build/raid-dat..., appActivity: com.example.android.apis.Ap..., appPackage: com.example.android.apis, automationName: UiAutomator2, chromedriverPort: 31292, deviceName: 582, launchTimeout: 90000, newCommandTimeout: 600, noSign: true, pCloudy_ApiKey: 2xpzt9rwkrngbbs8rrjzw6hb, pCloudy_ApplicationName: pCloudySample_ApiDemos.apk, pCloudy_DeviceFullName: SAMSUNG_GalaxyS9_Android_8.0.0, pCloudy_DurationInMinutes: 20, pCloudy_Username: pooja.thakur@crestechglobal..., pCloudy_WildNet: false, platformName: android, platformVersion: 8.0.0, systemPort: 31294, udid: 213581e02d0b7ece, uiautomator2ServerLaunchTimeout: 90000}, deviceApiLevel: 26, deviceManufacturer: samsung, deviceModel: SM-G960F, deviceName: 213581e02d0b7ece, deviceScreenDensity: 640, deviceScreenSize: 1440x2960, deviceUDID: 213581e02d0b7ece, javascriptEnabled: true, launchTimeout: 90000, locationContextEnabled: false, networkConnectionEnabled: true, newCommandTimeout: 600, noSign: true, pCloudy_ApiKey: 2xpzt9rwkrngbbs8rrjzw6hb, pCloudy_ApplicationName: pCloudySample_ApiDemos.apk, pCloudy_DeviceFullName: SAMSUNG_GalaxyS9_Android_8.0.0, pCloudy_DurationInMinutes: 20, pCloudy_Username: pooja.thakur@crestechglobal..., pCloudy_WildNet: false, pixelRatio: 4, platform: LINUX, platformName: Android, platformVersion: 8.0.0, statBarHeight: 96, systemPort: 31294, takesScreenshot: true, udid: 213581e02d0b7ece, uiautomator2ServerLaunchTimeout: 90000, viewportRect: {height: 2672, left: 0, top: 96, width: 1440}, warnings: {}, webStorageEnabled: false}
-Session ID: cc59825f-6bec-4960-a32d-117c3b8aa405
-*** Element info: {Using=id, value=emailID}
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
-	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
-	at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:239)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:552)
-	at io.appium.java_client.DefaultGenericMobileDriver.execute(DefaultGenericMobileDriver.java:41)
-	at io.appium.java_client.AppiumDriver.execute(AppiumDriver.java:1)
-	at io.appium.java_client.android.AndroidDriver.execute(AndroidDriver.java:1)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:323)
-	at io.appium.java_client.DefaultGenericMobileDriver.findElement(DefaultGenericMobileDriver.java:61)
-	at io.appium.java_client.AppiumDriver.findElement(AppiumDriver.java:1)
-	at io.appium.java_client.android.AndroidDriver.findElement(AndroidDriver.java:1)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElementById(RemoteWebDriver.java:372)
-	at io.appium.java_client.DefaultGenericMobileDriver.findElementById(DefaultGenericMobileDriver.java:69)
-	at io.appium.java_client.AppiumDriver.findElementById(AppiumDriver.java:1)
-	at io.appium.java_client.android.AndroidDriver.findElementById(AndroidDriver.java:1)
-	at org.openqa.selenium.By$ById.findElement(By.java:188)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
-	at io.appium.java_client.DefaultGenericMobileDriver.findElement(DefaultGenericMobileDriver.java:57)
-	at io.appium.java_client.AppiumDriver.findElement(AppiumDriver.java:1)
-	at io.appium.java_client.android.AndroidDriver.findElement(AndroidDriver.java:1)
-	at io.appium.java_client.pagefactory.bys.ContentMappedBy.findElement(ContentMappedBy.java:50)
-	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
-	at io.appium.java_client.DefaultGenericMobileDriver.findElement(DefaultGenericMobileDriver.java:57)
-	at io.appium.java_client.AppiumDriver.findElement(AppiumDriver.java:1)
-	at io.appium.java_client.android.AndroidDriver.findElement(AndroidDriver.java:1)
-	at io.appium.java_client.pagefactory.AppiumElementLocator.lambda$0(AppiumElementLocator.java:120)
-	at io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction.apply(AppiumElementLocator.java:172)
-	at io.appium.java_client.pagefactory.AppiumElementLocator$WaitingFunction.apply(AppiumElementLocator.java:1)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:249)
-	... 32 more
-]]>
-            </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.TimeoutException -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- sampleIosTest -->
-        <test-method status="PASS" signature="stopApp(java.lang.String, java.lang.String)[pri:0, instance:[pCloudyIosTest passed=0 failed=0 skipped=0]]" name="stopApp" is-config="true" duration-ms="371" started-at="2020-06-02T18:02:07Z" finished-at="2020-06-02T18:02:07Z">
+        <test-method status="PASS" signature="stopApp(java.lang.String, java.lang.String)[pri:0, instance:[pCloudyIosTest passed=0 failed=0 skipped=0]]" name="stopApp" is-config="true" duration-ms="420" started-at="2020-06-05T14:10:24Z" finished-at="2020-06-05T14:10:24Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[SAMSUNG_GalaxyS9_Android_8.0.0]]>
+                <![CDATA[SAMSUNG_GalaxyS8_Android_8.0.0]]>
               </value>
             </param>
             <param index="1">
@@ -379,6 +290,6 @@ Session ID: cc59825f-6bec-4960-a32d-117c3b8aa405
           </reporter-output>
         </test-method> <!-- stopApp -->
       </class> <!-- com.crestech.android.tests.pCloudyIosTest -->
-    </test> <!-- SAMSUNG_GalaxyS9_Android_8.0.0 -->
+    </test> <!-- SAMSUNG_GalaxyS8_Android_8.0.0 -->
   </suite> <!-- Migo Suite -->
 </testng-results>

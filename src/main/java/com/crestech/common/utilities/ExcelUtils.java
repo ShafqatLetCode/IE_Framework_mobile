@@ -68,7 +68,7 @@ public class ExcelUtils {
 		}
 		return val;
 	}
-	
+
 	/**
 	 * @author Sneha Aggarwal
 	 * @param name- file path
@@ -94,7 +94,6 @@ public class ExcelUtils {
 		return wb;
 	}
 
-	
 	/**
 	 * @author Sneha Aggarwal
 	 * @param name- file path
@@ -110,7 +109,7 @@ public class ExcelUtils {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * @author Sneha Aggarwal
 	 * @param name- file path, key and sheet name
@@ -119,7 +118,7 @@ public class ExcelUtils {
 	 * @return List of String
 	 */
 	@Step("Read Excel")
-	public static List<String> readExcel(String key, String sheetName,XSSFWorkbook wb) {
+	public static List<String> readExcel(String key, String sheetName, XSSFWorkbook wb) {
 		// initialize variables
 		XSSFRow row = null;
 		XSSFCell cell = null;
@@ -329,7 +328,6 @@ public class ExcelUtils {
 			e.printStackTrace();
 		}
 	}
-	
 
 	/**
 	 * @author Sneha Aggarwal
@@ -339,14 +337,14 @@ public class ExcelUtils {
 	 */
 	public static HashMap<String, String> getMapData(String path, String sheetName) {
 		FileInputStream fis;
-		XSSFWorkbook wb=null;
+		XSSFWorkbook wb = null;
 		HashMap<String, String> dataMap = new HashMap<String, String>();
 		try {
 			fis = new FileInputStream(path);
 			wb = new XSSFWorkbook(fis);
 			XSSFSheet sheet = wb.getSheet(sheetName);
 			int lastRow = sheet.getLastRowNum();
-			
+
 			// Looping over entire row
 			for (int i = 0; i <= lastRow; i++) {
 				XSSFRow row = sheet.getRow(i);
@@ -368,7 +366,5 @@ public class ExcelUtils {
 		// Returning excelFileMap
 		return dataMap;
 	}
-	
-	
 
 }

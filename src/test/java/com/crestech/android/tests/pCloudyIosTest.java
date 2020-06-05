@@ -1,6 +1,7 @@
 package com.crestech.android.tests;
 
 import org.apache.log4j.Logger;
+import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -22,20 +23,23 @@ public class pCloudyIosTest extends UserBaseTest {
 	@Test(description = "Sample test for iOS")
 	@Description(value = "TestCases For Pcloudy Sample Project")
 	@Author(name = "Shibu Prasad panda")
-	@Parameters({ "version" })
-	public void sampleIosTest(String version) throws InterruptedException {
+	@Parameters({ "version", "device" })
+	public void sampleIosTest(String version, String device) {
+		try {
 			pCloudySampleIOSpage homePageios = new pCloudySampleIOSpage(driver);
-
+			System.out.println(device + "," + Thread.currentThread().getId());
 			logger.info("Test Case started");
-			ExtentTestManager.getTest().log(LogStatus.INFO, "Enter Email id","Detail section");
+			ExtentTestManager.getTest().log(LogStatus.INFO, "Enter Email id");
 			homePageios.clickOnEmail("testmunk@");
 
-			ExtentTestManager.getTest().log(LogStatus.INFO, "Enter password","Detail section");
+			ExtentTestManager.getTest().log(LogStatus.INFO, "Enter password");
 			homePageios.clickOnPassword("testmunk");
 
-			ExtentTestManager.getTest().log(LogStatus.INFO, "Click on  Login Button","Detail section");
+			ExtentTestManager.getTest().log(LogStatus.INFO, "Click on  Login Button");
 			homePageios.clickonLogin();
-			
+		} catch (Exception e) {
+			Assert.assertTrue(false,e.getMessage());
+		}
 	}
 
 }

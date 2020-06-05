@@ -9,6 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -80,7 +81,7 @@ public class TestListener extends UserBaseTest implements ITestListener {
 
 	@Override
 	public void onTestStart(ITestResult iTestResult) {
-
+		System.out.println(Thread.currentThread().getId());
 		System.out.println("I am in onTestStart method: " + getTestMethodName(iTestResult) + " :start");
 		ExtentTestManager.getTest().log(LogStatus.INFO, getTestMethodName(iTestResult) + " test is starting.");
 		// Start operation for extent reports.
@@ -99,7 +100,7 @@ public class TestListener extends UserBaseTest implements ITestListener {
 
 		// Get driver from BaseTest and assign to local webdriver variable.
 		Object testClass = iTestResult.getInstance();
-		WebDriver driver = ContextManager.getAndroidDriver();
+		RemoteWebDriver driver=ContextManager.getAndroidDriver();
 
 		// Allure ScreenShotRobot and SaveTestLog
 		if (driver instanceof WebDriver) {
@@ -113,11 +114,10 @@ public class TestListener extends UserBaseTest implements ITestListener {
 		// Take base64Screenshot screenshot for extent reports
 		String base64Screenshot = "data:image/png;base64,"
 				+ ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
-		ExtentTestManager.getTest().log(LogStatus.FAIL,
+		ExtentTestManager.getTest().log(LogStatus.FAIL,iTestResult.getMethod().getMethodName() + "test is failed",
 				ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
-
-		// Extent reports log and screenshot operations for failed tests.
-		ExtentTestManager.getTest().log(LogStatus.FAIL, "Test Failed");
+		ExtentTestManager.getTest().log(LogStatus.FAIL,iTestResult.getMethod().getMethodName() + "test is failed",
+				iTestResult.getThrowable().getMessage());
 
 		ExtentTestManager.endTest();
 		ExtentManager.getReporter().flush();

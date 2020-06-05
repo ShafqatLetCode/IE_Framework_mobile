@@ -33,7 +33,7 @@ public class AlterSuite implements IAlterSuiteListener {
 
 	@Override
 	public void alter(List<XmlSuite> suites) {
-		CreateJSON json=new CreateJSON();
+		CreateJSON json = new CreateJSON();
 		json.createAndroidJson();
 		AlterSuite alterSuite = new AlterSuite();
 		String jsonString = alterSuite.readText();
@@ -53,7 +53,7 @@ public class AlterSuite implements IAlterSuiteListener {
 		for (XmlTest each : dynamictests) {
 			for (int i = 1; i < deviceList.size(); i++) {
 				XmlTest cloned = new XmlTest(suite);
-   				cloned.setName(deviceList.get(i).get("name"));
+				cloned.setName(deviceList.get(i).get("name"));
 				cloned.getLocalParameters().put("device", deviceList.get(i).get("name"));
 				cloned.getLocalParameters().put("version", deviceList.get(i).get("version"));
 				cloned.getLocalParameters().put("os", deviceList.get(i).get("os"));

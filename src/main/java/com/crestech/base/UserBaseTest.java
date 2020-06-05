@@ -11,17 +11,21 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.ITestListener;
 import org.testng.TestListenerAdapter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.log4testng.Logger;
 
 import com.crestech.appium.utils.ConfigurationManager;
 import com.crestech.common.utilities.ExcelUtils;
+import com.crestech.config.ContextManager;
+import com.crestech.listeners.TestListener;
 import com.crestech.report.factory.ExtentTestManager;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -37,10 +41,8 @@ import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import io.qameta.allure.Description;
 
 /**
- *
- * @author Shibu Prasad Panda
- *
- */
+ *  *  * @author Shibu Prasad Panda  *  
+ */
 
 public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
@@ -70,7 +72,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	@BeforeMethod(alwaysRun = true)
 	@Parameters({ "device", "version", "os" })
 	public void startApp(String device, String version, Method method, String os) throws Exception {
-
+		System.out.println(Thread.currentThread().getId());
 		report = ExtentTestManager.startTest(method.getName() + "-" + device,
 				method.getAnnotation(Description.class).value());
 
@@ -81,7 +83,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		Thread.sleep(2000);
 		try {
 			this.driver = startingServerInstance(androidCaps, os);
-			//ContextManager.setAndroidDriver(this.driver);
+			 ContextManager.setAndroidDriver(this.driver);
 		} catch (Exception e) {
 			report.log(LogStatus.SKIP, device + " is not reachable");
 			StringWriter sw = new StringWriter();
@@ -234,8 +236,6 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		return capabilities;
 	}
 
-	
-
 	/**
 	 * This will Start the Server
 	 *
@@ -259,12 +259,11 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			builder.withCapabilities(androidCaps);
 			builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
 
-			// Start the server with the builder 
-			service =AppiumDriverLocalService.buildService(builder);
+			// Start the server with the builder
+			service = AppiumDriverLocalService.buildService(builder);
 			try {
-			service.start();
-			}
-			finally {
+				service.start();
+			} finally {
 				service.stop();
 			}
 			driver = new AndroidDriver<RemoteWebElement>(androidCaps);
@@ -298,7 +297,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	 * This method is to check Memory is reverted or not
 	 *
 	 * @param availableMemoryBeforeCancel -Memory Space At start
-	 * @param availableMemoryAfterCancel  -Memory Space After Cancellation
+	 * @param availableMemoryAfterCancel   -Memory Space After Cancellation
 	 * @return-return the boolean value
 	 */
 	public boolean isMemoryReverted(double availableMemoryAfterCancel, double availableMemoryBeforeCancel) {
@@ -339,6 +338,10 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		}
 
 		return false;
+	}
+
+	public RemoteWebDriver getDriver() {
+		return driver;
 	}
 
 }

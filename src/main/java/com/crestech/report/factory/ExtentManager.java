@@ -8,9 +8,10 @@ import com.relevantcodes.extentreports.ExtentReports;
 public class ExtentManager {
 
 	private static ExtentReports extent;
-	static Date date = new Date() ;
-	static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss") ;
-	private static String filePath = System.getProperty("user.dir") + "/ExtentReport/ExtentReports" + dateFormat.format(date)+".html";
+	static Date date = new Date();
+	static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+	private static String filePath = System.getProperty("user.dir") + "/ExtentReport/ExtentReports"
+			+ dateFormat.format(date) + ".html";
 
 //	private static ExtentHtmlReporter getHtmlReporter() {
 //		ExtentHtmlReporter htmlReporter = new ExtentHtmlReporter(filePath);
@@ -22,11 +23,11 @@ public class ExtentManager {
 //		return htmlReporter;
 //	}
 
-	 public synchronized static ExtentReports getReporter(){
-	        if(extent == null){
-	            //Set HTML reporting file location
-	            extent = new ExtentReports(filePath, true);
-	        }
-	        return extent;
-	    }
+	public synchronized static ExtentReports getReporter() {
+		if (extent == null) {
+			// Set HTML reporting file location
+			extent = new ExtentReports(filePath, true);
+		}
+		return extent;
+	}
 }

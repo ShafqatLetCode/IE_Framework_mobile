@@ -1,16 +1,16 @@
-[main] 18:00:58,963 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 18:01:00,379 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 18:01:00,380 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 18:01:00,380 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 18:01:00,391 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 18:01:00,392 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 18:01:00,392 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 18:01:00,392 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 18:01:00,392 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 18:01:00,392 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 18:01:00,393 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 18:01:00,393 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 18:01:00,393 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 18:01:00,393 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 18:01:00,393 ERROR [AllureLifecycle] Could not stop step: no step running
-[TestNG-tests-1] 18:01:40,976 INFO  [pCloudyAndroidTest] Test Case started
+[main] 14:09:04,701 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 14:09:06,152 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 14:09:06,152 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 14:09:06,152 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 14:09:06,164 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 14:09:06,164 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 14:09:06,165 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 14:09:06,165 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 14:09:06,165 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 14:09:06,165 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 14:09:06,165 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 14:09:06,165 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 14:09:06,166 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 14:09:06,166 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 14:09:06,166 ERROR [AllureLifecycle] Could not stop step: no step running
+[TestNG-tests-1] 14:09:59,947 INFO  [pCloudyAndroidTest] Test Case started

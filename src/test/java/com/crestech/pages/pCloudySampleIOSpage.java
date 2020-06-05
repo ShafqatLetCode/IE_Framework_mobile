@@ -46,9 +46,9 @@ public class pCloudySampleIOSpage extends CommonAppiumTest {
 	 */
 	@Step("enter password")
 	public void clickOnPassword(String keysToSend) {
-			wait.waitForElementInSeconds(IOShomePgaeObject.getPassword(), 60);
-			sendkeys(IOShomePgaeObject.getPassword(), keysToSend);
-		
+		wait.waitForElementInSeconds(IOShomePgaeObject.getPassword(), 60);
+		sendkeys(IOShomePgaeObject.getPassword(), keysToSend);
+
 	}
 
 	/**

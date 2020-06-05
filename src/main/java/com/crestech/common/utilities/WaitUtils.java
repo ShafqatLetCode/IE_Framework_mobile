@@ -16,18 +16,18 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
 public class WaitUtils extends CommandPrompt {
-	
+
 	public AppiumDriver<RemoteWebElement> driver;
 
 	public WaitUtils(AppiumDriver<RemoteWebElement> driver2) {
 		this.driver = driver2;
 	}
-	
+
 	/**
 	 * This method will Wait For Page Load
 	 */
 	public void waitForPageLoad() {
-		JavascriptExecutor js = (JavascriptExecutor)driver;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("return document.readyState").toString().equals("complete");
 	}
 
