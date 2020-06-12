@@ -9,13 +9,12 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
+
 import com.crestech.appium.utils.CommonAppiumTest;
-import com.crestech.pageobjects.*;
-import com.crestech.report.factory.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
+import com.crestech.base.UserBaseTest;
+import com.crestech.pageobjects.pCloudyHomePageObject;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidTouchAction;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.touch.WaitOptions;
@@ -26,7 +25,8 @@ public class PcloudyHomePage extends CommonAppiumTest {
 
 	static Logger log = Logger.getLogger(PcloudyHomePage.class.getName());
 	public pCloudyHomePageObject homePageObject = new pCloudyHomePageObject();
-
+	public UserBaseTest baseTest=new UserBaseTest();
+	
 	public PcloudyHomePage(AppiumDriver<RemoteWebElement> driver) {
 		super(driver);
 		PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), homePageObject);
@@ -94,6 +94,8 @@ public class PcloudyHomePage extends CommonAppiumTest {
 	@Step("Clicked on Views Link")
 	public void clickOnViews() {
 		clickOnElement(homePageObject.Views());
+		baseTest.addAttachment(driver);
+		System.out.println("Screenshot added");
 	}
 
 	/**
@@ -102,6 +104,7 @@ public class PcloudyHomePage extends CommonAppiumTest {
 	@Step("Clicked on Auto Complete Link")
 	public void clickOnAutoComplete() {
 		clickOnElement(homePageObject.AutoComplete());
+		baseTest.addAttachment(driver);
 	}
 
 	/**

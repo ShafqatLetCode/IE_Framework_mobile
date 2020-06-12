@@ -9,8 +9,6 @@ import com.crestech.annotation.values.Author;
 import com.crestech.base.UserBaseTest;
 import com.crestech.listeners.TestListener;
 import com.crestech.pages.pCloudySampleIOSpage;
-import com.crestech.report.factory.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
 
 import io.qameta.allure.Description;
 
@@ -25,17 +23,14 @@ public class pCloudyIosTest extends UserBaseTest {
 	@Parameters({ "version" })
 	public void sampleIosTest(String version) throws InterruptedException {
 			pCloudySampleIOSpage homePageios = new pCloudySampleIOSpage(driver);
-
-			logger.info("Test Case started");
-			ExtentTestManager.getTest().log(LogStatus.INFO, "Enter Email id","Detail section");
-			homePageios.clickOnEmail("testmunk@");
-
-			ExtentTestManager.getTest().log(LogStatus.INFO, "Enter password","Detail section");
-			homePageios.clickOnPassword("testmunk");
-
-			ExtentTestManager.getTest().log(LogStatus.INFO, "Click on  Login Button","Detail section");
-			homePageios.clickonLogin();
-			
+		
+		  logger.info("Test Case started");
+		  homePageios.clickOnEmail("testmunk@");
+		  
+		  homePageios.clickOnPassword("testmunk");
+		  
+		  homePageios.clickonLogin();
+		 
 	}
 
 }

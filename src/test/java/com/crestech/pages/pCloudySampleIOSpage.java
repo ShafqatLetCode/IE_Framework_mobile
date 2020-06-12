@@ -3,22 +3,16 @@ package com.crestech.pages;
 import java.time.Duration;
 import java.util.logging.Logger;
 
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
+
 import com.crestech.appium.utils.CommonAppiumTest;
-import com.crestech.common.utilities.WaitUtils;
 import com.crestech.pageobjects.PcloudyIOSPageObject;
-import com.crestech.report.factory.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
-import junit.framework.Assert;
 
 public class pCloudySampleIOSpage extends CommonAppiumTest {
 

@@ -39,6 +39,8 @@ public class pCloudyHomePageObject {
 
 	@ElementDescription(value = "AutoComplete")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Auto Complete']")
+	// For checking failed scenario
+	//@AndroidFindBy(xpath = "//android.widget.TextView[@text='Auto Complete text']")
 	private MobileElement AutoComplete;
 
 	@ElementDescription(value = "MultipleItems")

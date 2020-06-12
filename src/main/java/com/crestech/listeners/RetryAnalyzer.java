@@ -7,13 +7,11 @@ import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
 import com.crestech.config.ContextManager;
-import com.crestech.report.factory.ExtentTestManager;
-import com.relevantcodes.extentreports.LogStatus;
 
 public class RetryAnalyzer implements IRetryAnalyzer {
 
     private int count = 0;
-    private static int maxTry = 1; //Run the failed test 2 times
+    private static int maxTry = 3; //Run the failed test 2 times
 
     @Override
     public boolean retry(ITestResult iTestResult) {
@@ -24,7 +22,8 @@ public class RetryAnalyzer implements IRetryAnalyzer {
                 extendReportsFailOperations(iTestResult);    //ExtentReports fail operations
                 return true;                                 //Tells TestNG to re-run the test
             }
-        } else {
+        } 
+        else {
             iTestResult.setStatus(ITestResult.SUCCESS);      //If test passes, TestNG marks it as passed
         }
         return false;
@@ -34,7 +33,9 @@ public class RetryAnalyzer implements IRetryAnalyzer {
         Object testClass = iTestResult.getInstance();
         WebDriver webDriver = ContextManager.getAndroidDriver();
         String base64Screenshot = "data:image/png;base64,"+((TakesScreenshot)webDriver).getScreenshotAs(OutputType.BASE64);
-        ExtentTestManager.getTest().log(LogStatus.FAIL,"Test Failed",
-                ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+		/*
+		 * ExtentTestManager.getTest().log(LogStatus.FAIL,"Test Failed",
+		 * ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+		 */
     }
 }

@@ -1,37 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="2" configfailurepolicy="continue" guice-stage="DEVELOPMENT" name="Failed suite [Migo Suite]" parallel="tests">
+<suite thread-count="1" configfailurepolicy="continue" guice-stage="DEVELOPMENT" name="Failed suite [Migo Suite]" parallel="tests">
   <listeners>
     <listener class-name="com.crestech.listeners.AlterSuite"/>
   </listeners>
-  <test name="APPLE_iPhone6sPlus_iOS_13.3.1(failed)" parallel="tests">
-    <parameter name="os" value="pCloudyIOS"/>
-    <parameter name="device" value="APPLE_iPhone6sPlus_iOS_13.3.1"/>
-    <parameter name="version" value="13.3.1"/>
-    <classes>
-      <class name="com.crestech.android.tests.pCloudyIosTest">
-        <methods>
-          <include name="flushReport"/>
-          <include name="sampleIosTest"/>
-          <include name="startApp"/>
-          <include name="stopApp"/>
-        </methods>
-      </class> <!-- com.crestech.android.tests.pCloudyIosTest -->
-    </classes>
-  </test> <!-- APPLE_iPhone6sPlus_iOS_13.3.1(failed) -->
-  <test name="SAMSUNG_GalaxyS9_Android_8.0.0(failed)" parallel="tests">
+  <test name="SAMSUNG_GalaxyS7_Android_8.0.0(failed)" parallel="tests">
     <parameter name="os" value="pCloudyAndroid"/>
-    <parameter name="device" value="SAMSUNG_GalaxyS9_Android_8.0.0"/>
+    <parameter name="device" value="SAMSUNG_GalaxyS7_Android_8.0.0"/>
     <parameter name="version" value="8.0.0"/>
     <classes>
-      <class name="com.crestech.android.tests.pCloudyIosTest">
+      <class name="com.crestech.android.tests.pCloudyAndroidTest">
         <methods>
+          <include name="SampleAndroidTest2" invocation-numbers="0"/>
           <include name="flushReport"/>
-          <include name="sampleIosTest" invocation-numbers="0"/>
+          <include name="beforeSuite"/>
           <include name="startApp"/>
-          <include name="stopApp"/>
+          <include name="getResult"/>
         </methods>
-      </class> <!-- com.crestech.android.tests.pCloudyIosTest -->
+      </class> <!-- com.crestech.android.tests.pCloudyAndroidTest -->
     </classes>
-  </test> <!-- SAMSUNG_GalaxyS9_Android_8.0.0(failed) -->
+  </test> <!-- SAMSUNG_GalaxyS7_Android_8.0.0(failed) -->
 </suite> <!-- Failed suite [Migo Suite] -->
