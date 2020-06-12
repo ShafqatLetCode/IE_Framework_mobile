@@ -9,8 +9,8 @@ import java.lang.annotation.Target;
  * Created by Shibu Prasad Panda.
  */
 
-@Target({ElementType.TYPE, ElementType.METHOD}) @Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.TYPE, ElementType.METHOD })
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Description {
 	String value() default "";
 }
-

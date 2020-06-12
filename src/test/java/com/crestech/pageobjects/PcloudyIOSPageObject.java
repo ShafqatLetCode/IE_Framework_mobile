@@ -9,7 +9,7 @@ import io.appium.java_client.pagefactory.iOSXCUITFindBy;
  * 
  * @author Shibu Prasad Panda
  * 
- * This class is used to store the objects of IOS Page.
+ *         This class is used to store the objects of IOS Page.
  *
  */
 public class PcloudyIOSPageObject {
@@ -18,16 +18,13 @@ public class PcloudyIOSPageObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeTextField[1]")
 	private MobileElement emailID;
 
-
 	@ElementDescription(value = "Password Button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeSecureTextField[1]")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeSecureTextField[2]")
 	private MobileElement Password;
-
 
 	@ElementDescription(value = "login Button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeButton[1]")
 	private MobileElement logIn;
-
 
 	public MobileElement getPassword() {
 		return Password;
@@ -40,9 +37,5 @@ public class PcloudyIOSPageObject {
 	public MobileElement getEmailID() {
 		return emailID;
 	}
-
-
-
-
 
 }

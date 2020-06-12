@@ -9,7 +9,8 @@ import java.lang.annotation.Target;
  * Created by Shibu Prasad Panda.
  */
 
-@Target(ElementType.TYPE) @Retention(RetentionPolicy.RUNTIME) public @interface PageName {
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface PageName {
 	String value() default "";
 }
-

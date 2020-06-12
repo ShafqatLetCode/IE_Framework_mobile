@@ -8,7 +8,8 @@ import java.lang.annotation.Target;
 /**
  * Created by Shibu Prasad Panda.
  */
-@Target(ElementType.FIELD) @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface ElementDescription {
 	String value() default "";
 }

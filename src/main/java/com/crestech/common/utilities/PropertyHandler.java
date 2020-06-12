@@ -8,24 +8,20 @@ import java.io.InputStream;
 import java.util.Properties;
 import org.apache.log4j.Logger;
 
-
-
 /**
  * 
- * @author Shibu Prasad Panda This module is used to Write and read the Property File.
+ * @author Shibu Prasad Panda This module is used to Write and read the Property
+ *         File.
  *
  */
 public class PropertyHandler {
 
 	public final Logger log = Logger.getLogger(PropertyHandler.class.getName());
 
-
 	/**
 	 * 
-	 * @param propertyName
-	 *            -Set property name
-	 * @param key
-	 *            -Set the key for get the value
+	 * @param propertyName -Set property name
+	 * @param key          -Set the key for get the value
 	 * @return-return the value of Key
 	 */
 	public static String getKeyValues(String propertyFileName, String key) {
@@ -46,8 +42,7 @@ public class PropertyHandler {
 
 	/**
 	 * 
-	 * @param propertyName
-	 *            -Set property name
+	 * @param propertyName -Set property name
 	 * @return
 	 */
 	public static Properties loadproperty(String propertyFileName) {
@@ -74,14 +69,10 @@ public class PropertyHandler {
 	/**
 	 * This Method used to write property file based on set property values
 	 * 
-	 * @param propertyFile-
-	 *            Locating the property file
-	 * @param propertyName
-	 *            -Set property name
-	 * @param value-
-	 *            Value of the property
-	 * @throws IOException-
-	 *             throws exception if anything goes wrong
+	 * @param propertyFile- Locating the property file
+	 * @param propertyName  -Set property name
+	 * @param value-        Value of the property
+	 * @throws IOException- throws exception if anything goes wrong
 	 */
 	public static void WriteProperties(String propertyFileName, String propertyName, String value) {
 

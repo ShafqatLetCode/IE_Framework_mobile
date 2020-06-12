@@ -1,6 +1,7 @@
 package com.crestech.android.tests;
 
 import org.apache.log4j.Logger;
+import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -20,8 +21,9 @@ public class pCloudyIosTest extends UserBaseTest {
 	@Test(description = "Sample test for iOS")
 	@Description(value = "TestCases For Pcloudy Sample Project")
 	@Author(name = "Shibu Prasad panda")
-	@Parameters({ "version" })
-	public void sampleIosTest(String version) throws InterruptedException {
+	@Parameters({ "version", "device" })
+	public void sampleIosTest(String version, String device) {
+		try {
 			pCloudySampleIOSpage homePageios = new pCloudySampleIOSpage(driver);
 		
 		  logger.info("Test Case started");
@@ -31,6 +33,9 @@ public class pCloudyIosTest extends UserBaseTest {
 		  
 		  homePageios.clickonLogin();
 		 
+		} catch (Exception e) {
+			Assert.assertTrue(false,e.getMessage());
+		}
 	}
 
 }

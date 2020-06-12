@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"devices":[{"os":"pCloudyAndroid","name":"SAMSUNG_GalaxyS7_Android_8.0.0","version":"8.0.0"}]}
+=======
+{"devices":[{"os":"pCloudyAndroid","name":"SAMSUNG_GalaxyS8_Android_8.0.0","version":"8.0.0"},{"os":"pCloudyIOS","name":"APPLE_iPhone6sPlus_iOS_13.4.1","version":"13.4.1"}]}
+>>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git

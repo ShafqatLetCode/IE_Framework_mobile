@@ -24,13 +24,13 @@ import io.appium.java_client.touch.offset.PointOption;
 public class CommonAppiumTest extends CommandPrompt {
 
 	public AppiumDriver<RemoteWebElement> driver;
-	public WaitUtils wait=null;
-	public GestureUtils gesture=null;
+	public WaitUtils wait = null;
+	public GestureUtils gesture = null;
 
 	public CommonAppiumTest(AppiumDriver<RemoteWebElement> driver2) {
 		this.driver = driver2;
-	    wait=new WaitUtils(driver2);	
-	    gesture=new GestureUtils(driver2);
+		wait = new WaitUtils(driver2);
+		gesture = new GestureUtils(driver2);
 	}
 
 	/**

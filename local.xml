@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="1" configfailurepolicy="continue" name="Migo Suite"
-	parallel="tests">
+<suite thread-count="1" configfailurepolicy="continue"
+	name="Migo Suite" parallel="tests">
 	<listeners>
 		<listener class-name="com.crestech.listeners.AlterSuite" />
 		<listener class-name="com.crestech.listeners.TestListener" />
-		<!-- <listener class-name="com.crestech.listeners.InvokedMethodListeners" /> -->
+		<!-- <listener class-name="com.crestech.listeners.InvokedMethodListeners" 
+			/> -->
 		<!-- <listener class-name="com.crestech.listeners.RetryAnalyzer" /> -->
 	</listeners>
 	<test name="Test to be run">
 		<classes>
-			<class name="com.crestech.android.tests.pCloudyAndroidTest" /> 
+			<class name="com.crestech.android.tests.pCloudyAndroidTest" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

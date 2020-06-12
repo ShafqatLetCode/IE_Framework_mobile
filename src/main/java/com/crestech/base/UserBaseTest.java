@@ -16,10 +16,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.aspectj.lang.annotation.After;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -45,7 +43,6 @@ import com.crestech.appium.utils.ConfigurationManager;
 import com.crestech.common.utilities.ExcelUtils;
 import com.crestech.common.utilities.ScreenshotUtils;
 import com.crestech.config.ContextManager;
-import com.crestech.listeners.TestListener;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -57,15 +54,9 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
-import io.qameta.allure.AllureResultsWriter;
-import io.qameta.allure.Attachment;
-import io.qameta.allure.model.Allure2ModelJackson;
-import io.qameta.allure.testng.AllureTestNg;
 
 /**
- *
- * @author Shibu Prasad Panda
- *
+ *  *  * @author Shibu Prasad Panda  *  
  */
 
 public class UserBaseTest extends TestListenerAdapter implements ITestListener {
@@ -98,6 +89,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	@Parameters({ "device", "version", "os" })
 	@BeforeMethod(alwaysRun = true)
 	public void startApp(String device, String version, Method method, String os) throws Exception {
+		System.out.println(Thread.currentThread().getId());
 		List<String> s1 = new ArrayList<String>();
 		s1 = ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities");
 		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent"))
@@ -107,7 +99,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		Thread.sleep(2000);
 		try {
 			this.driver = startingServerInstance(androidCaps, os);
-			ContextManager.setAndroidDriver(this.driver);
+			 ContextManager.setAndroidDriver(this.driver);
 		} catch (Exception e) {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 				extentLogs.skip(MarkupHelper.createLabel("Test Case is SKIPPED", ExtentColor.YELLOW));
@@ -402,7 +394,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	 * This method is to check Memory is reverted or not
 	 *
 	 * @param availableMemoryBeforeCancel -Memory Space At start
-	 * @param availableMemoryAfterCancel  -Memory Space After Cancellation
+	 * @param availableMemoryAfterCancel   -Memory Space After Cancellation
 	 * @return-return the boolean value
 	 */
 	public boolean isMemoryReverted(double availableMemoryAfterCancel, double availableMemoryBeforeCancel) {
@@ -466,6 +458,10 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	public void addAttachment(RemoteWebDriver driver) {
 		allureLifeCycle=Allure.getLifecycle();
 		allureLifeCycle.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
+	}
+
+	public RemoteWebDriver getDriver() {
+		return driver;
 	}
 
 }

@@ -74,67 +74,58 @@ public class GestureUtils {
 			System.out.println("swipe up was not successfull");
 		}
 	}
-	
-	
+
 	/**
 	 * 
 	 * @author sneha aggarwal
 	 * @implNote swipe down
 	 */
-	public void swipeFromBottomToUp() 
-    {       
-      try  {
-              JavascriptExecutor js = (JavascriptExecutor) driver;
-              HashMap<String, String> scrollObject = new HashMap<String,String>();
-              scrollObject.put("direction", "down");
-              js.executeScript("mobile: scroll", scrollObject);
-              System.out.println("Swipe down was Successfully done");
-        }
-           catch (Exception e) 
-            {
-                System.out.println("swipe down was not successfull");
-            }   
-    }
-	
+	public void swipeFromBottomToUp() {
+		try {
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			HashMap<String, String> scrollObject = new HashMap<String, String>();
+			scrollObject.put("direction", "down");
+			js.executeScript("mobile: scroll", scrollObject);
+			System.out.println("Swipe down was Successfully done");
+		} catch (Exception e) {
+			System.out.println("swipe down was not successfull");
+		}
+	}
+
 	/**
 	 * 
 	 * @author sneha aggarwal
 	 * @implNote carousel images swipe
 	 */
-	public void swipeImages(WebElement ele) 
-    {       
-      try   {
-                  String pageString= ele.getAttribute("value");
-                  int length = pageString.length();
-                  String count_string= pageString.substring(length-2, length).trim();
-                  int count = Integer.parseInt(count_string);
-                  System.out.println("Number of Image available to Swipe: "+count);
-                  for (int i=0; i<=count; i++){          
-                          JavascriptExecutor js = (JavascriptExecutor) driver;
-                          HashMap<String, String> scrollObject = new HashMap<String, String>();
-                          scrollObject.put("direction", "right");
-                          js.executeScript("mobile: scroll", scrollObject);       
-           }
-           System.out.println("Swipe Successfully");
-        }
-           catch (Exception e) 
-            {
-                System.out.println("Image swipe was not successfull");
-            }   
-    }
-	
+	public void swipeImages(WebElement ele) {
+		try {
+			String pageString = ele.getAttribute("value");
+			int length = pageString.length();
+			String count_string = pageString.substring(length - 2, length).trim();
+			int count = Integer.parseInt(count_string);
+			System.out.println("Number of Image available to Swipe: " + count);
+			for (int i = 0; i <= count; i++) {
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				HashMap<String, String> scrollObject = new HashMap<String, String>();
+				scrollObject.put("direction", "right");
+				js.executeScript("mobile: scroll", scrollObject);
+			}
+			System.out.println("Swipe Successfully");
+		} catch (Exception e) {
+			System.out.println("Image swipe was not successfull");
+		}
+	}
+
 	/**
 	 * 
 	 * @author sneha aggarwal
 	 * @implNote Long press android
 	 */
 	public void longPressAndroid(WebElement ele) {
-		AndroidTouchAction touch = new AndroidTouchAction (driver);
-		touch.longPress(LongPressOptions.longPressOptions()
-		                .withElement (ElementOption.element (ele)))
-		              .perform ();
+		AndroidTouchAction touch = new AndroidTouchAction(driver);
+		touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(ele))).perform();
 	}
-	
+
 	/**
 	 * 
 	 * @author sneha aggarwal
@@ -145,5 +136,5 @@ public class GestureUtils {
 		action.longPress(ele);
 		action.perform();
 	}
-	
+
 }

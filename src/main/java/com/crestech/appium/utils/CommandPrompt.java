@@ -13,7 +13,6 @@ public class CommandPrompt {
 	static Process p;
 	ProcessBuilder builder;
 
-
 	public String runCommand(String command) throws InterruptedException, IOException {
 		p = Runtime.getRuntime().exec(command);
 		// get std output
@@ -32,8 +31,7 @@ public class CommandPrompt {
 
 	}
 
-	public String runCommandThruProcessBuilder(String command)
-			throws InterruptedException, IOException {
+	public String runCommandThruProcessBuilder(String command) throws InterruptedException, IOException {
 		BufferedReader br = getBufferedReader(command);
 		String line;
 		String allLine = "";
@@ -44,8 +42,7 @@ public class CommandPrompt {
 		return allLine.split(":")[1].replace("\n", "").trim();
 	}
 
-	public String runProcessCommandToGetDeviceID(String command)
-			throws InterruptedException, IOException {
+	public String runProcessCommandToGetDeviceID(String command) throws InterruptedException, IOException {
 		BufferedReader br = getBufferedReader(command);
 		String line;
 		String allLine = "";
@@ -70,8 +67,7 @@ public class CommandPrompt {
 		return new BufferedReader(isr);
 	}
 
-	public void runCommandThruProcess(String command)
-			throws InterruptedException, IOException {
+	public void runCommandThruProcess(String command) throws InterruptedException, IOException {
 		BufferedReader br = getBufferedReader(command);
 		String line;
 		String allLine = "";

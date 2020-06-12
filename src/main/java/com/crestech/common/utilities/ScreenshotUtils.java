@@ -16,6 +16,7 @@ public class ScreenshotUtils {
 
 	/**
 	 * This will capture the screen-shot
+	 * 
 	 * @param methodName
 	 * @return Image Path
 	 * @throws IOException
@@ -35,6 +36,7 @@ public class ScreenshotUtils {
 
 	/**
 	 * This will return Base64 url
+	 * 
 	 * @return Base64
 	 * @throws Exception
 	 */
@@ -47,6 +49,7 @@ public class ScreenshotUtils {
 
 	/**
 	 * This will return Current Date and Time
+	 * 
 	 * @return CurentDate and Time
 	 */
 	private static String currentDateAndTime() {
