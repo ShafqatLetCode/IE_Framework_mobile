@@ -42,5 +42,8 @@ public class ChromeHomePage extends CommonAppiumTest  {
 			sendkeys(chromeHomePageObject.Password(), text);
 		}
 		
+		public String getEmailData() {
+			return getTexOfElement(chromeHomePageObject.EmailId());
+		}
 		
 }

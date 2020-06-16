@@ -40,6 +40,7 @@ import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.crestech.appium.utils.ConfigurationManager;
+import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.ExcelUtils;
 import com.crestech.common.utilities.ScreenshotUtils;
 import com.crestech.config.ContextManager;
@@ -70,7 +71,8 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	public ExtentReports report;
 	public ExtentTest extentLogs;
 	public AllureLifecycle allureLifeCycle;
-
+	
+	
 	Logger logger = Logger.getLogger(UserBaseTest.class);
 
 	public UserBaseTest() 	{
@@ -92,8 +94,10 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		System.out.println(Thread.currentThread().getId());
 		List<String> s1 = new ArrayList<String>();
 		s1 = ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities");
-		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent"))
+		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 			extentLogs = report.createTest(method.getName() + " " + device);
+			ContextManager.setExtentReportsForPrecondition(extentLogs);
+		}
 		DesiredCapabilities androidCaps = androidNative(s1, device, version, os);
 		System.out.println(androidCaps);
 		Thread.sleep(2000);
@@ -120,7 +124,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 			@SuppressWarnings("deprecation")
 			ExtentHtmlReporter extent = new ExtentHtmlReporter(
-					new File(System.getProperty("user.dir") + "/ExtentReport/" + dateFormat.format(date) + ".html"));
+					new File(System.getProperty("user.dir") + "/ExtentReport/ExtentReport_" + dateFormat.format(date) + ".html"));
 			report = new ExtentReports();
 			report.attachReporter(extent);
 			extent.config().setCSS(".r-img { width: 40%;}");
@@ -147,7 +151,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	@AfterMethod
 	public void getResult(ITestResult result, String device, String os) {
 		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
-			String screenshotProperty = prop.getProperty("ScreenshotForExtent").trim();
+			String screenshotProperty = prop.getProperty("ScreenshotForReport").trim();
 			if (result.getStatus() == ITestResult.FAILURE) {
 				extentLogs.fail(MarkupHelper.createLabel("Test Case is FAILED", ExtentColor.RED));
 				if (screenshotProperty.equalsIgnoreCase("None")) {
@@ -324,6 +328,27 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("platformName", "ios");
 
 			break;
+		
+		case "pCloudyAndroidChrome":
+			capabilities.setCapability("pCloudy_Username", s.get(14));
+			capabilities.setCapability("pCloudy_ApiKey", s.get(15));
+			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(17));
+			capabilities.setCapability("newCommandTimeout", 600);
+			capabilities.setCapability("launchTimeout", 90000);
+			capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
+			capabilities.setCapability("platformVersion", version);
+			capabilities.setCapability("platformName", "Android");
+			capabilities.setBrowserName(s.get(7));
+			capabilities.setCapability("pCloudy_WildNet", "false");
+
+			if (checkDeviceVersion(version)) {
+			capabilities.setCapability("automationName", "UiAutomator2");
+			capabilities.setCapability("uiautomator2ServerLaunchTimeout", 90000);
+			capabilities.setCapability("noSign", true);
+			} else {
+			capabilities.setCapability("automationName", "UiAutomator1");
+			}
+			break;
 
 		default:
 			System.out.println("Please Select pCloudyAndroid OR pCloudyIOS in properties File");
@@ -364,10 +389,11 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 				service.stop();
 			}
 			driver = new AndroidDriver<RemoteWebElement>(androidCaps);
-		} else if (os.equalsIgnoreCase("pCloudyAndroid")) {
+		} else if (os.equalsIgnoreCase("pCloudyAndroid") || os.equalsIgnoreCase("pCloudyAndroidChrome")) {
 			driver = new AndroidDriver<RemoteWebElement>(
 					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
-		} else {
+					}
+		else {
 			driver = new IOSDriver<RemoteWebElement>(
 					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
 		}
@@ -460,8 +486,5 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		allureLifeCycle.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
 	}
 
-	public RemoteWebDriver getDriver() {
-		return driver;
-	}
 
 }

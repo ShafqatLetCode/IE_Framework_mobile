@@ -94,8 +94,6 @@ public class PcloudyHomePage extends CommonAppiumTest {
 	@Step("Clicked on Views Link")
 	public void clickOnViews() {
 		clickOnElement(homePageObject.Views());
-		baseTest.addAttachment(driver);
-		System.out.println("Screenshot added");
 	}
 
 	/**
@@ -104,7 +102,6 @@ public class PcloudyHomePage extends CommonAppiumTest {
 	@Step("Clicked on Auto Complete Link")
 	public void clickOnAutoComplete() {
 		clickOnElement(homePageObject.AutoComplete());
-		baseTest.addAttachment(driver);
 	}
 
 	/**

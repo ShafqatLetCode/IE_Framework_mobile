@@ -4,38 +4,20 @@
   <listeners>
     <listener class-name="com.crestech.listeners.AlterSuite"/>
   </listeners>
-<<<<<<< HEAD
   <test name="SAMSUNG_GalaxyS7_Android_8.0.0(failed)" parallel="tests">
-    <parameter name="os" value="pCloudyAndroid"/>
+    <parameter name="os" value="pCloudyAndroidChrome"/>
     <parameter name="device" value="SAMSUNG_GalaxyS7_Android_8.0.0"/>
     <parameter name="version" value="8.0.0"/>
     <classes>
-      <class name="com.crestech.android.tests.pCloudyAndroidTest">
+      <class name="com.crestech.android.tests.pCloudyAndroidChromeTest">
         <methods>
-          <include name="SampleAndroidTest2" invocation-numbers="0"/>
           <include name="flushReport"/>
           <include name="beforeSuite"/>
+          <include name="SampleAndroidTest" invocation-numbers="0"/>
           <include name="startApp"/>
           <include name="getResult"/>
         </methods>
-      </class> <!-- com.crestech.android.tests.pCloudyAndroidTest -->
+      </class> <!-- com.crestech.android.tests.pCloudyAndroidChromeTest -->
     </classes>
   </test> <!-- SAMSUNG_GalaxyS7_Android_8.0.0(failed) -->
-=======
-  <test name="APPLE_iPhone6sPlus_iOS_13.4.1(failed)" parallel="tests">
-    <parameter name="os" value="pCloudyIOS"/>
-    <parameter name="device" value="APPLE_iPhone6sPlus_iOS_13.4.1"/>
-    <parameter name="version" value="13.4.1"/>
-    <classes>
-      <class name="com.crestech.android.tests.pCloudyIosTest">
-        <methods>
-          <include name="flushReport"/>
-          <include name="sampleIosTest"/>
-          <include name="startApp"/>
-          <include name="stopApp"/>
-        </methods>
-      </class> <!-- com.crestech.android.tests.pCloudyIosTest -->
-    </classes>
-  </test> <!-- APPLE_iPhone6sPlus_iOS_13.4.1(failed) -->
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
 </suite> <!-- Failed suite [Migo Suite] -->

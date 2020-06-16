@@ -4,13 +4,13 @@
 	parallel="tests">
 	<listeners>
 		<listener class-name="com.crestech.listeners.AlterSuite" />
-		<listener class-name="com.crestech.listeners.TestListener" />
+		<!-- <listener class-name="com.crestech.listeners.TestListener" /> -->
 		<!-- <listener class-name="com.crestech.listeners.InvokedMethodListeners" /> -->
 		<!-- <listener class-name="com.crestech.listeners.RetryAnalyzer" /> -->
 	</listeners>
 	<test name="Test to be run">
 		<classes>
-			<class name="com.crestech.android.tests.chromeTest" /> 
+			<class name="com.crestech.android.tests.pCloudyAndroidChromeTest" /> 
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

@@ -8,6 +8,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebElement;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -59,8 +60,8 @@ public class ScreenshotUtils {
 
 	}
 	
-	public static String getScreenshot(WebDriver driver) {
-		TakesScreenshot ts = (TakesScreenshot) driver;
+	public static String getScreenshot(AppiumDriver<RemoteWebElement> appiumDriver) {
+		TakesScreenshot ts = (TakesScreenshot) appiumDriver;
 		File src = ts.getScreenshotAs(OutputType.FILE);
 		String path = System.getProperty("user.dir") + "\\screenshots\\" + System.currentTimeMillis() + ".png";
 		File destination = new File(path);
