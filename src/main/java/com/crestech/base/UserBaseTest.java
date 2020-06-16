@@ -70,7 +70,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	private AppiumServiceBuilder builder;
 	public ExtentReports report;
 	public ExtentTest extentLogs;
-	public AllureLifecycle allureLifeCycle;
+	private static final AllureLifecycle ALLURE_LIFECYCLE = Allure.getLifecycle();
 	
 	
 	Logger logger = Logger.getLogger(UserBaseTest.class);
@@ -135,7 +135,6 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			try {
 				File fileClean = new File(System.getProperty("user.dir") + "/allure-results");
 				FileUtils.deleteDirectory(fileClean);
-				allureLifeCycle=Allure.getLifecycle();
 			} catch (Exception e) {
 				System.out.println("Dir doesno exist");
 			}
@@ -478,12 +477,11 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	 */
 	
 	public void addAttachment() {
-		allureLifeCycle.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
+		ALLURE_LIFECYCLE.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) ContextManager.getAndroidDriver()).getScreenshotAs(OutputType.BYTES));
 	}
 	
 	public void addAttachment(RemoteWebDriver driver) {
-		allureLifeCycle=Allure.getLifecycle();
-		allureLifeCycle.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
+		ALLURE_LIFECYCLE.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
 	}
 
 

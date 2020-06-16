@@ -69,7 +69,7 @@ public class pCloudyAndroidTest extends UserBaseTest {
 	}
 	
 	
-	@Test(description = "Sample test 2 for Android",retryAnalyzer = RetryAnalyzer.class)
+//	@Test(description = "Sample test 2 for Android",retryAnalyzer = RetryAnalyzer.class)
 	@Description(value = "TestCases For Pcloudy Sample Project")
 	@Parameters({ "version" })
 	public void SampleAndroidTest2(String version) throws InterruptedException {
@@ -124,6 +124,5 @@ public class pCloudyAndroidTest extends UserBaseTest {
 		Assert.assertFalseScreenshot(!"pCloud".equals("pCloud"), "assertFalseScreenshsot tested");
 		Assert.assertFalse(!"pCloud".equals("pCloud"), "assertFalse tested");
 		Assert.assertFalseScreenshot("pCloud".equals("pCloud"), "assertFalseScreenshsot tested- should fail");
-	}
-
+}
 }

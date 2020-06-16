@@ -60,5 +60,4 @@ public class pCloudyAndroidChromeTest extends UserBaseTest {
 		 * "pooja.thakur@crestechglobal.com", "Checking assertEqual only");
 		 */
 	}
-
 }

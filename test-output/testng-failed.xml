@@ -11,6 +11,10 @@
     <classes>
       <class name="com.crestech.android.tests.pCloudyAndroidChromeTest">
         <methods>
+<<<<<<< HEAD
+=======
+          <include name="SampleAndroidTest1"/>
+>>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
           <include name="flushReport"/>
           <include name="beforeSuite"/>
           <include name="SampleAndroidTest" invocation-numbers="0"/>
