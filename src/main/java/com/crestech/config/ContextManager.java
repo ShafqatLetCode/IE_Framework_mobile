@@ -5,6 +5,8 @@ import org.openqa.selenium.remote.RemoteWebElement;
 import com.aventstack.extentreports.ExtentTest;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Allure;
+import io.qameta.allure.AllureLifecycle;
 
 /**
  * Created by pCloudy.com.
@@ -55,5 +57,5 @@ public class ContextManager {
 	public static AppiumDriver<RemoteWebElement> getAndroidDriver() {
 		return androidDriver.get();
 	}
-
+	
 }

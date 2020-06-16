@@ -8,6 +8,8 @@ import org.testng.annotations.Test;
 
 import com.crestech.annotation.values.Author;
 import com.crestech.base.UserBaseTest;
+import com.crestech.common.utilities.Asserts;
+import com.crestech.listeners.RetryAnalyzer;
 import com.crestech.listeners.TestListener;
 import com.crestech.pages.PcloudyHomePage;
 
@@ -19,6 +21,7 @@ public class pCloudyAndroidTest extends UserBaseTest {
 	
 
 	Logger logger = Logger.getLogger(pCloudyAndroidTest.class.getName());
+	Asserts Assert= new Asserts();
 
 //	@Test(description = "Sample test for Android")
 	@Description(value = "TestCases For Pcloudy Sample Project")
@@ -66,7 +69,7 @@ public class pCloudyAndroidTest extends UserBaseTest {
 	}
 	
 	
-	@Test(description = "Sample test 2 for Android")
+//	@Test(description = "Sample test 2 for Android",retryAnalyzer = RetryAnalyzer.class)
 	@Description(value = "TestCases For Pcloudy Sample Project")
 	@Parameters({ "version" })
 	public void SampleAndroidTest2(String version) throws InterruptedException {
@@ -77,6 +80,7 @@ public class pCloudyAndroidTest extends UserBaseTest {
 		PcloudyHomePage homePage = new PcloudyHomePage(driver);
 		/*************** Send Data Functionality **********************************/
 		homePage.clickOnViews();
+		Assert.assertTrue(true, "My Message");
 		homePage.clickOnAutoComplete();
 		homePage.clickOnMultipleItems();
 		homePage.clickOnEditBox();
@@ -108,6 +112,18 @@ public class pCloudyAndroidTest extends UserBaseTest {
 		 * API DEMOS APPLICATION_ ENDS
 		 *********************************************/
 
+	}
+	
+	@Test(description = "Sample test 2 for Android")
+	@Description(value = "TestCases For Pcloudy Sample Project")
+	@Parameters({ "version" })
+	public void SampleAndroidTest1(String version) throws InterruptedException {
+
+		Assert.assertTrueScreenshot("pCloud".equals("pCloud"), "assertTrueScreenshot tested");
+		Assert.assertTrue("pCloud".equals("pCloud"), "assertTrue tested");
+		Assert.assertFalseScreenshot(!"pCloud".equals("pCloud"), "assertFalseScreenshsot tested");
+		Assert.assertFalse(!"pCloud".equals("pCloud"), "assertFalse tested");
+//		Assert.assertFalseScreenshot("pCloud".equals("pCloud"), "assertFalseScreenshsot tested- should fail");
 	}
 
 }
