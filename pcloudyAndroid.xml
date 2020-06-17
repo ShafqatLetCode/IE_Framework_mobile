@@ -10,14 +10,8 @@
 	</listeners>
 	<test name="Test to be run">
 		<classes>
-<<<<<<< HEAD
-		<!-- 	<class name="com.crestech.listeners.RetryAnalyzer" /> -->
-			<class name="com.crestech.android.tests.pCloudyAndroidChromeTest" />
-=======
 			<!-- <class name="com.crestech.listeners.RetryAnalyzer" /> -->
 			<class name="com.crestech.android.tests.pCloudyAndroidTest" />
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
-
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
