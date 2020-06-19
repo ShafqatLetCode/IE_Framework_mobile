@@ -1,33 +1,15 @@
-<<<<<<< HEAD
-[main] 16:24:07,750 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 16:24:14,257 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 16:24:14,259 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 16:24:14,261 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 16:24:14,297 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 16:24:14,297 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 16:24:14,299 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 16:24:14,301 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 16:24:14,301 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 16:24:14,302 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 16:24:14,302 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 16:24:14,302 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 16:24:14,303 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 16:24:14,303 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 16:24:14,303 ERROR [AllureLifecycle] Could not stop step: no step running
-=======
-[main] 10:44:04,288 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 10:44:06,287 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 10:44:06,288 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 10:44:06,288 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 10:44:06,301 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 10:44:06,301 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 10:44:06,301 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 10:44:06,301 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 10:44:06,301 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 10:44:06,302 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 10:44:06,302 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 10:44:06,302 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 10:44:06,302 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 10:44:06,302 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 10:44:06,302 ERROR [AllureLifecycle] Could not stop step: no step running
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
+[main] 16:50:41,617 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 16:50:43,922 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 16:50:43,922 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 16:50:43,923 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 16:50:43,940 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 16:50:43,940 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 16:50:43,940 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 16:50:43,941 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 16:50:43,941 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 16:50:43,941 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 16:50:43,941 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 16:50:43,941 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 16:50:43,941 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 16:50:43,941 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 16:50:43,942 ERROR [AllureLifecycle] Could not stop step: no step running

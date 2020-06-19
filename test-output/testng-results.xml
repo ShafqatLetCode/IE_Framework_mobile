@@ -1,123 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" ignored="0" total="0" passed="0">
   <reporter-output>
   </reporter-output>
-<<<<<<< HEAD
-  <suite name="Migo Suite" duration-ms="71084" started-at="2020-06-16T10:54:18Z" finished-at="2020-06-16T10:55:30Z">
-=======
-  <suite name="Migo Suite" duration-ms="89264" started-at="2020-06-16T05:14:09Z" finished-at="2020-06-16T05:15:39Z">
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
+  <suite name="Migo Suite" duration-ms="37" started-at="2020-06-19T11:20:47Z" finished-at="2020-06-19T11:20:47Z">
     <groups>
     </groups>
-<<<<<<< HEAD
-    <test name="SAMSUNG_GalaxyS7_Android_8.0.0" duration-ms="71084" started-at="2020-06-16T10:54:18Z" finished-at="2020-06-16T10:55:30Z">
-      <class name="com.crestech.android.tests.pCloudyAndroidChromeTest">
-        <test-method status="PASS" signature="beforeSuite()[pri:0, instance:[pCloudyAndroidChromeTest passed=0 failed=0 skipped=0]]" name="beforeSuite" is-config="true" duration-ms="671" started-at="2020-06-16T16:24:18Z" finished-at="2020-06-16T16:24:18Z">
-=======
-    <test name="SAMSUNG_GalaxyS8_Android_8.0.0" duration-ms="89264" started-at="2020-06-16T05:14:09Z" finished-at="2020-06-16T05:15:39Z">
+    <test name="SAMSUNG_GalaxyS7_Android_8.0.0" duration-ms="37" started-at="2020-06-19T11:20:47Z" finished-at="2020-06-19T11:20:47Z">
       <class name="com.crestech.android.tests.pCloudyAndroidTest">
-        <test-method status="PASS" signature="beforeSuite()[pri:0, instance:[pCloudyAndroidTest passed=0 failed=0 skipped=0]]" name="beforeSuite" is-config="true" duration-ms="203" started-at="2020-06-16T10:44:09Z" finished-at="2020-06-16T10:44:09Z">
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
+        <test-method status="PASS" signature="beforeSuite()[pri:0, instance:[pCloudyAndroidTest passed=0 failed=0 skipped=0]]" name="beforeSuite" is-config="true" duration-ms="250" started-at="2020-06-19T16:50:47Z" finished-at="2020-06-19T16:50:47Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeSuite -->
-<<<<<<< HEAD
-        <test-method status="PASS" signature="startApp(java.lang.String, java.lang.String, java.lang.reflect.Method, java.lang.String)[pri:0, instance:[pCloudyAndroidChromeTest passed=0 failed=0 skipped=0]]" name="startApp" is-config="true" duration-ms="48653" started-at="2020-06-16T16:24:19Z" finished-at="2020-06-16T16:25:07Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[SAMSUNG_GalaxyS7_Android_8.0.0]]>
-=======
-        <test-method status="PASS" signature="startApp(java.lang.String, java.lang.String, java.lang.reflect.Method, java.lang.String)[pri:0, instance:[pCloudyAndroidTest passed=0 failed=0 skipped=0]]" name="startApp" is-config="true" duration-ms="51155" started-at="2020-06-16T10:44:09Z" finished-at="2020-06-16T10:45:01Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[SAMSUNG_GalaxyS8_Android_8.0.0]]>
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[8.0.0]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-<<<<<<< HEAD
-                <![CDATA[public void com.crestech.android.tests.pCloudyAndroidChromeTest.SampleAndroidTest(java.lang.String) throws java.lang.InterruptedException,java.io.IOException]]>
-=======
-                <![CDATA[public void com.crestech.android.tests.pCloudyAndroidTest.SampleAndroidTest1(java.lang.String) throws java.lang.InterruptedException]]>
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[pCloudyAndroidChrome]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- startApp -->
-<<<<<<< HEAD
-        <test-method status="PASS" signature="SampleAndroidTest(java.lang.String)[pri:0, instance:[pCloudyAndroidChromeTest passed=0 failed=0 skipped=0]]" name="SampleAndroidTest" duration-ms="16717" started-at="2020-06-16T16:25:07Z" description="Sample test for Android Chrome" finished-at="2020-06-16T16:25:24Z">
-=======
-        <test-method status="PASS" signature="SampleAndroidTest1(java.lang.String)[pri:0, instance:[pCloudyAndroidTest passed=0 failed=0 skipped=0]]" name="SampleAndroidTest1" duration-ms="21053" started-at="2020-06-16T10:45:01Z" description="Sample test 2 for Android" finished-at="2020-06-16T10:45:22Z">
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[8.0.0]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-<<<<<<< HEAD
-        </test-method> <!-- SampleAndroidTest -->
-        <test-method status="PASS" signature="getResult(org.testng.ITestResult, java.lang.String, java.lang.String)[pri:0, instance:[pCloudyAndroidChromeTest passed=0 failed=0 skipped=0]]" name="getResult" is-config="true" duration-ms="2630" started-at="2020-06-16T16:25:27Z" finished-at="2020-06-16T16:25:30Z">
-=======
-        </test-method> <!-- SampleAndroidTest1 -->
-        <test-method status="PASS" signature="getResult(org.testng.ITestResult, java.lang.String, java.lang.String)[pri:0, instance:[pCloudyAndroidTest passed=0 failed=0 skipped=0]]" name="getResult" is-config="true" duration-ms="5134" started-at="2020-06-16T10:45:33Z" finished-at="2020-06-16T10:45:39Z">
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
-          <params>
-            <param index="0">
-              <value>
-<<<<<<< HEAD
-                <![CDATA[[TestResult name=SampleAndroidTest on [pCloudyAndroidChromeTest passed=0 failed=0 skipped=0] status=SUCCESS method=pCloudyAndroidChromeTest.SampleAndroidTest(java.lang.String)[pri:0, instance:[pCloudyAndroidChromeTest passed=0 failed=0 skipped=0]] output={null}]]]>
-=======
-                <![CDATA[[TestResult name=SampleAndroidTest1 on [pCloudyAndroidTest passed=0 failed=0 skipped=0] status=SUCCESS method=pCloudyAndroidTest.SampleAndroidTest1(java.lang.String)[pri:0, instance:[pCloudyAndroidTest passed=0 failed=0 skipped=0]] output={null}]]]>
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[SAMSUNG_GalaxyS8_Android_8.0.0]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[pCloudyAndroidChrome]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- getResult -->
-<<<<<<< HEAD
-        <test-method status="PASS" signature="flushReport()[pri:0, instance:[pCloudyAndroidChromeTest passed=0 failed=0 skipped=0]]" name="flushReport" is-config="true" duration-ms="2336" started-at="2020-06-16T16:25:30Z" finished-at="2020-06-16T16:25:32Z">
-=======
-        <test-method status="PASS" signature="flushReport()[pri:0, instance:[pCloudyAndroidTest passed=0 failed=0 skipped=0]]" name="flushReport" is-config="true" duration-ms="645" started-at="2020-06-16T10:45:39Z" finished-at="2020-06-16T10:45:39Z">
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
+        <test-method status="PASS" signature="flushReport()[pri:0, instance:[pCloudyAndroidTest passed=0 failed=0 skipped=0]]" name="flushReport" is-config="true" duration-ms="9" started-at="2020-06-19T16:50:47Z" finished-at="2020-06-19T16:50:47Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- flushReport -->
-<<<<<<< HEAD
-      </class> <!-- com.crestech.android.tests.pCloudyAndroidChromeTest -->
-    </test> <!-- SAMSUNG_GalaxyS7_Android_8.0.0 -->
-=======
       </class> <!-- com.crestech.android.tests.pCloudyAndroidTest -->
-    </test> <!-- SAMSUNG_GalaxyS8_Android_8.0.0 -->
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
+    </test> <!-- SAMSUNG_GalaxyS7_Android_8.0.0 -->
   </suite> <!-- Migo Suite -->
 </testng-results>
