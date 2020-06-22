@@ -47,12 +47,13 @@ public class TestListener extends UserBaseTest implements ITestListener {
 	public void onStart(ITestContext iTestContext) {
 		System.out.println("I am in onStart method " + iTestContext.getName());
 		iTestContext.setAttribute("WebDriver", this.driver);
-
-		try {
-			File fileClean = new File(System.getProperty("user.dir") + "/allure-results");
-			FileUtils.deleteDirectory(fileClean);
-		} catch (Exception e) {
-			System.out.println("Dir doesno exist");
+		if (prop.getProperty("ReportType").equals("allure")) {
+			try {
+				File fileClean = new File(System.getProperty("user.dir") + "/allure-results");
+				FileUtils.deleteDirectory(fileClean);
+			} catch (Exception e) {
+				System.out.println("Dir doesno exist");
+			}
 		}
 	}
 
@@ -81,7 +82,8 @@ public class TestListener extends UserBaseTest implements ITestListener {
 	public void onTestStart(ITestResult iTestResult) {
 		System.out.println(Thread.currentThread().getId());
 		System.out.println("I am in onTestStart method: " + getTestMethodName(iTestResult) + " :start");
-		//ExtentTestManager.getTest().log(LogStatus.INFO, getTestMethodName(iTestResult) + " test is starting.");
+		// ExtentTestManager.getTest().log(LogStatus.INFO,
+		// getTestMethodName(iTestResult) + " test is starting.");
 		// Start operation for extent reports.
 	}
 
@@ -89,7 +91,7 @@ public class TestListener extends UserBaseTest implements ITestListener {
 	public void onTestSuccess(ITestResult iTestResult) {
 		System.out.println("I am in onTestSuccess method " + getTestMethodName(iTestResult) + " succeed");
 		// Extent reports log operation for passed tests.
-		//ExtentTestManager.getTest().log(LogStatus.PASS, "Test passed");
+		// ExtentTestManager.getTest().log(LogStatus.PASS, "Test passed");
 		WebDriver driver = ContextManager.getAndroidDriver();
 
 		// Allure ScreenShotRobot and SaveTestLog
@@ -105,7 +107,7 @@ public class TestListener extends UserBaseTest implements ITestListener {
 
 		// Get driver from BaseTest and assign to local webdriver variable.
 		Object testClass = iTestResult.getInstance();
-		RemoteWebDriver driver=ContextManager.getAndroidDriver();
+		RemoteWebDriver driver = ContextManager.getAndroidDriver();
 
 		// Allure ScreenShotRobot and SaveTestLog
 		if (driver instanceof WebDriver) {
@@ -113,8 +115,7 @@ public class TestListener extends UserBaseTest implements ITestListener {
 			saveScreenshotPNG(driver);
 		}
 
-		
-		  // Save a log on allure. 
+		// Save a log on allure.
 		saveTextLog(getTestMethodName(iTestResult) + " failed and screenshot taken!");
 
 	}
@@ -123,7 +124,8 @@ public class TestListener extends UserBaseTest implements ITestListener {
 	public void onTestSkipped(ITestResult iTestResult) {
 		System.out.println("I am in onTestSkipped method " + getTestMethodName(iTestResult) + " skipped");
 		// Extent reports log operation for skipped tests.
-		//ExtentTestManager.getTest().log(LogStatus.SKIP, getTestMethodName(iTestResult) + " Test Skipped");
+		// ExtentTestManager.getTest().log(LogStatus.SKIP,
+		// getTestMethodName(iTestResult) + " Test Skipped");
 	}
 
 	@Override
