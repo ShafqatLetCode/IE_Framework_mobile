@@ -91,6 +91,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	@Parameters({ "device", "version", "os" })
 	@BeforeMethod(alwaysRun = true)
 	public void startApp(String device, String version, Method method, String os) throws Exception {
+		logger.info("Inside Before Method");
 		System.out.println(Thread.currentThread().getId());
 		List<String> s1 = new ArrayList<String>();
 		s1 = ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities");
@@ -119,6 +120,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 	@BeforeSuite(alwaysRun = true)
 	public void beforeSuite() throws Exception {
+		logger.info("Inside before suite");
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
