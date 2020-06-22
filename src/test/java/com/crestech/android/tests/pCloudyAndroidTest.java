@@ -23,7 +23,7 @@ public class pCloudyAndroidTest extends UserBaseTest {
 	Logger logger = Logger.getLogger(pCloudyAndroidTest.class.getName());
 	Asserts Assert= new Asserts();
 
-//	@Test(description = "Sample test for Android")
+	@Test(description = "Sample test for Android")
 	@Description(value = "TestCases For Pcloudy Sample Project")
 	@Author(name = "Shibu prasad panda")
 	@Parameters({ "version" })

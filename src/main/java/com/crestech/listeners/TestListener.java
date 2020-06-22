@@ -46,6 +46,7 @@ public class TestListener extends UserBaseTest implements ITestListener {
 	@Override
 	public void onStart(ITestContext iTestContext) {
 		System.out.println("I am in onStart method " + iTestContext.getName());
+		System.out.println("HI");
 		iTestContext.setAttribute("WebDriver", this.driver);
 		if (prop.getProperty("ReportType").equals("allure")) {
 			try {
