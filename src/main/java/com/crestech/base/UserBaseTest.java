@@ -72,7 +72,6 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	public ExtentTest extentLogs;
 	private static final AllureLifecycle ALLURE_LIFECYCLE = Allure.getLifecycle();
 	
-	
 	Logger logger = Logger.getLogger(UserBaseTest.class);
 
 	public UserBaseTest() 	{
@@ -141,7 +140,6 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 				System.out.println("Dir doesno exist");
 			}
 		}
-		
 	}
 	
 	/*********************************
@@ -235,6 +233,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device_udid);
 			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
 			capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, s.get(3));
+			capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY, s.get(3));
 			capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, s.get(4));
 			capabilities.setCapability(MobileCapabilityType.APP,
 					System.getProperty("user.dir") + "\\App\\" + s.get(16));
@@ -250,6 +249,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			} else {
 				capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
 			}
+			capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 600);
 			break;
 
 		case "iOS":
@@ -371,16 +371,18 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 		if (os.equalsIgnoreCase("Android") || os.equalsIgnoreCase("Android_Chrome")) {
 			// if simple appium installed
-			// driver = new AndroidDriver<RemoteWebElement>(new
-			// URL("http://127.0.0.1:4723/wd/hub"), androidCaps);
+			 driver = new AndroidDriver<RemoteWebElement>(new
+			 URL("http://127.0.0.1:4723/wd/hub"), androidCaps);
 
 			// install nodejs in your system ->through nodejs install appium
 			// Build the Appium service
-			builder = new AppiumServiceBuilder();
-			builder.withIPAddress(prop.getProperty("server_address"));
-			builder.usingPort(Integer.parseInt(prop.getProperty("port")));
-			builder.withCapabilities(androidCaps);
-			builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
+				/*
+				 * builder = new AppiumServiceBuilder();
+				 * builder.withIPAddress(prop.getProperty("server_address"));
+				 * builder.usingPort(Integer.parseInt(prop.getProperty("port")));
+				 * builder.withCapabilities(androidCaps);
+				 * builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
+				 */
 
 			// Start the server with the builder
 			service = AppiumDriverLocalService.buildService(builder);

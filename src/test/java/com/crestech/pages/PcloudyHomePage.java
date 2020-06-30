@@ -127,6 +127,11 @@ public class PcloudyHomePage extends CommonAppiumTest {
 	public void sendDataInEditBox(String text) {
 		sendkeys(homePageObject.getSelectEditField(), text);
 	}
+	
+	@Step("Get data from Edit box")
+	public String getDataFromEditBox() {
+		return getTexOfElement(homePageObject.getSelectEditField());
+	}
 
 	/**
 	 * This method will click on Views
