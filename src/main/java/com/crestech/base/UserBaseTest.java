@@ -371,18 +371,20 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 		if (os.equalsIgnoreCase("Android") || os.equalsIgnoreCase("Android_Chrome")) {
 			// if simple appium installed
-			 driver = new AndroidDriver<RemoteWebElement>(new
-			 URL("http://127.0.0.1:4723/wd/hub"), androidCaps);
+			/*
+			 * driver = new AndroidDriver<RemoteWebElement>(new
+			 * URL("http://127.0.0.1:4723/wd/hub"), androidCaps);
+			 */
 
 			// install nodejs in your system ->through nodejs install appium
 			// Build the Appium service
-				/*
-				 * builder = new AppiumServiceBuilder();
-				 * builder.withIPAddress(prop.getProperty("server_address"));
-				 * builder.usingPort(Integer.parseInt(prop.getProperty("port")));
-				 * builder.withCapabilities(androidCaps);
-				 * builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
-				 */
+				
+				  builder = new AppiumServiceBuilder();
+				  builder.withIPAddress(prop.getProperty("server_address"));
+				  builder.usingPort(Integer.parseInt(prop.getProperty("port")));
+				  builder.withCapabilities(androidCaps);
+				  builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
+				 
 
 			// Start the server with the builder
 			service = AppiumDriverLocalService.buildService(builder);
