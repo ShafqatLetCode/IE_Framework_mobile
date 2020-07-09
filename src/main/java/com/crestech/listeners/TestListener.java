@@ -67,15 +67,14 @@ public class TestListener extends UserBaseTest implements ITestListener {
 		/*
 		 * ExtentTestManager.endTest(); ExtentManager.getReporter().flush();
 		 */
-		File srcDir = new File(System.getProperty("user.dir") + "\\allure-results");
-		File destDir = new File(System.getProperty("user.dir") + "\\AllureReport\\allure-results_"
-				+ dateFormat.format(date).replace(" ", "_").replace("-", ""));
-		try {
-			FileUtils.forceMkdir(destDir);
-			FileUtils.copyDirectory(srcDir, destDir);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		/*
+		 * File srcDir = new File(System.getProperty("user.dir") + "\\allure-results");
+		 * File destDir = new File(System.getProperty("user.dir") +
+		 * "\\AllureReport\\allure-results_" + dateFormat.format(date).replace(" ",
+		 * "_").replace("-", "")); try { FileUtils.forceMkdir(destDir);
+		 * FileUtils.copyDirectory(srcDir, destDir); } catch (IOException e) {
+		 * e.printStackTrace(); }
+		 */
 
 	}
 
