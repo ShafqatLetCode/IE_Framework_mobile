@@ -10,7 +10,7 @@ import org.json.simple.JSONObject;
 
 public class CreateJSON {
 
-	public void createAndroidJson() {
+	public void createDeviceJson() {
 		XSSFWorkbook wb = null;
 		// Create device
 		wb = ExcelUtils.openExcel(System.getProperty("user.dir") + "\\TestData\\TestData.xlsx");

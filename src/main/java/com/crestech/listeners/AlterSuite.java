@@ -34,7 +34,7 @@ public class AlterSuite implements IAlterSuiteListener {
 	@Override
 	public void alter(List<XmlSuite> suites) {
 		CreateJSON json = new CreateJSON();
-		json.createAndroidJson();
+		json.createDeviceJson();
 		AlterSuite alterSuite = new AlterSuite();
 		String jsonString = alterSuite.readText();
 		alterSuite.validatejSonString(jsonString);

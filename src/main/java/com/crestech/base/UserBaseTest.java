@@ -235,15 +235,15 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		case "Android":
 			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device_udid);
 			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
-			capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, s.get(3));
-			capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY, s.get(3));
-			capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, s.get(4));
+			capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, s.get(1));
+			capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY, s.get(1));
+			capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, s.get(2));
 			capabilities.setCapability(MobileCapabilityType.APP,
-					System.getProperty("user.dir") + "\\App\\" + s.get(16));
-			capabilities.setCapability(MobileCapabilityType.UDID, s.get(8));
+					System.getProperty("user.dir") + "\\App\\" + s.get(14));
+			capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
 			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
 			if (checkDeviceVersion(version)) {
-				capabilities.setCapability("automationName", s.get(6));
+				capabilities.setCapability("automationName", s.get(4));
 			} else {
 				capabilities.setCapability("automationName", "UiAutomator1");
 			}
@@ -258,10 +258,10 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		case "iOS":
 			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device_udid);
 			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
-			capabilities.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + "/App/" + s.get(5));
-			capabilities.setCapability(MobileCapabilityType.UDID, s.get(8));
-			capabilities.setCapability("automationName", s.get(6));
-			capabilities.setCapability("bundleId", s.get(9));
+			capabilities.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + "/App/" + s.get(3));
+			capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
+			capabilities.setCapability("automationName", s.get(4));
+			capabilities.setCapability("bundleId", s.get(7));
 			if (dontStopAppOnReset == true) {
 				capabilities.setCapability(AndroidMobileCapabilityType.DONT_STOP_APP_ON_RESET, true);
 			} else {
@@ -271,15 +271,15 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			break;
 
 		case "Android_Chrome":
-			capabilities.setCapability("automationName", s.get(6));
-			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, s.get(2));
+			capabilities.setCapability("automationName", s.get(4));
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
 			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
 			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device_udid);
-			capabilities.setCapability(MobileCapabilityType.UDID, s.get(8));
-			capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, s.get(7));
+			capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
+			capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, s.get(5));
 			capabilities.setCapability("chromedriverExecutable", prop.getProperty("browserLocation"));
 			if (checkDeviceVersion(version)) {
-				capabilities.setCapability("automationName", s.get(6));
+				capabilities.setCapability("automationName", s.get(4));
 			} else {
 				capabilities.setCapability("automationName", "UiAutomator1");
 			}
@@ -293,17 +293,17 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		case "pCloudyAndroid":
 
 			System.out.println(device_udid + "," + version);
-			capabilities.setCapability("pCloudy_Username", s.get(14));
-			capabilities.setCapability("pCloudy_ApiKey", s.get(15));
-			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(17));
+			capabilities.setCapability("pCloudy_Username", s.get(12));
+			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
+			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
 			capabilities.setCapability("newCommandTimeout", 600);
 			capabilities.setCapability("launchTimeout", 90000);
 			capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
 			capabilities.setCapability("platformVersion", version);
 			capabilities.setCapability("platformName", "Android");
-			capabilities.setCapability("pCloudy_ApplicationName", s.get(16));
-			capabilities.setCapability("appPackage", s.get(4));
-			capabilities.setCapability("appActivity", s.get(3));
+			capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
+			capabilities.setCapability("appPackage", s.get(2));
+			capabilities.setCapability("appActivity", s.get(1));
 			capabilities.setCapability("pCloudy_WildNet", "false");
 
 			if (checkDeviceVersion(version)) {
@@ -317,32 +317,32 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			break;
 
 		case "pCloudyIOS":
-			capabilities.setCapability("pCloudy_Username", s.get(14));
-			capabilities.setCapability("pCloudy_ApiKey", s.get(15));
-			capabilities.setCapability("pCloudy_ApplicationName", s.get(16));
-			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(17));
+			capabilities.setCapability("pCloudy_Username", s.get(12));
+			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
+			capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
+			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
 			capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
 			capabilities.setCapability("platformVersion", version);
 			capabilities.setCapability("newCommandTimeout", 600);
 			capabilities.setCapability("launchTimeout", 90000);
-			capabilities.setCapability("bundleId", s.get(9));
+			capabilities.setCapability("bundleId", s.get(7));
 			capabilities.setCapability("acceptAlerts", true);
-			capabilities.setCapability("automationName", s.get(6));
+			capabilities.setCapability("automationName", s.get(4));
 			capabilities.setCapability("pCloudy_WildNet", "false");
 			capabilities.setCapability("platformName", "ios");
 
 			break;
 		
 		case "pCloudyAndroidChrome":
-			capabilities.setCapability("pCloudy_Username", s.get(14));
-			capabilities.setCapability("pCloudy_ApiKey", s.get(15));
-			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(17));
+			capabilities.setCapability("pCloudy_Username", s.get(12));
+			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
+			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
 			capabilities.setCapability("newCommandTimeout", 600);
 			capabilities.setCapability("launchTimeout", 90000);
 			capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
 			capabilities.setCapability("platformVersion", version);
 			capabilities.setCapability("platformName", "Android");
-			capabilities.setBrowserName(s.get(7));
+			capabilities.setBrowserName(s.get(5));
 			capabilities.setCapability("pCloudy_WildNet", "false");
 
 			if (checkDeviceVersion(version)) {
