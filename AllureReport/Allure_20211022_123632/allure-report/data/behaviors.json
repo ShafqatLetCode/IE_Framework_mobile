@@ -1,0 +1,31 @@
+{
+  "uid" : "b1a8273437954620fa374b796ffaacdd",
+  "name" : "behaviors",
+  "children" : [ {
+    "name" : "startApp",
+    "uid" : "3e55151522c75a5e",
+    "parentUid" : "b1a8273437954620fa374b796ffaacdd",
+    "status" : "broken",
+    "time" : {
+      "start" : 1634886391955,
+      "stop" : 1634886391963,
+      "duration" : 8
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "parameters" : [ "GOOGLE_Pixel2_Android_11.0.0_dafcb", "pCloudyAndroid", "11.0.0" ]
+  }, {
+    "name" : "Sample test for Android",
+    "uid" : "92499f8186e6ca39",
+    "parentUid" : "b1a8273437954620fa374b796ffaacdd",
+    "status" : "skipped",
+    "time" : {
+      "start" : 1634886392471,
+      "stop" : 1634886392475,
+      "duration" : 4
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "parameters" : [ "GOOGLE_Pixel2_Android_11.0.0_dafcb", "pCloudyAndroid", "11.0.0" ]
+  } ]
+}

@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.crestech.appium.utils.CommandPrompt;
+import com.crestech.appium.utils.CommonAppiumTest;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -20,68 +21,97 @@ public class WaitUtils extends CommandPrompt {
 	public AppiumDriver<RemoteWebElement> driver;
 
 	public WaitUtils(AppiumDriver<RemoteWebElement> driver2) {
-		this.driver = driver2;
+		try {
+			this.driver = driver2;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * This method will Wait For Page Load
+	 * @throws Exception 
 	 */
-	public void waitForPageLoad() {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("return document.readyState").toString().equals("complete");
+	public void waitForPageLoad() throws Exception {
+		try {
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("return document.readyState").toString().equals("complete");
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
 	}
 
 	/**
 	 * This method will wait for element to be InVisible
 	 *
 	 * @param element
+	 * @throws Exception 
 	 */
-	public void waitForElementInvisibility(MobileElement element, long timeOutInSeconds) {
-		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
-		wait.until(ExpectedConditions.invisibilityOf(element));
+	public void waitForElementInvisibility(MobileElement element) throws Exception {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 120);
+			wait.until(ExpectedConditions.invisibilityOf(element));
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
 	}
 
 	/**
 	 * This method will wait element visibility in seconds
 	 *
 	 * @param element
-	 * @param timeOutInSeconds
+	 * @throws Exception 
 	 */
-	public void waitForElementInSeconds(MobileElement element, long timeOutInSeconds) {
-		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
-		wait.until(ExpectedConditions.visibilityOf(element));
+	public void waitForElementVisibility(MobileElement element) throws Exception {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 120);
+			wait.until(ExpectedConditions.visibilityOf(element));
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
 	}
 
 	/**
 	 * This method will wait until element to be clickable
 	 *
 	 * @param element
+	 * @throws Exception 
 	 */
-	public void waitForElementToBeClickable(MobileElement element, long timeOutInSeconds) {
-		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
-		wait.until(ExpectedConditions.elementToBeClickable(element));
+	public void waitForElementToBeClickable(MobileElement element) throws Exception {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 120);
+			wait.until(ExpectedConditions.elementToBeClickable(element));
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
 	}
 
 	/**
 	 * This method will wait for page load Timeout
 	 *
 	 * @param Seconds
+	 * @throws Exception 
 	 */
-	public void waitForPageLoadTimeout(int Seconds) {
-		driver.manage().timeouts().pageLoadTimeout(Seconds, TimeUnit.SECONDS);
+	public void waitForPageLoadTimeout() throws Exception {
+		try {
+			driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
 	}
 
 	/**
-	 * This method will wait for element to be InVisible with particular time
-	 *
-	 * @param element
-	 * @param timeOutInSeconds
+	 * This method will wait for Element visibility on whole page.
+	 * @throws Exception
 	 */
-	public void waitForVisibilityOfElementLocated(MobileElement element, long timeOutInSeconds) {
-		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
-		wait.until(ExpectedConditions.invisibilityOf(element));
+	public void ImplicitlyWait() throws Exception {
+		try {
+			driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
 	}
-
+	
 	/**
 	 * This method will wait for page load with time
 	 * 
@@ -104,39 +134,34 @@ public class WaitUtils extends CommandPrompt {
 	}
 
 	/**
-	 * This method will explicitly wait until visibility
-	 * 
-	 * @param mobileElement
-	 * @param timeLimitInSeconds
-	 * @param targetResourceId
-	 * @return
+	 * This method will wait until the given text is present on the given element
+	 *
+	 * @param element
+	 * @throws Exception 
 	 */
-	public boolean waitForPresence(MobileElement mobileElement, int timeLimitInSeconds, String targetResourceId) {
-		boolean isElementPresent;
+	public void waitForTextToBePresent(MobileElement element, String text) throws Exception {
 		try {
-			mobileElement = (MobileElement) driver
-					.findElementByCustom("new UiSelector().resourceId(\"" + targetResourceId + "\")");
-			WebDriverWait wait = new WebDriverWait(driver, timeLimitInSeconds);
-			wait.until(ExpectedConditions.visibilityOf(mobileElement));
-			isElementPresent = mobileElement.isDisplayed();
-			return isElementPresent;
+			WebDriverWait wait = new WebDriverWait(driver, 120);
+			wait.until(ExpectedConditions.textToBePresentInElement(element, text));;
 		} catch (Exception e) {
-			isElementPresent = false;
-			System.out.println(e.getMessage());
-			return isElementPresent;
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
+	
 
 	/**
-	 * Wait for Element
-	 * 
-	 * @param element
-	 * @param timeOutInSeconds
+	 * This method will wait until the given title is present
+	 * @param title
+	 * @throws Exception 
 	 */
-	public void waitForElementInMinutes(MobileElement element, long timeOutInMinutes) {
-		long seconds = TimeUnit.MINUTES.toSeconds(timeOutInMinutes);
-		WebDriverWait wait = new WebDriverWait(driver, seconds);
-		wait.until(ExpectedConditions.visibilityOf(element));
+	public void waitForGivenTitle(String title) throws Exception {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 120);
+			wait.until(ExpectedConditions.titleContains(title));
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
 	}
-
+	
+	
 }

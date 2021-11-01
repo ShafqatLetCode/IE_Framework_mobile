@@ -1,0 +1,22 @@
+{
+  "90965cf255375ddd9dae67209121a71d" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 1,
+      "skipped" : 0,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    },
+    "items" : [ {
+      "uid" : "424110054c37c8dd",
+      "status" : "broken",
+      "statusDetails" : "java.lang.NoSuchMethodException: jdk.proxy2.$Proxy28.proxyClassLookup()",
+      "time" : {
+        "start" : 1634812237113,
+        "stop" : 1634812238505,
+        "duration" : 1392
+      }
+    } ]
+  }
+}

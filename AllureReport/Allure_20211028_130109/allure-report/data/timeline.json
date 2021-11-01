@@ -1,0 +1,39 @@
+{
+  "uid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+  "name" : "timeline",
+  "children" : [ {
+    "name" : "CTNL0034",
+    "children" : [ {
+      "name" : "4232@CTNL0034.main(1)",
+      "children" : [ {
+        "name" : "Sample test for Android",
+        "uid" : "a63f40c765630cdf",
+        "parentUid" : "0609458177423cc111aba9770412dff7",
+        "status" : "skipped",
+        "time" : {
+          "start" : 1635406269616,
+          "stop" : 1635406269650,
+          "duration" : 34
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ "Pixel 5 API 26", "Android", "9" ]
+      }, {
+        "name" : "startApp",
+        "uid" : "9a63074e9c4330a7",
+        "parentUid" : "0609458177423cc111aba9770412dff7",
+        "status" : "broken",
+        "time" : {
+          "start" : 1635406269477,
+          "stop" : 1635406269481,
+          "duration" : 4
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ "Pixel 5 API 26", "Android", "9" ]
+      } ],
+      "uid" : "0609458177423cc111aba9770412dff7"
+    } ],
+    "uid" : "6d54a25b94e6679661fd15d481d0ca21"
+  } ]
+}

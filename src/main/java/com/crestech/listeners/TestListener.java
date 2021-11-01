@@ -1,7 +1,6 @@
 package com.crestech.listeners;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,12 +13,17 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.base.UserBaseTest;
 import com.crestech.config.ContextManager;
 
 import io.qameta.allure.Attachment;
 
 public class TestListener extends UserBaseTest implements ITestListener {
+
+	public TestListener() throws Exception {
+		super();
+	}
 
 	private static String getTestMethodName(ITestResult iTestResult) {
 		return iTestResult.getMethod().getConstructorOrMethod().getName();
@@ -45,16 +49,20 @@ public class TestListener extends UserBaseTest implements ITestListener {
 
 	@Override
 	public void onStart(ITestContext iTestContext) {
-		System.out.println("I am in onStart method " + iTestContext.getName());
-		System.out.println("HI");
-		iTestContext.setAttribute("WebDriver", this.driver);
-		if (prop.getProperty("ReportType").equals("allure")) {
-			try {
-				File fileClean = new File(System.getProperty("user.dir") + "/allure-results");
-				FileUtils.deleteDirectory(fileClean);
-			} catch (Exception e) {
-				System.out.println("Dir doesno exist");
+		try {
+			System.out.println("I am in onStart method " + iTestContext.getName());
+			System.out.println("HI");
+			iTestContext.setAttribute("WebDriver", this.driver);
+			if (prop.getProperty("ReportType").equals("allure")) {
+				try {
+					File fileClean = new File(System.getProperty("user.dir") + "/allure-results");
+					FileUtils.deleteDirectory(fileClean);
+				} catch (Exception e) {
+					System.out.println("Dir doesno exist");
+				}
 			}
+		} catch (Exception e) {
+			System.out.println("TestListener::onStart()::"+e.getLocalizedMessage());
 		}
 	}
 

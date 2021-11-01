@@ -1,12 +1,18 @@
 package com.crestech.config;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.openqa.selenium.remote.RemoteWebElement;
 
+import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import io.appium.java_client.AppiumDriver;
-import io.qameta.allure.Allure;
-import io.qameta.allure.AllureLifecycle;
 
 /**
  * Created by pCloudy.com.
@@ -17,8 +23,59 @@ import io.qameta.allure.AllureLifecycle;
 
 
 public class ContextManager {
+	
+	private static ExtentHtmlReporter htmlReporter;
+	private static ExtentReports extent;
+	private static ExtentTest extendLogger;
+	
+	private static Map<Long, ExtentTest> reportLogger = new ConcurrentHashMap<Long, ExtentTest>();
+	private static Map<Long, AppiumDriver<RemoteWebElement>> driverMapper = new ConcurrentHashMap<Long, AppiumDriver<RemoteWebElement>>();
+	
 
-	private static ThreadLocal<ExtentTest> extentReportForTestMethod = new ThreadLocal<>();
+	public synchronized static void startReport() {
+		if (extent == null) {
+			Date date = new Date();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+			//Set HTML reporting file location
+			htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/ExtentReport/ExtentReport_" + dateFormat.format(date) + ".html");
+			// Create an object of Extent Reports
+			extent = new ExtentReports();  
+			extent.attachReporter(htmlReporter);
+			extent.setSystemInfo("Host Name", "Crestech");
+			extent.setSystemInfo("Environment", "Production");
+			extent.setSystemInfo("User Name", "Automation Tester");
+			htmlReporter.config().setDocumentTitle("AutomationTesting On Crestechglobal"); 
+			htmlReporter.config().setTheme(Theme.DARK);   
+			htmlReporter.config().setReportName("Automation Report");
+			htmlReporter.config().setCSS(".r-img { width: 40%;}");
+		}
+	}
+
+	public  static void createNode(String nodeName) {
+		extendLogger = extent.createTest(nodeName);  
+		reportLogger.put(Thread.currentThread().getId(), extendLogger);
+	}
+
+	public synchronized static ExtentTest getExtentReportForPrecondition() {
+		return  reportLogger.get(Thread.currentThread().getId());
+	}
+
+	public synchronized static void endReport() {
+		extent.flush();
+	}
+
+	public static void setAndroidDriver(AppiumDriver<RemoteWebElement> driver) {
+		driverMapper.put(Thread.currentThread().getId(), driver);
+	}
+
+	public static AppiumDriver<RemoteWebElement> getAndroidDriver() {
+		return  driverMapper.get(Thread.currentThread().getId());
+	}
+	
+	
+	
+
+	/*private static ThreadLocal<ExtentTest> extentReportForTestMethod = new ThreadLocal<>();
 
 	public static ExtentTest getExtentReportForTestMethods() {
 		return extentReportForTestMethod.get();
@@ -56,6 +113,6 @@ public class ContextManager {
 
 	public static AppiumDriver<RemoteWebElement> getAndroidDriver() {
 		return androidDriver.get();
-	}
+	}*/
 	
 }

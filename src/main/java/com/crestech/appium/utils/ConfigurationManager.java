@@ -7,7 +7,6 @@ import java.util.Properties;
 /**
  * @author Shibu Prasad Panda.
  */
-
 public class ConfigurationManager {
 	private static ConfigurationManager instance;
 	private Properties prop = new Properties();
@@ -17,23 +16,40 @@ public class ConfigurationManager {
 		prop.load(inputStream);
 	}
 
-	public String getProperty(String key) {
-		return prop.getProperty(key);
-	}
-
-	public String getProperty(String key, String defaultValue) {
-		return prop.getProperty(key, defaultValue);
-	}
-
-	public static ConfigurationManager getInstance() throws IOException {
-		if (instance == null) {
-			String configFile = "config.properties";
-			instance = new ConfigurationManager(configFile);
+	public String getProperty(String key) throws Exception{
+		try {
+			return prop.getProperty(key);
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
-		return instance;
 	}
 
-	public boolean containsKey(String key) {
-		return prop.containsKey(key);
+	public String getProperty(String key, String defaultValue) throws Exception{
+		try {
+			return prop.getProperty(key, defaultValue);
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+
+	public static ConfigurationManager getInstance() {
+		try {
+			if (instance == null) {
+				String configFile = "config.properties";
+				instance = new ConfigurationManager(configFile);
+			}
+			return instance;
+		} catch (IOException e) {
+			System.out.println("ConfigurationManager::getInstance():: "+e);
+			return null;
+		}
+	}
+
+	public boolean containsKey(String key) throws Exception{
+		try {
+			return prop.containsKey(key);
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
 	}
 }

@@ -1,0 +1,26 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "name" : "categories",
+  "children" : [ {
+    "name" : "Test defects",
+    "children" : [ {
+      "name" : "Cannot invoke \"org.openqa.selenium.WebElement.isDisplayed()\" because \"element\" is null",
+      "children" : [ {
+        "name" : "Sample test for Android",
+        "uid" : "ded75c872b19fc07",
+        "parentUid" : "12979c0e7871a88049dda9af9c2b12d3",
+        "status" : "broken",
+        "time" : {
+          "start" : 1634629328439,
+          "stop" : 1634629330061,
+          "duration" : 1622
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ "Pixel 5 API 26", "Android", "8" ]
+      } ],
+      "uid" : "12979c0e7871a88049dda9af9c2b12d3"
+    } ],
+    "uid" : "bdbf199525818fae7a8651db9eafe741"
+  } ]
+}

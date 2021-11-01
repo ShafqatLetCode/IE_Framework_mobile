@@ -17,6 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.annotations.Listeners;
 
+import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.listeners.TestListener;
 
 import io.qameta.allure.Step;
@@ -30,42 +31,43 @@ public class ExcelUtils {
 	 * @exception file not found handles, IO Exception
 	 * @implSpec Read excel at a specified path, sheet and a key value
 	 * @return List of String
+	 * @throws Exception 
 	 */
 
 	@Step("Read Excel")
-	public static List<String> readExcel(String path, String key, String sheetName) {
-		// initialize variables
-		XSSFRow row = null;
-		XSSFCell cell = null;
-		XSSFWorkbook wb = null;
-		XSSFSheet sheet = null;
-		List<String> val = new ArrayList<String>();
-		// Open excel
+	public static List<String> readExcel(String path, String key, String sheetName) throws Exception {
 		try {
-			wb = new XSSFWorkbook(path);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// Open sheet of the excel and add all column values of the specified row in a
-		// list
-		sheet = wb.getSheet(sheetName);
-		for (int i = 0; i < sheet.getLastRowNum() + 1; i++) {
-			row = sheet.getRow(i);
-			cell = row.getCell(0);
-			if (cell.getStringCellValue().equals(key)) {
-				for (Iterator<Cell> cit = row.iterator(); cit.hasNext();) {
-					Cell cell_value = cit.next();
-					val.add(cell_value.getStringCellValue());
-				}
-				break;
+			// initialize variables
+			XSSFRow row = null;
+			XSSFCell cell = null;
+			XSSFWorkbook wb = null;
+			XSSFSheet sheet = null;
+			List<String> val = new ArrayList<String>();
+			// Open excel
+			try {
+				wb = new XSSFWorkbook(path);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		}
-		try {
-			wb.close();
+			// Open sheet of the excel and add all column values of the specified row in a
+			// list
+			sheet = wb.getSheet(sheetName);
+			for (int i = 0; i < sheet.getLastRowNum() + 1; i++) {
+				row = sheet.getRow(i);
+				cell = row.getCell(0);
+				if (cell.getStringCellValue().equals(key)) {
+					for (Iterator<Cell> cit = row.iterator(); cit.hasNext();) {
+						Cell cell_value = cit.next();
+						val.add(cell_value.getStringCellValue());
+					}
+					break;
+				}
+			}
+				wb.close();
+			return val;
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
-		return val;
 	}
 
 	/**
@@ -74,23 +76,28 @@ public class ExcelUtils {
 	 * @exception file not found handles, IO Exception
 	 * @implSpec Opens specified excel
 	 * @return workbook
+	 * @throws Exception 
 	 */
 	@Step("Read Excel")
-	public static XSSFWorkbook openExcel(String path) {
-		// initialize variables
-		XSSFWorkbook wb = null;
-		// Open excel
+	public static XSSFWorkbook openExcel(String path) throws Exception {
 		try {
-			wb = new XSSFWorkbook(path);
+			// initialize variables
+			XSSFWorkbook wb = null;
+			// Open excel
+			try {
+				wb = new XSSFWorkbook(path);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				wb.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return wb;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
-		try {
-			wb.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return wb;
 	}
 
 	/**
@@ -99,13 +106,14 @@ public class ExcelUtils {
 	 * @exception file not found handles, IO Exception
 	 * @implSpec Opens specified excel
 	 * @return workbook
+	 * @throws Exception 
 	 */
 	@Step("Read Excel")
-	public static void closeExcel(XSSFWorkbook wb) {
+	public static void closeExcel(XSSFWorkbook wb) throws Exception {
 		try {
 			wb.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
@@ -115,29 +123,34 @@ public class ExcelUtils {
 	 * @exception file not found handles, IO Exception
 	 * @implSpec Read already opened excel using sheet and a key value
 	 * @return List of String
+	 * @throws Exception 
 	 */
 	@Step("Read Excel")
-	public static List<String> readExcel(String key, String sheetName, XSSFWorkbook wb) {
-		// initialize variables
-		XSSFRow row = null;
-		XSSFCell cell = null;
-		XSSFSheet sheet = null;
-		List<String> val = new ArrayList<String>();
-		// Open sheet of the excel and add all column values of the specified row in a
-		// list
-		sheet = wb.getSheet(sheetName);
-		for (int i = 0; i < sheet.getLastRowNum() + 1; i++) {
-			row = sheet.getRow(i);
-			cell = row.getCell(0);
-			if (cell.getStringCellValue().equals(key)) {
-				for (Iterator<Cell> cit = row.iterator(); cit.hasNext();) {
-					Cell cell_value = cit.next();
-					val.add(cell_value.getStringCellValue());
+	public static List<String> readExcel(String key, String sheetName, XSSFWorkbook wb) throws Exception {
+		try {
+			// initialize variables
+			XSSFRow row = null;
+			XSSFCell cell = null;
+			XSSFSheet sheet = null;
+			List<String> val = new ArrayList<String>();
+			// Open sheet of the excel and add all column values of the specified row in a
+			// list
+			sheet = wb.getSheet(sheetName);
+			for (int i = 0; i < sheet.getLastRowNum() + 1; i++) {
+				row = sheet.getRow(i);
+				cell = row.getCell(0);
+				if (cell.getStringCellValue().equals(key)) {
+					for (Iterator<Cell> cit = row.iterator(); cit.hasNext();) {
+						Cell cell_value = cit.next();
+						val.add(cell_value.getStringCellValue());
+					}
+					break;
 				}
-				break;
 			}
+			return val;
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
-		return val;
 	}
 
 	/**
@@ -147,41 +160,46 @@ public class ExcelUtils {
 	 * @implSpec Read excel at a specified path for the first sheet in the excel and
 	 *           a key value
 	 * @return List of String
+	 * @throws Exception 
 	 */
 
-	public static List<String> readExcel(String path, String key) {
-		// initialize
-		XSSFRow row = null;
-		XSSFCell cell = null;
-		XSSFWorkbook wb = null;
-		XSSFSheet sheet = null;
-		List<String> val = new ArrayList<String>();
-		// Open workbook
+	public static List<String> readExcel(String path, String key) throws Exception {
 		try {
-			wb = new XSSFWorkbook(path);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// Open sheet of the excel and add all column values of the specified row in a
-		// list
-		sheet = wb.getSheetAt(0);
-		for (int i = 0; i < sheet.getLastRowNum() + 1; i++) {
-			row = sheet.getRow(i);
-			cell = row.getCell(0);
-			if (cell.getStringCellValue().equals(key)) {
-				for (Iterator<Cell> cit = row.iterator(); cit.hasNext();) {
-					Cell cell_value = cit.next();
-					val.add(cell_value.getStringCellValue());
-				}
-				break;
+			// initialize
+			XSSFRow row = null;
+			XSSFCell cell = null;
+			XSSFWorkbook wb = null;
+			XSSFSheet sheet = null;
+			List<String> val = new ArrayList<String>();
+			// Open workbook
+			try {
+				wb = new XSSFWorkbook(path);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+			// Open sheet of the excel and add all column values of the specified row in a
+			// list
+			sheet = wb.getSheetAt(0);
+			for (int i = 0; i < sheet.getLastRowNum() + 1; i++) {
+				row = sheet.getRow(i);
+				cell = row.getCell(0);
+				if (cell.getStringCellValue().equals(key)) {
+					for (Iterator<Cell> cit = row.iterator(); cit.hasNext();) {
+						Cell cell_value = cit.next();
+						val.add(cell_value.getStringCellValue());
+					}
+					break;
+				}
+			}
+			try {
+				wb.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return val;
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
-		try {
-			wb.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return val;
 	}
 
 	/**
@@ -190,30 +208,31 @@ public class ExcelUtils {
 	 * @exception file not found handles, IO Exception
 	 * @implSpec Read excel with row and cell value
 	 * @return String
+	 * @throws Exception 
 	 */
 
-	public static String readExcel(String path, String key, String sheetName, int rowNum, int colNum) {
-		XSSFRow row = null;
-		XSSFCell cell = null;
-		XSSFWorkbook wb = null;
-		XSSFSheet sheet = null;
-		String val = null;
+	public static String readExcel(String path, String key, String sheetName, int rowNum, int colNum) throws Exception {
 		try {
-			wb = new XSSFWorkbook(path);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// Open sheet of the excel and get value of the specified cell
-		sheet = wb.getSheet(sheetName);
-		row = sheet.getRow(rowNum);
-		cell = row.getCell(colNum);
-		val = cell.getStringCellValue();
-		try {
-			wb.close();
+			XSSFRow row = null;
+			XSSFCell cell = null;
+			XSSFWorkbook wb = null;
+			XSSFSheet sheet = null;
+			String val = null;
+			try {
+				wb = new XSSFWorkbook(path);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// Open sheet of the excel and get value of the specified cell
+			sheet = wb.getSheet(sheetName);
+			row = sheet.getRow(rowNum);
+			cell = row.getCell(colNum);
+			val = cell.getStringCellValue();
+				wb.close();
+			return val;
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
-		return val;
 	}
 
 	/**
@@ -222,31 +241,32 @@ public class ExcelUtils {
 	 * @exception file not found handles, IO Exception
 	 * @implSpec Create a new excel and write to the first sheet and first row
 	 * @return List of String
+	 * @throws Exception 
 	 */
 
-	public static void writeToNewExcel(String sheetName, List<String> data, String path) {
-		// Create a Workbook
-		XSSFWorkbook workbook = new XSSFWorkbook();
-		// Create a Sheet
-		XSSFSheet sheet = workbook.createSheet(sheetName);
-		// Create a row
-		XSSFRow row = sheet.createRow(0);
-		// Create cell
-		for (int i = 0; i < data.size(); i++) {
-			Cell cell = row.createCell(i);
-			cell.setCellValue(data.get(i));
-		}
-		// Save file and close
-		FileOutputStream fileOut;
+	public static void writeToNewExcel(String sheetName, List<String> data, String path) throws Exception {
 		try {
-			fileOut = new FileOutputStream(path);
-			workbook.write(fileOut);
-			fileOut.close();
-			workbook.close();
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
+			// Create a Workbook
+			XSSFWorkbook workbook = new XSSFWorkbook();
+			// Create a Sheet
+			XSSFSheet sheet = workbook.createSheet(sheetName);
+			// Create a row
+			XSSFRow row = sheet.createRow(0);
+			// Create cell
+			for (int i = 0; i < data.size(); i++) {
+				Cell cell = row.createCell(i);
+				cell.setCellValue(data.get(i));
+			}
+			// Save file and close
+			FileOutputStream fileOut;
+				fileOut = new FileOutputStream(path);
+				workbook.write(fileOut);
+				fileOut.close();
+				workbook.close();
+		} catch (FileNotFoundException e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
@@ -256,9 +276,10 @@ public class ExcelUtils {
 	 * @exception file not found handles, IO Exception
 	 * @implSpec Create a new excel and write to the first sheet and first row
 	 * @return List of String
+	 * @throws Exception 
 	 */
 
-	public static void writeToExcel(String sheetName, List<String> data, String path) {
+	public static void writeToExcel(String sheetName, List<String> data, String path) throws Exception {
 		// Obtain a workbook from the excel file
 		File file = new File(path);
 		FileInputStream inputStream = null;
@@ -322,9 +343,9 @@ public class ExcelUtils {
 			fileOut.close();
 			wb.close();
 		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e1));
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
@@ -333,8 +354,9 @@ public class ExcelUtils {
 	 * @param name- file path and sheet name
 	 * @exception file not found handles, IO Exception
 	 * @return data in excel sheet in the hashmap
+	 * @throws Exception 
 	 */
-	public static HashMap<String, String> getMapData(String path, String sheetName) {
+	public static HashMap<String, String> getMapData(String path, String sheetName) throws Exception {
 		FileInputStream fis;
 		XSSFWorkbook wb = null;
 		HashMap<String, String> dataMap = new HashMap<String, String>();
@@ -357,10 +379,9 @@ public class ExcelUtils {
 				dataMap.put(key, value);
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 		// Returning excelFileMap
 		return dataMap;

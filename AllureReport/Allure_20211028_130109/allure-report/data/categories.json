@@ -1,0 +1,26 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "name" : "categories",
+  "children" : [ {
+    "name" : "Test defects",
+    "children" : [ {
+      "name" : "com.crestech.base.UserBaseTest::startApp() Exception : Unable to create a new remote session. Original error: unexpected end of stream on Connection{0.0.0.0:4723, proxy=DIRECT hostAddress=/0.0.0.0:4723 cipherSuite=none protocol=http/1.1}\nBuild info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'\nSystem info: host: 'CTNL0034', ip: '192.168.0.6', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'\nDriver info: driver.version: AndroidDriver",
+      "children" : [ {
+        "name" : "startApp",
+        "uid" : "9a63074e9c4330a7",
+        "parentUid" : "19d6df3a2c54a9e2b1117c38fc1f5e0d",
+        "status" : "broken",
+        "time" : {
+          "start" : 1635406269477,
+          "stop" : 1635406269481,
+          "duration" : 4
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ "Pixel 5 API 26", "Android", "9" ]
+      } ],
+      "uid" : "19d6df3a2c54a9e2b1117c38fc1f5e0d"
+    } ],
+    "uid" : "bdbf199525818fae7a8651db9eafe741"
+  } ]
+}

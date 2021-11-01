@@ -11,7 +11,7 @@
 	</listeners>
 	<test name="Test to be run">
 		<classes>
-			<class name="com.crestech.android.tests.pCloudyAndroidTest" />
+			<class name="com.crestech.android.tests.DBSAndroidTest" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

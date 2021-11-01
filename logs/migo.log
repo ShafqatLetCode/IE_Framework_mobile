@@ -1,15 +1,23 @@
-[main] 16:50:41,617 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 16:50:43,922 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 16:50:43,922 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 16:50:43,923 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 16:50:43,940 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 16:50:43,940 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 16:50:43,940 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 16:50:43,941 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 16:50:43,941 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 16:50:43,941 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 16:50:43,941 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 16:50:43,941 ERROR [AllureLifecycle] Could not stop step: no step running
-[main] 16:50:43,941 ERROR [AllureLifecycle] Could not start step: no test case running
-[main] 16:50:43,941 ERROR [AllureLifecycle] Could not update step: no step running
-[main] 16:50:43,942 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 14:35:08,124 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 14:35:11,164 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 14:35:11,165 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 14:35:11,167 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 14:35:11,194 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 14:35:11,194 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 14:35:11,195 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 14:35:11,195 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 14:35:11,196 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 14:35:11,196 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 14:35:11,198 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 14:35:11,198 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 14:35:11,198 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 14:35:11,199 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 14:35:11,199 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 14:35:11,200 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 14:35:11,201 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 14:35:11,202 ERROR [AllureLifecycle] Could not stop step: no step running
+[main] 14:35:11,202 ERROR [AllureLifecycle] Could not start step: no test case running
+[main] 14:35:11,202 ERROR [AllureLifecycle] Could not update step: no step running
+[main] 14:35:11,203 ERROR [AllureLifecycle] Could not stop step: no step running
+[TestNG-tests-2] 14:35:48,908 INFO  [DBSAndroidTest] Test Case started
+[TestNG-tests-1] 14:35:54,515 INFO  [DBSAndroidTest] Test Case started

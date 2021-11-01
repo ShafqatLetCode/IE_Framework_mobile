@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
+  <parameter name="os" value="Android"/>
+  <parameter name="device" value="Pixel 5 API 26"/>
+  <parameter name="version" value="9"/>
+  <listeners>
+    <listener class-name="com.crestech.listeners.TestListener"/>
+  </listeners>
+  <test name="Test(failed)">
+    <classes>
+      <class name="com.crestech.android.tests.pCloudyAndroidTest">
+        <methods>
+          <include name="flushReport"/>
+          <include name="beforeSuite"/>
+          <include name="startApp"/>
+          <include name="getResult"/>
+          <include name="SampleAndroidTest"/>
+        </methods>
+      </class> <!-- com.crestech.android.tests.pCloudyAndroidTest -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->

@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.pageobjects.chromeHomePageObject;
-import com.crestech.pageobjects.pCloudyHomePageObject;
+import com.crestech.pageobjects.DBSAndroidObject;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -16,21 +16,25 @@ import io.qameta.allure.Step;
 
 public class ChromeHomePage extends CommonAppiumTest  {
 
-		static Logger log = Logger.getLogger(PcloudyHomePage.class.getName());
+		static Logger log = Logger.getLogger(DBSAndroidPage.class.getName());
 		public chromeHomePageObject chromeHomePageObject = new chromeHomePageObject();
 
 		public ChromeHomePage(AppiumDriver<RemoteWebElement> driver) {
 			super(driver);
-			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), chromeHomePageObject);
+			//PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), chromeHomePageObject);
 		}
-		
-		
+
 		/**
 		 * This method will send data in the editbox
 		 */
 		@Step("Enter data in Username EditBox")
 		public void sendDataInUsername(String text) {
-			sendkeys(chromeHomePageObject.EmailId(), text);
+			try {
+				enterTextInTextbox(chromeHomePageObject.EmailId(), text);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		
@@ -39,11 +43,22 @@ public class ChromeHomePage extends CommonAppiumTest  {
 		 */
 		@Step("Enter data in Username EditBox")
 		public void sendDataInPAssword(String text) {
-			sendkeys(chromeHomePageObject.Password(), text);
+			try {
+				enterTextInTextbox(chromeHomePageObject.Password(), text);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		public String getEmailData() {
-			return getTexOfElement(chromeHomePageObject.EmailId());
+			try {
+				return getTexOfElement(chromeHomePageObject.EmailId());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
 		}
 		
 }

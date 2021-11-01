@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite configfailurepolicy="continue" thread-count="2" parallel="tests" name="Failed suite [Appium pCloudy Suite]" guice-stage="DEVELOPMENT">
+  <listeners>
+    <listener class-name="com.crestech.listeners.AlterSuite"/>
+  </listeners>
+  <test parallel="tests" name="GOOGLE_Pixel2_Android_11.0.0_dafcb(failed)">
+    <parameter name="password" value="222222"/>
+    <parameter name="os" value="pCloudyAndroid"/>
+    <parameter name="userName" value="shubham.gupta@crestechsoftware.com"/>
+    <parameter name="device" value="GOOGLE_Pixel2_Android_11.0.0_dafcb"/>
+    <parameter name="version" value="11.0.0"/>
+    <classes>
+      <class name="com.crestech.android.tests.DBSAndroidTest">
+        <methods>
+          <include name="flushReport"/>
+          <include name="beforeSuite"/>
+          <include name="startApp"/>
+          <include name="getResult"/>
+          <include name="SampleAndroidTest"/>
+        </methods>
+      </class> <!-- com.crestech.android.tests.DBSAndroidTest -->
+    </classes>
+  </test> <!-- GOOGLE_Pixel2_Android_11.0.0_dafcb(failed) -->
+</suite> <!-- Failed suite [Appium pCloudy Suite] -->

@@ -1,0 +1,42 @@
+{
+  "2b2f8493061b9ad18ff28703184dd918" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 1,
+      "skipped" : 0,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    },
+    "items" : [ {
+      "uid" : "9a63074e9c4330a7",
+      "status" : "broken",
+      "statusDetails" : "com.crestech.base.UserBaseTest::startApp() Exception : Unable to create a new remote session. Original error: unexpected end of stream on Connection{0.0.0.0:4723, proxy=DIRECT hostAddress=/0.0.0.0:4723 cipherSuite=none protocol=http/1.1}\nBuild info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'\nSystem info: host: 'CTNL0034', ip: '192.168.0.6', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'\nDriver info: driver.version: AndroidDriver",
+      "time" : {
+        "start" : 1635406269477,
+        "stop" : 1635406269481,
+        "duration" : 4
+      }
+    } ]
+  },
+  "65687779baa584882606e8ec8dc6af55" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 1,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    },
+    "items" : [ {
+      "uid" : "a63f40c765630cdf",
+      "status" : "skipped",
+      "statusDetails" : "com.crestech.base.UserBaseTest::startApp() Exception : Unable to create a new remote session. Original error: unexpected end of stream on Connection{0.0.0.0:4723, proxy=DIRECT hostAddress=/0.0.0.0:4723 cipherSuite=none protocol=http/1.1}\nBuild info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'\nSystem info: host: 'CTNL0034', ip: '192.168.0.6', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '15.0.2'\nDriver info: driver.version: AndroidDriver",
+      "time" : {
+        "start" : 1635406269616,
+        "stop" : 1635406269650,
+        "duration" : 34
+      }
+    } ]
+  }
+}

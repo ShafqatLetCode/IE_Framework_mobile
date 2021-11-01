@@ -1,0 +1,42 @@
+{
+  "90965cf255375ddd9dae67209121a71d" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 1,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    },
+    "items" : [ {
+      "uid" : "6abd78342517d1e",
+      "status" : "skipped",
+      "statusDetails" : "Unable to create a new remote session. Please check the server log for more details. Original error: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'GOOGLE_PixelXL_Android_10.0.0_53dda'name not found/already booked. (WARNING: The server did not provide any stacktrace information)\nCommand duration or timeout: 4.22 seconds\nBuild info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'\nSystem info: host: 'CTNL0060', ip: '192.168.1.5', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '16.0.2'\nDriver info: driver.version: AndroidDriver\nBuild info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'\nSystem info: host: 'CTNL0060', ip: '192.168.1.5', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '16.0.2'\nDriver info: driver.version: AndroidDriver",
+      "time" : {
+        "start" : 1634812814633,
+        "stop" : 1634812814650,
+        "duration" : 17
+      }
+    } ]
+  },
+  "51d8608cf01b2029cc0313dc5eaf2d89" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 1,
+      "skipped" : 0,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 1
+    },
+    "items" : [ {
+      "uid" : "820362200c68bd89",
+      "status" : "broken",
+      "statusDetails" : "Unable to create a new remote session. Please check the server log for more details. Original error: com.ssts.pcloudy.exceptions.DeviceNotBookedException : Requested Device Full 'GOOGLE_PixelXL_Android_10.0.0_53dda'name not found/already booked. (WARNING: The server did not provide any stacktrace information)\nCommand duration or timeout: 4.22 seconds\nBuild info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'\nSystem info: host: 'CTNL0060', ip: '192.168.1.5', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '16.0.2'\nDriver info: driver.version: AndroidDriver\nBuild info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'\nSystem info: host: 'CTNL0060', ip: '192.168.1.5', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '16.0.2'\nDriver info: driver.version: AndroidDriver",
+      "time" : {
+        "start" : 1634812814566,
+        "stop" : 1634812814577,
+        "duration" : 11
+      }
+    } ]
+  }
+}

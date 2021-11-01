@@ -1,0 +1,39 @@
+{
+  "uid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+  "name" : "timeline",
+  "children" : [ {
+    "name" : "CTNL0060",
+    "children" : [ {
+      "name" : "11876@CTNL0060.TestNG-tests-1(16)",
+      "children" : [ {
+        "name" : "Sample test for iOS",
+        "uid" : "a1848767531aed13",
+        "parentUid" : "a261ad1022d325effc880efec4321977",
+        "status" : "skipped",
+        "time" : {
+          "start" : 1634808505427,
+          "stop" : 1634808505467,
+          "duration" : 40
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ "APPLE_iPhone8_iOS_12.2.0_fe616", "pCloudyIOS", "12.2.0" ]
+      }, {
+        "name" : "startApp",
+        "uid" : "a05ce3812a08c4a0",
+        "parentUid" : "a261ad1022d325effc880efec4321977",
+        "status" : "broken",
+        "time" : {
+          "start" : 1634808505359,
+          "stop" : 1634808505365,
+          "duration" : 6
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ "APPLE_iPhone8_iOS_12.2.0_fe616", "pCloudyIOS", "12.2.0" ]
+      } ],
+      "uid" : "a261ad1022d325effc880efec4321977"
+    } ],
+    "uid" : "27d5d021139624f099b0535830c4e9b8"
+  } ]
+}

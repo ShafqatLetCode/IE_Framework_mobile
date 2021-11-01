@@ -1,0 +1,31 @@
+{
+  "uid" : "b1a8273437954620fa374b796ffaacdd",
+  "name" : "behaviors",
+  "children" : [ {
+    "name" : "startApp",
+    "uid" : "a05ce3812a08c4a0",
+    "parentUid" : "b1a8273437954620fa374b796ffaacdd",
+    "status" : "broken",
+    "time" : {
+      "start" : 1634808505359,
+      "stop" : 1634808505365,
+      "duration" : 6
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "parameters" : [ "APPLE_iPhone8_iOS_12.2.0_fe616", "pCloudyIOS", "12.2.0" ]
+  }, {
+    "name" : "Sample test for iOS",
+    "uid" : "a1848767531aed13",
+    "parentUid" : "b1a8273437954620fa374b796ffaacdd",
+    "status" : "skipped",
+    "time" : {
+      "start" : 1634808505427,
+      "stop" : 1634808505467,
+      "duration" : 40
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "parameters" : [ "APPLE_iPhone8_iOS_12.2.0_fe616", "pCloudyIOS", "12.2.0" ]
+  } ]
+}

@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"broken","Thu Oct 21 16:00:37 IST 2021","Thu Oct 21 16:00:38 IST 2021","1392","Appium pCloudy Suite","GOOGLE_PixelXL_Android_10.0.0_53dda","com.crestech.android.tests.pCloudyAndroidTest","com.crestech.android.tests.pCloudyAndroidTest","SampleAndroidTest","Sample test for Android","TestCases For Pcloudy Sample Project"

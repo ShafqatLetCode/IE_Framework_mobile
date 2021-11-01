@@ -1,0 +1,26 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "name" : "categories",
+  "children" : [ {
+    "name" : "Test defects",
+    "children" : [ {
+      "name" : "java.lang.NoSuchMethodException: jdk.proxy2.$Proxy28.proxyClassLookup()",
+      "children" : [ {
+        "name" : "Sample test for Android",
+        "uid" : "424110054c37c8dd",
+        "parentUid" : "c59e910f9a619ba34f5c9ac6b6324fad",
+        "status" : "broken",
+        "time" : {
+          "start" : 1634812237113,
+          "stop" : 1634812238505,
+          "duration" : 1392
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ "GOOGLE_PixelXL_Android_10.0.0_53dda", "pCloudyAndroid", "10.0.0" ]
+      } ],
+      "uid" : "c59e910f9a619ba34f5c9ac6b6324fad"
+    } ],
+    "uid" : "bdbf199525818fae7a8651db9eafe741"
+  } ]
+}

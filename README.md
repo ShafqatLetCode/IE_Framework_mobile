@@ -1,11 +1,11 @@
 
-#pCloudy Android
+#DBS Android
 Please run below command in root directory
-`mvn clean test -Dsurefire.suiteXmlFiles=pcloudyAndroid.xml`
+`mvn clean test -Dsurefire.suiteXmlFiles=DBSAndroid.xml`
 
-#pCloudy IOS
+#DBS IOS
 Please run below command in root directory
-`mvn clean test -Dsurefire.suiteXmlFiles=pCloudyIos.xml`
+`mvn clean test -Dsurefire.suiteXmlFiles=DBSIOS.xml`
 
 #Local
 Please run below command in root directory

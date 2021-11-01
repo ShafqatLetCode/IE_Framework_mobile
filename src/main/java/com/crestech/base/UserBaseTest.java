@@ -7,6 +7,7 @@ import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,13 +15,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
@@ -30,7 +31,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.log4testng.Logger;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
@@ -40,14 +40,14 @@ import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.crestech.appium.utils.ConfigurationManager;
-import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.ExcelUtils;
 import com.crestech.common.utilities.ScreenshotUtils;
 import com.crestech.config.ContextManager;
-
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
@@ -63,13 +63,11 @@ import io.qameta.allure.AllureLifecycle;
 public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 	public AppiumDriver<RemoteWebElement> driver = null;
-	public ConfigurationManager prop;
-	protected boolean dontStopAppOnReset = false;
+	public static ConfigurationManager prop;
+	protected boolean dontStopAppOnReset = false; 
 	public String device_udid;
 	private AppiumDriverLocalService service;
 	private AppiumServiceBuilder builder;
-	public ExtentReports report;
-	public ExtentTest extentLogs;
 	private static final AllureLifecycle ALLURE_LIFECYCLE = Allure.getLifecycle();
 	
 	Logger logger = Logger.getLogger(UserBaseTest.class);
@@ -77,7 +75,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	public UserBaseTest() 	{
 		try {
 			prop = ConfigurationManager.getInstance();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -91,23 +89,19 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	@BeforeMethod(alwaysRun = true)
 	public void startApp(String device, String version, Method method, String os) throws Exception {
 		logger.info("Inside Before Method");
-		System.out.println(Thread.currentThread().getId());
-		List<String> s1 = new ArrayList<String>();
-		s1 = ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities");
 		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
-			extentLogs = report.createTest(method.getName() + " " + device);
-			ContextManager.setExtentReportsForPrecondition(extentLogs);
+			ContextManager.createNode(method.getName() + " " + device);
 		}
-		DesiredCapabilities androidCaps = androidNative(s1, device, version, os);
-		System.out.println(androidCaps);
+		DesiredCapabilities androidCaps = androidNative(ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities"), device, version, os);
 		Thread.sleep(2000);
 		try {
 			this.driver = startingServerInstance(androidCaps, os);
-			 ContextManager.setAndroidDriver(this.driver);
+		//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
+			ContextManager.setAndroidDriver(this.driver); 
 		} catch (Exception e) {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
-				extentLogs.skip(MarkupHelper.createLabel("Test Case is SKIPPED", ExtentColor.YELLOW));
-				extentLogs.log(Status.SKIP, e.getMessage());
+				ContextManager.getExtentReportForPrecondition().skip(MarkupHelper.createLabel("Test Case is SKIPPED", ExtentColor.YELLOW));
+				ContextManager.getExtentReportForPrecondition().log(Status.SKIP, e.getMessage());
 			}
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
@@ -117,21 +111,12 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 	}
 
+
 	@BeforeSuite(alwaysRun = true)
 	public void beforeSuite() throws Exception {
 		logger.info("Inside before suite");
-		Date date = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
-			@SuppressWarnings("deprecation")
-			ExtentHtmlReporter extent = new ExtentHtmlReporter(
-					new File(System.getProperty("user.dir") + "/ExtentReport/ExtentReport_" + dateFormat.format(date) + ".html"));
-			report = new ExtentReports();
-			report.attachReporter(extent);
-			extent.config().setCSS(".r-img { width: 40%;}");
-			extent.config().setDocumentTitle("AutomationTesting On Crestechglobal");
-			extent.config().setReportName("Automation Report");
-			extent.config().setTheme(Theme.DARK);
+			ContextManager.startReport();
 		} else {
 			try {
 				File fileClean = new File(System.getProperty("user.dir") + "/allure-results");
@@ -144,39 +129,40 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	
 	/*********************************
 	 * FOR Extent Report Implementation
+	 * @throws Exception 
 	 ***********************************************/
 
 	@Parameters({ "device", "os" })
 	@AfterMethod
-	public void getResult(ITestResult result, String device, String os) {
+	public void getResult(ITestResult result, String device, String os) throws Exception {  
 		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 			String screenshotProperty = prop.getProperty("ScreenshotForReport").trim();
 			if (result.getStatus() == ITestResult.FAILURE) {
-				extentLogs.fail(MarkupHelper.createLabel("Test Case is FAILED", ExtentColor.RED));
+				ContextManager.getExtentReportForPrecondition().fail(MarkupHelper.createLabel("Test Case is FAILED", ExtentColor.RED));
 				if (screenshotProperty.equalsIgnoreCase("None")) {
-					extentLogs.info("TestCase Failed");
+					ContextManager.getExtentReportForPrecondition().info("TestCase Failed");
 				} else {
 					try {
-						extentLogs.log(Status.FAIL, "Snapshot below:", MediaEntityBuilder
+						ContextManager.getExtentReportForPrecondition().log(Status.FAIL, "Snapshot below:", MediaEntityBuilder
 								.createScreenCaptureFromPath(ScreenshotUtils.getScreenshot(driver)).build());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
-				extentLogs.fail(result.getThrowable());
+				ContextManager.getExtentReportForPrecondition().fail(result.getThrowable());
 			} else if (result.getStatus() == ITestResult.SUCCESS) {
-				extentLogs.pass(MarkupHelper.createLabel("Test Case is PASSED", ExtentColor.GREEN));
+				ContextManager.getExtentReportForPrecondition().pass(MarkupHelper.createLabel("Test Case is PASSED", ExtentColor.GREEN));
 				if (screenshotProperty.equalsIgnoreCase("pass")) {
 					try {
-						extentLogs.log(Status.PASS, "Snapshot below:", MediaEntityBuilder
+						ContextManager.getExtentReportForPrecondition().log(Status.PASS, "Snapshot below:", MediaEntityBuilder
 								.createScreenCaptureFromPath(ScreenshotUtils.getScreenshot(driver)).build());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 			} else {
-				extentLogs.skip(MarkupHelper.createLabel("Test Case is SKIPPED", ExtentColor.YELLOW));
-				extentLogs.skip(result.getThrowable());
+				ContextManager.getExtentReportForPrecondition().skip(MarkupHelper.createLabel("Test Case is SKIPPED", ExtentColor.YELLOW));
+				ContextManager.getExtentReportForPrecondition().skip(result.getThrowable());
 			}
 		}
 
@@ -186,36 +172,40 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		}
 		if (os.equalsIgnoreCase("Android"))
 			service.stop();
-
 	}
 
 	@AfterSuite(alwaysRun = true)
 	public void flushReport() {
 		System.out.println("My Report Flushed Start.....");
-		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
-			File src= new File(System.getProperty("user.dir") + "\\AllureReport");
-			try {
-				FileUtils.deleteDirectory(src);
-			} catch (IOException e) {
-				e.printStackTrace();
+		try {
+			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
+				File src= new File(System.getProperty("user.dir") + "\\AllureReport");
+				try {
+					FileUtils.deleteDirectory(src);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				ContextManager.endReport();
 			}
-			report.flush();
-		}
-		else {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-			Date date = new Date();
-			File srcDir = new File(System.getProperty("user.dir") + "\\allure-results");
-			File destDir = new File(System.getProperty("user.dir") + "\\AllureReport\\Allure_"
-					+ dateFormat.format(date).replace(" ", "_").replace("-", "")+"\\allure-results");
-			try {
-				FileUtils.forceMkdir(destDir);
-				FileUtils.copyDirectory(srcDir, destDir);
-				Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"allure generate "+destDir+" -o "+System.getProperty("user.dir") + "\\AllureReport\\Allure_" + 
-						dateFormat.format(date).replace(" ", "_").replace("-", "")+"//allure-report");
-				Runtime.getRuntime().exec("taskkill /f /im cmd.exe") ;
-			} catch (IOException e) {
-				e.printStackTrace();
+			else {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+				Date date = new Date();
+				File srcDir = new File(System.getProperty("user.dir") + "\\allure-results");
+				File destDir = new File(System.getProperty("user.dir") + "\\AllureReport\\Allure_"
+						+ dateFormat.format(date).replace(" ", "_").replace("-", "")+"\\allure-results");
+				try {
+					FileUtils.forceMkdir(destDir);
+					FileUtils.copyDirectory(srcDir, destDir);
+					Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"allure generate "+destDir+" -o "+System.getProperty("user.dir") + "\\AllureReport\\Allure_" + 
+							dateFormat.format(date).replace(" ", "_").replace("-", "")+"//allure-report");
+					Runtime.getRuntime().exec("taskkill /f /im cmd.exe") ;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		System.out.println("My Report Flushed End.....");
 	}
@@ -233,25 +223,25 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		switch (os) {
 		case "Android":
-			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device_udid);
-			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
-			capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, s.get(1));
-			capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY, s.get(1));
-			capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, s.get(2));
-			capabilities.setCapability(MobileCapabilityType.APP,
-					System.getProperty("user.dir") + "\\App\\" + s.get(14));
-			capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
-			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-			if (checkDeviceVersion(version)) {
-				capabilities.setCapability("automationName", s.get(4));
-			} else {
-				capabilities.setCapability("automationName", "UiAutomator1");
-			}
-			if (dontStopAppOnReset == true) {
-				capabilities.setCapability(AndroidMobileCapabilityType.DONT_STOP_APP_ON_RESET, true);
-			} else {
-				capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
-			}
+			  capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device_udid);
+			  capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
+			  capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, s.get(1));
+			  capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY,  s.get(1));
+			  capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE,s.get(2));
+			  capabilities.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + "\\App\\" + s.get(14));
+			  capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
+			  capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+
+				if (checkDeviceVersion(version))
+					capabilities.setCapability("automationName", s.get(4));
+				else
+					capabilities.setCapability("automationName", "UiAutomator1");
+
+				if (dontStopAppOnReset == true)
+					capabilities.setCapability(AndroidMobileCapabilityType.DONT_STOP_APP_ON_RESET, true);
+				else
+					capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
+			
 			capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 600);
 			break;
 
@@ -271,18 +261,19 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			break;
 
 		case "Android_Chrome":
-			capabilities.setCapability("automationName", s.get(4));
+			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
+			//capabilities.setCapability("automationName", s.get(4));
 			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
 			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
 			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device_udid);
-			capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
+			//capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
 			capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, s.get(5));
-			capabilities.setCapability("chromedriverExecutable", prop.getProperty("browserLocation"));
-			if (checkDeviceVersion(version)) {
-				capabilities.setCapability("automationName", s.get(4));
-			} else {
-				capabilities.setCapability("automationName", "UiAutomator1");
-			}
+			//capabilities.setCapability("chromedriverExecutable", prop.getProperty("browserLocation"));
+//			if (checkDeviceVersion(version)) {
+//				capabilities.setCapability("automationName", s.get(4));
+//			} else {
+//				capabilities.setCapability("automationName", "UiAutomator1");
+//			}
 			if (dontStopAppOnReset == true) {
 				capabilities.setCapability(AndroidMobileCapabilityType.DONT_STOP_APP_ON_RESET, true);
 			} else {
@@ -378,24 +369,36 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			 * driver = new AndroidDriver<RemoteWebElement>(new
 			 * URL("http://127.0.0.1:4723/wd/hub"), androidCaps);
 			 */
-
-			// install nodejs in your system ->through nodejs install appium
-			// Build the Appium service
+			
+			
+//			  //install nodejs in your system ->through nodejs install appium 
+//			  // Build the Appium service
+			  builder = new AppiumServiceBuilder();
+			  builder.withIPAddress(prop.getProperty("server_address"));
+			  builder.usingPort(Integer.parseInt(prop.getProperty("port")));
+			  builder.withCapabilities(androidCaps);
+			  builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
+			  builder.withLogFile(new File("C:\\Users\\Public\\Desktop\\Appium.text"));
+			  
+			  
+			  // Start the server with the builder 
+			  service =  AppiumDriverLocalService.buildService(builder);
+			 
+			  System.out.println(service.getUrl().toString()); 
+				try {
+					service.start();
+				} finally {
+					service.stop();
+				}
+			 
+//			Process p = Runtime.getRuntime().exec("cmd.exe /c start appium");
+//			Thread.sleep(5000);
 				
-				  builder = new AppiumServiceBuilder();
-				  builder.withIPAddress(prop.getProperty("server_address"));
-				  builder.usingPort(Integer.parseInt(prop.getProperty("port")));
-				  builder.withCapabilities(androidCaps);
-				  builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
-				 
-
-			// Start the server with the builder
-			service = AppiumDriverLocalService.buildService(builder);
-			try {
-				service.start();
-			} finally {
-				service.stop();
-			}
+			//	 driver = new AndroidDriver<RemoteWebElement>(service.getUrl(), androidCaps);
+				  //This time out is set because test can be run on slow Android SDK emulator
+				 // PageFactory.initElements(new AppiumFieldDecorator(driver, ofSeconds(5)), this);
+				
+				
 			driver = new AndroidDriver<RemoteWebElement>(androidCaps);
 		} else if (os.equalsIgnoreCase("pCloudyAndroid") || os.equalsIgnoreCase("pCloudyAndroidChrome")) {
 			driver = new AndroidDriver<RemoteWebElement>(
@@ -492,6 +495,4 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	public void addAttachment(RemoteWebDriver driver) {
 		ALLURE_LIFECYCLE.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
 	}
-
-
 }

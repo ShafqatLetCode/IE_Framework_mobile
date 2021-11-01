@@ -1,0 +1,21 @@
+[ {
+  "uid" : "3e55151522c75a5e",
+  "name" : "startApp",
+  "time" : {
+    "start" : 1634886391955,
+    "stop" : 1634886391963,
+    "duration" : 8
+  },
+  "status" : "broken",
+  "severity" : "normal"
+}, {
+  "uid" : "92499f8186e6ca39",
+  "name" : "Sample test for Android",
+  "time" : {
+    "start" : 1634886392471,
+    "stop" : 1634886392475,
+    "duration" : 4
+  },
+  "status" : "skipped",
+  "severity" : "normal"
+} ]

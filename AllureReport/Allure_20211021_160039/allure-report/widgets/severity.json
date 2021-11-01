@@ -1,0 +1,11 @@
+[ {
+  "uid" : "424110054c37c8dd",
+  "name" : "Sample test for Android",
+  "time" : {
+    "start" : 1634812237113,
+    "stop" : 1634812238505,
+    "duration" : 1392
+  },
+  "status" : "broken",
+  "severity" : "normal"
+} ]

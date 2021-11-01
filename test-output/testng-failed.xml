@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="1" configfailurepolicy="continue" guice-stage="DEVELOPMENT" name="Failed suite [Migo Suite]" parallel="tests">
+<suite configfailurepolicy="continue" thread-count="2" parallel="tests" name="Failed suite [Appium pCloudy Suite]" guice-stage="DEVELOPMENT">
   <listeners>
     <listener class-name="com.crestech.listeners.AlterSuite"/>
   </listeners>
-  <test name="SAMSUNG_GalaxyS7_Android_8.0.0(failed)" parallel="tests">
-    <parameter name="os" value="pCloudyAndroidChrome"/>
-    <parameter name="device" value="SAMSUNG_GalaxyS7_Android_8.0.0"/>
-    <parameter name="version" value="8.0.0"/>
+  <test parallel="tests" name="GOOGLE_Pixel2_Android_11.0.0_dafcb(failed)">
+    <parameter name="password" value="222222"/>
+    <parameter name="os" value="pCloudyAndroid"/>
+    <parameter name="userName" value="shubham.gupta@crestechsoftware.com"/>
+    <parameter name="device" value="GOOGLE_Pixel2_Android_11.0.0_dafcb"/>
+    <parameter name="version" value="11.0.0"/>
     <classes>
-      <class name="com.crestech.android.tests.pCloudyAndroidChromeTest">
+      <class name="com.crestech.android.tests.DBSAndroidTest">
         <methods>
-<<<<<<< HEAD
-=======
-          <include name="SampleAndroidTest1"/>
->>>>>>> branch 'master' of https://github.com/CresTechGlobalPractice/Appium.git
           <include name="flushReport"/>
           <include name="beforeSuite"/>
-          <include name="SampleAndroidTest" invocation-numbers="0"/>
           <include name="startApp"/>
           <include name="getResult"/>
+          <include name="SampleAndroidTest"/>
         </methods>
-      </class> <!-- com.crestech.android.tests.pCloudyAndroidChromeTest -->
+      </class> <!-- com.crestech.android.tests.DBSAndroidTest -->
     </classes>
-  </test> <!-- SAMSUNG_GalaxyS7_Android_8.0.0(failed) -->
-</suite> <!-- Failed suite [Migo Suite] -->
+  </test> <!-- GOOGLE_Pixel2_Android_11.0.0_dafcb(failed) -->
+</suite> <!-- Failed suite [Appium pCloudy Suite] -->

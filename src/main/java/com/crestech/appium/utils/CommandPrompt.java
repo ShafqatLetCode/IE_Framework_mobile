@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class CommandPrompt {
 
@@ -28,7 +27,6 @@ public class CommandPrompt {
 			i++;
 		}
 		return allLine;
-
 	}
 
 	public String runCommandThruProcessBuilder(String command) throws InterruptedException, IOException {
@@ -59,8 +57,6 @@ public class CommandPrompt {
 		commands.add("-c");
 		commands.add(command);
 		ProcessBuilder builder = new ProcessBuilder(commands);
-		Map<String, String> environ = builder.environment();
-
 		final Process process = builder.start();
 		InputStream is = process.getInputStream();
 		InputStreamReader isr = new InputStreamReader(is);
