@@ -13,31 +13,33 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class TestDataUtils {
-	String fileName;
+	String fileName="TestData.xlsx";
 	String TestcaseName;
-
+	String ModuleName;
 	// Identify Testcases coloum by scanning the entire 1st row
 	// once column is identified then scan entire testcase coloum to identify
 	// purcjhase testcase row
 	// after you grab purchase testcase row = pull all the data of that row and feed
 	// into test
-	public TestDataUtils(String fileName, String TestcaseName) {
-		this.fileName = fileName;
+	public TestDataUtils(String ModuleName, String TestcaseName) {
+		
 		this.TestcaseName = TestcaseName;
+		this.ModuleName=ModuleName;
 	}
 
 	public String Read(String dataAttribute) throws IOException {
 		// fileInputStream argument
-		ArrayList<String> a = new ArrayList<String>();
-		File excelDir = new File("dataRepository");
-		File excel = new File(excelDir, fileName); /// "DR_module_1.xlsx"
+		//ArrayList<String> a = new ArrayList<String>();
+		File excelDir = new File("TestData");
+		File excel = new File(excelDir, fileName); /// "TestData.xlsx"
 		String path = excel.getAbsolutePath();
+		System.out.println(path);
 		FileInputStream fis = new FileInputStream(path);
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);
 		String S = null;
 		int sheets = workbook.getNumberOfSheets();
 		for (int i = 0; i < sheets; i++) {
-			if (workbook.getSheetName(i).equalsIgnoreCase("Read")) {
+			if (workbook.getSheetName(i).equalsIgnoreCase("Test Data")) {
 				XSSFSheet sheet = workbook.getSheetAt(i);
 				// Identify Testcases coloum by scanning the entire 1st row
 
@@ -51,7 +53,7 @@ public class TestDataUtils {
 				while (ce.hasNext()) {
 					Cell value = ce.next();
 
-					if (value.getStringCellValue().equalsIgnoreCase("TestCases")) {
+					if (value.getStringCellValue().equalsIgnoreCase(ModuleName)) {
 						coloumn = k;
 
 					} else if (value.getStringCellValue().equalsIgnoreCase(dataAttribute)) {

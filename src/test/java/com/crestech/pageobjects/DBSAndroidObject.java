@@ -1,6 +1,6 @@
 package com.crestech.pageobjects;
 
-import org.openqa.selenium.support.FindBy;
+
 import com.crestech.annotation.values.ElementDescription;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;;
@@ -14,208 +14,199 @@ import io.appium.java_client.pagefactory.AndroidFindBy;;
 
 public class DBSAndroidObject {
 
-	@ElementDescription(value = "Views Button")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Graphics']")
-	private MobileElement Graphics;
-
-	@ElementDescription(value = "Views Button")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='WebView']")
-	private MobileElement WebView;
-
-	@ElementDescription(value = "Drag and drop Button")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Drag and Drop']")
-	private MobileElement dragAndDrop;
-
-	@ElementDescription(value = "Drag and drop Button")
-	@AndroidFindBy(xpath = "//android.view.View[@resource-id='io.appium.android.apis:id/drag_dot_1']")
-	private MobileElement dragAndDrop1;
-
-	@ElementDescription(value = "Drag and drop Button")
-	@AndroidFindBy(xpath = "//android.view.View[@resourceid='io.appium.android.apis:id/drag_dot_2']")
-	private MobileElement dragAndDrop2;
-	
-	@ElementDescription(value = "EmailId")
-	@FindBy(id = "m_login_email")
-	//@AndroidFindBy(id = "m_login_email")
-	private MobileElement EmailId;
-	
-	@ElementDescription(value = "Password")
-	@FindBy(id = "m_login_password")
-	//@AndroidFindBy(id = "m_login_password")
-	private MobileElement Password; 
-
-	public MobileElement Graphics() {
-		return Graphics;
-	}
-
-	public MobileElement WebView() {
-		return WebView;
-	}
-
-	public MobileElement dragAndDrop() {
-		return dragAndDrop;
-	}
-
-	public MobileElement dragAndDrop1() {
-		return dragAndDrop1;
-	}
-
-	public MobileElement dragAndDrop2() {
-		return dragAndDrop2;
-	}
-	
-	public MobileElement EmailId() {
-		return EmailId;
-	}
-
-	
-	public MobileElement Password() {
-		return Password;
-	}
-
-	/*
-	 * public pCloudyHomePageObject(AppiumDriver<RemoteWebElement> driver) {
-	 * PageFactory.initElements(driver, this); }
+	/**
+	 *
+	 * @author Shafqat
+	 *DBS Android APPLICATION 1st Page Object.
+	 *
 	 */
+	
+	    @ElementDescription(value = "Application logo")
+		@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,'id/bank_logo')]")
+		private MobileElement Logo;
+	    
+	    @ElementDescription(value = "DBS text")
+		@AndroidFindBy(xpath = "//android.widget.TextView[@text='digibank']")
+		private MobileElement dbsText;
+	    
+	    @ElementDescription(value = "PRE LOGIN Button")
+		@AndroidFindBy(xpath = "//android.widget.Button[@text='PRE LOGIN']")
+		private MobileElement preLoginButton;
 
-	/*
-	 * public MobileElement getAcceptButton() { return acceptButton; }
-	 */
-//	@ElementDescription(value = "Allow Button")
-//	@AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.pcloudy.appiumdemo:id/accept']")
-//	private MobileElement allowButton;
-//
-//	@ElementDescription(value = "flight Button")
-//	@AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.pcloudy.appiumdemo:id/flightButton']")
-//	private MobileElement flightButton;
-//
-//	@ElementDescription(value = " spinner from")
-//	@AndroidFindBy(xpath = "//android.widget.Spinner[@resource-id='com.pcloudy.appiumdemo:id/spinnerfrom']")
-//	private MobileElement spinnerfrom;
-//
-//	@ElementDescription(value = " Select Bangalore Title")
-//	@AndroidFindBy(xpath = "//android.widget.CheckedTextView[@resource-id='android:id/text1' and @text='Bangalore, India (BLR)']")
-//	private MobileElement selectCity;
-//
-//	/*********************************
-//	 * API DEMO APPLICATION Elements_STARTS
-//	 ***************************************************************/
-//	@ElementDescription(value = "Views")
-//	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Views']")
-//	private MobileElement Views;
-//
-//	@ElementDescription(value = "AutoComplete")
-//	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Auto Complete']")
-//	// For checking failed scenario
-//	//@AndroidFindBy(xpath = "//android.widget.TextView[@text='Auto Complete text']")
-//	private MobileElement AutoComplete;
-//
-//	@ElementDescription(value = "MultipleItems")
-//	@AndroidFindBy(xpath = "//android.widget.TextView[@text='6. Multiple items']")
-//	private MobileElement MultipleItems;
-//
-//	@ElementDescription(value = "EditField")
-//	@AndroidFindBy(id = "com.example.android.apis:id/edit")
-//	private MobileElement selectEditField;
-//
-//	@ElementDescription(value = "Text")
-//	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Text']")
-//	private MobileElement Text;
-//
-//	@ElementDescription(value = "Marquee")
-//	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Marquee']")
-//	private MobileElement selectMarquee;
-//
-//	@ElementDescription(value = "MarqueeButton")
-//	@AndroidFindBy(xpath = "//android.widget.Button[1]")
-//	private MobileElement selectMarqueeButton;
-//
-//	@ElementDescription(value = "Animation")
-//	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Animation']")
-//	private MobileElement Animation;
-//
-//	@ElementDescription(value = "Seeking")
-//	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Seeking']")
-//	private MobileElement Seeking;
-//
-//	@ElementDescription(value = "Seekbar")
-//	@AndroidFindBy(id = "com.example.android.apis:id/seekBar")
-//	private MobileElement selectSeekbar;
-//
-//	@ElementDescription(value = "RunButton")
-//	@AndroidFindBy(xpath = "//android.widget.Button[@text='RUN']")
-//	private MobileElement RunButton;
-//
-//	/*********************************
-//	 * API DEMO APPLICATION Elements_ENDS
-//	 ***************************************************************/
-//
-//	/*********************************
-//	 * API DEMO APPLICATION Getter Setter_STARTS
-//	 ***************************************************************/
-//
-//	public MobileElement Views() {
-//		return Views;
-//	}
-//
-//	public MobileElement AutoComplete() {
-//		return AutoComplete;
-//	}
-//
-//	public MobileElement MultipleItems() {
-//		return MultipleItems;
-//	}
-//
-//	public MobileElement Text() {
-//		return Text;
-//	}
-//
-//	public MobileElement Animation() {
-//		return Animation;
-//	}
-//
-//	public MobileElement Seeking() {
-//		return Seeking;
-//	}
-//
-//	public MobileElement RunButton() {
-//		return RunButton;
-//	}
-//
-//	public MobileElement getSelectMarqueeButton() {
-//		return selectMarqueeButton;
-//	}
-//
-//	public MobileElement getSelectEditField() {
-//		return selectEditField;
-//	}
-//
-//	public MobileElement getSelectMarquee() {
-//		return selectMarquee;
-//	}
-//
-//	public MobileElement getSelectSeekbar() {
-//		return selectSeekbar;
-//	}
-//
-//	/*********************************
-//	 * API DEMO APPLICATION Getter Setter_ENDS
-//	 ***************************************************************/
-//
-//	public MobileElement getSelectCity() {
-//		return selectCity;
-//	}
-//
-//	public MobileElement allowButton() {
-//		return allowButton;
-//	}
-//
-//	public MobileElement getFlightButton() {
-//		return flightButton;
-//	}
-//
-//	public MobileElement spinnerfrom() {
-//		return spinnerfrom;
-//	}
+	    @ElementDescription(value = "SIGN UP FOR DIGIBANK Button")
+	  	@AndroidFindBy(xpath = "//android.widget.Button[@text='SIGN UP FOR DIGIBANK']")
+	  	private MobileElement signUpForDigibankButton;
+	    
+	    @ElementDescription(value = "LOG IN Button")
+		@AndroidFindBy(xpath = "//android.widget.Button[@text='LOG IN']")
+		private MobileElement loginButton;
+	    
+	    
+	    public MobileElement Logo() {
+			return Logo;
+		}
+	    public String getDbsText() {
+			return dbsText.getText();
+		}
+	    public MobileElement preLoginButton() {
+			return preLoginButton;
+		}
+	    public MobileElement signUpForDigibankButton() {
+			return signUpForDigibankButton;
+		}
+	    public MobileElement loginButton() {
+			return loginButton;
+		}
+	    
+	    
+	    /**
+		 *
+		 * @author Shafqat
+		 *DBS Android APPLICATION Login Page Object.
+		 *
+		 */
+	    
+	    
+	   // Login button is same as previous page
+	   
+	    @ElementDescription(value = "User ID EditTexT")
+		@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'id/edit_user_id')]")
+		private MobileElement userIdEditText;
+	 
+	    @ElementDescription(value = "User PIN EditTexT")
+		@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'id/edit_user_pin')]")
+		private MobileElement userPinEditText;
+	    
+	    public MobileElement userIdEditText() {
+			return userIdEditText;
+		}
+	 
+	    public MobileElement userPinEditText() {
+			return userPinEditText;
+		}
 
+	 
+
+	    /**
+		 *
+		 * @author Shafqat
+		 *DBS Android APPLICATION OneAppPostLogin Page Object.
+		 *
+		 */
+	    
+	    
+	    @ElementDescription(value = "Welcome to")
+		@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/banner_text_1')]")
+		private MobileElement welcomeTo_Element;
+	   
+	    @ElementDescription(value = "digbank")
+		@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/banner_text_2')]")
+		private MobileElement digibank_Element;
+	 
+	    @ElementDescription(value = "Logout Button")
+		@AndroidFindBy(xpath = "//android.widget.Button[@text='LOG OUT']")
+		private MobileElement logoutButton;
+	    
+	    public MobileElement WelcomeToText() {
+			return welcomeTo_Element;
+		}
+	 
+	    public MobileElement DigibankText() {
+			return digibank_Element;
+		}
+
+	    public MobileElement logoutButton() {
+			return logoutButton;
+		}
+
+/******************************************/
+
+		/**
+		 * 
+		 */
+
+		/**
+		 * This is applications alert element (Post Logout)screen-Tap on the stars to rate
+		 */
+		   @ElementDescription(value = "Alert Title")
+			@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/tv_title')]")
+			private MobileElement postLogoutAlertTitle;
+		
+		   @ElementDescription(value = "Alert Message")
+			@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/tv_star')]")
+			private MobileElement postLogoutAlertMessage;
+		
+		   @ElementDescription(value = "Submit Button")
+			@AndroidFindBy(xpath = "//android.widget.Button[@content-desc='SUBMIT']")
+			private MobileElement submitButton;
+		   
+			@ElementDescription(value = "Close Button")
+			@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,'id/btn_close')]")
+			private MobileElement postLogoutcloseButton;
+			
+			public MobileElement postLogoutAlertTitle() {
+				return postLogoutAlertTitle;
+			}
+			public MobileElement postLogoutAlertMessage() {
+				return postLogoutAlertMessage;
+			}
+			public MobileElement submitButton() {
+				return submitButton;
+			}
+			public MobileElement postLogoutcloseButton() {
+				return postLogoutcloseButton;
+			}
+			/**
+			 * 
+			 */
+			 /**
+			 *
+			 * @author Shafqat
+			 *DBS Android APPLICATION OneAppPostLogin Page Object.
+			 *
+			 */
+			  @ElementDescription(value = "set up your digital token")
+				@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/status_message')]")
+				private MobileElement tokenSetupMessage;
+			  
+			  @ElementDescription(value = "SET UP NOW Button")
+				@AndroidFindBy(xpath = "//android.widget.Button[@text='SET UP NOW']")
+				private MobileElement setUpNowButton;
+			  
+			  @ElementDescription(value = "Email/SMS OTP Message")
+				@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/txtv_kht_regcode_header')]")
+				private MobileElement emailSmsOtpMessage;
+			  
+			  @ElementDescription(value = "Email/SMS OTP Editbox")
+				@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'id/kht_otp_box')]")
+				private MobileElement emailSmsOtpEditBox;
+			  
+			  @ElementDescription(value = "You've set up your digital token")
+				@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/digital_token_msg')]")
+				private MobileElement tokenGetSetupMessage;
+			  
+			  @ElementDescription(value = "Done Button")
+				@AndroidFindBy(xpath = "//android.widget.Button[@text='DONE']")
+				private MobileElement doneButton;
+			  
+			  
+			   public MobileElement tokenSetupMessage() {
+					return tokenSetupMessage;
+				}
+			   public MobileElement setUpNowButton() {
+					return setUpNowButton;
+				}
+			   public MobileElement emailSmsOtpMessage() {
+					return emailSmsOtpMessage;
+				}
+			   public MobileElement emailSmsOtpEditBox() {
+					return emailSmsOtpEditBox;
+				}
+			   public MobileElement tokenGetSetupMessage() {
+					return tokenGetSetupMessage;
+				}
+			   public MobileElement doneButton() {
+					return doneButton;
+			   }
+				
 }

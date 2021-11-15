@@ -73,7 +73,17 @@ public class GestureUtils {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
 		} 
 	}
-	
+	public static void longPressOnMiddleOfScreen(int durationInSecond) throws Exception {
+		try {
+			AndroidTouchAction touch = new AndroidTouchAction(driver);
+			Dimension windowSize1 = driver.manage().window().getSize();
+			int y =(int)((windowSize1.getHeight())/2);
+			int x =(int)((windowSize1.getWidth())/2);
+			touch.longPress(LongPressOptions.longPressOptions().withPosition(point(x, y)).withDuration(ofSeconds(durationInSecond))).perform();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		} 
+	}
 	public static void longPressOnMobileElementSpecficLocation(MobileElement Element, int dur, int x, int y) throws Exception {
 		try {
 			wait.waitForElementToBeClickable(Element);
@@ -351,7 +361,7 @@ public class GestureUtils {
 		}
 	}
 
-	public void swipeElementtoCoordinate(MobileElement Element, int x, int y) throws Exception {
+	public static void swipeElementtoCoordinate(MobileElement Element, int x, int y) throws Exception {
 		try {
 			wait.waitForElementVisibility(Element);
 			touch.longPress(longPressOptions().withElement(element(Element)).withDuration(ofSeconds(2)))

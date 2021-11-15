@@ -14,7 +14,7 @@ import io.appium.java_client.AppiumDriver;
 
 public class Asserts extends UserBaseTest {
 
-	public void assertTrueScreenshot(boolean condition, String message) {
+	public static void assertTrueScreenshot(boolean condition, String message) {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertTrue(condition, message);
@@ -29,7 +29,7 @@ public class Asserts extends UserBaseTest {
 		}
 	}
 
-	public void assertTrue(boolean condition, String message) {
+	public static void assertTrue(boolean condition, String message) {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertTrue(condition, message);
@@ -43,7 +43,7 @@ public class Asserts extends UserBaseTest {
 		}
 	}
 
-	public void assertFalseScreenshot(boolean condition, String message) {
+	public static void assertFalseScreenshot(boolean condition, String message) {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertFalse(condition, message);
@@ -58,7 +58,7 @@ public class Asserts extends UserBaseTest {
 		}
 	}
 
-	public void assertFalse(boolean condition, String message) {
+	public  static void assertFalse(boolean condition, String message) {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertFalse(condition, message);
@@ -72,7 +72,7 @@ public class Asserts extends UserBaseTest {
 		}
 	}
 
-	public void assertEqualsScreenshot(String actual, String expected, String message) {
+	public static void assertEqualsScreenshot(String actual, String expected, String message) {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertEquals(actual, expected, message);
@@ -123,7 +123,7 @@ public class Asserts extends UserBaseTest {
 		}
 	}
 
-	public void log(boolean condition, String message, String assertCondition) {
+	public static void log(boolean condition, String message, String assertCondition) {
 		switch (assertCondition) {
 		case "assertTrue": {
 			if (condition)
@@ -144,7 +144,7 @@ public class Asserts extends UserBaseTest {
 		}
 	}
 
-	public void logScreenshot(boolean condition, String message, String assertCondition) {
+	public  static void logScreenshot(boolean condition, String message, String assertCondition) {
 		try {
 			switch (assertCondition) {
 			case "assertTrue": {
