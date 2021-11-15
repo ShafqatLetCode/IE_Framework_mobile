@@ -59,7 +59,7 @@ import io.qameta.allure.AllureLifecycle;
 /**
  *  *  * @author Shibu Prasad Panda  *  
  */
-
+////I am using git hub to managing our DBS project. Sample Test
 public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 	public AppiumDriver<RemoteWebElement> driver = null;
@@ -296,6 +296,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("appPackage", s.get(2));
 			capabilities.setCapability("appActivity", s.get(1));
 			capabilities.setCapability("pCloudy_WildNet", "false");
+			capabilities.setCapability("autoGrantPermissions", "true");
 
 			if (checkDeviceVersion(version)) {
 				capabilities.setCapability("automationName", "UiAutomator2");
@@ -488,7 +489,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	 * ExtentTestManager.getTest().log(LogStatus.FAIL, ); } }
 	 */
 	
-	public void addAttachment() {
+	public static void addAttachment() {
 		ALLURE_LIFECYCLE.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) ContextManager.getAndroidDriver()).getScreenshotAs(OutputType.BYTES));
 	}
 	

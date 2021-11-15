@@ -15,8 +15,9 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class CommonAlertElements {
 	
+	public static AppiumDriver<RemoteWebElement> driver1;
 	public CommonAlertElements(AppiumDriver<RemoteWebElement> driver) {
-		this.driver = driver;
+		this.driver1 = driver; 
 		PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 	}
 
@@ -148,4 +149,102 @@ public class CommonAlertElements {
 	public MobileElement getalertTitle() {
 		return TitleAlert;
 	}
+	/**
+	 * This is applications alert element asking to relaunch the application
+	 */
+	
+	@ElementDescription(value = "Message")
+	@AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.TextView[2]")
+	private MobileElement Message;
+	
+	
+	@ElementDescription(value = "Quit Button")
+	@AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button")
+	private MobileElement QuitButton;
+	
+	@ElementDescription(value = "Title")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Alert']")
+	private MobileElement Title;
+	
+	public MobileElement getMessage() {
+		return Message;
+	}
+	
+	public MobileElement getTitle() {
+		return Title;
+	}
+	public MobileElement quitButton() {
+		return QuitButton;
+	}
+	/**
+	 * 
+	 */
+	
+	
+	/**
+	 * This is applications alert element After login 
+	 */
+	   @ElementDescription(value = "Alert header")
+		@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'txt_header')]")
+		private MobileElement headerMessage;
+		
+		
+		@ElementDescription(value = "Swipe Button")
+		@AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.view.View")
+		private MobileElement swipeButton;
+		
+		
+		public MobileElement headerMessage() {
+			return headerMessage;
+		}
+		
+		public MobileElement swipeButton() {
+			return swipeButton;
+		}
+		
+		/**
+		 * 
+		 */
+		
+		/**
+		 * This is applications alert element asking to enable fingerprint
+		 */
+		   @ElementDescription(value = "Alert Fingerprint Message")
+			@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/desc')]")
+			private MobileElement headerFingerprintMessage;
+			
+			
+			@ElementDescription(value = "Close Button")
+			@AndroidFindBy(xpath = "//android.widget.ImageView[@content-desc='CLOSE']")
+			private MobileElement closeButton;
+			
+			
+			public MobileElement headerFingerprintMessage() {
+					return headerFingerprintMessage;
+			}
+			
+			public MobileElement closeButton() {
+				 return closeButton;
+			}
+			
+			/**
+			 * 
+			 */
+			
+			/**
+			 * This is applications alert element asking to enable recording
+			 */
+			   @ElementDescription(value = "Alert recordingt Message")
+				@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/title')]")
+				private MobileElement headerRecordingMessage;
+			
+				
+			   //android.widget.ImageView[@content-desc="CLOSE"]
+			   // closed button is same as previous popup
+				
+				public MobileElement headerRecordingMessage() {
+					return headerRecordingMessage;
+				}
+				
+			
 }

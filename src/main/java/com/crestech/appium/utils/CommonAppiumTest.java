@@ -9,6 +9,7 @@ import com.crestech.common.utilities.WaitUtils;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.StartsActivity;
 import io.appium.java_client.android.connection.ConnectionStateBuilder;
@@ -16,6 +17,7 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import io.qameta.allure.Step;
 
 public class CommonAppiumTest extends CommandPrompt {
 
@@ -29,6 +31,24 @@ public class CommonAppiumTest extends CommandPrompt {
 		gesture = new GestureUtils(driver2);
 	}
 
+	/**
+	 *  Re launching the application
+	 * @throws Exception
+	 */
+	@Step("application the Relanching")
+	public static void relanchApplication(String appPackage, String appActivity) throws Exception
+	{
+		try {
+		
+		Activity activity = new Activity(appPackage, appActivity);
+		((AndroidDriver<RemoteWebElement>)driver).startActivity(activity);
+		wait.ImplicitlyWait();
+	
+		} catch (Exception e) {
+			
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
 	/**
 	 * Click on element
 	 * @param element
@@ -52,7 +72,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public static void enterTextInTextbox(MobileElement element, String keysToSend) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(element);
+			wait.waitForElementVisibility(element);
 			element.sendKeys(keysToSend);
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
@@ -67,7 +87,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public static String getTexOfElement(MobileElement element) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(element);
+			wait.waitForElementVisibility(element);
 			return element.getText();
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
@@ -85,6 +105,36 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			wait.waitForElementVisibility(element);
 			return element.isDisplayed();
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	/**
+	 * Check whether element is enable
+	 * 
+	 * @param element
+	 * @return boolean
+	 * @throws Exception
+	 */
+	public static boolean isElementEnable(MobileElement element) throws Exception {
+		try {
+			wait.waitForElementVisibility(element);
+			return element.isEnabled();
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	/**
+	 * Check whether element is selected
+	 * 
+	 * @param element
+	 * @return boolean
+	 * @throws Exception
+	 */
+	public static boolean isElementSelected(MobileElement element) throws Exception {
+		try {
+			wait.waitForElementVisibility(element);
+			return element.isSelected();
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
