@@ -1,23 +1,31 @@
 package com.crestech.pages;
 
+import static org.testng.Assert.assertFalse;
 import java.time.Duration;
 import java.util.logging.Logger;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.appium.utils.CommonAppiumTest;
+import com.crestech.common.utilities.AndroidAlert;
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonAlertElements;
+import com.crestech.common.utilities.CommonTestData;
+import com.crestech.common.utilities.WaitUtils;
 import com.crestech.pageobjects.DBSAndroidObject;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.qameta.allure.Step;
 
+/**
+ * @author Divya Devi, Shafkat Ali
+ *
+ */
 public class DBSAndroidPage extends CommonAppiumTest {
 
 	static Logger log = Logger.getLogger(DBSAndroidPage.class.getName());
 	public DBSAndroidObject DBSappObject = new DBSAndroidObject();
-	
+
 	public DBSAndroidPage(AppiumDriver<RemoteWebElement> driver) {
 		super(driver);
 		try {
@@ -27,269 +35,271 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	/**
-	 *  @author Shafqat
-	 * This method is for Re launching DBS Application 
-	 */
 	@Step("Relaunching DBS application")
 	public void relaunchingDBS() {
-	try {
-		relanchApplication("com.dbs.sit1.dbsmbanking","com.dbs.sg.digibank.ui.demo.SplashActivity");
-	} catch (Exception e) {
-		e.printStackTrace();
+		try {
+			relanchApplication(CommonTestData.DBS_APP_PACKAGE.getEnumValue(),
+					CommonTestData.DBS_APPS_ACTIVITY.getEnumValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	}
-	/**
-	 *  @author Shafqat
-	 * This method is for Re launching POSB Application 
-	 */
+
 	@Step("Relaunching POSB application")
 	public void relaunchingPOSB() {
-	try {
-		relanchApplication("com.dbs.sit1.posbmbanking","com.dbs.sg.digibank.ui.demo.SplashActivity");
-	} catch (Exception e) {
-		e.printStackTrace();
+		try {
+			relanchApplication(CommonTestData.POSB_APP_PACKAGE.getEnumValue(),
+					CommonTestData.DBS_APPS_ACTIVITY.getEnumValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	}
-	/**
-	 *  @author Shafqat
-	 * This method is for Re launching iWealth Application 
-	 */
+
 	@Step("Relaunching iWealth application")
 	public void relaunchingIwealth() {
-	try {
-		relanchApplication("com.dbs.sg.uat.dbsiwealth","com.dbs.sg.digibank.ui.demo.SplashActivity");
-	} catch (Exception e) {
-		e.printStackTrace();
+		try {
+			relanchApplication(CommonTestData.IWEALTH_APP_PACKAGE.getEnumValue(),
+					CommonTestData.DBS_APPS_ACTIVITY.getEnumValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+
+	@Step("Log In the Application")
+	public void logInApplication(String userName, String password) throws Exception {
+		try {
+			WaitUtils wait = new WaitUtils(driver);
+			CommonAlertElements btnElements = new CommonAlertElements(driver);
+			wait.ImplicitlyWait();
+			driver.closeApp();
+			wait.ImplicitlyWait();
+			relaunchingDBS();
+			wait.ImplicitlyWait();
+			clickOnLoginButton();
+			sendDataInUserId(userName);
+			sendDataInUserPin(password);
+			clickOnLoginButton();
+			digitalTokenSetUp();
+			AndroidAlert.fingerprintAlertHandlingWithButtonMessage(btnElements.closeButton(),
+					CommonTestData.FINGERPRINT_MESSAGE.getEnumValue());
+			AndroidAlert.recordingAlertHandlingWithButtonMessage(btnElements.closeButton(),
+					CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.WelcomeToText()).trim(),
+					CommonTestData.WELCOME.getEnumValue(),
+					CommonTestData.WELCOME.getEnumValue() + " text is not found");
+			Asserts.assertEquals(getTexOfElement(DBSappObject.DigibankText()).trim(),
+					CommonTestData.DIGIBANK.getEnumValue(),
+					CommonTestData.DIGIBANK.getEnumValue() + " text is not found");
+		} catch (Exception e) {
+			assertFalse(true);
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+
+		}
 	}
-	
-	
-	/**
-	 *
-	 * @author Shafqat
-	 *DBS Android APPLICATION 1st Page Functional Repository.
-	 *
-	 */
-	
-	/**
-	 * This method is for clicking Login button 
-	 */
+
 	@Step("Clicked on Login button")
 	public void clickOnLoginButton() {
-	try {
-		clickOnElement(DBSappObject.loginButton());
-	} catch (Exception e) {
-		e.printStackTrace();
+		try {
+			clickOnElement(DBSappObject.loginButton());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	}
-	
-	/**
-	 * This method is for clicking Sign Up For Digibank button 
-	 */
+
 	@Step("Clicked on Sign Up For Digibank button")
 	public void clickOnSignUpForDigibankButton() {
-	try {
-		clickOnElement(DBSappObject.signUpForDigibankButton());
-	} catch (Exception e) {
-		e.printStackTrace();
+		try {
+			clickOnElement(DBSappObject.signUpForDigibankButton());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	}
-	
-	/**
-	 * This method is for clicking Pre Login button 
-	 */
+
 	@Step("Clicked on Pre Login button")
-	public void preLoginButton(){
-	try {
-		clickOnElement(DBSappObject.loginButton());
-	} catch (Exception e) {
-		e.printStackTrace();
+	public void preLoginButton() {
+		try {
+			clickOnElement(DBSappObject.loginButton());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	}
-	
-	
-	/**
-	 *
-	 * @author Shafqat
-	 *DBS Android APPLICATION Login Page Functional Repository.
-	 *
-	 */
-	
-	/**
-	 * This method will send data in the editbox
-	 */
+
 	@Step("Enter data in User EditBox")
-    public void sendDataInUserId(String text) {
-	try {
-		if(isElementEnable(DBSappObject.userIdEditText()))
-			enterTextInTextbox(DBSappObject.userIdEditText(), text);
-		
-		Asserts.assertTrue(isElementEnable(DBSappObject.userIdEditText()), "EditField is not enable");
+	public void sendDataInUserId(String text) {
+		try {
+			if (isElementEnable(DBSappObject.userIdEditText()))
+				enterTextInTextbox(DBSappObject.userIdEditText(), text);
+
+			Asserts.assertTrue(isElementEnable(DBSappObject.userIdEditText()), "EditField is not enable");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * This method will send data in the editbox
-	 */
+
 	@Step("Enter data in Pin EditBox")
-    public void sendDataInUserPin(String text) {
-	try {
-		if(isElementEnable(DBSappObject.userPinEditText()))
-			enterTextInTextbox(DBSappObject.userPinEditText(), text);
-		
-		
-		Asserts.assertTrue(isElementEnable(DBSappObject.userPinEditText()), "EditField is not enable");
+	public void sendDataInUserPin(String text) {
+		try {
+			if (isElementEnable(DBSappObject.userPinEditText()))
+				enterTextInTextbox(DBSappObject.userPinEditText(), text);
+
+			Asserts.assertTrue(isElementEnable(DBSappObject.userPinEditText()), "EditField is not enable");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 *
-	 * @author Shafqat
-	 *DBS Android APPLICATION OneAppPostLogin(Homepage) Functional Repository.
-	 *
-	 *
-	 *
-	 	/**
-	 * This method will verifying 'wlecome to' field
-	 */
-	@Step("Verify 'welcome to' field")
-    public void verifyTextWelcomeTo(String expectedText) {
-	try {
-		String actualText=getTexOfElement(DBSappObject.WelcomeToText()).trim();
-		Asserts.assertEquals(actualText, expectedText, "'Welcome To' text is not found");
+
+	@Step("Application Logout & Verifies the 'Tap on the stars to rate' field Message.")
+	public void clickOnLogoutAndVerify(String logoutTextMsg, String Ratingmsg) {
+		try {
+			AndroidAlert.AlertHandlingWithButtonMessage(DBSappObject.logoutButton(), logoutTextMsg,
+					DBSappObject.logoutButton());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.postLogoutAlertMessage()), Ratingmsg,
+					"'Tap on the stars to rate' Text is not found");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
- 	/**
-	 * This method will verifying 'wlecome to' field
-	 */
-	@Step("Verify 'digibank' field")
-    public void verifyTextDigibank(String expectedText) {
-	try {
-		String actualText=getTexOfElement(DBSappObject.DigibankText()).trim();
-		Asserts.assertEquals(actualText, expectedText, "'digibank' text is not found");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-	/**
-	 * This method will verifying 'Logout button' and perform click action
-	 */
-	@Step("Verify 'Logout' field and perform click action")
-    public void clickOnLogoutAndVerify(String expectedText) {
-	try {
-		String actualText=getTexOfElement(DBSappObject.logoutButton());
-		if(actualText.equalsIgnoreCase(expectedText))
-			CommonAppiumTest.clickOnElement(DBSappObject.logoutButton());
-		
-		Asserts.assertEquals(actualText, expectedText, "'Logout' button is not found");
-		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	/**
-	 *
-	 * @author Shafqat
-	 *DBS Android APPLICATION post logout Screen-Tap on the stars to rate Functional Repository.
-	 *
-	 *
-	 *
-	/**
-	 * This method will verifying 'Tap on the stars to rate' field
-	 */
-	@Step( "Verify 'Tap on the stars to rate' field" )
-    public void verifyTextTapOnTheStars(String expectedText) {
-	try {
-		String actualText=getTexOfElement(DBSappObject.postLogoutAlertMessage());
-		
-		Asserts.assertEquals(actualText, expectedText, "'Tap on the stars to rate' Text is not found");
-		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	/**
-	 *
-	 * @author Shafqat
-	 *DBS Android APPLICATION Token Setup Functional Repository.
-	 *
-	 *
-	 *
-	/**
-	 * This method will click on 'Set up now button' After verifying page header message field
-	 */
+
 	@Step("Verifying Page and clicking on 'SET UP NOW' button ")
-	public void verifyPageAndClickOnSetUpNowButton(String expectecMessage) throws Exception    
-	{
+	public void verifyPageAndClickOnSetUpNowButton(String expectecMessage) throws Exception {
 		try {
-
-			String actualMessage = CommonAppiumTest.getTexOfElement(DBSappObject.tokenSetupMessage());
-			
-				if(actualMessage.equalsIgnoreCase(expectecMessage))
-					CommonAppiumTest.clickOnElement(DBSappObject.setUpNowButton());
-				   
-				
-				Asserts.assertEquals(actualMessage, expectecMessage, "Title Message Not matching");
-					
-			
+			AndroidAlert.AlertHandlingWithButtonMessage(DBSappObject.setUpNowButton(), expectecMessage,
+					DBSappObject.tokenSetupMessage());
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
-	
 	}
-	/**
-	 * This method will Verify Email/SMS OTP Page and Send OTP on TextField button
-	 */
+
 	@Step("Verifying Email/SMS OTP Page and Send OTP on TextField button ")
-	public void verifyPageAndSendOtpToEditBox(String OTP, String expectecMessage) throws Exception   
-	{
+	public void verifyPageAndSendOtpToEditBox(String OTP, String expectecMessage) throws Exception {
 		try {
-
 			String actualMessage = CommonAppiumTest.getTexOfElement(DBSappObject.emailSmsOtpMessage());
-			
-				if(actualMessage.equalsIgnoreCase(expectecMessage))
-					if(isElementEnable(DBSappObject.emailSmsOtpEditBox()))
-						enterTextInTextbox(DBSappObject.emailSmsOtpEditBox(), OTP);
-				Asserts.assertTrue(isElementEnable(DBSappObject.emailSmsOtpEditBox()), "TextField is not enable");
-				   
-				
-				Asserts.assertEquals(actualMessage, expectecMessage, "Title Message Not matching");
-					
-			
+			if (actualMessage.equalsIgnoreCase(expectecMessage))
+				if (isElementEnable(DBSappObject.emailSmsOtpEditBox()))
+					enterTextInTextbox(DBSappObject.emailSmsOtpEditBox(), OTP);
+			Asserts.assertTrue(isElementEnable(DBSappObject.emailSmsOtpEditBox()), "TextField is not enable");
+			Asserts.assertEquals(actualMessage, expectecMessage, "Title Message Not matching");
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
-	
-	}
-	/**
-	 * This method will click on 'Done button' After verifying page header message After token is verified
-	 */
-	@Step("Verifying Page after Token setup and clicking on 'Done' button")
-	public void verifyPageAndClickOnDone(String expectecMessage) throws Exception    
-	{
-		try {
 
-			String actualMessage = CommonAppiumTest.getTexOfElement(DBSappObject.tokenGetSetupMessage());
-			
-				if(actualMessage.equalsIgnoreCase(expectecMessage))
-					CommonAppiumTest.clickOnElement(DBSappObject.doneButton());
-				   
-				
-				Asserts.assertEquals(actualMessage, expectecMessage, "Title Message Not matching");
-					
-			
+	}
+
+	@Step("Verifying Page after Digital Token setup after clicking on 'Done' button")
+	public void digitalTokenSetUp() throws Exception {
+		try {
+			Thread.sleep(5000);
+			verifyPageAndClickOnSetUpNowButton(CommonTestData.DIGITAL_TOKEN_SETUP_MESSAGE.getEnumValue());
+			verifyPageAndSendOtpToEditBox(CommonTestData.OTP.getEnumValue(),
+					CommonTestData.EMAIL_OTP_MESSAGE.getEnumValue());
+			verifyPageAndSendOtpToEditBox(CommonTestData.OTP.getEnumValue(),
+					CommonTestData.SMS_OTP_MESSAGE.getEnumValue());
+			AndroidAlert.AlertHandlingWithButtonMessage(DBSappObject.doneButton(),
+					CommonTestData.DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP.getEnumValue(),
+					DBSappObject.tokenGetSetupMessage());
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
-	
+	}
+
+	@Step("Verifies Remittance Corridor")
+	public void VerifyRemittanceCorridor() throws Exception {
+		try {
+			ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN();
+			ClickOnNextButtonAfterEnteringAmount();
+			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg();
+			ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
+			ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+
+	@Step("Verifies Remittance eOTT")
+	public void VerifyRemittanceEOTT() throws Exception {
+		try {
+			ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN();
+			ClickOnNextButtonAfterEnteringAmount();
+			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg();
+			ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
+			ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+
+	@Step("Next Button Procced With Entering Amount After Selecting any one fund source After selecting payee & Verifies Review Transfer Message on the top of the Header.")
+	public void ClickOnNextButtonAfterEnteringAmount() throws Exception {
+		try {
+			isElementVisible(DBSappObject.OverseasBtnText());
+			clickOnElement(DBSappObject.Btnlist().get(3));
+			isElementVisible(DBSappObject.OverseasTransferPage());
+			clickOnElement(DBSappObject.PayeeList().get(2));
+			isElementVisible(DBSappObject.SelectFundSourcePage());
+			clickOnElement(DBSappObject.SourceFundList().get(2));
+			clickOnElement(DBSappObject.AmountTextFields().get(0));
+			enterTextInTextbox(DBSappObject.AmountTextFields().get(0), CommonTestData.AMOUNT.getEnumValue());
+			pressGivenKey(driver, Keys.ENTER);
+			isElementVisible(DBSappObject.ExchangeRateText());
+			clickOnElement(DBSappObject.NextBtn());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.ReviewTransferPageHeader()),
+					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
+					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not found");
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+
+	@Step("Verifies Transfer Submitted Message after clicking on Transfer Now Button.")
+	public void ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg() throws Exception {
+		try {
+			clickOnElement(DBSappObject.TransferNowBtn());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.TransferSubmittedMsg()),
+					CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
+					CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue() + " Text is not found");
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+
+	@Step("Verifies Reference Number Text after clicking on Image Expand Button.")
+	public void ClickOnImageExpandBtnAndVerifiesReferenceNumberText() throws Exception {
+		try {
+			clickOnElement(DBSappObject.ImageExpand());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.ReferenceNumberText()),
+					CommonTestData.REFERENCE_NUMBER_TEXT.getEnumValue(),
+					CommonTestData.REFERENCE_NUMBER_TEXT.getEnumValue() + " Text is not found");
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+
+	@Step("Verifies Overseas transfer Message after clicking on Share Transfer Details Button.")
+	public void ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText() throws Exception {
+		try {
+			clickOnElement(DBSappObject.ShareTransferDetailsBtn());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.OverseasTransferMsg()),
+					CommonTestData.OVERSEAS_TRANSFER_TEXT.getEnumValue(),
+					CommonTestData.OVERSEAS_TRANSFER_TEXT.getEnumValue() + " Text is not found");
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+
+	@Step("Click On Pay & Transfer Button and then 2FA Authentication Done.")
+	public void ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN() throws Exception {
+		try {
+			if (isElementVisible(DBSappObject.PayAndTransferBtn())) {
+				clickOnElement(DBSappObject.PayAndTransferBtn());
+				isElementVisible(DBSappObject.ToFASecurePINMsg());
+				clickOnElement(DBSappObject.PasscodeField());
+				if (isElementEnable(DBSappObject.PasscodeField()))
+					enterTextInTextbox(DBSappObject.emailSmsOtpEditBox(), CommonTestData.OTP.getEnumValue());
+				clickOnElement(DBSappObject.doneButton());
+			}
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
 	}
 
 }
