@@ -186,6 +186,18 @@ public class DBSAndroidObject {
 		@AndroidFindBy(xpath = "//android.widget.EditText[@text='••••••']")
 		private MobileElement PasscodeField;
 	    
+	    @ElementDescription(value = "Success Tick Image View")
+		@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/imgView_ic_success_tick')]")
+		private MobileElement SuccessTickImageView;
+	  
+	    @ElementDescription(value = "DoneButtonForPasscode")
+		@AndroidFindBy(xpath = "//android.widget.Button[@text='Done']")
+		private MobileElement DoneButtonForPasscode;
+	    
+	    @ElementDescription(value = "Add Local Recipien")
+		@AndroidFindBy(xpath = "//android.widget.TextView[@text='Add Local Recipient']")
+		private MobileElement AddLocalRecipient;
+	    
 	    @ElementDescription(value = "Overseas Button Text")
 		@AndroidFindBy(xpath = "//android.widget.TextView[@text='Overseas']")
 		private MobileElement OverseasBtnText;
@@ -201,18 +213,39 @@ public class DBSAndroidObject {
 	    @ElementDescription(value = "Select Fund Source Page")
 		@AndroidFindBy(xpath = "//android.widget.TextView[@text='Select Fund Source']")
 		private MobileElement SelectFundSourcePage;
+	 
+	    @ElementDescription(value = "Select Bank Account")
+		@AndroidFindBy(xpath = "//android.widget.TextView[@text='Bank Account']")
+		private MobileElement SelectBankAccount;
 	    
+	    @ElementDescription(value = "Search field")
+		@AndroidFindBy(xpath = "//android.widget.EditText[@text='Search']")
+		private MobileElement SearchField;
+	    
+	    @ElementDescription(value = "Select Bank OF India")
+		@AndroidFindBy(xpath = "//android.widget.RelativeLayout//android.widget.TextView[@text='BANK OF INDIA']")
+		private MobileElement SelectBankOFIndia;
+	  
+	    
+	    @ElementDescription(value = "Add Local Recipient Details Field List")
+		@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,':id/edit_user_id')]")
+		private List<MobileElement> AddLocalRecipientDetailsFieldList; 
+	 
 	    @ElementDescription(value = "Select any one Fund Source from list")
 		@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/account_name')]")
-		private List<MobileElement> SourceFundList; // index=2
+		private List<MobileElement> SourceFundList; 
 
 	    @ElementDescription(value = "Overseas Transfer Page")
 		@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_title_mfe')]")
 		private MobileElement OverseasTransferPage;
 	    
+	    @ElementDescription(value = "Page Header")
+		@AndroidFindBy(xpath = " //android.widget.RelativeLayout//android.widget.TextView[contains(@resource-id,':id/text')]")
+		private MobileElement PageHeader;
+	 
 	    @ElementDescription(value = "Edit Amount Text Fields")
 		@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,':id/amountEdit')]")
-		private List<MobileElement> AmountTextFields; //index=0
+		private List<MobileElement> AmountTextFields; 
 	    
 	    @ElementDescription(value = "Next Button")
 	  	@AndroidFindBy(xpath = "//android.widget.Button[contains(@resource-id,':id/btn_remitnext')]")
@@ -222,6 +255,10 @@ public class DBSAndroidObject {
 	  	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_title_mfe')]")
 	  	private MobileElement ReviewTransferPageHeader; 
 	    
+	    @ElementDescription(value = "Add Recipient Now Button")
+	  	@AndroidFindBy(xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']")
+	  	private MobileElement AddRecipientNowBtn; 
+	  
 	    @ElementDescription(value = "Transfer Now Button")
 	  	@AndroidFindBy(xpath = "//android.widget.Button[@text='TRANSFER NOW']")
 	  	private MobileElement TransferNowBtn; 
@@ -230,6 +267,10 @@ public class DBSAndroidObject {
 	  	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/textViewInfo')]")
 	  	private MobileElement TransferSubmittedMsg; 
 	    
+	    @ElementDescription(value = "You Have Added Recipient Element")
+	  	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text')]")
+	  	private MobileElement YouHaveAddedRecipientElement; 
+	  
 	    @ElementDescription(value = "Image Expand")
 	  	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/image_expand')]")
 	  	private MobileElement ImageExpand; 
@@ -254,6 +295,14 @@ public class DBSAndroidObject {
 	  	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/appCompatImageView')]")
 	  	private MobileElement TransferSubmittedImage; 
 	    
+	    @ElementDescription(value = "iB Secure PIN, key in the numbers below.")
+	  	@AndroidFindBy(xpath = "//android.widget.TextView[@text='iB Secure PIN, key in the numbers below.']")
+	  	private MobileElement iBSecurePin; 
+	    
+	    public MobileElement iBSecurePin() {
+			return iBSecurePin;
+		}
+	  
 	    public MobileElement TransferSubmittedImage() {
 			return TransferSubmittedImage;
 		}
@@ -274,6 +323,18 @@ public class DBSAndroidObject {
 			return PasscodeField;
 		}
 	    
+	    public MobileElement SuccessTickImageView() {
+			return SuccessTickImageView;
+		}
+	    
+	    public MobileElement DoneButtonForPasscode() {
+			return  DoneButtonForPasscode;
+		}
+	    
+	    public MobileElement AddLocalRecipient() {
+			return  AddLocalRecipient;
+		}
+	    
 	    public MobileElement OverseasBtnText() {
 			return OverseasBtnText;
 		}
@@ -290,12 +351,32 @@ public class DBSAndroidObject {
 			return SelectFundSourcePage;
 		}
 	    
+	    public MobileElement SelectBankAccount() {
+			return SelectBankAccount;
+		}
+	    
 	    public List<MobileElement> SourceFundList() {
 			return SourceFundList;
 		}
 	    
+	    public List<MobileElement> AddLocalRecipientDetailsFieldList() {
+			return AddLocalRecipientDetailsFieldList;
+		}
+	    
 	    public MobileElement OverseasTransferPage() {
 			return OverseasTransferPage;
+		}
+	    
+	    public MobileElement SearchField() {
+			return SearchField;
+		}
+	    
+	    public MobileElement SelectBankOFIndia() {
+			return SelectBankOFIndia;
+		}
+	    
+	    public MobileElement PageHeader() {
+			return PageHeader;
 		}
 	    
 	    public List<MobileElement> AmountTextFields() {
@@ -314,8 +395,16 @@ public class DBSAndroidObject {
 			return TransferNowBtn;
 		}
 	    
+	    public MobileElement AddRecipientNowBtn() {
+			return AddRecipientNowBtn;
+		}
+	    
 	    public MobileElement TransferSubmittedMsg() {
 			return TransferSubmittedMsg;
+		}
+	    
+	    public MobileElement YouHaveAddedRecipientElement() {
+			return YouHaveAddedRecipientElement;
 		}
 	    
 	    public MobileElement ImageExpand() {
@@ -361,6 +450,10 @@ public class DBSAndroidObject {
 	  	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'Family support')]")
 	  	private MobileElement FundTransferPurposeOption; 
 	    
+	    @ElementDescription(value = "Next Button To Added Local Recipient")
+	  	@AndroidFindBy(xpath = "//android.widget.Button[contains(@resource-id,':id/btn_submit')]")
+	  	private MobileElement NextButtonToAddedLocalRecipient;
+	    
 	    @ElementDescription(value = "Text View Purpose")
 	  	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_view_purpose')]")
 	  	private MobileElement TextViewPurpose; 
@@ -372,7 +465,11 @@ public class DBSAndroidObject {
 	    public MobileElement FundTransferPurposeOption() {
 			return FundTransferPurposeOption;
 		}
-	  
+	    
+	    public MobileElement NextButtonToAddedLocalRecipient() {
+			return NextButtonToAddedLocalRecipient;
+		}
+	    
 	    public MobileElement SelectPurposeOfTransfer() {
 			return SelectPurposeOfTransfer;
 		}

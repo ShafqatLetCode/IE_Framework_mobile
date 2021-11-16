@@ -36,7 +36,14 @@ public enum CommonTestData {
 	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
 	EOTT_PAYEE("BHDeott"),
 	OVERSEAS_TRANSFER_PAGEHEADER("Overseas Transfer"),
+	LOCAL_TRANSFER_PayNow("Local Transfer & PayNow"),
 	PURPOSE_OF_TRANSFER_TEXT("Family support (Workers' remittances)"),
+	LOCAL_RECIPIENT_NAME("DBS2"),
+	LOCAL_RECIPIENT_ACCOUNT_NUMBER("123223344"),
+	BANK_NAME("Bank Of India"),
+	REVIEW_RECIPIENT_DETAILS("Review Recipient's Details"),
+	SECURE_PIN_PAGE_HEADER("Secure PIN"),
+	YOU_HAVE_ADDED_RECIPIENT_MSG("You’ve added a recipient"),
 	;
 
 	private final String message;

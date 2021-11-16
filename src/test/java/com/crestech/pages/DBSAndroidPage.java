@@ -255,6 +255,53 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
+	
+	@Step("Verifies Add payee DBSorPOSB")
+	public void VerifyAddPayeeDBSorPOSB() throws Exception {
+		try {
+			if (isElementVisible(DBSappObject.PayAndTransferBtn())) 
+				clickOnElement(DBSappObject.PayAndTransferBtn());
+			
+			isElementVisible(DBSappObject.iBSecurePin()); 
+			enterTextInTextbox(DBSappObject.PasscodeField(), CommonTestData.OTP.getEnumValue());
+			clickOnElement(DBSappObject.DoneButtonForPasscode());
+			wait.waitForElementVisibility(DBSappObject.AddLocalRecipient()); 
+			clickOnElement(DBSappObject.AddLocalRecipient());
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
+					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(),
+					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue() + " Text is not found");
+			
+			clickOnElement(DBSappObject.SelectBankAccount());
+			
+			enterTextInTextbox(DBSappObject.AddLocalRecipientDetailsFieldList().get(0), CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue());
+			clickOnElement(DBSappObject.AddLocalRecipientDetailsFieldList().get(1));
+			clickOnElement(DBSappObject.SearchField());
+			enterTextInTextbox(DBSappObject.SearchField(), CommonTestData.BANK_NAME.getEnumValue());
+			clickOnElement(DBSappObject.SelectBankOFIndia()); //or press enter key
+			enterTextInTextbox(DBSappObject.AddLocalRecipientDetailsFieldList().get(2), CommonTestData.LOCAL_RECIPIENT_ACCOUNT_NUMBER.getEnumValue());
+			clickOnElement(DBSappObject.NextButtonToAddedLocalRecipient());
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
+					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
+					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
+			
+			clickOnElement(DBSappObject.AddRecipientNowBtn());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
+					CommonTestData.SECURE_PIN_PAGE_HEADER.getEnumValue(),
+					CommonTestData.SECURE_PIN_PAGE_HEADER.getEnumValue() + " Text is not found");
+			
+			enterTextInTextbox(DBSappObject.PasscodeField(), CommonTestData.OTP.getEnumValue());
+			
+			if(isElementVisible(DBSappObject.SuccessTickImageView())) 
+				Asserts.assertEquals(getTexOfElement(DBSappObject.YouHaveAddedRecipientElement()),
+						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
+						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not found");
+			
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
 
 	@Step("Verifies Overseas Transfer Page Header on the top & Select Payee and fund source from Overseas Transfer page.")
 	public void SelectingPayeeAndFundSourceAfterSelectingOverseas() throws Exception {
@@ -341,9 +388,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				clickOnElement(DBSappObject.PayAndTransferBtn());
 				isElementVisible(DBSappObject.ToFASecurePINMsg());
 				clickOnElement(DBSappObject.PasscodeField());
-				if (isElementEnable(DBSappObject.PasscodeField()))
-					enterTextInTextbox(DBSappObject.emailSmsOtpEditBox(), CommonTestData.OTP.getEnumValue());
-				clickOnElement(DBSappObject.doneButton());
+				enterTextInTextbox(DBSappObject.PasscodeField(), CommonTestData.OTP.getEnumValue());
+				clickOnElement(DBSappObject. DoneButtonForPasscode());
 			}
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));

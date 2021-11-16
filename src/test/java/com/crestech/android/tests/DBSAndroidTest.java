@@ -81,4 +81,18 @@ public class DBSAndroidTest extends UserBaseTest {
 		}
 	}
 	
+	@Parameters({"userName", "password" })
+	@Test(priority=5, enabled=true, description = "Verifies the Payee add DSB or POSB.")
+	@Description(value = "Execution of this testcase:: Payee-Add-DBSorPOSB-ONEAPP-14675")
+	@Author(name = "Divya Devi")
+	public void Payee_Add_DBSorPOSB(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password);
+			 dbspage.VerifyAddPayeeDBSorPOSB();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+	
 }
