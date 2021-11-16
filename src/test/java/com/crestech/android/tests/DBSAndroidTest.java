@@ -46,7 +46,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			 dbspage.logInApplication(userName, password);
-			dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
+			 dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
 			
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 

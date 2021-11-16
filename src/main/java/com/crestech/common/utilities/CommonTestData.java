@@ -24,7 +24,8 @@ public enum CommonTestData {
 	SMS_OTP_MESSAGE("Step 2: SMS OTP"),
 	DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP("You've set up your digital token"),
 	OTP("123456"),
-	AMOUNT("34"),
+	CORRIDOR_AMOUNT("34"),
+	eOTT_AMOUNT("11.65"),
 	TRANSFER_SUBMITTED_MSG("Transfer Submitted"),
 	REVIEW_TRANSFER("Review Transfer"),
 	REFERENCE_NUMBER_TEXT("Reference No."),
@@ -33,6 +34,9 @@ public enum CommonTestData {
 	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
 	POSB_APP_PACKAGE("com.dbs.sit1.posbmbanking"),
 	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
+	EOTT_PAYEE("BHDeott"),
+	OVERSEAS_TRANSFER_PAGEHEADER("Overseas Transfer"),
+	PURPOSE_OF_TRANSFER_TEXT("Family support (Workers' remittances)"),
 	;
 
 	private final String message;

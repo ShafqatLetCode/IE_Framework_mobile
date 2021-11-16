@@ -207,7 +207,7 @@ public class DBSAndroidObject {
 		private List<MobileElement> SourceFundList; // index=2
 
 	    @ElementDescription(value = "Overseas Transfer Page")
-		@AndroidFindBy(xpath = "//android.widget.TextView[@text='Overseas Transfer']")
+		@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_title_mfe')]")
 		private MobileElement OverseasTransferPage;
 	    
 	    @ElementDescription(value = "Edit Amount Text Fields")
@@ -249,7 +249,15 @@ public class DBSAndroidObject {
 	    @ElementDescription(value = "Exchange Rate Text")
 	  	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/exchangerate_view_lbl')]")
 	  	private MobileElement ExchangeRateText; 
-
+	    
+	    @ElementDescription(value = "TransferSubmittedImage")
+	  	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/appCompatImageView')]")
+	  	private MobileElement TransferSubmittedImage; 
+	    
+	    public MobileElement TransferSubmittedImage() {
+			return TransferSubmittedImage;
+		}
+	  
 	    public MobileElement ExchangeRateText() {
 			return ExchangeRateText;
 		}
@@ -327,5 +335,66 @@ public class DBSAndroidObject {
 		}
 		
 	
-	/*****************Corridor Remittance******************/	
+	/*****************Corridor Remittance******************/
+	    /*****************Corridor eOTT******************/	
+	    @ElementDescription(value = "ALL TAB")
+	  	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc='ALL']/android.widget.TextView")
+	  	private MobileElement AllTab; 
+	    
+	    @ElementDescription(value = "Edit text Search Field")
+	  	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,':id/editText_search')]")
+	  	private MobileElement editSearchField; 
+
+	    @ElementDescription(value = "BHDeOTT Payee")
+	  	@AndroidFindBy(xpath = "//android.widget.TextView[@text='BHDeott']")
+	  	private MobileElement BHDeott_Payee; 
+	    
+	    @ElementDescription(value = "Exchange Rate ICON")
+	  	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,'id/ic_exchange')]")
+	  	private MobileElement ExchangeRateICON; 
+	    
+	    @ElementDescription(value = "Select Purpose Of Transfer")
+	  	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_view_hint_big')]")
+	  	private MobileElement SelectPurposeOfTransfer; 
+	    
+	    @ElementDescription(value = "Fund Transfer Purpose Option")
+	  	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'Family support')]")
+	  	private MobileElement FundTransferPurposeOption; 
+	    
+	    @ElementDescription(value = "Text View Purpose")
+	  	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_view_purpose')]")
+	  	private MobileElement TextViewPurpose; 
+	    
+	    public MobileElement TextViewPurpose() {
+			return TextViewPurpose;
+		}
+	  
+	    public MobileElement FundTransferPurposeOption() {
+			return FundTransferPurposeOption;
+		}
+	  
+	    public MobileElement SelectPurposeOfTransfer() {
+			return SelectPurposeOfTransfer;
+		}
+	    
+	    public MobileElement ExchangeRateICON() {
+			return ExchangeRateICON;
+		}
+	  
+	    public MobileElement AllTab() {
+			return AllTab;
+		}
+	    
+	    public MobileElement editSearchField() {
+			return editSearchField;
+		}
+	    
+	    public MobileElement BHDeott_Payee() {
+			return BHDeott_Payee;
+		}
+	    
+	  
+	    
+	    
+	    /*****************Corridor eOTT******************/	
 }

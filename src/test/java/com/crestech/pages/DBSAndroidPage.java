@@ -206,7 +206,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifyRemittanceCorridor() throws Exception {
 		try {
 			ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN();
-			ClickOnNextButtonAfterEnteringAmount();
+			SelectingPayeeAndFundSourceAfterSelectingOverseas();
+			pressEnterKeyAfterEnteringAmount(CommonTestData.CORRIDOR_AMOUNT.getEnumValue());
+			ClickOnNextBtnAndVerifiesReviewTransferPage();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg();
 			ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
 			ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText();
@@ -218,29 +220,73 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifies Remittance eOTT")
 	public void VerifyRemittanceEOTT() throws Exception {
 		try {
-			ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN();
-			ClickOnNextButtonAfterEnteringAmount();
+			if (isElementVisible(DBSappObject.PayAndTransferBtn())) 
+				clickOnElement(DBSappObject.PayAndTransferBtn());
+			
+			clickOnElement(DBSappObject.AllTab()); 
+			clickOnElement(DBSappObject.editSearchField());
+			enterTextInTextbox(DBSappObject.editSearchField(), CommonTestData.EOTT_PAYEE.getEnumValue());
+			pressGivenKey(driver, Keys.ENTER);
+			isElementVisible(DBSappObject.BHDeott_Payee());
+			clickOnElement(DBSappObject.BHDeott_Payee());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.OverseasTransferPage()),
+					CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue(),
+					CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue() + " Text is not found");
+			clickOnElement(DBSappObject.SelectFundSourcePage());
+			clickOnElement(DBSappObject.SourceFundList().get(0));
+			
+			pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
+			clickOnElement(DBSappObject.ExchangeRateICON());
+			//add scroll code if required.
+			clickOnElement(DBSappObject.SelectPurposeOfTransfer());
+			clickOnElement(DBSappObject.FundTransferPurposeOption());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.TextViewPurpose()),
+					CommonTestData.PURPOSE_OF_TRANSFER_TEXT.getEnumValue(),
+					CommonTestData.PURPOSE_OF_TRANSFER_TEXT.getEnumValue() + " Text is not found");
+			
+			ClickOnNextBtnAndVerifiesReviewTransferPage();
+			
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg();
+			
 			ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
+			
 			ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText();
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
-	@Step("Next Button Procced With Entering Amount After Selecting any one fund source After selecting payee & Verifies Review Transfer Message on the top of the Header.")
-	public void ClickOnNextButtonAfterEnteringAmount() throws Exception {
+	@Step("Verifies Overseas Transfer Page Header on the top & Select Payee and fund source from Overseas Transfer page.")
+	public void SelectingPayeeAndFundSourceAfterSelectingOverseas() throws Exception {
 		try {
 			isElementVisible(DBSappObject.OverseasBtnText());
 			clickOnElement(DBSappObject.Btnlist().get(3));
-			isElementVisible(DBSappObject.OverseasTransferPage());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.OverseasTransferPage()),
+					CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue(),
+					CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue() + " Text is not found");
 			clickOnElement(DBSappObject.PayeeList().get(2));
-			isElementVisible(DBSappObject.SelectFundSourcePage());
+			clickOnElement(DBSappObject.SelectFundSourcePage());
 			clickOnElement(DBSappObject.SourceFundList().get(2));
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Press enter key after Entering Amount.")
+	public void pressEnterKeyAfterEnteringAmount(String Amt) throws Exception {
+		try {
 			clickOnElement(DBSappObject.AmountTextFields().get(0));
-			enterTextInTextbox(DBSappObject.AmountTextFields().get(0), CommonTestData.AMOUNT.getEnumValue());
+			enterTextInTextbox(DBSappObject.AmountTextFields().get(0), Amt);
 			pressGivenKey(driver, Keys.ENTER);
-			isElementVisible(DBSappObject.ExchangeRateText());
+			wait.waitForElementVisibility(DBSappObject.ExchangeRateText());
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+
+	@Step("Verifies Review Transfer Page Header after clicking on Next Button.")
+	public void ClickOnNextBtnAndVerifiesReviewTransferPage() throws Exception {
+		try {
 			clickOnElement(DBSappObject.NextBtn());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.ReviewTransferPageHeader()),
 					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
@@ -249,11 +295,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
-
+	
+	
 	@Step("Verifies Transfer Submitted Message after clicking on Transfer Now Button.")
 	public void ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg() throws Exception {
 		try {
 			clickOnElement(DBSappObject.TransferNowBtn());
+			if(isElementVisible(DBSappObject.TransferSubmittedImage())) 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.TransferSubmittedMsg()),
 					CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
 					CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue() + " Text is not found");
