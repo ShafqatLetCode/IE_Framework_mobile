@@ -392,9 +392,8 @@ public class GestureUtils {
 		}
 	}
 
-	public boolean scrollUPtoObject(String attribute, String value) throws Exception {
+	public static void scrollUPtoObject(String attribute, String value, MobileElement element) throws Exception {
 		try {
-			wait.ImplicitlyWait();
 			Dimension windowSize = driver.manage().window().getSize();
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
@@ -404,6 +403,7 @@ public class GestureUtils {
 
 			String s1 = driver.getPageSource();
 			int count = 0;
+			WaitUtils wait = new WaitUtils(driver);
 			wait.ImplicitlyWait();
 			while ((driver.getPageSource().contains(str) != true) && count == 0) {
 				touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
@@ -414,10 +414,7 @@ public class GestureUtils {
 				} else
 					count = 1;
 			}
-			if (count == 0)
-				return true;
-			else
-				return false;
+			Asserts.assertTrue(CommonAppiumTest.isElementEnable(element), "Element not found");
 
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));

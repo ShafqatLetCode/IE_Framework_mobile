@@ -1,12 +1,15 @@
 package com.crestech.pages;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonAlertElements;
+import com.crestech.common.utilities.WaitUtils;
 import com.crestech.pageobjects.DBSAndroidObject;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -291,5 +294,449 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	
 	}
+	/**
+	 *
+	 * 
+	 *DBS Android APPLICATION payee Add and Remittance  Functional Repository.
+	 *
+	 *
+	 *
+	/**
+	 * This method will verifying and clicking 'Pay and Transfer' field
+	 */@Step("Verifying Pay and Transfer icon and click")
+		public void payAndTransferVerifyClick(String expectecText) throws Exception    
+		{
+			try {
 
+				String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.payAndTransferLabel());
+				
+					if(actualText.equalsIgnoreCase(expectecText))
+						CommonAppiumTest.clickOnElement(DBSappObject.payAndTransferButton());
+					   
+					
+					Asserts.assertEquals(actualText, expectecText, "Label Not matching");
+						
+				
+			} catch (Exception e) {
+				throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			}
+		
+		}
+	 /**
+		 * This method will verifying and clicking 'Overseas ' field
+		 */@Step("Verifying Overseas  icon and click")
+			public void overseasVerifyClick(String expectecText) throws Exception    
+			{
+				try {
+
+					String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.overseasLabel());
+					
+						if(actualText.equalsIgnoreCase(expectecText))
+							CommonAppiumTest.clickOnElement(DBSappObject.overseasButton());
+						   
+						
+						Asserts.assertEquals(actualText, expectecText, "Label Not matching");
+							
+					
+				} catch (Exception e) {
+					throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+				}
+			
+			}
+		
+			 /**
+				 * This method will verifying and clicking 'Add Overseas Recipient' field
+				 */@Step("Verifying Add Overseas Recipient  Label and click")
+					public void addOverseasRecipientVerifyClick(String expectecText) throws Exception    
+					{
+						try {
+
+							String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.addRecipientNowButton());
+							
+								if(actualText.equalsIgnoreCase(expectecText))
+									CommonAppiumTest.clickOnElement(DBSappObject.addRecipientNowButton());
+								   
+								
+								Asserts.assertEquals(actualText, expectecText, "Label Not matching");
+									
+							
+						} catch (Exception e) {
+							throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+						}
+					
+					}
+				 /**
+					 * This method will country's search dropdown 
+					 */@Step("Enter the text in search and select the corresponding value in the dropdown")
+					 public void sendDataInSearchBoxAndSelectFromDropDown(String searchBoxData, String valueSelectedFromList) {
+							try {
+								if(isElementEnable(DBSappObject.locationAutocompleteSearchBox()))
+									enterTextInTextbox(DBSappObject.locationAutocompleteSearchBox(), searchBoxData);
+								WaitUtils wait = new WaitUtils(driver);
+								wait.ImplicitlyWait();
+								List<MobileElement> Elementlist = DBSappObject.countryList();
+								List<MobileElement> ElementlistClickable = DBSappObject.countryclickableList();
+								int l = Elementlist.size();
+								int index=0;
+								String countryFromList=null;
+								for (int i = 0; i < l; i++) {
+									countryFromList=Elementlist.get(i).getText();
+									if(countryFromList.equalsIgnoreCase(valueSelectedFromList)) {
+										index++;
+										clickOnElement(ElementlistClickable.get(i));
+									
+								}
+									}
+								Asserts.assertTrue(isElementEnable(DBSappObject.locationAutocompleteSearchBox()), "SearchField is not enable");
+								Asserts.assertTrue(index>0, "No element found in the lis of corresponding value");
+								
+								
+								
+								
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+					 /**
+						 * This method will verifying and clicking 'CurrencyType' field
+						 */@Step("Verifying AUD CurrencyType Label and click")
+							public void CurrencyTypeVerifyClick(String expectecText) throws Exception    
+							{
+								try {
+
+									String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.currencyLabel());
+									
+										if(actualText.equalsIgnoreCase(expectecText))
+											CommonAppiumTest.clickOnElement(DBSappObject.currencyLabel());
+										   
+										
+										Asserts.assertEquals(actualText, expectecText, "Currency is Not matching");
+											
+									
+								} catch (Exception e) {
+									throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+								}
+							
+							}
+						 /**
+							 * This method will verifying and clicking 'Next' button field
+							 */@Step("Verifying AUD CurrencyType Label and click")
+								public void nextButtonVerifyClick() throws Exception    
+								{
+									try {
+
+										String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.nextButton());
+										
+											if(actualText.equalsIgnoreCase("NEXT"))
+												CommonAppiumTest.clickOnElement(DBSappObject.nextButton());
+											   
+											
+											Asserts.assertEquals(actualText, "NEXT", "Button not found");
+												
+										
+									} catch (Exception e) {
+										throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+									}
+								
+								}/**
+								 * This method will send data in the editbox
+								 */
+								@Step("Enter data in Bank Code EditBox")
+							    public void sendBankCode(String text) {
+								try {
+									if(isElementEnable(DBSappObject.enterBankcodeTextField()))
+										enterTextInTextbox(DBSappObject.enterBankcodeTextField(), text);
+									
+									Asserts.assertTrue(isElementEnable(DBSappObject.enterBankcodeTextField()), "EditField is not enable");
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+								/**
+								 * This method will send data in the editbox
+								 */
+								@Step("Enter Account No EditBox")
+							    public void sendAccountNo(String text) {
+								try {
+									if(isElementEnable(DBSappObject.recipientAccountNoEditBox()))
+										enterTextInTextbox(DBSappObject.recipientAccountNoEditBox(), text);
+									
+									Asserts.assertTrue(isElementEnable(DBSappObject.recipientAccountNoEditBox()), "EditField is not enable");
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+								/**
+								 * This method will send data in the editbox
+								 */
+								@Step("Enter Full name EditBox")
+							    public void sendFullName(String text) {
+								try {
+									if(isElementEnable(DBSappObject.recipientNameEditBox()))
+										enterTextInTextbox(DBSappObject.recipientNameEditBox(), text);
+									
+									Asserts.assertTrue(isElementEnable(DBSappObject.recipientNameEditBox()), "EditField is not enable");
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+								@Step("Enter Address EditBox")
+							    public void sendAddress(String text) {
+								try {
+									if(isElementEnable(DBSappObject.recipientAddressEditBox()))
+										enterTextInTextbox(DBSappObject.recipientAddressEditBox(), text);
+									
+									Asserts.assertTrue(isElementEnable(DBSappObject.recipientAddressEditBox()), "EditField is not enable");
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+								@Step("Enter city EditBox")
+							    public void sendcity(String text) {
+								try {
+									if(isElementEnable(DBSappObject.recipientCityEditBox()))
+										enterTextInTextbox(DBSappObject.recipientCityEditBox(), text);
+									
+									Asserts.assertTrue(isElementEnable(DBSappObject.recipientCityEditBox()), "EditField is not enable");
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+								/**
+								 * This method will verifying 'Tap on the stars to rate' field
+								 */
+								@Step( "Verify 'REVIEW RECIPIENT'S DETAILS label' field" )
+							    public void verifyRecipientReviewDetailLabel(String expectedText) {
+								try {
+									String actualText=getTexOfElement(DBSappObject.recipientReviewDetailLabel());
+									
+									Asserts.assertEquals(actualText, expectedText, "'REVIEW RECIPIENT'S DETAILS label' Text is not found");
+									
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+								/**
+								 * This method will verifying and clicking 'ADD RECIPIENT NOW' button field
+								 */@Step("Verifying AUD CurrencyType Label and click")
+									public void addRecipientNownVerifyClick(String expectecText) throws Exception    
+									{
+										try {
+
+											String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.addRecpientNowButton());
+											
+												if(actualText.equalsIgnoreCase(expectecText))
+													CommonAppiumTest.clickOnElement(DBSappObject.addRecpientNowButton());
+												   
+												
+												Asserts.assertEquals(actualText, expectecText, "Button not found");
+													
+											
+										} catch (Exception e) {
+											throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+										}
+									
+									}
+								 /**
+									 * This method will verifying 'You've added a recipient label' field
+									 */
+									@Step( "Verify 'You've added a recipient label' field" )
+								    public void verifyRecipientAddedLabel(String expectedText) {
+									try {
+										String actualText=getTexOfElement(DBSappObject.recipientaddedLabel());
+										
+										Asserts.assertEquals(actualText, expectedText, "'You've added a recipient label' Text is not found");
+										
+										} catch (Exception e) {
+											e.printStackTrace();
+										}
+									}
+									@Step("Clicked on expand button")
+									public void expandButton() {
+									try {
+										clickOnElement(DBSappObject.expandButton());
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+									}
+									/**
+									 * This method will verifying 'You've added a recipient label' field
+									 */
+									@Step( "Verify 'MAKE A TRANSFER' field" )
+								    public void verifymakeTransferButton(String expectedText) {
+									try {
+										String actualText=getTexOfElement(DBSappObject.makeTransferButton());
+										
+										Asserts.assertEquals(actualText, expectedText, "'MAKE A TRANSFER' Text is not found");
+										
+										} catch (Exception e) {
+											e.printStackTrace();
+										}
+									}
+									/**
+									 * This method will verifying 'You've added a recipient label' field
+									 */
+									@Step( "Verify 'Reference No. Field and its value' field" )
+								    public void verifyReferenceFieldAndItsValue(String expectedText) {
+									try {
+										String actualText=getTexOfElement(DBSappObject.referenceNoLabel());
+										
+										Asserts.assertEquals(actualText, expectedText, "'Reference no Field' is not found");
+										Asserts.assertTrue(isElementVisible(DBSappObject.referenceNoValue()), "Reference Number not Found");
+										} catch (Exception e) {
+											e.printStackTrace();
+										}
+									}
+									/**
+									 *
+									 * @author Shafqat
+									 *DBS Android APPLICATION paylah topup Functional Repository.
+									 *
+									 *
+									 *
+									/**
+									 * This method will verify and click 'TopUp' field
+									 */@Step("Verifying TopUp  Label and click")
+										public void topUpVerifyClick(String expectecText) throws Exception    
+										{
+											try {
+
+												String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.topUpLabel());
+												
+													if(actualText.equalsIgnoreCase(expectecText))
+														CommonAppiumTest.clickOnElement(DBSappObject.topUpButton());
+													   
+													
+													Asserts.assertEquals(actualText, expectecText, "Top up Label Not matching");
+														
+												
+											} catch (Exception e) {
+												throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+											}
+										
+										}
+									 /**
+										 * This method will verify and click 'Paylah' field
+										 */@Step("Verifying TopUp  Label and click")
+											public void payLahVerifyClick(String expectecText) throws Exception    
+											{
+												try {
+
+													String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.paylahLabel());
+													
+														if(actualText.equalsIgnoreCase(expectecText))
+															CommonAppiumTest.clickOnElement(DBSappObject.paylahButton());
+														   
+														
+														Asserts.assertEquals(actualText, expectecText, "PayLah Label Not matching");
+															
+													
+												} catch (Exception e) {
+													throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+												}
+											
+											}
+										 /**
+											 * This method will verifying 'You've added a recipient label' field
+											 */
+											@Step( "Verify 'Top Up Paylah Label' field" )
+										    public void verifyTopUpPaylahLabel(String expectedText) {
+											try {
+												String actualText=getTexOfElement(DBSappObject.topUpPaylahLabel());
+												
+												Asserts.assertEquals(actualText, expectedText, "'Top Up Paylah' Text is not found");
+												
+												} catch (Exception e) {
+													e.printStackTrace();
+												}
+											}
+											/**
+											 * This method will send data in the editbox
+											 */
+											@Step("Enter currency in EditBox")
+										    public void sendCurrencyInTextField(String text) {
+											try {
+												if(isElementEnable(DBSappObject.currencyTextBox()))
+													enterTextInTextbox(DBSappObject.currencyTextBox(), text);
+												
+												Asserts.assertTrue(isElementEnable(DBSappObject.currencyTextBox()), "EditField is not enable");
+												} catch (Exception e) {
+													e.printStackTrace();
+												}
+											}
+											@Step( "Verify 'Top Up Paylah Label' field" )
+										    public void verifyReviewTopUpLabel(String expectedText) {
+											try {
+												String actualText=getTexOfElement(DBSappObject.reviewTopUpLabel());
+												
+												Asserts.assertEquals(actualText, expectedText, "'Top Up Paylah' Text is not found");
+												
+												} catch (Exception e) {
+													e.printStackTrace();
+												}
+											}
+											@Step( "Verify 'Enter Amount' field" )
+										    public void verifyDisplayAmount(String expectedText) {
+											try {
+												String actualText=getTexOfElement(DBSappObject.displayAmount());
+												
+												Asserts.assertEquals(actualText, expectedText, "'Display Amount' is incorrect");
+												
+												} catch (Exception e) {
+													e.printStackTrace();
+												}
+											}
+											/**
+											 * This method will verify and click 'TOP UP NOW' field
+											 */@Step("Verifying TOP UP NOW  Label and click")
+												public void topUpNowVerifyClick(String expectecText) throws Exception    
+												{
+													try {
+
+														String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.topUpNowButton());
+														
+															if(actualText.equalsIgnoreCase(expectecText))
+																CommonAppiumTest.clickOnElement(DBSappObject.topUpNowButton());
+															   
+															
+															Asserts.assertEquals(actualText, expectecText, "TOP UP NOW button Not exist");
+																
+														
+													} catch (Exception e) {
+														throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+													}
+												
+												}
+											 @Step( "Verify 'Top-up Done' field" )
+											    public void verifyTopUpDoneLabel(String expectedText) {
+												try {
+													String actualText=getTexOfElement(DBSappObject.topUpDoneLabel());
+													
+													Asserts.assertEquals(actualText, expectedText, "'Top-up Done' Text is not found");
+													
+													} catch (Exception e) {
+														e.printStackTrace();
+													}
+												}
+											 /**
+												 * This method will verify and click 'Logout' field
+												 */@Step("Verifying Logout Label and click")
+													public void logOutTopUpVerifyClick(String expectecText) throws Exception    
+													{
+														try {
+
+															String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.logOutPaylahButton());
+															
+																if(actualText.equalsIgnoreCase(expectecText))
+																	CommonAppiumTest.clickOnElement(DBSappObject.logOutPaylahButton());
+																   
+																
+																Asserts.assertEquals(actualText, expectecText, "LogOut button Not exist");
+																	
+															
+														} catch (Exception e) {
+															throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+														}
+													
+													}
 }
