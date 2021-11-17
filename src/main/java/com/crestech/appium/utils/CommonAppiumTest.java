@@ -2,7 +2,9 @@ package com.crestech.appium.utils;
 
 import java.time.Duration;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.WaitUtils;
@@ -56,8 +58,11 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public static void clickOnElement(MobileElement element) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(element);
-			element.click();
+			if (element != null) {
+				wait.waitForElementToBeClickable(element);
+				element.click();
+			} else
+				throw new Exception("The element isn't provided or may be null.");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -74,6 +79,18 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			wait.waitForElementVisibility(element);
 			element.sendKeys(keysToSend);
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	public static void pressGivenKey(AppiumDriver driver, Keys key) throws Exception {
+		try {
+			if(key!=null) {				
+				Actions builder = new Actions(driver); 
+				builder.sendKeys(key).build().perform();
+			}else
+				throw new Exception("Key not provided");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}

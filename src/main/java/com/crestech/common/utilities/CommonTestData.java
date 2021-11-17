@@ -24,7 +24,26 @@ public enum CommonTestData {
 	SMS_OTP_MESSAGE("Step 2: SMS OTP"),
 	DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP("You've set up your digital token"),
 	OTP("123456"),
-	
+	CORRIDOR_AMOUNT("34"),
+	eOTT_AMOUNT("11.65"),
+	TRANSFER_SUBMITTED_MSG("Transfer Submitted"),
+	REVIEW_TRANSFER("Review Transfer"),
+	REFERENCE_NUMBER_TEXT("Reference No."),
+	OVERSEAS_TRANSFER_TEXT("OVERSEAS TRANSFER"),
+	DBS_APPS_ACTIVITY("com.dbs.sg.digibank.ui.demo.SplashActivity"),
+	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
+	POSB_APP_PACKAGE("com.dbs.sit1.posbmbanking"),
+	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
+	EOTT_PAYEE("BHDeott"),
+	OVERSEAS_TRANSFER_PAGEHEADER("Overseas Transfer"),
+	LOCAL_TRANSFER_PayNow("Local Transfer & PayNow"),
+	PURPOSE_OF_TRANSFER_TEXT("Family support (Workers' remittances)"),
+	LOCAL_RECIPIENT_NAME("DBS2"),
+	LOCAL_RECIPIENT_ACCOUNT_NUMBER("123223344"),
+	BANK_NAME("Bank Of India"),
+	REVIEW_RECIPIENT_DETAILS("Review Recipient's Details"),
+	SECURE_PIN_PAGE_HEADER("Secure PIN"),
+	YOU_HAVE_ADDED_RECIPIENT_MSG("You’ve added a recipient"),
 	;
 
 	private final String message;
