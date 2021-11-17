@@ -100,7 +100,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 	
 	@Parameters({"userName", "password" })
-	@Test(priority=6,enabled=true,description = "Verify the Topup Paylah in Applications")
+	@Test(priority=6, enabled=true, description = "Verify the Topup Paylah in Applications")
 	@Description(value = "Execution of this testcase:: TopUp-PayLah-ONEAPP-13915")
 	@Author(name = "Shafqat Ali")
 	public void Topup_Paylah(String userName,String password) throws Exception { 
@@ -108,26 +108,21 @@ public class DBSAndroidTest extends UserBaseTest {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			 dbspage.logInApplication(userName, password);
 			 dbspage.ClickOnPayAndTransferAndVerify(CommonTestData.PAY_TRANSFER_ICON.getEnumValue());
-			
 			 dbspage.topUpVerifyClick(CommonTestData.TOPUP_LABEL.getEnumValue());
 			 dbspage.payLahVerifyClick(CommonTestData.PAYLAH_LABEL.getEnumValue());
 			 dbspage.verifyTopUpPaylahLabel(CommonTestData.TOPUP_PAYLAH_LABEL.getEnumValue());
 			 dbspage.sendCurrencyInTextField(CommonTestData.AMOUNT_PAYLAH.getEnumValue());
 			 dbspage.nextButtonVerifyClick();
 			 dbspage.verifyReviewTopUpLabel(CommonTestData.TOPUP_REVIEW_LABEL.getEnumValue());
-			 dbspage.verifyDisplayAmount(CommonTestData.AMOUNT_PAYLAH.getEnumValue());
 			 dbspage.topUpNowVerifyClick(CommonTestData.TOPUP_NOW_BUTTOM_LABEL.getEnumValue());
-			 dbspage.verifyTopUpDoneLabel(CommonTestData.TOPUP_UP_DONE_LABEL.getEnumValue());
-			 dbspage.verifyDisplayAmount(CommonTestData.AMOUNT_PAYLAH.getEnumValue());
 			 dbspage.logOutTopUpVerifyClick(CommonTestData.LOGOUT_PAYLAH.getEnumValue());
-			
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 	
 	@Parameters({"userName", "password" })
-	@Test(priority=7,enabled=true,description = "Verify the Add Remittance payee")
+	@Test(priority=7, enabled=true, description = "Verify the Add Remittance payee")
 	@Description(value = "Execution of this testcase::Payee-Add-Remittance-ONEAPP-13679")
 	@Author(name = "Shafqat Ali")
 	public void Payee_Add_Remittance(String userName,String password) throws Exception { 
@@ -151,15 +146,41 @@ public class DBSAndroidTest extends UserBaseTest {
 			 dbspage.verifyRecipientReviewDetailLabel(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue());
 			 GestureUtils.scrollUPtoObject("text", "ADD RECIPIENT NOW", dbspage.DBSappObject.addRecpientNowButton());
 			 dbspage.addRecipientNownVerifyClick(CommonTestData.ADD_NOW_RECIPIENT_LABEL.getEnumValue());
-			 //2fa
 			 dbspage.verifyRecipientAddedLabel(CommonTestData.RECIPIENT_ADDED.getEnumValue());
 			 dbspage.expandButton();
 			 GestureUtils.scrollUPtoObject("text", "Reference No.", dbspage.DBSappObject.referenceNoLabel());
 			 dbspage.verifymakeTransferButton(CommonTestData.MAKE_TRANSFER.getEnumValue());
 			 dbspage.verifyReferenceFieldAndItsValue(CommonTestData.REFERENCE_NUMBER.getEnumValue());
-			
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=8, enabled=true, description = "Verifies the Apply Debit Card.")
+	@Description(value = "Execution of this testcase:: ApplyDebitCard-ONEAPP-15861")
+	@Author(name = "Divya Devi")
+	public void ApplyDebitCard(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password);
+			 dbspage.ApplyDebitCard();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=9, enabled=true, description = "Verifies the Peek Balance.")
+	@Description(value = "Execution of this testcase:: PeekBalance-MCA-ONEAPP-13982")
+	@Author(name = "Divya Devi")
+	public void PeekBalance_MCA(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password);
+			 dbspage.VerifyPeekBalance();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
 		}
 	}
 	

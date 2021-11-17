@@ -202,22 +202,26 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifying Page after Digital Token setup after clicking on 'Done' button")
 	public void digitalTokenSetUp() throws Exception {
 		try {
-			Thread.sleep(5000);
-			verifyPageAndClickOnSetUpNowButton(CommonTestData.DIGITAL_TOKEN_SETUP_MESSAGE.getEnumValue());
-			String alertMsg = "//android.widget.TextView[@text='Please note you can only have one digital token registered to your profile. Any digital token on an alternative device will therefore be automatically deregistered.']";
-			List<RemoteWebElement> elements = driver.findElements(By.xpath(alertMsg));
-			if (elements.size() > 0) {
-				String continueButtonXpath = "//android.widget.Button[@text='CONTINUE']";
-				List<RemoteWebElement> continueButtons = driver.findElements(By.xpath(continueButtonXpath));
-				continueButtons.get(0).click();
+			String digitalTokenSetUpXpath = "//android.widget.TextView[contains(@resource-id,'id/status_message')]";
+			List<RemoteWebElement> digitalTokenSetUpList = driver.findElements(By.xpath(digitalTokenSetUpXpath));
+			if (digitalTokenSetUpList.size() > 0) {
+				Thread.sleep(5000);
+				verifyPageAndClickOnSetUpNowButton(CommonTestData.DIGITAL_TOKEN_SETUP_MESSAGE.getEnumValue());
+				String alertMsg = "//android.widget.TextView[@text='Please note you can only have one digital token registered to your profile. Any digital token on an alternative device will therefore be automatically deregistered.']";
+				List<RemoteWebElement> elements = driver.findElements(By.xpath(alertMsg));
+				if (elements.size() > 0) {
+					String continueButtonXpath = "//android.widget.Button[@text='CONTINUE']";
+					List<RemoteWebElement> continueButtons = driver.findElements(By.xpath(continueButtonXpath));
+					continueButtons.get(0).click();
+				}
+				verifyPageAndSendOtpToEditBox(CommonTestData.OTP.getEnumValue(),
+						CommonTestData.EMAIL_OTP_MESSAGE.getEnumValue());
+				verifyPageAndSendOtpToEditBox(CommonTestData.OTP.getEnumValue(),
+						CommonTestData.SMS_OTP_MESSAGE.getEnumValue());
+				AndroidAlert.AlertHandlingWithButtonMessage(DBSappObject.doneButton(),
+						CommonTestData.DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP.getEnumValue(),
+						DBSappObject.tokenGetSetupMessage());
 			}
-			verifyPageAndSendOtpToEditBox(CommonTestData.OTP.getEnumValue(),
-					CommonTestData.EMAIL_OTP_MESSAGE.getEnumValue());
-			verifyPageAndSendOtpToEditBox(CommonTestData.OTP.getEnumValue(),
-					CommonTestData.SMS_OTP_MESSAGE.getEnumValue());
-			AndroidAlert.AlertHandlingWithButtonMessage(DBSappObject.doneButton(),
-					CommonTestData.DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP.getEnumValue(),
-					DBSappObject.tokenGetSetupMessage());
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
@@ -241,7 +245,19 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifies Remittance eOTT")
 	public void VerifyRemittanceEOTT() throws Exception {
 		try {
-			ClickOnPayAndTransferAndVerify(CommonTestData.PAY_TRANSFER_ICON.getEnumValue());
+			if (isElementVisible(DBSappObject.PayAndTransferBtn()))
+				clickOnElement(DBSappObject.PayAndTransferBtn());
+
+			String xpath = "//android.widget.EditText[@text='••••••']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			if (list.size() > 0) {
+				// isElementVisible(DBSappObject.iBSecurePin());
+				enterTextInTextbox(DBSappObject.PasscodeField(), CommonTestData.OTP.getEnumValue());
+				String doneButtonxpath = "//android.widget.Button[@text='Done']";
+				List<RemoteWebElement> doneButtonList = driver.findElements(By.xpath(doneButtonxpath));
+				if (doneButtonList.size() > 0)
+					clickOnElement(DBSappObject.DoneButtonForPasscode());
+			}
 			clickOnElement(DBSappObject.AllTab());
 			clickOnElement(DBSappObject.editSearchField());
 			enterTextInTextbox(DBSappObject.editSearchField(), CommonTestData.EOTT_PAYEE.getEnumValue());
@@ -278,10 +294,19 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifies Add payee DBSorPOSB")
 	public void VerifyAddPayeeDBSorPOSB() throws Exception {
 		try {
-			ClickOnPayAndTransferAndVerify(CommonTestData.PAY_TRANSFER_ICON.getEnumValue());
-			isElementVisible(DBSappObject.iBSecurePin());
-			enterTextInTextbox(DBSappObject.PasscodeField(), CommonTestData.OTP.getEnumValue());
-			clickOnElement(DBSappObject.DoneButtonForPasscode());
+			if (isElementVisible(DBSappObject.PayAndTransferBtn()))
+				clickOnElement(DBSappObject.PayAndTransferBtn());
+
+			String xpath = "//android.widget.EditText[@text='••••••']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			if (list.size() > 0) {
+				// isElementVisible(DBSappObject.iBSecurePin());
+				enterTextInTextbox(DBSappObject.PasscodeField(), CommonTestData.OTP.getEnumValue());
+				String doneButtonxpath = "//android.widget.Button[@text='Done']";
+				List<RemoteWebElement> doneButtonList = driver.findElements(By.xpath(doneButtonxpath));
+				if (doneButtonList.size() > 0)
+					clickOnElement(DBSappObject.DoneButtonForPasscode());
+			}
 			wait.waitForElementVisibility(DBSappObject.AddLocalRecipient());
 			clickOnElement(DBSappObject.AddLocalRecipient());
 
@@ -401,11 +426,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Pay & Transfer Button and then 2FA Authentication Done.")
 	public void ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN() throws Exception {
 		try {
-			    ClickOnPayAndTransferAndVerify(CommonTestData.PAY_TRANSFER_ICON.getEnumValue());
-				isElementVisible(DBSappObject.ToFASecurePINMsg());
-				clickOnElement(DBSappObject.PasscodeField());
-				enterTextInTextbox(DBSappObject.PasscodeField(), CommonTestData.OTP.getEnumValue());
-				clickOnElement(DBSappObject.DoneButtonForPasscode());
+			ClickOnPayAndTransferAndVerify(CommonTestData.PAY_TRANSFER_ICON.getEnumValue());
+			isElementVisible(DBSappObject.ToFASecurePINMsg());
+			clickOnElement(DBSappObject.PasscodeField());
+			enterTextInTextbox(DBSappObject.PasscodeField(), CommonTestData.OTP.getEnumValue());
+			clickOnElement(DBSappObject.DoneButtonForPasscode());
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
@@ -416,7 +441,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.payAndTransferLabel());
 			Asserts.assertEquals(actualText, expectecText, "Label Not matching");
-			if (isElementVisible(DBSappObject.PayAndTransferBtn())) 
+			if (isElementVisible(DBSappObject.PayAndTransferBtn()))
 				clickOnElement(DBSappObject.PayAndTransferBtn());
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
@@ -430,7 +455,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 			String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.overseasLabel());
 			Asserts.assertEquals(actualText, expectecText, "Label Not matching");
-			
+
 			if (actualText.equalsIgnoreCase(expectecText))
 				clickOnElement(DBSappObject.Btnlist().get(3));
 
@@ -439,9 +464,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	/**
-	 * This method will verifying and clicking 'Add Overseas Recipient' field
-	 */
 	@Step("Verifying Add Overseas Recipient  Label and click")
 	public void addOverseasRecipientVerifyClick(String expectecText) throws Exception {
 		try {
@@ -459,9 +481,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 	}
 
-	/**
-	 * This method will country's search dropdown
-	 */
 	@Step("Enter the text in search and select the corresponding value in the dropdown")
 	public void sendDataInSearchBoxAndSelectFromDropDown(String searchBoxData, String valueSelectedFromList) {
 		try {
@@ -490,9 +509,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	/**
-	 * This method will verifying and clicking 'CurrencyType' field
-	 */
 	@Step("Verifying AUD CurrencyType Label and click")
 	public void CurrencyTypeVerifyClick(String expectecText) throws Exception {
 		try {
@@ -510,9 +526,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 	}
 
-	/**
-	 * This method will verifying and clicking 'Next' button field
-	 */
 	@Step("Verifying AUD CurrencyType Label and click")
 	public void nextButtonVerifyClick() throws Exception {
 		try {
@@ -530,9 +543,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 	}
 
-	/**
-	 * This method will send data in the editbox
-	 */
 	@Step("Enter data in Bank Code EditBox")
 	public void sendBankCode(String text) {
 		try {
@@ -763,34 +773,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Verify 'Top Up Paylah Label' field")
+	@Step("Verify 'Top Up Paylah Label' field And Verify 'Enter Amount' field")
 	public void verifyReviewTopUpLabel(String expectedText) {
 		try {
-			String actualText = getTexOfElement(DBSappObject.reviewTopUpLabel());
-
-			Asserts.assertEquals(actualText, expectedText, "'Top Up Paylah' Text is not found");
-
+			Asserts.assertEquals(getTexOfElement(DBSappObject.reviewTopUpLabel()), expectedText, "'Top Up Paylah' Text is not found");
+			Asserts.assertEquals(getTexOfElement(DBSappObject.displayAmount()), CommonTestData.AMOUNT_PAYLAH.getEnumValue(), "'Display Amount' is incorrect");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Step("Verify 'Enter Amount' field")
-	public void verifyDisplayAmount(String expectedText) {
-		try {
-			String actualText = getTexOfElement(DBSappObject.displayAmount());
-
-			Asserts.assertEquals(actualText, expectedText, "'Display Amount' is incorrect");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * This method will verify and click 'TOP UP NOW' field
-	 */
-	@Step("Verifying TOP UP NOW  Label and click")
+	@Step("Verifying TOP UP NOW  Label and click and then Verify 'Top-up Done' field and Display Amount")
 	public void topUpNowVerifyClick(String expectecText) throws Exception {
 		try {
 
@@ -799,44 +792,43 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (actualText.equalsIgnoreCase(expectecText))
 				CommonAppiumTest.clickOnElement(DBSappObject.topUpNowButton());
 
-			Asserts.assertEquals(actualText, expectecText, "TOP UP NOW button Not exist");
-
+			 Asserts.assertEquals(actualText, expectecText, "TOP UP NOW button Not exist");
+			 Asserts.assertEquals(getTexOfElement(DBSappObject.topUpDoneLabel()), CommonTestData.TOPUP_UP_DONE_LABEL.getEnumValue(), "'Top-up Done' Text is not found");
+			 Asserts.assertEquals(getTexOfElement(DBSappObject.displayAmount()), CommonTestData.AMOUNT_PAYLAH.getEnumValue(), "'Display Amount' is incorrect");
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 
 	}
 
-	@Step("Verify 'Top-up Done' field")
-	public void verifyTopUpDoneLabel(String expectedText) {
-		try {
-			String actualText = getTexOfElement(DBSappObject.topUpDoneLabel());
-
-			Asserts.assertEquals(actualText, expectedText, "'Top-up Done' Text is not found");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * This method will verify and click 'Logout' field
-	 */
 	@Step("Verifying Logout Label and click")
 	public void logOutTopUpVerifyClick(String expectecText) throws Exception {
 		try {
-
 			String actualText = CommonAppiumTest.getTexOfElement(DBSappObject.logOutPaylahButton());
-
 			if (actualText.equalsIgnoreCase(expectecText))
 				CommonAppiumTest.clickOnElement(DBSappObject.logOutPaylahButton());
-
 			Asserts.assertEquals(actualText, expectecText, "LogOut button Not exist");
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+
+	@Step("Verifies the Applying Debit Card and Verify the completion page details.")
+	public void ApplyDebitCard() throws Exception {
+		try {
 
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
+	}
 
+	@Step("verify balance on peek balance popup in prelogin page should be same as current account balance in dashboard with current date and time.")
+	public void VerifyPeekBalance() throws Exception {
+		try {
+
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
 	}
 
 }
