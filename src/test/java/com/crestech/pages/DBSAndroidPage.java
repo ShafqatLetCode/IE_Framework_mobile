@@ -2,7 +2,10 @@ package com.crestech.pages;
 
 import static org.testng.Assert.assertFalse;
 import java.time.Duration;
+import java.util.List;
 import java.util.logging.Logger;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -26,42 +29,42 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	static Logger log = Logger.getLogger(DBSAndroidPage.class.getName());
 	public DBSAndroidObject DBSappObject = new DBSAndroidObject();
 
-	public DBSAndroidPage(AppiumDriver<RemoteWebElement> driver) {
+	public DBSAndroidPage(AppiumDriver<RemoteWebElement> driver) throws Exception {
 		super(driver);
 		try {
 			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), DBSappObject);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
 	@Step("Relaunching DBS application")
-	public void relaunchingDBS() {
+	public void relaunchingDBS() throws Exception {
 		try {
 			relanchApplication(CommonTestData.DBS_APP_PACKAGE.getEnumValue(),
 					CommonTestData.DBS_APPS_ACTIVITY.getEnumValue());
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
 	@Step("Relaunching POSB application")
-	public void relaunchingPOSB() {
+	public void relaunchingPOSB() throws Exception {
 		try {
 			relanchApplication(CommonTestData.POSB_APP_PACKAGE.getEnumValue(),
 					CommonTestData.DBS_APPS_ACTIVITY.getEnumValue());
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
 	@Step("Relaunching iWealth application")
-	public void relaunchingIwealth() {
+	public void relaunchingIwealth() throws Exception {
 		try {
 			relanchApplication(CommonTestData.IWEALTH_APP_PACKAGE.getEnumValue(),
 					CommonTestData.DBS_APPS_ACTIVITY.getEnumValue());
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
@@ -71,18 +74,28 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			WaitUtils wait = new WaitUtils(driver);
 			CommonAlertElements btnElements = new CommonAlertElements(driver);
 			wait.ImplicitlyWait();
-			driver.closeApp();
-			wait.ImplicitlyWait();
-			relaunchingDBS();
-			wait.ImplicitlyWait();
+			wait.waitForElementToBeClickable(DBSappObject.loginButton());
+			Thread.sleep(30000);
+			String quitButtonXpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(quitButtonXpath));
+			if (list.size()>0) {
+				driver.closeApp();
+				//wait.ImplicitlyWait();
+				Thread.sleep(10000);
+				relaunchingDBS();
+				wait.waitForElementToBeClickable(DBSappObject.loginButton());
+				//wait.ImplicitlyWait();
+				Thread.sleep(5000);
+			}
 			clickOnLoginButton();
 			sendDataInUserId(userName);
 			sendDataInUserPin(password);
 			clickOnLoginButton();
 			digitalTokenSetUp();
-			AndroidAlert.fingerprintAlertHandlingWithButtonMessage(btnElements.closeButton(),
+			AndroidAlert androidAlert = new AndroidAlert(driver);
+			androidAlert.fingerprintAlertHandlingWithButtonMessage(btnElements.closeButton(),
 					CommonTestData.FINGERPRINT_MESSAGE.getEnumValue());
-			AndroidAlert.recordingAlertHandlingWithButtonMessage(btnElements.closeButton(),
+			androidAlert.recordingAlertHandlingWithButtonMessage(btnElements.closeButton(),
 					CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.WelcomeToText()).trim(),
 					CommonTestData.WELCOME.getEnumValue(),
@@ -98,65 +111,65 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Clicked on Login button")
-	public void clickOnLoginButton() {
+	public void clickOnLoginButton() throws Exception {
 		try {
 			clickOnElement(DBSappObject.loginButton());
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
 	@Step("Clicked on Sign Up For Digibank button")
-	public void clickOnSignUpForDigibankButton() {
+	public void clickOnSignUpForDigibankButton() throws Exception {
 		try {
 			clickOnElement(DBSappObject.signUpForDigibankButton());
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
 	@Step("Clicked on Pre Login button")
-	public void preLoginButton() {
+	public void preLoginButton() throws Exception {
 		try {
 			clickOnElement(DBSappObject.loginButton());
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
 	@Step("Enter data in User EditBox")
-	public void sendDataInUserId(String text) {
+	public void sendDataInUserId(String text) throws Exception {
 		try {
 			if (isElementEnable(DBSappObject.userIdEditText()))
 				enterTextInTextbox(DBSappObject.userIdEditText(), text);
 
 			Asserts.assertTrue(isElementEnable(DBSappObject.userIdEditText()), "EditField is not enable");
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
 	@Step("Enter data in Pin EditBox")
-	public void sendDataInUserPin(String text) {
+	public void sendDataInUserPin(String text) throws Exception {
 		try {
 			if (isElementEnable(DBSappObject.userPinEditText()))
 				enterTextInTextbox(DBSappObject.userPinEditText(), text);
 
 			Asserts.assertTrue(isElementEnable(DBSappObject.userPinEditText()), "EditField is not enable");
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
 	@Step("Application Logout & Verifies the 'Tap on the stars to rate' field Message.")
-	public void clickOnLogoutAndVerify(String logoutTextMsg, String Ratingmsg) {
+	public void clickOnLogoutAndVerify(String logoutTextMsg, String Ratingmsg) throws Exception {
 		try {
 			AndroidAlert.AlertHandlingWithButtonMessage(DBSappObject.logoutButton(), logoutTextMsg,
 					DBSappObject.logoutButton());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.postLogoutAlertMessage()), Ratingmsg,
 					"'Tap on the stars to rate' Text is not found");
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 
@@ -177,7 +190,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (actualMessage.equalsIgnoreCase(expectecMessage))
 				if (isElementEnable(DBSappObject.emailSmsOtpEditBox()))
 					enterTextInTextbox(DBSappObject.emailSmsOtpEditBox(), OTP);
-			Asserts.assertTrue(isElementEnable(DBSappObject.emailSmsOtpEditBox()), "TextField is not enable");
+			//Asserts.assertTrue(isElementEnable(DBSappObject.emailSmsOtpEditBox()), "TextField is not enable");
 			Asserts.assertEquals(actualMessage, expectecMessage, "Title Message Not matching");
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
@@ -190,6 +203,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			Thread.sleep(5000);
 			verifyPageAndClickOnSetUpNowButton(CommonTestData.DIGITAL_TOKEN_SETUP_MESSAGE.getEnumValue());
+			String alertMsg = "//android.widget.TextView[@text='Please note you can only have one digital token registered to your profile. Any digital token on an alternative device will therefore be automatically deregistered.']";
+			List<RemoteWebElement> elements = driver.findElements(By.xpath(alertMsg));
+			if(elements.size()>0) {
+				String continueButtonXpath = "//android.widget.Button[@text='CONTINUE']";
+				List<RemoteWebElement> continueButtons = driver.findElements(By.xpath(continueButtonXpath));
+				continueButtons.get(0).click();
+			}
 			verifyPageAndSendOtpToEditBox(CommonTestData.OTP.getEnumValue(),
 					CommonTestData.EMAIL_OTP_MESSAGE.getEnumValue());
 			verifyPageAndSendOtpToEditBox(CommonTestData.OTP.getEnumValue(),

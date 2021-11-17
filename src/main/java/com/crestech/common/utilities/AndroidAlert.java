@@ -17,7 +17,7 @@ import io.qameta.allure.Step;
  */
 public class AndroidAlert extends UserBaseTest{
 
-	public static AppiumDriver<RemoteWebElement> driver;
+	public AppiumDriver<RemoteWebElement> driver;
 	public AndroidAlert(AppiumDriver<RemoteWebElement> driver2) {
 		this.driver = driver2;
 	}
@@ -101,7 +101,7 @@ public class AndroidAlert extends UserBaseTest{
 	 *handling of fingerprint alert appear after login
 	 */
 	@Step("Accepting Alert Message")
-	public static void fingerprintAlertHandlingWithButtonMessage(MobileElement Button, String expectecMessage) throws Exception    //android.widget.Toast[1]
+	public void fingerprintAlertHandlingWithButtonMessage(MobileElement Button, String expectecMessage) throws Exception    //android.widget.Toast[1]
 	{
 		try {
 			CommonAlertElements obj =new CommonAlertElements(driver);
@@ -119,7 +119,7 @@ public class AndroidAlert extends UserBaseTest{
  *handling of recording alert appear after login
  */
 @Step("Accepting Alert Message")
-public static void recordingAlertHandlingWithButtonMessage(MobileElement Button, String expectecMessage) throws Exception    //android.widget.Toast[1]
+public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String expectecMessage) throws Exception    //android.widget.Toast[1]
 {
 	try {
 
