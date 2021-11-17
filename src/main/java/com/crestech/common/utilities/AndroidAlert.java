@@ -3,25 +3,21 @@ package com.crestech.common.utilities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.remote.RemoteWebElement;
-
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.base.UserBaseTest;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.Activity;
-import io.appium.java_client.android.AndroidDriver;
 import io.qameta.allure.Step;
 
+/**
+ * @author Shafkat Ali, Divya Devi
+ *
+ */
 public class AndroidAlert extends UserBaseTest{
-	
-	
-	
 
-	public static AppiumDriver<RemoteWebElement> driver;
+	public AppiumDriver<RemoteWebElement> driver;
 	public AndroidAlert(AppiumDriver<RemoteWebElement> driver2) {
 		this.driver = driver2;
 	}
@@ -89,21 +85,13 @@ public class AndroidAlert extends UserBaseTest{
 	
 	}
 	
-	@Step("Accepting Alert Message")
-	public void AlertHandlingWithButtonMessage(MobileElement Button, String expectecMessage) throws Exception    //android.widget.Toast[1]
+	public static void AlertHandlingWithButtonMessage(MobileElement Button, String expectecMessage, MobileElement messageElement) throws Exception    //android.widget.Toast[1]
 	{
 		try {
-
-			CommonAlertElements obj =new CommonAlertElements(driver);
-			String actualMessage = CommonAppiumTest.getTexOfElement(obj.getalertMessage());
-			
-				if(actualMessage.equalsIgnoreCase(expectecMessage))
-					CommonAppiumTest.clickOnElement(Button);
-				   
-				
-				Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
-					
-			
+			String actualMessage = CommonAppiumTest.getTexOfElement(messageElement);
+			Asserts.assertEquals(actualMessage, expectecMessage, "Message Not matching");
+			if (actualMessage.equalsIgnoreCase(expectecMessage))
+				CommonAppiumTest.clickOnElement(Button);
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
@@ -116,17 +104,11 @@ public class AndroidAlert extends UserBaseTest{
 	public void fingerprintAlertHandlingWithButtonMessage(MobileElement Button, String expectecMessage) throws Exception    //android.widget.Toast[1]
 	{
 		try {
-
 			CommonAlertElements obj =new CommonAlertElements(driver);
 			String actualMessage = CommonAppiumTest.getTexOfElement(obj.headerFingerprintMessage());
-			
 				if(actualMessage.equalsIgnoreCase(expectecMessage))
 					CommonAppiumTest.clickOnElement(Button);
-				   
-				
 				Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
-					
-			
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
@@ -143,14 +125,9 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 
 		CommonAlertElements obj =new CommonAlertElements(driver);
 		String actualMessage = CommonAppiumTest.getTexOfElement(obj.headerRecordingMessage());
-		
+		Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
 			if(actualMessage.equalsIgnoreCase(expectecMessage))
 				CommonAppiumTest.clickOnElement(Button);
-			   
-			
-			Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
-				
-		
 	} catch (Exception e) {
 		throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 	}
