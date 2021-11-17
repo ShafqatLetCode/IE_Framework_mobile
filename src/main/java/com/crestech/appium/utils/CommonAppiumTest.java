@@ -84,7 +84,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		}
 	}
 	
-	public static void pressGivenKey(AppiumDriver driver, Keys key) throws Exception {
+	public static void pressKey(AppiumDriver driver, Keys key) throws Exception {
 		try {
 			if(key!=null) {				
 				Actions builder = new Actions(driver); 

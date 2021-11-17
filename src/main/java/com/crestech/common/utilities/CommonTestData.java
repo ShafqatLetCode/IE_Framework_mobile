@@ -36,7 +36,6 @@ public enum CommonTestData {
 	CITY("Canbera"),
 	REVIEW_RECIPIENT_LABEL("REVIEW RECIPIENT'S DETAILS"),
 	ADD_NOW_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
-	RECIPIENT_ADDED("You've added a recipient"),
 	MAKE_TRANSFER("MAKE A TRANSFER"),
 	REFERENCE_NUMBER("Reference No."),
 	
@@ -69,7 +68,12 @@ public enum CommonTestData {
 	REVIEW_RECIPIENT_DETAILS("Review Recipient's Details"),
 	SECURE_PIN_PAGE_HEADER("Secure PIN"),
 	YOU_HAVE_ADDED_RECIPIENT_MSG("You’ve added a recipient"),
-
+	MORE_ICON("More"),
+	NAMETO_APPEAR_ON_DEBITCARD("DBS Passion"),
+	REVIEW_APPLICATION("Review Application"),
+	SET_CARD_PIN("Set Card PIN"),
+	CREATE_PIN("123456"),
+	CONFIRM_PIN("123456"),
 	;
 	private final String message;
 

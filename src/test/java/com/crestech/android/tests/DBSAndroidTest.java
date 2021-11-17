@@ -9,7 +9,6 @@ import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.base.UserBaseTest;
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
-import com.crestech.common.utilities.GestureUtils;
 import com.crestech.listeners.TestListener;
 import com.crestech.pages.DBSAndroidPage;
 import io.qameta.allure.Description;
@@ -105,17 +104,9 @@ public class DBSAndroidTest extends UserBaseTest {
 	@Author(name = "Shafqat Ali")
 	public void Topup_Paylah(String userName,String password) throws Exception { 
 		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			 dbspage.logInApplication(userName, password);
-			 dbspage.ClickOnPayAndTransferAndVerify(CommonTestData.PAY_TRANSFER_ICON.getEnumValue());
-			 dbspage.topUpVerifyClick(CommonTestData.TOPUP_LABEL.getEnumValue());
-			 dbspage.payLahVerifyClick(CommonTestData.PAYLAH_LABEL.getEnumValue());
-			 dbspage.verifyTopUpPaylahLabel(CommonTestData.TOPUP_PAYLAH_LABEL.getEnumValue());
-			 dbspage.sendCurrencyInTextField(CommonTestData.AMOUNT_PAYLAH.getEnumValue());
-			 dbspage.nextButtonVerifyClick();
-			 dbspage.verifyReviewTopUpLabel(CommonTestData.TOPUP_REVIEW_LABEL.getEnumValue());
-			 dbspage.topUpNowVerifyClick(CommonTestData.TOPUP_NOW_BUTTOM_LABEL.getEnumValue());
-			 dbspage.logOutTopUpVerifyClick(CommonTestData.LOGOUT_PAYLAH.getEnumValue());
+			 dbspage.TopupPaylah();
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
@@ -127,31 +118,10 @@ public class DBSAndroidTest extends UserBaseTest {
 	@Author(name = "Shafqat Ali")
 	public void Payee_Add_Remittance(String userName,String password) throws Exception { 
 		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			 dbspage.logInApplication(userName, password);
-			 dbspage.ClickOnPayAndTransferAndVerify(CommonTestData.PAY_TRANSFER_ICON.getEnumValue());
-			 dbspage.overseasVerifyClick(CommonTestData.OVERSEAS_ICON.getEnumValue());
-			 dbspage.addRecipientNownVerifyClick(CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue());
-			 dbspage.sendDataInSearchBoxAndSelectFromDropDown(CommonTestData.COUNTRY_AUS.getEnumValue(), CommonTestData.COUNTRY_AUS.getEnumValue());
-			 dbspage.CurrencyTypeVerifyClick(CommonTestData.CURRENCY_AUS.getEnumValue());
-			 dbspage.nextButtonVerifyClick();
-			 dbspage.sendBankCode(CommonTestData.BANK_BCD_CODE.getEnumValue());
-			 dbspage.nextButtonVerifyClick();
-			 dbspage.sendAccountNo(CommonTestData.ACCOUNT_NO.getEnumValue());
-			 dbspage.sendFullName(CommonTestData.FULL_NAME.getEnumValue());
-			 GestureUtils.scrollUPtoObject("text", "NEXT", dbspage.DBSappObject.nextButton());
-			 dbspage.sendAddress(CommonTestData.ADDRESS.getEnumValue());
-			 dbspage.sendcity(CommonTestData.CITY.getEnumValue());
-			 dbspage.nextButtonVerifyClick();
-			 dbspage.verifyRecipientReviewDetailLabel(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue());
-			 GestureUtils.scrollUPtoObject("text", "ADD RECIPIENT NOW", dbspage.DBSappObject.addRecpientNowButton());
-			 dbspage.addRecipientNownVerifyClick(CommonTestData.ADD_NOW_RECIPIENT_LABEL.getEnumValue());
-			 dbspage.verifyRecipientAddedLabel(CommonTestData.RECIPIENT_ADDED.getEnumValue());
-			 dbspage.expandButton();
-			 GestureUtils.scrollUPtoObject("text", "Reference No.", dbspage.DBSappObject.referenceNoLabel());
-			 dbspage.verifymakeTransferButton(CommonTestData.MAKE_TRANSFER.getEnumValue());
-			 dbspage.verifyReferenceFieldAndItsValue(CommonTestData.REFERENCE_NUMBER.getEnumValue());
-		} catch (Exception e) {
+			 dbspage.PayeeAddRemittance();
+		} catch (Exception e) { 
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
