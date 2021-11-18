@@ -141,7 +141,50 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 	
 	@Parameters({"userName", "password" })
-	@Test(priority=9, enabled=true, description = "Verifies the Peek Balance.")
+	@Test(priority=9, enabled=true, description = "Verifies the Payee Add Local Other Bank.")
+	@Description(value = "Execution of this testcase:: Payee-Add-Local-OtherBank-ONEAPP-15677")
+	@Author(name = "Divya Devi")
+	public void Payee_Add_Local_OtherBank(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password);
+			 dbspage.PayeeAddLocalOtherBank();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+	
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=10, enabled=true, description = "Verifies the Payee Add Bill Payment.")
+	@Description(value = "Execution of this testcase:: Payee-Add-BillPayment-ONEAPP-15938")
+	@Author(name = "Divya Devi")
+	public void Payee_Add_BillPayment(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password);
+			 dbspage.PayeeAddBillPayment();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=11, enabled=true, description = "Verifies the Open Account.")
+	@Description(value = "Execution of this testcase:: OpenAccount-ONEAPP-14028")
+	@Author(name = "Divya Devi")
+	public void OpenAccount(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password);
+			 dbspage.OpenAccount();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=12, enabled=true, description = "Verifies the Peek Balance.")
 	@Description(value = "Execution of this testcase:: PeekBalance-MCA-ONEAPP-13982")
 	@Author(name = "Divya Devi")
 	public void PeekBalance_MCA(String userName,String password) throws Exception {

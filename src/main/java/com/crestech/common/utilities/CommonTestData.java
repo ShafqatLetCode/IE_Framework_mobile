@@ -74,6 +74,21 @@ public enum CommonTestData {
 	SET_CARD_PIN("Set Card PIN"),
 	CREATE_PIN("123456"),
 	CONFIRM_PIN("123456"),
+	ENTER_RECIPIENT_DETAILS("Enter Recipient's Details"),
+	DBS_CASHLINE("DBS CASHLINE"),
+	REFERENCENUMBER_DBS_CASHLINE("0824867822"),
+	PAY_TO_BILLER_PAGE_HEADER("Pay to Biller"),
+	AMOUNT_FOR_BILL_ORGANIZATION_PAYMENT("10"),
+	REVIEW_PAYMENT_PAGEHEADER("Review Payment"),
+	PAYMENT_SUBMITTED("Payment Submitted"),
+	OPEN_ACCOUNT("Open Account"),
+	ACCOUNT_BENIFITS("Account Benefits"),
+	MONTHLY_SAVING_AMT_BALANCE("50"),
+	IMPORTANT_NOTES("Important Notes"),
+	WARNING_HEADING_TEXT("Warning Advisory from the Singapore Police Force"),
+	REVIEW_ACCOUNT_APPLICATION("Review Account Application"),
+	YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE("Your account is open and ready to use!"),
+	
 	;
 	private final String message;
 
