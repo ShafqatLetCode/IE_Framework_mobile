@@ -257,8 +257,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.SourceFundList().get(0));
 
 			pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
-			clickOnElement(DBSappObject.ExchangeRateICON());
-			// add scroll code if required.
+			backButton();
+			//clickOnElement(DBSappObject.ExchangeRateICON());
+			GestureUtils.scrollUPtoObject("resource-id", "id/btn_remitnext",  DBSappObject.NextBtn());
 			clickOnElement(DBSappObject.SelectPurposeOfTransfer());
 			clickOnElement(DBSappObject.FundTransferPurposeOption());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.TextViewPurpose()),
@@ -360,6 +361,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterTextInTextbox(DBSappObject.AmountTextFields().get(0), Amt);
 			pressKey(driver, Keys.ENTER);
 			wait.waitForElementVisibility(DBSappObject.ExchangeRateText());
+			backButton();
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -368,6 +370,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifies Review Transfer Page Header after clicking on Next Button.")
 	public void ClickOnNextBtnAndVerifiesReviewTransferPage() throws Exception {
 		try {
+			GestureUtils.scrollUPtoObject("resource-id", "id/btn_remitnext",DBSappObject.NextBtn());
 			clickOnElement(DBSappObject.NextBtn());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.ReviewTransferPageHeader()),
 					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
@@ -405,6 +408,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifies Overseas transfer Message after clicking on Share Transfer Details Button.")
 	public void ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText() throws Exception {
 		try {
+			GestureUtils.scrollUPtoObject("text", "SHARE TRANSFER DETAILS",DBSappObject.ShareTransferDetailsBtn());
 			clickOnElement(DBSappObject.ShareTransferDetailsBtn());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.OverseasTransferMsg()),
 					CommonTestData.OVERSEAS_TRANSFER_TEXT.getEnumValue(),
