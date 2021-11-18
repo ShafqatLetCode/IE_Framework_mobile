@@ -278,50 +278,66 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Verifies Add payee DBSorPOSB and verify 'You’ve added a recipient' Success Message.")
+	@Step("Verifies Add payee DBSorPOSB.")
 	public void VerifyAddPayeeDBSorPOSB() throws Exception {
 		try {
 			ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN();
+			clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader();
+			EnterRecipientDetailsAfterSelectingBankAccountOption();
+			ClickOnNextBtnAndReviewRecipientDetails();
+			ClickOnAddRecipientNowBtn();
+			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Verify 'You Have Added Recipient Msg' After Entering Secure PIN.")
+	public void VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN() throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
+					CommonTestData.SECURE_PIN_PAGE_HEADER.getEnumValue(),
+					CommonTestData.SECURE_PIN_PAGE_HEADER.getEnumValue() + " Text is not matching");
+			EnterPasscodeAndDone();
+			if (isElementVisible(DBSappObject.SuccessTickImageView()))
+				Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
+						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
+						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not matching");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));  
+		}
+	}
+	
+	@Step("Verify Local Transfer Pay Now Page Header After Clicking On Add Local Recipient Page Header.")
+	public void clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader() throws Exception {
+		try {
 			wait.waitForElementVisibility(DBSappObject.AddLocalRecipient());
 			clickOnElement(DBSappObject.AddLocalRecipient());
-
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(),
 					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue() + " Text is not found");
-
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
+	
+	@Step("Enter Recipient Details Into Bank Account Section.")
+	public void EnterRecipientDetailsAfterSelectingBankAccountOption() throws Exception {
+		try {
 			clickOnElement(DBSappObject.SelectBankAccount());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(),
 					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
-
 			enterTextInTextbox(DBSappObject.AddLocalRecipientDetailsFieldList().get(0),
 					CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue());
 			clickOnElement(DBSappObject.AddLocalRecipientDetailsFieldList().get(1));
 			clickOnElement(DBSappObject.SearchField());
 			enterTextInTextbox(DBSappObject.SearchField(), CommonTestData.BANK_NAME.getEnumValue());
-			clickOnElement(DBSappObject.SelectBankOFIndia()); // or press enter key
+			clickOnElement(DBSappObject.SelectBankOFIndia()); 
 			enterTextInTextbox(DBSappObject.AddLocalRecipientDetailsFieldList().get(2),
 					CommonTestData.LOCAL_RECIPIENT_ACCOUNT_NUMBER.getEnumValue());
-			clickOnElement(DBSappObject.NextButtonToAddedLocalRecipient());
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
-			ClickOnAddRecipientNowBtn();
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.SECURE_PIN_PAGE_HEADER.getEnumValue(),
-					CommonTestData.SECURE_PIN_PAGE_HEADER.getEnumValue() + " Text is not found");
-
-			EnterPasscodeAndDone();
-
-			if (isElementVisible(DBSappObject.SuccessTickImageView()))
-				Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
-						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
-						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not found");
-
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			throw new Exception(getExceptionMessage(e)); 
 		}
 	}
 
@@ -514,16 +530,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Verifying Next Button Label and click")
-	public void nextButtonVerifyClick() throws Exception {
+	public void ClickOnNextButtonAndVerify() throws Exception {
 		try {
-
-			String actualText = getTexOfElement(DBSappObject.nextButton());
-
-			if (actualText.equalsIgnoreCase("NEXT"))
+			if (getTexOfElement(DBSappObject.nextButton()).equalsIgnoreCase("NEXT"))
 				clickOnElement(DBSappObject.nextButton());
-
-			Asserts.assertEquals(actualText, "NEXT", "Button not found");
-
+			Asserts.assertEquals(getTexOfElement(DBSappObject.nextButton()), "NEXT", "NEXT Button Text is not matching");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -605,8 +616,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("clicking On 'ADD RECIPIENT NOW' button")
 	public void ClickOnAddRecipientNowBtn() throws Exception {
 		try {
-			if (!isElementVisible(DBSappObject.AddRecipientNowBtn()))
-				GestureUtils.scrollUPtoObject("text", "ADD RECIPIENT NOW", DBSappObject.AddRecipientNowBtn());
+			GestureUtils.scrollUPtoObject("text", "ADD RECIPIENT NOW", DBSappObject.AddRecipientNowBtn());
 
 			String actualText = getTexOfElement(DBSappObject.AddRecipientNowBtn());
 			if (actualText.equalsIgnoreCase(CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue()))
@@ -729,7 +739,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnMoreBtnAndAuthenticationOfSecurePIN();
 			SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN();
 			FillingDetailsToApplyingDebitCard();
-			nextButtonVerifyClick();
+			ClickOnNextButtonAndVerify();
 			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
 					CommonTestData.REVIEW_APPLICATION.getEnumValue(),
 					CommonTestData.REVIEW_APPLICATION.getEnumValue() + " Text is not found");
@@ -813,92 +823,113 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void PayeeAddBillPayment() throws Exception {
 		try {
 			ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN();
-			wait.waitForElementVisibility(DBSappObject.BillsButton());
-			clickOnElement(DBSappObject.BillsButton());
+			ClickOnBillModuleAndClickOnAddBillingOrganisation();
+			
+			EnterBillingOrganisationDetails();
 
-			clickOnElement(DBSappObject.AddBillingOrganisation());
-
+			ClickOnNextButtonAndVerify();
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(),
-					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
+					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
+					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
 
+			VerifyBillingOrganisationAndBillReferenceNumber();
+
+			ClickOnAddRecipientNowBtn();
+			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
+			VerifyBillingOrganisationAndBillReferenceNumber();
+			ClickOnMakeAPaymentAndEnterAmountInAmountEditField();
+			ClickOnNextButtonAndVerify();
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
+					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(),
+					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue() + " Text is not matching");
+
+			ClickOnPayNowBtnAndVerifyPaymentSubmittedMsg();
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Enter Billing Organisation Details.")
+	public void EnterBillingOrganisationDetails() throws Exception {
+		try {
 			clickOnElement(DBSappObject.SelectBillingOrganisation());
 			clickOnElement(DBSappObject.SearchForBillingOrganisationField());
 			enterTextInTextbox(DBSappObject.SearchForBillingOrganisationField(),
 					CommonTestData.DBS_CASHLINE.getEnumValue());
-
 			clickOnElement(DBSappObject.SelectSearchedOption());
 			clickOnElement(DBSappObject.EnterReferenceNoEditField());
 			enterTextInTextbox(DBSappObject.EnterReferenceNoEditField(),
 					CommonTestData.REFERENCENUMBER_DBS_CASHLINE.getEnumValue());
 			backButton();
-
-			nextButtonVerifyClick();
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));  
+		}
+	}
+	
+	@Step("Click On Bill Module & Verify Enter Recipient Page Header After Click On Add Billing Organisation.")
+	public void ClickOnBillModuleAndClickOnAddBillingOrganisation() throws Exception {
+		try {
+			wait.waitForElementVisibility(DBSappObject.BillsButton());
+			clickOnElement(DBSappObject.BillsButton());
+			clickOnElement(DBSappObject.AddBillingOrganisation());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
-
-			// verify bill organization and reference number
-			if (isElementEnable(DBSappObject.BillingOrganisation())
-					&& isElementEnable(DBSappObject.BillReferenceNo())) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.DBSCASHLINE()),
-						CommonTestData.DBS_CASHLINE.getEnumValue(),
-						CommonTestData.DBS_CASHLINE.getEnumValue() + " Text is not found");
-				Asserts.assertEquals(getTexOfElement(DBSappObject.ReferenceNumberValue()),
-						CommonTestData.REFERENCENUMBER_DBS_CASHLINE.getEnumValue(),
-						CommonTestData.REFERENCENUMBER_DBS_CASHLINE.getEnumValue() + " Text is not found");
-			}
-
-			ClickOnAddRecipientNowBtn();
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.SECURE_PIN_PAGE_HEADER.getEnumValue(),
-					CommonTestData.SECURE_PIN_PAGE_HEADER.getEnumValue() + " Text is not found");
-			EnterPasscodeAndDone();
-			if (isElementVisible(DBSappObject.SuccessTickImageView()))
-				Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
-						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not found");
-
-			// verify bill organization and reference number
-			if (isElementEnable(DBSappObject.BillingOrganisation())
-					&& isElementEnable(DBSappObject.BillReferenceNo())) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.DBSCASHLINE()),
-						CommonTestData.DBS_CASHLINE.getEnumValue(),
-						CommonTestData.DBS_CASHLINE.getEnumValue() + " Text is not found");
-				Asserts.assertEquals(getTexOfElement(DBSappObject.ReferenceNumberValue()),
-						CommonTestData.REFERENCENUMBER_DBS_CASHLINE.getEnumValue(),
-						CommonTestData.REFERENCENUMBER_DBS_CASHLINE.getEnumValue() + " Text is not found");
-			}
-
+					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(),
+					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue() + " Text is not matching");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
+	
+	@Step("Click On Make A Payment Button And Enter Amount In Amount Edit Field.")
+	public void ClickOnMakeAPaymentAndEnterAmountInAmountEditField() throws Exception {
+		try {
 			clickOnElement(DBSappObject.MakeAPaymentButton());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
 					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue(),
-					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Text is not found");
+					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Text is not matching");
 
 			clickOnElement(DBSappObject.AmountFieldForBillOrg());
 			enterTextInTextbox(DBSappObject.AmountFieldForBillOrg(),
 					CommonTestData.AMOUNT_FOR_BILL_ORGANIZATION_PAYMENT.getEnumValue());
 			backButton();
-			nextButtonVerifyClick();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(),
-					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue() + " Text is not found");
-
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
+	
+	@Step("Click On Pay Now Button And Verify Payment Submitted Message.")
+	public void ClickOnPayNowBtnAndVerifyPaymentSubmittedMsg() throws Exception {
+		try {
 			clickOnElement(DBSappObject.PayNowButton());
-
 			// verifies the payment completion with expected amount.
 			if (isElementVisible(DBSappObject.ImageForPaymentSuccess())) {
 				Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 						CommonTestData.PAYMENT_SUBMITTED.getEnumValue(),
-						CommonTestData.PAYMENT_SUBMITTED.getEnumValue() + " Text is not found");
+						CommonTestData.PAYMENT_SUBMITTED.getEnumValue() + " Text is not matching");
 
 				Asserts.assertEquals(getTexOfElement(DBSappObject.AmountFieldForBillOrg()),
 						CommonTestData.AMOUNT_FOR_BILL_ORGANIZATION_PAYMENT.getEnumValue() + ".00",
-						CommonTestData.PAYMENT_SUBMITTED.getEnumValue() + " Text is not matched or found.");
+						CommonTestData.PAYMENT_SUBMITTED.getEnumValue() + " Text is not matching.");
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			throw new Exception(getExceptionMessage(e));  
+		}
+	}
+	
+	@Step("Verifies Billing Organisation And Bill Reference Number.")
+	public void VerifyBillingOrganisationAndBillReferenceNumber() throws Exception {
+		try {
+			if (isElementEnable(DBSappObject.BillingOrganisation())
+					&& isElementEnable(DBSappObject.BillReferenceNo())) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.DBSCASHLINE()),
+						CommonTestData.DBS_CASHLINE.getEnumValue(),
+						CommonTestData.DBS_CASHLINE.getEnumValue() + " Text is not matching");
+				Asserts.assertEquals(getTexOfElement(DBSappObject.ReferenceNumberValue()),
+						CommonTestData.REFERENCENUMBER_DBS_CASHLINE.getEnumValue(),
+						CommonTestData.REFERENCENUMBER_DBS_CASHLINE.getEnumValue() + " Text is not matching");
+			}
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
 		}
 	}
 
@@ -907,39 +938,105 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			ClickOnMoreBtnAndAuthenticationOfSecurePIN();
 			// add scroll if required.
-			clickOnElement(DBSappObject.DepositAccountsModule());
-			EnterPasscodeAndDone();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()), CommonTestData.OPEN_ACCOUNT.getEnumValue(),
-					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Text is not found");
+			ClickOnDepositAccountsAnd2FAAuthenticationDone();
+			
+			SelectOpenAccountOptionAndVerifyAccountBenifitsPageHeader();
 
+			ClickOnopenAccountInStepButton();
+			EnterMonthlySavingsAmtAndSelectSourceOfFundsForSavings();
+
+			ClickOnNextButtonAndVerify();
+			VerifyWarningMessageAndImportantNotes();
+			// add scroll
+			ClickOnIAcknowledgeButtonAndReviewOpenAccountApplication();
+			// add scroll
+			ClickOnOpenAccountNowButton();
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Select Open Account Option By Clicking And Verify Account Benifits Page Header.")
+	public void SelectOpenAccountOptionAndVerifyAccountBenifitsPageHeader() throws Exception {
+		try {
 			clickOnElement(DBSappObject.SelectOpenAccountOption());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.ACCOUNT_BENIFITS.getEnumValue(),
-					CommonTestData.ACCOUNT_BENIFITS.getEnumValue() + " Text is not found");
-
-			clickOnElement(DBSappObject.StepOpenAccountButton());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()), CommonTestData.OPEN_ACCOUNT.getEnumValue(),
-					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Text is not found");
-
+					CommonTestData.ACCOUNT_BENIFITS.getEnumValue() + " Page Header Text is not matching");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
+	
+	@Step("Enter Monthly Savings Amount And Select Source Of Funds For Savings.")
+	public void EnterMonthlySavingsAmtAndSelectSourceOfFundsForSavings() throws Exception {
+		try {
 			clickOnElement(DBSappObject.EnterMonthlySavingsAmtEditField());
 			enterTextInTextbox(DBSappObject.EnterMonthlySavingsAmtEditField(),
 					CommonTestData.MONTHLY_SAVING_AMT_BALANCE.getEnumValue());
 			backButton();
-
 			clickOnElement(DBSappObject.SelectSourceOfFundsForSavingsDropdown());
 			clickOnElement(DBSappObject.SelectSourceOfFundsForSavingsDropdownList().get(0));
-
-			nextButtonVerifyClick();
-
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Click On Open Account In 2/3 Step Button.")
+	public void ClickOnopenAccountInStepButton() throws Exception {
+		try {
+			clickOnElement(DBSappObject.StepOpenAccountButton());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()), CommonTestData.OPEN_ACCOUNT.getEnumValue(),
+					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Page Header Text is not matching");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
+	
+	@Step("Click On Deposit Accounts Module And 2FA Authentication Done And Verifies the Open Account Page Header.")
+	public void ClickOnDepositAccountsAnd2FAAuthenticationDone() throws Exception {
+		try {
+			clickOnElement(DBSappObject.DepositAccountsModule());
+			EnterPasscodeAndDone();
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()), CommonTestData.OPEN_ACCOUNT.getEnumValue(),
+					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Page Header Text is not matching");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
+	
+	@Step("Verify Warning Message And Important Notes.")
+	public void VerifyWarningMessageAndImportantNotes() throws Exception {
+		try { 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.IMPORTANT_NOTES.getEnumValue(),
-					CommonTestData.IMPORTANT_NOTES.getEnumValue() + " Text is not matched.");
+					CommonTestData.IMPORTANT_NOTES.getEnumValue() + " Text is not matching.");
 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.WarningHeading()),
 					CommonTestData.WARNING_HEADING_TEXT.getEnumValue(),
-					CommonTestData.WARNING_HEADING_TEXT.getEnumValue() + " Text is not found");
-			// add scroll
+					CommonTestData.WARNING_HEADING_TEXT.getEnumValue() + " Message is not matching");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
 
+	@Step("Click On Open Account Now Button And Got 'Your account is open and ready to use!' Message.")
+	public void ClickOnOpenAccountNowButton() throws Exception {
+		try {
+			clickOnElement(DBSappObject.OpenAccountNowButton());
+			if (isElementVisible(DBSappObject.OpenAcconuntSuccessImageIcon()))
+				Asserts.assertEquals(getTexOfElement(DBSappObject.AccountStatusMessage()),
+						CommonTestData.YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE.getEnumValue(),
+						CommonTestData.YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE.getEnumValue() + " Message is not matching.");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
+	
+	
+	@Step("Click On IAcknowledge Button And Review Open Account Application.")
+	public void ClickOnIAcknowledgeButtonAndReviewOpenAccountApplication() throws Exception {
+		try {
 			clickOnElement(DBSappObject.IACKNOWLEDGEButton());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.REVIEW_ACCOUNT_APPLICATION.getEnumValue(),
@@ -947,60 +1044,36 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (isElementVisible(DBSappObject.YouAreOpeningText()))
 				Asserts.assertEquals(getTexOfElement(DBSappObject.POSBSayeAccount()), "POSB SAYE Account",
 						" 'POSB SAYE Account' is not matched or found.");
-			// add scroll
-			clickOnElement(DBSappObject.OpenAcconuntNowBtn());
-			if (isElementVisible(DBSappObject.OpenAcconuntSuccessImageIcon()))
-				Asserts.assertEquals(getTexOfElement(DBSappObject.AccountStatusMessage()),
-						CommonTestData.YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE.getEnumValue(),
-						CommonTestData.YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE.getEnumValue() + " Text is not matched.");
-
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			throw new Exception(getExceptionMessage(e)); 
 		}
 	}
-
-	@Step("Verifies the Payee Add Local OtherBank.")
+	
+	@Step("Verifies the Payee Add Local OtherBank and verifies 'YOU HAVE ADDED RECIPIENT MSG' .")
 	public void PayeeAddLocalOtherBank() throws Exception {
 		try {
 			ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN();
 			wait.waitForElementVisibility(DBSappObject.LocalButton());
 			clickOnElement(DBSappObject.LocalButton());
-			clickOnElement(DBSappObject.AddLocalRecipient());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(),
-					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue() + " Text is not found");
-
-			clickOnElement(DBSappObject.SelectBankAccount());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(),
-					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
-
-			enterTextInTextbox(DBSappObject.AddLocalRecipientDetailsFieldList().get(0),
-					CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue());
-			clickOnElement(DBSappObject.AddLocalRecipientDetailsFieldList().get(1));
-			clickOnElement(DBSappObject.SearchField());
-			enterTextInTextbox(DBSappObject.SearchField(), CommonTestData.BANK_NAME.getEnumValue());
-			clickOnElement(DBSappObject.SelectBankOFIndia());
-			enterTextInTextbox(DBSappObject.AddLocalRecipientDetailsFieldList().get(2),
-					CommonTestData.LOCAL_RECIPIENT_ACCOUNT_NUMBER.getEnumValue());
+			clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader();
+			EnterRecipientDetailsAfterSelectingBankAccountOption();
+			ClickOnNextBtnAndReviewRecipientDetails();
+			ClickOnAddRecipientNowBtn();
+			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Click On Next Btn And Review Recipient Details.")
+	public void ClickOnNextBtnAndReviewRecipientDetails() throws Exception {
+		try {
 			clickOnElement(DBSappObject.NextButtonToAddedLocalRecipient());
-
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
-			ClickOnAddRecipientNowBtn();
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.SECURE_PIN_PAGE_HEADER.getEnumValue(),
-					CommonTestData.SECURE_PIN_PAGE_HEADER.getEnumValue() + " Text is not found");
-
-			EnterPasscodeAndDone();
-			if (isElementVisible(DBSappObject.SuccessTickImageView()))
-				Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
-						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
-						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not found");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			throw new Exception(getExceptionMessage(e)); 
 		}
 	}
 
@@ -1037,20 +1110,20 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			sendDataInSearchBoxAndSelectFromDropDown(CommonTestData.COUNTRY_AUS.getEnumValue(),
 					CommonTestData.COUNTRY_AUS.getEnumValue());
 			CurrencyTypeVerifyClick(CommonTestData.CURRENCY_AUS.getEnumValue());
-			nextButtonVerifyClick();
+			ClickOnNextButtonAndVerify();
 			sendBankCode(CommonTestData.BANK_BCD_CODE.getEnumValue());
-			nextButtonVerifyClick();
+			ClickOnNextButtonAndVerify();
 			sendAccountNo(CommonTestData.ACCOUNT_NO.getEnumValue());
 			sendFullName(CommonTestData.FULL_NAME.getEnumValue());
 			GestureUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			sendAddress(CommonTestData.ADDRESS.getEnumValue());
 			sendcity(CommonTestData.CITY.getEnumValue());
-			nextButtonVerifyClick();
+			ClickOnNextButtonAndVerify();
 			verifyRecipientReviewDetailLabel(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue());
 			ClickOnAddRecipientNowBtn();
 			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
 					CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
-					"'You've added a recipient label' Text is not found");
+					"'You've added a recipient label' Text is not matching");
 			verifyReferenceFieldAndItsValue(CommonTestData.REFERENCE_NUMBER.getEnumValue());
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
@@ -1064,7 +1137,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			topUpVerifyClick(CommonTestData.TOPUP_LABEL.getEnumValue());
 			payLahVerifyClick(CommonTestData.PAYLAH_LABEL.getEnumValue());
 			sendCurrencyInTextField(CommonTestData.AMOUNT_PAYLAH.getEnumValue());
-			nextButtonVerifyClick();
+			ClickOnNextButtonAndVerify();
 			verifyReviewTopUpLabel(CommonTestData.TOPUP_REVIEW_LABEL.getEnumValue());
 			topUpNowVerifyClick(CommonTestData.TOPUP_NOW_BUTTOM_LABEL.getEnumValue());
 			logOutTopUpVerifyClick(CommonTestData.LOGOUT_PAYLAH.getEnumValue());

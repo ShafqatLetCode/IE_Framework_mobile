@@ -1048,7 +1048,7 @@ public class DBSAndroidObject {
 		return OpenAcconuntSuccessImageIcon;
 	}
 	
-	public MobileElement OpenAcconuntNowBtn() {
+	public MobileElement OpenAccountNowButton() {
 		return OpenAcconuntNowBtn;
 	}
 	
