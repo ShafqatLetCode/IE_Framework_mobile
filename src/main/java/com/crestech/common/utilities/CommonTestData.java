@@ -47,7 +47,7 @@ public enum CommonTestData {
 	TOPUP_NOW_BUTTOM_LABEL("TOP UP NOW"),
 	TOPUP_UP_DONE_LABEL("Top-up Done"),
 	LOGOUT_PAYLAH("Log Out"),
-	AMOUNT_PAYLAH("5"),
+	AMOUNT_PAYLAH("5.00"),
 	CORRIDOR_AMOUNT("34"),
 	eOTT_AMOUNT("11.65"),
 	TRANSFER_SUBMITTED_MSG("Transfer Submitted"),

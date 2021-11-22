@@ -74,18 +74,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			WaitUtils wait = new WaitUtils(driver);
 			CommonAlertElements btnElements = new CommonAlertElements(driver);
-			wait.ImplicitlyWait();
-			wait.waitForElementToBeClickable(DBSappObject.loginButton());
 			Thread.sleep(30000);
 			String quitButtonXpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(quitButtonXpath));
 			if (list.size() > 0) {
 				driver.closeApp();
-				// wait.ImplicitlyWait();
-				Thread.sleep(10000);
 				relaunchingDBS();
 				wait.waitForElementToBeClickable(DBSappObject.loginButton());
-				// wait.ImplicitlyWait();
 				Thread.sleep(5000);
 			}
 			clickOnLoginButton();
@@ -257,7 +252,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.SourceFundList().get(0));
 
 			pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
-			backButton();
 			// clickOnElement(DBSappObject.ExchangeRateICON());
 			GestureUtils.scrollUPtoObject("resource-id", "id/btn_remitnext", DBSappObject.NextBtn());
 			clickOnElement(DBSappObject.SelectPurposeOfTransfer());
