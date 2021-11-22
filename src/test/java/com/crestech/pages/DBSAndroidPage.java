@@ -529,12 +529,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 	}
 
-	@Step("Verifying Next Button Label and click")
-	public void ClickOnNextButtonAndVerify() throws Exception {
+	@Step("Click On Next Button.")
+	public void ClickOnNextButton() throws Exception {
 		try {
 			if (getTexOfElement(DBSappObject.nextButton()).equalsIgnoreCase("NEXT"))
 				clickOnElement(DBSappObject.nextButton());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.nextButton()), "NEXT", "NEXT Button Text is not matching");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -667,7 +666,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String actualText = getTexOfElement(DBSappObject.paylahLabel());
 
 			if (actualText.equalsIgnoreCase(expectecText))
-				clickOnElement(DBSappObject.paylahButton());
+				clickOnElement(DBSappObject.paylahLabel());
 
 			Asserts.assertEquals(actualText, expectecText, "PayLah Label Not matching");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.topUpPaylahLabel()),
@@ -739,7 +738,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnMoreBtnAndAuthenticationOfSecurePIN();
 			SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN();
 			FillingDetailsToApplyingDebitCard();
-			ClickOnNextButtonAndVerify();
+			ClickOnNextButton();
 			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
 					CommonTestData.REVIEW_APPLICATION.getEnumValue(),
 					CommonTestData.REVIEW_APPLICATION.getEnumValue() + " Text is not found");
@@ -828,7 +827,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			
 			EnterBillingOrganisationDetails();
 
-			ClickOnNextButtonAndVerify();
+			ClickOnNextButton();
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
@@ -839,7 +838,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
 			VerifyBillingOrganisationAndBillReferenceNumber();
 			ClickOnMakeAPaymentAndEnterAmountInAmountEditField();
-			ClickOnNextButtonAndVerify();
+			ClickOnNextButton();
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(),
 					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue() + " Text is not matching");
@@ -946,7 +945,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnopenAccountInStepButton();
 			EnterMonthlySavingsAmtAndSelectSourceOfFundsForSavings();
 
-			ClickOnNextButtonAndVerify();
+			ClickOnNextButton();
 			VerifyWarningMessageAndImportantNotes();
 			// add scroll
 			ClickOnIAcknowledgeButtonAndReviewOpenAccountApplication();
@@ -1111,15 +1110,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			sendDataInSearchBoxAndSelectFromDropDown(CommonTestData.COUNTRY_AUS.getEnumValue(),
 					CommonTestData.COUNTRY_AUS.getEnumValue());
 			CurrencyTypeVerifyClick(CommonTestData.CURRENCY_AUS.getEnumValue());
-			ClickOnNextButtonAndVerify();
+			ClickOnNextButton();
 			sendBankCode(CommonTestData.BANK_BCD_CODE.getEnumValue());
-			ClickOnNextButtonAndVerify();
+			ClickOnNextButton();
 			sendAccountNo(CommonTestData.ACCOUNT_NO.getEnumValue());
 			sendFullName(CommonTestData.FULL_NAME.getEnumValue());
 			GestureUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			sendAddress(CommonTestData.ADDRESS.getEnumValue());
 			sendcity(CommonTestData.CITY.getEnumValue());
-			ClickOnNextButtonAndVerify();
+			ClickOnNextButton();
 			verifyRecipientReviewDetailLabel(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue());
 			ClickOnAddRecipientNowBtn();
 			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
@@ -1138,7 +1137,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			topUpVerifyClick(CommonTestData.TOPUP_LABEL.getEnumValue());
 			payLahVerifyClick(CommonTestData.PAYLAH_LABEL.getEnumValue());
 			sendCurrencyInTextField(CommonTestData.AMOUNT_PAYLAH.getEnumValue());
-			ClickOnNextButtonAndVerify();
+			ClickOnNextButton();
 			verifyReviewTopUpLabel(CommonTestData.TOPUP_REVIEW_LABEL.getEnumValue());
 			topUpNowVerifyClick(CommonTestData.TOPUP_NOW_BUTTOM_LABEL.getEnumValue());
 			logOutTopUpVerifyClick(CommonTestData.LOGOUT_PAYLAH.getEnumValue());

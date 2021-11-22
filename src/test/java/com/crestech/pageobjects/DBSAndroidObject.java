@@ -406,16 +406,8 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Paylah!']")
 	private MobileElement paylahLabel;
 
-	@ElementDescription(value = "Paylah! button")
-	@AndroidFindBy(xpath = "//android.widget.Button[contains(@resource-id,'id/topupPaylah')]")
-	private MobileElement paylahButton;
-
 	public MobileElement paylahLabel() {
 		return paylahLabel;
-	}
-
-	public MobileElement paylahButton() {
-		return paylahButton;
 	}
 
 	@ElementDescription(value = "Top Up Paylah! label")
@@ -444,9 +436,9 @@ public class DBSAndroidObject {
 	private MobileElement topUpDoneLabel;
 
 	@ElementDescription(value = "Logout button paylah page")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='Log Out']")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/logout_icon')]")
 	private MobileElement logOutPaylahButton;
-
+	
 	public MobileElement topUpPaylahLabel() {
 		return topUpPaylahLabel;
 	}
