@@ -746,14 +746,12 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			// add scroll code if required.
 			clickOnElement(DBSappObject.ApplyNowButton());
 			ClickOnSubmitButtonAfterSettingCardPIN();
-			// ToDo
-			// validations pending due to some error getting on provided credentials.
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
 	}
 
-	@Step("Verifies the Set Card Pin Page Header and then Submit While Entering Confirm and Create New Pin.")
+	@Step("Verifies the Set Card Pin Page Header and then Submit While Entering Confirm and Create New Pin & Verifies the 'Application Submitted' Message.")
 	public void ClickOnSubmitButtonAfterSettingCardPIN() throws Exception {
 		try {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
@@ -765,6 +763,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterTextInTextbox(DBSappObject.ConfirmNewPINField(), CommonTestData.CONFIRM_PIN.getEnumValue());
 			driver.hideKeyboard();
 			clickOnElement(DBSappObject.submitButton());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
+					CommonTestData.APPLICATION_SUBMITTED.getEnumValue(),
+					CommonTestData.APPLICATION_SUBMITTED.getEnumValue() + " Text is not Matching");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}

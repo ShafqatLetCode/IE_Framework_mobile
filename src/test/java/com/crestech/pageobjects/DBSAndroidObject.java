@@ -378,11 +378,6 @@ public class DBSAndroidObject {
 		return recipientReviewDetailLabel;
 	}
 
-
-//	@ElementDescription(value = "You've added a recipient label")
-//	@AndroidFindBy(xpath = "//android.widget.TextView[@text='You've added a recipient']")
-//	private MobileElement recipientaddedLabel;
-
 	@ElementDescription(value = "MAKE A TRANSFER")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='MAKE A TRANSFER']")
 	private MobileElement makeTransferButton;
@@ -394,10 +389,6 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "Reference No. value")
 	@AndroidFindBy(xpath = "//android.widget.Button[contains(@resource-id,'id/tv_value')]")
 	private MobileElement referenceNoValue;
-
-//	public MobileElement recipientaddedLabel() {
-//		return recipientaddedLabel;
-//	}
 
 	public MobileElement makeTransferButton() {
 		return makeTransferButton;

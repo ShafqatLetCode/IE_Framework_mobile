@@ -88,7 +88,7 @@ public enum CommonTestData {
 	WARNING_HEADING_TEXT("Warning Advisory from the Singapore Police Force"),
 	REVIEW_ACCOUNT_APPLICATION("Review Account Application"),
 	YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE("Your account is open and ready to use!"),
-	
+	APPLICATION_SUBMITTED("Application Submitted"),
 	;
 	private final String message;
 
