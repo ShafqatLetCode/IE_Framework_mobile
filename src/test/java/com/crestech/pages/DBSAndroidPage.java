@@ -227,7 +227,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			SelectingPayeeAndFundSourceAfterSelectingOverseas();
 			pressEnterKeyAfterEnteringAmount(CommonTestData.CORRIDOR_AMOUNT.getEnumValue());
 			ClickOnNextBtnAndVerifiesReviewTransferPage();
-			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg();
+			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
+					DBSappObject.TransferSubmittedImage(), DBSappObject.TransferSubmittedMsg());
 			ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
 			ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText();
 		} catch (Exception e) {
@@ -239,7 +240,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifyRemittanceEOTT() throws Exception {
 		try {
 			ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN();
-			clickOnElement(DBSappObject.AllTab());
+			SelectAllTAB();
 			clickOnElement(DBSappObject.editSearchField());
 			enterTextInTextbox(DBSappObject.editSearchField(), CommonTestData.EOTT_PAYEE.getEnumValue());
 			pressKey(driver, Keys.ENTER);
@@ -252,7 +253,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.SourceFundList().get(0));
 
 			pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
-			// clickOnElement(DBSappObject.ExchangeRateICON());
 			GestureUtils.scrollUPtoObject("resource-id", "id/btn_remitnext", DBSappObject.NextBtn());
 			clickOnElement(DBSappObject.SelectPurposeOfTransfer());
 			clickOnElement(DBSappObject.FundTransferPurposeOption());
@@ -261,11 +261,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.PURPOSE_OF_TRANSFER_TEXT.getEnumValue() + " Text is not found");
 
 			ClickOnNextBtnAndVerifiesReviewTransferPage();
-
-			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg();
-
+			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
+					DBSappObject.TransferSubmittedImage(), DBSappObject.TransferSubmittedMsg());
 			ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
-
 			ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText();
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
@@ -387,20 +385,19 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.NextBtn());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.ReviewTransferPageHeader()),
 					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
-					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not found");
+					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
 	}
 
 	@Step("Verifies Transfer Submitted Message after clicking on Transfer Now Button.")
-	public void ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg() throws Exception {
+	public void ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(String SuccessMsg, MobileElement successImage, MobileElement transfferdSubmitMsgEle) throws Exception {
 		try {
 			clickOnElement(DBSappObject.TransferNowBtn());
-			if (isElementVisible(DBSappObject.TransferSubmittedImage()))
-				Asserts.assertEquals(getTexOfElement(DBSappObject.TransferSubmittedMsg()),
-						CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
-						CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue() + " Text is not found");
+			if (isElementVisible(successImage))
+				Asserts.assertEquals(getTexOfElement(transfferdSubmitMsgEle),
+						SuccessMsg,SuccessMsg + " Text is not matching");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -434,9 +431,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Pay & Transfer Button and then 2FA Authentication Done.")
 	public void ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN() throws Exception {
 		try {
-			String actualText = getTexOfElement(DBSappObject.payAndTransferLabel());
-			Asserts.assertEquals(actualText, CommonTestData.PAY_TRANSFER_ICON.getEnumValue(),
-					"Pay And Transfer ButtonLabel Not matching");
 			if (isElementVisible(DBSappObject.PayAndTransferBtn()))
 				clickOnElement(DBSappObject.PayAndTransferBtn());
 			EnterPasscodeAndDone();
@@ -881,11 +875,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
 					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue(),
 					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Text is not matching");
-
-			clickOnElement(DBSappObject.AmountFieldForBillOrg());
-			enterTextInTextbox(DBSappObject.AmountFieldForBillOrg(),
-					CommonTestData.AMOUNT_FOR_BILL_ORGANIZATION_PAYMENT.getEnumValue());
-			backButton();
+            EnterAmount();
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e)); 
 		}
@@ -901,8 +891,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						CommonTestData.PAYMENT_SUBMITTED.getEnumValue(),
 						CommonTestData.PAYMENT_SUBMITTED.getEnumValue() + " Text is not matching");
 
-				Asserts.assertEquals(getTexOfElement(DBSappObject.AmountFieldForBillOrg()),
-						CommonTestData.AMOUNT_FOR_BILL_ORGANIZATION_PAYMENT.getEnumValue() + ".00",
+				Asserts.assertEquals(getTexOfElement(DBSappObject.AmountEditableField()),
+						CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + ".00",
 						CommonTestData.PAYMENT_SUBMITTED.getEnumValue() + " Text is not matching.");
 			}
 		} catch (Exception e) {
@@ -1085,8 +1075,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On More Button and then 2FA Authentication Done.")
 	public void ClickOnMoreBtnAndAuthenticationOfSecurePIN() throws Exception {
 		try {
-			String actualText = getTexOfElement(DBSappObject.MoreBtnLabel());
-			Asserts.assertEquals(actualText, CommonTestData.MORE_ICON.getEnumValue(), "More Button Label Not matching");
 			if (isElementVisible(DBSappObject.MoreBtn()))
 				clickOnElement(DBSappObject.MoreBtn());
 			EnterPasscodeAndDone();
@@ -1319,5 +1307,66 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			throw new Exception(getExceptionMessage(e));
 		}
 	}
+	
+	@Step("Verify Fund Transfer For Own Account.")
+	public void VerifyFundTransfer_OwnAccount() throws Exception {
+		try {
+			ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN();
+			SelectAllTAB();
+			SelectOWNAccountAndAnyAccountOption();
+			SelectFundSourceAccount();
+			EnterAmount();
+			ClickOnNextButton();
+			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
+					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
+					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
+			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFERRED
+					.getEnumValue(),DBSappObject.ImageForPaymentSuccess(),DBSappObject.PageHeader());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Select All TAB.")
+	public void SelectAllTAB() throws Exception {
+		try {
+			clickOnElement(DBSappObject.AllTab());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
 
+	@Step("Select 'Your DBS/POSB Accounts' and then verify 'Transfer to Your Account' Page header after selecting any own account option.")
+	public void SelectOWNAccountAndAnyAccountOption() throws Exception {
+		try {
+			clickOnElement(DBSappObject.SelectOwnAccount());
+			clickOnElement(DBSappObject.SelectOwnAccountNumber());
+			verifyPageHeader(CommonTestData.TRANSFER_TO_YOUR_ACCOUNT.getEnumValue(), DBSappObject.PageHeader());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Select Any Fund Source Account After clicking on add sign for select fund source.")
+	public void SelectFundSourceAccount() throws Exception {
+		try {
+			clickOnElement(DBSappObject.SelectFundSourcePage());
+			clickOnElement(DBSappObject.SelectFundSourceAccount());
+			if(isElementVisible(DBSappObject.PrimarySourceOfFund()))
+				clickOnElement(DBSappObject.OKButton());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
+	
+	@Step("Enter Amount In Editable field to transfer fund.")
+	public void EnterAmount() throws Exception {
+		try {
+			clickOnElement(DBSappObject.AmountEditableField());
+			enterTextInTextbox(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+			backButton();
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));  
+		}
+	}
 }

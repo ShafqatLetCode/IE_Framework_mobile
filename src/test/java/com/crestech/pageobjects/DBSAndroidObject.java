@@ -184,22 +184,6 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='An SMS containing the 6-digit SMS Secure PIN has been sent to your mobile. Please key in below']")
 	private MobileElement ToFASecurePINMsg;
 
-	@ElementDescription(value = "Pay & Transfer Label")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Pay & Transfer']")
-	private MobileElement payAndTransferLabel;
-
-	public MobileElement payAndTransferLabel() {
-		return payAndTransferLabel;
-	}
-	
-	@ElementDescription(value = "More Button Label")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='More']")
-	private MobileElement MoreBtnLabel;
-
-	public MobileElement MoreBtnLabel() {
-		return MoreBtnLabel;
-	}
-
 	@ElementDescription(value = "overseas Label")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Overseas']")
 	private MobileElement overseasLabel;
@@ -771,7 +755,7 @@ public class DBSAndroidObject {
 	
 	@ElementDescription(value = "Amount Field For Bill Org")
 	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,':id/appCompatEditText')]")
-	private MobileElement AmountFieldForBillOrg;
+	private MobileElement AmountEditableField;
 	
 	@ElementDescription(value = "Log Out Button")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Log Out']")
@@ -822,8 +806,8 @@ public class DBSAndroidObject {
 		return LOGOUTButton;
 	}
 	
-	public MobileElement AmountFieldForBillOrg() {
-		return AmountFieldForBillOrg;
+	public MobileElement AmountEditableField() {
+		return AmountEditableField;
 	}
 	
 	public MobileElement MakeAPaymentButton() {
@@ -1019,6 +1003,23 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='BACK TO HOME']")
 	private MobileElement BACKToHOME;
 	
+	@ElementDescription(value = "Your DBS/POSB Accounts")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Your DBS/POSB Accounts']")
+	private MobileElement SelectOwnAccount;
+	
+	@ElementDescription(value = "Select Own Account Number")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='420-86386-1']")
+	private MobileElement SelectOwnAccountNumber;
+	
+	
+	public MobileElement SelectOwnAccountNumber() {
+		return SelectOwnAccountNumber;
+	}
+	
+	public MobileElement SelectOwnAccount() {
+		return SelectOwnAccount;
+	}
+	
 	public MobileElement BACKToHOME() {
 		return BACKToHOME;
 	}
@@ -1200,7 +1201,31 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "'Back To more' button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='BACK TO MORE']")
 	private MobileElement backToMoreButton;
-
+	
+	@ElementDescription(value = "Select fund Source Account")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='028-976191-5']")
+	private MobileElement SelectFundSourceAccount;
+	
+	@ElementDescription(value = "Primary source of fund")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Primary source of fund']")
+	private MobileElement PrimarySourceOfFund;
+	
+	@ElementDescription(value = "OK Button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
+	private MobileElement OKButton;
+	
+	
+	public MobileElement OKButton() {
+		return OKButton;
+	}
+	
+	public MobileElement PrimarySourceOfFund() {
+		return PrimarySourceOfFund;
+	}
+	
+	public MobileElement SelectFundSourceAccount() {
+		return SelectFundSourceAccount;
+	}
 
 	public MobileElement searchBox() {
 		return searchBox;

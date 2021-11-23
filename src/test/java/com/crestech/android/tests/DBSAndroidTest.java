@@ -211,4 +211,17 @@ public class DBSAndroidTest extends UserBaseTest {
 		}
 	}
 	
+	@Parameters({"userName", "password" })
+	@Test(priority=14, enabled=true, description = "Verifies the Fund Transfer Own Account.")
+	@Description(value = "Execution of this testcase:: FundsTransfer-OwnAccount-ONEAPP-16730")
+	@Author(name = "Divya Devi")
+	public void FundsTransferOwnAccount(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password);
+			 dbspage.VerifyFundTransfer_OwnAccount();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
 }

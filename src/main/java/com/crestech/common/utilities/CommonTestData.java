@@ -68,7 +68,6 @@ public enum CommonTestData {
 	REVIEW_RECIPIENT_DETAILS("Review Recipient's Details"),
 	SECURE_PIN_PAGE_HEADER("Secure PIN"),
 	YOU_HAVE_ADDED_RECIPIENT_MSG("You’ve added a recipient"),
-	MORE_ICON("More"),
 	NAMETO_APPEAR_ON_DEBITCARD("DBS Passion"),
 	REVIEW_APPLICATION("Review Application"),
 	SET_CARD_PIN("Set Card PIN"),
@@ -78,7 +77,7 @@ public enum CommonTestData {
 	DBS_CASHLINE("DBS CASHLINE"),
 	REFERENCENUMBER_DBS_CASHLINE("0824867822"),
 	PAY_TO_BILLER_PAGE_HEADER("Pay to Biller"),
-	AMOUNT_FOR_BILL_ORGANIZATION_PAYMENT("10"),
+	AMOUNTTO_TRANSFERFUND("10"),
 	REVIEW_PAYMENT_PAGEHEADER("Review Payment"),
 	PAYMENT_SUBMITTED("Payment Submitted"),
 	OPEN_ACCOUNT("Open Account"),
@@ -118,6 +117,8 @@ public enum CommonTestData {
 	SET_DAILY_LIMIT_TITLE("Set Daily Limit"),
 	REVIEW_DAILY_LIMIT_TITLE("Review Daily Limit"),
 	TOPUP_LABEL_IOS("Top Up"),
+	TRANSFER_TO_YOUR_ACCOUNT("Transfer to Your Account"),
+	TRANSFERRED("Transferred"),
 	;
 	
 	private final String message;
