@@ -1161,4 +1161,80 @@ public class DBSAndroidObject {
 
 	/***************** End Apply Debit Card ******************/
 
+	@ElementDescription(value = "search icon")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/contact_search')]")
+	private MobileElement searchIcon;
+    
+	@ElementDescription(value = "search editbox")
+	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'id/search_text_et')]")
+	private MobileElement searchBox;
+	
+	@ElementDescription(value = "'To other bank' label and button")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='To Other Banks']")
+	private MobileElement toOtherBankTextButton;
+	
+	@ElementDescription(value = "'Current Limit' label and button")
+	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'id/edit_user_id')]")
+	private MobileElement currentLimitTextButton;
+	
+	@ElementDescription(value = "'Current Limit' Value")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/text_src_acc_name')]")
+	private List<MobileElement> currentLimitAmountValue;
+	
+	@ElementDescription(value = "search Text Element list")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/textView')]")
+	private List<MobileElement> searchTextElement;
+	
+	@ElementDescription(value = "search Clickable Element list")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@clickable='true']")
+	private List<MobileElement> searchClickableElement;
+	
+	@ElementDescription(value = "'CHANGE DAILY LIMIT NOW' button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='CHANGE DAILY LIMIT NOW']")
+	private MobileElement changeDailyLimitButton;
+	
+	@ElementDescription(value = "'successful Title' label")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/text_top_nav_title')]")
+	private MobileElement successTitleLabel;
+	
+	@ElementDescription(value = "'Back To more' button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='BACK TO MORE']")
+	private MobileElement backToMoreButton;
+
+
+	public MobileElement searchBox() {
+		return searchBox;
+	}
+	public MobileElement searchIcon() {
+		return searchIcon;
+	}
+	public MobileElement toOtherBankTextButton() {
+		return toOtherBankTextButton;
+	}
+	public MobileElement currentLimitTextButton() {
+		return currentLimitTextButton;
+	}
+	public MobileElement changeDailyLimitButton() {
+		return changeDailyLimitButton;
+	}
+	public MobileElement successTitleLabel() {
+		return successTitleLabel;
+	}
+	public MobileElement backToMoreButton() {
+		return backToMoreButton;
+	}
+	public List<MobileElement> currentLimitAmountValue() {
+		return currentLimitAmountValue;
+	}
+	public List<MobileElement> searchTextElement() {
+		return searchTextElement;
+	}
+	public List<MobileElement> searchClickableElement() {
+		return searchClickableElement;
+	}
+      
+	
+
+	
+	
 }

@@ -1120,7 +1120,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					"'You've added a recipient label' Text is not matching");
 			verifyReferenceFieldAndItsValue(CommonTestData.REFERENCE_NUMBER.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(getExceptionMessage(e));
 		}
 	}
 
@@ -1136,7 +1136,187 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			topUpNowVerifyClick(CommonTestData.TOPUP_NOW_BUTTOM_LABEL.getEnumValue());
 			logOutTopUpVerifyClick(CommonTestData.LOGOUT_PAYLAH.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	/************************Start Shafkat Code*****************************/
+	
+	/**
+	 * This method will common search dropdown
+	 * @throws Exception 
+	 */
+	@Step("Enter the text in search and select the corresponding value in the dropdown")
+	public void sendDataInCommonSearchBoxAndSelectFromDropDown(String searchBoxData, String valueSelectedFromList, String ExpecetedText, MobileElement PageHeader) throws Exception {
+		try {
+			clickOnElementOnEnable(DBSappObject.searchIcon());
+			Asserts.assertTrue(isElementEnable(DBSappObject.searchIcon()),
+					"SearchField is not enable");
+			if (isElementEnable(DBSappObject.searchBox()))
+				enterTextInTextbox(DBSappObject.searchBox(), searchBoxData);
+			wait.waitForElementVisibility(DBSappObject.searchTextElement().get(0));
+			List<MobileElement> Elementlist = DBSappObject.searchTextElement();
+			List<MobileElement> ElementlistClickable = DBSappObject.searchClickableElement();
+			int l = Elementlist.size();
+			int index = 0;
+			String elementFromList = null;
+			for (int i = 0; i < l; i++) {
+				elementFromList = Elementlist.get(i).getText();
+				if (elementFromList.equalsIgnoreCase(valueSelectedFromList)) {
+					index++;
+					clickOnElement(ElementlistClickable.get(i));
+					break;
+				}
+			}
+			Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
+			verifyPageHeader(ExpecetedText, PageHeader);
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Verifying page header")
+	public void verifyPageHeader(String expectedText, MobileElement ele) throws Exception {
+		try {
+			if(ele != null)
+			Asserts.assertEquals(getTexOfElement(ele), expectedText, "'Header Title' is not Matching");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	public void VerifyButtonLabelAndClick(MobileElement Button,String expectecText) throws Exception {
+		try {
+			String actualText = getTexOfElement(Button);
+			if (actualText.equalsIgnoreCase(expectecText))
+				clickOnElement(Button);
+			Asserts.assertEquals(actualText, expectecText, "button Not exist");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Click on 'To Other Banks Limit' Button and then Verifying page header 'Transfer to Other Banks'")
+	public void ClickOnToOtherBankLimit() throws Exception {
+		try {
+			VerifyButtonLabelAndClick(DBSappObject.toOtherBankTextButton(),CommonTestData.TO_OTHERBANK_LABEL.getEnumValue());
+			verifyPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL.getEnumValue(), DBSappObject.PageHeader());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	
+	@Step("Verifying 'To Other Banks Limit' and click ")
+	public void changeCurrentLimitVerifyClick() throws Exception {
+		try {
+			clickOnElementOnEnable(DBSappObject.toOtherBankTextButton());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	
+	@Step("click On 'set current Limit' and verify page header. ")
+	public void verifyClickSetCurrentLimit() throws Exception {
+		try {
+			clickOnElementOnEnable(DBSappObject.currentLimitTextButton());
+			verifyPageHeader(CommonTestData.SET_DAILY_LIMIT_TITLE.getEnumValue(), DBSappObject.PageHeader());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	public String handlingSetCurrentLimit() throws Exception {
+		try {
+			String currentText=getTexOfElement(DBSappObject.currentLimitTextButton());
+			String[] arrOfStr = currentText.split(" ");
+			verifyClickSetCurrentLimit();
+			String selectedValue=null;
+			if(arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_3.getEnumValue())) {
+				selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_2.getEnumValue());
+				selectedValue=CommonTestData.SELECTED_LIMIT_2.getEnumValue();
+			}
+			else if(arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_2.getEnumValue())) {
+				selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_1.getEnumValue());
+				selectedValue=CommonTestData.SELECTED_LIMIT_1.getEnumValue();}
+			else if(arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_1.getEnumValue())) {
+				selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_2.getEnumValue());
+				selectedValue=CommonTestData.SELECTED_LIMIT_2.getEnumValue();}
+			return selectedValue;
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	@Step("Select amount from the List of 'set current Limit' ")
+	public void selectAmountFromSetCurrentLimitList(String amount) throws Exception {
+		try {
+			List<MobileElement> Elementlist = DBSappObject.currentLimitAmountValue();
+			int l = Elementlist.size();
+			int index = 0;
+			String elementFromList = null;
+			for (int i = 0; i < l; i++) {
+				elementFromList = Elementlist.get(i).getText();
+				if (elementFromList.equalsIgnoreCase(amount)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+
+				}
+			}
+			Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	@Step("Click On 'CHANGE DAILY LIMIT NOW' BUTTON from Review Daily limit page and Verify 'Local Transfer Limit Changed!' Title  ")
+	public void verifyClickChangeDailyLimitNowButton() throws Exception {
+		try {
+			verifyPageHeader(CommonTestData.REVIEW_DAILY_LIMIT_TITLE.getEnumValue(), DBSappObject.PageHeader());
+			clickOnElementOnEnable(DBSappObject.changeDailyLimitButton());
+			EnterPasscodeAndDone();
+			Asserts.assertEquals(getTexOfElement(DBSappObject.successTitleLabel()), CommonTestData.LOCAL_TRANSFER_CAHNGE_TITLE.getEnumValue(), "'Header Title' is not Matching");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Verifying and click 'BACK TO MORE' BUTTON ")
+	public void verifyClickBackToMoreButton() throws Exception {
+		try {
+			clickOnElementOnEnable(DBSappObject.backToMoreButton());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Verify Amount display After Limit get Changed")
+	public void verifyDisplayAmountLocalTransferLimitChange(String expectedText) throws Exception {
+		try {
+			String currentText=getTexOfElement(DBSappObject.currentLimitTextButton());
+			String[] arrOfStr = currentText.split(" ");
+			String acutalText=arrOfStr[1];
+			Asserts.assertEquals(acutalText, expectedText, "'Amount display' After Limit get Changed is Wrong");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}		
+	
+	@Step("Change local fund transfer limit verification")
+	public void ChangeLocalFundsTransferLimit() throws Exception {
+		try {
+			ClickOnMoreBtnAndAuthenticationOfSecurePIN();
+			sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),
+					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(), CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(), DBSappObject.PageHeader());
+			ClickOnToOtherBankLimit();
+			String amountSlected = handlingSetCurrentLimit();
+			ClickOnNextButton();
+			verifyClickChangeDailyLimitNowButton();
+			verifyClickBackToMoreButton();
+			sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),
+					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(), CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(), DBSappObject.PageHeader());
+			ClickOnToOtherBankLimit();
+			verifyDisplayAmountLocalTransferLimitChange(amountSlected);
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
 		}
 	}
 

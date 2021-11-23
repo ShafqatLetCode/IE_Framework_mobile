@@ -29,9 +29,9 @@ public class DBS_IOSTest extends UserBaseTest {
 			//pCloudySampleIOSpage homePageios = new pCloudySampleIOSpage(driver);
 		
 		  logger.info("Test Case started");
-		  IOShomePgaeObject.setEmailID(userName);
-		  IOShomePgaeObject.setPassword(password);
-		  IOShomePgaeObject.clickOnLogin();
+//		  IOShomePgaeObject.setEmailID(userName);
+//		  IOShomePgaeObject.setPassword(password);
+//		  IOShomePgaeObject.clickOnLogin();
 
 		} catch (Exception e) {
 			Assert.assertTrue(false,e.getMessage());

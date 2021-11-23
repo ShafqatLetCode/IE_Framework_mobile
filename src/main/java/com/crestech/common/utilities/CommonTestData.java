@@ -89,7 +89,37 @@ public enum CommonTestData {
 	REVIEW_ACCOUNT_APPLICATION("Review Account Application"),
 	YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE("Your account is open and ready to use!"),
 	APPLICATION_SUBMITTED("Application Submitted"),
+	UPGRADE_EXPERIENCE_MESSAGE("Upgrade your banking experience with us"), 
+	SETUP("Let's Set Up"),
+	MOTION_FITNESS_MESSAGE("“DBS digibank” Would Like to Access Your Motion & Fitness Activity"),
+	// ScreenName-OneAppPostLogin
+	LOGOUT_ISO("logout"), 
+	SGD_CURRENCY_LABEL("SGD"), 
+	REVIEW_TOPUP_HEADER_IOS("Review Top-Up"),
+	LOGOT_PAYLAH_IOS("Log Out"), 
+	TITLE_2FA("Secure PIN"), 
+	DONE_2FA_IOS("Done"),
+	PIN_2FA("123456"),
+	// local transfer limit increase
+	MORE_LABEL("More"),
+	LOCAL_FUND_Transfer_LABEL("Local Fund Transfer"),
+	LOCAL_TRANSFER_LIMIT_LABEL("Local Transfer Limit"),
+	LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS("local"),
+	TO_OTHERBANK_LABEL("To Other Banks"), 
+	TRANSFER_TO_OTHERBANK_LABEL_LABEL("Transfer to Other Banks"),
+	SELECTED_LIMIT_1("40,000.00"), 
+	SELECTED_LIMIT_2("50,000.00"), 
+	SELECTED_LIMIT_3("0.00"),
+	LOCAL_TRANSFER_LABEL("Local Transfer Limit"), 
+	TRANSFER_TO_OTHERBANK_LABEL("Transfer to Other Banks"),
+	CHANGE_DAILY_LIMIT_BUTTON("CHANGE DAILY LIMIT NOW"), 
+	BACK_TOMORE_BUTTON("BACK TO MORE"),
+	LOCAL_TRANSFER_CAHNGE_TITLE("Local Transfer Limit Changed!"), 
+	SET_DAILY_LIMIT_TITLE("Set Daily Limit"),
+	REVIEW_DAILY_LIMIT_TITLE("Review Daily Limit"),
+	TOPUP_LABEL_IOS("Top Up"),
 	;
+	
 	private final String message;
 
 	private CommonTestData(String message) {

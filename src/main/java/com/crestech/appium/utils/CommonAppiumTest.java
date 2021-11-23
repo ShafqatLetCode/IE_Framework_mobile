@@ -6,6 +6,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
+
+import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.WaitUtils;
 import io.appium.java_client.AppiumDriver;
@@ -401,6 +403,23 @@ public class CommonAppiumTest extends CommandPrompt {
 			return message;
 		} catch (Exception e) {
 			return ex.getLocalizedMessage();
+		}
+	}
+	
+	/**
+	 * Click on element if enable
+	 * @param element
+	 * @throws Exception
+	 */
+	public static void clickOnElementOnEnable(MobileElement element) throws Exception {
+		try {
+			if (isElementEnable(element)) {
+				Asserts.assertTrue(CommonAppiumTest.isElementEnable(element), "button Not enable");
+				element.click();
+			} else
+				throw new Exception("The element isn't provided or may be null.");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
 		}
 	}
 

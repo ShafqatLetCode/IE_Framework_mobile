@@ -184,7 +184,21 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 	
 	@Parameters({"userName", "password" })
-	@Test(priority=12, enabled=true, description = "Verifies the Peek Balance.")
+	@Test(priority=12,enabled=false,description = "Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit")
+	@Description(value = "Execution of this testcase:: ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847")
+	@Author(name = "Shafqat Ali")
+	public void ChangeLocalFundsTransferLimit(String userName,String password) throws Exception { 
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password);
+			 dbspage.ChangeLocalFundsTransferLimit();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=13, enabled=true, description = "Verifies the Peek Balance.")
 	@Description(value = "Execution of this testcase:: PeekBalance-MCA-ONEAPP-13982")
 	@Author(name = "Divya Devi")
 	public void PeekBalance_MCA(String userName,String password) throws Exception {
