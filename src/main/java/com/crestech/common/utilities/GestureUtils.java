@@ -443,6 +443,7 @@ public class GestureUtils {
 				} else
 					count = 1;
 			}
+
 			Asserts.assertTrue(CommonAppiumTest.isElementVisible(element), "Element not found");
 
 		} catch (Exception e) {

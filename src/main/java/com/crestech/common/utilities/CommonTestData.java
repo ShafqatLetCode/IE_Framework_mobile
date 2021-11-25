@@ -53,6 +53,7 @@ public enum CommonTestData {
 	TRANSFER_SUBMITTED_MSG("Transfer Submitted"),
 	REVIEW_TRANSFER("Review Transfer"),
 	REFERENCE_NUMBER_TEXT("Reference No."),
+	
 	OVERSEAS_TRANSFER_TEXT("OVERSEAS TRANSFER"),
 	DBS_APPS_ACTIVITY("com.dbs.sg.digibank.ui.demo.SplashActivity"),
 	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
@@ -68,7 +69,6 @@ public enum CommonTestData {
 	REVIEW_RECIPIENT_DETAILS("Review Recipient's Details"),
 	SECURE_PIN_PAGE_HEADER("Secure PIN"),
 	YOU_HAVE_ADDED_RECIPIENT_MSG("You’ve added a recipient"),
-	MORE_ICON("More"),
 	NAMETO_APPEAR_ON_DEBITCARD("DBS Passion"),
 	REVIEW_APPLICATION("Review Application"),
 	SET_CARD_PIN("Set Card PIN"),
@@ -78,7 +78,7 @@ public enum CommonTestData {
 	DBS_CASHLINE("DBS CASHLINE"),
 	REFERENCENUMBER_DBS_CASHLINE("0824867822"),
 	PAY_TO_BILLER_PAGE_HEADER("Pay to Biller"),
-	AMOUNT_FOR_BILL_ORGANIZATION_PAYMENT("10"),
+	AMOUNTTO_TRANSFERFUND("10"),
 	REVIEW_PAYMENT_PAGEHEADER("Review Payment"),
 	PAYMENT_SUBMITTED("Payment Submitted"),
 	OPEN_ACCOUNT("Open Account"),
@@ -118,6 +118,7 @@ public enum CommonTestData {
 	SET_DAILY_LIMIT_TITLE("Set Daily Limit"),
 	REVIEW_DAILY_LIMIT_TITLE("Review Daily Limit"),
 	TOPUP_LABEL_IOS("Top Up"),
+
 	
 	
 	////fund transfer posbdbs
@@ -134,12 +135,7 @@ public enum CommonTestData {
 	TRANSFER_TITLE("Transferred"),
 	
 	TRANSCETION_HISTORY_LABEL("Transaction History"),
-	STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
-	SHOW_BUTTON("SHOW"),
-	TIME_THREE_MONTH("3 Months"),
 	ACCOUNT_STATEMENT_NAME("POSB STATEMENT SAVINGS 420-86201-6"),
-	DEPOSITE_LABEL("Deposit Account"),
-	
 	HOME_BUTTON("Home"),
 	BILLING_ORGANISATION_LABEL("Billing Organisations"),
 	TRANSFER_OTHERBANK("Transfer to Other Banks"),
@@ -147,6 +143,15 @@ public enum CommonTestData {
 	IMMEDIATE_TEXT("Immediate"),
 	AMOUNT_FUNDTRANSFER("11"),
 	AMOUNT_FUNDTRANSFER_VERIFY("11.00"),
+
+	TRANSFER_TO_YOUR_ACCOUNT("Transfer to Your Account"),
+	TRANSFERRED("Transferred"),
+	TIME_THREE_MONTH("3 Months"),
+	
+	DEPOSITE_LABEL("Deposit Account"),
+    STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
+	SHOW_BUTTON("SHOW"),
+
 	;
 	
 	private final String message;
