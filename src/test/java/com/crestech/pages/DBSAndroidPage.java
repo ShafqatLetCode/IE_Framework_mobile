@@ -673,10 +673,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Enter currency in EditBox")
 	public void sendCurrencyInTextField(String text) throws Exception {
 		try {
-			if (isElementEnable(DBSappObject.currencyTextBox()))
 				enterTextInTextbox(DBSappObject.currencyTextBox(), text);
 
-			Asserts.assertTrue(isElementEnable(DBSappObject.currencyTextBox()), "EditField is not enable");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -1319,5 +1317,167 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			throw new Exception(getExceptionMessage(e));
 		}
 	}
+	@Step("Click on 'All Tab' section")
+	public void clickAndVerifyOnAllTab() throws Exception {
+		try {
+			VerifyButtonLabelAndClick(DBSappObject.AllTab(),CommonTestData.ALL_SECTION.getEnumValue());	
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
 
+	}
+	@Step("Click on 'DBS CURRENT ACCOUNT' after selecting 'Local Recipients' and verify 'Transfer to DBS/POSB' Title")
+	public void selectLocalRecientAndClickingOnDbsCurrentAccount() throws Exception {
+		try {
+			VerifyButtonLabelAndClick(DBSappObject.localRecipientsTextButton(),CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue());
+			GestureUtils.scrollUPtoObject("text", CommonTestData.DBS_CURRENT_ACCOUNT_TEXT.getEnumValue(), DBSappObject.dbsCurrentAccountTextButton() );
+			VerifyButtonLabelAndClick(DBSappObject.dbsCurrentAccountTextButton(),CommonTestData.DBS_CURRENT_ACCOUNT_TEXT.getEnumValue());
+			verifyPageHeader(CommonTestData.TRANSFER_DBS_POSB.getEnumValue(), DBSappObject.PageHeader());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	@Step("Click on 'Select Fund Source' and Select DBS Multiplier Account")
+	public void selectFundSourceAndSelectDBSMultiplierAccount() throws Exception {
+		try {
+			String xpath = "//android.widget.TextView[@text='Select Fund Source']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			if (list.size() > 0) {
+			VerifyButtonLabelAndClick(DBSappObject.selectFundSourceTextButton(),CommonTestData.SELECT_SOURCE_FUND.getEnumValue());
+			VerifyButtonLabelAndClick(DBSappObject.dbsMultiplierAccountTextButton(),CommonTestData.DBS_MULTIPLIER_ACCOUNT_TEXT.getEnumValue());
+			AndroidAlert.AlertHandlingWithButtonMessage(DBSappObject.okButton(),CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(),
+					DBSappObject.primarysourceAlertTitle());
+			verifyPageHeader(CommonTestData.TRANSFER_DBS_POSB.getEnumValue(), DBSappObject.PageHeader());
+			}
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	@Step("Verify 'SGD Currency Field' and Enter Amount '11'")
+	public void enterAmountAndVerifySgdCurrency(String Amount) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.sgdFieldText()), CommonTestData.SGD_CURRENCY_LABEL.getEnumValue(), "'Currency' is not Matching");
+			enterTextInTextbox(DBSappObject.amountTransferTextBox(), Amount);
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	@Step(" Verifying page header 'Review Transfer' And Click on 'TRANSFER NOW' Button")
+	public void verifyReviewTransferAndClickTransferNowButton() throws Exception {
+		try {
+			verifyPageHeader( CommonTestData.REVIEW_TRANSFER_LABEL.getEnumValue(), DBSappObject.PageHeader());
+			VerifyButtonLabelAndClick(DBSappObject.transferNowButton(),CommonTestData.TRANSFER_NOW_BUTTON.getEnumValue());
+			
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	@Step(" Verifying page header 'Transferred' And Click on 'Logout' Button")
+	public void verifyTransferredTitleAndClickOnLogout() throws Exception {
+		try {
+			verifyPageHeader( CommonTestData.TRANSFER_TITLE.getEnumValue(), DBSappObject.PageHeader());
+			logOutTopUpVerifyClick("Log Out");
+			VerifyButtonLabelAndClick(DBSappObject.transferNowButton(),CommonTestData.TRANSFER_NOW_BUTTON.getEnumValue());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.postLogoutAlertMessage()), CommonTestData.RATE_MESSAGE.getEnumValue(),
+					"'Tap on the stars to rate' Text is not found");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	@Step("Verifies FundTransfer Other DBS/POSB")
+	public void FundTransferOtherBank() throws Exception {
+		try {
+			 
+			ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN();
+			clickAndVerifyOnAllTab();
+			selectLocalRecientAndClickingOnDbsCurrentAccount();
+			selectFundSourceAndSelectDBSMultiplierAccount();
+            enterAmountAndVerifySgdCurrency("11");
+            ClickOnNextButton();
+            verifyReviewTransferAndClickTransferNowButton();
+            verifyTransferredTitleAndClickOnLogout();
+             
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+	@Step("Click on 'Transaction History' Button and then Verifying page header 'Transaction History'")
+	public void ClickOnTransactionHistory() throws Exception {
+		try {
+			VerifyButtonLabelAndClick(DBSappObject.transactionHistoryLabelAndButton(),CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
+			EnterPasscodeAndDone();
+			verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(), DBSappObject.PageHeaderList().get(0));
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	@Step("Select'3 Months Transaction History' And 'POSB STATEMENT SAVINGS' from 'Deposit Account' section")
+	public void selectTimeAndAccountTypeForStatement(MobileElement depositAccountName) throws Exception {
+		try {
+			VerifyButtonLabelAndClick(DBSappObject.threeMonthLabel(),CommonTestData.TIME_THREE_MONTH.getEnumValue());
+			VerifyButtonLabelAndClick(DBSappObject.depositAccountLabelAndButton(),CommonTestData.DEPOSITE_LABEL.getEnumValue());
+			clickOnElement(depositAccountName);
+			verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(), DBSappObject.PageHeaderList().get(0));
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	@Step("Click on 'Show' Button and then Verifying page header 'POSB STATEMENT SAVINGS'")
+	public void ClickOnShowButtonAndVerifyHeader(String ExpectedAccountName) throws Exception {
+		try {
+			VerifyButtonLabelAndClick(DBSappObject.showButton(),CommonTestData.SHOW_BUTTON.getEnumValue());
+			EnterPasscodeAndDone();
+			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNameToCheckTransactionHistory()), ExpectedAccountName,
+					ExpectedAccountName+" is not Matching");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	@Step("Validating 'POSB STATEMENT SAVINGS' Transaction History List")
+	public void validateTranscetionHistoryList() throws Exception {
+		try {
+			List<MobileElement> Elementlist = DBSappObject.transactionHistoryList();
+			int l = Elementlist.size();
+			Asserts.assertTrue(l==0, "No Transaction History is Display");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	@Step("Back to Home page from Transaction History statement")
+	public void backToHome() throws Exception {
+		try {
+			clickOnElementOnEnable(DBSappObject.backButton());
+			verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(), DBSappObject.PageHeaderList().get(0));
+			clickOnElementOnEnable(DBSappObject.backButton());
+			VerifyButtonLabelAndClick(DBSappObject.showButton(),CommonTestData.SHOW_BUTTON.getEnumValue());
+			VerifyButtonLabelAndClick(DBSappObject.homeButton(),CommonTestData.HOME_BUTTON.getEnumValue());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	public void transactionHistoryVerify() throws Exception {
+		try {
+			
+			 ClickOnMoreBtnAndAuthenticationOfSecurePIN();
+			 ClickOnTransactionHistory();
+			 selectTimeAndAccountTypeForStatement(DBSappObject.posbStatementSavingLabel());
+			 ClickOnShowButtonAndVerifyHeader(CommonTestData.STATEMENT_TITLE.getEnumValue());
+			 validateTranscetionHistoryList();
+			 backToHome();
+			 
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+	
 }

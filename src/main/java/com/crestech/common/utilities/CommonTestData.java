@@ -118,6 +118,35 @@ public enum CommonTestData {
 	SET_DAILY_LIMIT_TITLE("Set Daily Limit"),
 	REVIEW_DAILY_LIMIT_TITLE("Review Daily Limit"),
 	TOPUP_LABEL_IOS("Top Up"),
+	
+	
+	////fund transfer posbdbs
+	ALL_SECTION("ALL"),
+	LOCAL_RECIPIENT_FROMLIST("Local Recipients"),
+	DBS_CURRENT_ACCOUNT_TEXT("DBS CURRENT ACCOUNT"),
+	TRANSFER_DBS_POSB("Transfer to DBS/POSB"),
+	SELECT_SOURCE_FUND("Select Fund Source"),
+	DBS_MULTIPLIER_ACCOUNT_TEXT("DBS Multiplier Account"),
+	PRIMARY_SOURCE_ALERT_TITLE("Primary source of fund"),
+	OK_BUTTON("OK"),
+	REVIEW_TRANSFER_LABEL("Review Transfer"),
+	TRANSFER_NOW_BUTTON("TRANSFER NOW"),
+	TRANSFER_TITLE("Transferred"),
+	
+	TRANSCETION_HISTORY_LABEL("Transaction History"),
+	STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
+	SHOW_BUTTON("SHOW"),
+	TIME_THREE_MONTH("3 Months"),
+	ACCOUNT_STATEMENT_NAME("POSB STATEMENT SAVINGS 420-86201-6"),
+	DEPOSITE_LABEL("Deposit Account"),
+	
+	HOME_BUTTON("Home"),
+	BILLING_ORGANISATION_LABEL("Billing Organisations"),
+	TRANSFER_OTHERBANK("Transfer to Other Banks"),
+	COMMENT_LOCAL_RECIPIENT("Non Fast transfer"),
+	IMMEDIATE_TEXT("Immediate"),
+	AMOUNT_FUNDTRANSFER("11"),
+	AMOUNT_FUNDTRANSFER_VERIFY("11.00"),
 	;
 	
 	private final String message;

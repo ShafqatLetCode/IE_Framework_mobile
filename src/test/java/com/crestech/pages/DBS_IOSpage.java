@@ -457,7 +457,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
-	@Step("Verifying page header 'Local Transfer Limit' button ")
+	@Step("Verifying page header 'Local Transfer Limit' ")
 	public void verifyLocalTransferLimitTitle() throws Exception {
 		try {
 			String expectedText=CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue();
@@ -569,6 +569,41 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
-	
+	@Step("Verify topup Paylah Case and logout topup Paylah.")
+	public void TopupPaylah() throws Exception {
+		try {
+			payAndTransferVerifyClick();
+			topUpVerifyClick();
+			 payLahVerifyClick();
+			 sendCurrencyInTextField(CommonTestData.AMOUNT_PAYLAH.getEnumValue());
+			 nextButtonVerifyClick();
+			 verifyReviewTopUpLabel(CommonTestData.TOPUP_REVIEW_LABEL.getEnumValue());
+			topUpNowVerifyClick(CommonTestData.TOPUP_NOW_BUTTOM_LABEL.getEnumValue());
+			logOutTopUpVerifyClick();
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	@Step("Change local fund transfer limit verification")
+	public void ChangeLocalFundsTransferLimit() throws Exception {
+		try {
+			MoreVerifyAndClickButton();
+			sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS.getEnumValue(),
+					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue());
+			verifyLocalTransferLimitTitle();
+			toOtherBanksVerifyClick();
+			String amountSlected = handlingSetCurrentLimit();
+			nextButtonVerifyClick();
+			verifyReviewDailyLimitTitle();
+			verifyClickChangeDailyLimitNowButton();
+			//verifyClickBackToMoreButton();
+			//sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),
+					//CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(), CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(), DBSappObject.PageHeader());
+		//	ClickOnToOtherBankLimit();
+			//verifyDisplayAmountLocalTransferLimitChange(amountSlected);
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
 
 }
