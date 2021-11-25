@@ -9,6 +9,7 @@ import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.base.UserBaseTest;
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
+import com.crestech.common.utilities.GestureUtils;
 import com.crestech.listeners.TestListener;
 import com.crestech.pages.DBSAndroidPage;
 import io.qameta.allure.Description;
@@ -249,4 +250,32 @@ public class DBSAndroidTest extends UserBaseTest {
 		}
 	}
 
+	@Parameters({"userName", "password" })
+	@Test(priority=17, enabled=true, description = "Verifies FundTransfer Other DBS/POSB")
+	@Description(value = "Execution of this testcase:: FundsTransfer-OtherPOSBDBS-ONEAPP-16723")
+	@Author(name = "shafqat")
+	public void FundTransferOtherDBSPOSB(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password);
+			 dbspage.FundTransferOtherBank();
+             
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+	@Parameters({"userName", "password" })
+	@Test(priority=18, enabled=true, description = "Verifies TransactionHistory")
+	@Description(value = "Execution of this testcase:: TransactionHistory-ONEAPP-14312")
+	@Author(name = "shafqat")
+	public void transactionHistory(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password);
+			 dbspage.transactionHistoryVerify();
+			 dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
 }

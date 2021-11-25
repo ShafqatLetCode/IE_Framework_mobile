@@ -321,7 +321,7 @@ public class DBS_IOSObject {
 
 	// search handling
 	@ElementDescription(value = "secure icon")
-	@iOSXCUITFindBy(xpath = "")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='More']")
 	private MobileElement searchIcon;
 
 	public MobileElement searchIcon() {// XCUIElementTypeStaticText[@name='More']

@@ -236,17 +236,17 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'single_list_item')]")
 	private List<MobileElement> countryList;
 
-	@ElementDescription(value = "clickable element corresponding to list of country")
-	@AndroidFindBy(xpath = "//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup")
-	private List<MobileElement> countryclickableList;
+	//@ElementDescription(value = "clickable element corresponding to list of country")
+	//@AndroidFindBy(xpath = "//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup")
+	//private List<MobileElement> countryclickableList;
 
 	public List<MobileElement> countryList() {
 		return countryList;
 	}
 
-	public List<MobileElement> countryclickableList() {
-		return countryclickableList;
-	}
+//	public List<MobileElement> countryclickableList() {
+//		return countryclickableList;
+//	}
 
 	public MobileElement locationAutocompleteSearchBox() {
 		return countryAutocompleteSearchBox;
@@ -516,7 +516,7 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "Page Header List")
 	@AndroidFindBy(xpath = " //android.widget.RelativeLayout//android.widget.TextView[contains(@resource-id,':id/text')]")
 	private List<MobileElement> PageHeaderList;
-
+	
 	@ElementDescription(value = "Edit Amount Text Fields")
 	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,':id/amountEdit')]")
 	private List<MobileElement> AmountTextFields;
@@ -656,7 +656,7 @@ public class DBSAndroidObject {
 	public MobileElement PageHeader() {
 		return PageHeader;
 	}
-
+	
 	public List<MobileElement> PageHeaderList() {
 		return PageHeaderList;
 	}
@@ -791,9 +791,6 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Transaction History']")
 	private MobileElement transactionHistoryLabel;
 
-	public MobileElement transactionHistoryLabelAndButton() {
-		return transactionHistoryLabel;
-	}
 
 	public List<MobileElement> SelectSourceOfFundsForSavingsDropdownList() {
 		return SelectSourceOfFundsForSavingsDropdownList;
@@ -1391,18 +1388,147 @@ public class DBSAndroidObject {
 		return searchClickableElement;
 	}
 
-	@ElementDescription(value = "3 three month  Label")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='3 Months']")
-	private MobileElement threeMonthLabel;
+      ////////fund transfer to other bank
+	
+	@ElementDescription(value = "Local Recipient")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Local Recipients']")
+	private MobileElement localRecipientsTextButton;
+	
+	@ElementDescription(value = "DBS CURRENT ACCOUNT")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='DBS CURRENT ACCOUNT']")
+	private MobileElement dbsCurrentAccountOption;
+	
 
-	public MobileElement threeMonthLabel() {
-		return threeMonthLabel;
+	public MobileElement dbsCurrentAccountOption() {
+		return dbsCurrentAccountOption;
+	}
+	public MobileElement localRecipientsTextButton() {
+		return localRecipientsTextButton;
+	}
+	@ElementDescription(value = "Select Fund Source")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Select Fund Source']")
+	private MobileElement selectFundSourceTextButton;
+	
+	public MobileElement selectFundSourceTextButton() {
+		return selectFundSourceTextButton;
+	}
+	@ElementDescription(value = "DBS Multiplier Account")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='DBS Multiplier Account']")
+	private MobileElement dbsMultiplierAccountTextButton;
+	
+	public MobileElement dbsMultiplierAccountTextButton() {
+		return dbsMultiplierAccountTextButton;
+	}
+	
+	//alert
+	@ElementDescription(value = "Primary source of fund title text")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/tv_primary_account_bottom_sheet_title')]")
+	private MobileElement primarysourceAlertTitle;
+	
+	public MobileElement primarysourceAlertTitle() {
+		return primarysourceAlertTitle;
+	}
+	
+	@ElementDescription(value = "Amount Transfer edittext box")
+	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'id/appCompatEditText')]")
+	private MobileElement amountTransferTextBox;
+	
+	@ElementDescription(value = "SGD")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='SGD']")
+	private MobileElement sgdFieldText;
+	
+	public MobileElement amountTransferTextBox() {
+		return amountTransferTextBox;
+	}
+	public MobileElement sgdFieldText() {
+		return sgdFieldText;
+	}
+	
+	@ElementDescription(value = "Review Transfer")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Review Transfer']")
+	private MobileElement reviewTransferTitle;
+	
+	public MobileElement reviewTransferTitle() {
+		return reviewTransferTitle;
 	}
 
+	public MobileElement transactionHistoryLabelAndButton() {
+		return transactionHistoryLabel;
+	}
+	
 	@ElementDescription(value = "Deposit Account Label and Button")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Deposit Account']")
 	private MobileElement depositAccountLabelAndButton;
 
+	public MobileElement depositAccountLabelAndButton() {
+		return depositAccountLabelAndButton;
+	}
+	@ElementDescription(value = "POSB STATEMENT SAVINGS  Label and Button")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'POSB STATEMENT SAVINGS')]")
+	private MobileElement posbStatementSavingLabel;
+
+	public MobileElement  posbStatementSavingLabel() {
+		return  posbStatementSavingLabel;
+	}
+	@ElementDescription(value = "3 three month  Label")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='3 Months']")
+	private MobileElement threeMonthLabel;
+
+	public MobileElement  threeMonthLabel() {
+		return  threeMonthLabel;
+	}
+	@ElementDescription(value = "Show button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='SHOW']")
+	private MobileElement showButton;
+
+	public MobileElement  showButton() {
+		return  showButton;
+	}
+	@ElementDescription(value = "DropDown List")
+	@AndroidFindBy(xpath = "//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup")
+	private List<MobileElement> dropDowmList;
+	
+	public List<MobileElement> dropDowmList() {
+		return dropDowmList;
+	}
+	@ElementDescription(value = "back button")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,'id/back_btn')]")
+	private MobileElement backButton;
+
+	public MobileElement  backButton() {
+		return  backButton;
+	}
+	@ElementDescription(value = "Home button")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[@text='Home']")
+	private MobileElement homeButton;
+
+	public MobileElement  homeButton() {
+		return  homeButton;
+	}
+	@ElementDescription(value = "Selected bank Account From Local Recipient List")
+	@AndroidFindBy(xpath = "(//android.widget.LinearLayout[contains(@resource-id,':id/ll_maincontent_view_id')])[1]")
+	private MobileElement localRecipientListSelectedAccount;
+
+	public MobileElement  localRecipientListSelectedAccount() {
+		return  localRecipientListSelectedAccount;
+	}
+	@ElementDescription(value = "Billing Organisations label And Button")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[@text='Billing Organisations']")
+	private MobileElement billingOrganisations;
+	
+	public MobileElement  billingOrganisations() {
+		return  billingOrganisations;
+	}
+	
+	
+	@ElementDescription(value = "Selected bank Account From Select Fund Source")
+	@AndroidFindBy(xpath = "(//android.widget.TextView[contains(@resource-id,':id/text_src_acc_name')])[0]")
+	private MobileElement FundSourceListSelectedAccount;
+
+	@ElementDescription(value = "Account name to checking transaction history.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_accountName')]")
+	private MobileElement AccountNameToCheckTransactionHistory;
+	
 	@ElementDescription(value = "Deposit Account List")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_expandable_item_head_title')]")
 	private List<MobileElement> DepositAccountList;
@@ -1410,41 +1536,13 @@ public class DBSAndroidObject {
 	public List<MobileElement> DepositAccountList() {
 		return DepositAccountList;
 	}
-
-	public MobileElement depositAccountLabelAndButton() {
-		return depositAccountLabelAndButton;
+	
+	public MobileElement  FundSourceListSelectedAccount() {
+		return  FundSourceListSelectedAccount;
 	}
-
-	@ElementDescription(value = "POSB STATEMENT SAVINGS  Label and Button")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'POSB STATEMENT SAVINGS')]")
-	private MobileElement posbStatementSavingLabel;
-
-	public MobileElement posbStatementSavingLabel() {
-		return posbStatementSavingLabel;
+	
+	public MobileElement  AccountNameToCheckTransactionHistory() {
+		return  AccountNameToCheckTransactionHistory;
 	}
-
-	@ElementDescription(value = "Account name to checking transaction history.")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_accountName')]")
-	private MobileElement AccountNameToCheckTransactionHistory;
-
-	public MobileElement AccountNameToCheckTransactionHistory() {
-		return AccountNameToCheckTransactionHistory;
-	}
-
-	@ElementDescription(value = "Show button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='SHOW']")
-	private MobileElement showButton;
-
-	public MobileElement showButton() {
-		return showButton;
-	}
-
-	@ElementDescription(value = "Transection History List")
-	@AndroidFindBy(xpath = "//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup")
-	private List<MobileElement> transactionHistoryList;
-
-	public List<MobileElement> transactionHistoryList() {
-		return transactionHistoryList;
-	}
-
 }
+
