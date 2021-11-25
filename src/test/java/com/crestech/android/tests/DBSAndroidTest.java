@@ -224,4 +224,35 @@ public class DBSAndroidTest extends UserBaseTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
 		}
 	}
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=15, enabled=true, description = "Verifies the Fund Transfer Other Bank Non Fast Future Transfer Date.")
+	@Description(value = "Execution of this testcase:: FundsTransfer-OtherBank-NonFAST-Future-THANOS-5244")
+	@Author(name = "Divya Devi")
+	public void FundsTransfer_OtherBank_NonFAST_Future(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password);
+			 dbspage.FundsTransfer_OtherBank_NonFASTFuture();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=16, enabled=true, description = "Verifies the Fund Transfer Other Bank Non Immediate Transfer Date.")
+	@Description(value = "Execution of this testcase:: FundsTransfer-OtherBank-NonFAST-ONEAPP-16728")
+	@Author(name = "Divya Devi")
+	public void FundsTransfer_OtherBank_NonFAST(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password);
+			 dbspage.FundsTransfer_OtherBank_NonFAST();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+	
+	
+	
 }

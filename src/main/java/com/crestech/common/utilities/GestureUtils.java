@@ -414,14 +414,14 @@ public class GestureUtils {
 				} else
 					count = 1;
 			}
-			Asserts.assertTrue(CommonAppiumTest.isElementEnable(element), "Element not found");
+			Asserts.assertTrue(CommonAppiumTest.isElementVisible(element), "Element not found");
 
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
 	
-	public static boolean scrollDOWNtoObject(String attribute, String value) throws Exception {
+	public static void scrollDOWNtoObject(String attribute, String value, MobileElement element) throws Exception {
 		try {
 			wait.ImplicitlyWait();
 			Dimension windowSize = driver.manage().window().getSize();
@@ -443,11 +443,8 @@ public class GestureUtils {
 				} else
 					count = 1;
 			}
-			if (count == 0)
-				return true;
-			else
-				return false;
-
+			
+			Asserts.assertTrue(CommonAppiumTest.isElementVisible(element), "Element not found");
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}

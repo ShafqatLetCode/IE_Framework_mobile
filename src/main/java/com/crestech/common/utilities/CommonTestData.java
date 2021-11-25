@@ -53,6 +53,7 @@ public enum CommonTestData {
 	TRANSFER_SUBMITTED_MSG("Transfer Submitted"),
 	REVIEW_TRANSFER("Review Transfer"),
 	REFERENCE_NUMBER_TEXT("Reference No."),
+	TRANSCETION_HISTORY_LABEL("Transaction History"),
 	OVERSEAS_TRANSFER_TEXT("OVERSEAS TRANSFER"),
 	DBS_APPS_ACTIVITY("com.dbs.sg.digibank.ui.demo.SplashActivity"),
 	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
@@ -119,6 +120,11 @@ public enum CommonTestData {
 	TOPUP_LABEL_IOS("Top Up"),
 	TRANSFER_TO_YOUR_ACCOUNT("Transfer to Your Account"),
 	TRANSFERRED("Transferred"),
+	TIME_THREE_MONTH("3 Months"),
+	
+	DEPOSITE_LABEL("Deposit Account"),
+STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
+	SHOW_BUTTON("SHOW"),
 	;
 	
 	private final String message;
