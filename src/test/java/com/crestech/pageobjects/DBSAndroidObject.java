@@ -64,7 +64,7 @@ public class DBSAndroidObject {
 	private MobileElement postLogoutAlertMessage;
 
 	@ElementDescription(value = "Submit Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@content-desc='SUBMIT']")
+	@AndroidFindBy(xpath = "//android.widget.Button[@content-desc='APPLY']")
 	private MobileElement submitButton;
 
 	@ElementDescription(value = "Close Button")
@@ -506,8 +506,12 @@ public class DBSAndroidObject {
 	private List<MobileElement> SourceFundList;
 
 	@ElementDescription(value = "Overseas Transfer Page")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_title_mfe')]")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_overseas_transfer')]")
 	private MobileElement OverseasTransferPage;
+	
+	@ElementDescription(value = "Enter Name to appear on the Card Field")
+	@AndroidFindBy(xpath = "//android.widget.EditText[@text='Name to appear on the Card']")					
+	private MobileElement EnterNameToAppearOnTheCardField;
 
 	@ElementDescription(value = "Page Header")
 	@AndroidFindBy(xpath = " //android.widget.RelativeLayout//android.widget.TextView[contains(@resource-id,':id/text')]")
@@ -897,10 +901,6 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "Title Field")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Title']")
 	private MobileElement TitleField;
-
-	@ElementDescription(value = "Enter Name to appear on the Card Field")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Name to appear on the Card']")
-	private MobileElement EnterNameToAppearOnTheCardField;
 
 	@ElementDescription(value = "Debit Card Details Dropdown List")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_view_id')]")
@@ -1456,12 +1456,12 @@ public class DBSAndroidObject {
 		return transactionHistoryLabel;
 	}
 	
-	@ElementDescription(value = "Deposit Account Label and Button")
+	@ElementDescription(value = "Deposit Account Button")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Deposit Account']")
-	private MobileElement depositAccountLabelAndButton;
+	private MobileElement DepositAccountButton;
 
-	public MobileElement depositAccountLabelAndButton() {
-		return depositAccountLabelAndButton;
+	public MobileElement DepositAccountButton() {
+		return DepositAccountButton;
 	}
 	@ElementDescription(value = "POSB STATEMENT SAVINGS  Label and Button")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'POSB STATEMENT SAVINGS')]")

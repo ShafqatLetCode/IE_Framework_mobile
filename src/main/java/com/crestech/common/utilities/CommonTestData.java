@@ -146,9 +146,6 @@ public enum CommonTestData {
 
 	TRANSFER_TO_YOUR_ACCOUNT("Transfer to Your Account"),
 	TRANSFERRED("Transferred"),
-	TIME_THREE_MONTH("3 Months"),
-	
-	DEPOSITE_LABEL("Deposit Account"),
     STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
 	SHOW_BUTTON("SHOW"),
 

@@ -9,8 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -24,6 +28,11 @@ import io.qameta.allure.Step;
 
 @Listeners({ TestListener.class })
 public class ExcelUtils {
+	
+	public final HashMap<String, HashMap<String, String>> TestDataMap;
+	static int UsernameColumnIndex;
+	private final String TestData = "Test Data";
+	private final String Username = "Username";
 
 	/**
 	 * @author Sneha Aggarwal
@@ -385,6 +394,90 @@ public class ExcelUtils {
 		}
 		// Returning excelFileMap
 		return dataMap;
+	}
+	
+	public ExcelUtils() throws Exception {
+		try {
+			File sourceFile = new File(System.getProperty("user.dir") + "//TestData//TestData.xlsx");
+			FileInputStream inputStream = new FileInputStream(sourceFile);
+			Workbook workbook = null;
+			try {
+				workbook = new XSSFWorkbook(inputStream);
+				this.TestDataMap = getTestData(workbook);
+			} catch (Exception e) {
+				throw new Exception("Unable to read file. Exception : " + e.getLocalizedMessage());
+			} finally {
+				inputStream.close();
+				workbook.close();
+			}
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+	
+	private HashMap<String, HashMap<String, String>> getTestData(Workbook workbook) throws Exception {
+		try {
+			Sheet sheet = workbook.getSheet(this.TestData);
+			int rowCount = sheet.getLastRowNum();
+			DataFormatter dataFormatter = new DataFormatter();
+			Row headerRow = sheet.getRow(0);
+			int columnCount = headerRow.getLastCellNum();
+			/*
+			 * The keys of the OuterMap will be the TestDataIDs (e.g.: Username1, Username2,..., etc.)
+			 * The values of the OuterMap will be an Inner HashMap which will contain
+			 * dynamic number of keys and values for each TestDataID.
+			 */
+			HashMap<String, HashMap<String, String>> OuterMap = new HashMap<String, HashMap<String, String>>();
+
+			// getting column index of test data ID's.
+			for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+				String columnName = dataFormatter.formatCellValue(headerRow.getCell(columnIndex)).trim();
+				if (columnName.equalsIgnoreCase(this.Username)) {
+					UsernameColumnIndex = columnIndex;
+				}
+			}
+
+			FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
+
+			for (int rowIndex = 1; rowIndex <= rowCount; rowIndex++) {
+
+				Row row = sheet.getRow(rowIndex);
+
+				// This map will become the value for the keys in OuterMap.
+				HashMap<String, String> InnerMap = new HashMap<String, String>();
+
+				for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
+					/*
+					 * InnerValue will contain the values for the keys of InnerMap. E.g.: For Username1
+					 * (key of OuterMap), the value will be InnerMap. For InnerMap, InnerKey ->
+					 * PortType (header) and InnerValue -> "NPT".
+					 */
+
+					String InnerValue = dataFormatter.formatCellValue(row.getCell(columnIndex), evaluator);
+					if (!InnerValue.trim().isEmpty() && columnIndex != UsernameColumnIndex) {
+						//InnerValue = XYZ
+						// At columnIndex = 0, the headerCell refers to the cell containing "S.No."
+						Cell headerCell = headerRow.getCell(columnIndex);
+
+						// Store HeaderCell string as key of InnerDataMap
+						String InnerKey = dataFormatter.formatCellValue(headerCell).trim();
+						if ((InnerKey.length() > 0) && (InnerKey.charAt(0) != '#')) {
+							if (InnerMap.containsKey(InnerKey))
+								throw new Exception("Duplicate entries in Test Data sheet for the Header Name : '"
+										+ InnerKey + "'");
+							else
+								InnerMap.put(InnerKey, InnerValue);
+						}
+					}
+
+					String Username = dataFormatter.formatCellValue(row.getCell(UsernameColumnIndex));
+					OuterMap.put(Username, InnerMap);
+				}
+			}
+			return OuterMap;
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
 	}
 
 }

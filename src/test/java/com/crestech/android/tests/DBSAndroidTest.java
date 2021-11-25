@@ -9,7 +9,6 @@ import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.base.UserBaseTest;
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
-import com.crestech.common.utilities.GestureUtils;
 import com.crestech.listeners.TestListener;
 import com.crestech.pages.DBSAndroidPage;
 import io.qameta.allure.Description;
@@ -20,6 +19,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	public DBSAndroidTest() throws Exception {
 		super();
 	}
+	
 
 	Logger logger = Logger.getLogger(DBSAndroidTest.class.getName());
 	Asserts Assert = new Asserts();

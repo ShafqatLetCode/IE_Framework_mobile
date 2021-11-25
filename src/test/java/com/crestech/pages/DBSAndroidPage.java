@@ -292,9 +292,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verify 'You Have Added Recipient Msg' After Entering Secure PIN.")
 	public void VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN() throws Exception {
 		try {
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.SECURE_PIN_PAGE_HEADER.getEnumValue(),
-					CommonTestData.SECURE_PIN_PAGE_HEADER.getEnumValue() + " Text is not matching");
 			EnterPasscodeAndDone();
 			if (isElementVisible(DBSappObject.SuccessTickImageView()))
 				Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
@@ -312,7 +309,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.AddLocalRecipient());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(),
-					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue() + " Text is not found");
+					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue() + " Page Header is not matching");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -525,6 +522,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Next Button.")
 	public void ClickOnNextButton() throws Exception {
 		try {
+			GestureUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			if (getTexOfElement(DBSappObject.nextButton()).equalsIgnoreCase("NEXT"))
 				clickOnElement(DBSappObject.nextButton());
 		} catch (Exception e) {
@@ -723,6 +721,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
+	
 	@Step("Verifies the Applying Debit Card and Verify the completion page details.")
 	public void ApplyDebitCard() throws Exception {
 		try {
@@ -730,10 +729,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN();
 			FillingDetailsToApplyingDebitCard();
 			ClickOnNextButton();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderList().get(4)),
 					CommonTestData.REVIEW_APPLICATION.getEnumValue(),
 					CommonTestData.REVIEW_APPLICATION.getEnumValue() + " Text is not found");
-			// add scroll code if required.
+			GestureUtils.scrollUPtoObject("text", "APPLY NOW", DBSappObject.ApplyNowButton());
 			clickOnElement(DBSappObject.ApplyNowButton());
 			ClickOnSubmitButtonAfterSettingCardPIN();
 		} catch (Exception e) {
@@ -741,10 +740,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
+	
 	@Step("Verifies the Set Card Pin Page Header and then Submit While Entering Confirm and Create New Pin & Verifies the 'Application Submitted' Message.")
 	public void ClickOnSubmitButtonAfterSettingCardPIN() throws Exception {
 		try {
-			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderList().get(5)),
 					CommonTestData.SET_CARD_PIN.getEnumValue(),
 					CommonTestData.SET_CARD_PIN.getEnumValue() + " Text is not found");
 			clickOnElement(DBSappObject.CreateYourPINField());
@@ -753,7 +753,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterTextInTextbox(DBSappObject.ConfirmNewPINField(), CommonTestData.CONFIRM_PIN.getEnumValue());
 			driver.hideKeyboard();
 			clickOnElement(DBSappObject.submitButton());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderList().get(8)),
 					CommonTestData.APPLICATION_SUBMITTED.getEnumValue(),
 					CommonTestData.APPLICATION_SUBMITTED.getEnumValue() + " Text is not Matching");
 		} catch (Exception e) {
@@ -775,7 +775,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterTextInTextbox(DBSappObject.EnterNameToAppearOnTheCardField(),
 					CommonTestData.NAMETO_APPEAR_ON_DEBITCARD.getEnumValue());
 			driver.hideKeyboard();
-			// add code for scroll down if required.
+			GestureUtils.scrollUPtoObject("text", "Education", DBSappObject.EducationField());
 			clickOnElement(DBSappObject.RaceField());
 			clickOnElement(DBSappObject.DebitCardDetailsDropdownList().get(3));
 			clickOnElement(DBSappObject.MaritalStatusField());
@@ -788,7 +788,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.DebitCardDetailsDropdownList().get(2));
 			clickOnElement(DBSappObject.AnnualIncomeField());
 			clickOnElement(DBSappObject.DebitCardDetailsDropdownList().get(2));
-			// add code for scroll down if required.
+			GestureUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			clickOnElement(DBSappObject.SendMeDBSPrmotionViaMail());
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
@@ -798,6 +798,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Select Debit Card Option After Clicking on Cards Section and then 2FA Authentication Done.")
 	public void SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN() throws Exception {
 		try {
+			GestureUtils.scrollUPtoObject("text", "Cards", DBSappObject.CardsButton());
 			if (isElementVisible(DBSappObject.CardsButton()))
 				clickOnElement(DBSappObject.CardsButton());
 			wait.waitForElementVisibility(DBSappObject.SelectDebitCard());
@@ -1178,9 +1179,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifyButtonLabelAndClick(MobileElement Button, String expectecText) throws Exception {
 		try {
 			String actualText = getTexOfElement(Button);
+			Asserts.assertEquals(actualText, expectecText, "button Not exist");
 			if (actualText.equalsIgnoreCase(expectecText))
 				clickOnElement(Button);
-			Asserts.assertEquals(actualText, expectecText, "button Not exist");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -1470,46 +1471,22 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN();
 			SelectAllTAB();
 			SelectLocalRecipientsAccount();
-			verifyPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue(),
-					DBSappObject.PageHeaderList().get(0));
-			GestureUtils.scrollUPtoObject(null, null, DBSappObject.TransferViaFastTransferToggle());
-			clickOnElement(DBSappObject.TransferViaFastTransferToggle());
+			DisableToTransferViaFastToggle();
 			EnterAmount(DBSappObject.EditFields().get(0), "Non Fast");
 			GestureUtils.scrollDOWNtoObject("text", "Immediate", DBSappObject.TransferDateTextElement());
 			SelectFundSourceAccount(0);
-			clickOnElement(DBSappObject.TransferDateTextElement());
-
-			String ExpectedSelectedDate = SelectFutureDateThroughCalendar();
-			String ActualSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
-			Asserts.assertEquals(ActualSelectedDate, ExpectedSelectedDate, "Selected Date is not Matching");
-
+			SelectFutureDateThroughCalendar();
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
-
-			GestureUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			ClickOnNextButton();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderList().get(0)),
-					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
-					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
-
-			GestureUtils.scrollUPtoObject("text", "TRANSFER NOW", DBSappObject.TransferNowBtn());
-			Asserts.assertTrue(DBSappObject.NonFastTransactionService().isDisplayed(),
-					"Non-Fast Service not available in review.");
+			VerifyReviewTransferPageAndNonFastServiceInReview();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
 					DBSappObject.ImageForPaymentSuccess(), DBSappObject.TransferSuccessMsgElement());
-			Asserts.assertTrue(DBSappObject.LOGOUTButton().isDisplayed(), "Log Out Button not found.");
-			Asserts.assertTrue(DBSappObject.MakeAnotherTransferBtn().isDisplayed(), "Log Out Button not found.");
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.SendingAmountElement()),
-					CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + ".00 ", "Amount is not matching");
+			VerifyVisibiltyOfSomeElements();
 			String FromAccountname = getTexOfElement(DBSappObject.AccountNameList().get(0));
 			String FromAccountNo = getTexOfElement(DBSappObject.AccountNumberList().get(0));
-
 			System.out.println(FromAccountname);
 			System.out.println(FromAccountNo);
-
-			clickOnElement(DBSappObject.FooterExpandableBtn());
-			GestureUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
-			clickOnElement(DBSappObject.BackIcon());
+			ClickOnExpandbtnAndBackBtn();
 			ClickOnMoreBtnAndAuthenticationOfSecurePIN();
 			ClickOnTransactionHistory();
 			selectTimeAndAccountTypeForStatement(DBSappObject.DepositAccountList().get(1));
@@ -1526,40 +1503,23 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtnAndAuthenticationOfSecurePIN();
 			SelectAllTAB();
 			SelectLocalRecipientsAccount();
-			verifyPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue(),
-					DBSappObject.PageHeaderList().get(0));
-			clickOnElement(DBSappObject.TransferViaFastTransferToggle());
+			DisableToTransferViaFastToggle();
 			EnterAmount(DBSappObject.EditFields().get(0), "Non Fast");
+			GestureUtils.scrollDOWNtoObject("text", "Immediate", DBSappObject.TransferDateTextElement());
 			SelectFundSourceAccount(0);
-
 			String ExpectedSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
 			Asserts.assertEquals("Immediate", ExpectedSelectedDate, "Selected Date is not Matching");
-
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			ClickOnNextButton();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderList().get(0)),
-					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
-					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
-
-			GestureUtils.scrollUPtoObject("text", "TRANSFER NOW", DBSappObject.TransferNowBtn());
-			Asserts.assertTrue(DBSappObject.NonFastTransactionService().isDisplayed(),
-					"Non-Fast Service not available in review.");
+			VerifyReviewTransferPageAndNonFastServiceInReview();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
 					DBSappObject.ImageForPaymentSuccess(), DBSappObject.TransferSuccessMsgElement());
-			Asserts.assertTrue(DBSappObject.LOGOUTButton().isDisplayed(), "Log Out Button not found.");
-			Asserts.assertTrue(DBSappObject.MakeAnotherTransferBtn().isDisplayed(), "Log Out Button not found.");
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.SendingAmountElement()),
-					CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + ".00 ", "Amount is not matching");
+			VerifyVisibiltyOfSomeElements();
 			String FromAccountname = getTexOfElement(DBSappObject.AccountNameList().get(0));
 			String FromAccountNo = getTexOfElement(DBSappObject.AccountNumberList().get(0));
-
 			System.out.println(FromAccountname);
 			System.out.println(FromAccountNo);
-
-			clickOnElement(DBSappObject.FooterExpandableBtn());
-			GestureUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
-			clickOnElement(DBSappObject.BackIcon());
+			ClickOnExpandbtnAndBackBtn();
 			ClickOnMoreBtnAndAuthenticationOfSecurePIN();
 			ClickOnTransactionHistory();
 			selectTimeAndAccountTypeForStatement(DBSappObject.DepositAccountList().get(1));
@@ -1567,6 +1527,56 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ValadateTransactionHistoryListInThreeMonth();
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Click On 'Expandable btn' And scroll Down to 'Reference No.' text then Click On Back Button.")
+	public void ClickOnExpandbtnAndBackBtn() throws Exception {
+		try {
+			clickOnElement(DBSappObject.FooterExpandableBtn());
+			GestureUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
+			clickOnElement(DBSappObject.BackIcon());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Verifies the 'Log out', 'Make Another Transfer' Button and 'Transferred Amount Value' after transferring the fund.")
+	public void VerifyVisibiltyOfSomeElements() throws Exception {
+		try {
+			Asserts.assertTrue(DBSappObject.LOGOUTButton().isDisplayed(), "Log Out Button not found.");
+			Asserts.assertTrue(DBSappObject.MakeAnotherTransferBtn().isDisplayed(), "Log Out Button not found.");
+			Asserts.assertEquals(getTexOfElement(DBSappObject.SendingAmountElement()),
+					CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + ".00 ", "Amount is not matching");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
+	
+	@Step("Verify 'Review Transfer' Page And 'Non-Fast' Service In Review")
+	public void VerifyReviewTransferPageAndNonFastServiceInReview() throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderList().get(0)),
+					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
+					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
+
+			GestureUtils.scrollUPtoObject("text", "TRANSFER NOW", DBSappObject.TransferNowBtn());
+			Asserts.assertTrue(DBSappObject.NonFastTransactionService().isDisplayed(),
+					"Non-Fast Service not available in review.");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));  
+		}
+	}
+	
+	@Step("Verify 'Transfer To Other Bank' Page Header and Click on 'TransferViaFast Toggle' to disable fast service.")
+	public void DisableToTransferViaFastToggle() throws Exception {
+		try {
+			verifyPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue(),
+					DBSappObject.PageHeaderList().get(0));
+			GestureUtils.scrollUPtoObject(null, null, DBSappObject.TransferViaFastTransferToggle());
+			clickOnElement(DBSappObject.TransferViaFastTransferToggle());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
 		}
 	}
 
@@ -1596,16 +1606,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Select'3 Months Transaction History' And 'POSB STATEMENT SAVINGS' from 'Deposit Account' section")
+	@Step("Select'3 Months Transaction History' And 'From Account' from 'Deposit Account' section")
 	public void selectTimeAndAccountTypeForStatement(MobileElement depositAccountName) throws Exception {
 		try {
-			VerifyButtonLabelAndClick(DBSappObject.threeMonthLabel(), CommonTestData.TIME_THREE_MONTH.getEnumValue());
-			VerifyButtonLabelAndClick(DBSappObject.depositAccountLabelAndButton(),
-					CommonTestData.DEPOSITE_LABEL.getEnumValue());
+			clickOnElement(DBSappObject.threeMonthLabel()); 
+			clickOnElement(DBSappObject.DepositAccountButton()); 
 			clickOnElement(depositAccountName);
-			verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
-					DBSappObject.PageHeaderList().get(0));
-
+			verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),DBSappObject.PageHeaderList().get(0));
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -1613,7 +1620,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Back to Home page from Transaction History statement")
-	public void backToHome() throws Exception {
+	public void BackToHomeFromTransactionHistory() throws Exception {
 		try {
 			clickOnElementOnEnable(DBSappObject.backButton());
 			verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(), DBSappObject.PageHeaderList().get(0));
@@ -1637,7 +1644,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Validating 'POSB STATEMENT SAVINGS' Transaction History List")
+	@Step("Validating From Account Transaction History List.")
 	public void ValadateTransactionHistoryListInThreeMonth() throws Exception {
 		try {
 			List<MobileElement> Elementlist = DBSappObject.dropDowmList();
@@ -1655,15 +1662,16 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			 selectTimeAndAccountTypeForStatement(DBSappObject.posbStatementSavingLabel());
 			 ClickOnShowButtonAndVerifyHeader(CommonTestData.STATEMENT_TITLE.getEnumValue());
 			 ValadateTransactionHistoryListInThreeMonth();
-			 backToHome();
+			 BackToHomeFromTransactionHistory();
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
 		}
 	}
 	
-	@Step("Select Future Date Through Calendar.")
-	public String SelectFutureDateThroughCalendar() throws Exception {
+	@Step("Select Future Date Through Calendar and verifies the selected 'future date'.")
+	public void SelectFutureDateThroughCalendar() throws Exception {
 		try {
+			clickOnElement(DBSappObject.TransferDateTextElement());
 			Calendar calendar = Calendar.getInstance();
 			Date today = calendar.getTime();
 
@@ -1686,7 +1694,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (Calendardate.isEnabled())
 				clickOnElement(Calendardate);
 
-			return ExpectedDate;
+			
+			String ActualSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
+			System.out.println(ActualSelectedDate);
+			Asserts.assertEquals(ActualSelectedDate, ExpectedDate, "Selected Date is not Matching");
+		
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
