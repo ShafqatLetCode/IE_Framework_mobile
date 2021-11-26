@@ -25,8 +25,8 @@ public class DBSAndroidTest extends UserBaseTest {
 	Asserts Assert = new Asserts();
 
 	@Parameters({ "userName", "password" })
-	@Test(priority = 1, enabled = true, description = "Verify the account detail on dashboard page")
-	@Description(value = "Execution of this testcase:: AccountDetails-CASA-ONEAPP-14400")
+	@Test(priority = 1, enabled = true, description = "AccountDetails-CASA-ONEAPP-14400")
+	@Description(value = "Execution of this testcase:: Verify the account detail on dashboard page. ")
 	@Author(name = "Shafqat Ali")
 	public void accountDetails_CASA(String userName, String password) throws Exception {
 		try {
@@ -37,10 +37,11 @@ public class DBSAndroidTest extends UserBaseTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
-
+	
+	
 	@Parameters({ "userName", "password" })
-	@Test(priority = 2, enabled = true, description = "Verify the Logout functionality for Applications")
-	@Description(value = "Execution of this testcase:: Logout-ONEAPP-9392")
+	@Test(priority = 2, enabled = true, description = "Logout-ONEAPP-9392")
+	@Description(value = "Execution of this testcase:: Verify the Logout functionality for Applications.")
 	@Author(name = "Shafqat Ali")
 	public void Logout_ONEAPP(String userName, String password) throws Exception {
 		try {
@@ -48,7 +49,6 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password);
 			dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(),
 					CommonTestData.RATE_MESSAGE.getEnumValue());
-
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
@@ -181,7 +181,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 
 	@Parameters({ "userName", "password" })
-	@Test(priority = 12, enabled = false, description = "Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit")
+	@Test(priority = 12, enabled = true, description = "Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit")
 	@Description(value = "Execution of this testcase:: ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847")
 	@Author(name = "Shafqat Ali")
 	public void ChangeLocalFundsTransferLimit(String userName, String password) throws Exception {

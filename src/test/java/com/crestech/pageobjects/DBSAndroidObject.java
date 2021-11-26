@@ -372,6 +372,23 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.Button[contains(@resource-id,'id/tv_value')]")
 	private MobileElement referenceNoValue;
 
+	@ElementDescription(value = "Payee Titles")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/payeeTitle')]")
+	private List<MobileElement> PayeeTitleList;
+	
+	@ElementDescription(value = "Payee Values")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/payeeValue')]")
+	private List<MobileElement> PayeeValueList;
+	
+	
+	public List<MobileElement> PayeeValueList() { 
+		return PayeeValueList;
+	}
+	
+	public List<MobileElement> PayeeTitleList() { 
+		return PayeeTitleList;
+	}
+	
 	public MobileElement makeTransferButton() {
 		return makeTransferButton;
 	}
@@ -770,6 +787,10 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "Log Out Button")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Log Out']")
 	private MobileElement LOGOUTButton;
+	
+	@ElementDescription(value = "Log Out Button")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='LOG OUT']")
+	private MobileElement LogoutBtn;
 
 	@ElementDescription(value = "POSB SAYE Account SelectOpenAccountOption")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='POSB SAYE Account']")
@@ -818,6 +839,10 @@ public class DBSAndroidObject {
 
 	public MobileElement LOGOUTButton() {
 		return LOGOUTButton;
+	}
+
+	public MobileElement LogoutBtn() {
+		return LogoutBtn;
 	}
 
 	public MobileElement AmountEditableField() {
@@ -955,7 +980,7 @@ public class DBSAndroidObject {
 	private MobileElement AddBillingOrganisation;
 
 	@ElementDescription(value = "Select Billing Organisation")
-	@AndroidFindBy(xpath = "//android.widget.EditText[@text='Select billing organisation']")
+	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,':id/edit_user_id')]")
 	private MobileElement SelectBillingOrganisation;
 
 	@ElementDescription(value = "Search For Billing Organisation Field")
@@ -963,11 +988,12 @@ public class DBSAndroidObject {
 	private MobileElement SearchForBillingOrganisationField;
 
 	@ElementDescription(value = "Select Searched Option For Billing Organisation Field")
-	@AndroidFindBy(xpath = "//android.widget.FrameLayout[contains(@resource-id,':id/body_container')]")
+	//@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_label1')]")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,':id/layout_acc_details')]")
 	private MobileElement SelectSearchedOption;
 
 	@ElementDescription(value = "Enter reference no. Edit Field")
-	@AndroidFindBy(xpath = "//android.widget.EditText[@text='Enter reference no.']")
+	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,':id/editTextId')]")
 	private MobileElement EnterReferenceNoEditField;
 
 	@ElementDescription(value = "Pay Now Button")
@@ -1533,6 +1559,56 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_expandable_item_head_title')]")
 	private List<MobileElement> DepositAccountList;
 
+	@ElementDescription(value = "Payee Added Expandable Icon List")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/tv_expandable_item_selected')]")
+	private List<MobileElement> PayeeAddedExpandableIconList;
+	
+	
+	@ElementDescription(value = "payee_details_title_name.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/payee_details_title_name')]")
+	private MobileElement payee_details_title_name;
+	
+	@ElementDescription(value = "More Option Button.")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[@content-desc='More options']")
+	private MobileElement MoreOptionBtn;
+	
+	@ElementDescription(value = "Delete Payee Button.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Delete Payee']")
+	private MobileElement DeletePayeeBtn;
+	
+	@ElementDescription(value = "YES Button.")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='YES']")
+	private MobileElement YesBtn;
+	
+	@ElementDescription(value = "Are you sure you want to delete this payee? Message Element.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Are you sure you want to delete this payee?']")
+	private MobileElement AreYouSureToDeleteThisPayeeMessage;
+	
+	
+	public MobileElement  AreYouSureToDeleteThisPayeeMessage() {
+		return  AreYouSureToDeleteThisPayeeMessage;
+	}
+	
+	public MobileElement  YesBtn() {
+		return  YesBtn;
+	}
+	
+	public MobileElement  DeletePayeeBtn() {
+		return  DeletePayeeBtn;
+	}
+	
+	public MobileElement  MoreOptionBtn() {
+		return  MoreOptionBtn;
+	}
+	
+	public MobileElement  payee_details_title_name() {
+		return  payee_details_title_name;
+	}
+	
+	public List<MobileElement> PayeeAddedExpandableIconList() {
+		return PayeeAddedExpandableIconList;
+	}
+	
 	public List<MobileElement> DepositAccountList() {
 		return DepositAccountList;
 	}

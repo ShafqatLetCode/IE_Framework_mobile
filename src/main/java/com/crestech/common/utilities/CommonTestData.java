@@ -2,6 +2,32 @@ package com.crestech.common.utilities;
 
 public enum CommonTestData {
 	
+	//Payee Add Local To Other Bank
+	LOCAL_RECIPIENT_NAME("Payee OtherBank "),
+	LOCAL_RECIPIENT_ACCOUNT_NUMBER("12322354"),
+	LOCAL_RECIPIENT_BANK_NAME("BANK OF INDIA"),
+	
+	//Payee Add DBS POSB
+	PAYEEADD_DBSPOSB_RECIPIENT_NAME("Payee DBSPOSB "),
+	PAYEEADD_DBSPOSB_BANK_NAME("DBS/POSB"),
+	PAYEEADD_DBSPOSB_ACCOUNT_NUMBER("0289488348"),
+	
+	//Payee Add to BillPayment
+	PAYEEADD_BILLPAYMENT_ACCOUNTNAME("DBS CASHLINE"),
+	PAYEEADD_BILLPAYMENT_REFERENCENUMBER("0824867822"),
+	
+	//Page Headers in Application
+	RECIPIENT_DETAILS_PAGEHEADER("Recipient's Details"),
+	REVIEW_RECIPIENT_LABEL("REVIEW RECIPIENT'S DETAILS"),
+	OVERSEAS_TRANSFER_PAGEHEADER("Overseas Transfer"),
+	SET_CARD_PIN("Set Card PIN"),
+	
+	
+	//App Package And Activity
+	DBS_APPS_ACTIVITY("com.dbs.sg.digibank.ui.demo.SplashActivity"),
+	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
+	POSB_APP_PACKAGE("com.dbs.sit1.posbmbanking"),
+	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
 	
 	//Relanching alert message
 	RELAUNCH_MESSAGE("Your application's security profile has been updated. Please re-launch the application to continue."),
@@ -34,7 +60,7 @@ public enum CommonTestData {
 	FULL_NAME("AUTOAUS4"),
 	ADDRESS("Cherry Blossom Flower Drive 90 Canbera 123334"),
 	CITY("Canbera"),
-	REVIEW_RECIPIENT_LABEL("REVIEW RECIPIENT'S DETAILS"),
+	
 	ADD_NOW_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
 	MAKE_TRANSFER("MAKE A TRANSFER"),
 	REFERENCE_NUMBER("Reference No."),
@@ -55,28 +81,17 @@ public enum CommonTestData {
 	REFERENCE_NUMBER_TEXT("Reference No."),
 	
 	OVERSEAS_TRANSFER_TEXT("OVERSEAS TRANSFER"),
-	DBS_APPS_ACTIVITY("com.dbs.sg.digibank.ui.demo.SplashActivity"),
-	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
-	POSB_APP_PACKAGE("com.dbs.sit1.posbmbanking"),
-	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
 	EOTT_PAYEE("BHDeott"),
-	OVERSEAS_TRANSFER_PAGEHEADER("Overseas Transfer"),
+	
 	LOCAL_TRANSFER_PayNow("Local Transfer & PayNow"),
 	PURPOSE_OF_TRANSFER_TEXT("Family support (Workers' remittances)"),
-	LOCAL_RECIPIENT_NAME("DBS2"),
-	LOCAL_RECIPIENT_ACCOUNT_NUMBER("123223344"),
-	BANK_NAME("Bank Of India"),
 	REVIEW_RECIPIENT_DETAILS("Review Recipient's Details"),
-	SECURE_PIN_PAGE_HEADER("Secure PIN"),
 	YOU_HAVE_ADDED_RECIPIENT_MSG("You’ve added a recipient"),
 	NAMETO_APPEAR_ON_DEBITCARD("DBS Passion"),
 	REVIEW_APPLICATION("Review Application"),
-	SET_CARD_PIN("Set Card PIN"),
 	CREATE_PIN("123456"),
 	CONFIRM_PIN("123456"),
 	ENTER_RECIPIENT_DETAILS("Enter Recipient's Details"),
-	DBS_CASHLINE("DBS CASHLINE"),
-	REFERENCENUMBER_DBS_CASHLINE("0824867822"),
 	PAY_TO_BILLER_PAGE_HEADER("Pay to Biller"),
 	AMOUNTTO_TRANSFERFUND("10"),
 	REVIEW_PAYMENT_PAGEHEADER("Review Payment"),
@@ -148,6 +163,7 @@ public enum CommonTestData {
 	TRANSFERRED("Transferred"),
     STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
 	SHOW_BUTTON("SHOW"),
+	
 
 	;
 	
