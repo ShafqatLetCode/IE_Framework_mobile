@@ -261,10 +261,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			EnterPasscodeAndDone();
 			SelectAllTAB();
 			clickOnElement(DBSappObject.editSearchField());
-			enterTextInTextbox(DBSappObject.editSearchField(), CommonTestData.EOTT_PAYEE.getEnumValue());
+			String ExpectedEottName = CommonTestData.EOTTREMITTANCE_NAME.getEnumValue();
+			enterTextInTextbox(DBSappObject.editSearchField(), ExpectedEottName );
 			pressKey(driver, Keys.ENTER);
-			isElementVisible(DBSappObject.BHDeott_Payee());
-			clickOnElement(DBSappObject.BHDeott_Payee());
+			String xpath ="//android.widget.TextView[@text='"+ExpectedEottName+"']";
+			MobileElement ExpectedEottEle = (MobileElement) driver.findElement(By.xpath(xpath));
+			isElementVisible(ExpectedEottEle);
+			clickOnElement(ExpectedEottEle);
 			Asserts.assertEquals(getTexOfElement(DBSappObject.OverseasTransferPage()),
 					CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue(),
 					CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue() + " Text is not found");
@@ -817,7 +820,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifies the Applying Debit Card and Verify the completion page details.")
 	public void ApplyDebitCard() throws Exception {
 		try {
-			ClickOnMoreBtnAndAuthenticationOfSecurePIN();
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
 			SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN();
 			FillingDetailsToApplyingDebitCard();
 			ClickOnNextButton();
@@ -1023,7 +1027,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifies the Open Account.")
 	public void OpenAccount() throws Exception {
 		try {
-			ClickOnMoreBtnAndAuthenticationOfSecurePIN();
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
 			// add scroll if required.
 			ClickOnDepositAccountsAnd2FAAuthenticationDone();
 
@@ -1312,7 +1317,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("verify balance on peek balance popup in prelogin page should be same as current account balance in dashboard with current date and time.")
 	public void VerifyPeekBalance() throws Exception {
 		try {
-			ClickOnMoreBtnAndAuthenticationOfSecurePIN();
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
 			// ToDo
 			// validations pending due to some error getting on provided credentials.
 		} catch (Exception e) {
@@ -1321,7 +1327,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Click On More Button and then 2FA Authentication Done.")
-	public void ClickOnMoreBtnAndAuthenticationOfSecurePIN() throws Exception {
+	public void ClickOnMoreButton() throws Exception {
 		try {
 			if (isElementVisible(DBSappObject.MoreBtn()))
 				clickOnElement(DBSappObject.MoreBtn());
@@ -1330,8 +1336,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0)
 				clickOnElement(DBSappObject.CloseButton());
-
-			EnterPasscodeAndDone();
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -1533,7 +1537,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Change local fund transfer limit verification")
 	public void ChangeLocalFundsTransferLimit() throws Exception {
 		try {
-			ClickOnMoreBtnAndAuthenticationOfSecurePIN();
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
 			sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),
 					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),
 					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(), DBSappObject.PageHeader());
@@ -1738,7 +1743,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			System.out.println(FromAccountname);
 			System.out.println(FromAccountNo);
 			ClickOnExpandbtnAndBackBtn();
-			ClickOnMoreBtnAndAuthenticationOfSecurePIN();
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
 			ClickOnTransactionHistory();
 			selectTimeAndAccountTypeForStatement(DBSappObject.DepositAccountList().get(1));
 			ClickOnShowButtonAndVerifyHeader(FromAccountname);
@@ -1772,7 +1778,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			System.out.println(FromAccountname);
 			System.out.println(FromAccountNo);
 			ClickOnExpandbtnAndBackBtn();
-			ClickOnMoreBtnAndAuthenticationOfSecurePIN();
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
 			ClickOnTransactionHistory();
 			selectTimeAndAccountTypeForStatement(DBSappObject.DepositAccountList().get(1));
 			ClickOnShowButtonAndVerifyHeader(FromAccountname);
@@ -1909,7 +1916,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	
 	public void transactionHistoryVerify() throws Exception {
 		try {
-			 ClickOnMoreBtnAndAuthenticationOfSecurePIN();
+			 ClickOnMoreButton();
+			 EnterPasscodeAndDone();
 			 ClickOnTransactionHistory();
 			 selectTimeAndAccountTypeForStatement(DBSappObject.posbStatementSavingLabel());
 			 ClickOnShowButtonAndVerifyHeader(CommonTestData.STATEMENT_TITLE.getEnumValue());

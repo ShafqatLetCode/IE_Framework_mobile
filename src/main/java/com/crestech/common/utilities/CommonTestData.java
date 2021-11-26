@@ -16,6 +16,15 @@ public enum CommonTestData {
 	PAYEEADD_BILLPAYMENT_ACCOUNTNAME("DBS CASHLINE"),
 	PAYEEADD_BILLPAYMENT_REFERENCENUMBER("0824867822"),
 	
+	//Payee-Add-Remittance
+	COUNTRY_AUS("Australia"),
+	CURRENCY_AUS("AUD"),
+	BANK_BCD_CODE("610104"),
+	ACCOUNT_NO("900132012904"),
+	FULL_NAME("AUTOAUS4"),
+	ADDRESS("Cherry Blossom Flower Drive 90 Canbera 123334"),
+	CITY("Canbera"),
+	
 	//Page Headers in Application
 	RECIPIENT_DETAILS_PAGEHEADER("Recipient's Details"),
 	REVIEW_RECIPIENT_LABEL("REVIEW RECIPIENT'S DETAILS"),
@@ -49,17 +58,11 @@ public enum CommonTestData {
 	DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP("You've set up your digital token"),
 	OTP("123456"),
 	
-	//Payee-Add-Remittance
+	
 	PAY_TRANSFER_ICON("Pay & Transfer"),
 	OVERSEAS_ICON("Overseas"),
 	ADD_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
-	COUNTRY_AUS("Australia"),
-	CURRENCY_AUS("AUD"),
-	BANK_BCD_CODE("610104"),
-	ACCOUNT_NO("900132012904"),
-	FULL_NAME("AUTOAUS4"),
-	ADDRESS("Cherry Blossom Flower Drive 90 Canbera 123334"),
-	CITY("Canbera"),
+	
 	
 	ADD_NOW_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
 	MAKE_TRANSFER("MAKE A TRANSFER"),
@@ -81,7 +84,7 @@ public enum CommonTestData {
 	REFERENCE_NUMBER_TEXT("Reference No."),
 	
 	OVERSEAS_TRANSFER_TEXT("OVERSEAS TRANSFER"),
-	EOTT_PAYEE("BHDeott"),
+	EOTTREMITTANCE_NAME("BHDeott"),
 	
 	LOCAL_TRANSFER_PayNow("Local Transfer & PayNow"),
 	PURPOSE_OF_TRANSFER_TEXT("Family support (Workers' remittances)"),
