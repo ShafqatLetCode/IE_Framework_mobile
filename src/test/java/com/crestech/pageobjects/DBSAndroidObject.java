@@ -1052,10 +1052,6 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='420-86386-1']")
 	private MobileElement SelectOwnAccountNumber;
 
-	@ElementDescription(value = "Select Local Recipients")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Local Recipients']")
-	private MobileElement SelectLocalRecipients;
-
 	@ElementDescription(value = "Select Local Recipients To Account List")
 	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,':id/ll_maincontent_view_id')]")
 	private List<MobileElement> SelectLocalRecipientsToAccountList;
@@ -1078,10 +1074,6 @@ public class DBSAndroidObject {
 
 	public List<MobileElement> SelectLocalRecipientsToAccountList() {
 		return SelectLocalRecipientsToAccountList;
-	}
-
-	public MobileElement SelectLocalRecipients() {
-		return SelectLocalRecipients;
 	}
 
 	public MobileElement SelectOwnAccount() {
@@ -1417,8 +1409,9 @@ public class DBSAndroidObject {
       ////////fund transfer to other bank
 	
 	@ElementDescription(value = "Local Recipient")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Local Recipients']")
-	private MobileElement localRecipientsTextButton;
+	//@AndroidFindBy(xpath = "//android.widget.TextView[@text='Local Recipients']")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_expandable_item_head_title')]")
+	private List<MobileElement> AllTabOptionsList;
 	
 	@ElementDescription(value = "DBS CURRENT ACCOUNT")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='DBS CURRENT ACCOUNT']")
@@ -1428,8 +1421,8 @@ public class DBSAndroidObject {
 	public MobileElement dbsCurrentAccountOption() {
 		return dbsCurrentAccountOption;
 	}
-	public MobileElement localRecipientsTextButton() {
-		return localRecipientsTextButton;
+	public List<MobileElement> AllTabOptionsList() {
+		return AllTabOptionsList;
 	}
 	@ElementDescription(value = "Select Fund Source")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Select Fund Source']")
@@ -1524,13 +1517,72 @@ public class DBSAndroidObject {
 	public MobileElement  backButton() {
 		return  backButton;
 	}
+	@ElementDescription(value = "Toolbar Icon List")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.dbs.sit1.dbsmbanking:id/icon']")
+	private List<MobileElement> toolbarIconList;
+
+	public List<MobileElement>  ToolbarIconList() {
+		return  toolbarIconList;
+	}
 	@ElementDescription(value = "Home button")
-	@AndroidFindBy(xpath = "//android.widget.ImageView[@text='Home']")
+	@AndroidFindBy(xpath = "//android.widget.FrameLayout[@content-desc='Home']")
 	private MobileElement homeButton;
 
 	public MobileElement  homeButton() {
 		return  homeButton;
 	}
+	
+	
+	@ElementDescription(value = "Transaction History Header")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.dbsmbanking:id/text']")
+	private MobileElement TransactionHistoryHeaderDBS;
+	
+	@ElementDescription(value = "Transaction History Header")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.posbmbanking:id/text']")
+	private MobileElement TransactionHistoryHeaderPOSB;
+
+	@ElementDescription(value = "Transaction History Header")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sg.uat.dbsiwealth:id/text']")
+	private MobileElement TransactionHistoryHeaderForiWEALTH;
+	
+	public MobileElement  TransactionHistoryHeaderForDBS() {
+		return  TransactionHistoryHeaderDBS;
+	}
+	
+	public MobileElement TransactionHistoryHeaderForPOSB() {
+		return TransactionHistoryHeaderPOSB;
+	}
+	
+	public MobileElement TransactionHistoryHeaderForiWEALTH() {
+		return TransactionHistoryHeaderForiWEALTH;
+	}
+	
+	
+	@ElementDescription(value = "POSB STATEMENT SAVINGS Button")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.dbsmbanking:id/tv_expandable_item_head_title']")
+	private List<MobileElement> AccountNameListInTransactionHistoryForDBS;
+
+	public List<MobileElement>  AccountNameListInTransactionHistoryForDBS() {
+		return  AccountNameListInTransactionHistoryForDBS;
+	}
+	//<-------end--------->
+	
+	@ElementDescription(value = "POSB STATEMENT SAVINGS Button")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.posbmbanking:id/tv_expandable_item_head_title']")
+	private List<MobileElement> AccountNameListInTransactionHistoryForPOSB;
+
+	public List<MobileElement>  AccountNameListInTransactionHistoryForPOSB() {
+		return  AccountNameListInTransactionHistoryForPOSB;
+	}
+	
+	@ElementDescription(value = "POSB STATEMENT SAVINGS Button")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sg.uat.dbsiwealth:id/tv_expandable_item_head_title']")
+	private List<MobileElement> AccountNameListInTransactionHistoryForiWEALTH;
+
+	public List<MobileElement>  AccountNameListInTransactionHistoryForiWEALTH() {
+		return  AccountNameListInTransactionHistoryForiWEALTH;
+	}
+	
 	@ElementDescription(value = "Selected bank Account From Local Recipient List")
 	@AndroidFindBy(xpath = "(//android.widget.LinearLayout[contains(@resource-id,':id/ll_maincontent_view_id')])[1]")
 	private MobileElement localRecipientListSelectedAccount;
@@ -1619,6 +1671,29 @@ public class DBSAndroidObject {
 	
 	public MobileElement  AccountNameToCheckTransactionHistory() {
 		return  AccountNameToCheckTransactionHistory;
+	}
+	
+	@ElementDescription(value = "Deposit Account Button")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.dbs.sit1.dbsmbanking:id/iv_expandable_item_head_expand']")
+	private MobileElement DepositAccountButtonDBS;
+
+	public MobileElement DepositAccountButtonDBS() {
+		return DepositAccountButtonDBS;
+	}
+    @ElementDescription(value = "Deposit Account Button")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.dbs.sit1.posbmbanking:id/iv_expandable_item_head_expand']")
+	private MobileElement DepositAccountButtonPOSB;
+
+	public MobileElement DepositAccountButtonPOSB() {
+		return DepositAccountButtonPOSB;
+	}
+	
+	@ElementDescription(value = "Deposit Account Button")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.dbs.sg.uat.dbsiwealth:id/iv_expandable_item_head_expand']")
+	private MobileElement DepositAccountButtoniWealth;
+
+	public MobileElement DepositAccountButtoniWEALTH() {
+		return DepositAccountButtoniWealth;
 	}
 }
 

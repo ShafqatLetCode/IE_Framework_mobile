@@ -34,6 +34,7 @@ public class ExcelUtils {
 	private final String TestData = "Test Data";
 	private final String Username = "Username";
 
+	
 	/**
 	 * @author Sneha Aggarwal
 	 * @param name- file path, key and sheet name
@@ -142,16 +143,20 @@ public class ExcelUtils {
 			XSSFCell cell = null;
 			XSSFSheet sheet = null;
 			List<String> val = new ArrayList<String>();
+			DataFormatter formatter = new DataFormatter();
+			//String val = formatter.formatCellValue(sheet.getRow(row).getCell(col));
 			// Open sheet of the excel and add all column values of the specified row in a
 			// list
 			sheet = wb.getSheet(sheetName);
 			for (int i = 0; i < sheet.getLastRowNum() + 1; i++) {
 				row = sheet.getRow(i);
 				cell = row.getCell(0);
-				if (cell.getStringCellValue().equals(key)) {
+				//if (cell.getStringCellValue().equals(key)) {
+				if (formatter.formatCellValue(cell).equals(key)) {
 					for (Iterator<Cell> cit = row.iterator(); cit.hasNext();) {
-						Cell cell_value = cit.next();
-						val.add(cell_value.getStringCellValue());
+						Cell cell_value = cit.next();						
+						//val.add(cell_value.getStringCellValue());
+						val.add(formatter.formatCellValue(cell_value));
 					}
 					break;
 				}

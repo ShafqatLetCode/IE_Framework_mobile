@@ -34,6 +34,7 @@ import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.crestech.appium.utils.ConfigurationManager;
+import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.ExcelUtils;
 import com.crestech.common.utilities.ScreenshotUtils;
 import com.crestech.config.ContextManager;
@@ -49,9 +50,9 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
 
 /**
- *  *  * @author Shibu Prasad Panda  *  
+ *  *  * @author Divya, Shafkat,Shubham  *  
  */
-////I am using git hub to managing our DBS project. Sample Test
+
 public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 	public AppiumDriver<RemoteWebElement> driver = null;
@@ -61,6 +62,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	private AppiumDriverLocalService service;
 	private AppiumServiceBuilder builder;
 	private static final AllureLifecycle ALLURE_LIFECYCLE = Allure.getLifecycle();
+	public List<String> excelDataList;
 	
 	Logger logger = Logger.getLogger(UserBaseTest.class);
 
@@ -84,7 +86,35 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 			ContextManager.createNode(method.getName() + " " + device);
 		}
-		DesiredCapabilities androidCaps = androidNative(ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities"), device, version, os);
+		excelDataList = ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities");
+		if(method.getName().contains("DBS")) {
+			String appName = CommonTestData.DBS_APP_APK.getEnumValue();
+			String appActivity = CommonTestData.DBS_APPS_ACTIVITY.getEnumValue();
+			String appPackage = CommonTestData.DBS_APP_PACKAGE.getEnumValue();
+			excelDataList.set(14, appName);
+			excelDataList.set(1, appActivity);
+			excelDataList.set(2, appPackage);
+			
+		}else if(method.getName().contains("POSB")) {
+			String appName = CommonTestData.POSB_APP_APK.getEnumValue();
+			String appActivity = CommonTestData.DBS_APPS_ACTIVITY.getEnumValue();
+			String appPackage = CommonTestData.POSB_APP_PACKAGE.getEnumValue();
+			excelDataList.set(14, appName);
+			excelDataList.set(1, appActivity);
+			excelDataList.set(2, appPackage);
+			
+		}
+		else if(method.getName().contains("iWEALTH")) {
+			String appName = CommonTestData.iWEALTH_APP_APK.getEnumValue();
+			String appActivity = CommonTestData.DBS_APPS_ACTIVITY.getEnumValue();
+			String appPackage = CommonTestData.IWEALTH_APP_PACKAGE.getEnumValue();
+			excelDataList.set(14, appName);
+			excelDataList.set(1, appActivity);
+			excelDataList.set(2, appPackage);
+			
+		}
+		DesiredCapabilities androidCaps = androidNative(excelDataList, device, version, os);
+		//DesiredCapabilities androidCaps = androidNative(ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities"), device, version, os);
 		Thread.sleep(2000);
 		try {
 			this.driver = startingServerInstance(androidCaps, os);
@@ -289,6 +319,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("appActivity", s.get(1));
 			capabilities.setCapability("pCloudy_WildNet", "false");
 			capabilities.setCapability("autoGrantPermissions", "true");
+			capabilities.setCapability("pCloudy_EnableVideo", "true");
 
 			if (checkDeviceVersion(version)) {
 				capabilities.setCapability("automationName", "UiAutomator2");

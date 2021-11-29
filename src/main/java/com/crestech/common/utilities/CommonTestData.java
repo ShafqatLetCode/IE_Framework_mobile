@@ -25,6 +25,10 @@ public enum CommonTestData {
 	ADDRESS("Cherry Blossom Flower Drive 90 Canbera 123334"),
 	CITY("Canbera"),
 	
+	//FundTransfer NonFast
+	LOCAL_RECIPIENTS_TAB_NAME("Local Recipients"),
+	
+	
 	//Page Headers in Application
 	RECIPIENT_DETAILS_PAGEHEADER("Recipient's Details"),
 	REVIEW_RECIPIENT_LABEL("REVIEW RECIPIENT'S DETAILS"),
@@ -37,6 +41,12 @@ public enum CommonTestData {
 	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
 	POSB_APP_PACKAGE("com.dbs.sit1.posbmbanking"),
 	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
+	DBS_APP_APK("dbsandroidUAT_10Nov.apk"),
+	POSB_APP_APK("posb_android_UAT_101492.apk"),
+	iWEALTH_APP_APK("iwealth_android_UAT_10_340.apk"),
+	
+	DBS_DIGIBANK("DBS digibank"),
+	ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
 	
 	//Relanching alert message
 	RELAUNCH_MESSAGE("Your application's security profile has been updated. Please re-launch the application to continue."),
