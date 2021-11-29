@@ -493,16 +493,16 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			verifyClickSetCurrentLimit();
 			verifySetDailyLimitTitle();
 			String selectedValue=null;
-			if(arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_3.getEnumValue())) {
-				selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_2.getEnumValue());
-				selectedValue=CommonTestData.SELECTED_LIMIT_2.getEnumValue();
-			}
-			else if(arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_2.getEnumValue())) {
-				selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_1.getEnumValue());
-				selectedValue=CommonTestData.SELECTED_LIMIT_1.getEnumValue();}
-			else if(arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_1.getEnumValue())) {
-				selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_2.getEnumValue());
-				selectedValue=CommonTestData.SELECTED_LIMIT_2.getEnumValue();}
+//			if(arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_3.getEnumValue())) {
+//				selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_2.getEnumValue());
+//				selectedValue=CommonTestData.SELECTED_LIMIT_2.getEnumValue();
+//			}
+//			else if(arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_2.getEnumValue())) {
+//				selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_1.getEnumValue());
+//				selectedValue=CommonTestData.SELECTED_LIMIT_1.getEnumValue();}
+//			else if(arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_1.getEnumValue())) {
+//				selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_2.getEnumValue());
+//				selectedValue=CommonTestData.SELECTED_LIMIT_2.getEnumValue();}
 			return selectedValue;
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));

@@ -9,6 +9,7 @@ import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.base.UserBaseTest;
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
+import com.crestech.common.utilities.GestureUtils;
 import com.crestech.listeners.TestListener;
 import com.crestech.pages.DBSAndroidPage;
 import io.qameta.allure.Description;
@@ -103,15 +104,13 @@ public class DBSAndroidTest extends UserBaseTest {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.TopupPaylah();
+
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
-		}
 	}
-	
-	
-	
-	
 
+	}
+		
 	@Parameters({ "userName", "password" })
 	@Test(priority = 7, enabled = true, description = "Payee-Add-Remittance-ONEAPP-13679")
 	@Description(value = "Execution of this testcase:: Verify the Add Remittance payee")
@@ -119,8 +118,12 @@ public class DBSAndroidTest extends UserBaseTest {
 	public void Payee_Add_Remittance(String userName, String password) throws Exception {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage.logInApplication(userName, password, "DBS");
+
+			
+	
+        dbspage.logInApplication(userName, password, "DBS");
 			dbspage.PayeeAddRemittance();
+
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
@@ -184,8 +187,10 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 
 	@Parameters({ "userName", "password" })
+
 	@Test(priority = 12, enabled = true, description = "ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847")
 	@Description(value = "Execution of this testcase:: Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit.")
+
 	@Author(name = "Shafqat Ali")
 	public void ChangeLocalFundsTransferLimit(String userName, String password) throws Exception {
 		try {
@@ -212,8 +217,10 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 
 	@Parameters({ "userName", "password" })
+
 	@Test(priority = 14, enabled = true, description = "FundsTransfer-OwnAccount-ONEAPP-16730")
 	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Own Account.")
+
 	@Author(name = "Divya Devi")
 	public void FundsTransferOwnAccount(String userName, String password) throws Exception {
 		try {
@@ -340,5 +347,27 @@ public class DBSAndroidTest extends UserBaseTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
 		}
 	}
+
+	@Parameters({"userName", "password" })
+	@Test(priority=18, enabled=true, description = "Verifies Credit Card Temperory Limit Increase")
+	@Description(value = "Execution of this testcase:: CreditCardTempLimitIncrease-ONEAPP-16669")
+	@Author(name = "shafqat")
+	public void CreditCardTempLimitIncrease(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password,"DBS");
+			 dbspage.ClickOnMoreButton();
+			 dbspage.EnterPasscodeAndDone();
+			 dbspage.sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(), CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(), CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), dbspage.DBSappObject.PageHeader());
+			 dbspage.setAmountDurationPurposeForLimitIncrease("100", "wedding", "11" , "oct", "2021");
+			 GestureUtils.scrollUPtoObject("text", "NEXT", dbspage.DBSappObject.NextBtn());
+			 dbspage.ClickOnNextButton();
+			 dbspage.verifyPageHeader(CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue(),dbspage.DBSappObject.PageHeader());
+			 
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+
 	
 }

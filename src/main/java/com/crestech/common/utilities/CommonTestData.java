@@ -71,12 +71,10 @@ public enum CommonTestData {
 	
 	PAY_TRANSFER_ICON("Pay & Transfer"),
 	OVERSEAS_ICON("Overseas"),
-	ADD_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
+
+
 	
-	
-	ADD_NOW_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
-	MAKE_TRANSFER("MAKE A TRANSFER"),
-	REFERENCE_NUMBER("Reference No."),
+
 	
     //paylah
 	TOPUP_LABEL("Top up"),
@@ -99,7 +97,12 @@ public enum CommonTestData {
 	LOCAL_TRANSFER_PayNow("Local Transfer & PayNow"),
 	PURPOSE_OF_TRANSFER_TEXT("Family support (Workers' remittances)"),
 	REVIEW_RECIPIENT_DETAILS("Review Recipient's Details"),
+
+	SECURE_PIN_PAGE_HEADER("Secure PIN"),
+	
+
 	YOU_HAVE_ADDED_RECIPIENT_MSG("You’ve added a recipient"),
+
 	NAMETO_APPEAR_ON_DEBITCARD("DBS Passion"),
 	REVIEW_APPLICATION("Review Application"),
 	CREATE_PIN("123456"),
@@ -136,8 +139,8 @@ public enum CommonTestData {
 	TO_OTHERBANK_LABEL("To Other Banks"), 
 	TRANSFER_TO_OTHERBANK_LABEL_LABEL("Transfer to Other Banks"),
 	SELECTED_LIMIT_1("40,000.00"), 
-	SELECTED_LIMIT_2("50,000.00"), 
-	SELECTED_LIMIT_3("0.00"),
+	SELECTED_LIMIT_50000("50,000.00"), 
+	SELECTED_LIMIT_0("0.00"),
 	LOCAL_TRANSFER_LABEL("Local Transfer Limit"), 
 	TRANSFER_TO_OTHERBANK_LABEL("Transfer to Other Banks"),
 	CHANGE_DAILY_LIMIT_BUTTON("CHANGE DAILY LIMIT NOW"), 
@@ -178,6 +181,15 @@ public enum CommonTestData {
 	SHOW_BUTTON("SHOW"),
 	
 
+
+	TEMP_LIMIT_INCREASE("Temporary Credit Limit Increase"),
+	TEMP_LIMIT_INCREASE_TITLE("Temporary Limit Increase"),
+	REVIEW_APPLICATION_CREDITLIMIT_TITLE("Review Application"),
+	ADD_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
+	ADD_NOW_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
+	MAKE_TRANSFER("MAKE A TRANSFER"),
+	REFERENCE_NUMBER("Reference No."),
+	
 	;
 	
 	private final String message;
