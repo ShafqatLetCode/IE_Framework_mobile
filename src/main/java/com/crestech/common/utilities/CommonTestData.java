@@ -26,18 +26,9 @@ public enum CommonTestData {
 	//Payee-Add-Remittance
 	PAY_TRANSFER_ICON("Pay & Transfer"),
 	OVERSEAS_ICON("Overseas"),
-	ADD_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
-	COUNTRY_AUS("Australia"),
-	CURRENCY_AUS("AUD"),
-	BANK_BCD_CODE("610104"),
-	ACCOUNT_NO("900132012904"),
-	FULL_NAME("AUTOAUS4"),
-	ADDRESS("Cherry Blossom Flower Drive 90 Canbera 123334"),
-	CITY("Canbera"),
-	REVIEW_RECIPIENT_LABEL("REVIEW RECIPIENT'S DETAILS"),
-	ADD_NOW_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
-	MAKE_TRANSFER("MAKE A TRANSFER"),
-	REFERENCE_NUMBER("Reference No."),
+	
+	
+	
 	
     //paylah
 	TOPUP_LABEL("Top up"),
@@ -68,7 +59,7 @@ public enum CommonTestData {
 	BANK_NAME("Bank Of India"),
 	REVIEW_RECIPIENT_DETAILS("Review Recipient's Details"),
 	SECURE_PIN_PAGE_HEADER("Secure PIN"),
-	YOU_HAVE_ADDED_RECIPIENT_MSG("You’ve added a recipient"),
+	YOU_HAVE_ADDED_RECIPIENT_MSG("You've added a recipient"),
 	NAMETO_APPEAR_ON_DEBITCARD("DBS Passion"),
 	REVIEW_APPLICATION("Review Application"),
 	SET_CARD_PIN("Set Card PIN"),
@@ -108,8 +99,8 @@ public enum CommonTestData {
 	TO_OTHERBANK_LABEL("To Other Banks"), 
 	TRANSFER_TO_OTHERBANK_LABEL_LABEL("Transfer to Other Banks"),
 	SELECTED_LIMIT_1("40,000.00"), 
-	SELECTED_LIMIT_2("50,000.00"), 
-	SELECTED_LIMIT_3("0.00"),
+	SELECTED_LIMIT_50000("50,000.00"), 
+	SELECTED_LIMIT_0("0.00"),
 	LOCAL_TRANSFER_LABEL("Local Transfer Limit"), 
 	TRANSFER_TO_OTHERBANK_LABEL("Transfer to Other Banks"),
 	CHANGE_DAILY_LIMIT_BUTTON("CHANGE DAILY LIMIT NOW"), 
@@ -151,7 +142,32 @@ public enum CommonTestData {
 	DEPOSITE_LABEL("Deposit Account"),
     STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
 	SHOW_BUTTON("SHOW"),
+	
 
+	TEMP_LIMIT_INCREASE("Temporary Credit Limit Increase"),
+	TEMP_LIMIT_INCREASE_TITLE("Temporary Limit Increase"),
+	REVIEW_APPLICATION_CREDITLIMIT_TITLE("Review Application"),
+	
+	
+	///Payee-Add-Remittance-ONEAPP-13679
+	
+	//static data
+	ADD_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
+	REVIEW_RECIPIENT_LABEL("Review Recipient's Details"),
+	ADD_NOW_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
+	MAKE_TRANSFER("MAKE A TRANSFER"),
+	REFERENCE_NUMBER("Reference No."),
+	
+	//dynamic data
+	COUNTRY_AUS("Australia"),
+	CURRENCY_AUS("AUD"),
+	BANK_BCD_CODE("610104"),
+	ACCOUNT_NO("900132012904"),
+	FULL_NAME("AUTOAUS4"),
+	ADDRESS("Cherry Blossom Flower Drive 90 Canbera 123334"),
+	CITY("Canbera"),
+
+	
 	;
 	
 	private final String message;
