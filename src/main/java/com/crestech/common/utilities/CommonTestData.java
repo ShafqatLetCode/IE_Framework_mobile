@@ -41,9 +41,9 @@ public enum CommonTestData {
 	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
 	POSB_APP_PACKAGE("com.dbs.sit1.posbmbanking"),
 	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
-	DBS_APP_APK("dbsandroidUAT_10Nov.apk"),
-	POSB_APP_APK("posb_android_UAT_101492.apk"),
-	iWEALTH_APP_APK("iwealth_android_UAT_10_340.apk"),
+	DBS_APP_APK("DBS_Android.apk"),
+	POSB_APP_APK("POSB_Android.apk"),
+	iWEALTH_APP_APK("iWealth_Android.apk"),
 	
 	DBS_DIGIBANK("DBS digibank"),
 	ACCOUNT_NAME("POSB STATEMENT SAVINGS"),

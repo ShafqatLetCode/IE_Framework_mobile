@@ -1053,7 +1053,10 @@ public class DBSAndroidObject {
 	private MobileElement SelectOwnAccountNumber;
 
 	@ElementDescription(value = "Select Local Recipients To Account List")
-	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,':id/ll_maincontent_view_id')]")
+	//@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,':id/ll_maincontent_view_id')]")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,':id/tv_expandable_item_sub_title')]")
+	//android.widget.LinearLayout[contains(@resource-id,':id/root_ll')]
+	//@AndroidFindBy(xpath = "//android.widget.ScrollView/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[4]/android.widget.LinearLayout/android.widget.TextView[1]")
 	private List<MobileElement> SelectLocalRecipientsToAccountList;
 
 	@ElementDescription(value = "Non Fast Transaction Service Message")

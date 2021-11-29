@@ -28,7 +28,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	@Test(priority = 1, enabled = true, description = "AccountDetails-CASA-ONEAPP-14400")
 	@Description(value = "Execution of this testcase:: Verify the account detail on dashboard page. ")
 	@Author(name = "Shafqat Ali")
-	public void accountDetails_CASA(String userName, String password) throws Exception {
+	public void AccountDetails_CASA(String userName, String password) throws Exception {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");
@@ -98,7 +98,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	@Test(priority = 6, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
 	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
 	@Author(name = "Shafqat Ali")
-	public void Topup_Paylah(String userName, String password) throws Exception {
+	public void Topup_Paylah_DBS(String userName, String password) throws Exception {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");
@@ -107,6 +107,10 @@ public class DBSAndroidTest extends UserBaseTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
+	
+	
+	
+	
 
 	@Parameters({ "userName", "password" })
 	@Test(priority = 7, enabled = true, description = "Payee-Add-Remittance-ONEAPP-13679")
@@ -263,11 +267,12 @@ public class DBSAndroidTest extends UserBaseTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
 		}
 	}
+	
 	@Parameters({"userName", "password" })
 	@Test(priority=18, enabled=true, description = "TransactionHistory-ONEAPP-14312")
 	@Description(value = "Execution of this testcase:: Verifies Transaction History")
 	@Author(name = "shafqat")
-	public void transactionHistory(String userName,String password) throws Exception {
+	public void TransactionHistory_DBS(String userName,String password) throws Exception {
 		try {
 			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			 dbspage.logInApplication(userName, password, "DBS");
@@ -277,4 +282,63 @@ public class DBSAndroidTest extends UserBaseTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
 		}
 	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 19, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
+	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
+	@Author(name = "Shafqat Ali")
+	public void Topup_Paylah_POSB(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "POSB");
+			dbspage.TopupPaylah();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=20, enabled=true, description = "TransactionHistory-ONEAPP-14312")
+	@Description(value = "Execution of this testcase:: Verifies Transaction History")
+	@Author(name = "shafqat")
+	public void TransactionHistory_POSB(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password,"POSB");
+			 dbspage.transactionHistoryVerify("POSB");
+			 dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 21, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
+	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
+	@Author(name = "Shafqat Ali")
+	public void Topup_Paylah_iWEALTH(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "iWEALTH");
+			dbspage.TopupPaylah();
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=22, enabled=true, description = "TransactionHistory-ONEAPP-14312")
+	@Description(value = "Execution of this testcase:: Verifies Transaction History")
+	@Author(name = "shafqat")
+	public void TransactionHistory_iWEALTH(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password, "iWEALTH");
+			 dbspage.transactionHistoryVerify("iWEALTH");
+			 dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+		}
+	}
+	
 }

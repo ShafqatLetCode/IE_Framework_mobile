@@ -1916,27 +1916,16 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				String tabText = DBSappObject.AllTabOptionsList().get(i).getText(); 
 				if (tabText.contains(TabValue)) {
 					clickOnElement(DBSappObject.AllTabOptionsList().get(i));
-					Thread.sleep(1000); 
-					
-				//	GestureUtils.scrollUPtoObject("text", "Sakshi", DBSappObject.AllTabOptionsList().get(i));
 					break;
 				}
 			}
 			
-			for (int j = 1; j < DBSappObject.AllTabOptionsList().size(); j++) {
-				String toAccount = DBSappObject.AllTabOptionsList().get(j).getText();
 
-				if (toAccount.contains("Sakshi")) {
-					GestureUtils.scrollUPtoObject("text", "Sakshi", DBSappObject.AllTabOptionsList().get(j));
-					clickOnElement(DBSappObject.AllTabOptionsList().get(j));
-					break;
-				}
-			}
-		//	GestureUtils.scrollUPtoObject("text", "Sakshi", DBSappObject.BillingOrganisation());
-			TakeScreenshot(DBSappObject.SelectLocalRecipientsToAccountList().get(1));
+		//	GestureUtils.scrollUPtoObject("text", "Billing Organisation", DBSappObject.BillingOrganisation());
+			//TakeScreenshot(DBSappObject.SelectLocalRecipientsToAccountList().get(1));
 			for (int i = 0; i < DBSappObject.SelectLocalRecipientsToAccountList().size(); i++) {
 				String ToAccount = DBSappObject.SelectLocalRecipientsToAccountList().get(i).getText();
-				if (ToAccount.contains("Sakshi")) {
+				if (ToAccount.contains("INDIAN OVERSEAS BANK 582177606001")) {
 					clickOnElement(DBSappObject.SelectLocalRecipientsToAccountList().get(i));
 					break;
 				}
