@@ -118,12 +118,8 @@ public class DBSAndroidTest extends UserBaseTest {
 	public void Payee_Add_Remittance(String userName, String password) throws Exception {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-
-			
-	
-        dbspage.logInApplication(userName, password, "DBS");
+            dbspage.logInApplication(userName, password, "DBS");
 			dbspage.PayeeAddRemittance();
-
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
@@ -216,11 +212,10 @@ public class DBSAndroidTest extends UserBaseTest {
 		}
 	}
 
+	
 	@Parameters({ "userName", "password" })
-
 	@Test(priority = 14, enabled = true, description = "FundsTransfer-OwnAccount-ONEAPP-16730")
 	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Own Account.")
-
 	@Author(name = "Divya Devi")
 	public void FundsTransferOwnAccount(String userName, String password) throws Exception {
 		try {
@@ -259,6 +254,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
+	
+	
 
 	@Parameters({"userName", "password" })
 	@Test(priority=17, enabled=true, description = "FundsTransfer-OtherPOSBDBS-ONEAPP-16723")
@@ -349,7 +346,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 
 	@Parameters({"userName", "password" })
-	@Test(priority=18, enabled=true, description = "Verifies Credit Card Temperory Limit Increase")
+	@Test(priority=23, enabled=true, description = "Verifies Credit Card Temperory Limit Increase")
 	@Description(value = "Execution of this testcase:: CreditCardTempLimitIncrease-ONEAPP-16669")
 	@Author(name = "shafqat")
 	public void CreditCardTempLimitIncrease(String userName,String password) throws Exception {
@@ -369,5 +366,18 @@ public class DBSAndroidTest extends UserBaseTest {
 		}
 	}
 
+	@Parameters({ "userName", "password" })
+	@Test(priority = 24, enabled = true, description = "UpdatePersonalParticular-ONEAPP-13921")
+	@Description(value = "Execution of this testcase:: Verifies the Update Personal Particular Details.")
+	@Author(name = "Divya Devi")
+	public void UpdatePersonalParticular(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "DBS");
+			dbspage.UpdatePersonalDetails("DBS");
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
 	
 }

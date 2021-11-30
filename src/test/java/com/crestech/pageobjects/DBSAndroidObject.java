@@ -34,6 +34,12 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "LOG IN Button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='LOG IN']")
 	private MobileElement loginButton;
+	
+	
+	@ElementDescription(value = "More Button")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='More']")
+	private MobileElement MoreButton;
+	
 
 	@ElementDescription(value = "User ID EditTexT")
 	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'id/edit_user_id')]")
@@ -94,11 +100,48 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "Done Button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='DONE']")
 	private MobileElement doneButton;
-
+	
+	@ElementDescription(value = "PreLogin Button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='PRE LOGIN']")
+	private MobileElement PreLoginBtn;
+	
+	@ElementDescription(value = "ChangeServer Button")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Change Server']")
+	private MobileElement ChangeServerBtn;
+	
+	@ElementDescription(value = "SelectUATN4_Server Button")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='UAT N4']")
+	private MobileElement SelectUATN4_Server;
+	
+	@ElementDescription(value = "Save Btn to Change Server")
+	@AndroidFindBy(xpath = "//android.widget.Button[contains(@resource-id,':id/btn_save_now')]")
+	private MobileElement ChangeServerSaveBtn;
+	
+	
+	public MobileElement ChangeServerSaveBtn() {
+		return ChangeServerSaveBtn;
+	}
+	
+	public MobileElement SelectUATN4_Server() {
+		return SelectUATN4_Server;
+	}
+	
+	public MobileElement ChangeServerBtn() {
+		return ChangeServerBtn;
+	}
+	
 	public MobileElement Logo() {
 		return Logo;
 	}
-
+	
+	public MobileElement PreLoginBtn() {
+		return PreLoginBtn;
+	}
+	
+	public MobileElement MoreButton() {
+		return MoreButton;
+	}
+	
 	public String getDbsText() {
 		return dbsText.getText();
 	}
@@ -414,6 +457,30 @@ public class DBSAndroidObject {
 
 	public MobileElement paylahLabel() {
 		return paylahLabel;
+	}
+	
+	@ElementDescription(value = "FundTransferDetailsList")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_lable1')]")
+	private List<MobileElement> FundTransferDetailslabel1List;
+	
+	@ElementDescription(value = "FundTransferDetailsList")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_lable2')]")
+	private List<MobileElement> FundTransferDetailslabel2List;
+	
+	@ElementDescription(value = "FundTransferDetailsList")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_lable3')]")
+	private List<MobileElement> FundTransferDetailslabel3List;
+	
+	public List<MobileElement> FundTransferDetailslabel2List() { 
+		return FundTransferDetailslabel2List;
+	}
+	
+	public List<MobileElement> FundTransferDetailslabel3List() { 
+		return FundTransferDetailslabel3List;
+	}
+	
+	public List<MobileElement> FundTransferDetailslabel1List() { 
+		return FundTransferDetailslabel1List;
 	}
 
 	@ElementDescription(value = "Top Up Paylah! label")
@@ -1075,10 +1142,7 @@ public class DBSAndroidObject {
 	private MobileElement SelectOwnAccountNumber;
 
 	@ElementDescription(value = "Select Local Recipients To Account List")
-	//@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,':id/ll_maincontent_view_id')]")
 	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,':id/tv_expandable_item_sub_title')]")
-	//android.widget.LinearLayout[contains(@resource-id,':id/root_ll')]
-	//@AndroidFindBy(xpath = "//android.widget.ScrollView/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[4]/android.widget.LinearLayout/android.widget.TextView[1]")
 	private List<MobileElement> SelectLocalRecipientsToAccountList;
 
 	@ElementDescription(value = "Non Fast Transaction Service Message")
@@ -1295,6 +1359,10 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Primary source of fund']")
 	private MobileElement PrimarySourceOfFund;
 
+	@ElementDescription(value = "Error Messge Element")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/message']")
+	private MobileElement ErrorMessgeElement;
+	
 	@ElementDescription(value = "OK Button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
 	private MobileElement OKButton;
@@ -1326,6 +1394,10 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "Account Number list:- Contains From Account and To Account")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_lable3')]")
 	private List<MobileElement> AccountNumberList;
+	
+//	@ElementDescription(value = "Account Number list:- Contains From Account and To Account")
+//	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_lable4')]")
+//	private List<MobileElement> Label4List;
 
 	@ElementDescription(value = "Footer Expandable Button")
 	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/ic_logo_footer_iv')]")
@@ -1342,11 +1414,19 @@ public class DBSAndroidObject {
 	public MobileElement CloseButton() {
 		return CloseButton;
 	}
-
+	
+//	public List<MobileElement> Label4List() { 
+//		return Label4List;
+//	}
+//	
 	public MobileElement BackIcon() {
 		return BackIcon;
 	}
-
+	
+	public MobileElement ErrorMessgeElement() {
+		return ErrorMessgeElement;
+	}
+	
 	public MobileElement FooterExpandableBtn() {
 		return FooterExpandableBtn;
 	}
@@ -1434,7 +1514,6 @@ public class DBSAndroidObject {
       ////////fund transfer to other bank
 	
 	@ElementDescription(value = "Local Recipient")
-	//@AndroidFindBy(xpath = "//android.widget.TextView[@text='Local Recipients']")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_expandable_item_head_title')]")
 	private List<MobileElement> AllTabOptionsList;
 	
@@ -1797,6 +1876,21 @@ public class DBSAndroidObject {
 
 	public MobileElement DepositAccountButtoniWEALTH() {
 		return DepositAccountButtoniWealth;
+	}
+	
+	@ElementDescription(value = "Local recipient List Text")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/tv_expandable_item_sub_title')]")
+	private List<MobileElement> localRecipientListText;
+	
+	public List<MobileElement> localRecipientListText() {
+		return localRecipientListText;                           
+	}
+	@ElementDescription(value = "Local recipient List clickable")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,':id/root_ll')]")
+	private List<MobileElement> localRecipientListClickable;
+	
+	public List<MobileElement> localRecipientListClickable() {
+		return localRecipientListClickable;
 	}
 
 }

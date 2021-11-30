@@ -96,6 +96,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				Thread.sleep(5000);
 			}
 			
+			UpdateUATN4Server();
+			
 			clickOnLoginButton();
 			sendDataInUserId(userName);
 			sendDataInUserPin(password);
@@ -142,7 +144,25 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			throw new Exception(getExceptionMessage(e));
 		}
 	}
-
+	
+	@Step("Select And Save UAT N4 Server")
+	public void UpdateUATN4Server() throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.PreLoginBtn());
+			clickOnElement(DBSappObject.PreLoginBtn());
+			TakeScreenshot(DBSappObject.MoreButton());
+			clickOnElement(DBSappObject.MoreButton());
+			TakeScreenshot(DBSappObject.ChangeServerBtn());
+			clickOnElement(DBSappObject.ChangeServerBtn());
+			GestureUtils.scrollUPtoObject("text", "UAT N4", DBSappObject.SelectUATN4_Server());
+			TakeScreenshot(DBSappObject.SelectUATN4_Server());
+			clickOnElement(DBSappObject.SelectUATN4_Server());
+			TakeScreenshot(DBSappObject.ChangeServerSaveBtn());
+			clickOnElement(DBSappObject.ChangeServerSaveBtn());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
 
 	@Step("Clicked on Login button")
 	public void clickOnLoginButton() throws Exception {
@@ -358,7 +378,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			wait.waitForElementVisibility(DBSappObject.SuccessTickImageView()); 
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			if (isElementVisible(DBSappObject.SuccessTickImageView()))
-				Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
+				Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderList().get(0)), 
 						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
 						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not matching");
 		} catch (Exception e) {
@@ -519,6 +539,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(String SuccessMsg, MobileElement successImage,
 			MobileElement transfferdSubmitMsgEle) throws Exception {
 		try {
+			TakeScreenshot(DBSappObject.TransferNowBtn()); 
 			clickOnElement(DBSappObject.TransferNowBtn());
 			if (isElementVisible(successImage))
 				Asserts.assertEquals(getTexOfElement(transfferdSubmitMsgEle), SuccessMsg,
@@ -655,8 +676,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void ClickOnNextButton() throws Exception {
 		try {
 			GestureUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
-			wait.waitForElementVisibility(DBSappObject.nextButton());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			TakeScreenshot(DBSappObject.nextButton());
 			if (getTexOfElement(DBSappObject.nextButton()).equalsIgnoreCase("NEXT"))
 				clickOnElement(DBSappObject.nextButton());
 		} catch (Exception e) {
@@ -1376,7 +1396,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			if (isElementVisible(DBSappObject.MoreBtn()))
 				clickOnElement(DBSappObject.MoreBtn());
-
+               Thread.sleep(1000); 
 			String xpath = "//android.widget.ImageView[@content-desc='CLOSE']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0)
@@ -1476,9 +1496,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifyButtonLabelAndClick(MobileElement Button, String expectecText) throws Exception {
 		try {
 			String actualText = getTexOfElement(Button);
+			TakeScreenshot(Button);
 			Asserts.assertEquals(actualText, expectecText, "button Not exist");
 			if (actualText.equalsIgnoreCase(expectecText))
 				clickOnElement(Button);
+			
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -1627,7 +1649,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			EnterPasscodeAndDone();
 			sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),
 					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),
-					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),DBSappObject.PageHeader2());
+					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(), DBSappObject.PageHeader2());
 			ClickOnToOtherBankLimit();
 			String amountSlected = handlingSetCurrentLimit(CommonTestData.SELECTED_LIMIT_50000.getEnumValue());
 			ClickOnNextButton();
@@ -1635,7 +1657,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			verifyClickBackToMoreButton();
 			sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),
 					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),
-					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(), DBSappObject.PageHeader2());
+					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(), DBSappObject.PageHeader2()); 
 			ClickOnToOtherBankLimit();
 			verifyDisplayAmountLocalTransferLimitChange(amountSlected);
 		} catch (Exception e) {
@@ -1654,9 +1676,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click on 'DBS CURRENT ACCOUNT' after selecting 'Local Recipients' and verify 'Transfer to DBS/POSB' Title")
 	public void selectLocalRecientAndClickingOnDbsCurrentAccount() throws Exception {
 		try {
-
-			
-
 			VerifyButtonLabelAndClick(DBSappObject.AllTabOptionsList().get(2),CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue());
 			GestureUtils.scrollUPtoObject("text", CommonTestData.DBS_CURRENT_ACCOUNT_TEXT.getEnumValue(), DBSappObject.dbsCurrentAccountOption() );
 			VerifyButtonLabelAndClick(DBSappObject.dbsCurrentAccountOption(),CommonTestData.DBS_CURRENT_ACCOUNT_TEXT.getEnumValue());
@@ -1720,7 +1739,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifies FundTransfer Other DBS/POSB")
 	public void FundTransferOtherBank() throws Exception {
 		try {
-			 
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			clickAndVerifyOnAllTab();
@@ -1730,14 +1748,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
             ClickOnNextButton();
             verifyReviewTransferAndClickTransferNowButton();
             verifyTransferredTitleAndClickOnLogout();
-             
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
 		}
 	}
-	
-
-	
 
 	@Step("Verify Fund Transfer For Own Account.")
 	public void VerifyFundTransfer_OwnAccount() throws Exception {
@@ -1745,20 +1759,57 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			SelectAllTAB();
-			SelectOWNAccountAndAnyAccountOption();
-			SelectFundSourceAccount("POSB ACCOUNT");
+			SelectOWNAccountAndAnyAccountOption(CommonTestData.FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER.getEnumValue());
+			String ExpectedFromAccountName = CommonTestData.FUNDTRANSFER_FROM_OWN_ACCOUNT_NAME.getEnumValue();
+			SelectFundSourceAccount(ExpectedFromAccountName);
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			ClickOnNextButton();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
 					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
+			
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFERRED.getEnumValue(),
 					DBSappObject.ImageForPaymentSuccess(), DBSappObject.PageHeader());
+			 String ExpectedToAccountNumber = CommonTestData.FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER.getEnumValue() + "	SGD";
+			 String ExpectedToAccountName = CommonTestData.FUNDTRANSFER_TO_OWN_ACCOUNT_NAME.getEnumValue();
+			 String ExpectedFromAccountNumber = CommonTestData.FUNDTRANSFER_FROM_OWN_ACCOUNT_NUMBER.getEnumValue() + "	SGD";
+			 VerifyAccountDetailsAfterFundTransferToOwnAccount( ExpectedToAccountNumber,  ExpectedToAccountName,  ExpectedFromAccountNumber, ExpectedFromAccountName);	
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
 	}
 
+	@Step("Verify Account Details After Fund Transfer To Own Account.")
+	public void VerifyAccountDetailsAfterFundTransferToOwnAccount(String ExpectedToAccountNumber, String ExpectedToAccountName, String ExpectedFromAccountNumber,String ExpectedFromAccountName) throws Exception{
+		try { 
+			Asserts.assertTrue(DBSappObject.LOGOUTButton().isDisplayed(), "Log Out Button not matching.");
+			Asserts.assertTrue(DBSappObject.BACKToHOME().isDisplayed(), "BACK To HOME Button not found.");
+			Asserts.assertTrue(DBSappObject.MakeAnotherTransferBtn().isDisplayed(), "MAKE ANOTHER TRANSFER Button not found.");
+
+			
+			String[] ExpTitleList = new String[] {  "From", "To",  "When" ,"Source Account Balance","Destination Account Balance","Reference No." };
+			
+				for(int i = 0; i< DBSappObject.FundTransferDetailslabel1List().size(); i++){
+				Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel1List().get(i)),
+						ExpTitleList[i], ExpTitleList[i] + "Titles is not matching after adding payee"); 
+			      }
+				
+				Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel2List().get(0)),
+						ExpectedFromAccountName, ExpectedFromAccountName + " is not matching after Fund Transfer to Own Account"); 
+
+				Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel2List().get(1)),
+						ExpectedToAccountName, ExpectedToAccountName + " is not matching after Fund Transfer to Own Account"); 
+				
+				Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel3List().get(0)), 
+						ExpectedFromAccountNumber, ExpectedFromAccountNumber + " is not matching after Fund Transfer to Own Account."); 
+			
+				Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel3List().get(1)), 
+						ExpectedToAccountNumber, ExpectedToAccountNumber + " is not matching after fund transfer to own account");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		} 
+	}
+	
 	@Step("Select All TAB.")
 	public void SelectAllTAB() throws Exception {
 		try {
@@ -1770,10 +1821,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Select 'Your DBS/POSB Accounts' and then verify 'Transfer to Your Account' Page header after selecting any own account option.")
-	public void SelectOWNAccountAndAnyAccountOption() throws Exception {
+	public void SelectOWNAccountAndAnyAccountOption(String ToOwnAccount) throws Exception {
 		try {
 			clickOnElement(DBSappObject.SelectOwnAccount());
-			clickOnElement(DBSappObject.SelectOwnAccountNumber());
+			String xpath = "//android.widget.TextView[@text='"+ToOwnAccount+"']";
+			MobileElement ToAccountNo = (MobileElement) driver.findElement(By.xpath(xpath));
+			clickOnElement(ToAccountNo); 
+			TakeScreenshot(DBSappObject.PageHeader());
 			verifyPageHeader(CommonTestData.TRANSFER_TO_YOUR_ACCOUNT.getEnumValue(), DBSappObject.PageHeader());
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
@@ -1781,25 +1835,31 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Select Any Fund Source Account After clicking on add sign for select fund source.")
-	public void SelectFundSourceAccount(String option) throws Exception {
+	public void SelectFundSourceAccount(String fromOwnAccount) throws Exception {
 		try {
-
 			String xpath = "//android.widget.TextView[@text='Select Fund Source']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0) {
+				GestureUtils.scrollDOWNtoObject("text", "Select Fund Source", DBSappObject.SelectFundSourcePage());
 				TakeScreenshot(DBSappObject.SelectFundSourcePage());
 				clickOnElement(DBSappObject.SelectFundSourcePage());
 				TakeScreenshot(DBSappObject.SelectLocalRecipientToAccount().get(0)); 
 				
 				for (int i = 0; i < DBSappObject.SelectLocalRecipientToAccount().size(); i++) {
-					String tabText = DBSappObject.SelectLocalRecipientToAccount().get(i).getText(); 
-					if (tabText.equals(option)) 
+					String actualfromOwnAccount = DBSappObject.SelectLocalRecipientToAccount().get(i).getText(); 
+					if (actualfromOwnAccount.contains(fromOwnAccount)) {
 						clickOnElement(DBSappObject.SelectLocalRecipientToAccount().get(i));
-				    break;
+				        break;
+					}
 				}
 				
-				if (isElementVisible(DBSappObject.PrimarySourceOfFund()))
-					clickOnElement(DBSappObject.OKButton());
+				String xpath1 = "//android.widget.TextView[@text='Primary source of fund']";
+				List<RemoteWebElement>list1 = driver.findElements(By.xpath(xpath1));
+				if(list1.size()>0) {
+					TakeScreenshot(DBSappObject.PrimarySourceOfFund()); 
+					if (isElementVisible(DBSappObject.PrimarySourceOfFund()))
+						clickOnElement(DBSappObject.OKButton());
+				}
 			}
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
@@ -1824,28 +1884,36 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			SelectAllTAB();
-			SelectLocalRecipientsAccount(CommonTestData.LOCAL_RECIPIENTS_TAB_NAME.getEnumValue());
+			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK.getEnumValue();
+			clickingOnAccountTypeInLocalRecipient(ExpectedToBankNameWithAccountNo);
+			
 			DisableToTransferViaFastToggle();
-			EnterAmount(DBSappObject.EditFields().get(0), "Non Fast");
-			GestureUtils.scrollDOWNtoObject("text", "Immediate", DBSappObject.TransferDateTextElement());
-			SelectFundSourceAccount("DBS Multi");
+			
+			TakeScreenshot(DBSappObject.EditFields().get(0));
+			clickOnElement(DBSappObject.EditFields().get(0));
+			enterTextInTextbox(DBSappObject.EditFields().get(0), "Non Fast");
+		
+			String ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME.getEnumValue();
+			SelectFundSourceAccount(ExpectedFromBankName);
+			
 			SelectFutureDateThroughCalendar();
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			ClickOnNextButton();
 			VerifyReviewTransferPageAndNonFastServiceInReview();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
 					DBSappObject.ImageForPaymentSuccess(), DBSappObject.TransferSuccessMsgElement());
-			VerifyVisibiltyOfSomeElements();
-			String FromAccountname = getTexOfElement(DBSappObject.AccountNameList().get(0));
-			String FromAccountNo = getTexOfElement(DBSappObject.AccountNumberList().get(0));
-			System.out.println(FromAccountname);
-			System.out.println(FromAccountNo);
+			
+			String ExpectedFromAccountNumber = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NUMBER.getEnumValue()+ "	SGD";
+			String ExpectedToRecipientName = CommonTestData.FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME.getEnumValue();
+			VerifyVisibiltyOfSomeElements(ExpectedFromBankName, ExpectedToBankNameWithAccountNo ,ExpectedFromAccountNumber,ExpectedToRecipientName);
+			
+			
 			ClickOnExpandbtnAndBackBtn();
 			ClickOnMoreButton();
 			EnterPasscodeAndDone();
 			ClickOnTransactionHistory(appname);
-			SelectTimeAndAccountTypeForStatement(DBSappObject.DepositAccountList().get(1),appname);
-			ClickOnShowButtonAndVerifyHeader(FromAccountname);
+			SelectTimeAndAccountTypeForStatement(appname,ExpectedFromBankName);
+			ClickOnShowButtonAndVerifyHeader(ExpectedFromBankName);
 			ValadateTransactionHistoryListInThreeMonth();
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
@@ -1858,11 +1926,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			SelectAllTAB();
-			SelectLocalRecipientsAccount("Local Recipients");
+			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK.getEnumValue();
+			clickingOnAccountTypeInLocalRecipient(ExpectedToBankNameWithAccountNo);
 			DisableToTransferViaFastToggle();
-			EnterAmount(DBSappObject.EditFields().get(0), "Non Fast");
-			GestureUtils.scrollDOWNtoObject("text", "Immediate", DBSappObject.TransferDateTextElement());
-			SelectFundSourceAccount("DBS Multilier Account");
+			
+			TakeScreenshot(DBSappObject.EditFields().get(0));
+			clickOnElement(DBSappObject.EditFields().get(0));
+			enterTextInTextbox(DBSappObject.EditFields().get(0), "Non Fast");
+		
+			String ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME.getEnumValue();
+			SelectFundSourceAccount(ExpectedFromBankName);
+			
 			String ExpectedSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
 			Asserts.assertEquals("Immediate", ExpectedSelectedDate, "Selected Date is not Matching");
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
@@ -1870,17 +1944,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			VerifyReviewTransferPageAndNonFastServiceInReview();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
 					DBSappObject.ImageForPaymentSuccess(), DBSappObject.TransferSuccessMsgElement());
-			VerifyVisibiltyOfSomeElements();
-			String FromAccountname = getTexOfElement(DBSappObject.AccountNameList().get(0));
-			String FromAccountNo = getTexOfElement(DBSappObject.AccountNumberList().get(0));
-			System.out.println(FromAccountname);
-			System.out.println(FromAccountNo);
+		
+			String ExpectedFromAccountNumber = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NUMBER.getEnumValue()+ "	SGD";
+			String ExpectedToRecipientName = CommonTestData.FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME.getEnumValue();
+			VerifyVisibiltyOfSomeElements(ExpectedFromBankName, ExpectedToBankNameWithAccountNo ,ExpectedFromAccountNumber,ExpectedToRecipientName);
+			
 			ClickOnExpandbtnAndBackBtn();
 			ClickOnMoreButton();
 			EnterPasscodeAndDone();
 			ClickOnTransactionHistory(appname);
-			SelectTimeAndAccountTypeForStatement(DBSappObject.DepositAccountList().get(1),appname);
-			ClickOnShowButtonAndVerifyHeader(FromAccountname);
+			SelectTimeAndAccountTypeForStatement(appname,ExpectedFromBankName);
+			ClickOnShowButtonAndVerifyHeader(ExpectedFromBankName);
 			ValadateTransactionHistoryListInThreeMonth();
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
@@ -1899,12 +1973,26 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 	
 	@Step("Verifies the 'Log out', 'Make Another Transfer' Button and 'Transferred Amount Value' after transferring the fund.")
-	public void VerifyVisibiltyOfSomeElements() throws Exception {
+	public void VerifyVisibiltyOfSomeElements(String ExpectedFromBankName , String ExpectedToBankName, String ExpectedFromAccountNumber, String ExpectedToRecipientName) throws Exception {
 		try {
 			Asserts.assertTrue(DBSappObject.LOGOUTButton().isDisplayed(), "Log Out Button not found.");
+			GestureUtils.scrollUPtoObject("text", "MAKE ANOTHER TRANSFER", DBSappObject.MakeAnotherTransferBtn()); 
 			Asserts.assertTrue(DBSappObject.MakeAnotherTransferBtn().isDisplayed(), "Make Another Transfer Button not found.");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.SendingAmountElement()),
-					CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + ".00 ", "Amount is not matching");
+					CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + ".00", "Amount is not matching");
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNameList().get(0)),
+					ExpectedFromBankName, ExpectedFromBankName + " is not matching");
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNameList().get(1)),
+					ExpectedToRecipientName, ExpectedToRecipientName + " is not matching");
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNumberList().get(0)),
+					ExpectedFromAccountNumber, ExpectedFromAccountNumber + " is not matching");
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNumberList().get(1)).trim(),
+					ExpectedToBankName, ExpectedToBankName + " is not matching");
+			
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e)); 
 		}
@@ -1918,7 +2006,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
 
 			GestureUtils.scrollUPtoObject("text", "TRANSFER NOW", DBSappObject.TransferNowBtn());
-			Asserts.assertTrue(DBSappObject.NonFastTransactionService().isDisplayed(),
+			wait.waitForElementVisibility(DBSappObject.NonFastTransactionService());
+			Asserts.assertTrue(DBSappObject.NonFastTransactionService().isDisplayed(), 
 					"Non-Fast Service not available in review.");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));  
@@ -1965,37 +2054,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 	}
 
-	@Step("Select Any Local Recipient From Account After clicking on Local Recipient and Verify visibility of Primary source of Fund Dialog then click on Ok Button.")
-	public void SelectLocalRecipientsAccount(String TabValue) throws Exception {
-		try {
-			TakeScreenshot(DBSappObject.AllTabOptionsList().get(0));
-			for (int i = 0; i < DBSappObject.AllTabOptionsList().size(); i++) {
-				String tabText = DBSappObject.AllTabOptionsList().get(i).getText(); 
-				if (tabText.contains(TabValue)) {
-					clickOnElement(DBSappObject.AllTabOptionsList().get(i));
-					break;
-				}
-			}
-			
-
-		//	GestureUtils.scrollUPtoObject("text", "Billing Organisation", DBSappObject.BillingOrganisation());
-			//TakeScreenshot(DBSappObject.SelectLocalRecipientsToAccountList().get(1));
-			for (int i = 0; i < DBSappObject.SelectLocalRecipientsToAccountList().size(); i++) {
-				String ToAccount = DBSappObject.SelectLocalRecipientsToAccountList().get(i).getText();
-				if (ToAccount.contains("INDIAN OVERSEAS BANK 582177606001")) {
-					clickOnElement(DBSappObject.SelectLocalRecipientsToAccountList().get(i));
-					break;
-				}
-			}
-
-			TakeScreenshot(DBSappObject.PrimarySourceOfFund());
-			if (isElementVisible(DBSappObject.PrimarySourceOfFund()))
-				clickOnElement(DBSappObject.OKButton());
-		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
-		}
-	}
-	
 
 	public void TakeScreenshot(MobileElement Element) throws Exception {
 		try {
@@ -2007,7 +2065,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Select'3 Months Transaction History' And 'From Account' from 'Deposit Account' section")
-	public void SelectTimeAndAccountTypeForStatement(MobileElement depositAccountName, String appName) throws Exception {
+	public void SelectTimeAndAccountTypeForStatement(String appName, String AccountName) throws Exception {
 		try {
 			clickOnElement(DBSappObject.threeMonthLabel()); 
 			if(appName.contains("DBS"))
@@ -2019,7 +2077,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			else if(appName.contains("iWEALTH"))
 				clickOnElement(DBSappObject.DepositAccountButtoniWEALTH());
 			
-			selectAccountTypeInTransactionHistory(CommonTestData.ACCOUNT_NAME.getEnumValue(),appName);
+			selectAccountTypeInTransactionHistory(AccountName,appName);
 			
 			if(appName.contains("DBS")) {
 				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),DBSappObject.TransactionHistoryHeaderForDBS());
@@ -2094,7 +2152,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void ClickOnShowButtonAndVerifyHeader(String ExpectedAccountName) throws Exception {
 		try {
 			VerifyButtonLabelAndClick(DBSappObject.showButton(), CommonTestData.SHOW_BUTTON.getEnumValue());
-			EnterPasscodeAndDone();
+			EnterPasscodeAndDone(); 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNameToCheckTransactionHistory()),
 					ExpectedAccountName, ExpectedAccountName + " is not matching.");
 		} catch (Exception e) {
@@ -2119,7 +2177,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			 ClickOnMoreButton();
 			 EnterPasscodeAndDone();
 			 ClickOnTransactionHistory(appName);
-			 SelectTimeAndAccountTypeForStatement(DBSappObject.posbStatementSavingLabel(),appName);
+			 SelectTimeAndAccountTypeForStatement(appName, CommonTestData.ACCOUNT_NAME.getEnumValue());
 			 ClickOnShowButtonAndVerifyHeader(CommonTestData.STATEMENT_TITLE.getEnumValue());
 			 ValadateTransactionHistoryListInThreeMonth();
 			 BackToHomeFromTransactionHistory(appName);
@@ -2223,6 +2281,59 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
+	}
+	
+	
+	@Step("Click on Account after selecting 'Local Recipients' and verify pageHeader")
+	public void clickingOnAccountTypeInLocalRecipient(String valueSelectedFromList) throws Exception {
+		try {
+			int o=0;
+			for (int i = 0; i < DBSappObject.AllTabOptionsList().size(); i++) {
+				String tabText = DBSappObject.AllTabOptionsList().get(i).getText(); 
+				o++;
+				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
+					clickOnElement(DBSappObject.AllTabOptionsList().get(i));
+					break;
+				}
+			}
+			
+			GestureUtils.DragAndDropElementToElement( DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
+			TakeScreenshot(DBSappObject.localRecipientListText().get(0));
+			List<MobileElement> Elementlist = DBSappObject.localRecipientListText();
+			List<MobileElement> ElementlistClickable = DBSappObject.localRecipientListClickable();
+			int l = Elementlist.size();
+			int index = 0;
+			String LocalRecipientList = null;
+			for (int i = 0; i < l; i++) {
+				LocalRecipientList = Elementlist.get(i).getText();
+				if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+					index++;
+					clickOnElement(ElementlistClickable.get(i));
+					break;
+				}
+			}
+			Asserts.assertTrue(index>0, "No element found in the list of corresponding value");
+						String ErrorMsg = getTexOfElement(DBSappObject.ErrorMessgeElement());
+						
+			if(CommonTestData.ERROR_MSG.getEnumValue().equals(ErrorMsg)) 
+			clickOnElement(DBSappObject.OKButton());
+			
+			String xpath1 = "//android.widget.TextView[@text='Primary source of fund']";
+			List<RemoteWebElement>list1 = driver.findElements(By.xpath(xpath1));
+			if(list1.size()>0) {
+				TakeScreenshot(DBSappObject.PrimarySourceOfFund()); 
+				if (isElementVisible(DBSappObject.PrimarySourceOfFund()))
+					clickOnElement(DBSappObject.OKButton());
+			}
+			
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+
+	}
+	
+	public void UpdatePersonalDetails(String appName) {
+		
 	}
 	
 }
