@@ -61,6 +61,23 @@ public enum CommonTestData {
 	DBS_DIGIBANK("DBS digibank"),
 	ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
 	
+	
+	//ApplyDebitCard
+	DEBIT_CARD_NAME("PASSION POSB MASTERCARD DEBIT CARD"),
+	ACCOUNT_LINKED_WITH_DEBIT_CARD("POSB eSAVINGS"),
+	TITLE("Ms"),
+	RACE("Chinese"),
+	MARITAL_STATUS("Single"),
+	RESIDENCE_TYPE("HDB"),
+	EDUCATION("PSLE"),
+	ECONOMIC_STATUS("Professional"),
+	ANNUAL_INCOME("S$60,001 - S$90,000"),
+		
+	// OpenAccount
+	OPEN_ACCOUNT_OPTION("POSB SAYE Account"), 
+	SELECT_ACCOUNT("DBS SAVINGS PLUS"),
+	
+	
 	//Relanching alert message
 	RELAUNCH_MESSAGE("Your application's security profile has been updated. Please re-launch the application to continue."),
 	
