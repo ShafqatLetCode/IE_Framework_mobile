@@ -1152,6 +1152,14 @@ public class DBSAndroidObject {
 	public MobileElement NonFastTransactionService() {
 		return NonFastTransactionService;
 	}
+	
+	@ElementDescription(value = "Fast Transaction Service Message")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='FAST']")
+	private MobileElement FastTransactionService;
+
+	public MobileElement FastTransactionService() {
+		return FastTransactionService;
+	}
 
 	public MobileElement TransferSuccessMsgElement() {
 		return TransferSuccessMsgElement;
@@ -1521,6 +1529,30 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='DBS CURRENT ACCOUNT']")
 	private MobileElement dbsCurrentAccountOption;
 
+	@ElementDescription(value = "Contact Search Field")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/contact_search')]")
+	private MobileElement ContactSearchfield;
+	
+	@ElementDescription(value = "Edit Text Search Box")
+	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,':id/search_text_et')]")
+	private MobileElement EditTextSearchBox;
+	
+	@ElementDescription(value = "Update Contact Details")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Update Contact Details']")
+	private MobileElement UpdateContactDetails;
+	
+	public MobileElement UpdateContactDetails() {
+		return UpdateContactDetails;
+	}
+	
+	public MobileElement EditTextSearchBox() {
+		return EditTextSearchBox;
+	}
+	
+	public MobileElement ContactSearchfield() {
+		return ContactSearchfield;
+	}
+	
 	public MobileElement dbsCurrentAccountOption() {
 		return dbsCurrentAccountOption;
 	}
@@ -1910,6 +1942,178 @@ public class DBSAndroidObject {
 	public MobileElement PageHeaderForOpenAccount() {
 		return PageHeaderForOpenAccount;
 	}
+	
+	@ElementDescription(value = "Back Btn Image View")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/back_btn')]")
+	private MobileElement BackBtnImageView;
+	
+	@ElementDescription(value = "Personal & Contact Details")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Personal & Contact Details']")
+	private MobileElement PersonalAndContactDetailsTab;
+	
+	@ElementDescription(value = "Mailing Address")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Mailing Address']")
+	private MobileElement MailingAddressTab;
+	
+	@ElementDescription(value = "Update Contact Details Page Header.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_toolbar_title')]")
+	private MobileElement UpdateContactDetailsPageHeader;
+	
+	@ElementDescription(value = "Contact Details Title.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_upp_cd_section_title_id')]")
+	private MobileElement ContactDetailsTitle;
+	
+	@ElementDescription(value = "Terms And Conditions Msg.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_upp_ters_condns_label__id')]")
+	private MobileElement TermsAndConditionsMsg;
+	
+	@ElementDescription(value = "Review Request Header.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_toolbar_title')]")
+	private MobileElement ReviewRequestHeader;
+	
+	@ElementDescription(value = "Email Notes.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_upp_email_notes_id')]")
+	private MobileElement EmailNotes;
+	
+	@ElementDescription(value = "Contact Details Change Button.")
+	@AndroidFindBy(xpath = "//android.widget.Button[contains(@resource-id,':id/tv_upp_change_contact_details_btn_id')]")
+	private MobileElement ContactDetailsChangeBtn;
+	
+	@ElementDescription(value = "Personal Perticular Change Button.")
+	@AndroidFindBy(xpath = "//android.widget.Button[contains(@resource-id,':id/tv_upp_change_personal_perticulars_btn_id')]")
+	private MobileElement PersonalPerticularChangeBtn;
+	
+	@ElementDescription(value = "Personal Perticular Section Title.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_upp_pp_section_title_id')]")
+	private MobileElement PersonalPerticularSectionTitle;
+	
+	
+	@ElementDescription(value = "Marketing Message Title.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_upp_mm_section_title_i')]")
+	private MobileElement MarketingMessageTitle;
+	
+	@ElementDescription(value = "Marketing Message Notes.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_upp_marketing_messages_notes_id')]")
+	private MobileElement MarketingMessageNotes;
+	
+	@ElementDescription(value = "Upp Section Label.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_upp_section_label__id')]")
+	private MobileElement UPPSectionLabel;
+	
+	@ElementDescription(value = "Confirm Button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='CONFIRM']")
+	private MobileElement ConfirmBtn;
+	
+	@ElementDescription(value = "Completion Status Image")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.dbs.sit1.dbsmbanking:id/iv_status_completion']")
+	private MobileElement CompletionStatusImage;
+	
+	@ElementDescription(value = "Successfully Updated Message")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_transfer_result')]")
+	private MobileElement SuccessfullyUpdatedMessageEle;
+	
+	@ElementDescription(value = "UPDATE MORE DETAILS Button.")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='UPDATE MORE DETAILS']")
+	private MobileElement UpdateMoreDetailsBtn;
+	
+	@ElementDescription(value = "BACK TO MORE SERVICES Button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='BACK TO MORE SERVICES']")
+	private MobileElement BACKTOMoreServicesBtn;
+
+	public MobileElement UpdateMoreDetailsBtn() { 
+		return UpdateMoreDetailsBtn;
+	}
+	
+	public MobileElement BACKTOMoreServicesBtn() { 
+		return BACKTOMoreServicesBtn;
+	}
+	
+	public MobileElement SuccessfullyUpdatedMessageEle() { 
+		return SuccessfullyUpdatedMessageEle;
+	}
+
+	public MobileElement CompletionStatusImage() { 
+		return CompletionStatusImage;
+	}
+	
+	public MobileElement ConfirmBtn() { 
+		return ConfirmBtn;
+	}
+	
+	public MobileElement UPPSectionLabel() { 
+		return UPPSectionLabel;
+	}
+	
+	public MobileElement ReviewRequestHeader() { 
+		return ReviewRequestHeader;
+	}
+	
+	public MobileElement MarketingMessageNotes() { 
+		return MarketingMessageNotes;
+	}
+	
+	public MobileElement TermsAndConditionsMsg() { 
+		return TermsAndConditionsMsg;
+	}
+
+	public MobileElement MarketingMessageTitle() { 
+		return MarketingMessageTitle;
+	}
+	
+	public MobileElement PersonalPerticularChangeBtn() { 
+		return PersonalPerticularChangeBtn;
+	}
+	
+	public MobileElement PersonalPerticularSectionTitle() { 
+		return PersonalPerticularSectionTitle;
+	}
+	
+	
+	public MobileElement ContactDetailsChangeBtn() { 
+		return ContactDetailsChangeBtn;
+	}
+	
+	public MobileElement EmailNotes() { 
+		return EmailNotes;
+	}
+	
+	@ElementDescription(value = "Contact Details Titles List.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_title_id')]")
+	private List<MobileElement> ContactDetailsTitlesList;
+	
+	@ElementDescription(value = "Contact Details Values List.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_value_id')]")
+	private List<MobileElement> ContactDetailsValuesList;
+	
+	public List<MobileElement> ContactDetailsValuesList() { 
+		return ContactDetailsValuesList;
+	}
+	
+	public List<MobileElement> ContactDetailsTitlesList() { 
+		return ContactDetailsTitlesList;
+	}
+	
+	public MobileElement ContactDetailsTitle() {
+		return ContactDetailsTitle;
+	}
+	
+	public MobileElement UpdateContactDetailsPageHeader() {
+		return UpdateContactDetailsPageHeader;
+	}
+	
+	public MobileElement BackBtnImageView() {
+		return BackBtnImageView;
+	}
+	
+	public MobileElement PersonalAndContactDetailsTab() {
+		return PersonalAndContactDetailsTab;
+	}
+	
+	public MobileElement MailingAddressTab() {
+		return MailingAddressTab;
+	}
+	
+	
 
 	@ElementDescription(value = "POSB SAYE Account SelectOpenAccountOption")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.dbsmbanking:id/tv_lable1']")

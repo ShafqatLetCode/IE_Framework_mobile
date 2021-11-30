@@ -383,7 +383,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			wait.waitForElementVisibility(DBSappObject.SuccessTickImageView());
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			if (isElementVisible(DBSappObject.SuccessTickImageView()))
-				Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderList().get(0)),
+				Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
 						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
 						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not matching");
 		} catch (Exception e) {
@@ -543,8 +543,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(String SuccessMsg, MobileElement successImage,
 			MobileElement transfferdSubmitMsgEle) throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.TransferNowBtn());
 			clickOnElement(DBSappObject.TransferNowBtn());
+			TakeScreenshot(successImage);
 			if (isElementVisible(successImage))
 				Asserts.assertEquals(getTexOfElement(transfferdSubmitMsgEle), SuccessMsg,
 						SuccessMsg + " Text is not matching");
@@ -1524,13 +1524,18 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On More Button and then 2FA Authentication Done.")
 	public void ClickOnMoreButton() throws Exception {
 		try {
+			TakeScreenshot(DBSappObject.MoreBtn()); 
 			if (isElementVisible(DBSappObject.MoreBtn()))
 				clickOnElement(DBSappObject.MoreBtn());
-			Thread.sleep(1000);
+			
+			
 			String xpath = "//android.widget.ImageView[@content-desc='CLOSE']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0)
+			if (list.size() > 0) {
+				TakeScreenshot(DBSappObject.CloseButton()); 
 				clickOnElement(DBSappObject.CloseButton());
+			}
+				
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -2055,17 +2060,16 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			SelectFundSourceAccount(ExpectedFromBankName);
 
 			SelectFutureDateThroughCalendar();
+			
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			ClickOnNextButton();
 			VerifyReviewTransferPageAndNonFastServiceInReview();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
 					DBSappObject.ImageForPaymentSuccess(), DBSappObject.TransferSuccessMsgElement());
 
-			String ExpectedFromAccountNumber = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NUMBER.getEnumValue()
-					+ "	SGD";
 			String ExpectedToRecipientName = CommonTestData.FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME.getEnumValue();
 			VerifyVisibiltyOfSomeElements(ExpectedFromBankName, ExpectedToBankNameWithAccountNo,
-					ExpectedFromAccountNumber, ExpectedToRecipientName);
+					 ExpectedToRecipientName);
 
 			ClickOnExpandbtnAndBackBtn();
 			ClickOnMoreButton();
@@ -2099,15 +2103,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			SelectFutureDateThroughCalendar();
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			ClickOnNextButton();
-			VerifyReviewTransferPageAndNonFastServiceInReview();
+			VerifyReviewTransferPageAndFastServiceInReview();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
 					DBSappObject.ImageForPaymentSuccess(), DBSappObject.TransferSuccessMsgElement());
 
-			String ExpectedFromAccountNumber = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NUMBER.getEnumValue()
-					+ "	SGD";
+//			String ExpectedFromAccountNumber = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NUMBER.getEnumValue()
+//					+ "	SGD";
 			String ExpectedToRecipientName = CommonTestData.FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME.getEnumValue();
 			VerifyVisibiltyOfSomeElements(ExpectedFromBankName, ExpectedToBankNameWithAccountNo,
-					ExpectedFromAccountNumber, ExpectedToRecipientName);
+					 ExpectedToRecipientName);
 
 			ClickOnExpandbtnAndBackBtn();
 			ClickOnMoreButton();
@@ -2147,11 +2151,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
 					DBSappObject.ImageForPaymentSuccess(), DBSappObject.TransferSuccessMsgElement());
 
-			String ExpectedFromAccountNumber = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NUMBER.getEnumValue()
-					+ "	SGD";
 			String ExpectedToRecipientName = CommonTestData.FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME.getEnumValue();
 			VerifyVisibiltyOfSomeElements(ExpectedFromBankName, ExpectedToBankNameWithAccountNo,
-					ExpectedFromAccountNumber, ExpectedToRecipientName);
+					 ExpectedToRecipientName);
 
 			ClickOnExpandbtnAndBackBtn();
 			ClickOnMoreButton();
@@ -2187,15 +2189,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals("Immediate", ExpectedSelectedDate, "Selected Date is not Matching");
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			ClickOnNextButton();
-			VerifyReviewTransferPageAndNonFastServiceInReview();
+			VerifyReviewTransferPageAndFastServiceInReview();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
 					DBSappObject.ImageForPaymentSuccess(), DBSappObject.TransferSuccessMsgElement());
 
-			String ExpectedFromAccountNumber = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NUMBER.getEnumValue()
-					+ "	SGD";
+//			String ExpectedFromAccountNumber = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NUMBER.getEnumValue()
+//					+ "	SGD";
 			String ExpectedToRecipientName = CommonTestData.FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME.getEnumValue();
 			VerifyVisibiltyOfSomeElements(ExpectedFromBankName, ExpectedToBankNameWithAccountNo,
-					ExpectedFromAccountNumber, ExpectedToRecipientName);
+					 ExpectedToRecipientName);
 
 			ClickOnExpandbtnAndBackBtn();
 			ClickOnMoreButton();
@@ -2214,15 +2216,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			clickOnElement(DBSappObject.FooterExpandableBtn());
 			GestureUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
-			clickOnElement(DBSappObject.BackIcon());
+			TakeScreenshot( DBSappObject.ReferenceNumberText());
+			clickOnElement(DBSappObject.BackIcon()); 
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
 	}
 
 	@Step("Verifies the 'Log out', 'Make Another Transfer' Button and 'Transferred Amount Value' after transferring the fund.")
-	public void VerifyVisibiltyOfSomeElements(String ExpectedFromBankName, String ExpectedToBankName,
-			String ExpectedFromAccountNumber, String ExpectedToRecipientName) throws Exception {
+	public void VerifyVisibiltyOfSomeElements(String ExpectedFromBankName, String ExpectedToBankName, String ExpectedToRecipientName) throws Exception {
 		try {
 			Asserts.assertTrue(DBSappObject.LOGOUTButton().isDisplayed(), "Log Out Button not found.");
 			GestureUtils.scrollUPtoObject("text", "MAKE ANOTHER TRANSFER", DBSappObject.MakeAnotherTransferBtn());
@@ -2237,8 +2239,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNameList().get(1)), ExpectedToRecipientName,
 					ExpectedToRecipientName + " is not matching");
 
-			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNumberList().get(0)), ExpectedFromAccountNumber,
-					ExpectedFromAccountNumber + " is not matching");
+//			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNumberList().get(0)), ExpectedFromAccountNumber,
+//					ExpectedFromAccountNumber + " is not matching");
 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNumberList().get(1)).trim(), ExpectedToBankName,
 					ExpectedToBankName + " is not matching");
@@ -2256,9 +2258,25 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
 
 			GestureUtils.scrollUPtoObject("text", "TRANSFER NOW", DBSappObject.TransferNowBtn());
-			wait.waitForElementVisibility(DBSappObject.NonFastTransactionService());
+			TakeScreenshot(DBSappObject.NonFastTransactionService());
 			Asserts.assertTrue(DBSappObject.NonFastTransactionService().isDisplayed(),
 					"Non-Fast Service not available in review.");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Verify 'Review Transfer' Page And 'Fast' Service In Review")
+	public void VerifyReviewTransferPageAndFastServiceInReview() throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderList().get(0)),
+					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
+					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
+
+			GestureUtils.scrollUPtoObject("text", "TRANSFER NOW", DBSappObject.TransferNowBtn());
+			TakeScreenshot(DBSappObject.FastTransactionService());
+			Asserts.assertTrue(DBSappObject.FastTransactionService().isDisplayed(),
+					"Fast Service not available in review.");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
@@ -2267,7 +2285,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verify 'Transfer To Other Bank' Page Header and Click on 'TransferViaFast Toggle' to disable fast service.")
 	public void DisableToTransferViaFastToggle() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.PageHeaderList().get(0));
+			
 			verifyPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue(),
 					DBSappObject.PageHeaderList().get(0));
 			GestureUtils.scrollUPtoObject(null, null, DBSappObject.TransferViaFastTransferToggle());
@@ -2443,31 +2461,42 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void SelectFutureDateThroughCalendar() throws Exception {
 		try {
 			clickOnElement(DBSappObject.TransferDateTextElement());
-			Calendar calendar = Calendar.getInstance();
-			Date today = calendar.getTime();
-
-			calendar.add(Calendar.DAY_OF_YEAR, 1);
-			Date tomorrow = calendar.getTime();
-
-			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-
-			String todayAsString = dateFormat.format(today);
-			String tomorrowAsString = dateFormat.format(tomorrow);
-			String ExpectedDate = tomorrowAsString.replaceAll("-", " ");
-			System.out.println(todayAsString);
-			System.out.println(tomorrowAsString);
-			System.out.println(ExpectedDate);
-			String[] sDate = tomorrowAsString.split("-");
-			System.out.println(sDate[0]);
-			String CalendardateXpath = "//android.view.View[@text='" + sDate[0] + "']";
-
+			TakeScreenshot(DBSappObject.OKButton());
+//			Calendar calendar = Calendar.getInstance();
+//			Date today = calendar.getTime();
+//
+//			calendar.add(Calendar.DAY_OF_YEAR, 1);
+//			Date tomorrow = calendar.getTime();
+//
+//			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+//
+//			String todayAsString = dateFormat.format(today);
+//			String tomorrowAsString = dateFormat.format(tomorrow);
+//			String ExpectedDate = tomorrowAsString.replaceAll("-", " ");
+//			System.out.println(todayAsString);
+//			System.out.println(tomorrowAsString);
+//			System.out.println(ExpectedDate);
+//			String[] sDate = tomorrowAsString.split("-");
+//			System.out.println(sDate[0]);
+//			String CalendardateXpath = "//android.view.View[@text='" + sDate[0] + "']";
+//         if(sDate[0]<10) sDate[0]+10;
+//			MobileElement Calendardate = (MobileElement) driver.findElement(By.xpath(CalendardateXpath));
+//			if (Calendardate.isEnabled())
+//				clickOnElement(Calendardate);
+//
+//			
+//			String ActualSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
+//			System.out.println(ActualSelectedDate);
+//			Asserts.assertEquals(ActualSelectedDate, ExpectedDate, "Selected Date is not Matching");
+			
+			String CalendardateXpath = "//android.view.View[@text='20']";
 			MobileElement Calendardate = (MobileElement) driver.findElement(By.xpath(CalendardateXpath));
-			if (Calendardate.isEnabled())
-				clickOnElement(Calendardate);
-
+			clickOnElement(Calendardate);
+			TakeScreenshot(DBSappObject.OKButton());
+			clickOnElement(DBSappObject.OKButton());
 			String ActualSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
-			System.out.println(ActualSelectedDate);
-			Asserts.assertEquals(ActualSelectedDate, ExpectedDate, "Selected Date is not Matching");
+			TakeScreenshot(DBSappObject.TransferDateTextElement());
+			Asserts.assertEquals(ActualSelectedDate.split(" ")[0], "20", "Selected Date is not Matching");
 
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
@@ -2565,9 +2594,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
 			String ErrorMsg = getTexOfElement(DBSappObject.ErrorMessgeElement());
 
-			if (CommonTestData.ERROR_MSG.getEnumValue().equals(ErrorMsg))
+			if (CommonTestData.ERROR_MSG.getEnumValue().equals(ErrorMsg)) {
+				TakeScreenshot(DBSappObject.OKButton());
 				clickOnElement(DBSappObject.OKButton());
-
+			}
+			
 			String xpath1 = "//android.widget.TextView[@text='Primary source of fund']";
 			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
 			if (list1.size() > 0) {
@@ -2582,8 +2613,164 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 	}
 
-	public void UpdatePersonalDetails(String appName) {
+	@Step("Update Personal Details")
+	public void UpdatePersonalDetails(String appName) throws Exception {
+		try {
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
+			SelectUpdateContactDetails();
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
+					CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue(),
+					CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue() + " Text is not matching");
+			Asserts.assertTrue(isElementVisible(DBSappObject.BackBtnImageView()), "Back Btn Image View is not displayed.");
+			Asserts.assertTrue(isElementVisible(DBSappObject.PersonalAndContactDetailsTab()), "Personal And Contact Details Tab is not displayed.");
+			Asserts.assertTrue(isElementVisible(DBSappObject.MailingAddressTab()), "Mailing Address Tab is not displayed.");
+			
+			clickOnElement(DBSappObject.PersonalAndContactDetailsTab()); 
+			EnterPasscodeAndDone();
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.UpdateContactDetailsPageHeader()),
+					CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue(),
+					CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue() + " Text is not matching");
+			Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitle()),
+					CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue(),
+					CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue() + " Text is not matching");
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitle()),
+					CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue(),
+					CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue() + " Text is not matching");
+			
+			String[] ExpectedContactDetailTitles = new String[] {"Mobile Number", "Home Number", "Office Number", "Fax Number", "Your Email Address"};
 
+			for (int i = 0; i < DBSappObject.ContactDetailsTitlesList().size(); i++) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitlesList().get(i)), ExpectedContactDetailTitles[i],
+						ExpectedContactDetailTitles[i] + " Titles is not matching in Contact Details Section.");
+			}
+			
+			String[] ExpectedContactDetailValues = new String[] {"XXXXXX1843","+65 64949268","+65 64949661","+65 64949224","sgmbkony0021@dbs.com"};
+
+			for (int i = 0; i < DBSappObject.ContactDetailsValuesList().size(); i++) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsValuesList().get(i)), ExpectedContactDetailValues[i],
+						ExpectedContactDetailValues[i] + " Values is not matching in Contact Details Section.");
+			}
+			
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.EmailNotes()),
+					CommonTestData.EMAIL_NOTES.getEnumValue(),
+					CommonTestData.EMAIL_NOTES.getEnumValue() + " Text is not matching");
+			
+//Add Scroll Down
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsChangeBtn()),
+					CommonTestData.CHANGE_BUTTON.getEnumValue(),
+					CommonTestData.CHANGE_BUTTON.getEnumValue() + " Text is not matching");
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PersonalPerticularSectionTitle()),
+					CommonTestData.PERSONAL_PARTICULARS.getEnumValue(),
+					CommonTestData.PERSONAL_PARTICULARS.getEnumValue() + " Text is not matching");
+			
+			String[] ExpectedPersonalPerticularTitles = new String[] {"Occupation", "Job Title", "Employer"};
+
+			for (int i = 0; i < DBSappObject.ContactDetailsTitlesList().size(); i++) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitlesList().get(i)), ExpectedPersonalPerticularTitles[i],
+						ExpectedPersonalPerticularTitles[i] + " Titles is not matching in Personal Perticulars Section.");
+			}
+			
+			String[] ExpectedPersonalPerticularValues = new String[] {"Professional","-","-"};
+
+			for (int i = 0; i < DBSappObject.ContactDetailsValuesList().size(); i++) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsValuesList().get(i)), ExpectedPersonalPerticularValues[i],
+						ExpectedPersonalPerticularValues[i] + " Values is not matching in Personal Perticulars Section.");
+			}
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PersonalPerticularChangeBtn()),
+					CommonTestData.CHANGE_BUTTON.getEnumValue(),
+					CommonTestData.CHANGE_BUTTON.getEnumValue() + " Text is not matching");
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.MarketingMessageTitle()),
+					CommonTestData.MARKETING_MESSAGE_TITLES.getEnumValue(),
+					CommonTestData.MARKETING_MESSAGE_TITLES.getEnumValue() + " Text is not matching");
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.MarketingMessageNotes()),
+					CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue(),
+					CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue() + " Text is not matching");
+			
+			//Add Scroll down
+			Asserts.assertEquals(getTexOfElement(DBSappObject.UPPSectionLabel()),
+					CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue(),
+					CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue() + " Text is not matching");
+			
+			String[] ExpectedTitles = new String[] {"Call Me","SMS Me","Email Me","Fax Me","Mail Me"};
+
+			for (int i = 0; i < DBSappObject.ContactDetailsTitlesList().size(); i++) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitlesList().get(i)), ExpectedTitles[i],
+						ExpectedTitles[i] + " Titles is not matching in Personal Perticulars Section.");
+				clickOnElement(DBSappObject.ContactDetailsTitlesList().get(i)); 
+			}
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.TermsAndConditionsMsg()),
+					CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue(),
+					CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue() + " Text is not matching");
+		
+			ClickOnNextButton();
+			Asserts.assertEquals(getTexOfElement(DBSappObject.ReviewRequestHeader()),
+					CommonTestData.REVIEW_REQUEST_PAGE_HEADER.getEnumValue(),
+					CommonTestData.REVIEW_REQUEST_PAGE_HEADER.getEnumValue() + " Text is not matching");
+			
+			clickOnElement(DBSappObject.ConfirmBtn()); 
+			EnterPasscodeAndDone();
+			
+			if(isElementVisible(DBSappObject.CompletionStatusImage())) 
+				Asserts.assertEquals(getTexOfElement(DBSappObject.SuccessfullyUpdatedMessageEle()),
+						CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue(),
+						CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue() + " Text is not matching");
+				
+			Asserts.assertTrue(isElementVisible(DBSappObject.logoutButton()), "Log Out is not displayed.");
+			Asserts.assertTrue(isElementVisible(DBSappObject.BackBtnImageView()), "Back Btn Image View is not displayed.");
+			GestureUtils.scrollUPtoObject("text", "BACK TO MORE SERVICES", DBSappObject.UpdateMoreDetailsBtn());
+			Asserts.assertTrue(isElementVisible(DBSappObject.BACKTOMoreServicesBtn()), "BACK TO More Services Btn is not displayed.");
+			Asserts.assertTrue(isElementVisible(DBSappObject.UpdateMoreDetailsBtn()), "Update More Details Btn is not displayed.");
+			 
+			clickOnElement(DBSappObject.BACKTOMoreServicesBtn()); 
+			SelectUpdateContactDetails();
+			clickOnElement(DBSappObject.PersonalAndContactDetailsTab()); 
+			EnterPasscodeAndDone();
+			
+			//Add Scroll Down Nextbtn
+			Calendar calendar = Calendar.getInstance();
+			Date today = calendar.getTime();
+			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+			String todayAsString = dateFormat.format(today);
+		
+			String ExpectedDate = todayAsString.replaceAll("-", " ");
+			System.out.println(todayAsString);
+			System.out.println(ExpectedDate);
+//			String[] sDate = tomorrowAsString.split("-");
+//			System.out.println(sDate[0]);
+			
+			String ExpectedLastUpdatedDateValue = "Last updated on " + ExpectedDate;
+
+			for (int i = 0; i < DBSappObject.ContactDetailsValuesList().size(); i++) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsValuesList().get(i)), ExpectedLastUpdatedDateValue,
+						ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
+			}
+			
+			
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
 	}
 
+	@Step("Select Update Contact Details")
+	public void SelectUpdateContactDetails() throws Exception {
+		try {
+			clickOnElement(DBSappObject.ContactSearchfield()); 
+			clickOnElement(DBSappObject.EditTextSearchBox()); 
+			enterTextInTextbox(DBSappObject.EditTextSearchBox(), CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue());  
+			TakeScreenshot(DBSappObject.UpdateContactDetails()); 
+			clickOnElement(DBSappObject.UpdateContactDetails());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));  
+		} 
+	}
+	
 }

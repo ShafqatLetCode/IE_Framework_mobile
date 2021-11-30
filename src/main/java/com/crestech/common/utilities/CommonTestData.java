@@ -26,20 +26,41 @@ public enum CommonTestData {
 	CITY("Canbera"),
 	
 	//FundTransfer NonFast
-	LOCAL_RECIPIENTS_TAB_NAME("Local Recipients"),
 	ERROR_MSG("We are unable to process your request. Please contact our Customer Service Hotline at 1800-111 1111 or +65-6327 2265(if you are calling from abroad)."),
 	FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK("INDIAN OVERSEAS BANK 582177606001"),
 	FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME("DBS SAVINGS PLUS"),
-	FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NUMBER("028-9-333111"),
 	FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME("Sakshi"),
-	FUNDTRANSFER_NONFAST_TO_BANKNAME("INDIAN OVERSEAS BANK"),
-	FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER("582177606001"),
+	
+	//Optional Data for Fund Transfer Non Fast
+//	FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK("CITIBANK NA 8484848383"),
+//	FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME("DBS SAVINGS PLUS"),
+//	FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NUMBER("028-9-333112"),
+//	FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME("Citibank"),
+	
+	
+	
+	
 	
 	//FundTransferTo OwnAccount
 	FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER("420-86386-1"),
 	FUNDTRANSFER_TO_OWN_ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
 	FUNDTRANSFER_FROM_OWN_ACCOUNT_NUMBER("028-976191-5"),
 	FUNDTRANSFER_FROM_OWN_ACCOUNT_NAME("DBS Multiplier Account"),
+	
+	//UpdateContact Details
+	UPDATE_CONTACT_DETAILS_PAGEHEADER("Update Contact Details"),
+	CONTACT_DETAILS_TITLE("CONTACT DETAILS"),
+	EMAIL_NOTES("This email address provided will only be used for your iBanking/mobile \r\n"
+			+ "banking transactions, eStatement(s) and marketing communication (if any)"),
+	CHANGE_BUTTON("CHANGE"),
+	PERSONAL_PARTICULARS("PERSONAL PARTICULARS"),
+	MARKETING_MESSAGE_TITLES("MARKETING MESSAGES"),
+	MARKETING_MESSAGE_NOTES("Please indicate your preference if you would like to opt in or out of receiving DBS/POSB marketing materials and information relating to services and/or products offered \r\n"
+			+ "or distributed by DBS/POSB and/or its services and product providers."),
+	IWOULD_LIKE_THEBANK_TO_MESSAGE("I would like the bank to:"),
+	TERMS_AND_CONDITIOINS_MESSAGE("I have read and agree to these important terms."),
+	REVIEW_REQUEST_PAGE_HEADER("Review Request"),
+	SUCCESSFULLY_UPDATED_MESSAGE("Successfully updated"),
 	
 	
 	
