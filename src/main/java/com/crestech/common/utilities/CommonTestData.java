@@ -49,14 +49,13 @@ public enum CommonTestData {
 	
 	//UpdateContact Details
 	UPDATE_CONTACT_DETAILS_PAGEHEADER("Update Contact Details"),
+	PERSONAL_AND_CONTACTDETAILS_PAGEHEADER("Personal & Contact Details"),
 	CONTACT_DETAILS_TITLE("CONTACT DETAILS"),
-	EMAIL_NOTES("This email address provided will only be used for your iBanking/mobile \r\n"
-			+ "banking transactions, eStatement(s) and marketing communication (if any)"),
+	EMAIL_NOTES("This email address provided will only be used for your iBanking/mobile banking transactions, eStatement(s) and marketing communication (if any)"),
 	CHANGE_BUTTON("CHANGE"),
 	PERSONAL_PARTICULARS("PERSONAL PARTICULARS"),
 	MARKETING_MESSAGE_TITLES("MARKETING MESSAGES"),
-	MARKETING_MESSAGE_NOTES("Please indicate your preference if you would like to opt in or out of receiving DBS/POSB marketing materials and information relating to services and/or products offered \r\n"
-			+ "or distributed by DBS/POSB and/or its services and product providers."),
+	MARKETING_MESSAGE_NOTES("Please indicate your preference if you would like to opt in or out of receiving DBS/POSB marketing materials and information relating to services and/or products offered or distributed by DBS/POSB and/or its services and product providers."),
 	IWOULD_LIKE_THEBANK_TO_MESSAGE("I would like the bank to:"),
 	TERMS_AND_CONDITIOINS_MESSAGE("I have read and agree to these important terms."),
 	REVIEW_REQUEST_PAGE_HEADER("Review Request"),

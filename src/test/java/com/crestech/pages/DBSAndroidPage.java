@@ -2619,48 +2619,117 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnMoreButton();
 			EnterPasscodeAndDone();
 			SelectUpdateContactDetails();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
-					CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue(),
-					CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue() + " Text is not matching");
-			Asserts.assertTrue(isElementVisible(DBSappObject.BackBtnImageView()), "Back Btn Image View is not displayed.");
-			Asserts.assertTrue(isElementVisible(DBSappObject.PersonalAndContactDetailsTab()), "Personal And Contact Details Tab is not displayed.");
-			Asserts.assertTrue(isElementVisible(DBSappObject.MailingAddressTab()), "Mailing Address Tab is not displayed.");
-			
-			clickOnElement(DBSappObject.PersonalAndContactDetailsTab()); 
-			EnterPasscodeAndDone();
-			
-			Asserts.assertEquals(getTexOfElement(DBSappObject.UpdateContactDetailsPageHeader()),
-					CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue(),
-					CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue() + " Text is not matching");
-			Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitle()),
-					CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue(),
-					CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue() + " Text is not matching");
-			
-			Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitle()),
-					CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue(),
-					CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue() + " Text is not matching");
-			
-			String[] ExpectedContactDetailTitles = new String[] {"Mobile Number", "Home Number", "Office Number", "Fax Number", "Your Email Address"};
-
-			for (int i = 0; i < DBSappObject.ContactDetailsTitlesList().size(); i++) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitlesList().get(i)), ExpectedContactDetailTitles[i],
-						ExpectedContactDetailTitles[i] + " Titles is not matching in Contact Details Section.");
-			}
-			
-			String[] ExpectedContactDetailValues = new String[] {"XXXXXX1843","+65 64949268","+65 64949661","+65 64949224","sgmbkony0021@dbs.com"};
+			SelectPersonalDetailsTabAndVerifyPersonalDetailsPage();
+			ClickOnCheckboxes();
+			ClickOnNextButton();
+			ClickOnConfirmButton();
+			ClickOnBackToMoreServicesBtn();
+			SelectUpdateContactDetails();
+			SelectPersonalDetailsTabAndVerifyPersonalDetailsPage();
+			VerifyLastUpdatedDateOfCheckboxes();
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Click On 'Back to More Services' Button.")
+	public void ClickOnBackToMoreServicesBtn() throws Exception {
+		try {
+			clickOnElement(DBSappObject.BACKTOMoreServicesBtn());
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Verify Last Update Date Of Checkboxes.")
+	public void VerifyLastUpdatedDateOfCheckboxes() throws Exception{
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Date today = calendar.getTime();
+			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+			String todayAsString = dateFormat.format(today);
+			String ExpectedDate = todayAsString.replaceAll("-", " ");
+			String ExpectedLastUpdatedDateValue = "Last updated on " + ExpectedDate;
 
 			for (int i = 0; i < DBSappObject.ContactDetailsValuesList().size(); i++) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsValuesList().get(i)), ExpectedContactDetailValues[i],
-						ExpectedContactDetailValues[i] + " Values is not matching in Contact Details Section.");
+				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsValuesList().get(i)), ExpectedLastUpdatedDateValue,
+						ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
+			}
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
+	
+	@Step("Click On Confirm Button and Verify 'Successfully Updated' Message, 'Back Button', 'logout Button', 'Update More Details' button & 'Back to More Services' Button.")
+	public void ClickOnConfirmButton() throws Exception { 
+		try {
+			GestureUtils.scrollUPtoObject("text", "CONFIRM", DBSappObject.ConfirmBtn());
+			TakeScreenshot(DBSappObject.ConfirmBtn());
+			clickOnElement(DBSappObject.ConfirmBtn());  
+			EnterPasscodeAndDone();
+			if (isElementVisible(DBSappObject.CompletionStatusImage())) {
+				TakeScreenshot(DBSappObject.SuccessfullyUpdatedMessageEle());
+				Asserts.assertEquals(getTexOfElement(DBSappObject.SuccessfullyUpdatedMessageEle()),
+						CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue(),
+						CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue() + " Text is not matching");
+
+				Asserts.assertTrue(isElementVisible(DBSappObject.LogoutBtn()), "Log Out is not displayed.");
+				Asserts.assertTrue(isElementVisible(DBSappObject.BackBtnImageView()),
+						"Back Btn Image View is not displayed.");
+				GestureUtils.scrollUPtoObject("text", "UPDATE MORE DETAILS", DBSappObject.UpdateMoreDetailsBtn());
+				TakeScreenshot(DBSappObject.UpdateMoreDetailsBtn());
+				Asserts.assertTrue(isElementVisible(DBSappObject.BACKTOMoreServicesBtn()),
+						"BACK TO More Services Btn is not displayed.");
+				Asserts.assertTrue(isElementVisible(DBSappObject.UpdateMoreDetailsBtn()),
+						"Update More Details Btn is not displayed.");
+			}
+		
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
+	@Step("Click on 'Call Me','SMS Me','Email Me','Fax Me','Mail Me'")
+	public void ClickOnCheckboxes() throws Exception { 
+		try {
+			String[] ExpectedTitles = new String[] {"Call Me","SMS Me","Email Me","Fax Me","Mail Me"};
+
+			for (int i = 0; i < DBSappObject.ContactDetailsTitlesList().size(); i++) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitlesList().get(i)), ExpectedTitles[i],
+						ExpectedTitles[i] + " Titles is not matching in Personal Perticulars Section.");
+				clickOnElement(DBSappObject.ContactDetailsTitlesList().get(i)); 
 			}
 			
+			TakeScreenshot(DBSappObject.TermsAndConditionsMsg()); 
+			Asserts.assertEquals(getTexOfElement(DBSappObject.TermsAndConditionsMsg()),
+					CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue(),
+					CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue() + " Text is not matching");
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+
+	@Step("Select 'Personal & Contact Details' Tab And Verify visibility of 'Personal & Contact Details' Page Header, 'Contact Details' &  'Personal Perticulars' Section.")
+	public void SelectPersonalDetailsTabAndVerifyPersonalDetailsPage() throws Exception {
+		try {
+			clickOnElement(DBSappObject.PersonalAndContactDetailsTab());  
+			EnterPasscodeAndDone();
+			
+			TakeScreenshot(DBSappObject.ContactDetailsTitle()); 
+			Asserts.assertEquals(getTexOfElement(DBSappObject.UpdateContactDetailsPageHeader()),
+					CommonTestData.PERSONAL_AND_CONTACTDETAILS_PAGEHEADER.getEnumValue(),
+					CommonTestData.PERSONAL_AND_CONTACTDETAILS_PAGEHEADER.getEnumValue() + " Text is not matching");
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitle()),
+					CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue(),
+					CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue() + " Text is not matching");
 			
 			Asserts.assertEquals(getTexOfElement(DBSappObject.EmailNotes()),
 					CommonTestData.EMAIL_NOTES.getEnumValue(),
 					CommonTestData.EMAIL_NOTES.getEnumValue() + " Text is not matching");
-			
-//Add Scroll Down
-			
+
+			GestureUtils.scrollUPtoObject("text", "PERSONAL PARTICULARS", DBSappObject.PersonalPerticularSectionTitle()); 
+			TakeScreenshot(DBSappObject.PersonalPerticularSectionTitle()); 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsChangeBtn()),
 					CommonTestData.CHANGE_BUTTON.getEnumValue(),
 					CommonTestData.CHANGE_BUTTON.getEnumValue() + " Text is not matching");
@@ -2668,20 +2737,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.PERSONAL_PARTICULARS.getEnumValue(),
 					CommonTestData.PERSONAL_PARTICULARS.getEnumValue() + " Text is not matching");
 			
-			String[] ExpectedPersonalPerticularTitles = new String[] {"Occupation", "Job Title", "Employer"};
-
-			for (int i = 0; i < DBSappObject.ContactDetailsTitlesList().size(); i++) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitlesList().get(i)), ExpectedPersonalPerticularTitles[i],
-						ExpectedPersonalPerticularTitles[i] + " Titles is not matching in Personal Perticulars Section.");
-			}
-			
-			String[] ExpectedPersonalPerticularValues = new String[] {"Professional","-","-"};
-
-			for (int i = 0; i < DBSappObject.ContactDetailsValuesList().size(); i++) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsValuesList().get(i)), ExpectedPersonalPerticularValues[i],
-						ExpectedPersonalPerticularValues[i] + " Values is not matching in Personal Perticulars Section.");
-			}
-			
+			GestureUtils.scrollUPtoObject("text", "MARKETING MESSAGES", DBSappObject.MarketingMessageTitle()); 
+			TakeScreenshot(DBSappObject.MarketingMessageTitle()); 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PersonalPerticularChangeBtn()),
 					CommonTestData.CHANGE_BUTTON.getEnumValue(),
 					CommonTestData.CHANGE_BUTTON.getEnumValue() + " Text is not matching");
@@ -2694,73 +2751,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue(),
 					CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue() + " Text is not matching");
 			
-			//Add Scroll down
+			GestureUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton()); 
+			TakeScreenshot(DBSappObject.nextButton()); 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.UPPSectionLabel()),
 					CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue(),
 					CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue() + " Text is not matching");
-			
-			String[] ExpectedTitles = new String[] {"Call Me","SMS Me","Email Me","Fax Me","Mail Me"};
-
-			for (int i = 0; i < DBSappObject.ContactDetailsTitlesList().size(); i++) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitlesList().get(i)), ExpectedTitles[i],
-						ExpectedTitles[i] + " Titles is not matching in Personal Perticulars Section.");
-				clickOnElement(DBSappObject.ContactDetailsTitlesList().get(i)); 
-			}
-			
-			Asserts.assertEquals(getTexOfElement(DBSappObject.TermsAndConditionsMsg()),
-					CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue(),
-					CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue() + " Text is not matching");
-		
-			ClickOnNextButton();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.ReviewRequestHeader()),
-					CommonTestData.REVIEW_REQUEST_PAGE_HEADER.getEnumValue(),
-					CommonTestData.REVIEW_REQUEST_PAGE_HEADER.getEnumValue() + " Text is not matching");
-			
-			clickOnElement(DBSappObject.ConfirmBtn()); 
-			EnterPasscodeAndDone();
-			
-			if(isElementVisible(DBSappObject.CompletionStatusImage())) 
-				Asserts.assertEquals(getTexOfElement(DBSappObject.SuccessfullyUpdatedMessageEle()),
-						CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue(),
-						CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue() + " Text is not matching");
-				
-			Asserts.assertTrue(isElementVisible(DBSappObject.logoutButton()), "Log Out is not displayed.");
-			Asserts.assertTrue(isElementVisible(DBSappObject.BackBtnImageView()), "Back Btn Image View is not displayed.");
-			GestureUtils.scrollUPtoObject("text", "BACK TO MORE SERVICES", DBSappObject.UpdateMoreDetailsBtn());
-			Asserts.assertTrue(isElementVisible(DBSappObject.BACKTOMoreServicesBtn()), "BACK TO More Services Btn is not displayed.");
-			Asserts.assertTrue(isElementVisible(DBSappObject.UpdateMoreDetailsBtn()), "Update More Details Btn is not displayed.");
-			 
-			clickOnElement(DBSappObject.BACKTOMoreServicesBtn()); 
-			SelectUpdateContactDetails();
-			clickOnElement(DBSappObject.PersonalAndContactDetailsTab()); 
-			EnterPasscodeAndDone();
-			
-			//Add Scroll Down Nextbtn
-			Calendar calendar = Calendar.getInstance();
-			Date today = calendar.getTime();
-			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-			String todayAsString = dateFormat.format(today);
-		
-			String ExpectedDate = todayAsString.replaceAll("-", " ");
-			System.out.println(todayAsString);
-			System.out.println(ExpectedDate);
-//			String[] sDate = tomorrowAsString.split("-");
-//			System.out.println(sDate[0]);
-			
-			String ExpectedLastUpdatedDateValue = "Last updated on " + ExpectedDate;
-
-			for (int i = 0; i < DBSappObject.ContactDetailsValuesList().size(); i++) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsValuesList().get(i)), ExpectedLastUpdatedDateValue,
-						ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
-			}
-			
-			
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e)); 
+			throw new Exception(getExceptionMessage(e));  
 		}
 	}
-
-	@Step("Select Update Contact Details")
+	
+	@Step("Select Update Contact Details And Verify visibility of 'Back Button', 'Personal & Contact Details' Tab, 'Mailing Address' Tab and 'Update Contact Details' Page Header.")
 	public void SelectUpdateContactDetails() throws Exception {
 		try {
 			clickOnElement(DBSappObject.ContactSearchfield()); 
@@ -2768,6 +2769,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterTextInTextbox(DBSappObject.EditTextSearchBox(), CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue());  
 			TakeScreenshot(DBSappObject.UpdateContactDetails()); 
 			clickOnElement(DBSappObject.UpdateContactDetails());
+			TakeScreenshot(DBSappObject.BackBtnImageView()); 
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
+					CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue(),
+					CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue() + " Text is not matching");
+			Asserts.assertTrue(isElementVisible(DBSappObject.BackBtnImageView()), "Back Btn Image View is not displayed.");
+			Asserts.assertTrue(isElementVisible(DBSappObject.PersonalAndContactDetailsTab()), "Personal And Contact Details Tab is not displayed.");
+			Asserts.assertTrue(isElementVisible(DBSappObject.MailingAddressTab()), "Mailing Address Tab is not displayed.");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));  
 		} 
