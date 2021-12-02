@@ -61,7 +61,14 @@ public enum CommonTestData {
 	REVIEW_REQUEST_PAGE_HEADER("Review Request"),
 	SUCCESSFULLY_UPDATED_MESSAGE("Successfully updated"),
 	
-	
+	//PeekBalance
+	TOTAL_BALANCE_TITLE("Total Balance"),
+	USER_ACCOUNT_NAME("DBS SAVINGS PLUS"),
+	PEEK_BALANCE("Peek Balance"),
+	APP_SETTINGS("App Settings"),
+	PEEK_BALANCE_DIGIALERT_MSG("You have successfully personalised your digibank profile. If unauthorised, call +65 63272265. 12/02 11:36."),
+	PEEK_BALANCE_SUBTITLE("PEEK BALANCE"),
+	PEEK_BALANCE_DEREGISTER_MESSAGE("You will no longer enjoy benefits like peek balance and log in with finger print or face. Do you want to continue?"),
 	
 	//Page Headers in Application
 	RECIPIENT_DETAILS_PAGEHEADER("Recipient's Details"),
@@ -117,8 +124,6 @@ public enum CommonTestData {
 	SMS_OTP_MESSAGE("Step 2: SMS OTP"),
 	DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP("You've set up your digital token"),
 	OTP("123456"),
-	
-	
 	PAY_TRANSFER_ICON("Pay & Transfer"),
 	OVERSEAS_ICON("Overseas"),
 

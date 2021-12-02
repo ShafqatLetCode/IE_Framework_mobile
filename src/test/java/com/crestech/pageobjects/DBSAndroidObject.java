@@ -1403,10 +1403,6 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_lable3')]")
 	private List<MobileElement> AccountNumberList;
 
-//	@ElementDescription(value = "Account Number list:- Contains From Account and To Account")
-//	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_lable4')]")
-//	private List<MobileElement> Label4List;
-
 	@ElementDescription(value = "Footer Expandable Button")
 	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/ic_logo_footer_iv')]")
 	private MobileElement FooterExpandableBtn;
@@ -1423,10 +1419,6 @@ public class DBSAndroidObject {
 		return CloseButton;
 	}
 
-//	public List<MobileElement> Label4List() { 
-//		return Label4List;
-//	}
-//	
 	public MobileElement BackIcon() {
 		return BackIcon;
 	}
@@ -2130,5 +2122,160 @@ public class DBSAndroidObject {
 	public List<MobileElement> AccountList() {
 		return AccountList;
 	}
+	
+	@ElementDescription(value = "Deposits Account Type")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Deposits']")
+	private MobileElement DepositsAccountType;
+
+	@ElementDescription(value = "Deposits Account Name")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_src_acc_name')]")
+	private MobileElement DepositsAccountName;
+
+	@ElementDescription(value = "Deposits Account Type")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_value')]")
+	private List<MobileElement> AccountValueList;
+
+	@ElementDescription(value = "Deposits Account Name")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_title')]")
+	private List<MobileElement> AccountTitleList;
+	
+	@ElementDescription(value = "User Account Name")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_account_name')]")
+	private MobileElement UserAccountName;
+	
+	@ElementDescription(value = "User Account Number")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_account_number')]")
+	private MobileElement UserAccountNumber;
+	
+	@ElementDescription(value = "Toolbar Back Icon")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/toolbar_back_icon')]")
+	private MobileElement ToolbarBackIcon;
+	
+	@ElementDescription(value = "Select Peek balance")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Peek Balance']")
+	private MobileElement SelectPeekBalance;
+	
+	@ElementDescription(value = "Peek balance Toggle")
+	@AndroidFindBy(xpath = "//android.widget.Switch[contains(@resource-id,':id/btn_switch')]")
+	private MobileElement PeekBalanceToggle;
+	
+	@ElementDescription(value = "Account for Peek Balance Dropdown.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Account for Peek Balance']")
+	private MobileElement AccountForPeekBalanceDropdown;
+	
+	@ElementDescription(value = "Selected Account For Peek Balance.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/dropdown_pb_acc')]")
+	private MobileElement SelectedAccountForPeekBalance;
+	
+	@ElementDescription(value = "Save Button to Save Peek Balance on login page.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Save']")
+	private MobileElement SaveBtn;
+	
+	@ElementDescription(value = "Personalize Your Device Pop Up.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Personalize Your Device']")
+	private MobileElement PersonalizeYourDevicePopup;
+	
+	@ElementDescription(value = "OKBtn Personalize Your Device Pop Up.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='OK']")
+	private MobileElement OKBtn_PersonalizeYourDevicePopup;
+	
+	@ElementDescription(value = "Close Btn To Closing Tap To Star Page After Log out.")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/btn_close')]")
+	private MobileElement CloseBtnToClosingTapToStarPage;
+	
+	@ElementDescription(value = "Peek balance Sub title On login page.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.dbsmbanking:id/tv_peek_balance_sub_title']")
+	private MobileElement PeekBalanceSubtitle;
+	
+	@ElementDescription(value = "Log In Button")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Log In']")
+	private MobileElement LogInButton;
+	
+	@ElementDescription(value = "NotYou Link")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Not you?']")
+	private MobileElement NotYouLink;
+	
+	@ElementDescription(value = "Peek Balance Deregister Button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='DEREGISTER']")
+	private MobileElement PeekbalanceDeregisterButton;
+	
+	public MobileElement PeekbalanceDeregisterButton() {
+		return PeekbalanceDeregisterButton;
+	}
+	
+	public MobileElement NotYouLink() {
+		return NotYouLink;
+	}
+	
+	public MobileElement LogInButton() {
+		return LogInButton;
+	}
+	
+	public MobileElement PeekBalanceSubtitle() {
+		return PeekBalanceSubtitle;
+	}
+	
+	public MobileElement CloseBtnToClosingTapToStarPage() {
+		return CloseBtnToClosingTapToStarPage;
+	}
+	
+	public MobileElement OKBtn_PersonalizeYourDevicePopup() {
+		return OKBtn_PersonalizeYourDevicePopup;
+	}
+	
+	public MobileElement PersonalizeYourDevicePopup() {
+		return PersonalizeYourDevicePopup;
+	}
+	
+	public MobileElement SaveBtn() {
+		return SaveBtn;
+	}
+	
+	public MobileElement SelectedAccountForPeekBalance() {
+		return SelectedAccountForPeekBalance;
+	}
+	
+	
+	public MobileElement AccountForPeekBalanceDropdown() {
+		return AccountForPeekBalanceDropdown;
+	}
+	
+	public MobileElement PeekBalanceToggle() {
+		return PeekBalanceToggle;
+	}
+	
+	public MobileElement SelectPeekBalance() {
+		return SelectPeekBalance;
+	}
+	
+	public MobileElement ToolbarBackIcon() {
+		return ToolbarBackIcon;
+	}
+	
+	public MobileElement UserAccountNumber() {
+		return UserAccountNumber;
+	}
+	
+	public MobileElement UserAccountName() {
+		return UserAccountName;
+	}
+	
+	public List<MobileElement> AccountTitleList() {
+		return AccountTitleList;
+	}
+	
+	public List<MobileElement> AccountValueList() {
+		return AccountValueList; 
+	}
+	
+	public MobileElement DepositsAccountName() {
+		return DepositsAccountName;
+	}
+	
+	public MobileElement DepositsAccountType() {
+		return DepositsAccountType;
+	}
+	
+	
 
 }

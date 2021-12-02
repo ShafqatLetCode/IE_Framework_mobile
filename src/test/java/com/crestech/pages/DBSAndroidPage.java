@@ -1513,7 +1513,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.NextButtonToAddedLocalRecipient());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
+					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not matching.");
 		} catch (Exception e) {
 			e.printStackTrace(); throw e;
 		}
@@ -1524,8 +1524,107 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			ClickOnMoreButton();
 			EnterPasscodeAndDone();
-			// ToDo
-			// validations pending due to some error getting on provided credentials.
+			Asserts.assertTrue(isElementVisible(DBSappObject.DepositsAccountType()), "Deposits Account Type is not displayed on home page after login.");
+			clickOnElement(DBSappObject.DepositsAccountName()); 
+			EnterPasscodeAndDone();
+			
+			for(int i =0; i<DBSappObject.AccountTitleList().size(); i++) {
+				String j = DBSappObject.AccountTitleList().get(i).getText();
+				System.out.println(i+":   "+j); 
+				
+				String x = DBSappObject.AccountValueList().get(i).getText();
+				System.out.println(i+":   "+x); 
+			}
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountTitleList().get(1)),
+					CommonTestData.TOTAL_BALANCE_TITLE.getEnumValue(),
+					CommonTestData.TOTAL_BALANCE_TITLE.getEnumValue() + " Text is not matching.");
+			
+			String ExpectedTotalBalanceValue = DBSappObject.AccountValueList().get(1).getText();
+			System.out.println("ExpectedTotalBalanceValue:   "+ExpectedTotalBalanceValue); 
+			
+			String ExpectedUserAccountName = DBSappObject.UserAccountName().getText();
+			System.out.println("ExpectedUserAccountName:   "+ExpectedUserAccountName); 
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.UserAccountName()),
+					CommonTestData.USER_ACCOUNT_NAME.getEnumValue(),
+					CommonTestData.USER_ACCOUNT_NAME.getEnumValue() + " Text is not matching.");
+			
+			
+			String ExpectedUserAccountNumber = DBSappObject.UserAccountNumber().getText();
+			System.out.println("ExpectedUserAccountNumber:   "+ExpectedUserAccountNumber); 
+			
+			clickOnElement(DBSappObject.ToolbarBackIcon()); 
+			
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
+			
+			
+			clickOnElement(DBSappObject.ContactSearchfield()); 
+			clickOnElement(DBSappObject.EditTextSearchBox()); 
+			enterTextInTextbox(DBSappObject.EditTextSearchBox(), CommonTestData.PEEK_BALANCE.getEnumValue());  
+			TakeScreenshot(DBSappObject.SelectPeekBalance()); 
+			clickOnElement(DBSappObject.SelectPeekBalance());
+			
+			for(int i =0; i<DBSappObject.AccountTitleList().size(); i++) {
+				String j = DBSappObject.AccountTitleList().get(i).getText();
+				System.out.println(i + "App Settings:   "+j); 
+			}
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountTitleList().get(1)),
+			CommonTestData.APP_SETTINGS.getEnumValue(),
+			CommonTestData.APP_SETTINGS.getEnumValue() + " Text is not matching.");
+			
+			clickOnElement(DBSappObject.PeekBalanceToggle());
+			clickOnElement(DBSappObject.AccountForPeekBalanceDropdown());
+			
+			String xpath = "//android.widget.TextView[@text='"+ExpectedUserAccountName+"']";
+			MobileElement selectAccount = (MobileElement) driver.findElement(By.xpath(xpath));
+			clickOnElement(selectAccount);
+			
+			String SelectedAccountNameWithAccountNumber = ExpectedUserAccountName + " " +ExpectedUserAccountNumber;
+			System.out.println("SelectedAccountNameWithAccountNumber+: "+SelectedAccountNameWithAccountNumber); 
+			Asserts.assertEquals(getTexOfElement(DBSappObject.SelectedAccountForPeekBalance()),
+					SelectedAccountNameWithAccountNumber, SelectedAccountNameWithAccountNumber + " Text is not matching.");
+			clickOnElement(DBSappObject.SaveBtn());
+			if(isElementVisible(DBSappObject.PersonalizeYourDevicePopup())) { 
+				TakeScreenshot(DBSappObject.PersonalizeYourDevicePopup());
+				clickOnElement(DBSappObject.OKBtn_PersonalizeYourDevicePopup());
+			}
+			
+			String ErrorMsg = getTexOfElement(DBSappObject.ErrorMessgeElement());
+
+			if (CommonTestData.PEEK_BALANCE_DIGIALERT_MSG.getEnumValue().equals(ErrorMsg)) {
+				TakeScreenshot(DBSappObject.OKButton());
+				clickOnElement(DBSappObject.OKButton());
+			}
+			
+			clickOnElement(DBSappObject.BackBtnImageView());
+			clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(),
+					CommonTestData.RATE_MESSAGE.getEnumValue());
+			clickOnElement(DBSappObject.CloseBtnToClosingTapToStarPage());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PeekBalanceSubtitle()),
+					CommonTestData.PEEK_BALANCE_SUBTITLE.getEnumValue(),
+					CommonTestData.PEEK_BALANCE_SUBTITLE.getEnumValue() + " Text is not matching.");
+			
+			//TODO: Code Add for  tap and hold on above element and get total amount balance
+			
+			
+			
+			
+			
+			
+			//DeRegister Process to removing peek balance from login page for next run.
+			clickOnElement(DBSappObject.LogInButton());
+			TakeScreenshot(DBSappObject.NotYouLink());
+			clickOnElement(DBSappObject.NotYouLink());
+			String PeekBalance_DeregisterAlertMsg = getTexOfElement(DBSappObject.ErrorMessgeElement());
+
+			if (CommonTestData.PEEK_BALANCE_DEREGISTER_MESSAGE.getEnumValue().equals(PeekBalance_DeregisterAlertMsg)) {
+				TakeScreenshot(DBSappObject.PeekbalanceDeregisterButton());
+				clickOnElement(DBSappObject.PeekbalanceDeregisterButton());
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace(); throw e;
 		}
