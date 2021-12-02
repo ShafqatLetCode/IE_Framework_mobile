@@ -25,6 +25,8 @@ public class DBSAndroidTest extends UserBaseTest {
 	Logger logger = Logger.getLogger(DBSAndroidTest.class.getName());
 	Asserts Assert = new Asserts();
 
+	
+	/******************Start Test Script For DBS App************************************/
 	@Parameters({ "userName", "password" })
 	@Test(priority = 1, enabled = true, description = "AccountDetails-CASA-ONEAPP-14400")
 	@Description(value = "Execution of this testcase:: Verify the account detail on dashboard page. ")
@@ -35,7 +37,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -50,7 +53,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(),
 					CommonTestData.RATE_MESSAGE.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	@Parameters({ "userName", "password" })
@@ -63,7 +67,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.VerifyRemittanceCorridor();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -77,7 +82,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.VerifyRemittanceEOTT();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -91,7 +97,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.VerifyAddPayeeDBSorPOSB();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -104,9 +111,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.TopupPaylah();
-
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw e;
 	}
 
 	}
@@ -118,14 +124,11 @@ public class DBSAndroidTest extends UserBaseTest {
 	public void Payee_Add_Remittance(String userName, String password) throws Exception {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-
-			
-	
-        dbspage.logInApplication(userName, password, "DBS");
+            dbspage.logInApplication(userName, password, "DBS");
 			dbspage.PayeeAddRemittance();
-
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -133,13 +136,14 @@ public class DBSAndroidTest extends UserBaseTest {
 	@Test(priority = 8, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
 	@Description(value = "Execution of this testcase:: Verifies the Apply Debit Card.")
 	@Author(name = "Divya Devi")
-	public void ApplyDebitCard(String userName, String password) throws Exception {
+	public void ApplyDebitCard_DBS(String userName, String password) throws Exception {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.ApplyDebitCard();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -153,7 +157,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.PayeeAddLocalOtherBank();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -167,7 +172,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.PayeeAddBillPayment();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -182,7 +188,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.OpenAccount();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -198,7 +205,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.ChangeLocalFundsTransferLimit();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -212,15 +220,15 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.VerifyPeekBalance();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
+	
 	@Parameters({ "userName", "password" })
-
 	@Test(priority = 14, enabled = true, description = "FundsTransfer-OwnAccount-ONEAPP-16730")
 	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Own Account.")
-
 	@Author(name = "Divya Devi")
 	public void FundsTransferOwnAccount(String userName, String password) throws Exception {
 		try {
@@ -228,7 +236,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.VerifyFundTransfer_OwnAccount();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -242,7 +251,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.FundsTransfer_OtherBank_NonFASTFuture("DBS");
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -256,9 +266,12 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.FundsTransfer_OtherBank_NonFAST("DBS");
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
+	
+	
 
 	@Parameters({"userName", "password" })
 	@Test(priority=17, enabled=true, description = "FundsTransfer-OtherPOSBDBS-ONEAPP-16723")
@@ -271,7 +284,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			 dbspage.FundTransferOtherBank();
              
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -286,70 +300,13 @@ public class DBSAndroidTest extends UserBaseTest {
 			 dbspage.transactionHistoryVerify("DBS");
 			 dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
-		}
-	}
-	
-	@Parameters({ "userName", "password" })
-	@Test(priority = 19, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
-	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
-	@Author(name = "Shafqat Ali")
-	public void Topup_Paylah_POSB(String userName, String password) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage.logInApplication(userName, password, "POSB");
-			dbspage.TopupPaylah();
-		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
 	@Parameters({"userName", "password" })
-	@Test(priority=20, enabled=true, description = "TransactionHistory-ONEAPP-14312")
-	@Description(value = "Execution of this testcase:: Verifies Transaction History")
-	@Author(name = "shafqat")
-	public void TransactionHistory_POSB(String userName,String password) throws Exception {
-		try {
-			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			 dbspage.logInApplication(userName, password,"POSB");
-			 dbspage.transactionHistoryVerify("POSB");
-			 dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
-		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
-		}
-	}
-	
-	@Parameters({ "userName", "password" })
-	@Test(priority = 21, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
-	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
-	@Author(name = "Shafqat Ali")
-	public void Topup_Paylah_iWEALTH(String userName, String password) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage.logInApplication(userName, password, "iWEALTH");
-			dbspage.TopupPaylah();
-		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
-		}
-	}
-	
-	@Parameters({"userName", "password" })
-	@Test(priority=22, enabled=true, description = "TransactionHistory-ONEAPP-14312")
-	@Description(value = "Execution of this testcase:: Verifies Transaction History")
-	@Author(name = "shafqat")
-	public void TransactionHistory_iWEALTH(String userName,String password) throws Exception {
-		try {
-			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			 dbspage.logInApplication(userName, password, "iWEALTH");
-			 dbspage.transactionHistoryVerify("iWEALTH");
-			 dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
-		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
-		}
-	}
-
-	@Parameters({"userName", "password" })
-	@Test(priority=18, enabled=true, description = "Verifies Credit Card Temperory Limit Increase")
+	@Test(priority=19, enabled=true, description = "Verifies Credit Card Temperory Limit Increase")
 	@Description(value = "Execution of this testcase:: CreditCardTempLimitIncrease-ONEAPP-16669")
 	@Author(name = "shafqat")
 	public void CreditCardTempLimitIncrease(String userName,String password) throws Exception {
@@ -365,9 +322,150 @@ public class DBSAndroidTest extends UserBaseTest {
 			 dbspage.verifyPageHeader(CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue(),dbspage.DBSappObject.PageHeader());
 			 
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
+	@Parameters({ "userName", "password" })
+	@Test(priority = 20, enabled = true, description = "UpdatePersonalParticular-ONEAPP-13921")
+	@Description(value = "Execution of this testcase:: Verifies the Update Personal Particular Details.")
+	@Author(name = "Divya Devi")
+	public void UpdatePersonalParticular(String userName, String password) throws Exception {
+			try {
+				DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+				dbspage.logInApplication(userName, password, "DBS");
+				dbspage.UpdatePersonalDetails("DBS");
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
+	}
+	
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 21, enabled = true, description = "FundsTransfer-OtherBank-FAST-FUTURE-THANOS-5245")
+	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Other Bank Fast Future Transfer Date.")
+	@Author(name = "Divya Devi")
+	public void FundsTransfer_OtherBank_FAST_FUTURE(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "DBS");
+			dbspage.FundsTransfer_OtherBank_FASTFuture("DBS");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 22, enabled = true, description = "FundsTransfer-OtherBank-FAST-ONEAPP-16725")
+	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Other Bank Immediate Transfer Date.")
+	@Author(name = "Divya Devi")
+	public void FundsTransfer_OtherBank_FAST_ONEAPP(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "DBS");
+			dbspage.FundsTransfer_OtherBank_FAST("DBS");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	/******************End Test Script For DBS App************************************/
+/******************Start Test Script For POSB App************************************/
+	@Parameters({ "userName", "password" })
+	@Test(priority = 23, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
+	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
+	@Author(name = "Shafqat Ali")
+	public void Topup_Paylah_POSB(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "POSB");
+			dbspage.TopupPaylah();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=24, enabled=true, description = "TransactionHistory-ONEAPP-14312")
+	@Description(value = "Execution of this testcase:: Verifies Transaction History")
+	@Author(name = "shafqat")
+	public void TransactionHistory_POSB(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password,"POSB");
+			 dbspage.transactionHistoryVerify("POSB");
+			 dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
+		} catch (Exception e) {
+			throw e; 
+		}
+	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 25, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
+	@Description(value = "Execution of this testcase:: Verifies the Apply Debit Card.")
+	@Author(name = "Divya Devi")
+	public void ApplyDebitCard_POSB(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "POSB");
+			dbspage.ApplyDebitCard();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	/******************END Test Script For POSB App************************************/
+	/******************Start Test Script For iWEALTH App************************************/
+	@Parameters({ "userName", "password" })
+	@Test(priority = 26, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
+	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
+	@Author(name = "Shafqat Ali")
+	public void Topup_Paylah_iWEALTH(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "iWEALTH");
+			dbspage.TopupPaylah();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=27, enabled=true, description = "TransactionHistory-ONEAPP-14312")
+	@Description(value = "Execution of this testcase:: Verifies Transaction History")
+	@Author(name = "shafqat")
+	public void TransactionHistory_iWEALTH(String userName,String password) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage.logInApplication(userName, password, "iWEALTH");
+			 dbspage.transactionHistoryVerify("iWEALTH");
+			 dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e; 
+		}
+	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 28, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
+	@Description(value = "Execution of this testcase:: Verifies the Apply Debit Card.")
+	@Author(name = "Divya Devi")
+	public void ApplyDebitCard_iWEALTH(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "iWEALTH");
+			dbspage.ApplyDebitCard();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	/******************END Test Script For iWEALTH App************************************/
 	
 }

@@ -498,20 +498,6 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 		return false;
 	}
-
-	/**
-	 * For using assert on testcase level
-	 * 
-	 * @param value
-	 * @param detail
-	 * @param StepDetail
-	 */
-
-	/*
-	 * public void log(boolean value, String detail, String StepDetail) { if(value)
-	 * { ExtentTestManager.getTest().log(LogStatus.PASS, ); } else {
-	 * ExtentTestManager.getTest().log(LogStatus.FAIL, ); } }
-	 */
 	
 	public static void addAttachment() {
 		ALLURE_LIFECYCLE.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) ContextManager.getAndroidDriver()).getScreenshotAs(OutputType.BYTES));

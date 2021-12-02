@@ -76,12 +76,13 @@ public class ExcelUtils {
 				wb.close();
 			return val;
 		} catch (IOException e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
 	/**
-	 * @author Sneha Aggarwal
+	 * @author Shubham Kumar Gupta
 	 * @param name- file path
 	 * @exception file not found handles, IO Exception
 	 * @implSpec Opens specified excel
@@ -106,7 +107,8 @@ public class ExcelUtils {
 			}
 			return wb;
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -123,7 +125,8 @@ public class ExcelUtils {
 		try {
 			wb.close();
 		} catch (IOException e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -163,7 +166,8 @@ public class ExcelUtils {
 			}
 			return val;
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -212,7 +216,8 @@ public class ExcelUtils {
 			}
 			return val;
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -245,7 +250,8 @@ public class ExcelUtils {
 				wb.close();
 			return val;
 		} catch (IOException e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -278,9 +284,10 @@ public class ExcelUtils {
 				fileOut.close();
 				workbook.close();
 		} catch (FileNotFoundException e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		} catch (IOException e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -357,9 +364,11 @@ public class ExcelUtils {
 			fileOut.close();
 			wb.close();
 		} catch (FileNotFoundException e1) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e1));
+			e1.printStackTrace();
+			throw e1;
 		} catch (IOException e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -393,9 +402,11 @@ public class ExcelUtils {
 				dataMap.put(key, value);
 			}
 		} catch (FileNotFoundException e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		} catch (IOException e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 		// Returning excelFileMap
 		return dataMap;
@@ -416,7 +427,8 @@ public class ExcelUtils {
 				workbook.close();
 			}
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -481,7 +493,8 @@ public class ExcelUtils {
 			}
 			return OuterMap;
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 

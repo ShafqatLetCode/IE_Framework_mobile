@@ -14,7 +14,7 @@ import io.appium.java_client.AppiumDriver;
 
 public class Asserts extends UserBaseTest {
 
-	public static void assertTrueScreenshot(boolean condition, String message) {
+	public static void assertTrueScreenshot(boolean condition, String message) throws Exception {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertTrue(condition, message);
@@ -25,11 +25,11 @@ public class Asserts extends UserBaseTest {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); throw e;
 		}
 	}
 
-	public static void assertTrue(boolean condition, String message) {
+	public static void assertTrue(boolean condition, String message) throws Exception {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertTrue(condition, message);
@@ -39,11 +39,11 @@ public class Asserts extends UserBaseTest {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); throw e;
 		}
 	}
 
-	public static void assertFalseScreenshot(boolean condition, String message) {
+	public static void assertFalseScreenshot(boolean condition, String message) throws Exception {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertFalse(condition, message);
@@ -54,11 +54,11 @@ public class Asserts extends UserBaseTest {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); throw e;
 		}
 	}
 
-	public  static void assertFalse(boolean condition, String message) {
+	public  static void assertFalse(boolean condition, String message) throws Exception {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertFalse(condition, message);
@@ -68,11 +68,11 @@ public class Asserts extends UserBaseTest {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); throw e;
 		}
 	}
 
-	public static void assertEqualsScreenshot(String actual, String expected, String message) {
+	public static void assertEqualsScreenshot(String actual, String expected, String message) throws Exception {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertEquals(actual, expected, message);
@@ -96,16 +96,16 @@ public class Asserts extends UserBaseTest {
 					}
 					Assert.assertEquals(actual, expected, message);
 				} catch (IOException e) {
-					e.printStackTrace();
+					e.printStackTrace(); throw e;
 				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); throw e;
 		}
 	}
 
-	public static void assertEquals(String actual, String expected, String message) {
+	public static void assertEquals(String actual, String expected, String message) throws Exception {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertEquals(actual, expected, message);
@@ -119,7 +119,7 @@ public class Asserts extends UserBaseTest {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -144,7 +144,7 @@ public class Asserts extends UserBaseTest {
 		}
 	}
 
-	public  static void logScreenshot(boolean condition, String message, String assertCondition) {
+	public  static void logScreenshot(boolean condition, String message, String assertCondition) throws Exception {
 		try {
 			switch (assertCondition) {
 			case "assertTrue": {
@@ -170,7 +170,7 @@ public class Asserts extends UserBaseTest {
 												.build());
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						e.printStackTrace(); throw e;
 					}
 				break;
 			}
@@ -197,7 +197,7 @@ public class Asserts extends UserBaseTest {
 												.build());
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						e.printStackTrace(); throw e;
 					}
 				break;
 			}
@@ -205,7 +205,7 @@ public class Asserts extends UserBaseTest {
 				System.out.println("Incorrect option.");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); throw e;
 		}
 	}
 

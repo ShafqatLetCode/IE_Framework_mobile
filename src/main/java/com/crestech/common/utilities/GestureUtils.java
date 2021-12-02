@@ -42,11 +42,11 @@ public class GestureUtils {
 	//Working methods starts
 	public static void DragAndDropElementToElement(MobileElement Element1, MobileElement Element2) throws Exception {
 		try {
-			if(CommonAppiumTest.isElementVisible(Element1)&&CommonAppiumTest.isElementVisible(Element2))
+			if(Element1.isDisplayed()&&Element2.isDisplayed())
 				touch.longPress(longPressOptions().withElement(element(Element1))).moveTo(element(Element2)).release()
 					.perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 	
@@ -58,10 +58,10 @@ public class GestureUtils {
 	 */
 	public static void DragAndDropElementToCoordinate(MobileElement Element, int x, int y) throws Exception {
 		try {
-			if(CommonAppiumTest.isElementVisible(Element))
+			if(Element.isDisplayed())
 				touch.longPress(longPressOptions().withElement(element(Element))).moveTo(point(x, y)).release().perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 	
@@ -70,7 +70,7 @@ public class GestureUtils {
 			AndroidTouchAction touch = new AndroidTouchAction(driver);
 			touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(ele))).perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			throw new Exception(e); 
 		} 
 	}
 	public static void longPressOnMiddleOfScreen(int durationInSecond) throws Exception {
@@ -81,7 +81,7 @@ public class GestureUtils {
 			int x =(int)((windowSize1.getWidth())/2);
 			touch.longPress(LongPressOptions.longPressOptions().withPosition(point(x, y)).withDuration(ofSeconds(durationInSecond))).perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			throw new Exception(e); 
 		} 
 	}
 	public static void longPressOnMobileElementSpecficLocation(MobileElement Element, int dur, int x, int y) throws Exception {
@@ -90,7 +90,7 @@ public class GestureUtils {
 			touch.longPress(longPressOptions().withElement(element(Element)).withPosition(point(x, y))
 					.withDuration(ofSeconds(dur))).release().perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 	
@@ -99,7 +99,7 @@ public class GestureUtils {
 			wait.ImplicitlyWait();
 			touch.tap(tapOptions().withPosition(point(x, y))).perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -109,7 +109,7 @@ public class GestureUtils {
 			touch.tap(tapOptions().withElement(element(Element))).release()
 					.tap(tapOptions().withElement(element(Element))).release().perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -119,7 +119,7 @@ public class GestureUtils {
 			touch.tap(tapOptions().withElement(element(Element)).withPosition(point(x, y))).release()
 					.tap(tapOptions().withElement(element(Element)).withPosition(point(x, y))).release().perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 	
@@ -149,7 +149,7 @@ public class GestureUtils {
 			dragNDrop.addAction(finger.createPointerUp(PointerInput.MouseButton.MIDDLE.asArg()));
 			driver.perform(Arrays.asList(dragNDrop));
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	} 
 
@@ -169,7 +169,7 @@ public class GestureUtils {
 			System.out.println("Swipe up was Successfully done.");
 		} catch (Exception e) {
 			System.out.println("swipe up was not successfull");
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			throw new Exception(e); 
 		}
 	}
 
@@ -188,7 +188,7 @@ public class GestureUtils {
 			System.out.println("Swipe down was Successfully done");
 		} catch (Exception e) {
 			System.out.println("swipe down was not successfull");
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			throw new Exception(e); 
 		}
 	}
 
@@ -214,7 +214,7 @@ public class GestureUtils {
 			System.out.println("Swipe Successfully");
 		} catch (Exception e) {
 			System.out.println("Image swipe was not successfull");
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -238,7 +238,7 @@ public class GestureUtils {
 			action.longPress(ele);
 			action.perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));  
+			throw new Exception(e);  
 		}
 	}
 
@@ -251,7 +251,7 @@ public class GestureUtils {
 			params.put("duration", "3");
 			driver.executeScript("mobile:touch:gesture", params);
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -260,7 +260,7 @@ public class GestureUtils {
 //			wait.waitForElementToBeClickable(Element);
 //			touch.tap(tapOptions().withElement(element(Element))).perform();
 //		} catch (Exception e) {
-//			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+//			throw new Exception(e);
 //		}
 //	}
 
@@ -269,7 +269,7 @@ public class GestureUtils {
 			wait.waitForElementToBeClickable(Element);
 			touch.tap(tapOptions().withElement(element(Element)).withPosition(point(x, y))).perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -280,7 +280,7 @@ public class GestureUtils {
 			new MultiTouchAction(driver).add(touch.tap(tapOptions().withElement(element(Element1))))
 					.add(touch.tap(tapOptions().withElement(element(Element2)))).perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -293,7 +293,7 @@ public class GestureUtils {
 					.add(touch.tap(tapOptions().withElement(element(Element1)).withPosition(point(x1, y1))))
 					.add(touch.tap(tapOptions().withElement(element(Element2)).withPosition(point(x2, y2)))).perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -305,7 +305,7 @@ public class GestureUtils {
 				Duration.ofMillis(50);
 			}
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -314,7 +314,7 @@ public class GestureUtils {
 			wait.waitForElementToBeClickable(Element);
 			touch.tap(tapOptions().withElement(element(Element)).withPosition(point(x, y))).perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -326,7 +326,7 @@ public class GestureUtils {
 				Duration.ofMillis(50);
 			}
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -336,7 +336,7 @@ public class GestureUtils {
 			touch.longPress(longPressOptions().withPosition(point(x, y)).withDuration(ofSeconds(dur))).release()
 					.perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -346,7 +346,7 @@ public class GestureUtils {
 			new MultiTouchAction(driver).add(touch.tap(tapOptions().withPosition(point(x1, y1))))
 					.add(touch.tap(tapOptions().withPosition(point(x2, y2)))).perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -357,7 +357,7 @@ public class GestureUtils {
 			touch.longPress(longPressOptions().withElement(element(Element1)).withDuration(ofSeconds(2)))
 					.moveTo(element(Element2)).release().perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -367,7 +367,7 @@ public class GestureUtils {
 			touch.longPress(longPressOptions().withElement(element(Element)).withDuration(ofSeconds(2)))
 					.moveTo(point(x, y)).release().perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -378,7 +378,7 @@ public class GestureUtils {
 					.moveTo(element(Element)).release().perform();
 
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -388,7 +388,7 @@ public class GestureUtils {
 			touch.longPress(longPressOptions().withPosition(point(x1, y1)).withDuration(ofSeconds(2)))
 					.moveTo(point(x1, y1)).release().perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -414,10 +414,10 @@ public class GestureUtils {
 				} else
 					count = 1;
 			}
-			Asserts.assertTrue(CommonAppiumTest.isElementVisible(element), "Element not found");
+			Asserts.assertTrue(element.isDisplayed(), "Element not found");
 
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 	
@@ -443,11 +443,10 @@ public class GestureUtils {
 				} else
 					count = 1;
 			}
-
-			Asserts.assertTrue(CommonAppiumTest.isElementVisible(element), "Element not found");
+			Asserts.assertTrue(element.isDisplayed(), "Element not found");
 
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -476,7 +475,7 @@ public class GestureUtils {
 			else
 				return false;
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -507,7 +506,7 @@ public class GestureUtils {
 				return false;
 
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -548,7 +547,7 @@ public class GestureUtils {
 	    }
 
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 	
@@ -629,7 +628,7 @@ public class GestureUtils {
 					.add(touch.longPress(longPressOptions().withPosition(point(x, y2))).moveTo(point(x, y22)))
 					.perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -648,7 +647,7 @@ public class GestureUtils {
 					.add(touch.longPress(longPressOptions().withPosition(point(x1, y))).moveTo(point(x22, y)))
 					.perform();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 }
