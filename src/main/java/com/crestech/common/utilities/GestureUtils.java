@@ -42,7 +42,7 @@ public class GestureUtils {
 	//Working methods starts
 	public static void DragAndDropElementToElement(MobileElement Element1, MobileElement Element2) throws Exception {
 		try {
-			if(CommonAppiumTest.isElementVisible(Element1)&&CommonAppiumTest.isElementVisible(Element2))
+			//if(CommonAppiumTest.isElementVisible(Element1)&&CommonAppiumTest.isElementVisible(Element2))
 				touch.longPress(longPressOptions().withElement(element(Element1))).moveTo(element(Element2)).release()
 					.perform();
 		} catch (Exception e) {
@@ -414,7 +414,8 @@ public class GestureUtils {
 				} else
 					count = 1;
 			}
-			Asserts.assertTrue(CommonAppiumTest.isElementVisible(element), "Element not found");
+			if(element !=null)
+				Asserts.assertTrue(CommonAppiumTest.isElementVisible(element), "Element not found");
 
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
@@ -443,8 +444,8 @@ public class GestureUtils {
 				} else
 					count = 1;
 			}
-
-			Asserts.assertTrue(CommonAppiumTest.isElementVisible(element), "Element not found");
+			if(element !=null)
+				Asserts.assertTrue(CommonAppiumTest.isElementVisible(element), "Element not found");
 
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));

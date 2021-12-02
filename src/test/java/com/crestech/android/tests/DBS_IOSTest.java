@@ -63,7 +63,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		}
 	}
 	@Parameters({"userName", "password" })
-	@Test(priority=12,enabled=false,description = "Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit")
+	@Test(priority=12,enabled=true,description = "Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit")
 	@Description(value = "Execution of this testcase:: ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847")
 	@Author(name = "Shafqat Ali")
 	public void ChangeLocalFundsTransferLimit(String userName,String password) throws Exception { 

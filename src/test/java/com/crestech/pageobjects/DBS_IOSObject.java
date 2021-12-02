@@ -246,8 +246,15 @@ public class DBS_IOSObject {
 		return reviewToUpLabel;
 	}
 
-	@ElementDescription(value = "TopUp Now button")
+	@ElementDescription(value = "TopUp Now label")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='TOP UP NOW']")
+	private MobileElement topupNowlabel;
+
+	public MobileElement topupNowButtonlabel() {
+		return topupNowlabel;
+	}
+	@ElementDescription(value = "TopUp Now button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='TopUp_Paylah_TOP UP NOW_Button']")
 	private MobileElement topupNowButton;
 
 	public MobileElement topupNowButton() {
@@ -398,6 +405,20 @@ public class DBS_IOSObject {
 
 	public MobileElement changeLimitNowButton() {
 		return changeLimitNowButton;
+	}
+	@ElementDescription(value = " 'backToMoreButton' button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='BACK TO MORE']")
+	private MobileElement backToMoreButton;
+
+	public MobileElement  backToMoreButton() {
+		return  backToMoreButton;
+	}
+	@ElementDescription(value = " 'Local Transfer limit Changed!' Title")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Local Transfer limit Changed!']")
+	private MobileElement localTransferLimitChangedTitle;
+
+	public MobileElement  localTransferLimitChangedTitle() {
+		return  localTransferLimitChangedTitle;
 	}
 
 }

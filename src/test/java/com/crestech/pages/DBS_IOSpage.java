@@ -2,7 +2,10 @@ package com.crestech.pages;
 
 import java.util.List;
 import java.util.logging.Logger;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.appium.utils.CommonAppiumTest;
@@ -148,7 +151,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			String actualText = getTexOfElement(Element).trim();
 
-			Asserts.assertEquals(actualText, expectedText, "text is not found");
+			Asserts.assertEquals(actualText.toLowerCase(), expectedText.toLowerCase(), "text is not found");
 
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
@@ -262,7 +265,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertTrue(isElementEnable(IOShomePgaeObject.amountEditBox()), "EditField is not enable");
 			if (isElementEnable(IOShomePgaeObject.amountEditBox()))
 				enterTextInTextbox(IOShomePgaeObject.amountEditBox(), text);
-
+			Thread.sleep(2000);
+			String doneButtonxpath = "//XCUIElementTypeButton[@name='Done']";
+			List<RemoteWebElement> doneButtonList = driver.findElements(By.xpath(doneButtonxpath));
+			if (doneButtonList.size() > 0)
+				clickOnElement(IOShomePgaeObject.doneButton());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -290,7 +297,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifying Next Label and click")
 	public void nextButtonVerifyClick() throws Exception {
 		try {
-
+			//GestureUtils.scrollUPtoObject("name", "Next", null);
+			TakeScreenshot(IOShomePgaeObject.nextButton());
 			String actualText = CommonAppiumTest.getTexOfElement(IOShomePgaeObject.nextButton());
 
 			if (actualText.equalsIgnoreCase("NEXT"))
@@ -304,15 +312,16 @@ public class DBS_IOSpage extends CommonAppiumTest {
 
 	}
 	@Step("Verifying TOP UP NOW  Label and click")
-	public void topUpNowVerifyClick(String expectecText) throws Exception {
+	public void topUpNowVerifyClick() throws Exception {
 		try {
+			
+			ButtonVerifyClick(IOShomePgaeObject.topupNowButton());
+			//String actualText = CommonAppiumTest.getTexOfElement(IOShomePgaeObject.topupNowButton());
 
-			String actualText = CommonAppiumTest.getTexOfElement(IOShomePgaeObject.topupNowButton());
+			//if (actualText.equalsIgnoreCase(expectecText))
+			//	CommonAppiumTest.clickOnElement(IOShomePgaeObject.topupNowButton());
 
-			if (actualText.equalsIgnoreCase(expectecText))
-				CommonAppiumTest.clickOnElement(IOShomePgaeObject.topupNowButton());
-
-			Asserts.assertEquals(actualText, expectecText, "TOP UP NOW button Not exist");
+			//Asserts.assertEquals(actualText, expectecText, "TOP UP NOW button Not exist");
 
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
@@ -424,7 +433,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Enter the text in search and select the corresponding value in the dropdown")
 	public void sendDataInCommonSearchBoxAndSelectFromDropDown(String searchBoxData, String valueSelectedFromList) throws Exception {
 		try {
-			
+		TakesScreenshot(IOShomePgaeObject.searchIcon());
 			clickOnElementOnEnable(IOShomePgaeObject.searchIcon());
 			if (isElementEnable(IOShomePgaeObject.searchBox()))
 				enterTextInTextbox(IOShomePgaeObject.searchBox(), searchBoxData);
@@ -448,9 +457,31 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
+	private void TakesScreenshot(MobileElement searchIcon) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void TakeScreenshot(MobileElement Element) throws Exception {
+		try {
+			wait.waitForElementVisibility(Element); 
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
+	public void TakeScreenshot(RemoteWebElement Element) throws Exception {
+		try {
+			wait.waitForElementVisibility((MobileElement)Element); 
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e)); 
+		}
+	}
 	@Step("Verifying button label and clicking on 'More' button ")
 	public void MoreVerifyAndClickButton() throws Exception {
 		try {
+			TakeScreenshot(IOShomePgaeObject.moeButton());
 			AndroidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.moeButton(), CommonTestData.MORE_LABEL.getEnumValue(),
 					IOShomePgaeObject.moeButton());
 		} catch (Exception e) {
@@ -462,7 +493,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			String expectedText=CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue();
 			fieldText( expectedText ,IOShomePgaeObject.localTransferLimitLabel());
-
+            TakeScreenshot(IOShomePgaeObject.localTransferLimitLabel());
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
@@ -486,24 +517,29 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
 	}
-	public String handlingSetCurrentLimit() throws Exception {
+	public String handlingSetCurrentLimit(String AmountToBeselected) throws Exception {
 		try {
 			String currentText=getTexOfElement(IOShomePgaeObject.currentLimitTextButton());
 			String[] arrOfStr = currentText.split(" ");
+			
 			verifyClickSetCurrentLimit();
-			verifySetDailyLimitTitle();
+			//verifySetDailyLimitTitle();
+			
 			String selectedValue=null;
-//			if(arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_3.getEnumValue())) {
-//				selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_2.getEnumValue());
-//				selectedValue=CommonTestData.SELECTED_LIMIT_2.getEnumValue();
-//			}
-//			else if(arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_2.getEnumValue())) {
-//				selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_1.getEnumValue());
-//				selectedValue=CommonTestData.SELECTED_LIMIT_1.getEnumValue();}
-//			else if(arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_1.getEnumValue())) {
-//				selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_2.getEnumValue());
-//				selectedValue=CommonTestData.SELECTED_LIMIT_2.getEnumValue();}
-			return selectedValue;
+					if (arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_0.getEnumValue())) {
+						selectedValue = selectAmountFromSetCurrentLimitList(AmountToBeselected);
+					} else 
+		               {
+						GestureUtils.scrollDOWNtoObject("text", CommonTestData.SELECTED_LIMIT_0.getEnumValue(), null);
+						String flag=selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_0.getEnumValue());
+						currentText = getTexOfElement(IOShomePgaeObject.currentLimitTextButton());
+						verifyClickSetCurrentLimit();
+						arrOfStr = currentText.split(" ");
+						if (arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_0.getEnumValue()))
+						selectedValue = selectAmountFromSetCurrentLimitList(AmountToBeselected);
+					} 
+					return selectedValue;
+			
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
@@ -511,6 +547,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifying and click 'set current Limit' ")
 	public void verifyClickSetCurrentLimit() throws Exception {
 		try {
+			TakeScreenshot(IOShomePgaeObject.currentLimitTextButton());
 			ButtonVerifyClick(IOShomePgaeObject.currentLimitTextButton());
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
@@ -527,11 +564,12 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		}
 	}
 	@Step("Select amount from the List of 'set current Limit' ")
-	public void selectAmountFromSetCurrentLimitList(String amount) throws Exception {
+	public String selectAmountFromSetCurrentLimitList(String amount) throws Exception {
 		try {
 			
-			
+			String selectedAmount=null;
 			List<RemoteWebElement> ElementCell=driver.findElementsByXPath("//XCUIElementTypeCell");
+			TakeScreenshot(ElementCell.get(0));
 			int sizeList=ElementCell.size();
 			int index = 0;
 			for (int i = 1; i <= sizeList; i++) {
@@ -540,12 +578,15 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				String Text=driver.findElementByXPath(xpath).getText();
 				System.out.println(Text);
 				if (Text.equalsIgnoreCase(amount)) {
+					selectedAmount=Text;
 					index++;
 					clickOnElement((MobileElement)driver.findElementByXPath(xpath));
 					break;
 				
 			}
 			}
+			Asserts.assertTrue(index > 0, "No"+amount +"found in the list of corresponding value");
+			return selectedAmount;
 			
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
@@ -556,7 +597,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			String expectedText=CommonTestData.REVIEW_DAILY_LIMIT_TITLE.getEnumValue();
 			fieldText( expectedText ,IOShomePgaeObject.reviewDailyLimitTitle());
-
+            TakeScreenshot(IOShomePgaeObject.reviewDailyLimitTitle());
 		} catch (Exception e) {
 			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
 		}
@@ -573,12 +614,13 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void TopupPaylah() throws Exception {
 		try {
 			payAndTransferVerifyClick();
+			EnterPasscodeAndDone();
 			topUpVerifyClick();
 			 payLahVerifyClick();
-			 sendCurrencyInTextField(CommonTestData.AMOUNT_PAYLAH.getEnumValue());
+			 sendCurrencyInTextField(CommonTestData.AMOUNT_PAYLAH.getEnumValue()); 
 			 nextButtonVerifyClick();
 			 verifyReviewTopUpLabel(CommonTestData.TOPUP_REVIEW_LABEL.getEnumValue());
-			topUpNowVerifyClick(CommonTestData.TOPUP_NOW_BUTTOM_LABEL.getEnumValue());
+			topUpNowVerifyClick();
 			logOutTopUpVerifyClick();
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
@@ -588,22 +630,92 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void ChangeLocalFundsTransferLimit() throws Exception {
 		try {
 			MoreVerifyAndClickButton();
+			EnterPasscodeAndDone();
 			sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS.getEnumValue(),
 					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue());
 			verifyLocalTransferLimitTitle();
 			toOtherBanksVerifyClick();
-			String amountSlected = handlingSetCurrentLimit();
+			EnterPasscodeAndDone();
+			String amountSlected = handlingSetCurrentLimit(CommonTestData.SELECTED_LIMIT_50000.getEnumValue());
 			nextButtonVerifyClick();
 			verifyReviewDailyLimitTitle();
 			verifyClickChangeDailyLimitNowButton();
-			//verifyClickBackToMoreButton();
-			//sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),
-					//CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(), CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(), DBSappObject.PageHeader());
-		//	ClickOnToOtherBankLimit();
-			//verifyDisplayAmountLocalTransferLimitChange(amountSlected);
+			EnterPasscodeAndDone();
+			verifyLocalTransferlimitChangedHeader(CommonTestData.LOCAL_LIMIT_INCREASE_SUCCESS_TITLE_IOS.getEnumValue());
+			verifyClickBackToMoreButton();
+			sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS.getEnumValue(),
+					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue());
+			verifyLocalTransferLimitTitle();
+			toOtherBanksVerifyClick();
+		   verifyDisplayAmountLocalTransferLimitChange(amountSlected);
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	@Step("Verifying Header and click 'BACK TO MORE' BUTTON ")
+	public void verifyClickBackToMoreButton() throws Exception {
+		try {
+			ButtonVerifyClick(IOShomePgaeObject.backToMoreButton());
+		} catch (Exception e) {
+			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		}
+	}
+	@Step("Verify 'Local Transfer limit Changed' field")
+	public void verifyLocalTransferlimitChangedHeader(String expectedText) {
+		try {
+			TakeScreenshot(IOShomePgaeObject.localTransferLimitChangedTitle());
+			fieldText( expectedText ,IOShomePgaeObject.localTransferLimitChangedTitle());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Step("Verify Amount display After Limit get Changed")
+	public void verifyDisplayAmountLocalTransferLimitChange(String expectedText) throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.currentLimitTextButton());
+			String currentText = getTexOfElement(IOShomePgaeObject.currentLimitTextButton());
+			String[] arrOfStr = currentText.split(" ");
+			String acutalText = arrOfStr[1];
+			Asserts.assertEquals(acutalText, expectedText, "'Amount display' After Limit get Changed is Wrong");
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
 		}
 	}
 
+	@Step("Enter Passcode(123456) and click on Done button for Secure Pin Authentication.")
+	public void EnterPasscodeAndDone() throws Exception {
+		try {
+			Thread.sleep(10000);
+			String xpath = "//XCUIElementTypeSecureTextField[@value='••••••']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			if (list.size() > 0) {
+				TakeScreenshot(IOShomePgaeObject.secureBox());
+				enterTextInTextbox(IOShomePgaeObject.secureBox(), CommonTestData.OTP.getEnumValue());
+				String doneButtonxpath = "//XCUIElementTypeButton[@name='Done']";
+				List<RemoteWebElement> doneButtonList = driver.findElements(By.xpath(doneButtonxpath));
+				if (doneButtonList.size() > 0)
+					clickOnElement(IOShomePgaeObject.doneButton());
+			}
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	@Step("Enter Passcode(123456) and click on Done button for Secure Pin Authentication.")
+	public void EnterPasscodeAndDone2() throws Exception {
+		try {
+			Thread.sleep(10000);
+			String xpath = "//XCUIElementTypeSecureTextField[@value='••••••']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			if (list.size() > 0) {
+				enterTextInTextbox(IOShomePgaeObject.secureBox(), CommonTestData.OTP.getEnumValue());
+			    Thread.sleep(5000);
+			}
+			TakeScreenshot(IOShomePgaeObject.secureBox());
+			
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	
 }
