@@ -36,7 +36,8 @@ public class CreateJSON {
 			file.write(jsonObj1.toJSONString());
 			file.close();
 		} catch (IOException e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 
@@ -52,7 +53,8 @@ public class CreateJSON {
 			deviceInfo.put("password", password);
 			return deviceInfo;
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 }

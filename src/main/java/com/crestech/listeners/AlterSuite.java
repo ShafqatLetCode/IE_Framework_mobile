@@ -87,7 +87,7 @@ public class AlterSuite implements IAlterSuiteListener {
 				value += sc.nextLine();
 			return value;
 		} catch (FileNotFoundException e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -98,7 +98,7 @@ public class AlterSuite implements IAlterSuiteListener {
 				throw new RuntimeException("Emty Device Json File");
 			}
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -120,7 +120,7 @@ public class AlterSuite implements IAlterSuiteListener {
 			}
 			return deviceList;
 		} catch (JSONException e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 

@@ -15,16 +15,19 @@ import com.crestech.appium.utils.CommonAppiumTest;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.remote.MobileCapabilityType;
 
 public class WaitUtils extends CommandPrompt {
 
-	public AppiumDriver<RemoteWebElement> driver;
+	public AppiumDriver<RemoteWebElement> driver = null;
+	private long WAIT_TIME = 25;
 
 	public WaitUtils(AppiumDriver<RemoteWebElement> driver2) {
 		try {
 			this.driver = driver2;
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -37,7 +40,8 @@ public class WaitUtils extends CommandPrompt {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			js.executeScript("return document.readyState").toString().equals("complete");
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -49,10 +53,11 @@ public class WaitUtils extends CommandPrompt {
 	 */
 	public void waitForElementInvisibility(MobileElement element) throws Exception {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 120);
+			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.invisibilityOf(element));
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -64,10 +69,11 @@ public class WaitUtils extends CommandPrompt {
 	 */
 	public void waitForElementVisibility(MobileElement element) throws Exception {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 120);
+			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.visibilityOf(element));
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -79,10 +85,12 @@ public class WaitUtils extends CommandPrompt {
 	 */
 	public void waitForElementToBeClickable(MobileElement element) throws Exception {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 120);
+			System.out.println(driver.getCapabilities().getCapability("pCloudy_DeviceFullName"));
+			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -94,9 +102,10 @@ public class WaitUtils extends CommandPrompt {
 	 */
 	public void waitForPageLoadTimeout() throws Exception {
 		try {
-			driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
+			driver.manage().timeouts().pageLoadTimeout(WAIT_TIME, TimeUnit.SECONDS);
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -108,7 +117,8 @@ public class WaitUtils extends CommandPrompt {
 		try {
 			driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -141,10 +151,11 @@ public class WaitUtils extends CommandPrompt {
 	 */
 	public void waitForTextToBePresent(MobileElement element, String text) throws Exception {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 120);
+			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.textToBePresentInElement(element, text));;
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -156,10 +167,11 @@ public class WaitUtils extends CommandPrompt {
 	 */
 	public void waitForGivenTitle(String title) throws Exception {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 120);
+			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.titleContains(title));
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	

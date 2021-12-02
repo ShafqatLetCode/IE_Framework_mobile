@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * @author Shibu Prasad Panda.
+ * @author Shubham Kumar Gupta
  */
 public class ConfigurationManager {
 	private static ConfigurationManager instance;
@@ -20,7 +20,8 @@ public class ConfigurationManager {
 		try {
 			return prop.getProperty(key);
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 
@@ -28,7 +29,7 @@ public class ConfigurationManager {
 		try {
 			return prop.getProperty(key, defaultValue);
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -49,7 +50,8 @@ public class ConfigurationManager {
 		try {
 			return prop.containsKey(key);
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 }
