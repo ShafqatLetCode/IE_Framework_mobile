@@ -25,8 +25,8 @@ import io.qameta.allure.Step;
 
 public class CommonAppiumTest extends CommandPrompt {
 
-	public static AppiumDriver<RemoteWebElement> driver;
-	public static WaitUtils wait = null;
+	public AppiumDriver<RemoteWebElement> driver;
+	public WaitUtils wait = null;
 	public GestureUtils gesture = null;
 
 	public CommonAppiumTest(AppiumDriver<RemoteWebElement> driver2) {
@@ -40,7 +40,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @throws Exception
 	 */
 	@Step("application the Relanching")
-	public static void relanchApplication(String appPackage, String appActivity) throws Exception
+	public void relanchApplication(String appPackage, String appActivity) throws Exception
 	{
 		try {
 		
@@ -58,7 +58,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @param element
 	 * @throws Exception
 	 */
-	public static void clickOnElement(MobileElement element) throws Exception {
+	public void clickOnElement(MobileElement element) throws Exception {
 		try {
 			if (element != null) {
 				wait.waitForElementToBeClickable(element);
@@ -77,7 +77,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @param TextWhich need to send to textfield
 	 * @throws Exception
 	 */
-	public static void enterTextInTextbox(MobileElement element, String keysToSend) throws Exception {
+	public void enterTextInTextbox(MobileElement element, String keysToSend) throws Exception {
 		try {
 			wait.waitForElementVisibility(element);
 			element.sendKeys(keysToSend);
@@ -94,7 +94,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			}else
 				throw new Exception("Key not provided");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -104,7 +104,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return text
 	 * @throws Exception
 	 */
-	public static String getTexOfElement(MobileElement element) throws Exception {
+	public String getTexOfElement(MobileElement element) throws Exception {
 		try {
 			wait.waitForElementVisibility(element);
 			return element.getText();
@@ -120,7 +120,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return boolean
 	 * @throws Exception
 	 */
-	public static boolean isElementVisible(MobileElement element) throws Exception {
+	public boolean isElementVisible(MobileElement element) throws Exception {
 		try {
 			wait.waitForElementVisibility(element);
 			return element.isDisplayed();
@@ -135,7 +135,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return boolean
 	 * @throws Exception
 	 */
-	public static boolean isElementEnable(MobileElement element) throws Exception {
+	public boolean isElementEnable(MobileElement element) throws Exception {
 		try {
 			wait.waitForElementVisibility(element);
 			return element.isEnabled();
@@ -150,7 +150,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return boolean
 	 * @throws Exception
 	 */
-	public static boolean isElementSelected(MobileElement element) throws Exception {
+	public boolean isElementSelected(MobileElement element) throws Exception {
 		try {
 			wait.waitForElementVisibility(element);
 			return element.isSelected();
@@ -169,7 +169,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			return element.getLocation();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -179,7 +179,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return X co-ordinate
 	 * @throws Exception
 	 */
-	public static int getXCoordinateOfElement(MobileElement element) throws Exception {
+	public int getXCoordinateOfElement(MobileElement element) throws Exception {
 		try {
 			wait.waitForElementToBeClickable(element);
 			return element.getLocation().getX();
@@ -194,7 +194,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return Y co-ordinate
 	 * @throws Exception
 	 */
-	public static int getYCoordinateOfElement(MobileElement element) throws Exception {
+	public int getYCoordinateOfElement(MobileElement element) throws Exception {
 		try {
 			wait.waitForElementToBeClickable(element);
 			return element.getLocation().getY();
@@ -209,7 +209,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @throws Exception
 	 */
 	//WORKING FINE
-	public static void clickOnHomeButton() throws Exception {
+	public void clickOnHomeButton() throws Exception {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).pressKey(new KeyEvent(AndroidKey.HOME));
 		} catch (Exception e) {
@@ -222,7 +222,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * 
 	 * @throws Exception
 	 */
-	public static void lockTheDevice() throws Exception {
+	public void lockTheDevice() throws Exception {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).lockDevice();
 		} catch (Exception e) {
@@ -236,7 +236,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @return
 	 * @throws Exception
 	 */
-	public static boolean isDeviceLocked() throws Exception {
+	public boolean isDeviceLocked() throws Exception {
 		try {
 			boolean isLocked = ((AndroidDriver<RemoteWebElement>) driver).isDeviceLocked();
 			return isLocked;
@@ -251,7 +251,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @throws Exception
 	 */
 
-	public static void unlockTheDevice() throws Exception {
+	public void unlockTheDevice() throws Exception {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).unlockDevice();
 		} catch (Exception e) {
@@ -264,7 +264,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * 
 	 * @throws Exception
 	 */
-	public static void enableWifi(String os) throws Exception {
+	public void enableWifi(String os) throws Exception {
 
 		try {
 			//ConfigurationManager prop = ConfigurationManager.getInstance();
@@ -285,7 +285,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * 
 	 * @throws Exception
 	 */
-	public static void OpenNotificationDrawer() throws Exception {
+	public void OpenNotificationDrawer() throws Exception {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).openNotifications();
 		} catch (Exception e) {
@@ -297,7 +297,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	/**
 	 * @throws Exception
 	 */
-	public static void backButton() throws Exception {
+	public void backButton() throws Exception {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 		} catch (Exception e) {
@@ -310,7 +310,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * 
 	 * @throws Exception
 	 */
-	public static void disableWifi(String os) throws Exception {
+	public void disableWifi(String os) throws Exception {
 		try {
 			//ConfigurationManager prop = ConfigurationManager.getInstance();
 			if (os.equalsIgnoreCase("Local")) {
@@ -326,7 +326,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		}
 	}
 
-	public static void resetApplication() throws Exception {
+	public void resetApplication() throws Exception {
 		try {
 			driver.resetApp();
 		} catch (Exception e) {
@@ -340,7 +340,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @throws Exception
 	 */
 
-	public static void launchApp() throws Exception {
+	public void launchApp() throws Exception {
 		try {
 			driver.launchApp();
 		} catch (Exception e) {
@@ -353,7 +353,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * 
 	 * @throws Exception
 	 */
-	public static void scrollQuickSettings() throws Exception {
+	public void scrollQuickSettings() throws Exception {
 		try {
 			Dimension windowSize = driver.manage().window().getSize();
 			int starty = (int) (windowSize.height * 0.10);
@@ -372,7 +372,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * 
 	 * @throws Exception
 	 */
-	public static void runInBackgroundApp() throws Exception {
+	public void runInBackgroundApp() throws Exception {
 		try {
 			driver.runAppInBackground(Duration.ofMillis(10));
 		} catch (Exception e) {
@@ -385,7 +385,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * 
 	 * @throws Exception
 	 */
-	public static void openbackGroundAPP() throws Exception {
+	public void openbackGroundAPP() throws Exception {
 		try {
 			((StartsActivity) driver).currentActivity();
 		} catch (Exception e) {
@@ -393,7 +393,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		}
 	}
 	
-	public static String getExceptionMessage(Exception ex) {
+	public String getExceptionMessage(Exception ex) {
 		try {
 			String exceptionMessage = ex.getLocalizedMessage();
 			
@@ -411,10 +411,10 @@ public class CommonAppiumTest extends CommandPrompt {
 	 * @param element
 	 * @throws Exception
 	 */
-	public static void clickOnElementOnEnable(MobileElement element) throws Exception {
+	public void clickOnElementOnEnable(MobileElement element) throws Exception {
 		try {
 			if (isElementEnable(element)) {
-				Asserts.assertTrue(CommonAppiumTest.isElementEnable(element), "button Not enable");
+				Asserts.assertTrue(isElementEnable(element), "button Not enable");
 				element.click();
 			} else
 				throw new Exception("The element isn't provided or may be null.");

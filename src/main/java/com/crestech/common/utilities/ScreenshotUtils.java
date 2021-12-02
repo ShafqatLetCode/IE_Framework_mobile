@@ -36,7 +36,7 @@ public class ScreenshotUtils {
 			String filePath = failedScreen.toString();
 			return filePath;
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 
 	}
@@ -53,7 +53,7 @@ public class ScreenshotUtils {
 			String scnShot = newScreen.getScreenshotAs(OutputType.BASE64);
 			return "data:image/jpg;base64, " + scnShot;
 		} catch (WebDriverException e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 
 	}
@@ -70,7 +70,7 @@ public class ScreenshotUtils {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
 			return now.format(dtf);
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 	
@@ -83,7 +83,7 @@ public class ScreenshotUtils {
 			FileUtils.copyFile(src, destination);
 			return path;
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		} 
 	}
 }

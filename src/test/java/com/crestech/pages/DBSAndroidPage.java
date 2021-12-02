@@ -25,6 +25,7 @@ import com.crestech.pageobjects.DBSAndroidObject;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.remote.MobileCapabilityType;
 import io.qameta.allure.Step;
 
 /**
@@ -35,10 +36,16 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 	static Logger log = Logger.getLogger(DBSAndroidPage.class.getName());
 	public DBSAndroidObject DBSappObject = new DBSAndroidObject();
+	public AppiumDriver<RemoteWebElement> driver = null;
+	AndroidAlert androidAlert = null;
+	WaitUtils wait = null;
 
 	public DBSAndroidPage(AppiumDriver<RemoteWebElement> driver) throws Exception {
 		super(driver);
 		try {
+			this.driver = driver;
+			androidAlert = new AndroidAlert(driver);
+			wait = new WaitUtils(driver);
 			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), DBSappObject);
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
@@ -78,11 +85,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Log In the Application")
 	public void logInApplication(String userName, String password, String appName) throws Exception {
 		try {
-			WaitUtils wait = new WaitUtils(driver);
 			CommonAlertElements btnElements = new CommonAlertElements(driver);
-			Thread.sleep(30000);
+			Thread.sleep(40000);
 			String quitButtonXpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(quitButtonXpath));
+			System.out.println(list.size()+" : "+driver.getCapabilities().getCapability(MobileCapabilityType.DEVICE_NAME));
 			if (list.size() > 0) {
 				driver.closeApp();
 				if (appName.contains("DBS"))
@@ -95,7 +102,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				Thread.sleep(5000);
 			}
 
-			UpdateUATN4Server();
+		//	UpdateUATN4Server();
 
 			clickOnLoginButton();
 			sendDataInUserId(userName);
@@ -143,7 +150,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 
 		} catch (Exception e) {
-			assertFalse(true);
+			e.printStackTrace();
+			//assertFalse(true);
 			throw new Exception(getExceptionMessage(e));
 		}
 	}
@@ -170,6 +178,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Clicked on Login button")
 	public void clickOnLoginButton() throws Exception {
 		try {
+			System.out.println(driver.getCapabilities().getCapability("pCloudy_DeviceFullName"));
 			TakeScreenshot(DBSappObject.loginButton());
 			clickOnElement(DBSappObject.loginButton());
 		} catch (Exception e) {
@@ -225,7 +234,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void clickOnLogoutAndVerify(String logoutTextMsg, String Ratingmsg) throws Exception {
 		try {
 			TakeScreenshot(DBSappObject.logoutButton());
-			AndroidAlert.AlertHandlingWithButtonMessage(DBSappObject.logoutButton(), logoutTextMsg,
+			androidAlert.AlertHandlingWithButtonMessage(DBSappObject.logoutButton(), logoutTextMsg,
 					DBSappObject.logoutButton());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.postLogoutAlertMessage()), Ratingmsg,
 					"'Tap on the stars to rate' Text is not found");
@@ -237,7 +246,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifying Page and clicking on 'SET UP NOW' button ")
 	public void verifyPageAndClickOnSetUpNowButton(String expectecMessage) throws Exception {
 		try {
-			AndroidAlert.AlertHandlingWithButtonMessage(DBSappObject.setUpNowButton(), expectecMessage,
+			androidAlert.AlertHandlingWithButtonMessage(DBSappObject.setUpNowButton(), expectecMessage,
 					DBSappObject.tokenSetupMessage());
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
@@ -284,7 +293,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 				if (list.size() > 0) {
 					TakeScreenshot(DBSappObject.doneButton());
-					AndroidAlert.AlertHandlingWithButtonMessage(DBSappObject.doneButton(),
+					androidAlert.AlertHandlingWithButtonMessage(DBSappObject.doneButton(),
 							CommonTestData.DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP.getEnumValue(),
 							DBSappObject.tokenGetSetupMessage());
 				}
@@ -1537,7 +1546,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 				
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			throw e;
 		}
 	}
 
@@ -1839,7 +1848,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						CommonTestData.SELECT_SOURCE_FUND.getEnumValue());
 				VerifyButtonLabelAndClick(DBSappObject.dbsMultiplierAccountTextButton(),
 						CommonTestData.DBS_MULTIPLIER_ACCOUNT_TEXT.getEnumValue());
-				AndroidAlert.AlertHandlingWithButtonMessage(DBSappObject.OKButton(),
+				androidAlert.AlertHandlingWithButtonMessage(DBSappObject.OKButton(),
 						CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(),
 						DBSappObject.primarysourceAlertTitle());
 				verifyPageHeader(CommonTestData.TRANSFER_DBS_POSB.getEnumValue(), DBSappObject.PageHeader());
@@ -1901,7 +1910,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			verifyReviewTransferAndClickTransferNowButton();
 			verifyTransferredTitleAndClickOnLogout();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -2628,7 +2637,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			SelectPersonalDetailsTabAndVerifyPersonalDetailsPage();
 			VerifyLastUpdatedDateOfCheckboxes();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			throw e;
 		}
 	}
 	
@@ -2729,6 +2738,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.EMAIL_NOTES.getEnumValue() + " Text is not matching");
 
 			GestureUtils.scrollUPtoObject("text", "PERSONAL PARTICULARS", DBSappObject.PersonalPerticularSectionTitle()); 
+			Thread.sleep(1500);
 			TakeScreenshot(DBSappObject.PersonalPerticularSectionTitle()); 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsChangeBtn()),
 					CommonTestData.CHANGE_BUTTON.getEnumValue(),
@@ -2738,6 +2748,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.PERSONAL_PARTICULARS.getEnumValue() + " Text is not matching");
 			
 			GestureUtils.scrollUPtoObject("text", "MARKETING MESSAGES", DBSappObject.MarketingMessageTitle()); 
+			Thread.sleep(1500);
 			TakeScreenshot(DBSappObject.MarketingMessageTitle()); 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PersonalPerticularChangeBtn()),
 					CommonTestData.CHANGE_BUTTON.getEnumValue(),

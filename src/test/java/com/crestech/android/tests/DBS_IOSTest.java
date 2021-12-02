@@ -32,7 +32,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBSPgaeObject.logInApplication(userName, password);
 			
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			throw new Exception(e); 
 		}
 	}
 	@Parameters({"userName", "password" })
@@ -46,7 +46,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBSPgaeObject.logOutApplication();
 			
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			throw new Exception(e); 
 		}
 	}
 	@Parameters({"userName", "password" })
@@ -59,7 +59,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBSPgaeObject.logInApplication(userName, password);
 			DBSPgaeObject.TopupPaylah();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 	@Parameters({"userName", "password" })
@@ -72,7 +72,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBSPgaeObject.logInApplication(userName, password);
 			DBSPgaeObject.ChangeLocalFundsTransferLimit();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 

@@ -15,11 +15,14 @@ import io.qameta.allure.Step;
  * @author Shafkat Ali, Divya Devi
  *
  */
-public class AndroidAlert extends UserBaseTest{
+public class AndroidAlert{
 
 	public AppiumDriver<RemoteWebElement> driver;
+	CommonAppiumTest commonAppTest = null;
+	
 	public AndroidAlert(AppiumDriver<RemoteWebElement> driver2) {
 		this.driver = driver2;
+		commonAppTest = new CommonAppiumTest(driver);
 	}
 	
 	public String ToastMessage() throws Exception    //android.widget.Toast[1]
@@ -28,7 +31,7 @@ public class AndroidAlert extends UserBaseTest{
 			CommonAlertElements obj =new CommonAlertElements(driver);
 			return obj.getToastMessageElement().getAttribute("name");
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 	
@@ -47,21 +50,20 @@ public class AndroidAlert extends UserBaseTest{
 			}
 			return ToastMessagelist;
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 	
-	public void PermissionAlertToggleList(int index) throws Exception    
-	{
-		
+	public void PermissionAlertToggleList(int index) throws Exception {
+
 		try {
-			CommonAlertElements obj =new CommonAlertElements(driver);
+			CommonAlertElements obj = new CommonAlertElements(driver);
 			List<MobileElement> Elementlist = obj.toggleList();
-			
-			CommonAppiumTest.clickOnElement(Elementlist.get(index));
-			
+
+			commonAppTest.clickOnElement(Elementlist.get(index));
+
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 	
@@ -69,31 +71,31 @@ public class AndroidAlert extends UserBaseTest{
 	{
 		try {
 			CommonAlertElements obj =new CommonAlertElements(driver);
-			String actualTitle = CommonAppiumTest.getTexOfElement(obj.getalertTitle());
-			String actualMessage = CommonAppiumTest.getTexOfElement(obj.getalertMessage());
+			String actualTitle = commonAppTest.getTexOfElement(obj.getalertTitle());
+			String actualMessage = commonAppTest.getTexOfElement(obj.getalertMessage());
 			
 				if( actualTitle.equalsIgnoreCase(expectecTitle) && actualMessage.equalsIgnoreCase(expectecMessage))
-					CommonAppiumTest.clickOnElement(Button);
+					commonAppTest.clickOnElement(Button);
 				   
 				Asserts.assertEquals(actualTitle, expectecTitle, "Title Not matching");
 				Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
 					
 			
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	
 	}
 	
-	public static void AlertHandlingWithButtonMessage(MobileElement Button, String expectecMessage, MobileElement messageElement) throws Exception    //android.widget.Toast[1]
+	public void AlertHandlingWithButtonMessage(MobileElement Button, String expectecMessage, MobileElement messageElement) throws Exception    //android.widget.Toast[1]
 	{
 		try {
-			String actualMessage = CommonAppiumTest.getTexOfElement(messageElement);
+			String actualMessage = commonAppTest.getTexOfElement(messageElement);
 			Asserts.assertEquals(actualMessage, expectecMessage, "Message Not matching");
 			if (actualMessage.equalsIgnoreCase(expectecMessage))
-				CommonAppiumTest.clickOnElement(Button);
+				commonAppTest.clickOnElement(Button);
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	
 	}
@@ -105,12 +107,12 @@ public class AndroidAlert extends UserBaseTest{
 	{
 		try {
 			CommonAlertElements obj =new CommonAlertElements(driver);
-			String actualMessage = CommonAppiumTest.getTexOfElement(obj.headerFingerprintMessage());
+			String actualMessage = commonAppTest.getTexOfElement(obj.headerFingerprintMessage());
 				if(actualMessage.equalsIgnoreCase(expectecMessage))
-					CommonAppiumTest.clickOnElement(Button);
+					commonAppTest.clickOnElement(Button);
 				Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	
 	}
@@ -124,12 +126,12 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 	try {
 
 		CommonAlertElements obj =new CommonAlertElements(driver);
-		String actualMessage = CommonAppiumTest.getTexOfElement(obj.headerRecordingMessage());
+		String actualMessage = commonAppTest.getTexOfElement(obj.headerRecordingMessage());
 		Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
 			if(actualMessage.equalsIgnoreCase(expectecMessage))
-				CommonAppiumTest.clickOnElement(Button);
+				commonAppTest.clickOnElement(Button);
 	} catch (Exception e) {
-		throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		throw new Exception(e);
 	}
 
 }
@@ -140,18 +142,18 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 	public void relanchAlertWithButtonTiltleMessage(MobileElement Button, String expectecMessage, String expectecTitle) throws Exception    //android.widget.Toast[1]
 	{
 		try {CommonAlertElements obj =new CommonAlertElements(driver);
-			String actualTitle = CommonAppiumTest.getTexOfElement(obj.getTitle());
-			String actualMessage = CommonAppiumTest.getTexOfElement(obj.getMessage());
+			String actualTitle = commonAppTest.getTexOfElement(obj.getTitle());
+			String actualMessage = commonAppTest.getTexOfElement(obj.getMessage());
 			
 				if( actualTitle.equalsIgnoreCase(expectecTitle) && actualMessage.equalsIgnoreCase(expectecMessage))
-					CommonAppiumTest.clickOnElement(Button);
+					commonAppTest.clickOnElement(Button);
 				   
 				Asserts.assertEquals(actualTitle, expectecTitle, "Title Not matching");
 				Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
 					
 			
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	
 	}
@@ -164,17 +166,17 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 		try {
 
 			CommonAlertElements obj =new CommonAlertElements(driver);
-			String actualMessage = CommonAppiumTest.getTexOfElement(obj.getalertMessage());
+			String actualMessage = commonAppTest.getTexOfElement(obj.getalertMessage());
 			
 				if(actualMessage.toLowerCase().contains(expectecMessage.toLowerCase()))
-					CommonAppiumTest.clickOnElement(Button);
+					commonAppTest.clickOnElement(Button);
 				   
 				
 				Asserts.assertTrue(actualMessage.toLowerCase().contains(expectecMessage.toLowerCase()), "Alert Message Does not contain expected String");
 					
 			
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	
 	}
@@ -183,18 +185,18 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 	{
 		try {
 			CommonAlertElements obj =new CommonAlertElements(driver);
-			String actualTitle = CommonAppiumTest.getTexOfElement(obj.getalertTitle());
+			String actualTitle = commonAppTest.getTexOfElement(obj.getalertTitle());
 			
 			
 				if( actualTitle.equalsIgnoreCase(expectecTitle))
-					CommonAppiumTest.clickOnElement(Button);
+					commonAppTest.clickOnElement(Button);
 				   
 				Asserts.assertEquals(actualTitle, expectecTitle, "Title Not matching");
 				
 					
 			
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	
 	}
@@ -202,18 +204,18 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 	{
 		try {
 			CommonAlertElements obj =new CommonAlertElements(driver);
-			String actualTitle = CommonAppiumTest.getTexOfElement(obj.getNotRespondingTitle());
+			String actualTitle = commonAppTest.getTexOfElement(obj.getNotRespondingTitle());
 			
 			
 				if( actualTitle.equalsIgnoreCase(expectecTitle))
-					CommonAppiumTest.clickOnElement(Button);
+					commonAppTest.clickOnElement(Button);
 				   
 				Asserts.assertEquals(actualTitle, expectecTitle, "Title Not matching");
 				
 					
 			
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	
 	}
@@ -222,17 +224,17 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 		try {
 
 			CommonAlertElements obj =new CommonAlertElements(driver);
-			String actualMessage = CommonAppiumTest.getTexOfElement(obj.getPermissionMessage());
+			String actualMessage = commonAppTest.getTexOfElement(obj.getPermissionMessage());
 			
 				if(actualMessage.equalsIgnoreCase(expectecMessage))
-					CommonAppiumTest.clickOnElement(Button);
+					commonAppTest.clickOnElement(Button);
 				   
 				
 				Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
 					
 			
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	
 	}
@@ -242,7 +244,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 		try {	
 			return title.getText();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	
 	}
@@ -251,7 +253,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 		try {
 			return message.getText();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 		
 	}
@@ -260,10 +262,10 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 	{
 		try {
 		
-		CommonAppiumTest.clickOnElement(Button);
+		commonAppTest.clickOnElement(Button);
 		
 	} catch (Exception e) {
-		throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+		throw new Exception(e);
 	}
 	}
 	
@@ -277,7 +279,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 		}
 	
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}}
 	public void switchContext(String AppType) throws Exception    //android.widget.Toast[1]
 	{
@@ -285,7 +287,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 			
 		driver.context(AppType);
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 		
 	}
@@ -299,7 +301,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 		
 		try {
 			CommonAlertElements obj =new CommonAlertElements(driver);
-			String actualMessage = CommonAppiumTest.getTexOfElement(obj.headerMessage());
+			String actualMessage = commonAppTest.getTexOfElement(obj.headerMessage());
 			if(actualMessage.equalsIgnoreCase(expectecMessage)) {
 				Dimension windowSize1 = driver.manage().window().getSize();
 				int y =(int)((windowSize1.getHeight())-10);
@@ -310,7 +312,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 			Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
 			
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 

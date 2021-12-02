@@ -20,7 +20,7 @@ public class ConfigurationManager {
 		try {
 			return prop.getProperty(key);
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -28,7 +28,7 @@ public class ConfigurationManager {
 		try {
 			return prop.getProperty(key, defaultValue);
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class ConfigurationManager {
 		try {
 			return prop.containsKey(key);
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw new Exception(e);
 		}
 	}
 }
