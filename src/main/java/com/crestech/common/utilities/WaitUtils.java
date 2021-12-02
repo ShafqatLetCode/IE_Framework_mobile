@@ -27,6 +27,7 @@ public class WaitUtils extends CommandPrompt {
 			this.driver = driver2;
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -39,7 +40,8 @@ public class WaitUtils extends CommandPrompt {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			js.executeScript("return document.readyState").toString().equals("complete");
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -54,7 +56,8 @@ public class WaitUtils extends CommandPrompt {
 			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.invisibilityOf(element));
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -69,7 +72,8 @@ public class WaitUtils extends CommandPrompt {
 			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.visibilityOf(element));
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -85,7 +89,8 @@ public class WaitUtils extends CommandPrompt {
 			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -99,7 +104,8 @@ public class WaitUtils extends CommandPrompt {
 		try {
 			driver.manage().timeouts().pageLoadTimeout(WAIT_TIME, TimeUnit.SECONDS);
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -111,7 +117,8 @@ public class WaitUtils extends CommandPrompt {
 		try {
 			driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -147,7 +154,8 @@ public class WaitUtils extends CommandPrompt {
 			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.textToBePresentInElement(element, text));;
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -162,7 +170,8 @@ public class WaitUtils extends CommandPrompt {
 			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.titleContains(title));
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	

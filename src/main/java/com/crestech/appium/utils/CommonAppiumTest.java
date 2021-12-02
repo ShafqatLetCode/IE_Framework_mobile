@@ -50,7 +50,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	
 		} catch (Exception e) {
 			
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 	/**
@@ -66,7 +66,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			} else
 				throw new Exception("The element isn't provided or may be null.");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -82,7 +82,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			wait.waitForElementVisibility(element);
 			element.sendKeys(keysToSend);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 	
@@ -109,7 +109,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			wait.waitForElementVisibility(element);
 			return element.getText();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -125,7 +125,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			wait.waitForElementVisibility(element);
 			return element.isDisplayed();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 	/**
@@ -140,7 +140,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			wait.waitForElementVisibility(element);
 			return element.isEnabled();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 	/**
@@ -155,7 +155,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			wait.waitForElementVisibility(element);
 			return element.isSelected();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -184,7 +184,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			wait.waitForElementToBeClickable(element);
 			return element.getLocation().getX();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -199,7 +199,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			wait.waitForElementToBeClickable(element);
 			return element.getLocation().getY();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -213,7 +213,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).pressKey(new KeyEvent(AndroidKey.HOME));
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -226,7 +226,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).lockDevice();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -241,7 +241,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			boolean isLocked = ((AndroidDriver<RemoteWebElement>) driver).isDeviceLocked();
 			return isLocked;
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -255,7 +255,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).unlockDevice();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -276,7 +276,7 @@ public class CommonAppiumTest extends CommandPrompt {
 				driver.executeScript("pCloudy_enableWifi", true);
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -289,7 +289,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).openNotifications();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -301,7 +301,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -322,7 +322,7 @@ public class CommonAppiumTest extends CommandPrompt {
 
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -330,7 +330,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			driver.resetApp();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -344,7 +344,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			driver.launchApp();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -363,7 +363,7 @@ public class CommonAppiumTest extends CommandPrompt {
 					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(2000)))
 					.moveTo(PointOption.point(startx, starty)).release().perform();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -376,7 +376,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			driver.runAppInBackground(Duration.ofMillis(10));
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -389,7 +389,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			((StartsActivity) driver).currentActivity();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 	
@@ -419,7 +419,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			} else
 				throw new Exception("The element isn't provided or may be null.");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 

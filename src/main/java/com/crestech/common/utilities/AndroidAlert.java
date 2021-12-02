@@ -31,7 +31,7 @@ public class AndroidAlert{
 			CommonAlertElements obj =new CommonAlertElements(driver);
 			return obj.getToastMessageElement().getAttribute("name");
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class AndroidAlert{
 			}
 			return ToastMessagelist;
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	}
 	
@@ -63,7 +63,7 @@ public class AndroidAlert{
 			commonAppTest.clickOnElement(Elementlist.get(index));
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	}
 	
@@ -82,7 +82,7 @@ public class AndroidAlert{
 					
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	
 	}
@@ -95,7 +95,7 @@ public class AndroidAlert{
 			if (actualMessage.equalsIgnoreCase(expectecMessage))
 				commonAppTest.clickOnElement(Button);
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	
 	}
@@ -112,7 +112,7 @@ public class AndroidAlert{
 					commonAppTest.clickOnElement(Button);
 				Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	
 	}
@@ -131,7 +131,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 			if(actualMessage.equalsIgnoreCase(expectecMessage))
 				commonAppTest.clickOnElement(Button);
 	} catch (Exception e) {
-		throw new Exception(e);
+		e.printStackTrace(); throw e;
 	}
 
 }
@@ -153,7 +153,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 					
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	
 	}
@@ -176,7 +176,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 					
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	
 	}
@@ -196,7 +196,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 					
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	
 	}
@@ -215,7 +215,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 					
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	
 	}
@@ -234,7 +234,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 					
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	
 	}
@@ -244,7 +244,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 		try {	
 			return title.getText();
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	
 	}
@@ -253,7 +253,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 		try {
 			return message.getText();
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 		
 	}
@@ -265,7 +265,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 		commonAppTest.clickOnElement(Button);
 		
 	} catch (Exception e) {
-		throw new Exception(e);
+		e.printStackTrace(); throw e;
 	}
 	}
 	
@@ -279,7 +279,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 		}
 	
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}}
 	public void switchContext(String AppType) throws Exception    //android.widget.Toast[1]
 	{
@@ -287,7 +287,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 			
 		driver.context(AppType);
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 		
 	}
@@ -312,7 +312,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 			Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	}
 

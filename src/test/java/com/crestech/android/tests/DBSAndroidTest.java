@@ -37,7 +37,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -52,7 +53,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(),
 					CommonTestData.RATE_MESSAGE.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	@Parameters({ "userName", "password" })
@@ -65,7 +67,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.VerifyRemittanceCorridor();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -79,7 +82,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.VerifyRemittanceEOTT();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -93,7 +97,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.VerifyAddPayeeDBSorPOSB();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -107,7 +112,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.TopupPaylah();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			throw e;
 	}
 
 	}
@@ -122,7 +127,8 @@ public class DBSAndroidTest extends UserBaseTest {
             dbspage.logInApplication(userName, password, "DBS");
 			dbspage.PayeeAddRemittance();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -136,7 +142,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.ApplyDebitCard();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -150,7 +157,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.PayeeAddLocalOtherBank();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -164,7 +172,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.PayeeAddBillPayment();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -179,7 +188,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.OpenAccount();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -195,7 +205,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.ChangeLocalFundsTransferLimit();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -209,7 +220,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.VerifyPeekBalance();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -224,7 +236,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.VerifyFundTransfer_OwnAccount();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -238,7 +251,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.FundsTransfer_OtherBank_NonFASTFuture("DBS");
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -252,7 +266,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.FundsTransfer_OtherBank_NonFAST("DBS");
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -269,7 +284,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			 dbspage.FundTransferOtherBank();
              
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -284,7 +300,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			 dbspage.transactionHistoryVerify("DBS");
 			 dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -305,7 +322,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			 dbspage.verifyPageHeader(CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue(),dbspage.DBSappObject.PageHeader());
 			 
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -314,13 +332,14 @@ public class DBSAndroidTest extends UserBaseTest {
 	@Description(value = "Execution of this testcase:: Verifies the Update Personal Particular Details.")
 	@Author(name = "Divya Devi")
 	public void UpdatePersonalParticular(String userName, String password) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage.logInApplication(userName, password, "DBS");
-			dbspage.UpdatePersonalDetails("DBS");
-		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
-		}
+			try {
+				DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+				dbspage.logInApplication(userName, password, "DBS");
+				dbspage.UpdatePersonalDetails("DBS");
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
 	}
 	
 	
@@ -334,7 +353,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.FundsTransfer_OtherBank_FASTFuture("DBS");
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -348,7 +368,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.FundsTransfer_OtherBank_FAST("DBS");
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	/******************End Test Script For DBS App************************************/
@@ -363,7 +384,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "POSB");
 			dbspage.TopupPaylah();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -378,7 +400,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			 dbspage.transactionHistoryVerify("POSB");
 			 dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			throw e; 
 		}
 	}
 	
@@ -392,7 +414,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "POSB");
 			dbspage.ApplyDebitCard();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -408,7 +431,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "iWEALTH");
 			dbspage.TopupPaylah();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -423,7 +447,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			 dbspage.transactionHistoryVerify("iWEALTH");
 			 dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e)); 
+			e.printStackTrace();
+			throw e; 
 		}
 	}
 	
@@ -437,7 +462,8 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "iWEALTH");
 			dbspage.ApplyDebitCard();
 		} catch (Exception e) {
-			throw new Exception(CommonAppiumTest.getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	/******************END Test Script For iWEALTH App************************************/

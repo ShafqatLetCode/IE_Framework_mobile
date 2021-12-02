@@ -48,7 +48,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			wait = new WaitUtils(driver);
 			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), DBSappObject);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -58,7 +59,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			relanchApplication(CommonTestData.DBS_APP_PACKAGE.getEnumValue(),
 					CommonTestData.DBS_APPS_ACTIVITY.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -68,7 +69,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			relanchApplication(CommonTestData.POSB_APP_PACKAGE.getEnumValue(),
 					CommonTestData.DBS_APPS_ACTIVITY.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -78,7 +79,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			relanchApplication(CommonTestData.IWEALTH_APP_PACKAGE.getEnumValue(),
 					CommonTestData.DBS_APPS_ACTIVITY.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -152,7 +153,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 			//assertFalse(true);
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -171,7 +172,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			TakeScreenshot(DBSappObject.ChangeServerSaveBtn());
 			clickOnElement(DBSappObject.ChangeServerSaveBtn());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -182,7 +183,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			TakeScreenshot(DBSappObject.loginButton());
 			clickOnElement(DBSappObject.loginButton());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -191,7 +192,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			clickOnElement(DBSappObject.signUpForDigibankButton());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -200,7 +201,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			clickOnElement(DBSappObject.loginButton());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -213,7 +214,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(isElementEnable(DBSappObject.userIdEditText()), "EditField is not enable");
 			TakeScreenshot(DBSappObject.userIdEditText());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -226,7 +227,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(isElementEnable(DBSappObject.userPinEditText()), "EditField is not enable");
 			TakeScreenshot(DBSappObject.userPinEditText());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -239,7 +240,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.postLogoutAlertMessage()), Ratingmsg,
 					"'Tap on the stars to rate' Text is not found");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -249,7 +250,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			androidAlert.AlertHandlingWithButtonMessage(DBSappObject.setUpNowButton(), expectecMessage,
 					DBSappObject.tokenSetupMessage());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -262,7 +263,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					enterTextInTextbox(DBSappObject.emailSmsOtpEditBox(), OTP);
 			Asserts.assertEquals(actualMessage, expectecMessage, "Title Message Not matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -300,7 +301,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -317,7 +318,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
 			ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -355,7 +356,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
 			ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -380,7 +381,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			// com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 //			DeletePayee(ExpectedRecipientName);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -396,7 +397,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
 						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -418,7 +419,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(),
 					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue() + " Page Header is not matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -443,7 +444,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(Selectbank);
 			enterTextInTextbox(DBSappObject.EditFields().get(2), AccountNumber);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -503,7 +504,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					clickOnElement(DBSappObject.DoneButtonForPasscode());
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -518,7 +519,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.SelectFundSourcePage());
 			clickOnElement(DBSappObject.SourceFundList().get(2));
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -531,7 +532,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			wait.waitForElementVisibility(DBSappObject.ExchangeRateText());
 			backButton();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -544,7 +545,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
 					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -558,7 +559,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				Asserts.assertEquals(getTexOfElement(transfferdSubmitMsgEle), SuccessMsg,
 						SuccessMsg + " Text is not matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -570,7 +571,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.REFERENCE_NUMBER_TEXT.getEnumValue(),
 					CommonTestData.REFERENCE_NUMBER_TEXT.getEnumValue() + " Text is not found");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -583,7 +584,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.OVERSEAS_TRANSFER_TEXT.getEnumValue(),
 					CommonTestData.OVERSEAS_TRANSFER_TEXT.getEnumValue() + " Text is not found");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -594,7 +595,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (isElementVisible(DBSappObject.PayAndTransferBtn()))
 				clickOnElement(DBSappObject.PayAndTransferBtn());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -609,7 +610,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				clickOnElement(DBSappObject.Btnlist().get(3));
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -625,7 +626,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(actualText, expectecText, "Label Not matching");
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -655,7 +656,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(index > 0, "No element found in the lis of corresponding value");
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -680,7 +681,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(index > 0, "No currency found in the list of corresponding value");
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -693,7 +694,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (getTexOfElement(DBSappObject.nextButton()).equalsIgnoreCase("NEXT"))
 				clickOnElement(DBSappObject.nextButton());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -708,7 +709,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(isElementEnable(DBSappObject.enterBankcodeTextField()), "EditField is not enable");
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -721,7 +722,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			// Asserts.assertTrue(isElementEnable(DBSappObject.recipientAccountNoEditBox()),
 			// "EditField is not enable");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -734,7 +735,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			// Asserts.assertTrue(isElementEnable(DBSappObject.recipientNameEditBox()),
 			// "EditField is not enable");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -747,7 +748,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			// Asserts.assertTrue(isElementEnable(DBSappObject.recipientAddressEditBox()),
 			// "EditField is not enable");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -760,7 +761,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			// Asserts.assertTrue(isElementEnable(DBSappObject.recipientCityEditBox()),
 			// "EditField is not enable");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -772,7 +773,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(actualText, expectedText, "'REVIEW RECIPIENT'S DETAILS label' Text is not found");
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -788,7 +789,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Thread.sleep(4000);
 			Asserts.assertEquals(actualText, CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue(), "Button not matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -805,7 +806,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			boolean i = DBSappObject.referenceNoValue().getText().isEmpty();
 			Asserts.assertTrue(i == false, "Reference Number not Found");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -821,7 +822,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(actualText, expectecText, "Top up Label Not matching");
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -839,7 +840,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.topUpPaylahLabel()),
 					CommonTestData.TOPUP_PAYLAH_LABEL.getEnumValue(), "'Top Up Paylah' Text is not found");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -849,7 +850,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterTextInTextbox(DBSappObject.currencyTextBox(), text);
 			TakeScreenshot(DBSappObject.currencyTextBox());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -861,7 +862,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.displayAmount()),
 					CommonTestData.AMOUNT_PAYLAH.getEnumValue(), "'Display Amount' is incorrect");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -880,7 +881,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.displayAmount()),
 					CommonTestData.AMOUNT_PAYLAH.getEnumValue(), "'Display Amount' is incorrect");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -893,7 +894,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				clickOnElement(DBSappObject.logOutPaylahButton());
 			Asserts.assertEquals(actualText, expectecText, "LogOut button Not exist");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -917,7 +918,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.ApplyNowButton());
 			ClickOnSubmitButtonAfterSettingCardPIN();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -947,7 +948,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -998,7 +999,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.SendMeDBSPrmotionViaMail());
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1014,7 +1015,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			selectDebitCardType(CommonTestData.DEBIT_CARD_NAME.getEnumValue());
 			wait.waitForElementVisibility(DBSappObject.AccountToBeLinkedToTheCardField());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1045,7 +1046,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue() + " Text is not matching");
 			ClickOnPayNowBtnAndVerifyPaymentSubmittedMsg();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1062,7 +1063,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterTextInTextbox(DBSappObject.EnterReferenceNoEditField(), ReferenceNo);
 			backButton();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1085,7 +1086,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				clickOnElement(DBSappObject.AddBillingOrganisation());
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1100,7 +1101,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Text is not matching");
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1121,7 +1122,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + " Text is not matching.");
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1137,7 +1138,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						ReferenceNum + " Text is not matching");
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1163,7 +1164,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			GestureUtils.scrollUPtoObject("text", "OPEN ACCOUNT NOW", DBSappObject.OpenAccountNowButton());
 			ClickOnOpenAccountNowButton();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1177,7 +1178,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.ACCOUNT_BENIFITS.getEnumValue(),
 					CommonTestData.ACCOUNT_BENIFITS.getEnumValue() + " Page Header Text is not matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1194,7 +1195,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.SELECT_ACCOUNT.getEnumValue());
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1205,7 +1206,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()), CommonTestData.OPEN_ACCOUNT.getEnumValue(),
 					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Page Header Text is not matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1218,7 +1219,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.OPEN_ACCOUNT.getEnumValue(),
 					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Page Header Text is not matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1233,7 +1234,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.WARNING_HEADING_TEXT.getEnumValue(),
 					CommonTestData.WARNING_HEADING_TEXT.getEnumValue() + " Message is not matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1247,7 +1248,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						CommonTestData.YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE.getEnumValue()
 								+ " Message is not matching.");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1266,7 +1267,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1289,7 +1290,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 			Asserts.assertTrue(index > 0, "No " + debitCardToBeSelected + " found in the list of corresponding value");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1314,7 +1315,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(index > 0, "No " + elementToBeSelected + " found in the list of corresponding value");
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1338,7 +1339,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			return element;
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -1372,7 +1373,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 //			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 //			DeletePayee(ExpectedRecipientName);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1383,7 +1384,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.LocalButton());
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1408,7 +1409,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PayeeValueList().get(3)), AccountNumber,
 					AccountNumber + " is not matching after adding payee");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1441,7 +1442,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 			ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedRecipientName);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1456,7 +1457,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				clickOnElement(DBSappObject.OKButton());
 			Thread.sleep(1000);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1468,7 +1469,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			wait.waitForElementVisibility(DBSappObject.OKButton());
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1486,7 +1487,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
 					CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue() + " is not matching after adding payee");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1500,7 +1501,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			wait.waitForElementVisibility(DBSappObject.AreYouSureToDeleteThisPayeeMessage());
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1514,7 +1515,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1526,7 +1527,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			// ToDo
 			// validations pending due to some error getting on provided credentials.
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1578,7 +1579,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					"'You've added a recipient label' Text is not matching");
 			verifyReferenceFieldAndItsValue(CommonTestData.REFERENCE_NUMBER.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1595,7 +1596,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			topUpNowVerifyClick(CommonTestData.TOPUP_NOW_BUTTOM_LABEL.getEnumValue());
 			logOutTopUpVerifyClick(CommonTestData.LOGOUT_PAYLAH.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1623,7 +1624,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
 			verifyPageHeader(ExpecetedText, PageHeader);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1633,7 +1634,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (ele != null)
 				Asserts.assertEquals(getTexOfElement(ele), expectedText, "'Header Title' is not Matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1646,7 +1647,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				clickOnElement(Button);
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1657,7 +1658,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			verifyPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL.getEnumValue(),
 					DBSappObject.PageHeaderList2().get(0));
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1682,7 +1683,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(index > 0, "No " + AccountToBeSelected + " found in the list of corresponding value");
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1697,7 +1698,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			verifyPageHeader(CommonTestData.SET_DAILY_LIMIT_TITLE.getEnumValue(),
 					DBSappObject.PageHeaderList2().get(4));
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1722,7 +1723,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 			return selectedValue;
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1747,7 +1748,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(index > 0, "No" + amount + "found in the list of corresponding value");
 			return selectedAmount;
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1764,7 +1765,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.successTitleLabel()),
 					CommonTestData.LOCAL_TRANSFER_CAHNGE_TITLE.getEnumValue(), "'Header Title' is not Matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1773,7 +1774,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			clickOnElementOnEnable(DBSappObject.backToMoreButton());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1785,7 +1786,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String acutalText = arrOfStr[1];
 			Asserts.assertEquals(acutalText, expectedText, "'Amount display' After Limit get Changed is Wrong");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1808,7 +1809,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnToOtherBankLimit();
 			verifyDisplayAmountLocalTransferLimitChange(amountSlected);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1817,7 +1818,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			VerifyButtonLabelAndClick(DBSappObject.AllTab(), CommonTestData.ALL_SECTION.getEnumValue());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -1833,7 +1834,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.DBS_CURRENT_ACCOUNT_TEXT.getEnumValue());
 			verifyPageHeader(CommonTestData.TRANSFER_DBS_POSB.getEnumValue(), DBSappObject.PageHeader());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -1854,7 +1855,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				verifyPageHeader(CommonTestData.TRANSFER_DBS_POSB.getEnumValue(), DBSappObject.PageHeader());
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -1866,7 +1867,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.SGD_CURRENCY_LABEL.getEnumValue(), "'Currency' is not Matching");
 			enterTextInTextbox(DBSappObject.amountTransferTextBox(), Amount);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -1878,7 +1879,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			VerifyButtonLabelAndClick(DBSappObject.TransferNowBtn(), CommonTestData.TRANSFER_NOW_BUTTON.getEnumValue());
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -1892,7 +1893,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.postLogoutAlertMessage()),
 					CommonTestData.RATE_MESSAGE.getEnumValue(), "'Tap on the stars to rate' Text is not found");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -1910,7 +1911,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			verifyReviewTransferAndClickTransferNowButton();
 			verifyTransferredTitleAndClickOnLogout();
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1939,7 +1940,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			VerifyAccountDetailsAfterFundTransferToOwnAccount(ExpectedToAccountNumber, ExpectedToAccountName,
 					ExpectedFromAccountNumber, ExpectedFromAccountName);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1977,7 +1978,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					ExpectedToAccountNumber,
 					ExpectedToAccountNumber + " is not matching after fund transfer to own account");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -1987,7 +1988,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			TakeScreenshot(DBSappObject.AllTab());
 			clickOnElement(DBSappObject.AllTab());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2001,7 +2002,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			TakeScreenshot(DBSappObject.PageHeader());
 			verifyPageHeader(CommonTestData.TRANSFER_TO_YOUR_ACCOUNT.getEnumValue(), DBSappObject.PageHeader());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2033,7 +2034,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				}
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2045,7 +2046,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterTextInTextbox(editField, textToEnter);
 			backButton();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2088,7 +2089,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnShowButtonAndVerifyHeader(ExpectedFromBankName);
 			ValadateTransactionHistoryListInThreeMonth();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2130,7 +2131,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnShowButtonAndVerifyHeader(ExpectedFromBankName);
 			ValadateTransactionHistoryListInThreeMonth();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2172,7 +2173,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnShowButtonAndVerifyHeader(ExpectedFromBankName);
 			ValadateTransactionHistoryListInThreeMonth();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2216,7 +2217,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnShowButtonAndVerifyHeader(ExpectedFromBankName);
 			ValadateTransactionHistoryListInThreeMonth();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2228,7 +2229,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			TakeScreenshot( DBSappObject.ReferenceNumberText());
 			clickOnElement(DBSappObject.BackIcon()); 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2255,7 +2256,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					ExpectedToBankName + " is not matching");
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2271,7 +2272,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(DBSappObject.NonFastTransactionService().isDisplayed(),
 					"Non-Fast Service not available in review.");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 	
@@ -2287,7 +2288,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(DBSappObject.FastTransactionService().isDisplayed(),
 					"Fast Service not available in review.");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2302,7 +2303,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			TakeScreenshot(DBSappObject.TransferViaFastTransferToggle());
 			clickOnElement(DBSappObject.TransferViaFastTransferToggle());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2326,7 +2327,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForiWEALTH());
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -2336,7 +2337,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			wait.waitForElementVisibility(Element);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2369,7 +2370,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForiWEALTH());
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2402,7 +2403,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(index > 0, "No " + AccountToBeSelected + " found in the list of corresponding value");
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2424,7 +2425,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2436,7 +2437,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNameToCheckTransactionHistory()),
 					ExpectedAccountName, ExpectedAccountName + " is not matching.");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2448,7 +2449,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(l > 0, "No Transaction History is Display");
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2462,7 +2463,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ValadateTransactionHistoryListInThreeMonth();
 			BackToHomeFromTransactionHistory(appName);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2508,7 +2509,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(ActualSelectedDate.split(" ")[0], "20", "Selected Date is not Matching");
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2568,7 +2569,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.OKButton());
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2617,7 +2618,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 
 	}
@@ -2646,7 +2647,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			clickOnElement(DBSappObject.BACKTOMoreServicesBtn());
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 	
@@ -2665,7 +2666,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
 			}
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e)); 
+			e.printStackTrace(); throw e; 
 		}
 	}
 	
@@ -2694,7 +2695,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 		
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 	
@@ -2714,7 +2715,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue(),
 					CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue() + " Text is not matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); throw e;
 		}
 	}
 
@@ -2768,7 +2769,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue(),
 					CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue() + " Text is not matching");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));  
+			e.printStackTrace(); throw e;  
 		}
 	}
 	
@@ -2788,7 +2789,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(isElementVisible(DBSappObject.PersonalAndContactDetailsTab()), "Personal And Contact Details Tab is not displayed.");
 			Asserts.assertTrue(isElementVisible(DBSappObject.MailingAddressTab()), "Mailing Address Tab is not displayed.");
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));  
+			e.printStackTrace(); throw e;  
 		} 
 	}
 	

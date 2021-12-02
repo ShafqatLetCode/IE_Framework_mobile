@@ -39,8 +39,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
+		
 	}
 
 	/**
@@ -55,7 +57,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -70,7 +73,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			clickOnElement(IOShomePgaeObject.logInButton_1());
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	/**
@@ -83,7 +87,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			clickOnElement(IOShomePgaeObject.logInButton_2());
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	
@@ -92,7 +97,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			clickOnElement(IOShomePgaeObject.logInButton_0());
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("Swiping down alert of upgarde experience")
@@ -112,7 +118,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertEquals(actualMessage, CommonTestData.UPGRADE_EXPERIENCE_MESSAGE.getEnumValue(), "Alert Message Not matching");
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("Handling FingurePrint Alert")
@@ -122,7 +129,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.fingerpringAlertClosedButton(), CommonTestData.SETUP.getEnumValue(),
 					IOShomePgaeObject.fingerpringAlertMessage());
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 
 }
@@ -133,7 +141,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.recordingAlertClosedButton(), CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue(),
 					IOShomePgaeObject.recordingAlertMessage());
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 
 }
@@ -144,7 +153,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.alertFitnessActivityTitle(), CommonTestData.SETUP.getEnumValue(),
 					IOShomePgaeObject.alertOkButton());
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 
 }
@@ -155,7 +164,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertEquals(actualText, expectedText, "text is not found");
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("verify 'Welcome To' Field")
@@ -164,7 +174,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			fieldText(CommonTestData.WELCOME.getEnumValue(),IOShomePgaeObject.welcomeToText());
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("verify 'digibank' Field")
@@ -173,7 +184,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			fieldText(CommonTestData.DIGIBANK.getEnumValue(),IOShomePgaeObject.digibankText());
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("Application click Logout & Verifies the 'Tap on the stars to rate' field Message.")
@@ -184,7 +196,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.tapOnStarMessage()), Ratingmsg,
 					"'Tap on the stars to rate' Text is not found");
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	public void ButtonLabelVerifyClick(MobileElement Button,String expectecText) throws Exception {
@@ -198,7 +211,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertEquals(actualText, expectecText, "button Not exist");
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 
 	}
@@ -211,7 +225,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 
 	}
@@ -221,7 +236,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			ButtonLabelVerifyClick(IOShomePgaeObject.payAndTransferButton(),CommonTestData.PAY_TRANSFER_ICON.getEnumValue());
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	@Step("verify and click 'Topup' Field")
@@ -230,7 +246,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			ButtonLabelVerifyClick(IOShomePgaeObject.topUpButton(),CommonTestData.TOPUP_LABEL_IOS.getEnumValue());
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("verify and click 'PayLah!' Field")
@@ -239,7 +256,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			ButtonVerifyClick(IOShomePgaeObject.payLahButton());
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("verify 'Top Up PayLah!' Field")
@@ -248,7 +266,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			fieldText(CommonTestData.TOPUP_PAYLAH_LABEL.getEnumValue(),IOShomePgaeObject.topUpPayLahTitle());
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	}
 	@Step("verify 'SGD' Field")
@@ -257,7 +275,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			fieldText(CommonTestData.SGD_CURRENCY_LABEL.getEnumValue(),IOShomePgaeObject.sgdCurrency());
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("Enter currency in EditBox")
@@ -303,7 +322,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertEquals(actualText, "NEXT", "Button not found");
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 
 	}
@@ -319,7 +339,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertEquals(actualText, expectecText, "TOP UP NOW button Not exist");
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 
 	}
@@ -343,7 +364,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertEquals(actualText, expectecText, "LogOut button Not exist");
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 
 	}
@@ -353,7 +375,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.tapOnStarMessage()),  CommonTestData.RATE_MESSAGE.getEnumValue(),
 					"'Tap on the stars to rate' Text is not found");
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	@Step("Verifying Done button and click")
@@ -368,7 +391,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertEquals(actualText, expectecText, "Done button Not exist");
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 
 	}
@@ -381,7 +405,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			doneVerifyClick();
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 
 	}
@@ -394,7 +419,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	@Step("Login the application with USER ID and PIN")
@@ -412,7 +438,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			 verifyDigibankText();
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("Login the application")
@@ -422,7 +449,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			clickOnLogoutAndVerify(CommonTestData.RATE_MESSAGE.getEnumValue());
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
+ 
 		}
 	}
 	@Step("Enter the text in search and select the corresponding value in the dropdown")
@@ -449,7 +478,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			}
 			}
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("Verifying button label and clicking on 'More' button ")
@@ -458,7 +488,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.moeButton(), CommonTestData.MORE_LABEL.getEnumValue(),
 					IOShomePgaeObject.moeButton());
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("Verifying page header 'Local Transfer Limit' ")
@@ -468,7 +499,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			fieldText( expectedText ,IOShomePgaeObject.localTransferLimitLabel());
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	@Step("Verifying 'To Other Banks Limit' and click ")
@@ -476,7 +508,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			ButtonLabelVerifyClick(IOShomePgaeObject.toOtherBankButton(),CommonTestData.TO_OTHERBANK_LABEL.getEnumValue());;
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 
 	}
@@ -487,7 +520,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			fieldText( expectedText ,IOShomePgaeObject.ToOtherBankLimitTitle());
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	public String handlingSetCurrentLimit() throws Exception {
@@ -509,7 +543,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 //				selectedValue=CommonTestData.SELECTED_LIMIT_2.getEnumValue();}
 			return selectedValue;
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("Verifying and click 'set current Limit' ")
@@ -517,7 +552,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			ButtonVerifyClick(IOShomePgaeObject.currentLimitTextButton());
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("Verifying page header 'Set Daily Limit' ")
@@ -527,7 +563,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			fieldText( expectedText ,IOShomePgaeObject.setDailyLimitTitle());
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("Select amount from the List of 'set current Limit' ")
@@ -552,7 +589,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			}
 			
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	@Step("Verifying page header 'Review Daily Limit'")
@@ -562,7 +600,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			fieldText( expectedText ,IOShomePgaeObject.reviewDailyLimitTitle());
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("Verifying and click 'CHANGE DAILY LIMIT NOW' BUTTON ")
@@ -570,7 +609,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			ButtonVerifyClick(IOShomePgaeObject.changeLimitNowButton());
 		} catch (Exception e) {
-			throw new Exception(e);
+			e.printStackTrace(); throw e;
 		}
 	}
 	@Step("Verify topup Paylah Case and logout topup Paylah.")
@@ -585,7 +624,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			topUpNowVerifyClick(CommonTestData.TOPUP_NOW_BUTTOM_LABEL.getEnumValue());
 			logOutTopUpVerifyClick();
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 	@Step("Change local fund transfer limit verification")
@@ -606,7 +646,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		//	ClickOnToOtherBankLimit();
 			//verifyDisplayAmountLocalTransferLimitChange(amountSlected);
 		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 
