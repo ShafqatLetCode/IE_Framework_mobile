@@ -1,6 +1,8 @@
 package com.crestech.common.utilities;
 
 public enum CommonTestData {
+
+	ACCOUNT_TYPE("Deposits") ,ACCOUNT_NAME_HOME("DBS SAVINGS PLUS"),CURRENCY("SGD"),ACCOUNT_SECTION("ACCOUNTS"),
 	
 	//Payee Add Local To Other Bank
 	LOCAL_RECIPIENT_NAME("Payee OtherBank "),
@@ -21,7 +23,7 @@ public enum CommonTestData {
 	CURRENCY_AUS("AUD"),
 	BANK_BCD_CODE("610104"),
 	ACCOUNT_NO("900132012904"),
-	FULL_NAME("AUTOAUS4"),
+	FULL_NAME("AUTOAUS4"),//
 	ADDRESS("Cherry Blossom Flower Drive 90 Canbera 123334"),
 	CITY("Canbera"),
 	
@@ -68,7 +70,7 @@ public enum CommonTestData {
 	REVIEW_RECIPIENT_LABEL("REVIEW RECIPIENT'S DETAILS"),
 	OVERSEAS_TRANSFER_PAGEHEADER("Overseas Transfer"),
 	SET_CARD_PIN("Set Card PIN"),
-	
+	ENTER_RECIPIENT_DETAIL("Enter Recipient's Details"),
 	
 	//App Package And Activity
 	DBS_APPS_ACTIVITY("com.dbs.sg.digibank.ui.demo.SplashActivity"),
@@ -123,9 +125,13 @@ public enum CommonTestData {
 	OVERSEAS_ICON("Overseas"),
 
 
+	//fund transfer to other posbdbs
+    SOURCE_ACCOUNT_NAME("DBS SAVINGS PLUS"),
+    SOURCE_ACCOUNT_NUMBER("028-6-333121"),
+    LOCAL_RECIPIENT_LIST_SELECTED_ACCOUNTNAME("DBS CURRENT 001-992414-6"),
 	
-
-	
+    SOURCE_ACCOUNT_NAME_CORRIDOR("POSB STATEMENT SAVINGS"),
+    SOURCE_ACCOUNT_CORRIDOR("420-86201-6"),
     //paylah
 	TOPUP_LABEL("Top up"),
 	PAYLAH_LABEL("Paylah!"),
@@ -200,7 +206,8 @@ public enum CommonTestData {
 	REVIEW_DAILY_LIMIT_TITLE("Review Daily Limit"),
 	TOPUP_LABEL_IOS("Top Up"),
 
-	
+	//RemittanceCorridor
+	PAYEE_NAME_CORRIDOR("AUTOAUS"),
 	
 	////fund transfer posbdbs
 	ALL_SECTION("ALL"),
@@ -229,7 +236,7 @@ public enum CommonTestData {
 	TRANSFERRED("Transferred"),
     STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
 	SHOW_BUTTON("SHOW"),
-	
+
 
 
 	TEMP_LIMIT_INCREASE("Temporary Credit Limit Increase"),
@@ -239,6 +246,9 @@ public enum CommonTestData {
 	ADD_NOW_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
 	MAKE_TRANSFER("MAKE A TRANSFER"),
 	REFERENCE_NUMBER("Reference No."),
+	LOCAL_LIMIT_INCREASE_SUCCESS_TITLE_IOS("Local Transfer limit Changed!"),
+	
+	
 	
 	;
 	

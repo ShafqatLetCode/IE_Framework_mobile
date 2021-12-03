@@ -66,7 +66,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		}
 	}
 	@Parameters({"userName", "password" })
-	@Test(priority=12,enabled=false,description = "Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit")
+	@Test(priority=12,enabled=true,description = "Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit")
 	@Description(value = "Execution of this testcase:: ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847")
 	@Author(name = "Shafqat Ali")
 	public void ChangeLocalFundsTransferLimit(String userName,String password) throws Exception { 
@@ -76,6 +76,20 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBSPgaeObject.ChangeLocalFundsTransferLimit();
 		} catch (Exception e) {
 			e.printStackTrace(); 
+			throw e;
+		}
+	}
+	@Parameters({ "userName", "password" })
+	@Test(priority = 7, enabled = true, description = "Payee-Add-Remittance-ONEAPP-13679")
+	@Description(value = "Execution of this testcase:: Verify the Add Remittance payee")
+	@Author(name = "Shafqat Ali")
+	public void Payee_Add_Remittance(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.PayeeAddRemittance();
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw e;
 		}
 	}
