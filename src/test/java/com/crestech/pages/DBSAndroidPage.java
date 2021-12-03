@@ -1,7 +1,5 @@
 package com.crestech.pages;
 
-import static org.testng.Assert.assertFalse;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -12,6 +10,7 @@ import java.util.Random;
 import java.util.logging.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.appium.utils.CommonAppiumTest;
@@ -390,8 +389,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			EnterPasscodeAndDone();
 			Thread.sleep(20000);
-			wait.waitForElementVisibility(DBSappObject.SuccessTickImageView());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			TakeScreenshot(DBSappObject.SuccessTickImageView()); 
 			if (isElementVisible(DBSappObject.SuccessTickImageView()))
 				Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
 						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
@@ -407,12 +405,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0) {
-				wait.waitForElementVisibility(DBSappObject.AddRecipientNowBtn());
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				TakeScreenshot(DBSappObject.AddRecipientNowBtn());
 				clickOnElement(DBSappObject.AddRecipientNowBtn());
 			} else {
-				wait.waitForElementVisibility(DBSappObject.AddLocalRecipient());
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				TakeScreenshot(DBSappObject.AddLocalRecipient());
 				clickOnElement(DBSappObject.AddLocalRecipient());
 			}
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
@@ -427,8 +423,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void EnterRecipientDetailsAfterSelectingBankAccountOption(String ExpectedRecipientName, String BankName,
 			String AccountNumber) throws Exception {
 		try {
-			wait.waitForElementVisibility(DBSappObject.SelectBankAccount());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			TakeScreenshot(DBSappObject.SelectBankAccount());
 			clickOnElement(DBSappObject.SelectBankAccount());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(),
@@ -781,8 +776,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void ClickOnAddRecipientNowBtn() throws Exception {
 		try {
 			GestureUtils.scrollUPtoObject("text", "ADD RECIPIENT NOW", DBSappObject.AddRecipientNowBtn());
-			wait.waitForElementVisibility(DBSappObject.AddRecipientNowBtn());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			TakeScreenshot(DBSappObject.AddRecipientNowBtn()); 
 			String actualText = getTexOfElement(DBSappObject.AddRecipientNowBtn());
 			if (actualText.equalsIgnoreCase(CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue()))
 				clickOnElement(DBSappObject.AddRecipientNowBtn());
@@ -791,7 +785,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		} catch (Exception e) {
 			e.printStackTrace(); throw e;
 		}
-
 	}
 
 	@Step("Verify 'Reference No. Field and its value' field and Verify 'MAKE A TRANSFER' Button After Expanding & Scrolling to the Page.")
@@ -1369,9 +1362,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
 			verifyValidationForPayeeAdd(ExpectedRecipientName, CommonTestData.LOCAL_RECIPIENT_BANK_NAME.getEnumValue(),
 					ExpectedAccountNumber);
-//			clickOnElement(DBSappObject.BackIcon());
-//			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-//			DeletePayee(ExpectedRecipientName);
+			clickOnElement(DBSappObject.BackIcon());
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			DeletePayee(ExpectedRecipientName);
 		} catch (Exception e) {
 			e.printStackTrace(); throw e;
 		}
@@ -1380,9 +1373,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Local Button.")
 	public void clickOnLocalButton() throws Exception {
 		try {
-			wait.waitForElementVisibility(DBSappObject.LocalButton());
+			TakeScreenshot(DBSappObject.LocalButton()); 
 			clickOnElement(DBSappObject.LocalButton());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 		} catch (Exception e) {
 			e.printStackTrace(); throw e;
 		}
@@ -1508,8 +1500,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Next Btn And Review Recipient Details.")
 	public void ClickOnNextBtnAndReviewRecipientDetails() throws Exception {
 		try {
-			wait.waitForElementVisibility(DBSappObject.NextButtonToAddedLocalRecipient());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			TakeScreenshot(DBSappObject.NextButtonToAddedLocalRecipient());
 			clickOnElement(DBSappObject.NextButtonToAddedLocalRecipient());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),

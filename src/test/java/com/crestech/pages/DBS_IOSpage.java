@@ -2,6 +2,8 @@ package com.crestech.pages;
 
 import java.util.List;
 import java.util.logging.Logger;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -13,6 +15,7 @@ import com.crestech.common.utilities.GestureUtils;
 import com.crestech.pageobjects.DBS_IOSObject;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.qameta.allure.Step;
 
@@ -234,12 +237,12 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void payAndTransferVerifyClick() throws Exception {
 		try {
 			ButtonLabelVerifyClick(IOShomePgaeObject.payAndTransferButton(),CommonTestData.PAY_TRANSFER_ICON.getEnumValue());
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
+	
 	@Step("verify and click 'Topup' Field")
 	public void topUpVerifyClick() throws Exception {
 		try {
@@ -311,16 +314,13 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		}
 	}
 	@Step("Verifying Next Label and click")
-	public void nextButtonVerifyClick() throws Exception {
+	public void ClickOnNextButton() throws Exception {
 		try {
-
 			String actualText = commonAppTest.getTexOfElement(IOShomePgaeObject.nextButton());
-
+			TakeScreenshot(IOShomePgaeObject.nextButton()); 
 			if (actualText.equalsIgnoreCase("NEXT"))
 				commonAppTest.clickOnElement(IOShomePgaeObject.nextButton());
-
 			Asserts.assertEquals(actualText, "NEXT", "Button not found");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -619,7 +619,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			topUpVerifyClick();
 			 payLahVerifyClick();
 			 sendCurrencyInTextField(CommonTestData.AMOUNT_PAYLAH.getEnumValue());
-			 nextButtonVerifyClick();
+			 ClickOnNextButton();
 			 verifyReviewTopUpLabel(CommonTestData.TOPUP_REVIEW_LABEL.getEnumValue());
 			topUpNowVerifyClick(CommonTestData.TOPUP_NOW_BUTTOM_LABEL.getEnumValue());
 			logOutTopUpVerifyClick();
@@ -637,7 +637,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			verifyLocalTransferLimitTitle();
 			toOtherBanksVerifyClick();
 			String amountSlected = handlingSetCurrentLimit();
-			nextButtonVerifyClick();
+			ClickOnNextButton();
 			verifyReviewDailyLimitTitle();
 			verifyClickChangeDailyLimitNowButton();
 			//verifyClickBackToMoreButton();
@@ -650,5 +650,274 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			throw e;
 		}
 	}
+	
+	@Step("Verifies Add payee DBSorPOSB.")
+	public void VerifyAddPayeeDBSorPOSB() throws Exception {
+		try {
+			payAndTransferVerifyClick();
+			EnterPasscodeAndDone();
+			clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader();
+			String ExpectedRecipientName = CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue();
+			EnterRecipientDetailsAfterSelectingBankAccountOption(ExpectedRecipientName,
+					CommonTestData.PAYEEADD_DBSPOSB_BANK_NAME.getEnumValue(),
+					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
+			ClickOnNextButton();
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ReviewRecipientDetailsPageHeader()),CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Page Header not displaying.");
+			
+			ClickOnAddRecipientNowBtn();
+			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
+			verifyValidationForPayeeAdd(ExpectedRecipientName, CommonTestData.PAYEEADD_DBSPOSB_BANK_NAME.getEnumValue(),
+					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
+			clickOnElement(IOShomePgaeObject.closeButton());
+			clickOnLocalButton();
+			DeletePayee(ExpectedRecipientName);
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Click On Local Button.")
+	public void clickOnLocalButton() throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.LocalButton()); 
+			clickOnElement(IOShomePgaeObject.LocalButton());
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
 
+	public void TakeScreenshot(MobileElement Element) throws Exception {
+		try {
+			wait.waitForElementVisibility(Element);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Verifies the Payee Add Local OtherBank and verifies 'YOU HAVE ADDED RECIPIENT MSG' .")
+	public void PayeeAddLocalOtherBank() throws Exception {
+		try {
+			payAndTransferVerifyClick();
+			EnterPasscodeAndDone();
+			clickOnLocalButton();
+			clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader();
+
+			
+			String ExpectedRecipientName = CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue();
+			String ExpectedAccountNumber = CommonTestData.LOCAL_RECIPIENT_ACCOUNT_NUMBER.getEnumValue();
+
+			EnterRecipientDetailsAfterSelectingBankAccountOption(ExpectedRecipientName,
+					CommonTestData.LOCAL_RECIPIENT_BANK_NAME.getEnumValue(), ExpectedAccountNumber);
+			ClickOnNextButton();
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ReviewRecipientDetailsPageHeader()),CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Page Header not displaying.");
+			ClickOnAddRecipientNowBtn();
+			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
+			verifyValidationForPayeeAdd(ExpectedRecipientName, CommonTestData.LOCAL_RECIPIENT_BANK_NAME.getEnumValue(),
+					ExpectedAccountNumber);
+			clickOnElement(IOShomePgaeObject.closeButton());
+			clickOnLocalButton();
+			DeletePayee(ExpectedRecipientName);
+			
+			//Leave On Home Page to this test case for next run.
+			
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Delete Payee.")
+	public void DeletePayee(String ExpectedRecipientName) throws Exception {
+		try {
+			String RecipientNameXpath = "//XCUIElementTypeStaticText[@name='"+ExpectedRecipientName+"']";
+			MobileElement RecipientNameElement = (MobileElement) driver.findElement(By.xpath(RecipientNameXpath));
+			int ExpectedTotalPayeeSize = IOShomePgaeObject.IiconList().size();
+			
+			for(int i=0; i<ExpectedTotalPayeeSize; i++) {
+				TakeScreenshot(IOShomePgaeObject.IiconList().get(i)); 
+					clickOnElement(IOShomePgaeObject.IiconList().get(i)); 
+					TakeScreenshot(RecipientNameElement); 
+					if(isElementVisible(RecipientNameElement)) { 
+						clickOnElement(IOShomePgaeObject.MorePayeeDetailDots()); 
+						TakeScreenshot(IOShomePgaeObject.DeletePayeeButton()); 
+						clickOnElement(IOShomePgaeObject.DeletePayeeButton());
+						TakeScreenshot(IOShomePgaeObject.AreYouSureToDeleteThisPayeeMsg()); 
+						if(isElementVisible(IOShomePgaeObject.AreYouSureToDeleteThisPayeeMsg()))
+							clickOnElement(IOShomePgaeObject.YesButton());
+						
+						for(int innerLoop=0; innerLoop<2; innerLoop++) {
+							String ErrorissueXpath = "//XCUIElementTypeStaticText[@name='You may be facing some delays and we are trying to sort it out now. Sorry for the inconvenience. Do check back later.']";
+							List<RemoteWebElement> list = driver.findElements(By.xpath(ErrorissueXpath));
+						if (list.size() > 0) {
+							TakeScreenshot(IOShomePgaeObject.alertOkButton()); 
+							clickOnElement(IOShomePgaeObject.alertOkButton());
+							TakeScreenshot(IOShomePgaeObject.MorePayeeDetailDots()); 
+							clickOnElement(IOShomePgaeObject.MorePayeeDetailDots()); 
+							TakeScreenshot(IOShomePgaeObject.DeletePayeeButton()); 
+							clickOnElement(IOShomePgaeObject.DeletePayeeButton());
+							TakeScreenshot(IOShomePgaeObject.AreYouSureToDeleteThisPayeeMsg()); 
+							if(isElementVisible(IOShomePgaeObject.AreYouSureToDeleteThisPayeeMsg()))
+								clickOnElement(IOShomePgaeObject.YesButton());
+							}
+						}
+						
+						String message = ExpectedRecipientName + " Deleted";
+						String DeletePayeeMessageXPath = "//XCUIElementTypeStaticText[@name='"+message+"']";
+						MobileElement DeletePayeeMessageElement = (MobileElement) driver.findElement(By.xpath(DeletePayeeMessageXPath));
+					if(isElementVisible(DeletePayeeMessageElement)) {
+						TakeScreenshot(IOShomePgaeObject.OKButton()); 
+					     clickOnElement(IOShomePgaeObject.OKButton());
+					}
+					}
+					else {
+						clickOnElement(IOShomePgaeObject.BackBtn());
+					}
+				}
+			
+			int ActualTotalPayeeSize = IOShomePgaeObject.IiconList().size();
+			int ExpectedTotalSizeAfterDeletingPayee = ExpectedTotalPayeeSize - 1;
+			Asserts.assertEquals(String.valueOf(ExpectedTotalSizeAfterDeletingPayee) , String.valueOf(ActualTotalPayeeSize),
+					 " Payee is not deleting after adding payee.");
+			
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Verifies Visibilty of 'logout' and 'make a transfer' button and Verifies the recipient name, account number, bank name.")
+	public void verifyValidationForPayeeAdd(String ExpectedRecipientName, String BankName, String AccountNumber)
+			throws Exception {
+		try {
+			Asserts.assertTrue(IOShomePgaeObject.LogoutBtn().isDisplayed(), "Log Out Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.makeTransferButton().isDisplayed(), "Make A Transfer Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.closeButton().isDisplayed(), "Close Button not found.");
+			
+			Asserts.assertTrue(IOShomePgaeObject.RecipientNameText().isDisplayed(), "'Recipient's Name' text is not dispalying After adding Payee.");
+			String RecipientNameXpath = "//XCUIElementTypeStaticText[@name='"+ExpectedRecipientName+"']";
+			MobileElement RecipientNameElement = (MobileElement) driver.findElement(By.xpath(RecipientNameXpath));
+			Asserts.assertEquals(getTexOfElement(RecipientNameElement), ExpectedRecipientName,
+					ExpectedRecipientName + " is not matching after adding payee");
+			
+			Asserts.assertTrue(IOShomePgaeObject.RecipientBankText().isDisplayed(), "'Recipient's Bank' text is not dispalying After adding Payee.");
+			String BankNameXpath = "//XCUIElementTypeStaticText[@name='"+BankName+"']";
+			MobileElement BankNameElement = (MobileElement) driver.findElement(By.xpath(BankNameXpath));
+			Asserts.assertEquals(getTexOfElement(BankNameElement), BankName,
+					BankName + " is not matching after adding payee");
+			
+			Asserts.assertTrue(IOShomePgaeObject.RecipientAccountNo().isDisplayed(), "'Recipient's Account No.' text is not dispalying After adding Payee.");
+			String AccountNumberXpath = "//XCUIElementTypeStaticText[@name='"+AccountNumber+"']";
+			MobileElement AccountNumberElement = (MobileElement) driver.findElement(By.xpath(AccountNumberXpath));
+			Asserts.assertEquals(getTexOfElement(AccountNumberElement), AccountNumber,
+					AccountNumber + " is not matching after adding payee");
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			throw e;
+		}
+	}
+	
+	
+	@Step("Click On Close Button.")
+	public void ClickOnCloseButton() throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.closeButton());
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			throw e; 
+		}
+	}
+	
+	@Step("Verify Local Transfer Pay Now Page Header After Clicking On Add Local Recipient Page Header.")
+	public void clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader() throws Exception {
+		try {
+			String xpath = "//XCUIElementTypeButton[@name='ADD RECIPIENT NOW']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			if (list.size() > 0) {
+				TakeScreenshot(IOShomePgaeObject.AddRecipientNowButton());
+				clickOnElement(IOShomePgaeObject.AddRecipientNowButton());
+			} else {
+				TakeScreenshot(IOShomePgaeObject.AddLocalRecipientButton());
+				clickOnElement(IOShomePgaeObject.AddLocalRecipientButton());
+			}
+			
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.LocalTransferPayNowPageHeader()), " 'Local Transfer & Pay Now' Page Header not displaying.");
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			throw e;
+		}
+	}
+	
+	@Step("Enter Recipient Details Into Bank Account Section.")
+	public void EnterRecipientDetailsAfterSelectingBankAccountOption(String ExpectedRecipientName, String BankName,
+			String AccountNumber) throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.SelectBankAccount());
+			clickOnElement(IOShomePgaeObject.SelectBankAccount());
+			
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.EnterRecipientDetailsPageHeader()), " 'Enter Recipient's Details' Page Header not displaying.");
+			
+		 	enterTextInTextbox(IOShomePgaeObject.EnterRecipientNameEditableField(), ExpectedRecipientName);
+		 	
+			clickOnElement(IOShomePgaeObject.SelectBankDropdown());
+			clickOnElement(IOShomePgaeObject.SearchBankNameField());
+			enterTextInTextbox(IOShomePgaeObject.SearchBankNameField(), BankName);
+			
+			String xpath = "//XCUIElementTypeStaticText[@name='" + BankName + "']";
+			MobileElement Selectbank = (MobileElement) driver.findElement(By.xpath(xpath));
+			clickOnElement(Selectbank);
+			
+			enterTextInTextbox(IOShomePgaeObject.EnterAccountNumberEditField(), AccountNumber);
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			throw e;
+		}
+	}
+
+	@Step("clicking On 'ADD RECIPIENT NOW' button")
+	public void ClickOnAddRecipientNowBtn() throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.ADDRecipientNowButton()); 
+			String actualText = getTexOfElement(IOShomePgaeObject.ADDRecipientNowButton());
+			if (actualText.equalsIgnoreCase(CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue()))
+				clickOnElement(IOShomePgaeObject.ADDRecipientNowButton());
+			Thread.sleep(4000);
+			Asserts.assertEquals(actualText, CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue(), "Button not matching");
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Verify 'You Have Added Recipient Msg' After Entering Secure PIN.")
+	public void VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN() throws Exception {
+		try {
+			EnterPasscodeAndDone();
+			Thread.sleep(20000);
+			TakeScreenshot(IOShomePgaeObject.PayeeAddedSuccessImage().get(3)); 
+			if (isElementVisible(IOShomePgaeObject.PayeeAddedSuccessImage().get(3))) 
+				Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.YouHaveAddedRecipient()),
+						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
+						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not matching");
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			throw e;
+		}
+	}
+	
+	@Step("Enter Passcode(123456) and click on Done button for Secure Pin Authentication.")
+	public void EnterPasscodeAndDone() throws Exception {
+		try {
+			Thread.sleep(10000);
+			String xpath = "//XCUIElementTypeSecureTextField[@value='••••••']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			if (list.size() > 0) {
+				TakeScreenshot(IOShomePgaeObject.secureBox());
+				enterTextInTextbox(IOShomePgaeObject.secureBox(), CommonTestData.OTP.getEnumValue());
+				String doneButtonxpath = "//XCUIElementTypeButton[@name='Done']";
+				List<RemoteWebElement> doneButtonList = driver.findElements(By.xpath(doneButtonxpath));
+				if (doneButtonList.size() > 0)
+					clickOnElement(IOShomePgaeObject.doneButton());
+			}
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
 }

@@ -79,5 +79,34 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 5, enabled = true, description = "Payee-Add-DBSorPOSB-ONEAPP-14675")
+	@Description(value = "Execution of this testcase:: Verifies the Payee add DSB or POSB.")
+	@Author(name = "Divya Devi")
+	public void Payee_Add_DBSorPOSB(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.VerifyAddPayeeDBSorPOSB();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
+	@Parameters({ "userName", "password" })
+	@Test(priority = 9, enabled = true, description = "Payee-Add-Local-OtherBank-ONEAPP-15677")
+	@Description(value = "Execution of this testcase:: Verifies the Payee Add Local Other Bank.")
+	@Author(name = "Divya Devi")
+	public void Payee_Add_Local_OtherBank(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.PayeeAddLocalOtherBank();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 }

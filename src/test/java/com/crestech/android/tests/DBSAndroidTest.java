@@ -5,7 +5,6 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.crestech.annotation.values.Author;
-import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.base.UserBaseTest;
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
