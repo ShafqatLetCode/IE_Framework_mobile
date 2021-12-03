@@ -8,7 +8,6 @@ import com.crestech.annotation.values.Author;
 import com.crestech.base.UserBaseTest;
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
-import com.crestech.common.utilities.GestureUtils;
 import com.crestech.listeners.TestListener;
 import com.crestech.pages.DBSAndroidPage;
 import io.qameta.allure.Description;
@@ -34,6 +33,8 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");
+			dbspage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue() ,CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(),CommonTestData.CURRENCY.getEnumValue() );
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -312,14 +313,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			 dbspage.logInApplication(userName, password,"DBS");
-			 dbspage.ClickOnMoreButton();
-			 dbspage.EnterPasscodeAndDone();
-			 dbspage.sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(), CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(), CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), dbspage.DBSappObject.PageHeader());
-			 dbspage.setAmountDurationPurposeForLimitIncrease("100", "wedding", "11" , "oct", "2021");
-			 GestureUtils.scrollUPtoObject("text", "NEXT", dbspage.DBSappObject.NextBtn());
-			 dbspage.ClickOnNextButton();
-			 dbspage.verifyPageHeader(CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue(),dbspage.DBSappObject.PageHeader());
-			 
+			 dbspage.CreditCardTempLimitIncrease();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
