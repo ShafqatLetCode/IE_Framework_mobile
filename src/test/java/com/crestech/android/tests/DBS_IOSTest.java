@@ -79,5 +79,19 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
+	@Parameters({ "userName", "password" })
+	@Test(priority = 7, enabled = true, description = "Payee-Add-Remittance-ONEAPP-13679")
+	@Description(value = "Execution of this testcase:: Verify the Add Remittance payee")
+	@Author(name = "Shafqat Ali")
+	public void Payee_Add_Remittance(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.PayeeAddRemittance();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
 }

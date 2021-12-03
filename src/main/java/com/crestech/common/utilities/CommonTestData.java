@@ -70,7 +70,7 @@ public enum CommonTestData {
 	REVIEW_RECIPIENT_LABEL("REVIEW RECIPIENT'S DETAILS"),
 	OVERSEAS_TRANSFER_PAGEHEADER("Overseas Transfer"),
 	SET_CARD_PIN("Set Card PIN"),
-	
+	ENTER_RECIPIENT_DETAIL("Enter Recipient's Details"),
 	
 	//App Package And Activity
 	DBS_APPS_ACTIVITY("com.dbs.sg.digibank.ui.demo.SplashActivity"),
@@ -236,7 +236,7 @@ public enum CommonTestData {
 	TRANSFERRED("Transferred"),
     STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
 	SHOW_BUTTON("SHOW"),
-	
+
 
 
 	TEMP_LIMIT_INCREASE("Temporary Credit Limit Increase"),

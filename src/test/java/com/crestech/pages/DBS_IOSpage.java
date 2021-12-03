@@ -162,6 +162,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 }
 	public void fieldText(String expectedText, MobileElement Element) throws Exception {
 		try {
+			 TakeScreenshot(Element);
 			String actualText = getTexOfElement(Element).trim();
 
 			Asserts.assertEquals(actualText.toLowerCase(), expectedText.toLowerCase(), "text is not found");
@@ -205,13 +206,13 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 	public void ButtonLabelVerifyClick(MobileElement Button,String expectecText) throws Exception {
 		try {
-
+			TakeScreenshot(Button);
 			String actualText = commonAppTest.getTexOfElement(Button);
 
 			if (actualText.equalsIgnoreCase(expectecText))
 				commonAppTest.clickOnElement(Button);
 
-			Asserts.assertEquals(actualText, expectecText, "button Not exist");
+			Asserts.assertEquals(actualText.toLowerCase(),expectecText.toLowerCase(), "button Not exist");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -221,6 +222,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 	public void ButtonVerifyClick(MobileElement Button) throws Exception {
 		try {
+			TakeScreenshot(Button);
 			Asserts.assertTrue(commonAppTest.isElementEnable(Button), "button Not enable");
 			if (commonAppTest.isElementEnable(Button))
 				commonAppTest.clickOnElementOnEnable(Button);
@@ -677,7 +679,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			nextButtonVerifyClick();
 			verifyReviewDailyLimitTitle();
 			verifyClickChangeDailyLimitNowButton();
-			EnterPasscodeAndDone();
+			EnterPasscodeAndDone2();
 			verifyLocalTransferlimitChangedHeader(CommonTestData.LOCAL_LIMIT_INCREASE_SUCCESS_TITLE_IOS.getEnumValue());
 			verifyClickBackToMoreButton();
 			sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS.getEnumValue(),
@@ -748,13 +750,234 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			String xpath = "//XCUIElementTypeSecureTextField[@value='••••••']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0) {
-				enterTextInTextbox(IOShomePgaeObject.secureBox(), CommonTestData.OTP.getEnumValue());
-			    Thread.sleep(5000);
+				clickOnElement(IOShomePgaeObject.secureBox());
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				Thread.sleep(2000);
+				for(int i=1;i<=6;i++) {
+					String bxpath = "//XCUIElementTypeButton[@name="+i+"]";
+					 MobileElement button = (MobileElement) driver.findElement(By.xpath(bxpath));
+					clickOnElement(button);
+				}	
 			}
-			TakeScreenshot(IOShomePgaeObject.secureBox());
 			
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	@Step("Verify 'You have added a Recipient ' after excecuting Payee Add Remittance Case.")
+	public void PayeeAddRemittance() throws Exception {
+		try {
+			payAndTransferVerifyClick();
+			EnterPasscodeAndDone();
+			overseasVerifyClick(CommonTestData.OVERSEAS_ICON.getEnumValue());
+			ClickOnAddRecipientNowBtn();
+			sendCountryInSearchBoxAndSelectFromDropDown(CommonTestData.COUNTRY_AUS.getEnumValue(),
+					CommonTestData.COUNTRY_AUS.getEnumValue());
+			CurrencyTypeVerifyClick(CommonTestData.CURRENCY_AUS.getEnumValue());
+			nextButtonVerifyClick();
+			sendBankCode(CommonTestData.BANK_BCD_CODE.getEnumValue());
+			nextButtonVerifyClick();
+			verifyRecipientDetailHeaderAndEnterDetail(); 
+			nextButtonVerifyClick();
+			verifyRecipientReviewDetailAndClickOnAddRecipientVutton();
+			EnterPasscodeAndDone2();
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.addedRecipientTitle()).toLowerCase(),
+					CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue().toLowerCase(),
+					"'You've added a recipient label' Text is not matching");
+			verifyReferenceFieldAndItsValue(CommonTestData.REFERENCE_NUMBER.getEnumValue());
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Verifying Overseas  icon and click")
+	public void overseasVerifyClick(String expectecText) throws Exception {
+		try {
+             ButtonLabelVerifyClick(IOShomePgaeObject.overseasButton(), expectecText);
+
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("clicking On 'ADD RECIPIENT NOW' button")
+	public void ClickOnAddRecipientNowBtn() throws Exception {
+		try {
+			 ButtonVerifyClick(IOShomePgaeObject.addRecipientNowButton());
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+
+	}
+	@Step("Enter the text in search and select the corresponding value in the dropdown")
+	public void sendCountryInSearchBoxAndSelectFromDropDown(String searchBoxData, String valueSelectedFromList) throws Exception {
+		try {
+
+			if (isElementEnable(IOShomePgaeObject.searchBoxforLocation()))
+				enterTextInTextbox(IOShomePgaeObject.searchBoxforLocation(), searchBoxData);
+			TakeScreenshot(IOShomePgaeObject.countryList().get(1));
+			List<MobileElement> Elementlist = IOShomePgaeObject.countryList();
+			int l = Elementlist.size();
+			int index = 0;
+			String countryFromList = null;
+			for (int i = 1; i <= l; i++) {
+				countryFromList = Elementlist.get(i).getText();
+				if (countryFromList.equalsIgnoreCase(valueSelectedFromList)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+
+			Asserts.assertTrue(index > 0, "No element found in the lis of corresponding value");
+
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Select CurrencyType From the List")
+	public void CurrencyTypeVerifyClick(String expectecCurrency) throws Exception {
+		try {
+			
+			TakeScreenshot(IOShomePgaeObject.currencyList().get(1));
+			List<MobileElement> Elementlist =IOShomePgaeObject.currencyList();
+			int l = Elementlist.size();
+			int index = 0;
+			String currencyFromList = null;
+			for (int i = 0; i < l; i++) {
+				currencyFromList = Elementlist.get(i).getText();
+				if (currencyFromList.equalsIgnoreCase(expectecCurrency)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+
+			Asserts.assertTrue(index > 0, "No currency found in the list of corresponding value");
+
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+
+	}
+	@Step("Enter data in Bank Code EditBox")
+	public void sendBankCode(String text) throws Exception {
+		try {
+			
+			if (isElementEnable(IOShomePgaeObject.bankCode()))
+				enterTextInTextbox(IOShomePgaeObject.bankCode(), text);
+			
+			TakeScreenshot(IOShomePgaeObject.bankCode());
+			Asserts.assertTrue(isElementEnable(IOShomePgaeObject.bankCode()), "EditField is not enable");
+			doneButtonIfAviliable();
+
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("click on done button")
+	public void doneButtonIfAviliable() throws Exception
+	{
+		try {
+		String doneButtonxpath = "//XCUIElementTypeButton[@name='Done']";
+		List<RemoteWebElement> doneButtonList = driver.findElements(By.xpath(doneButtonxpath));
+		if (doneButtonList.size() > 0)
+			    TakeScreenshot(doneButtonList.get(0));
+				clickOnElement(IOShomePgaeObject.doneButton());
+			} catch (Exception e) {
+			
+				e.printStackTrace(); throw e;
+			}
+	}
+	@Step("Enter data in Bank Code EditBox")
+	public void verifyRecipientDetailHeaderAndEnterDetail() throws Exception {
+		try {
+			fieldText(CommonTestData.ENTER_RECIPIENT_DETAIL.getEnumValue(), IOShomePgaeObject.recipientDetailTitle());
+			
+			sendAccountNo(CommonTestData.ACCOUNT_NO.getEnumValue());
+			sendFullName(CommonTestData.FULL_NAME.getEnumValue());
+			GestureUtils.scrollUPtoObject("name", "NEXT", null);
+			sendAddress(CommonTestData.ADDRESS.getEnumValue());
+			sendcity(CommonTestData.CITY.getEnumValue());
+			
+
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Enter Account No EditBox")
+	public void sendAccountNo(String text) throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.recipientDetailAccountNumver());
+			if (isElementEnable((IOShomePgaeObject.recipientDetailAccountNumver())))
+				enterTextInTextbox(IOShomePgaeObject.recipientDetailAccountNumver(), text);
+			
+			doneButtonIfAviliable();
+			// Asserts.assertTrue(isElementEnable(DBSappObject.recipientAccountNoEditBox()),
+			// "EditField is not enable");
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+
+	@Step("Enter Full name EditBox")
+	public void sendFullName(String text) throws Exception {
+		try {
+			 TakeScreenshot(IOShomePgaeObject.recipientDetailAccountName());
+			if (isElementEnable(IOShomePgaeObject.recipientDetailAccountName()))
+				enterTextInTextbox(IOShomePgaeObject.recipientDetailAccountName(), text);
+			doneButtonIfAviliable();
+			    
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+
+	@Step("Enter Address EditBox")
+	public void sendAddress(String text) throws Exception {
+		try {
+			 TakeScreenshot(IOShomePgaeObject.recipientDetailAddress());
+				if (isElementEnable(IOShomePgaeObject.recipientDetailAddress()))
+					enterTextInTextbox(IOShomePgaeObject.recipientDetailAddress(), text);
+				doneButtonIfAviliable();
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+
+	@Step("Enter city EditBox")
+	public void sendcity(String text) throws Exception {
+		try {
+			 TakeScreenshot(IOShomePgaeObject.recipientDetailCity());
+				if (isElementEnable(IOShomePgaeObject.recipientDetailCity()))
+					enterTextInTextbox(IOShomePgaeObject.recipientDetailCity(), text);
+				doneButtonIfAviliable();
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Verify 'REVIEW RECIPIENT'S DETAILS label' and Click on 'Add Recipient Now' button")
+	public void verifyRecipientReviewDetailAndClickOnAddRecipientVutton() throws Exception {
+		try {
+			fieldText(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue(), IOShomePgaeObject.reviewRecipientDetailTitle());
+			ButtonVerifyClick(IOShomePgaeObject.addRecipientNowButton());
+
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Verify 'Reference No. Field and its value' field and Verify 'MAKE A TRANSFER' Button After Expanding & Scrolling to the Page.")
+	public void verifyReferenceFieldAndItsValue(String expectedText) throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.expandButton());
+			GestureUtils.scrollUPtoObject("name", "Reference No.", IOShomePgaeObject.referenceNumber());
+			TakeScreenshot(IOShomePgaeObject.makeTransfer());
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.makeTransfer()).toLowerCase(),
+					CommonTestData.MAKE_TRANSFER.getEnumValue().toLowerCase(), "'MAKE A TRANSFER' Text is not found");
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.referenceNumber()).toLowerCase(), expectedText.toLowerCase(),
+					"'Reference no Field' is not found");
+			boolean i = IOShomePgaeObject.referenceNoValue().getText().isEmpty();
+			Asserts.assertTrue(i == false, "Reference Number not Found");
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
 		}
 	}
 	

@@ -420,5 +420,131 @@ public class DBS_IOSObject {
 	public MobileElement  localTransferLimitChangedTitle() {
 		return  localTransferLimitChangedTitle;
 	}
+	@ElementDescription(value = " Overseas button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Overseas']")
+	private MobileElement overseasButton;
 
+	public MobileElement  overseasButton() {
+		return  overseasButton;
+	}
+	@ElementDescription(value = " ADD RECIPIENT NOW label")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeButton)[5]")
+	private MobileElement addRecipientNow;
+
+	public MobileElement  addRecipientNow() {
+		return  addRecipientNow;
+	}
+	@ElementDescription(value = "Search for a Location")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeSearchField[@name='Search for a Location']")
+	private MobileElement searchBoxforLocation;
+
+	public MobileElement  searchBoxforLocation() {
+		return  searchBoxforLocation;
+	}
+	@ElementDescription(value = "country Element list")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell/XCUIElementTypeStaticText)")
+	private List<MobileElement> countryList;
+
+	public List<MobileElement> countryList() {
+		return countryList;
+	}
+	@ElementDescription(value = "currency Element list")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell/XCUIElementTypeStaticText)")
+	private List<MobileElement> currencyList;
+
+	public List<MobileElement> currencyList() {
+		return currencyList;
+	}
+	@ElementDescription(value = "bank Code")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='addPayee_AUD_BSB_textField']/XCUIElementTypeOther/XCUIElementTypeOther")
+	private MobileElement bankCode;
+
+	public MobileElement  bankCode() {
+		return  bankCode;
+	}
+	@ElementDescription(value = "Enter Recipient's Details title")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Enter Recipient')]")
+	private MobileElement recipientDetailTitle;
+
+	public MobileElement  recipientDetailTitle() {
+		return  recipientDetailTitle;
+	}
+	@ElementDescription(value = "Enter Recipient's Account no. editbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='AddPayeeRecipientDetails_Enter account no.']")
+	private MobileElement recipientDetailAccountNumver;
+
+	public MobileElement  recipientDetailAccountNumver() {
+		return  recipientDetailAccountNumver;
+	}
+	@ElementDescription(value = "Enter Recipient's Name editbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='AddPayeeRecipientDetails_Enter recipient's full name']")
+	private MobileElement recipientDetailAccountName;
+
+	public MobileElement  recipientDetailAccountName() {
+		return recipientDetailAccountName;
+	}
+	@ElementDescription(value = "Enter Recipient's Address editbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Full Address']")
+	private MobileElement recipientDetailAddress;
+
+	public MobileElement  recipientDetailAddress() {
+		return recipientDetailAddress;
+	}
+	@ElementDescription(value = "Enter Recipient's city editbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='In The City Of']")
+	private MobileElement recipientDetailcity;
+
+	public MobileElement  recipientDetailCity() {
+		return recipientDetailcity;
+	}
+	@ElementDescription(value = "Review Recipient's Details title")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Review Recipient')]")
+	private MobileElement reviewRecipientDetailTitle;
+
+	public MobileElement  reviewRecipientDetailTitle() {
+		return  reviewRecipientDetailTitle;
+	}
+	@ElementDescription(value = " ADD RECIPIENT NOW button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='ADD RECIPIENT NOW']")
+	private MobileElement addRecipientNowButton;
+
+	public MobileElement  addRecipientNowButton() {
+		return  addRecipientNowButton;
+	}
+	@ElementDescription(value = "You've added a recipient title")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'added a recipient')]")
+	private MobileElement addedRecipientTitle;
+
+	public MobileElement  addedRecipientTitle() {
+		return  addedRecipientTitle;
+	}
+	@ElementDescription(value = " expand button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='icn arrow']")
+	private MobileElement expandButton;
+
+	public MobileElement  expandButton() {
+		return  expandButton;
+	}
+	@ElementDescription(value = "Reference No.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Reference No.']")
+	private MobileElement referenceNo;
+
+	public MobileElement  referenceNo() {
+		return  referenceNo;
+	}
+	@ElementDescription(value = "Reference No. value")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText)[22]")
+	private MobileElement referenceNoValue;
+
+	public MobileElement  referenceNoValue() {
+		return  referenceNoValue;
+	}
+	@ElementDescription(value = "MAKE A TRANSFER button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='MAKE A TRANSFER']")
+	private MobileElement makeTransfer;
+
+	public MobileElement  makeTransfer() {
+		return  makeTransfer;
+	}
+	
 }
