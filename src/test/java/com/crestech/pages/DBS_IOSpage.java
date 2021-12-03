@@ -241,7 +241,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 
 	@Step("verify and click 'pay and transfer' Field")
-	public void payAndTransferVerifyClick() throws Exception {
+	public void ClickOnPayAndTransferButton() throws Exception {
 		try {
 			ButtonLabelVerifyClick(IOShomePgaeObject.payAndTransferButton(),
 					CommonTestData.PAY_TRANSFER_ICON.getEnumValue());
@@ -671,7 +671,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verify topup Paylah Case and logout topup Paylah.")
 	public void TopupPaylah() throws Exception {
 		try {
-			payAndTransferVerifyClick();
+			ClickOnPayAndTransferButton();
 			EnterPasscodeAndDone();
 			topUpVerifyClick();
 			payLahVerifyClick();
@@ -701,7 +701,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			ClickOnNextButton();
 			verifyReviewDailyLimitTitle();
 			verifyClickChangeDailyLimitNowButton();
-			EnterPasscodeAndDone2();
+			EnterPasscode();
 			verifyLocalTransferlimitChangedHeader(CommonTestData.LOCAL_LIMIT_INCREASE_SUCCESS_TITLE_IOS.getEnumValue());
 			verifyClickBackToMoreButton();
 			sendDataInCommonSearchBoxAndSelectFromDropDown(
@@ -754,7 +754,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifies Add payee DBSorPOSB.")
 	public void VerifyAddPayeeDBSorPOSB() throws Exception {
 		try {
-			payAndTransferVerifyClick();
+			ClickOnPayAndTransferButton();
 			EnterPasscodeAndDone();
 			clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader();
 			String ExpectedRecipientName = CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue();
@@ -769,9 +769,15 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
 			verifyValidationForPayeeAdd(ExpectedRecipientName, CommonTestData.PAYEEADD_DBSPOSB_BANK_NAME.getEnumValue(),
 					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
-			clickOnElement(IOShomePgaeObject.closeButton());
+			
+			//Delete Payee Code Start After Adding Payee DBS/POSB
+			ClickOnCloseButton();
 			clickOnLocalButton();
 			DeletePayee(ExpectedRecipientName);
+			
+			// Leave On Home Page to this test case for next run.
+			ClickOnCloseButton();
+			ClickOnHomeButton();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -802,7 +808,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifies the Payee Add Local OtherBank and verifies 'YOU HAVE ADDED RECIPIENT MSG' .")
 	public void PayeeAddLocalOtherBank() throws Exception {
 		try {
-			payAndTransferVerifyClick();
+			ClickOnPayAndTransferButton();
 			EnterPasscodeAndDone();
 			clickOnLocalButton();
 			clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader();
@@ -819,15 +825,41 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
 			verifyValidationForPayeeAdd(ExpectedRecipientName, CommonTestData.LOCAL_RECIPIENT_BANK_NAME.getEnumValue(),
 					ExpectedAccountNumber);
-			clickOnElement(IOShomePgaeObject.closeButton());
+			
+			//Delete Payee Code Start After Adding Payee Local to Other Bank
+			ClickOnCloseButton();
 			clickOnLocalButton();
 			DeletePayee(ExpectedRecipientName);
 
 			// Leave On Home Page to this test case for next run.
-
+			ClickOnCloseButton();
+			ClickOnHomeButton();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
+		}
+	}
+	
+	@Step("Click on 'Home' Button.")
+	public void ClickOnHomeButton() throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.HOMEButton()); 
+			clickOnElement(IOShomePgaeObject.HOMEButton());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e; 
+		}
+	}
+	
+	@Step("Click on 'Close' Button.")
+	public void ClickOnCloseButton() throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.closeButton()); 
+			clickOnElement(IOShomePgaeObject.closeButton());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e; 
 		}
 	}
 
@@ -883,7 +915,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			int ExpectedTotalSizeAfterDeletingPayee = ExpectedTotalPayeeSize - 1;
 			Asserts.assertEquals(String.valueOf(ExpectedTotalSizeAfterDeletingPayee),
 					String.valueOf(ActualTotalPayeeSize), " Payee is not deleting after adding payee.");
-
+           
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -919,16 +951,6 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			MobileElement AccountNumberElement = (MobileElement) driver.findElement(By.xpath(AccountNumberXpath));
 			Asserts.assertEquals(getTexOfElement(AccountNumberElement), AccountNumber,
 					AccountNumber + " is not matching after adding payee");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
-
-	@Step("Click On Close Button.")
-	public void ClickOnCloseButton() throws Exception {
-		try {
-			clickOnElement(IOShomePgaeObject.closeButton());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1033,8 +1055,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Enter Passcode(123456) and click on Done button for Secure Pin Authentication.")
-	public void EnterPasscodeAndDone2() throws Exception {
+	@Step("Enter Passcode(123456) for Secure Pin Authentication.")
+	public void EnterPasscode() throws Exception {
 		try {
 			Thread.sleep(10000);
 			String xpath = "//XCUIElementTypeSecureTextField[@value='••••••']";
@@ -1047,6 +1069,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					String bxpath = "//XCUIElementTypeButton[@name=" + i + "]";
 					MobileElement button = (MobileElement) driver.findElement(By.xpath(bxpath));
 					clickOnElement(button);
+					Thread.sleep(2000);
 				}
 			}
 
@@ -1058,7 +1081,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verify 'You have added a Recipient ' after excecuting Payee Add Remittance Case.")
 	public void PayeeAddRemittance() throws Exception {
 		try {
-			payAndTransferVerifyClick();
+			ClickOnPayAndTransferButton();
 			EnterPasscodeAndDone();
 			overseasVerifyClick(CommonTestData.OVERSEAS_ICON.getEnumValue());
 			ClickOnAddRecipientNowBtn();
@@ -1071,7 +1094,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			verifyRecipientDetailHeaderAndEnterDetail();
 			ClickOnNextButton();
 			verifyRecipientReviewDetailAndClickOnAddRecipientVutton();
-			EnterPasscodeAndDone2();
+			EnterPasscode();
 			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.addedRecipientTitle()).toLowerCase(),
 					CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue().toLowerCase(),
 					"'You've added a recipient label' Text is not matching");
@@ -1086,7 +1109,6 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void overseasVerifyClick(String expectecText) throws Exception {
 		try {
 			ButtonLabelVerifyClick(IOShomePgaeObject.overseasButton(), expectecText);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1206,8 +1228,6 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				enterTextInTextbox(IOShomePgaeObject.recipientDetailAccountNumver(), text);
 
 			doneButtonIfAviliable();
-			// Asserts.assertTrue(isElementEnable(DBSappObject.recipientAccountNoEditBox()),
-			// "EditField is not enable");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1259,7 +1279,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			fieldText(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue(),
 					IOShomePgaeObject.reviewRecipientDetailTitle());
-			ButtonVerifyClick(IOShomePgaeObject.addRecipientNowButton());
+			ButtonVerifyClick(IOShomePgaeObject.ADDRecipientNowButton());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1272,8 +1292,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			clickOnElement(IOShomePgaeObject.expandButton());
 			GestureUtils.scrollUPtoObject("name", "Reference No.", IOShomePgaeObject.referenceNumber());
-			TakeScreenshot(IOShomePgaeObject.makeTransfer());
-			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.makeTransfer()).toLowerCase(),
+			TakeScreenshot(IOShomePgaeObject.makeTransferButton());
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.makeTransferButton()).toLowerCase(),
 					CommonTestData.MAKE_TRANSFER.getEnumValue().toLowerCase(), "'MAKE A TRANSFER' Text is not found");
 			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.referenceNumber()).toLowerCase(),
 					expectedText.toLowerCase(), "'Reference no Field' is not found");

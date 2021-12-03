@@ -516,6 +516,14 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
 	private MobileElement OKButton;
 	
+	@ElementDescription(value = "'HOME' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Home']")
+	private MobileElement HOMEButton;
+	
+	public MobileElement HOMEButton() { 
+		return HOMEButton;
+	}
+	
 	public MobileElement OKButton() { 
 		return OKButton;
 	}
@@ -723,13 +731,7 @@ public class DBS_IOSObject {
 	public MobileElement  reviewRecipientDetailTitle() {
 		return  reviewRecipientDetailTitle;
 	}
-	@ElementDescription(value = " ADD RECIPIENT NOW button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='ADD RECIPIENT NOW']")
-	private MobileElement addRecipientNowButton;
-
-	public MobileElement  addRecipientNowButton() {
-		return  addRecipientNowButton;
-	}
+	
 	@ElementDescription(value = "You've added a recipient title")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'added a recipient')]")
 	private MobileElement addedRecipientTitle;
@@ -758,12 +760,6 @@ public class DBS_IOSObject {
 	public MobileElement  referenceNoValue() {
 		return  referenceNoValue;
 	}
-	@ElementDescription(value = "MAKE A TRANSFER button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='MAKE A TRANSFER']")
-	private MobileElement makeTransfer;
-
-	public MobileElement  makeTransfer() {
-		return  makeTransfer;
-	}
+	
 	
 }
