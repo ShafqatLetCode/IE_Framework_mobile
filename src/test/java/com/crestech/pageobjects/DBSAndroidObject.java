@@ -1513,7 +1513,7 @@ public class DBSAndroidObject {
 
 	//////// fund transfer to other bank
 
-	@ElementDescription(value = "Local Recipient")
+	@ElementDescription(value = "Local Recipient options list, Credit Card Options list")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_expandable_item_head_title')]")
 	private List<MobileElement> AllTabOptionsList;
 
@@ -1913,18 +1913,18 @@ public class DBSAndroidObject {
 
 	@ElementDescription(value = "Local recipient List Text")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/tv_expandable_item_sub_title')]")
-	private List<MobileElement> localRecipientListText;
+	private List<MobileElement> SubTitleTextList;
 
 	
-	public List<MobileElement> localRecipientListText() {
-		return localRecipientListText;                           
+	public List<MobileElement> SubTitleTextList() {
+		return SubTitleTextList;                           
 	}
 	@ElementDescription(value = "Local recipient List clickable")
 	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,':id/root_ll')]")
-	private List<MobileElement> localRecipientListClickable;
+	private List<MobileElement> ListElementToClickable;
 	
-	public List<MobileElement> localRecipientListClickable() {
-		return localRecipientListClickable;
+	public List<MobileElement> ListElementToClickable() {
+		return ListElementToClickable;
 	}
 	
 	@ElementDescription(value = "select fund source list on basis of account name")
@@ -2368,6 +2368,19 @@ public class DBSAndroidObject {
 		return DepositsAccountType;
 	}
 	
-	
+	@ElementDescription(value = "Credit Card Page Header.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_toolbar_title')]")
+	private MobileElement CreditCard_PageHeader;
 
+	@ElementDescription(value = "SHARE PAYMENT DETAILS Button.")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='SHARE PAYMENT DETAILS']")
+	private MobileElement SharePaymentDetailsButton;
+	
+	public MobileElement SharePaymentDetailsButton() {
+		return SharePaymentDetailsButton;
+	}
+	
+	public MobileElement CreditCard_PageHeader() {
+		return CreditCard_PageHeader;
+	}
 }

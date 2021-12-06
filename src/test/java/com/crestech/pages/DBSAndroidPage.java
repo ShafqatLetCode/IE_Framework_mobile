@@ -1133,8 +1133,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Pay Now Button And Verify Payment Submitted Message.")
 	public void ClickOnPayNowBtnAndVerifyPaymentSubmittedMsg() throws Exception {
 		try {
-			wait.waitForElementVisibility(DBSappObject.PayNowButton());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			TakeScreenshot(DBSappObject.PayNowButton());
 			clickOnElement(DBSappObject.PayNowButton());
 			// verifies the payment completion with expected amount.
 			if (isElementVisible(DBSappObject.ImageForPaymentSuccess())) {
@@ -1958,9 +1957,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 			
 			GestureUtils.DragAndDropElementToElement( DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
-			TakeScreenshot(DBSappObject.localRecipientListText().get(0));
-			List<MobileElement> Elementlist = DBSappObject.localRecipientListText();
-			List<MobileElement> ElementlistClickable = DBSappObject.localRecipientListClickable();
+			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
+			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
+			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
 			int l = Elementlist.size();
 			int index = 0;
 			String LocalRecipientList = null;
@@ -2420,7 +2419,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK
 					.getEnumValue();
 			clickingOnAccountTypeInLocalRecipient(ExpectedToBankNameWithAccountNo);
-			DisableToTransferViaFastToggle();
 
 			TakeScreenshot(DBSappObject.EditFields().get(0));
 			clickOnElement(DBSappObject.EditFields().get(0));
@@ -2839,9 +2837,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 
 			GestureUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
-			TakeScreenshot(DBSappObject.localRecipientListText().get(0));
-			List<MobileElement> Elementlist = DBSappObject.localRecipientListText();
-			List<MobileElement> ElementlistClickable = DBSappObject.localRecipientListClickable();
+			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
+			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
+			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
 			int l = Elementlist.size();
 			int index = 0;
 			String LocalRecipientList = null;
@@ -3081,4 +3079,133 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 	
+	@Step("Verify Fund Transfer Pay Credit Card.")
+	public void FundsTransfer_PayCreditCard() throws Exception {
+		try {
+			ClickOnPayAndTransferBtn(); 
+			EnterPasscodeAndDone();
+			SelectAllTAB();
+			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_CREDITCARD_TO_ACCOUNTNUMBER_WITHBANK
+					.getEnumValue();
+			clickingOnAccountTypeInCreditCard(ExpectedToBankNameWithAccountNo);
+			
+			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+
+			String ExpectedFromBankName = CommonTestData.FUNDTRANSFER_CREDITCARD_FROM_ACCOUNT_NAME.getEnumValue();
+			SelectFundSourceAccount(ExpectedFromBankName);
+
+			String ExpectedSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
+			Asserts.assertEquals("Immediate", ExpectedSelectedDate, "Selected Date is not Matching");
+			
+			ClickOnNextButton();
+			Asserts.assertEquals(getTexOfElement(DBSappObject.CreditCard_PageHeader()),
+					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(),
+					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue() + " Text is not matching");
+		
+			ClickOnPayNowBtnAndVerifyPaymentSubmittedMsg();
+			
+			String ExpectedFromAccountNumber = CommonTestData.FUNDTRANSFER_CREDITCARD_FROM_ACCOUNT_NUMBER.getEnumValue();
+			String ExpectedToAccountNumber = CommonTestData.FUNDTRANSFER_CREDITCARD_TO_ACCOUNTNUMBER.getEnumValue();
+			String ExpectedToCreditCardName = CommonTestData.FUNDTRANSFER_TOCREDITCARD_NAME.getEnumValue();
+			VerifyVisibiltyOfSomeElements_FundTransferCreditCard(ExpectedFromBankName, ExpectedFromAccountNumber, ExpectedToAccountNumber,
+					ExpectedToCreditCardName);
+
+			//Leaving On Home Page for Next case Run.
+			clickOnElement(DBSappObject.BackIcon()); 
+			clickOnElement(DBSappObject.homeButton()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	
+	@Step("Verifies the 'Log out', 'Make Another Transfer' Button, 'Share Payment Details' Button and 'Transferred Amount Value' after transferring the fund.")
+	public void VerifyVisibiltyOfSomeElements_FundTransferCreditCard(String ExpectedFromBankName, String ExpectedFromAccountNumber,String ExpectedToAccountNumber, String ExpectedToCreditCardName) throws Exception {
+		try {
+			Asserts.assertTrue(DBSappObject.LOGOUTButton().isDisplayed(), "Log Out Button not found.");
+			
+			GestureUtils.scrollUPtoObject("text", "MAKE ANOTHER TRANSFER", DBSappObject.MakeAnotherTransferBtn());
+			Asserts.assertTrue(DBSappObject.MakeAnotherTransferBtn().isDisplayed(),
+					"Make Another Transfer Button not found.");
+			Asserts.assertTrue(DBSappObject.SharePaymentDetailsButton().isDisplayed(),
+					"'Share Payment Details' Button not found.");
+			Asserts.assertTrue(DBSappObject.BackIcon().isDisplayed(),
+					"'Back' Button not found.");
+			
+			clickOnElement(DBSappObject.FooterExpandableBtn());
+			GestureUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
+			TakeScreenshot( DBSappObject.ReferenceNumberText());
+
+
+			String[] ExpTitleList = new String[] { "From", "To", "When", "Source Account Balance",
+					"Destination Account Balance", "Reference No." };
+
+			for (int i = 0; i < DBSappObject.FundTransferDetailslabel1List().size(); i++) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel1List().get(i)),
+						ExpTitleList[i], ExpTitleList[i] + "Titles is not matching after transfer fund through credit card.");
+			}
+
+			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel2List().get(0)),
+					ExpectedFromBankName,
+					ExpectedFromBankName + " is not matching after Fund Transfer Credit Cards.");
+
+			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel2List().get(1)),
+					ExpectedToCreditCardName,
+					ExpectedToCreditCardName + " is not matching after Fund Transfer Credit Cards.");
+
+			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel3List().get(0)),
+					ExpectedFromAccountNumber,
+					ExpectedFromAccountNumber + " is not matching after Fund Transfer Credit Cards.");
+
+			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel3List().get(1)),
+					ExpectedToAccountNumber,
+					ExpectedToAccountNumber + " is not matching after Fund Transfer Credit Cards.");
+
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			throw e;
+		}
+	}
+	
+	@Step("Click on 'To Account Credit Card' after selecting 'Credit Cards' and verify pageHeader")
+	public void clickingOnAccountTypeInCreditCard(String valueSelectedFromList) throws Exception {
+		try {
+			int o = 0;
+			for (int i = 0; i < DBSappObject.AllTabOptionsList().size(); i++) {
+				String tabText = DBSappObject.AllTabOptionsList().get(i).getText();
+				o++;
+				if (tabText.contains(CommonTestData.CREDIT_CARDS_TAB.getEnumValue())) {
+					clickOnElement(DBSappObject.AllTabOptionsList().get(i));
+					break;
+				}
+			}
+
+			GestureUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
+			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
+			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
+			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
+			int l = Elementlist.size();
+			int index = 0;
+			String ToAccountOptionInSelectedTab = null;
+			for (int i = 0; i < l; i++) {
+				ToAccountOptionInSelectedTab = Elementlist.get(i).getText();
+				if (ToAccountOptionInSelectedTab.equalsIgnoreCase(valueSelectedFromList)) {
+					index++;
+					clickOnElement(ElementlistClickable.get(i));
+					break;
+				}
+			}
+			Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.CreditCard_PageHeader()),
+					CommonTestData.CREDIT_CARD_PAGEHEADER.getEnumValue(),
+					CommonTestData.CREDIT_CARD_PAGEHEADER.getEnumValue() + " Text is not matching");
+			
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+
+	}
+
 }
