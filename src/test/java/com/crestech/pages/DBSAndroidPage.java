@@ -1053,6 +1053,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			EnterBillingOrganisationDetails(CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
 					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
 			ClickOnNextButton();
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
+					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
+					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not matching.");
 			VerifyBillingOrganisationAndBillReferenceNumber(
 					CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
 					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
@@ -1147,9 +1150,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifyBillingOrganisationAndBillReferenceNumber(String AccountName, String ReferenceNum)
 			throws Exception {
 		try {
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not matching.");
 			
 			if (isElementVisible(DBSappObject.BillingOrganisation())
 					&& isElementVisible(DBSappObject.BillReferenceNo())) {
