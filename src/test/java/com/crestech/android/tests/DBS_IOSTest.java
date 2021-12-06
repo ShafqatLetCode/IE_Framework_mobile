@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import com.crestech.annotation.values.Author;
 import com.crestech.base.UserBaseTest;
 import com.crestech.listeners.TestListener;
+import com.crestech.pages.DBSAndroidPage;
 import com.crestech.pages.DBS_IOSpage;
 
 import io.qameta.allure.Description;
@@ -116,6 +117,21 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
 			DBSPgaeObject.ChangeLocalFundsTransferLimit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 23, enabled = true, description = "FundsTransfer-PayCreditCard-ONEAPP-14024")
+	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Pay Credit Card.")
+	@Author(name = "Divya Devi")
+	public void FundsTransfer_PayCreditCard(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.FundsTransfer_PayCreditCard();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

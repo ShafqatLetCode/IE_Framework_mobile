@@ -1304,5 +1304,238 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			throw e;
 		}
 	}
+	
+	
+	@Step("Verify Fund Transfer Pay Credit Card.")
+	public void FundsTransfer_PayCreditCard() throws Exception {
+		try {
+			ClickOnPayAndTransferButton();
+			EnterPasscodeAndDone();
+			SelectAllTAB();
+			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_CREDITCARD_TO_ACCOUNTNUMBER_WITHBANK
+					.getEnumValue();
+			clickingOnAccountTypeInCreditCard(ExpectedToBankNameWithAccountNo);
+			
+			EnterAmount(IOShomePgaeObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+
+			String ExpectedFromBankName = CommonTestData.FUNDTRANSFER_CREDITCARD_FROM_ACCOUNT_NAME.getEnumValue();
+			SelectFundSourceAccount(ExpectedFromBankName);
+
+			String ExpectedSelectedDate = getTexOfElement(IOShomePgaeObject.TransferDateTextElement());
+			Asserts.assertEquals("Immediate", ExpectedSelectedDate, "Selected Date is not Matching");
+			
+			ClickOnNextButton();
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.CreditCard_PageHeader()),
+					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(),
+					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue() + " Text is not matching");
+		
+			ClickOnTransferNowBtnAndVerifyPaymentSubmittedMsg();
+			VerifyVisibiltyOfSomeElements_FundTransferCreditCard();
+
+			//Leaving On Home Page for Next case Run.
+			ClickOnCloseButton();
+			ClickOnHomeButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	
+	@Step("Select Any Fund Source Account After clicking on add sign for select fund source.")
+	public void SelectFundSourceAccount(String fromOwnAccount) throws Exception {
+		try {
+			String xpath = "//XCUIElementTypeStaticText[@name='source_account_name']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			if (list.size() > 0) {
+				GestureUtils.scrollDOWNtoObject("text", "Select Fund Source", IOShomePgaeObject.SelectFundSourcePage());
+				TakeScreenshot(IOShomePgaeObject.SelectFundSourcePage());
+				clickOnElement(IOShomePgaeObject.SelectFundSourcePage());
+				TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
+
+				for (int i = 0; i < IOShomePgaeObject.localRecipientsList().size(); i++) {
+					String actualfromOwnAccount = IOShomePgaeObject.localRecipientsList().get(i).getText();
+					if (actualfromOwnAccount.contains(fromOwnAccount)) {
+						clickOnElement(IOShomePgaeObject.localRecipientsList().get(i));
+						break;
+					}
+				}
+
+				Thread.sleep(3000);
+				String xpath1 = "//XCUIElementTypeStaticText[@name='Primary source of fund']";
+				List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
+				if (list1.size() > 0) {
+					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+					if (isElementVisible(IOShomePgaeObject.primarysourceOfFund()))
+						clickOnElement(IOShomePgaeObject.okButton());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Select All TAB.")
+	public void SelectAllTAB() throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.AllTab());
+			clickOnElement(IOShomePgaeObject.AllTab());
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Enter Amount In Editable field to transfer fund.")
+	public void EnterAmount(MobileElement editField, String textToEnter) throws Exception {
+		try {
+			TakeScreenshot(editField);
+			clickOnElement(editField);
+			enterTextInTextbox(editField, textToEnter);
+			backButton();
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Click On Transfer Now Button And Verify Payment Submitted Message.")
+	public void ClickOnTransferNowBtnAndVerifyPaymentSubmittedMsg() throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.TransferNowButton());
+			clickOnElement(IOShomePgaeObject.TransferNowButton());
+			
+			// verifies the payment completion with expected amount.
+			TakeScreenshot(IOShomePgaeObject.PayeeAddedSuccessImage().get(3));
+			if (isElementVisible(IOShomePgaeObject.PayeeAddedSuccessImage().get(3))) {
+				Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.PaymentSubmittedMsg()),
+						CommonTestData.PAYMENT_SUBMITTED.getEnumValue(),
+						CommonTestData.PAYMENT_SUBMITTED.getEnumValue() + " Text is not matching");
+
+				Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.AmountEditableField()),
+						CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + ".00",
+						CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + " Text is not matching.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			throw e;
+		}
+	}
+	
+	@Step("Verifies the 'Log out', 'Make Another Transfer' Button, 'Share Payment Details' Button.")
+	public void VerifyVisibiltyOfSomeElements_FundTransferCreditCard() throws Exception {
+		try {
+			Asserts.assertTrue(IOShomePgaeObject.LogoutBtn().isDisplayed(), "Log Out Button not found.");
+			//add scroll
+			//GestureUtils.scrollUPtoObject("text", "MAKE ANOTHER TRANSFER", DBSappObject.MakeAnotherTransferBtn());
+			Asserts.assertTrue(IOShomePgaeObject.MakeAnotherPaymentBtn().isDisplayed(),
+					"Make Another Transfer Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.SharePaymentDetailsButton().isDisplayed(),
+					"'Share Payment Details' Button not found.");
+			
+			Asserts.assertTrue(IOShomePgaeObject.closeButton().isDisplayed(),
+					"'Close' Button not found.");
+			
+			clickOnElement(IOShomePgaeObject.FooterExpandableBtn());
+			
+			//GestureUtils.scrollUPtoObject("text", "Reference No.", IOShomePgaeObject.referenceNo());
+			TakeScreenshot(IOShomePgaeObject.referenceNo());
+
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			throw e;
+		}
+	}
+	
+	@Step("Click on 'To Account Credit Card' after selecting 'Credit Cards' and verify pageHeader")
+	public void clickingOnAccountTypeInCreditCard(String valueSelectedFromList) throws Exception {
+		try {
+			
+			int o = 0;
+			for (int i = 0; i < IOShomePgaeObject.allTabList().size(); i++) {
+				String tabText = IOShomePgaeObject.allTabList().get(i).getText();
+				o++;
+				if (tabText.contains(CommonTestData.CREDIT_CARDS_TAB.getEnumValue())) {
+					clickOnElement(IOShomePgaeObject.allTabList().get(i));
+					break;
+				}
+			}
+
+			GestureUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(o), IOShomePgaeObject.AllTab());
+			TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
+			List<MobileElement> Elementlist = IOShomePgaeObject.localRecipientsList();
+			int l = Elementlist.size();
+			int index = 0;
+			String LocalRecipientList = null;
+			for (int i = 0; i < l; i++) {
+				LocalRecipientList = Elementlist.get(i).getText();
+				if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+			Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
+
+			Thread.sleep(3000);
+			String xpath1 = "//XCUIElementTypeStaticText[@name='Primary source of fund']";
+			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
+			if (list1.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				if (isElementVisible(IOShomePgaeObject.primarysourceOfFund()))
+					clickOnElement(IOShomePgaeObject.okButton());
+			}
+			
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.CreditCard_PageHeader()),
+					CommonTestData.CREDIT_CARD_PAGEHEADER.getEnumValue(),
+					CommonTestData.CREDIT_CARD_PAGEHEADER.getEnumValue() + " Text is not matching");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Click on Account after selecting 'Local Recipients' and verify pageHeader")
+	public void clickingOnAccountTypeInLocalRecipient(String valueSelectedFromList) throws Exception {
+		try {
+			int o = 0;
+			for (int i = 0; i < IOShomePgaeObject.allTabList().size(); i++) {
+				String tabText = IOShomePgaeObject.allTabList().get(i).getText();
+				o++;
+				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
+					clickOnElement(IOShomePgaeObject.allTabList().get(i));
+					break;
+				}
+			}
+
+			GestureUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(o), IOShomePgaeObject.AllTab());
+			TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
+			List<MobileElement> Elementlist = IOShomePgaeObject.localRecipientsList();
+			int l = Elementlist.size();
+			int index = 0;
+			String LocalRecipientList = null;
+			for (int i = 0; i < l; i++) {
+				LocalRecipientList = Elementlist.get(i).getText();
+				if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+			Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
+
+			Thread.sleep(3000);
+			String xpath1 = "//XCUIElementTypeStaticText[@name='Primary source of fund']";
+			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
+			if (list1.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				if (isElementVisible(IOShomePgaeObject.primarysourceOfFund()))
+					clickOnElement(IOShomePgaeObject.okButton());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+
+	}
 
 }
