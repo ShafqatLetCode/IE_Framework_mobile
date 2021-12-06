@@ -431,6 +431,7 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Enter Recipient's Details']")
 	private MobileElement EnterRecipientDetailsPageHeader;
 	
+	
 	@ElementDescription(value = "'Enter recipient's name' Editable Field.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='Enter recipient's name']")
 	private MobileElement EnterRecipientNameEditableField;
@@ -515,6 +516,22 @@ public class DBS_IOSObject {
 	@ElementDescription(value = "'OK' Button.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
 	private MobileElement OKButton;
+	
+	@ElementDescription(value = "'BACK TO HOME' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='BACK TO HOME']")
+	private MobileElement BackToHomeButton;
+	
+	public MobileElement BackToHomeButton() { 
+		return BackToHomeButton;
+	}
+	
+	@ElementDescription(value = "'MAKE ANOTHER TRANSFER' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='MAKE ANOTHER TRANSFER']")
+	private MobileElement MakeAnotherTransferButton;
+	
+	public MobileElement MakeAnotherTransferButton() { 
+		return MakeAnotherTransferButton;
+	}
 	
 	@ElementDescription(value = "'HOME' Button.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Home']")
@@ -769,12 +786,33 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='FT_Amount_Field']")
 	private MobileElement AmountEditableField;
 
-	@ElementDescription(value = "'Select Fund Source' Add Button.")
+	@ElementDescription(value = "'Select billing organisation' Dropdown.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='source_account_name']")
 	private MobileElement SelectFundSourcePage;
 	
+	@ElementDescription(value = "'Select Fund Source' Add Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='Select billing organisation']")
+	private MobileElement SelectBillingOrganisation;
 	
+	@ElementDescription(value = "'Search for a billing organisation' Edit Field.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeSearchField[@name='Search for a billing organisation']")
+	private MobileElement SearchForBillingOrganisationField;
 	
+	@ElementDescription(value = "'Enter reference no.' Edit Field.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='Enter reference no.']")
+	private MobileElement EnterReferenceNoEditField;
+	
+	public MobileElement  EnterReferenceNoEditField() {
+		return  EnterReferenceNoEditField;
+	}
+	
+	public MobileElement  SearchForBillingOrganisationField() {
+		return  SearchForBillingOrganisationField;
+	}
+	
+	public MobileElement  SelectBillingOrganisation() {
+		return  SelectBillingOrganisation;
+	}
 	
 	public MobileElement  SelectFundSourcePage() {
 		return  SelectFundSourcePage;
@@ -826,6 +864,48 @@ public class DBS_IOSObject {
 		return  CreditCard_PageHeader;
 	}
 	
+	@ElementDescription(value = "'Review Payment' page Header")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Payment']")
+	private MobileElement ReviewPaymentPageHeader;
+
+	@ElementDescription(value = "'Your DBS/POSB Accounts' page Header")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Your DBS/POSB Accounts'])[1]")
+	private MobileElement SelectOwnAccount;
+	
+	public MobileElement SelectOwnAccount() {
+		return  SelectOwnAccount;
+	}
+	
+	@ElementDescription(value = "'Transfer to Your Account' page Header")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Transfer to Your Account']")
+	private MobileElement TransferToOwnAccountPageHeader;
+	
+	public MobileElement TransferToOwnAccountPageHeader() {
+		return  TransferToOwnAccountPageHeader;
+	}
+	
+	@ElementDescription(value = "'Review Transfer' page Header")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Transfer']")
+	private MobileElement ReviewTransferPageHeader;
+	
+	@ElementDescription(value = "'TRANSFER NOW' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='TRANSFER NOW']")
+	private MobileElement TRANSFERNOWButton;
+	
+	
+	public MobileElement TRANSFERNOWButton() {
+		return  TRANSFERNOWButton;
+	}
+	
+	public MobileElement ReviewTransferPageHeader() {
+		return  ReviewTransferPageHeader;
+	}
+	
+	public MobileElement ReviewPaymentPageHeader() {
+		return  ReviewPaymentPageHeader;
+	}
+	
+	
 	@ElementDescription(value = "Transfer Date Clickable Element.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Immediate']")
 	private MobileElement TransferDateTextElement;
@@ -862,6 +942,56 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='arrowDown']")
 	private MobileElement FooterExpandableBtn;
 	
+	@ElementDescription(value = "'Add Billing Organisation' Button.")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Add Billing Organisation'])[1]")
+	private MobileElement AddBillingOrganisation;
+	
+	@ElementDescription(value = "'Bills' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Bills']")
+	private MobileElement BillsButton;
+
+	
+	@ElementDescription(value = "'Payee Bill Payment Details List'.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell//XCUIElementTypeStaticText")
+	private List<MobileElement> PayeeBillPaymentDetailsList;
+	
+	@ElementDescription(value = "'MAKE A PAYMENT' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='MAKE A PAYMENT']")
+	private MobileElement MakeAPaymentButton;
+	
+	public MobileElement MakeAPaymentButton() { 
+		return  MakeAPaymentButton;
+	}
+	
+	@ElementDescription(value = "'Transferred' Message.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Transferred']")
+	private MobileElement TransferredMsg;
+	
+	public MobileElement TransferredMsg() { 
+		return  TransferredMsg;
+	}
+	
+	
+	@ElementDescription(value = "'Pay To Biller' Page Header.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pay to Biller']")
+	private MobileElement PayToBillerPageHeader;
+	
+	public MobileElement PayToBillerPageHeader() { 
+		return  PayToBillerPageHeader;
+	}
+	
+	public List<MobileElement> PayeeBillPaymentDetailsList() { 
+		return  PayeeBillPaymentDetailsList;
+	}
+	
+	public MobileElement BillsButton() {
+		return  BillsButton;
+	}
+	
+	public MobileElement AddBillingOrganisation() {
+		return  AddBillingOrganisation;
+	}
+	
 	public MobileElement FooterExpandableBtn() {
 		return  FooterExpandableBtn;
 	}
@@ -873,6 +1003,9 @@ public class DBS_IOSObject {
 	public MobileElement SharePaymentDetailsButton() {
 		return  SharePaymentDetailsButton;
 	}
+	
+	
+	
 	
 	
 	

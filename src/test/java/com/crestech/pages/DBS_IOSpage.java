@@ -770,11 +770,6 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			verifyValidationForPayeeAdd(ExpectedRecipientName, CommonTestData.PAYEEADD_DBSPOSB_BANK_NAME.getEnumValue(),
 					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
 			
-			//Delete Payee Code Start After Adding Payee DBS/POSB
-			ClickOnCloseButton();
-			clickOnLocalButton();
-			DeletePayee(ExpectedRecipientName);
-			
 			// Leave On Home Page to this test case for next run.
 			ClickOnCloseButton();
 			ClickOnHomeButton();
@@ -783,6 +778,23 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			throw e;
 		}
 	}
+	
+	@Step("Delete Payee to DBS/POSB.")
+	public void DeletePayee_ToDBSPOSB() throws Exception {
+		try {
+			ClickOnPayAndTransferButton();
+			EnterPasscodeAndDone();
+			clickOnLocalButton();
+			DeletePayee(CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue());
+			
+			// Leave On Home Page to this test case for next run.
+			ClickOnCloseButton();
+			ClickOnHomeButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	} 
 
 	@Step("Click On Local Button.")
 	public void clickOnLocalButton() throws Exception {
@@ -825,21 +837,33 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
 			verifyValidationForPayeeAdd(ExpectedRecipientName, CommonTestData.LOCAL_RECIPIENT_BANK_NAME.getEnumValue(),
 					ExpectedAccountNumber);
-			
-			//Delete Payee Code Start After Adding Payee Local to Other Bank
-			ClickOnCloseButton();
-			clickOnLocalButton();
-			DeletePayee(ExpectedRecipientName);
 
 			// Leave On Home Page to this test case for next run.
 			ClickOnCloseButton();
-			ClickOnHomeButton();
-			
+			ClickOnHomeButton();	
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
+	
+	@Step("Delete Payee to Local To Other Bank.")
+	public void DeletePayee_LocalToOtherBank() throws Exception {
+		try {
+			ClickOnPayAndTransferButton();
+			EnterPasscodeAndDone();
+			clickOnLocalButton();
+			DeletePayee(CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue());
+			
+			// Leave On Home Page to this test case for next run.
+			ClickOnCloseButton();
+			ClickOnHomeButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	} 
+	
 	
 	@Step("Click on 'Home' Button.")
 	public void ClickOnHomeButton() throws Exception {
@@ -864,9 +888,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 
 	@Step("Delete Payee.")
-	public void DeletePayee(String ExpectedRecipientName) throws Exception {
+	public void DeletePayee(String ExpectedPayee) throws Exception {
 		try {
-			String RecipientNameXpath = "//XCUIElementTypeStaticText[@name='" + ExpectedRecipientName + "']";
+			String RecipientNameXpath = "//XCUIElementTypeStaticText[@name='" + ExpectedPayee + "']";
 			MobileElement RecipientNameElement = (MobileElement) driver.findElement(By.xpath(RecipientNameXpath));
 			int ExpectedTotalPayeeSize = IOShomePgaeObject.IiconList().size();
 
@@ -898,7 +922,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 						}
 					}
 
-					String message = ExpectedRecipientName + " Deleted";
+					String message = ExpectedPayee + " Deleted";
 					String DeletePayeeMessageXPath = "//XCUIElementTypeStaticText[@name='" + message + "']";
 					MobileElement DeletePayeeMessageElement = (MobileElement) driver
 							.findElement(By.xpath(DeletePayeeMessageXPath));
@@ -1325,7 +1349,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertEquals("Immediate", ExpectedSelectedDate, "Selected Date is not Matching");
 			
 			ClickOnNextButton();
-			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.CreditCard_PageHeader()),
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.ReviewPaymentPageHeader()),
 					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(),
 					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue() + " Text is not matching");
 		
@@ -1535,7 +1559,209 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		} catch (Exception e) {
 			e.printStackTrace(); throw e;
 		}
+	}
+	
+	@Step("Verifies the Payee Add Bill Payment and after completion payment verifies the transfering amount.")
+	public void PayeeAddBillPayment() throws Exception {
+		try {
+			ClickOnPayAndTransferButton();
+			EnterPasscodeAndDone();
+			ClickOnBillModuleAndClickOnAddBillingOrganisation();
+			EnterBillingOrganisationDetails(CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
+					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
+			ClickOnNextButton();
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ReviewRecipientDetailsPageHeader()),
+					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Page Header not displaying.");
+			VerifyBillingOrganisationAndBillReferenceNumber(
+					CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
+					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
+			ClickOnAddRecipientNowBtn();
+			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
+			VerifyBillingOrganisationAndBillReferenceNumber(
+					CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
+					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
+			
+			Asserts.assertTrue(IOShomePgaeObject.LogoutBtn().isDisplayed(), "Log Out Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.MakeAPaymentButton().isDisplayed(),
+					"Make A Payment Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.closeButton().isDisplayed(), "Close Button not found.");
+			ClickOnMakeAPaymentAndEnterAmountInAmountEditField();
+			ClickOnNextButton();
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.ReviewPaymentPageHeader()),
+					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(),
+					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue() + " Text is not matching");
+			ClickOnTransferNowBtnAndVerifyPaymentSubmittedMsg();
 
+			// Leave On Home Page to this test case for next run.
+			ClickOnCloseButton();
+			ClickOnHomeButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+	
+	
+	@Step("Delete Payee to Bill Payment.")
+	public void DeletePayee_ToBillPayment() throws Exception {
+		try {
+			ClickOnPayAndTransferButton();
+			EnterPasscodeAndDone();
+			TakeScreenshot(IOShomePgaeObject.BillsButton());
+			clickOnElement(IOShomePgaeObject.BillsButton());
+			DeletePayee(CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
+			
+			// Leave On Home Page to this test case for next run.
+			ClickOnCloseButton();
+			ClickOnHomeButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	} 
+	
+	@Step("Click On Bill Module & Verify Enter Recipient Page Header After Click On Add Billing Organisation.")
+	public void ClickOnBillModuleAndClickOnAddBillingOrganisation() throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.BillsButton());
+			clickOnElement(IOShomePgaeObject.BillsButton());
+
+			String xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			if (list.size() > 0) {
+				TakeScreenshot(IOShomePgaeObject.AddRecipientNowButton());
+				clickOnElement(IOShomePgaeObject.AddRecipientNowButton());
+			} else {
+				TakeScreenshot(IOShomePgaeObject.AddBillingOrganisation());
+				clickOnElement(IOShomePgaeObject.AddBillingOrganisation());
+			}
+			
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.EnterRecipientDetailsPageHeader()),
+					" 'Enter Recipient's Details' Page Header not displaying.");
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			throw e;
+		}
+	}
+	
+	@Step("Enter Billing Organisation Details.")
+	public void EnterBillingOrganisationDetails(String AccountName, String ReferenceNo) throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.SelectBillingOrganisation());
+			clickOnElement(IOShomePgaeObject.SelectBillingOrganisation());
+			clickOnElement(IOShomePgaeObject.SearchForBillingOrganisationField());
+			enterTextInTextbox(IOShomePgaeObject.SearchForBillingOrganisationField(), AccountName);
+			String xpath = "//XCUIElementTypeTextField[@name='"+AccountName+"']";
+			MobileElement SelectBillingOrganisation = (MobileElement) driver.findElement(By.xpath(xpath));
+			clickOnElement(SelectBillingOrganisation);
+			clickOnElement(IOShomePgaeObject.EnterReferenceNoEditField());
+			enterTextInTextbox(IOShomePgaeObject.EnterReferenceNoEditField(), ReferenceNo);
+			backButton();
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			throw e;
+		}
+	}
+	
+	@Step("Verifies Billing Organisation And Bill Reference Number.")
+	public void VerifyBillingOrganisationAndBillReferenceNumber(String AccountName, String ReferenceNum)
+			throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.PayeeBillPaymentDetailsList().get(0)), AccountName,
+					AccountName + " Text is not matching");
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.PayeeBillPaymentDetailsList().get(1)), "Billing Organisation",
+					"Billing Organisation" + " Text is not matching");
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.PayeeBillPaymentDetailsList().get(2)), ReferenceNum,
+					ReferenceNum + " Text is not matching");
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.PayeeBillPaymentDetailsList().get(3)), "Bill Reference No.",
+					"Bill Reference No." + " Text is not matching");
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Click On Make A Payment Button And Enter Amount In Amount Edit Field.")
+	public void ClickOnMakeAPaymentAndEnterAmountInAmountEditField() throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.MakeAPaymentButton()); 
+			clickOnElement(IOShomePgaeObject.MakeAPaymentButton());
+			TakeScreenshot(IOShomePgaeObject.PayToBillerPageHeader()); 
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.PayToBillerPageHeader()),
+					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Page Header not displaying.");
+			
+			EnterAmount(IOShomePgaeObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Verify Fund Transfer For Own Account.")
+	public void VerifyFundTransfer_OwnAccount() throws Exception {
+		try {
+			ClickOnPayAndTransferButton();
+			EnterPasscodeAndDone();
+			SelectAllTAB();
+			SelectOWNAccountAndAnyAccountOption(CommonTestData.FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER.getEnumValue());
+			String ExpectedFromAccountName = CommonTestData.FUNDTRANSFER_FROM_OWN_ACCOUNT_NAME.getEnumValue();
+			SelectFundSourceAccount(ExpectedFromAccountName);
+			
+			EnterAmount(IOShomePgaeObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+			ClickOnNextButton();
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ReviewTransferPageHeader()),
+					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Page Header not displaying.");
+
+			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFERRED.getEnumValue(),
+					IOShomePgaeObject.PayeeAddedSuccessImage().get(0), IOShomePgaeObject.TransferredMsg()); 
+			
+			VerifyAccountDetailsAfterFundTransferToOwnAccount();
+			
+			//Leaving On Home page for next case run.
+			clickOnElement(IOShomePgaeObject.BackToHomeButton()); 
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Verify Account Details After Fund Transfer To Own Account.")
+	public void VerifyAccountDetailsAfterFundTransferToOwnAccount() throws Exception {
+		try {
+			Asserts.assertTrue(IOShomePgaeObject.LogoutBtn().isDisplayed(), "Log Out Button not matching.");
+			Asserts.assertTrue(IOShomePgaeObject.BackToHomeButton().isDisplayed(), "BACK To HOME Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.MakeAnotherTransferButton().isDisplayed(),
+					"MAKE ANOTHER TRANSFER Button not found.");
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+
+	
+	@Step("Verifies Transfer Submitted Message after clicking on Transfer Now Button.")
+	public void ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(String SuccessMsg, MobileElement successImage,
+			MobileElement transfferdSubmitMsgEle) throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.TRANSFERNOWButton());
+			TakeScreenshot(successImage);
+			if (isElementVisible(successImage))
+				Asserts.assertEquals(getTexOfElement(transfferdSubmitMsgEle), SuccessMsg,
+						SuccessMsg + " Text is not matching");
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Select 'Your DBS/POSB Accounts' and then verify 'Transfer to Your Account' Page header after selecting any own account option.")
+	public void SelectOWNAccountAndAnyAccountOption(String ToOwnAccount) throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.SelectOwnAccount());
+			String xpath = "//XCUIElementTypeStaticText[@name='"+ ToOwnAccount + "']";
+			MobileElement ToAccountNo = (MobileElement) driver.findElement(By.xpath(xpath));
+			clickOnElement(ToAccountNo);
+			TakeScreenshot(IOShomePgaeObject.TransferToOwnAccountPageHeader());
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.TransferToOwnAccountPageHeader()),
+					CommonTestData.TRANSFER_TO_YOUR_ACCOUNT.getEnumValue() + " Page Header not displaying.");
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
 	}
 
 }

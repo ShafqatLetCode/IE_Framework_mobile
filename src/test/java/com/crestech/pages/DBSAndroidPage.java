@@ -1053,9 +1053,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			EnterBillingOrganisationDetails(CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
 					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
 			ClickOnNextButton();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not matching.");
 			VerifyBillingOrganisationAndBillReferenceNumber(
 					CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
 					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
@@ -1078,8 +1075,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Enter Billing Organisation Details.")
 	public void EnterBillingOrganisationDetails(String AccountName, String ReferenceNo) throws Exception {
 		try {
-			Thread.sleep(1000);
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			TakeScreenshot(DBSappObject.SelectBillingOrganisation());
 			clickOnElement(DBSappObject.SelectBillingOrganisation());
 			clickOnElement(DBSappObject.SearchForBillingOrganisationField());
 			enterTextInTextbox(DBSappObject.SearchForBillingOrganisationField(), AccountName);
@@ -1095,19 +1091,16 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Bill Module & Verify Enter Recipient Page Header After Click On Add Billing Organisation.")
 	public void ClickOnBillModuleAndClickOnAddBillingOrganisation() throws Exception {
 		try {
-			wait.waitForElementVisibility(DBSappObject.BillsButton());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			TakeScreenshot(DBSappObject.BillsButton());
 			clickOnElement(DBSappObject.BillsButton());
 
 			String xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0) {
-				wait.waitForElementVisibility(DBSappObject.AddRecipientNowBtn());
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				TakeScreenshot(DBSappObject.AddRecipientNowBtn());
 				clickOnElement(DBSappObject.AddRecipientNowBtn());
 			} else {
-				wait.waitForElementVisibility(DBSappObject.AddBillingOrganisation());
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				TakeScreenshot(DBSappObject.AddBillingOrganisation());
 				clickOnElement(DBSappObject.AddBillingOrganisation());
 			}
 		} catch (Exception e) {
@@ -1118,15 +1111,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Make A Payment Button And Enter Amount In Amount Edit Field.")
 	public void ClickOnMakeAPaymentAndEnterAmountInAmountEditField() throws Exception {
 		try {
-			wait.waitForElementVisibility(DBSappObject.MakeAPaymentButton());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			TakeScreenshot(DBSappObject.MakeAPaymentButton()); 
 			clickOnElement(DBSappObject.MakeAPaymentButton());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()),
 					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue(),
 					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Text is not matching");
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			e.printStackTrace(); 
+			throw e;
 		}
 	}
 
@@ -1154,6 +1147,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifyBillingOrganisationAndBillReferenceNumber(String AccountName, String ReferenceNum)
 			throws Exception {
 		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
+					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
+					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not matching.");
+			
 			if (isElementVisible(DBSappObject.BillingOrganisation())
 					&& isElementVisible(DBSappObject.BillReferenceNo())) {
 				Asserts.assertEquals(getTexOfElement(DBSappObject.DBSCASHLINE()), AccountName,

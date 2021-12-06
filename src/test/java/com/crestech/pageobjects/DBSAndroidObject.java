@@ -1076,8 +1076,6 @@ public class DBSAndroidObject {
 	private MobileElement SearchForBillingOrganisationField;
 
 	@ElementDescription(value = "Select Searched Option For Billing Organisation Field")
-	// @AndroidFindBy(xpath =
-	// "//android.widget.TextView[contains(@resource-id,':id/tv_label1')]")
 	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,':id/layout_acc_details')]")
 	private MobileElement SelectSearchedOption;
 

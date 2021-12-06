@@ -34,8 +34,6 @@ public class DBSAndroidTest extends UserBaseTest {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue() ,CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(),CommonTestData.CURRENCY.getEnumValue() );
-			
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -194,10 +192,8 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 
 	@Parameters({ "userName", "password" })
-
 	@Test(priority = 12, enabled = true, description = "ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847")
 	@Description(value = "Execution of this testcase:: Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit.")
-
 	@Author(name = "Shafqat Ali")
 	public void ChangeLocalFundsTransferLimit(String userName, String password) throws Exception {
 		try {

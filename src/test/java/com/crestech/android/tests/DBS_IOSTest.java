@@ -56,6 +56,8 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
+			//Delete Payee Code Start Before Adding Payee DBS/POSB
+			DBSPgaeObject.DeletePayee_ToDBSPOSB();
 			DBSPgaeObject.VerifyAddPayeeDBSorPOSB();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,7 +103,26 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
+			//Delete Payee Code Start Before Adding Payee Local to Other Bank
+			DBSPgaeObject.DeletePayee_LocalToOtherBank();
 			DBSPgaeObject.PayeeAddLocalOtherBank();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 10, enabled = true, description = "Payee-Add-BillPayment-ONEAPP-15938")
+	@Description(value = "Execution of this testcase:: Verifies the Payee Add Bill Payment.")
+	@Author(name = "Divya Devi")
+	public void Payee_Add_BillPayment(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			//Delete Payee Code Start Before Adding Payee to Bill Payment.
+			DBSPgaeObject.DeletePayee_ToBillPayment();
+			DBSPgaeObject.PayeeAddBillPayment();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -117,6 +138,21 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
 			DBSPgaeObject.ChangeLocalFundsTransferLimit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 14, enabled = true, description = "FundsTransfer-OwnAccount-ONEAPP-16730")
+	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Own Account.")
+	@Author(name = "Divya Devi")
+	public void FundsTransferOwnAccount(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.VerifyFundTransfer_OwnAccount();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
