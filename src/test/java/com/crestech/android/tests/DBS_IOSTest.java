@@ -152,7 +152,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
-		//	DBSPgaeObject.OpenAccount();
+			DBSPgaeObject.OpenAccount();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

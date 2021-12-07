@@ -458,7 +458,7 @@ public class DBS_IOSObject {
 	
 	@ElementDescription(value = "Payee Added Success Image")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeImage")
-	private List<MobileElement> PayeeAddedSuccessImage;
+	private List<MobileElement> SuccessImage;
 	
 	@ElementDescription(value = "You Have Added Recipient Message")
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='You've added a recipient'])[1]")
@@ -598,8 +598,8 @@ public class DBS_IOSObject {
 		return YouHaveAddedRecipient;
 	}
 	
-	public List<MobileElement> PayeeAddedSuccessImage() { 
-		return PayeeAddedSuccessImage;
+	public List<MobileElement> SuccessImage() { 
+		return SuccessImage;
 	}
 	
 	
@@ -654,9 +654,19 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='BACK TO MORE']")
 	private MobileElement backToMoreButton;
 
+	@ElementDescription(value = " 'Your account is open and ready to use!' Message.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Your account is open and ready to use!']")
+	private MobileElement AccountStatusMessage;
+	
+	
+	public MobileElement  AccountStatusMessage() {
+		return  AccountStatusMessage;
+	}
+	
 	public MobileElement  backToMoreButton() {
 		return  backToMoreButton;
 	}
+	
 	@ElementDescription(value = " 'Local Transfer limit Changed!' Title")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Local Transfer limit Changed!']")
 	private MobileElement localTransferLimitChangedTitle;
@@ -1077,9 +1087,146 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Thank you for your application. Your application is being processed.']")
 	private MobileElement ThankYouMessage;
 	
+	@ElementDescription(value = "'Open Account' Page Header.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Open Account']")
+	private MobileElement OpenAccountPageHeader;
+	
+	@ElementDescription(value = "'Deposit Accounts' Module.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Deposit Accounts']")
+	private MobileElement DepositAccountsModule;
+	
+	@ElementDescription(value = "'Select Open Account Option List' .")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell/XCUIElementTypeStaticText")
+	private List<MobileElement> SelectOpenAccountOptionList;
+	
+	@ElementDescription(value = "'Account Benefits' Page Header.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Account Benefits']")
+	private MobileElement AccountBenefitsPageHeader;
+	
+	@ElementDescription(value = "'OPEN ACCOUNT IN 3 STEPS' Button.")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='OPEN ACCOUNT IN 3 STEPS'])[1]")
+	private MobileElement StepOpenAccountButton;
+	
+	@ElementDescription(value = "'Enter monthly savings amount' Edit Field.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell[2]/XCUIElementTypeTextField")
+	private MobileElement EnterMonthlySavingsAmtEditField;
+	
+	@ElementDescription(value = "'Select source of funds for savings' Dropdown.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Select source of funds for savings']")
+	private MobileElement SelectSourceOfFundsForSavingsDropdown;
+	
+	@ElementDescription(value = "'Important Notes' Page Header.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Important Notes']")
+	private MobileElement ImportantNotesPageHeader;
+	
+	@ElementDescription(value = "'Warning' Page Header.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Warning']")
+	private MobileElement Warning;
+	
+	@ElementDescription(value = "'Advisory from the Singapore Police Force' Message.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Advisory from the Singapore Police Force']")
+	private MobileElement WarningHeading;
+	
+	@ElementDescription(value = "'I ACKNOWLEDGE' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='I ACKNOWLEDGE']")
+	private MobileElement IACKNOWLEDGEButton;
+	
+	@ElementDescription(value = "'Review Account Application' Page Header.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Account Application']")
+	private MobileElement ReviewAccountApplicationPageHeader;
+	
+	public MobileElement ReviewAccountApplicationPageHeader() { 
+		return  ReviewAccountApplicationPageHeader;
+	}
+	
+	@ElementDescription(value = "'OPEN ACCOUNT NOW' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='OPEN ACCOUNT NOW']")
+	private MobileElement OpenAccountNowButton;
+	
+	public MobileElement OpenAccountNowButton() { 
+		return  OpenAccountNowButton;
+	}
+	
+	@ElementDescription(value = "'Account' List.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText")
+	private List<MobileElement> AccountList;
+	
+	public List<MobileElement> AccountList() { 
+		return  AccountList;
+	}
+	
+	@ElementDescription(value = "'You Are Opening' Text.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='You Are Opening']")
+	private MobileElement YouAreOpeningText;
+	
+	public MobileElement YouAreOpeningText() { 
+		return  YouAreOpeningText;
+	}
+	
+	
+	//XCUIElementTypeStaticText[@name="POSB SAYE Account"]
+	
+	
+	
+	
+	
+	
+	
+	@ElementDescription(value = "'Select source of funds for savings List' .")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell/XCUIElementTypeStaticText")
+	private List<MobileElement> SelectSourceOfFundsForSavingsDropdownList;
+	
+	public List<MobileElement> SelectSourceOfFundsForSavingsDropdownList() { 
+		return  SelectSourceOfFundsForSavingsDropdownList; 
+	}
+	
+	public MobileElement IACKNOWLEDGEButton() { 
+		return  IACKNOWLEDGEButton;
+	}
+	
+	public MobileElement ImportantNotesPageHeader() { 
+		return  ImportantNotesPageHeader;
+	}
+	
+	public MobileElement Warning() { 
+		return  Warning;
+	}
+	
+	public MobileElement WarningHeading() { 
+		return  WarningHeading;
+	}
+	
+	public MobileElement SelectSourceOfFundsForSavingsDropdown() { 
+		return  SelectSourceOfFundsForSavingsDropdown;
+	}
+	
+	public MobileElement EnterMonthlySavingsAmtEditField() { 
+		return  EnterMonthlySavingsAmtEditField;
+	}
+	
+	public MobileElement StepOpenAccountButton() { 
+		return  StepOpenAccountButton;
+	}
+	
+	public MobileElement AccountBenefitsPageHeader() { 
+		return  AccountBenefitsPageHeader;
+	}
+			
+	public List<MobileElement> SelectOpenAccountOptionList() { 
+		return  SelectOpenAccountOptionList;
+	}	
+	
+	public MobileElement DepositAccountsModule() { 
+		return  DepositAccountsModule;
+	}
+	
+	public MobileElement OpenAccountPageHeader() { 
+		return  OpenAccountPageHeader;
+	}
+	
 	public MobileElement ThankYouMessage() { 
 		return  ThankYouMessage;
-	}	
+	}
 	
 	public MobileElement BackToMoreServicesButton() { 
 		return  BackToMoreServicesButton;
