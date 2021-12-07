@@ -173,4 +173,19 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 24, enabled = true, description = "FundsTransfer-BillPayment-ONEAPP-14040")
+	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Bill Payment.")
+	@Author(name = "Divya Devi")
+	public void FundsTransfer_BillPayment(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.FundsTransfer_BillPayment();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 }

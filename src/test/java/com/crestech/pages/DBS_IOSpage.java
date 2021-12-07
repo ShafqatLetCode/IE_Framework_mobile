@@ -1763,5 +1763,82 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			e.printStackTrace(); throw e;
 		}
 	}
+	
+	@Step("Verify Fund Transfer Bill Payment.")
+	public void FundsTransfer_BillPayment() throws Exception {
+		try {
+			ClickOnPayAndTransferButton();
+			EnterPasscodeAndDone();
+			SelectAllTAB();
+			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_BillPayment_TO_ACCOUNTNUMBER_WITHBANK
+					.getEnumValue();
+			clickingOnAccountTypeInBillingOrganisations(ExpectedToBankNameWithAccountNo);
+			EnterAmount(IOShomePgaeObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+			String ExpectedSelectedDate = getTexOfElement(IOShomePgaeObject.TransferDateTextElement());
+			Asserts.assertEquals("Immediate", ExpectedSelectedDate, "Selected Date is not Matching");
+
+			ClickOnNextButton();
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.ReviewPaymentPageHeader()),
+					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(),
+					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue() + " Text is not matching");
+			ClickOnTransferNowBtnAndVerifyPaymentSubmittedMsg();
+
+			// Leave On Home Page to this test case for next run.
+			ClickOnCloseButton();
+			ClickOnHomeButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Click on 'To Account Bill' after selecting 'Billing organisation' and verify Page Header")
+	public void clickingOnAccountTypeInBillingOrganisations(String valueSelectedFromList) throws Exception {
+		try {
+			int o = 0;
+			for (int i = 0; i < IOShomePgaeObject.allTabList().size(); i++) {
+				String tabText = IOShomePgaeObject.allTabList().get(i).getText();
+				o++;
+				if (tabText.contains(CommonTestData.BILLING_ORGANISATIONS_TAB.getEnumValue())) {
+					clickOnElement(IOShomePgaeObject.allTabList().get(i));
+					break;
+				}
+			}
+
+			GestureUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(o), IOShomePgaeObject.AllTab());
+			TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
+			List<MobileElement> Elementlist = IOShomePgaeObject.localRecipientsList();
+			int l = Elementlist.size();
+			int index = 0;
+			String LocalRecipientList = null;
+			for (int i = 0; i < l; i++) {
+				LocalRecipientList = Elementlist.get(i).getText();
+				if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+			Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
+
+			Thread.sleep(3000);
+			String xpath1 = "//XCUIElementTypeStaticText[@name='Primary source of fund']";
+			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
+			if (list1.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				if (isElementVisible(IOShomePgaeObject.primarysourceOfFund()))
+					clickOnElement(IOShomePgaeObject.okButton());
+			}
+			
+			
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.PayToBillerPageHeader()),
+					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Page Header not displaying.");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
 
 }
