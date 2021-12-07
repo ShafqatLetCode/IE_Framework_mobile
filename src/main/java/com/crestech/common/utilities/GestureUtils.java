@@ -415,7 +415,8 @@ public class GestureUtils {
 				} else
 					count = 1;
 			}
-			Asserts.assertTrue(element.isDisplayed(), "Element not found");
+			if(element !=null)
+				Asserts.assertTrue(element.isDisplayed(), "Element not found");
 
 		} catch (Exception e) {
 			throw new Exception(e);
@@ -444,8 +445,9 @@ public class GestureUtils {
 				} else
 					count = 1;
 			}
-			Asserts.assertTrue(element.isDisplayed(), "Element not found");
 
+			if(element !=null)
+				Asserts.assertTrue(element.isDisplayed(), "Element not found");
 		} catch (Exception e) {
 			throw new Exception(e);
 		}

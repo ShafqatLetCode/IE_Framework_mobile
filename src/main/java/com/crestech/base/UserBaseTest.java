@@ -370,6 +370,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("platformName", "ios");
 			capabilities.setCapability("noReset", true);
 			capabilities.setCapability("fullReset", false);
+			capabilities.setCapability("pCloudy_EnableVideo", "true");
 			break;
 		
 		case "pCloudyAndroidChrome":
