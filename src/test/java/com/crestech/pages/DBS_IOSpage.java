@@ -21,9 +21,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public DBS_IOSObject IOShomePgaeObject = new DBS_IOSObject(driver);
 	CommonAppiumTest commonAppTest = null;
 	AndroidAlert androidAlert = null;
-
+	GestureUtils gestUtils = null;
+	
 	public DBS_IOSpage(AppiumDriver<RemoteWebElement> driver) {
 		super(driver);
+		gestUtils = new GestureUtils(driver);
 		commonAppTest = new CommonAppiumTest(driver);
 		androidAlert = new AndroidAlert(driver);
 		// PageFactory.initElements(new AppiumFieldDecorator(driver,
@@ -110,7 +112,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				Dimension windowSize1 = driver.manage().window().getSize();
 				int y = (int) ((windowSize1.getHeight()) - 10);
 				int x = (int) ((windowSize1.getWidth()) / 2);
-				GestureUtils.swipeElementtoCoordinate(IOShomePgaeObject.upgradeSwipeButton(), x, y);
+				gestUtils.swipeElementtoCoordinate(IOShomePgaeObject.upgradeSwipeButton(), x, y);
 			}
 
 			Asserts.assertEquals(actualMessage, CommonTestData.UPGRADE_EXPERIENCE_MESSAGE.getEnumValue(),
@@ -576,7 +578,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			if (arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_0.getEnumValue())) {
 				selectedValue = selectAmountFromSetCurrentLimitList(AmountToBeselected);
 			} else {
-				GestureUtils.scrollDOWNtoObject("text", CommonTestData.SELECTED_LIMIT_0.getEnumValue(), null);
+				gestUtils.scrollDOWNtoObject("text", CommonTestData.SELECTED_LIMIT_0.getEnumValue(), null);
 				String flag = selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_0.getEnumValue());
 				currentText = getTexOfElement(IOShomePgaeObject.currentLimitTextButton());
 				verifyClickSetCurrentLimit();
@@ -1234,7 +1236,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 
 			sendAccountNo(CommonTestData.ACCOUNT_NO.getEnumValue());
 			sendFullName(CommonTestData.FULL_NAME.getEnumValue());
-			GestureUtils.scrollUPtoObject("name", "NEXT", null);
+			gestUtils.scrollUPtoObject("name", "NEXT", null);
 			sendAddress(CommonTestData.ADDRESS.getEnumValue());
 			sendcity(CommonTestData.CITY.getEnumValue());
 
@@ -1315,7 +1317,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void verifyReferenceFieldAndItsValue(String expectedText) throws Exception {
 		try {
 			clickOnElement(IOShomePgaeObject.expandButton());
-			GestureUtils.scrollUPtoObject("name", "Reference No.", IOShomePgaeObject.referenceNumber());
+			gestUtils.scrollUPtoObject("name", "Reference No.", IOShomePgaeObject.referenceNumber());
 			TakeScreenshot(IOShomePgaeObject.makeTransferButton());
 			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.makeTransferButton()).toLowerCase(),
 					CommonTestData.MAKE_TRANSFER.getEnumValue().toLowerCase(), "'MAKE A TRANSFER' Text is not found");
@@ -1372,7 +1374,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			String xpath = "//XCUIElementTypeStaticText[@name='source_account_name']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0) {
-				GestureUtils.scrollDOWNtoObject("text", "Select Fund Source", IOShomePgaeObject.SelectFundSourcePage());
+				gestUtils.scrollDOWNtoObject("text", "Select Fund Source", IOShomePgaeObject.SelectFundSourcePage());
 				TakeScreenshot(IOShomePgaeObject.SelectFundSourcePage());
 				clickOnElement(IOShomePgaeObject.SelectFundSourcePage());
 				TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
@@ -1449,7 +1451,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			Asserts.assertTrue(IOShomePgaeObject.LogoutBtn().isDisplayed(), "Log Out Button not found.");
 			//add scroll
-			//GestureUtils.scrollUPtoObject("text", "MAKE ANOTHER TRANSFER", DBSappObject.MakeAnotherTransferBtn());
+			//gestUtils.scrollUPtoObject("text", "MAKE ANOTHER TRANSFER", DBSappObject.MakeAnotherTransferBtn());
 			Asserts.assertTrue(IOShomePgaeObject.MakeAnotherPaymentBtn().isDisplayed(),
 					"Make Another Transfer Button not found.");
 			Asserts.assertTrue(IOShomePgaeObject.SharePaymentDetailsButton().isDisplayed(),
@@ -1460,7 +1462,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			
 			clickOnElement(IOShomePgaeObject.FooterExpandableBtn());
 			
-			//GestureUtils.scrollUPtoObject("text", "Reference No.", IOShomePgaeObject.referenceNo());
+			//gestUtils.scrollUPtoObject("text", "Reference No.", IOShomePgaeObject.referenceNo());
 			TakeScreenshot(IOShomePgaeObject.referenceNo());
 
 		} catch (Exception e) {
@@ -1483,7 +1485,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				}
 			}
 
-			GestureUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(o), IOShomePgaeObject.AllTab());
+			gestUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(o), IOShomePgaeObject.AllTab());
 			TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
 			List<MobileElement> Elementlist = IOShomePgaeObject.localRecipientsList();
 			int l = Elementlist.size();
@@ -1531,7 +1533,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				}
 			}
 
-			GestureUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(o), IOShomePgaeObject.AllTab());
+			gestUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(o), IOShomePgaeObject.AllTab());
 			TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
 			List<MobileElement> Elementlist = IOShomePgaeObject.localRecipientsList();
 			int l = Elementlist.size();
@@ -1805,7 +1807,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				}
 			}
 
-			GestureUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(o), IOShomePgaeObject.AllTab());
+			gestUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(o), IOShomePgaeObject.AllTab());
 			TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
 			List<MobileElement> Elementlist = IOShomePgaeObject.localRecipientsList();
 			int l = Elementlist.size();

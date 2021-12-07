@@ -37,11 +37,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public AppiumDriver<RemoteWebElement> driver = null;
 	AndroidAlert androidAlert = null;
 	WaitUtils wait = null;
+	GestureUtils gestUtils = null;
+	
+
 
 	public DBSAndroidPage(AppiumDriver<RemoteWebElement> driver) throws Exception {
 		super(driver);
 		try {
 			this.driver = driver;
+			gestUtils = new GestureUtils(driver);
 			androidAlert = new AndroidAlert(driver);
 			wait = new WaitUtils(driver);
 			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), DBSappObject);
@@ -169,7 +173,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.MoreButton());
 			TakeScreenshot(DBSappObject.ChangeServerBtn());
 			clickOnElement(DBSappObject.ChangeServerBtn());
-			GestureUtils.scrollUPtoObject("text", "UAT N4", DBSappObject.SelectUATN4_Server());
+			gestUtils.scrollUPtoObject("text", "UAT N4", DBSappObject.SelectUATN4_Server());
 			TakeScreenshot(DBSappObject.SelectUATN4_Server());
 			clickOnElement(DBSappObject.SelectUATN4_Server());
 			TakeScreenshot(DBSappObject.ChangeServerSaveBtn());
@@ -257,7 +261,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Application Logout & Verifies the 'Tap on the stars to rate' field Message.")
 	public void clickOnLogoutAndVerifyInFundTransfer() throws Exception {
 		try {
-			GestureUtils.scrollDOWNtoObject("text", "Log Out", DBSappObject.logOutPaylahButton());
+			gestUtils.scrollDOWNtoObject("text", "Log Out", DBSappObject.logOutPaylahButton());
 			TakeScreenshot(DBSappObject.logOutPaylahButton());
 			androidAlert.AlertHandlingWithButtonMessage(DBSappObject.logOutPaylahButton(), "Log Out",
 					DBSappObject.logOutPaylahButton());
@@ -315,7 +319,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				verifyPageAndSendOtpToEditBox(CommonTestData.OTP.getEnumValue(),
 						CommonTestData.SMS_OTP_MESSAGE.getEnumValue());
 				Thread.sleep(4000);
-				GestureUtils.scrollUPtoObject("text", "DONE", DBSappObject.doneButton());
+				gestUtils.scrollUPtoObject("text", "DONE", DBSappObject.doneButton());
 				String xpath = "//android.widget.Button[@text='DONE']";
 				List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 				if (list.size() > 0) {
@@ -373,7 +377,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.SourceFundList().get(0));
 
 			pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
-			GestureUtils.scrollUPtoObject("resource-id", "id/btn_remitnext", DBSappObject.NextBtn());
+			gestUtils.scrollUPtoObject("resource-id", "id/btn_remitnext", DBSappObject.NextBtn());
 			clickOnElement(DBSappObject.SelectPurposeOfTransfer());
 			clickOnElement(DBSappObject.FundTransferPurposeOption());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.TextViewPurpose()),
@@ -468,7 +472,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.SearchField());
 			enterTextInTextbox(DBSappObject.SearchField(), BankName);
 			backButton();
-			GestureUtils.scrollUPtoObject("text", "BANK OF INDIA", DBSappObject.SelectBankOFIndia());
+			gestUtils.scrollUPtoObject("text", "BANK OF INDIA", DBSappObject.SelectBankOFIndia());
 			String xpath = "//android.widget.RelativeLayout//android.widget.TextView[@text='" + BankName + "']";
 			MobileElement Selectbank = (MobileElement) driver.findElement(By.xpath(xpath));
 			clickOnElement(Selectbank);
@@ -589,7 +593,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifies Review Transfer Page Header after clicking on Next Button.")
 	public void ClickOnNextBtnAndVerifiesReviewTransferPage() throws Exception {
 		try {
-			GestureUtils.scrollUPtoObject("resource-id", "id/btn_remitnext", DBSappObject.NextBtn());
+			gestUtils.scrollUPtoObject("resource-id", "id/btn_remitnext", DBSappObject.NextBtn());
 			clickOnElement(DBSappObject.NextBtn());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.ReviewTransferPageHeader()),
 					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
@@ -632,7 +636,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifies Overseas transfer Message after clicking on Share Transfer Details Button.")
 	public void ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText() throws Exception {
 		try {
-			GestureUtils.scrollUPtoObject("text", "SHARE TRANSFER DETAILS", DBSappObject.ShareTransferDetailsBtn());
+			gestUtils.scrollUPtoObject("text", "SHARE TRANSFER DETAILS", DBSappObject.ShareTransferDetailsBtn());
 			clickOnElement(DBSappObject.ShareTransferDetailsBtn());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.OverseasTransferMsg()),
 					CommonTestData.OVERSEAS_TRANSFER_TEXT.getEnumValue(),
@@ -750,7 +754,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Next Button.")
 	public void ClickOnNextButton() throws Exception {
 		try {
-			GestureUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
+			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			TakeScreenshot(DBSappObject.nextButton());
 			if (getTexOfElement(DBSappObject.nextButton()).equalsIgnoreCase("NEXT"))
 				clickOnElement(DBSappObject.nextButton());
@@ -848,7 +852,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("clicking On 'ADD RECIPIENT NOW' button")
 	public void ClickOnAddRecipientNowBtn() throws Exception {
 		try {
-			GestureUtils.scrollUPtoObject("text", "ADD RECIPIENT NOW", DBSappObject.AddRecipientNowBtn());
+			gestUtils.scrollUPtoObject("text", "ADD RECIPIENT NOW", DBSappObject.AddRecipientNowBtn());
 			TakeScreenshot(DBSappObject.AddRecipientNowBtn());
 			String actualText = getTexOfElement(DBSappObject.AddRecipientNowBtn());
 			if (actualText.equalsIgnoreCase(CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue()))
@@ -865,7 +869,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void verifyReferenceFieldAndItsValue(String expectedText) throws Exception {
 		try {
 			clickOnElement(DBSappObject.expandButton());
-			GestureUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
+			gestUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
 			TakeScreenshot(DBSappObject.makeTransferButton());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.makeTransferButton()),
 					CommonTestData.MAKE_TRANSFER.getEnumValue(), "'MAKE A TRANSFER' Text is not found");
@@ -989,7 +993,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						CommonTestData.REVIEW_APPLICATION.getEnumValue() + " Text is not found");
 			}
 
-			GestureUtils.scrollUPtoObject("text", "APPLY NOW", DBSappObject.ApplyNowButton());
+			gestUtils.scrollUPtoObject("text", "APPLY NOW", DBSappObject.ApplyNowButton());
 			clickOnElement(DBSappObject.ApplyNowButton());
 			ClickOnSubmitButtonAfterSettingCardPIN();
 		} catch (Exception e) {
@@ -1047,7 +1051,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterTextInTextbox(DBSappObject.EnterNameToAppearOnTheCardField(),
 					CommonTestData.NAMETO_APPEAR_ON_DEBITCARD.getEnumValue());
 			driver.hideKeyboard();
-			GestureUtils.scrollUPtoObject("text", "Education", DBSappObject.EducationField());
+			gestUtils.scrollUPtoObject("text", "Education", DBSappObject.EducationField());
 			clickOnElement(DBSappObject.RaceField());
 			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),
 					CommonTestData.RACE.getEnumValue());
@@ -1072,7 +1076,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),
 					CommonTestData.ANNUAL_INCOME.getEnumValue());
 
-			GestureUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
+			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			clickOnElement(DBSappObject.SendMeDBSPrmotionViaMail());
 
 		} catch (Exception e) {
@@ -1084,7 +1088,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Select Debit Card Option After Clicking on Cards Section and then 2FA Authentication Done.")
 	public void SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN() throws Exception {
 		try {
-			GestureUtils.scrollUPtoObject("text", "Cards", DBSappObject.CardsButton());
+			gestUtils.scrollUPtoObject("text", "Cards", DBSappObject.CardsButton());
 			if (isElementVisible(DBSappObject.CardsButton()))
 				clickOnElement(DBSappObject.CardsButton());
 			wait.waitForElementVisibility(DBSappObject.SelectDebitCard());
@@ -1203,7 +1207,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 			Asserts.assertTrue(DBSappObject.LOGOUTButton().isDisplayed(), "Log Out Button not found.");
 
-			GestureUtils.scrollUPtoObject("text", "MAKE ANOTHER TRANSFER", DBSappObject.MakeAnotherTransferBtn());
+			gestUtils.scrollUPtoObject("text", "MAKE ANOTHER TRANSFER", DBSappObject.MakeAnotherTransferBtn());
 			Asserts.assertTrue(DBSappObject.MakeAnotherTransferBtn().isDisplayed(),
 					"Make Another Transfer Button not found.");
 			Asserts.assertTrue(DBSappObject.SharePaymentDetailsButton().isDisplayed(),
@@ -1238,7 +1242,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			ClickOnMoreButton();
 			EnterPasscodeAndDone();
-			GestureUtils.scrollUPtoObject("text", "Deposit Accounts", DBSappObject.DepositAccountsModule());
+			gestUtils.scrollUPtoObject("text", "Deposit Accounts", DBSappObject.DepositAccountsModule());
 			ClickOnDepositAccountsAnd2FAAuthenticationDone();
 
 			SelectOpenAccountOptionAndVerifyAccountBenifitsPageHeader();
@@ -1249,10 +1253,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnNextButton();
 			VerifyWarningMessageAndImportantNotes();
 
-			GestureUtils.scrollUPtoObject("text", "I ACKNOWLEDGE", DBSappObject.IACKNOWLEDGEButton());
+			gestUtils.scrollUPtoObject("text", "I ACKNOWLEDGE", DBSappObject.IACKNOWLEDGEButton());
 			ClickOnIAcknowledgeButtonAndReviewOpenAccountApplication();
 
-			GestureUtils.scrollUPtoObject("text", "OPEN ACCOUNT NOW", DBSappObject.OpenAccountNowButton());
+			gestUtils.scrollUPtoObject("text", "OPEN ACCOUNT NOW", DBSappObject.OpenAccountNowButton());
 			ClickOnOpenAccountNowButton();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1769,7 +1773,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnNextButton();
 			sendAccountNo(CommonTestData.ACCOUNT_NO.getEnumValue());
 			sendFullName(CommonTestData.FULL_NAME.getEnumValue());
-			GestureUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
+			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			sendAddress(CommonTestData.ADDRESS.getEnumValue());
 			sendcity(CommonTestData.CITY.getEnumValue());
 			ClickOnNextButton();
@@ -1925,7 +1929,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_0.getEnumValue())) {
 				selectedValue = selectAmountFromSetCurrentLimitList(AmountToBeselected);
 			} else {
-				GestureUtils.scrollDOWNtoObject("text", CommonTestData.SELECTED_LIMIT_0.getEnumValue(),
+				gestUtils.scrollDOWNtoObject("text", CommonTestData.SELECTED_LIMIT_0.getEnumValue(),
 						DBSappObject.Amount_0_inLocaltransferlimitList());
 				flag = selectAmountFromSetCurrentLimitList(CommonTestData.SELECTED_LIMIT_0.getEnumValue());
 				currentText = getTexOfElement(DBSappObject.currentLimitTextButton());
@@ -2056,7 +2060,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				}
 			}
 
-			GestureUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
+			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
 			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
 			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
 			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
@@ -2134,7 +2138,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			VerifyButtonLabelAndClick(DBSappObject.AllTabOptionsList().get(2),
 					CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue());
-			GestureUtils.scrollUPtoObject("text", CommonTestData.DBS_CURRENT_ACCOUNT_TEXT.getEnumValue(),
+			gestUtils.scrollUPtoObject("text", CommonTestData.DBS_CURRENT_ACCOUNT_TEXT.getEnumValue(),
 					DBSappObject.dbsCurrentAccountOption());
 			VerifyButtonLabelAndClick(DBSappObject.dbsCurrentAccountOption(),
 					CommonTestData.DBS_CURRENT_ACCOUNT_TEXT.getEnumValue());
@@ -2222,7 +2226,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			verifyPageHeader(CommonTestData.TRANSFER_TITLE.getEnumValue(), DBSappObject.PageHeaderList().get(0));
 			clickOnElement(DBSappObject.expandButton2());
-			GestureUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
+			gestUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
 			TakeScreenshot(DBSappObject.ReferenceNumberText());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.ReferenceNumberText()),
 					CommonTestData.REFERENCE_NUMBER.getEnumValue(), "'Reference no Field' is not found");
@@ -2372,7 +2376,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String xpath = "//android.widget.TextView[@text='Select Fund Source']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0) {
-				GestureUtils.scrollDOWNtoObject("text", "Select Fund Source", DBSappObject.SelectFundSourcePage());
+				gestUtils.scrollDOWNtoObject("text", "Select Fund Source", DBSappObject.SelectFundSourcePage());
 				TakeScreenshot(DBSappObject.SelectFundSourcePage());
 				clickOnElement(DBSappObject.SelectFundSourcePage());
 				TakeScreenshot(DBSappObject.SelectLocalRecipientToAccount().get(0));
@@ -2590,7 +2594,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void ClickOnExpandbtnAndBackBtn() throws Exception {
 		try {
 			clickOnElement(DBSappObject.FooterExpandableBtn());
-			GestureUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
+			gestUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
 			TakeScreenshot(DBSappObject.ReferenceNumberText());
 			clickOnElement(DBSappObject.BackIcon());
 		} catch (Exception e) {
@@ -2604,7 +2608,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String ExpectedToRecipientName) throws Exception {
 		try {
 			Asserts.assertTrue(DBSappObject.LOGOUTButton().isDisplayed(), "Log Out Button not found.");
-			GestureUtils.scrollUPtoObject("text", "MAKE ANOTHER TRANSFER", DBSappObject.MakeAnotherTransferBtn());
+			gestUtils.scrollUPtoObject("text", "MAKE ANOTHER TRANSFER", DBSappObject.MakeAnotherTransferBtn());
 			Asserts.assertTrue(DBSappObject.MakeAnotherTransferBtn().isDisplayed(),
 					"Make Another Transfer Button not found.");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.SendingAmountElement()),
@@ -2635,7 +2639,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
 					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
 
-			GestureUtils.scrollUPtoObject("text", "TRANSFER NOW", DBSappObject.TransferNowBtn());
+			gestUtils.scrollUPtoObject("text", "TRANSFER NOW", DBSappObject.TransferNowBtn());
 			TakeScreenshot(DBSappObject.NonFastTransactionService());
 			Asserts.assertTrue(DBSappObject.NonFastTransactionService().isDisplayed(),
 					"Non-Fast Service not available in review.");
@@ -2652,7 +2656,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
 					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
 
-			GestureUtils.scrollUPtoObject("text", "TRANSFER NOW", DBSappObject.TransferNowBtn());
+			gestUtils.scrollUPtoObject("text", "TRANSFER NOW", DBSappObject.TransferNowBtn());
 			TakeScreenshot(DBSappObject.FastTransactionService());
 			Asserts.assertTrue(DBSappObject.FastTransactionService().isDisplayed(),
 					"Fast Service not available in review.");
@@ -2668,7 +2672,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 			verifyPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue(),
 					DBSappObject.PageHeaderList().get(0));
-			GestureUtils.scrollUPtoObject(null, null, DBSappObject.TransferViaFastTransferToggle());
+			gestUtils.scrollUPtoObject(null, null, DBSappObject.TransferViaFastTransferToggle());
 
 			TakeScreenshot(DBSappObject.TransferViaFastTransferToggle());
 			clickOnElement(DBSappObject.TransferViaFastTransferToggle());
@@ -2984,7 +2988,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				}
 			}
 
-			GestureUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
+			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
 			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
 			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
 			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
@@ -3075,7 +3079,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Confirm Button and Verify 'Successfully Updated' Message, 'Back Button', 'logout Button', 'Update More Details' button & 'Back to More Services' Button.")
 	public void ClickOnConfirmButton() throws Exception {
 		try {
-			GestureUtils.scrollUPtoObject("text", "CONFIRM", DBSappObject.ConfirmBtn());
+			gestUtils.scrollUPtoObject("text", "CONFIRM", DBSappObject.ConfirmBtn());
 			TakeScreenshot(DBSappObject.ConfirmBtn());
 			clickOnElement(DBSappObject.ConfirmBtn());
 			EnterPasscodeAndDone();
@@ -3088,7 +3092,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				Asserts.assertTrue(isElementVisible(DBSappObject.LogoutBtn()), "Log Out is not displayed.");
 				Asserts.assertTrue(isElementVisible(DBSappObject.BackBtnImageView()),
 						"Back Btn Image View is not displayed.");
-				GestureUtils.scrollUPtoObject("text", "UPDATE MORE DETAILS", DBSappObject.UpdateMoreDetailsBtn());
+				gestUtils.scrollUPtoObject("text", "UPDATE MORE DETAILS", DBSappObject.UpdateMoreDetailsBtn());
 				TakeScreenshot(DBSappObject.UpdateMoreDetailsBtn());
 				Asserts.assertTrue(isElementVisible(DBSappObject.BACKTOMoreServicesBtn()),
 						"BACK TO More Services Btn is not displayed.");
@@ -3141,7 +3145,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.EmailNotes()), CommonTestData.EMAIL_NOTES.getEnumValue(),
 					CommonTestData.EMAIL_NOTES.getEnumValue() + " Text is not matching");
 
-			GestureUtils.scrollUPtoObject("text", "PERSONAL PARTICULARS",
+			gestUtils.scrollUPtoObject("text", "PERSONAL PARTICULARS",
 					DBSappObject.PersonalPerticularSectionTitle());
 			Thread.sleep(1500);
 			TakeScreenshot(DBSappObject.PersonalPerticularSectionTitle());
@@ -3152,7 +3156,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.PERSONAL_PARTICULARS.getEnumValue(),
 					CommonTestData.PERSONAL_PARTICULARS.getEnumValue() + " Text is not matching");
 
-			GestureUtils.scrollUPtoObject("text", "MARKETING MESSAGES", DBSappObject.MarketingMessageTitle());
+			gestUtils.scrollUPtoObject("text", "MARKETING MESSAGES", DBSappObject.MarketingMessageTitle());
 			Thread.sleep(1500);
 			TakeScreenshot(DBSappObject.MarketingMessageTitle());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PersonalPerticularChangeBtn()),
@@ -3167,7 +3171,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue(),
 					CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue() + " Text is not matching");
 
-			GestureUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
+			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			TakeScreenshot(DBSappObject.nextButton());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.UPPSectionLabel()),
 					CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue(),
@@ -3185,7 +3189,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 			VerifyButtonLabelAndClick(DBSappObject.accountSectionHomePage(),
 					CommonTestData.ACCOUNT_SECTION.getEnumValue());
-			GestureUtils.scrollUPtoObject("text", "digiPortfolio", null);
+			gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
 			TakeScreenshot(DBSappObject.depositeHomePage());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.depositeHomePage()), AccountType,
 					AccountType + " is not present");
@@ -3235,7 +3239,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(),
 					CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), DBSappObject.PageHeader());
 			setAmountDurationPurposeForLimitIncrease("100", "wedding", "11", "oct", "2021");
-			GestureUtils.scrollUPtoObject("text", "NEXT", DBSappObject.NextBtn());
+			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.NextBtn());
 			ClickOnNextButton();
 			verifyPageHeader(CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue(),
 					DBSappObject.PageHeader());
@@ -3321,7 +3325,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			throws Exception {
 		try {
 			clickOnElement(DBSappObject.FooterExpandableBtn());
-			GestureUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
+			gestUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
 			TakeScreenshot(DBSappObject.ReferenceNumberText());
 
 			String[] ExpTitleList = new String[] { "From", "To", "When", "Source Account Balance",
@@ -3367,7 +3371,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				}
 			}
 
-			GestureUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
+			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
 			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
 			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
 			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
@@ -3407,7 +3411,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				}
 			}
 
-			GestureUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
+			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
 			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
 			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
 			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
