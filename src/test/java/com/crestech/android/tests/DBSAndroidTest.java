@@ -5,11 +5,9 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.crestech.annotation.values.Author;
-import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.base.UserBaseTest;
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
-import com.crestech.common.utilities.GestureUtils;
 import com.crestech.listeners.TestListener;
 import com.crestech.pages.DBSAndroidPage;
 import io.qameta.allure.Description;
@@ -36,8 +34,6 @@ public class DBSAndroidTest extends UserBaseTest {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue() ,CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(),CommonTestData.CURRENCY.getEnumValue() );
-			
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -196,10 +192,8 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 
 	@Parameters({ "userName", "password" })
-
 	@Test(priority = 12, enabled = true, description = "ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847")
 	@Description(value = "Execution of this testcase:: Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit.")
-
 	@Author(name = "Shafqat Ali")
 	public void ChangeLocalFundsTransferLimit(String userName, String password) throws Exception {
 		try {
@@ -367,10 +361,42 @@ public class DBSAndroidTest extends UserBaseTest {
 			throw e;
 		}
 	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 23, enabled = true, description = "FundsTransfer-PayCreditCard-ONEAPP-14024")
+	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Pay Credit Card.")
+	@Author(name = "Divya Devi")
+	public void FundsTransfer_PayCreditCard(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "DBS");
+			dbspage.FundsTransfer_PayCreditCard();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 24, enabled = true, description = "FundsTransfer-BillPayment-ONEAPP-14040")
+	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Bill Payment.")
+	@Author(name = "Divya Devi")
+	public void FundsTransfer_BillPayment(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "DBS");
+			dbspage.FundsTransfer_BillPayment();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
 	/******************End Test Script For DBS App************************************/
 /******************Start Test Script For POSB App************************************/
 	@Parameters({ "userName", "password" })
-	@Test(priority = 23, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
+	@Test(priority = 25, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
 	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
 	@Author(name = "Shafqat Ali")
 	public void Topup_Paylah_POSB(String userName, String password) throws Exception {
@@ -385,7 +411,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 	
 	@Parameters({"userName", "password" })
-	@Test(priority=24, enabled=true, description = "TransactionHistory-ONEAPP-14312")
+	@Test(priority=26, enabled=true, description = "TransactionHistory-ONEAPP-14312")
 	@Description(value = "Execution of this testcase:: Verifies Transaction History")
 	@Author(name = "shafqat")
 	public void TransactionHistory_POSB(String userName,String password) throws Exception {
@@ -400,7 +426,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 	
 	@Parameters({ "userName", "password" })
-	@Test(priority = 25, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
+	@Test(priority = 27, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
 	@Description(value = "Execution of this testcase:: Verifies the Apply Debit Card.")
 	@Author(name = "Divya Devi")
 	public void ApplyDebitCard_POSB(String userName, String password) throws Exception {
@@ -417,7 +443,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	/******************END Test Script For POSB App************************************/
 	/******************Start Test Script For iWEALTH App************************************/
 	@Parameters({ "userName", "password" })
-	@Test(priority = 26, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
+	@Test(priority = 28, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
 	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
 	@Author(name = "Shafqat Ali")
 	public void Topup_Paylah_iWEALTH(String userName, String password) throws Exception {
@@ -432,7 +458,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 	
 	@Parameters({"userName", "password" })
-	@Test(priority=27, enabled=true, description = "TransactionHistory-ONEAPP-14312")
+	@Test(priority=29, enabled=true, description = "TransactionHistory-ONEAPP-14312")
 	@Description(value = "Execution of this testcase:: Verifies Transaction History")
 	@Author(name = "shafqat")
 	public void TransactionHistory_iWEALTH(String userName,String password) throws Exception {
@@ -448,7 +474,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 	
 	@Parameters({ "userName", "password" })
-	@Test(priority = 28, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
+	@Test(priority = 30, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
 	@Description(value = "Execution of this testcase:: Verifies the Apply Debit Card.")
 	@Author(name = "Divya Devi")
 	public void ApplyDebitCard_iWEALTH(String userName, String password) throws Exception {
