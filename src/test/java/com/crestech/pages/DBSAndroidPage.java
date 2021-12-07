@@ -1091,11 +1091,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			gestUtils.scrollUPtoObject("text", "Cards", DBSappObject.CardsButton());
 			if (isElementVisible(DBSappObject.CardsButton()))
 				clickOnElement(DBSappObject.CardsButton());
-			wait.waitForElementVisibility(DBSappObject.SelectDebitCard());
+			TakeScreenshot(DBSappObject.SelectDebitCard());
 			clickOnElement(DBSappObject.SelectDebitCard());
 			EnterPasscodeAndDone();
 			selectDebitCardType(CommonTestData.DEBIT_CARD_NAME.getEnumValue());
-			wait.waitForElementVisibility(DBSappObject.AccountToBeLinkedToTheCardField());
+			TakeScreenshot(DBSappObject.AccountToBeLinkedToTheCardField());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

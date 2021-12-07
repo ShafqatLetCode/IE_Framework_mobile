@@ -120,7 +120,9 @@ public enum CommonTestData {
 	EDUCATION("PSLE"),
 	ECONOMIC_STATUS("Professional"),
 	ANNUAL_INCOME("S$60,001 - S$90,000"),
-		
+	APPLICATION_SUBMITTED("Application Submitted"),
+	THANKU_MESSAGE_AFTER_APPLYDEBITCARD("Thank you for your application. Your application is being processed."),
+	
 	//paylah
 	TOPUP_LABEL("Top up"),
 	PAYLAH_LABEL("Paylah!"),
@@ -199,7 +201,6 @@ public enum CommonTestData {
 	WARNING_HEADING_TEXT("Warning Advisory from the Singapore Police Force"),
 	REVIEW_ACCOUNT_APPLICATION("Review Account Application"),
 	YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE("Your account is open and ready to use!"),
-	APPLICATION_SUBMITTED("Application Submitted"),
 	UPGRADE_EXPERIENCE_MESSAGE("Upgrade your banking experience with us"), 
 	SETUP("Let's Set Up"),
 	MOTION_FITNESS_MESSAGE("“DBS digibank” Would Like to Access Your Motion & Fitness Activity"),

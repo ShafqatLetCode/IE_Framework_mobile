@@ -976,6 +976,177 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pay to Biller']")
 	private MobileElement PayToBillerPageHeader;
 	
+	@ElementDescription(value = "'Cards' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Cards']")
+	private MobileElement CardsButton;
+	
+	public MobileElement CardsButton() { 
+		return  CardsButton;
+	}
+	
+	@ElementDescription(value = "'Debit Card Dropdown list'.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell//XCUIElementTypeStaticText")
+	private List<MobileElement> DebitCardDetailsDropdownList;
+	
+	public List<MobileElement> DebitCardDetailsDropdownList() { 
+		return  DebitCardDetailsDropdownList;
+	}
+	
+	@ElementDescription(value = "'Debit Card' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Debit Card]")
+	private MobileElement SelectDebitCard;
+	
+	@ElementDescription(value = "'Account to be linked to the card' Dropdown.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Account to be linked to the card']/XCUIElementTypeOther")
+	private MobileElement AccountToBeLinkedToTheCardField;
+	
+	
+	@ElementDescription(value = "'Send me DBS Promotion via Email' Checkbox.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Email']")
+	private MobileElement SendMeDBSPrmotionViaMail;
+	
+	public MobileElement SendMeDBSPrmotionViaMail() { 
+		return  SendMeDBSPrmotionViaMail;
+	}
+	
+	@ElementDescription(value = "'Annual Income' Dropdown.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Annual Income']/XCUIElementTypeOther")
+	private MobileElement AnnualIncomeField;
+	
+	public MobileElement AnnualIncomeField() { 
+		return  AnnualIncomeField;
+	}
+	
+	@ElementDescription(value = "'Title' Dropdown.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Title']/XCUIElementTypeOther")
+	private MobileElement TitleField;
+	
+	@ElementDescription(value = "'nameOnCard' Field.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='nameOnCard']/XCUIElementTypeOther")
+	private MobileElement EnterNameToAppearOnTheCardField;
+	
+	@ElementDescription(value = "'Race' Dropdown.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Race']/XCUIElementTypeOther")
+	private MobileElement RaceField;
+	
+	@ElementDescription(value = "'Marital Status' Dropdown.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Marital Status']/XCUIElementTypeOther/XCUIElementTypeTextField")
+	private MobileElement MaritalStatusField;
+	
+	@ElementDescription(value = "'Residence Type' Dropdown.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Residence Type']/XCUIElementTypeOther")
+	private MobileElement ResidentialTypeField;
+	
+	@ElementDescription(value = "'Education' Dropdown.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Education']/XCUIElementTypeOther")
+	private MobileElement EducationField;
+	
+	@ElementDescription(value = "'Economic Status' Dropdown.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Economic Status']/XCUIElementTypeOther")
+	private MobileElement EconomicStatusField;
+	
+	@ElementDescription(value = "'Review Application' Page Header.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Application']")
+	private MobileElement ReviewApplicationPageHeader;
+	
+	@ElementDescription(value = "'Set Card PIN' Page Header.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Set Card PIN']")
+	private MobileElement SetCardPINPageHeader;
+	
+	@ElementDescription(value = "'Create Your PIN' Page Header.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Create Your PIN']")
+	private MobileElement CreateYourPINField;
+	
+	@ElementDescription(value = "'Confirm New PIN' Page Header.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Confirm New PIN']")
+	private MobileElement ConfirmNewPINField;
+	
+	@ElementDescription(value = "'Submit' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='SUBMIT']")
+	private MobileElement submitButton;
+	
+	@ElementDescription(value = "'Application Submitted' Message.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Application Submitted']")
+	private MobileElement ApplicationSubmittedMessage;
+	
+	@ElementDescription(value = "'BACK TO MORE SERVICES' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='BACK TO MORE SERVICES']")
+	private MobileElement BackToMoreServicesButton;
+	
+	@ElementDescription(value = "'Thank you for your application. Your application is being processed.' Message.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Thank you for your application. Your application is being processed.']")
+	private MobileElement ThankYouMessage;
+	
+	public MobileElement ThankYouMessage() { 
+		return  ThankYouMessage;
+	}	
+	
+	public MobileElement BackToMoreServicesButton() { 
+		return  BackToMoreServicesButton;
+	}		
+	
+	public MobileElement ApplicationSubmittedMessage() { 
+		return  ApplicationSubmittedMessage;
+	}
+	
+	public MobileElement submitButton() { 
+		return  submitButton;
+	}
+	
+	public MobileElement CreateYourPINField() { 
+		return  CreateYourPINField;
+	}
+
+	public MobileElement ConfirmNewPINField() { 
+		return  ConfirmNewPINField;
+	}
+	
+	public MobileElement SetCardPINPageHeader() { 
+		return  SetCardPINPageHeader;
+	}
+	
+	public MobileElement ReviewApplicationPageHeader() { 
+		return  ReviewApplicationPageHeader;
+	}
+	
+	public MobileElement TitleField() { 
+		return  TitleField;
+	}
+	
+	public MobileElement EnterNameToAppearOnTheCardField() { 
+		return  EnterNameToAppearOnTheCardField;
+	}
+	
+	public MobileElement RaceField() { 
+		return  RaceField;
+	}
+	
+	public MobileElement MaritalStatusField() { 
+		return  MaritalStatusField;
+	}
+	
+	
+	public MobileElement ResidentialTypeField() { 
+		return  ResidentialTypeField;
+	}
+	
+	public MobileElement EducationField() { 
+		return  EducationField;
+	}
+	
+	public MobileElement EconomicStatusField() { 
+		return  EconomicStatusField;
+	}
+	
+	public MobileElement AccountToBeLinkedToTheCardField() { 
+		return  AccountToBeLinkedToTheCardField;
+	}
+	
+	public MobileElement SelectDebitCard() { 
+		return  SelectDebitCard;
+	}
+	
+	
 	public MobileElement PayToBillerPageHeader() { 
 		return  PayToBillerPageHeader;
 	}

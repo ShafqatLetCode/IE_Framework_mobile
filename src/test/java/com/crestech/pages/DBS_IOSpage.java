@@ -518,7 +518,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 
 	@Step("Verifying button label and clicking on 'More' button ")
-	public void MoreVerifyAndClickButton() throws Exception {
+	public void ClickOnMoreButton() throws Exception {
 		try {
 			TakeScreenshot(IOShomePgaeObject.moeButton());
 			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.moeButton(),
@@ -691,7 +691,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Change local fund transfer limit verification")
 	public void ChangeLocalFundsTransferLimit() throws Exception {
 		try {
-			MoreVerifyAndClickButton();
+			ClickOnMoreButton();
 			EnterPasscodeAndDone();
 			sendDataInCommonSearchBoxAndSelectFromDropDown(
 					CommonTestData.LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS.getEnumValue(),
@@ -1842,5 +1842,180 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		}
 	}
 
+	@Step("Verifies the Applying Debit Card and Verify the completion page details.")
+	public void ApplyDebitCard() throws Exception {
+		try {
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
+			SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN();
+			FillingDetailsToApplyingDebitCard();
+			ClickOnNextButton();
+		    Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ReviewApplicationPageHeader()),
+						CommonTestData.REVIEW_APPLICATION.getEnumValue() + " Page Header not displaying.");
+			
 
+			//gestUtils.scrollUPtoObject("text", "NEXT", IOShomePgaeObject.nextButton());
+		    ClickOnNextButton();
+			ClickOnSubmitButtonAfterSettingCardPIN();
+			
+			// Leave On Home Page to this test case for next run.
+			ClickOnCloseButton();
+			ClickOnHomeButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Verifies the Set Card Pin Page Header and then Submit While Entering Confirm and Create New Pin & Verifies the 'Application Submitted' Message.")
+	public void ClickOnSubmitButtonAfterSettingCardPIN() throws Exception {
+		try {
+			
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.SetCardPINPageHeader()),
+							CommonTestData.SET_CARD_PIN.getEnumValue() + " Page Header not displaying.");
+			
+			clickOnElement(IOShomePgaeObject.CreateYourPINField());
+			enterTextInTextbox(IOShomePgaeObject.CreateYourPINField(), CommonTestData.CREATE_PIN.getEnumValue());
+			clickOnElement(IOShomePgaeObject.ConfirmNewPINField());
+			enterTextInTextbox(IOShomePgaeObject.ConfirmNewPINField(), CommonTestData.CONFIRM_PIN.getEnumValue());
+			driver.hideKeyboard();
+			
+			clickOnElement(IOShomePgaeObject.submitButton());
+			
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ApplicationSubmittedMessage()),
+					CommonTestData.APPLICATION_SUBMITTED.getEnumValue() + " Page Header not displaying.");
+			Asserts.assertTrue(IOShomePgaeObject.ThankYouMessage().isDisplayed(),CommonTestData.THANKU_MESSAGE_AFTER_APPLYDEBITCARD.getEnumValue() + " not found.");
+			Asserts.assertTrue(IOShomePgaeObject.LogoutBtn().isDisplayed(), "Log Out Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.BackToMoreServicesButton().isDisplayed(),
+					"'Back To More Services' Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.closeButton().isDisplayed(), "Close Button not found.");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Step("Select Debit Card Option After Clicking on Cards Section and then 2FA Authentication Done.")
+	public void SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN() throws Exception {
+		try {
+			//gestUtils.scrollUPtoObject("text", "Cards", DBSappObject.CardsButton());
+			if (isElementVisible(IOShomePgaeObject.CardsButton()))
+				clickOnElement(IOShomePgaeObject.CardsButton());
+			TakeScreenshot(IOShomePgaeObject.SelectDebitCard()); 
+			clickOnElement(IOShomePgaeObject.SelectDebitCard());
+			EnterPasscodeAndDone();
+			selectDebitCardType(CommonTestData.DEBIT_CARD_NAME.getEnumValue());
+			TakeScreenshot(IOShomePgaeObject.AccountToBeLinkedToTheCardField()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Click on 'Account type' From List under Local fund Limit page'")
+	public void selectDebitCardType(String debitCardToBeSelected) throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.DebitCardDetailsDropdownList().get(1)); 
+			List<MobileElement> Elementlist = IOShomePgaeObject.DebitCardDetailsDropdownList();
+			int l = Elementlist.size();
+			int index = 0;
+			String accountFromList = null;
+			for (int i = 0; i <= l; i++) {
+				accountFromList = Elementlist.get(i).getText();
+				if (accountFromList.contains(debitCardToBeSelected)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+			Asserts.assertTrue(index > 0, "No " + debitCardToBeSelected + " found in the list of corresponding value");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Filling Required Details to applying Debit Card like as 'AccountToBeLinkedToTheCardField',"
+			+ " 'Title', 'EnterNameToAppearOnTheCardField', 'Race', 'Marital Status','Residential Type',"
+			+ "'Education','Economic Status','Annual Income', 'And Select Checkbox SendMeDBSPrmotionViaMail'.")
+	public void FillingDetailsToApplyingDebitCard() throws Exception {
+		try {
+			// To filling Debit Card Details for applying Debit card.
+			clickOnElement(IOShomePgaeObject.AccountToBeLinkedToTheCardField());
+			TakeScreenshot(IOShomePgaeObject.AccountToBeLinkedToTheCardField()); 
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.TitleField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.TITLE.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.EnterNameToAppearOnTheCardField());
+			enterTextInTextbox(IOShomePgaeObject.EnterNameToAppearOnTheCardField(),
+					CommonTestData.NAMETO_APPEAR_ON_DEBITCARD.getEnumValue());
+			driver.hideKeyboard();
+			TakeScreenshot(IOShomePgaeObject.EducationField()); 
+			
+			//gestUtils.scrollUPtoObject("text", "Education", IOShomePgaeObject.EducationField());
+			
+			clickOnElement(IOShomePgaeObject.RaceField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.RACE.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.MaritalStatusField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.MARITAL_STATUS.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.ResidentialTypeField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.RESIDENCE_TYPE.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.EducationField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.EDUCATION.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.EconomicStatusField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.ECONOMIC_STATUS.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.AnnualIncomeField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.ANNUAL_INCOME.getEnumValue());
+
+			//gestUtils.scrollUPtoObject("text", "NEXT", IOShomePgaeObject.nextButton());
+			TakeScreenshot(IOShomePgaeObject.SendMeDBSPrmotionViaMail());
+			clickOnElement(IOShomePgaeObject.SendMeDBSPrmotionViaMail()); 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Click on 'Account type' From List under Local fund Limit page'")
+	public void selectElementFromTheGivenList(List<MobileElement> elementList, String elementToBeSelected)
+			throws Exception {
+		try {
+			wait.waitForElementVisibility(elementList.get(1));
+			List<MobileElement> Elementlist = elementList;
+			int l = Elementlist.size();
+			int index = 0;
+			String accountFromList = null;
+			for (int i = 0; i <= l; i++) {
+				accountFromList = Elementlist.get(i).getText();
+				if (accountFromList.contains(elementToBeSelected)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+
+			Asserts.assertTrue(index > 0, "No " + elementToBeSelected + " found in the list of corresponding value");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 }

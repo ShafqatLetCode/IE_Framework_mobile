@@ -94,6 +94,21 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 8, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
+	@Description(value = "Execution of this testcase:: Verifies the Apply Debit Card.")
+	@Author(name = "Divya Devi")
+	public void ApplyDebitCard_DBS(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.ApplyDebitCard();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
 	@Parameters({ "userName", "password" })
 	@Test(priority = 9, enabled = true, description = "Payee-Add-Local-OtherBank-ONEAPP-15677")
@@ -123,6 +138,21 @@ public class DBS_IOSTest extends UserBaseTest {
 			//Delete Payee Code Start Before Adding Payee to Bill Payment.
 			DBSPgaeObject.DeletePayee_ToBillPayment();
 			DBSPgaeObject.PayeeAddBillPayment();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 11, enabled = true, description = "OpenAccount-ONEAPP-14028")
+	@Description(value = "Execution of this testcase:: Verifies the Open Account.")
+	@Author(name = "Divya Devi")
+	public void OpenAccount(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+		//	DBSPgaeObject.OpenAccount();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
