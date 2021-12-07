@@ -7,9 +7,7 @@ import org.testng.annotations.Test;
 import com.crestech.annotation.values.Author;
 import com.crestech.base.UserBaseTest;
 import com.crestech.listeners.TestListener;
-import com.crestech.pages.DBSAndroidPage;
 import com.crestech.pages.DBS_IOSpage;
-
 import io.qameta.allure.Description;
 
 @Listeners(TestListener.class)
