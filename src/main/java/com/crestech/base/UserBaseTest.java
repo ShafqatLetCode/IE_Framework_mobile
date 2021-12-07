@@ -9,6 +9,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -48,6 +49,7 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
+import android.os.Build;
 
 /**
  *  *  * @author Divya, Shafkat,Shubham  *  
@@ -63,12 +65,15 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	private AppiumServiceBuilder builder;
 	private static final AllureLifecycle ALLURE_LIFECYCLE = Allure.getLifecycle();
 	public List<String> excelDataList;
+	public ScreenshotUtils scrShotUtils = null;
+	List<AppiumDriver<RemoteWebElement>> driverList= new ArrayList<AppiumDriver<RemoteWebElement>>();
 	
 	Logger logger = Logger.getLogger(UserBaseTest.class);
 
 	public UserBaseTest() 	{
 		try {
 			prop = ConfigurationManager.getInstance();
+			//scrShotUtils = new ScreenshotUtils();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,9 +84,9 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	 * @param name- device name/udid
 	 * @throws Exception
 	 */
-	@Parameters({ "device", "version", "os" })
+	@Parameters({ "device", "version", "os", "manafacturer", "min_Ver", "max_Ver", "individual_ID"})
 	@BeforeMethod(alwaysRun = true)
-	public void startApp(String device, String version, Method method, String os) throws Exception {
+	public void startApp(String device, String version, String os, String manafacturer, String min_Ver, String max_Ver, String individual_ID, Method method) throws Exception {
 		logger.info("Inside Before Method");
 		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 			ContextManager.createNode(method.getName() + " " + device);
@@ -113,11 +118,15 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			excelDataList.set(2, appPackage);
 			
 		}
-		DesiredCapabilities androidCaps = androidNative(excelDataList, device, version, os);
+		DesiredCapabilities androidCaps = androidNative(excelDataList, device, version, os, manafacturer, min_Ver, max_Ver, individual_ID);
 		//DesiredCapabilities androidCaps = androidNative(ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities"), device, version, os);
 		Thread.sleep(2000);
 		try {
 			this.driver = startingServerInstance(androidCaps, os);
+			System.out.println("Thread ID : "+Thread.currentThread().getId());
+			System.out.println("Device Name1 : "+driver.getCapabilities().getCapability("pCloudy_DeviceFullName"));
+			System.out.println("Device Name2 : "+driver.getCapabilities().getCapability(MobileCapabilityType.DEVICE_NAME));
+			driverList.add(driver);
 		//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 			ContextManager.setAndroidDriver(this.driver); 
 		} catch (Exception e) {
@@ -188,13 +197,15 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			}
 		}
 
-		System.out.println("stopApp");
-		if (driver != null) {
-			this.driver.quit();
-		}
-		if (os.equalsIgnoreCase("Android"))
-			service.stop();
+//		System.out.println("stopApp");
+//		if (driver != null) {
+//			this.driver.quit();
+//		}
+//		if (os.equalsIgnoreCase("Android"))
+//			service.stop();
 	}
+	
+	
 
 	@AfterSuite(alwaysRun = true)
 	public void flushReport() {
@@ -225,8 +236,14 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 					e.printStackTrace();
 				}
 			}
+			
+			System.out.println("stopApp");
+			if (driverList.size() > 0) {
+				System.out.println("driver size : "+driverList.size());
+				for(AppiumDriver<RemoteWebElement> driver:driverList)
+					driver.quit();
+			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("My Report Flushed End.....");
@@ -240,7 +257,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	 * @throws IOException
 	 */
 
-	public synchronized DesiredCapabilities androidNative(List<String> s, String device_udid, String version, String os)
+	public synchronized DesiredCapabilities androidNative(List<String> s, String device_udid, String version, String os, String manafacturer, String min_Ver, String max_Ver, String individual_ID)
 			throws IOException {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		switch (os) {
@@ -305,14 +322,14 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 		case "pCloudyAndroid":
 
-			System.out.println(device_udid + "," + version);
+			//System.out.println(device_udid + "," + version);
 			capabilities.setCapability("pCloudy_Username", s.get(12));
 			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
 			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
 			capabilities.setCapability("newCommandTimeout", 600);
 			capabilities.setCapability("launchTimeout", 90000);
-			capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
-			capabilities.setCapability("platformVersion", version);
+			//capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
+			//capabilities.setCapability("platformVersion", version);
 			capabilities.setCapability("platformName", "Android");
 			capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
 			capabilities.setCapability("appPackage", s.get(2));
@@ -320,7 +337,13 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("pCloudy_WildNet", "false");
 			capabilities.setCapability("autoGrantPermissions", "true");
 			capabilities.setCapability("pCloudy_EnableVideo", "true");
-
+			
+			capabilities.setCapability("pCloudy_DeviceManafacturer", manafacturer);
+			capabilities.setCapability("pCloudy_MinVersion",min_Ver); 
+			capabilities.setCapability("pCloudy_MaxVersion",max_Ver); 
+			capabilities.setCapability("pCloudy_Individual",individual_ID);
+			capabilities.setCapability(MobileCapabilityType.NO_RESET, false);
+			
 			if (checkDeviceVersion(version)) {
 				capabilities.setCapability("automationName", "UiAutomator2");
 				capabilities.setCapability("uiautomator2ServerLaunchTimeout", 90000);

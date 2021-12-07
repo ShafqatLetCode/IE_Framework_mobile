@@ -15,7 +15,7 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class CommonAlertElements {
 	
-	public static AppiumDriver<RemoteWebElement> driver1;
+	public AppiumDriver<RemoteWebElement> driver1;
 	public CommonAlertElements(AppiumDriver<RemoteWebElement> driver) {
 		this.driver1 = driver; 
 		PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);

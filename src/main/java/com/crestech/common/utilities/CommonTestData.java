@@ -49,6 +49,7 @@ public enum CommonTestData {
 	
 	//UpdateContact Details
 	UPDATE_CONTACT_DETAILS_PAGEHEADER("Update Contact Details"),
+	CONTACT_DETAILS_PAGEHEADER("Contact Details"),
 	PERSONAL_AND_CONTACTDETAILS_PAGEHEADER("Personal & Contact Details"),
 	CONTACT_DETAILS_TITLE("CONTACT DETAILS"),
 	EMAIL_NOTES("This email address provided will only be used for your iBanking/mobile banking transactions, eStatement(s) and marketing communication (if any)"),
@@ -75,9 +76,9 @@ public enum CommonTestData {
 	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
 	POSB_APP_PACKAGE("com.dbs.sit1.posbmbanking"),
 	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
-	DBS_APP_APK("DBS_Android.apk"),
+	DBS_APP_APK("dbsandroidUAT_10Nov.apk"),
 	POSB_APP_APK("POSB_Android.apk"),
-	iWEALTH_APP_APK("iWealth_Android.apk"),
+	iWEALTH_APP_APK("iwealthandroidUAT_10Nov.apk"),
 	DBS_DIGIBANK("DBS digibank"),
 	ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
 	
@@ -151,7 +152,7 @@ public enum CommonTestData {
 	SECURE_PIN_PAGE_HEADER("Secure PIN"),
 	
 
-	YOU_HAVE_ADDED_RECIPIENT_MSG("You’ve added a recipient"),
+	YOU_HAVE_ADDED_RECIPIENT_MSG("You've added a recipient"),
 
 	NAMETO_APPEAR_ON_DEBITCARD("DBS Passion"),
 	REVIEW_APPLICATION("Review Application"),

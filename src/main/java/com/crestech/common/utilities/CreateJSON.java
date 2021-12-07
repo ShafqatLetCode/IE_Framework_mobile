@@ -20,13 +20,17 @@ public class CreateJSON {
 			List<String> os = ExcelUtils.readExcel("OperatingSystem", "DeviceList", wb);
 			List<String> userName = ExcelUtils.readExcel("UserName", "DeviceList", wb);
 			List<String> password = ExcelUtils.readExcel("Password", "DeviceList", wb);
+			List<String> manafacturer = ExcelUtils.readExcel("Manafacturer", "DeviceList", wb);
+			List<String> min_Ver = ExcelUtils.readExcel("Min_Ver", "DeviceList", wb);
+			List<String> max_Ver = ExcelUtils.readExcel("Max_Ver", "DeviceList", wb);
+			List<String> individual_ID = ExcelUtils.readExcel("Individual_ID", "DeviceList", wb);
 			ExcelUtils.closeExcel(wb);
 			// Creating a JSONObject object
 			JSONArray array = new JSONArray();
 			JSONObject jsonObj1 = new JSONObject();
 
 			for (int i = 1; i < device.size(); i++) {
-				array.add(getDeviceInfo(device.get(i), version.get(i), os.get(i), userName.get(i), password.get(i)));
+				array.add(getDeviceInfo(device.get(i), version.get(i), os.get(i), userName.get(i), password.get(i), manafacturer.get(i), min_Ver.get(i), max_Ver.get(i), individual_ID.get(i)));
 			}
 			jsonObj1.put("devices", array);
 			System.out.println(jsonObj1);
@@ -42,7 +46,7 @@ public class CreateJSON {
 	}
 
 	@SuppressWarnings("unchecked")
-	JSONObject getDeviceInfo(String device, String version, String os, String userName , String password) throws Exception {
+	JSONObject getDeviceInfo(String device, String version, String os, String userName , String password, String manafacturer, String min_Ver, String max_Ver, String individual_ID) throws Exception {
 		try {
 			JSONObject deviceInfo;
 			deviceInfo = new JSONObject();
@@ -51,6 +55,10 @@ public class CreateJSON {
 			deviceInfo.put("os", os);
 			deviceInfo.put("userName", userName);
 			deviceInfo.put("password", password);
+			deviceInfo.put("manafacturer", manafacturer);
+			deviceInfo.put("min_Ver", min_Ver);
+			deviceInfo.put("max_Ver", max_Ver);
+			deviceInfo.put("individual_ID", individual_ID);
 			return deviceInfo;
 		} catch (Exception e) {
 			e.printStackTrace(); 

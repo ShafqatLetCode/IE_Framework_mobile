@@ -22,11 +22,13 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public DBS_IOSObject IOShomePgaeObject = new DBS_IOSObject(driver);
 	CommonAppiumTest commonAppTest = null;
 	AndroidAlert androidAlert = null;
+	GestureUtils gestUtils = null;
 
 	public DBS_IOSpage(AppiumDriver<RemoteWebElement> driver) {
 		super(driver);
 		commonAppTest = new CommonAppiumTest(driver);
 		androidAlert = new  AndroidAlert(driver);
+		gestUtils = new GestureUtils(driver);
 		//PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), IOShomePgaeObject);
 	}
 
@@ -112,7 +114,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				Dimension windowSize1 = driver.manage().window().getSize();
 				int y =(int)((windowSize1.getHeight())-10);
 				int x =(int)((windowSize1.getWidth())/2);
-				GestureUtils.swipeElementtoCoordinate(IOShomePgaeObject.upgradeSwipeButton(),  x,  y);
+				gestUtils.swipeElementtoCoordinate(IOShomePgaeObject.upgradeSwipeButton(),  x,  y);
 			}
 			
 			Asserts.assertEquals(actualMessage, CommonTestData.UPGRADE_EXPERIENCE_MESSAGE.getEnumValue(), "Alert Message Not matching");

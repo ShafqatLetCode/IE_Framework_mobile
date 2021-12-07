@@ -31,16 +31,16 @@ import io.appium.java_client.touch.offset.PointOption;
 
 public class GestureUtils {
 
-	public static AppiumDriver<RemoteWebElement> driver;
-	public static WaitUtils wait = null;
-	public static TouchAction touch =null;
+	public  AppiumDriver<RemoteWebElement> driver;
+	public  WaitUtils wait = null;
+	public  TouchAction touch =null;
 	public GestureUtils(AppiumDriver<RemoteWebElement> driver2) {
 		this.driver = driver2;
-		wait = new WaitUtils(driver2);
-		touch = new TouchAction(driver);
+		wait = new WaitUtils(this.driver);
+		touch = new TouchAction(this.driver);
 	}
 	//Working methods starts
-	public static void DragAndDropElementToElement(MobileElement Element1, MobileElement Element2) throws Exception {
+	public void DragAndDropElementToElement(MobileElement Element1, MobileElement Element2) throws Exception {
 		try {
 			if(Element1.isDisplayed()&&Element2.isDisplayed())
 				touch.longPress(longPressOptions().withElement(element(Element1))).moveTo(element(Element2)).release()
@@ -56,7 +56,7 @@ public class GestureUtils {
 	 * @param y
 	 * @throws Exception
 	 */
-	public static void DragAndDropElementToCoordinate(MobileElement Element, int x, int y) throws Exception {
+	public void DragAndDropElementToCoordinate(MobileElement Element, int x, int y) throws Exception {
 		try {
 			if(Element.isDisplayed())
 				touch.longPress(longPressOptions().withElement(element(Element))).moveTo(point(x, y)).release().perform();
@@ -65,7 +65,7 @@ public class GestureUtils {
 		}
 	}
 	
-	public static void longPressOnAndroidElement(WebElement ele) throws Exception {
+	public void longPressOnAndroidElement(WebElement ele) throws Exception {
 		try {
 			AndroidTouchAction touch = new AndroidTouchAction(driver);
 			touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(ele))).perform();
@@ -73,7 +73,7 @@ public class GestureUtils {
 			throw new Exception(e); 
 		} 
 	}
-	public static void longPressOnMiddleOfScreen(int durationInSecond) throws Exception {
+	public void longPressOnMiddleOfScreen(int durationInSecond) throws Exception {
 		try {
 			AndroidTouchAction touch = new AndroidTouchAction(driver);
 			Dimension windowSize1 = driver.manage().window().getSize();
@@ -84,7 +84,7 @@ public class GestureUtils {
 			throw new Exception(e); 
 		} 
 	}
-	public static void longPressOnMobileElementSpecficLocation(MobileElement Element, int dur, int x, int y) throws Exception {
+	public void longPressOnMobileElementSpecficLocation(MobileElement Element, int dur, int x, int y) throws Exception {
 		try {
 			wait.waitForElementToBeClickable(Element);
 			touch.longPress(longPressOptions().withElement(element(Element)).withPosition(point(x, y))
@@ -94,7 +94,7 @@ public class GestureUtils {
 		}
 	}
 	
-	public static void tapAtSpecificPosition(int x, int y) throws Exception {
+	public void tapAtSpecificPosition(int x, int y) throws Exception {
 		try {
 			wait.ImplicitlyWait();
 			touch.tap(tapOptions().withPosition(point(x, y))).perform();
@@ -159,7 +159,7 @@ public class GestureUtils {
 	 * @throws Exception 
 	 * @implNote swipe up
 	 */
-	public static void swipeFromUpToBottom() throws Exception {
+	public void swipeFromUpToBottom() throws Exception {
 
 		try {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -179,7 +179,7 @@ public class GestureUtils {
 	 * @throws Exception 
 	 * @implNote swipe down
 	 */
-	public static void swipeFromBottomToUp() throws Exception {
+	public void swipeFromBottomToUp() throws Exception {
 		try {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			HashMap<String, String> scrollObject = new HashMap<String, String>();
@@ -361,7 +361,7 @@ public class GestureUtils {
 		}
 	}
 
-	public static void swipeElementtoCoordinate(MobileElement Element, int x, int y) throws Exception {
+	public void swipeElementtoCoordinate(MobileElement Element, int x, int y) throws Exception {
 		try {
 			wait.waitForElementVisibility(Element);
 			touch.longPress(longPressOptions().withElement(element(Element)).withDuration(ofSeconds(2)))
@@ -392,9 +392,10 @@ public class GestureUtils {
 		}
 	}
 
-	public static void scrollUPtoObject(String attribute, String value, MobileElement element) throws Exception {
+	public void scrollUPtoObject(String attribute, String value, MobileElement element) throws Exception {
 		try {
 			Dimension windowSize = driver.manage().window().getSize();
+			System.out.println("getSessionId :"+driver.getSessionId());
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
 			int y2 = (int) (h - y1);
@@ -421,7 +422,7 @@ public class GestureUtils {
 		}
 	}
 	
-	public static void scrollDOWNtoObject(String attribute, String value, MobileElement element) throws Exception {
+	public void scrollDOWNtoObject(String attribute, String value, MobileElement element) throws Exception {
 		try {
 			wait.ImplicitlyWait();
 			Dimension windowSize = driver.manage().window().getSize();
@@ -514,7 +515,7 @@ public class GestureUtils {
 
 	
 
-	public static void AllTypeSwipeOperation(String SwipeTypeDirection, int Percentage) throws Exception {
+	public void AllTypeSwipeOperation(String SwipeTypeDirection, int Percentage) throws Exception {
 		try {
 			wait.ImplicitlyWait();
 			Dimension windowSize = driver.manage().window().getSize();
