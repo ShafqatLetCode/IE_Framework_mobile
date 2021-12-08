@@ -518,7 +518,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 
 	@Step("Verifying button label and clicking on 'More' button ")
-	public void MoreVerifyAndClickButton() throws Exception {
+	public void ClickOnMoreButton() throws Exception {
 		try {
 			TakeScreenshot(IOShomePgaeObject.moeButton());
 			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.moeButton(),
@@ -691,7 +691,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Change local fund transfer limit verification")
 	public void ChangeLocalFundsTransferLimit() throws Exception {
 		try {
-			MoreVerifyAndClickButton();
+			ClickOnMoreButton();
 			EnterPasscodeAndDone();
 			sendDataInCommonSearchBoxAndSelectFromDropDown(
 					CommonTestData.LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS.getEnumValue(),
@@ -1051,8 +1051,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			EnterPasscodeAndDone();
 			Thread.sleep(20000);
-			TakeScreenshot(IOShomePgaeObject.PayeeAddedSuccessImage().get(3));
-			if (isElementVisible(IOShomePgaeObject.PayeeAddedSuccessImage().get(3)))
+			TakeScreenshot(IOShomePgaeObject.SuccessImage().get(3));
+			if (isElementVisible(IOShomePgaeObject.SuccessImage().get(3)))
 				Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.YouHaveAddedRecipient()),
 						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
 						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not matching");
@@ -1430,8 +1430,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			clickOnElement(IOShomePgaeObject.TransferNowButton());
 			
 			// verifies the payment completion with expected amount.
-			TakeScreenshot(IOShomePgaeObject.PayeeAddedSuccessImage().get(3));
-			if (isElementVisible(IOShomePgaeObject.PayeeAddedSuccessImage().get(3))) {
+			TakeScreenshot(IOShomePgaeObject.SuccessImage().get(3));
+			if (isElementVisible(IOShomePgaeObject.SuccessImage().get(3))) {
 				Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.PaymentSubmittedMsg()),
 						CommonTestData.PAYMENT_SUBMITTED.getEnumValue(),
 						CommonTestData.PAYMENT_SUBMITTED.getEnumValue() + " Text is not matching");
@@ -1713,7 +1713,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Page Header not displaying.");
 
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFERRED.getEnumValue(),
-					IOShomePgaeObject.PayeeAddedSuccessImage().get(0), IOShomePgaeObject.TransferredMsg()); 
+					IOShomePgaeObject.SuccessImage().get(0), IOShomePgaeObject.TransferredMsg()); 
 			
 			VerifyAccountDetailsAfterFundTransferToOwnAccount();
 			
@@ -1842,5 +1842,350 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		}
 	}
 
+	@Step("Verifies the Applying Debit Card and Verify the completion page details.")
+	public void ApplyDebitCard() throws Exception {
+		try {
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
+			SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN();
+			FillingDetailsToApplyingDebitCard();
+			ClickOnNextButton();
+		    Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ReviewApplicationPageHeader()),
+						CommonTestData.REVIEW_APPLICATION.getEnumValue() + " Page Header not displaying.");
+			
+
+			//gestUtils.scrollUPtoObject("text", "NEXT", IOShomePgaeObject.nextButton());
+		    ClickOnNextButton();
+			ClickOnSubmitButtonAfterSettingCardPIN();
+			
+			// Leave On Home Page to this test case for next run.
+			ClickOnCloseButton();
+			ClickOnHomeButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Verifies the Set Card Pin Page Header and then Submit While Entering Confirm and Create New Pin & Verifies the 'Application Submitted' Message.")
+	public void ClickOnSubmitButtonAfterSettingCardPIN() throws Exception {
+		try {
+			
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.SetCardPINPageHeader()),
+							CommonTestData.SET_CARD_PIN.getEnumValue() + " Page Header not displaying.");
+			
+			clickOnElement(IOShomePgaeObject.CreateYourPINField());
+			enterTextInTextbox(IOShomePgaeObject.CreateYourPINField(), CommonTestData.CREATE_PIN.getEnumValue());
+			clickOnElement(IOShomePgaeObject.ConfirmNewPINField());
+			enterTextInTextbox(IOShomePgaeObject.ConfirmNewPINField(), CommonTestData.CONFIRM_PIN.getEnumValue());
+			driver.hideKeyboard();
+			
+			clickOnElement(IOShomePgaeObject.submitButton());
+			
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ApplicationSubmittedMessage()),
+					CommonTestData.APPLICATION_SUBMITTED.getEnumValue() + " Page Header not displaying.");
+			Asserts.assertTrue(IOShomePgaeObject.ThankYouMessage().isDisplayed(),CommonTestData.THANKU_MESSAGE_AFTER_APPLYDEBITCARD.getEnumValue() + " not found.");
+			Asserts.assertTrue(IOShomePgaeObject.LogoutBtn().isDisplayed(), "Log Out Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.BackToMoreServicesButton().isDisplayed(),
+					"'Back To More Services' Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.closeButton().isDisplayed(), "Close Button not found.");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Step("Select Debit Card Option After Clicking on Cards Section and then 2FA Authentication Done.")
+	public void SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN() throws Exception {
+		try {
+			//gestUtils.scrollUPtoObject("text", "Cards", DBSappObject.CardsButton());
+			if (isElementVisible(IOShomePgaeObject.CardsButton()))
+				clickOnElement(IOShomePgaeObject.CardsButton());
+			TakeScreenshot(IOShomePgaeObject.SelectDebitCard()); 
+			clickOnElement(IOShomePgaeObject.SelectDebitCard());
+			EnterPasscodeAndDone();
+			selectDebitCardType(CommonTestData.DEBIT_CARD_NAME.getEnumValue());
+			TakeScreenshot(IOShomePgaeObject.AccountToBeLinkedToTheCardField()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Click on 'Account type' From List under Local fund Limit page'")
+	public void selectDebitCardType(String debitCardToBeSelected) throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.DebitCardDetailsDropdownList().get(1)); 
+			List<MobileElement> Elementlist = IOShomePgaeObject.DebitCardDetailsDropdownList();
+			int l = Elementlist.size();
+			int index = 0;
+			String accountFromList = null;
+			for (int i = 0; i <= l; i++) {
+				accountFromList = Elementlist.get(i).getText();
+				if (accountFromList.contains(debitCardToBeSelected)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+			Asserts.assertTrue(index > 0, "No " + debitCardToBeSelected + " found in the list of corresponding value");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Filling Required Details to applying Debit Card like as 'AccountToBeLinkedToTheCardField',"
+			+ " 'Title', 'EnterNameToAppearOnTheCardField', 'Race', 'Marital Status','Residential Type',"
+			+ "'Education','Economic Status','Annual Income', 'And Select Checkbox SendMeDBSPrmotionViaMail'.")
+	public void FillingDetailsToApplyingDebitCard() throws Exception {
+		try {
+			// To filling Debit Card Details for applying Debit card.
+			clickOnElement(IOShomePgaeObject.AccountToBeLinkedToTheCardField());
+			TakeScreenshot(IOShomePgaeObject.AccountToBeLinkedToTheCardField()); 
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.TitleField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.TITLE.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.EnterNameToAppearOnTheCardField());
+			enterTextInTextbox(IOShomePgaeObject.EnterNameToAppearOnTheCardField(),
+					CommonTestData.NAMETO_APPEAR_ON_DEBITCARD.getEnumValue());
+			driver.hideKeyboard();
+			TakeScreenshot(IOShomePgaeObject.EducationField()); 
+			
+			//gestUtils.scrollUPtoObject("text", "Education", IOShomePgaeObject.EducationField());
+			
+			clickOnElement(IOShomePgaeObject.RaceField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.RACE.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.MaritalStatusField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.MARITAL_STATUS.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.ResidentialTypeField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.RESIDENCE_TYPE.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.EducationField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.EDUCATION.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.EconomicStatusField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.ECONOMIC_STATUS.getEnumValue());
+
+			clickOnElement(IOShomePgaeObject.AnnualIncomeField());
+			selectElementFromTheGivenList(IOShomePgaeObject.DebitCardDetailsDropdownList(),
+					CommonTestData.ANNUAL_INCOME.getEnumValue());
+
+			//gestUtils.scrollUPtoObject("text", "NEXT", IOShomePgaeObject.nextButton());
+			TakeScreenshot(IOShomePgaeObject.SendMeDBSPrmotionViaMail());
+			clickOnElement(IOShomePgaeObject.SendMeDBSPrmotionViaMail()); 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Click on 'Account type' From List under Local fund Limit page'")
+	public void selectElementFromTheGivenList(List<MobileElement> elementList, String elementToBeSelected)
+			throws Exception {
+		try {
+			wait.waitForElementVisibility(elementList.get(1));
+			List<MobileElement> Elementlist = elementList;
+			int l = Elementlist.size();
+			int index = 0;
+			String accountFromList = null;
+			for (int i = 0; i <= l; i++) {
+				accountFromList = Elementlist.get(i).getText();
+				if (accountFromList.contains(elementToBeSelected)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+
+			Asserts.assertTrue(index > 0, "No " + elementToBeSelected + " found in the list of corresponding value");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Verifies the Open Account.")
+	public void OpenAccount() throws Exception {
+		try {
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
+			ClickOnDepositAccountsAnd2FAAuthenticationDone();
+			SelectOpenAccountOptionAndVerifyAccountBenifitsPageHeader();
+			ClickOnopenAccountInStepButton();
+			EnterMonthlySavingsAmtAndSelectSourceOfFundsForSavings();
+			ClickOnNextButton();
+			VerifyWarningMessageAndImportantNotes();
+			ClickOnIAcknowledgeButtonAndReviewOpenAccountApplication();
+			ClickOnOpenAccountNowButton();
+			
+			// Leave On Home Page to this test case for next run.
+			ClickOnCloseButton();
+			ClickOnHomeButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Step("Select Open Account Option By Clicking And Verify Account Benifits Page Header.")
+	public void SelectOpenAccountOptionAndVerifyAccountBenifitsPageHeader() throws Exception {
+		try {
+			selectElementFromTheGivenList(IOShomePgaeObject.SelectOpenAccountOptionList(),
+					CommonTestData.OPEN_ACCOUNT_OPTION.getEnumValue());
+			TakeScreenshot(IOShomePgaeObject.AccountBenefitsPageHeader()); 
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.AccountBenefitsPageHeader()),
+					CommonTestData.ACCOUNT_BENIFITS.getEnumValue(),
+					CommonTestData.ACCOUNT_BENIFITS.getEnumValue() + " Page Header Text is not matching");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Step("Enter Monthly Savings Amount And Select Source Of Funds For Savings.")
+	public void EnterMonthlySavingsAmtAndSelectSourceOfFundsForSavings() throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.EnterMonthlySavingsAmtEditField());
+			enterTextInTextbox(IOShomePgaeObject.EnterMonthlySavingsAmtEditField(),
+					CommonTestData.MONTHLY_SAVING_AMT_BALANCE.getEnumValue());
+			driver.hideKeyboard();
+			
+			clickOnElement(IOShomePgaeObject.SelectSourceOfFundsForSavingsDropdown());
+			selectElementFromTheGivenList(IOShomePgaeObject.SelectSourceOfFundsForSavingsDropdownList(),
+					CommonTestData.SELECT_ACCOUNT.getEnumValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Step("Click On Open Account In 2/3 Step Button.")
+	public void ClickOnopenAccountInStepButton() throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.StepOpenAccountButton());
+			TakeScreenshot(IOShomePgaeObject.OpenAccountPageHeader()); 
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.OpenAccountPageHeader()), CommonTestData.OPEN_ACCOUNT.getEnumValue(),
+					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Page Header Text is not matching");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Step("Click On Deposit Accounts Module And 2FA Authentication Done And Verifies the Open Account Page Header.")
+	public void ClickOnDepositAccountsAnd2FAAuthenticationDone() throws Exception {
+		try {
+			//gestUtils.scrollUPtoObject("text", "Deposit Accounts", IOShomePgaeObject.DepositAccountsModule());
+			TakeScreenshot(IOShomePgaeObject.DepositAccountsModule()); 
+			clickOnElement(IOShomePgaeObject.DepositAccountsModule());
+			EnterPasscodeAndDone();
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.OpenAccountPageHeader()),
+					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Page Header not displaying.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Step("Verify Warning Message And Important Notes.")
+	public void VerifyWarningMessageAndImportantNotes() throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.ImportantNotesPageHeader()); 
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.ImportantNotesPageHeader()),
+					CommonTestData.IMPORTANT_NOTES.getEnumValue(),
+					CommonTestData.IMPORTANT_NOTES.getEnumValue() + " Text is not matching.");
+			
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.Warning()),
+					CommonTestData.WARNING.getEnumValue(),
+					CommonTestData.WARNING.getEnumValue() + " Message is not matching");
+		
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.WarningHeading()),
+					CommonTestData.WARNING_HEADING_TEXT.getEnumValue(),
+					CommonTestData.WARNING_HEADING_TEXT.getEnumValue() + " Message is not matching");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Step("Click On Open Account Now Button And Got 'Your account is open and ready to use!' Message.")
+	public void ClickOnOpenAccountNowButton() throws Exception {
+		try {
+			//gestUtils.scrollUPtoObject("text", "OPEN ACCOUNT NOW", IOShomePgaeObject.OpenAccountNowButton());
+			TakeScreenshot(IOShomePgaeObject.OpenAccountNowButton()); 
+			clickOnElement(IOShomePgaeObject.OpenAccountNowButton());
+			TakeScreenshot(IOShomePgaeObject.AccountStatusMessage()); 
+			if (isElementVisible(IOShomePgaeObject.SuccessImage().get(0))) 
+				Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.AccountStatusMessage()),
+						CommonTestData.YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE.getEnumValue(),
+						CommonTestData.YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE.getEnumValue()
+								+ " Message is not matching.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Step("Click On IAcknowledge Button And Review Open Account Application.")
+	public void ClickOnIAcknowledgeButtonAndReviewOpenAccountApplication() throws Exception {
+		try {
+			//gestUtils.scrollUPtoObject("text", "I ACKNOWLEDGE", IOShomePgaeObject.IACKNOWLEDGEButton());
+			clickOnElement(IOShomePgaeObject.IACKNOWLEDGEButton());
+			TakeScreenshot(IOShomePgaeObject.ReviewAccountApplicationPageHeader()); 
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.ReviewAccountApplicationPageHeader()),
+					CommonTestData.REVIEW_ACCOUNT_APPLICATION.getEnumValue(),
+					CommonTestData.REVIEW_ACCOUNT_APPLICATION.getEnumValue() + " Text is not matched.");
+			if (isElementVisible(IOShomePgaeObject.YouAreOpeningText())) {
+				MobileElement element = verifyElementExistInTheList(IOShomePgaeObject.AccountList(),
+						CommonTestData.OPEN_ACCOUNT_OPTION.getEnumValue());
+				Asserts.assertEquals(getTexOfElement(element), CommonTestData.OPEN_ACCOUNT_OPTION.getEnumValue(),
+						" Given account is not matched or found.");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+
+	public MobileElement verifyElementExistInTheList(List<MobileElement> elementList, String elementTextToBeVerified)
+			throws Exception {
+		MobileElement element = null;
+		try {
+			wait.waitForElementVisibility(elementList.get(1));
+			int l = elementList.size();
+
+			String accountFromList = null;
+			for (int i = 0; i < l; i++) {
+				accountFromList = elementList.get(i).getText();
+				System.out.println(accountFromList + " : " + i);
+				if (accountFromList.contains(elementTextToBeVerified)) {
+					element = elementList.get(i);
+					break;
+				}
+			}
+			return element;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
 }
