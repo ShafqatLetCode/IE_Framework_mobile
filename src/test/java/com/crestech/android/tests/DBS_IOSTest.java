@@ -30,6 +30,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue() ,CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(),CommonTestData.CURRENCY.getEnumValue() );
 			
 		} catch (Exception e) {
 			e.printStackTrace(); 
@@ -51,6 +52,20 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
+	@Parameters({ "userName", "password" })
+	@Test(priority = 3, enabled = true, description = "Remittance-Corridor-ONEAPP-13407")
+	@Description(value = "Execution of this testcase:: Verifies the Remittance Corridor")
+	@Author(name = "shafqat")
+	public void Remittance_Corridor(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.VerifyRemittanceCorridor();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 	@Parameters({"userName", "password" })
 	@Test(priority=6, enabled=true, description = "Verify the Topup Paylah in Applications")
 	@Description(value = "Execution of this testcase:: TopUp-PayLah-ONEAPP-13915")
@@ -60,20 +75,6 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
 			DBSPgaeObject.TopupPaylah();
-		} catch (Exception e) {
-			e.printStackTrace(); 
-			throw e;
-		}
-	}
-	@Parameters({"userName", "password" })
-	@Test(priority=12,enabled=true,description = "Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit")
-	@Description(value = "Execution of this testcase:: ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847")
-	@Author(name = "Shafqat Ali")
-	public void ChangeLocalFundsTransferLimit(String userName,String password) throws Exception { 
-		try {
-			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
-			DBSPgaeObject.logInApplication(userName, password);
-			DBSPgaeObject.ChangeLocalFundsTransferLimit();
 		} catch (Exception e) {
 			e.printStackTrace(); 
 			throw e;
@@ -93,5 +94,50 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
+	@Parameters({"userName", "password" })
+	@Test(priority=12,enabled=true,description = "Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit")
+	@Description(value = "Execution of this testcase:: ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847")
+	@Author(name = "Shafqat Ali")
+	public void ChangeLocalFundsTransferLimit(String userName,String password) throws Exception { 
+		try {
+			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.ChangeLocalFundsTransferLimit();
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			throw e;
+		}
+	}
+	@Parameters({"userName", "password" })
+	@Test(priority=17, enabled=true, description = "FundsTransfer-OtherPOSBDBS-ONEAPP-16723")
+	@Description(value = "Execution of this testcase:: Verifies FundTransfer Other DBS/POSB")
+	@Author(name = "shafqat")
+	public void FundTransferOtherDBSPOSB(String userName,String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.FundTransferOtherBank();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Parameters({"userName", "password" })
+	@Test(priority=27, enabled=true, description = "TransactionHistory-ONEAPP-14312")
+	@Description(value = "Execution of this testcase:: Verifies Transaction History")
+	@Author(name = "shafqat")
+	public void TransactionHistory(String userName,String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.transactionHistoryVerify();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e; 
+		}
+	}
+	
+
 
 }

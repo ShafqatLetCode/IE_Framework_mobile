@@ -77,11 +77,12 @@ public enum CommonTestData {
 	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
 	POSB_APP_PACKAGE("com.dbs.sit1.posbmbanking"),
 	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
-	DBS_APP_APK("DBS_Android.apk"),
+	DBS_APP_APK("dbsandroidUAT.apk"),
 	POSB_APP_APK("POSB_Android.apk"),
 	iWEALTH_APP_APK("iWealth_Android.apk"),
 	DBS_DIGIBANK("DBS digibank"),
 	ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
+	CURRENCY_NAME("Singapore Dollar"),
 	
 	
 	//ApplyDebitCard
@@ -148,7 +149,7 @@ public enum CommonTestData {
 	REFERENCE_NUMBER_TEXT("Reference No."),
 	
 	OVERSEAS_TRANSFER_TEXT("OVERSEAS TRANSFER"),
-	EOTTREMITTANCE_NAME("BHDeott"),
+	EOTTREMITTANCE_NAME("ad rec new ajay"),// BHDeott
 	
 	LOCAL_TRANSFER_PayNow("Local Transfer & PayNow"),
 	PURPOSE_OF_TRANSFER_TEXT("Family support (Workers' remittances)"),
@@ -207,7 +208,8 @@ public enum CommonTestData {
 	TOPUP_LABEL_IOS("Top Up"),
 
 	//RemittanceCorridor
-	PAYEE_NAME_CORRIDOR("AUTOAUS"),
+	PAYEE_NAME_CORRIDOR("ad rec new ajay"),
+	OVERSEA_HEADER("Overseas Transfer"),
 	
 	////fund transfer posbdbs
 	ALL_SECTION("ALL"),
@@ -247,6 +249,8 @@ public enum CommonTestData {
 	MAKE_TRANSFER("MAKE A TRANSFER"),
 	REFERENCE_NUMBER("Reference No."),
 	LOCAL_LIMIT_INCREASE_SUCCESS_TITLE_IOS("Local Transfer limit Changed!"),
+	PURPOSE_HEADER_IOS("Select a Purpose"),
+	CALENDER_HEADER("Pick Date"),
 	
 	
 	

@@ -63,7 +63,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	@Test(priority = 3, enabled = true, description = "Remittance-Corridor-ONEAPP-13407")
 	@Description(value = "Execution of this testcase:: Verifies the Remittance Corridor")
 	@Author(name = "Divya Devi")
-	public void Remittance_Corridor(String userName, String password) throws Exception {
+	public void Remittance_Corridor_DBS(String userName, String password) throws Exception {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");
@@ -78,7 +78,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	@Test(priority = 4, enabled = true, description = "Remittance-eOTT-ONEAPP-14008")
 	@Description(value = "Execution of this testcase:: Verifies the Remittance eOTT.")
 	@Author(name = "Divya Devi")
-	public void Remittance_eOTT(String userName, String password) throws Exception {
+	public void Remittance_eOTT_DBS(String userName, String password) throws Exception {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");

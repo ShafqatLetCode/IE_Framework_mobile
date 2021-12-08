@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -980,5 +981,633 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			e.printStackTrace(); throw e;
 		}
 	}
+	@Step("Verify Transaction History")
+	public void transactionHistoryVerify() throws Exception {
+		try {
+			MoreVerifyAndClickButton();
+			EnterPasscodeAndDone();
+			ClickOnTransactionHistory();
+			SelectTimeAndAccountTypeForStatement(CommonTestData.ACCOUNT_NAME.getEnumValue(),CommonTestData.CURRENCY_NAME.getEnumValue());
+			GestureUtils.scrollUPtoObject("name", "SHOW", null);
+			ClickOnShowButtonAndVerifyHeader(CommonTestData.STATEMENT_TITLE.getEnumValue());
+			ValadateTransactionHistoryListInThreeMonth();
+			BackToHomeFromTransactionHistory();
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Click on 'Transaction History' Button and then Verifying page header 'Transaction History'")
+	public void ClickOnTransactionHistory() throws Exception {
+		try {
+			ButtonLabelVerifyClick(IOShomePgaeObject.transactionHistoryBtnLabel(), CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
+			EnterPasscodeAndDone();
+			fieldText(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(), IOShomePgaeObject.transactionHistoryBtnLabel());
+				
+			
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+
+	}
+	@Step("Select'3 Months Transaction History' And 'From Account' from 'Deposit Account' section")
+	public void SelectTimeAndAccountTypeForStatement(String AccountName, String currencyInAccount) throws Exception {
+		try {
+			    
+			    ButtonVerifyClick(IOShomePgaeObject.threeMonthOption());
+			    ButtonVerifyClick(IOShomePgaeObject.depositeOption());
+			    selectAccountTypeInTransactionHistory(AccountName, currencyInAccount);
+			
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Click on 'Account type' From List under Local fund Limit page'")
+	public void selectAccountTypeInTransactionHistory(String AccountToBeSelected,String currencyInAccount) throws Exception {
+		try {
+			List<MobileElement> Elementlist = null;
+			TakeScreenshot(IOShomePgaeObject.accountListinTransectionHistory().get(0));
+			Elementlist = IOShomePgaeObject.accountListinTransectionHistory();	
+			int l = Elementlist.size();
+			int index = 0;
+			String accountFromList = null;
+			for (int i = 0; i < l; i++) {
+				accountFromList = Elementlist.get(i).getText();
+				if (accountFromList.contains(AccountToBeSelected)) {
+					index++;
+					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+			Thread.sleep(2000);
+			String xpath = "//XCUIElementTypeStaticText[@name='Select Currency']";
+			List<RemoteWebElement> currencyTitle = driver.findElements(By.xpath(xpath));
+			if (currencyTitle.size() > 0) {
+			        List<MobileElement> Elementlist1 = null;
+					TakeScreenshot(IOShomePgaeObject.currencyListinTransectionHistory().get(0));
+					Elementlist1 = IOShomePgaeObject.currencyListinTransectionHistory();	
+					int l1 = Elementlist1.size();
+					int index1 = 0;
+					String currencyFromList = null;
+					for (int i = 0; i < l1; i++) {
+						currencyFromList = Elementlist1.get(i).getText();
+						if (currencyFromList.contains(currencyInAccount)) {
+							index1++;
+							com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+							clickOnElement(Elementlist.get(i));
+							break;
+						}
+					}
+					Asserts.assertTrue(index > 0, "No " + currencyInAccount + " found in the list of corresponding value");
+   
+			}
+			Asserts.assertTrue(index > 0, "No " + AccountToBeSelected + " found in the list of corresponding value");
+			fieldText(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(), IOShomePgaeObject.transactionHistoryBtnLabel());
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Click on 'Show' Button and then Verifying From Account.")
+	public void ClickOnShowButtonAndVerifyHeader(String ExpectedAccountName) throws Exception {
+		try {
+			ButtonLabelVerifyClick(IOShomePgaeObject.showButton(), CommonTestData.SHOW_BUTTON.getEnumValue());
+			EnterPasscodeAndDone2();
+			fieldText(ExpectedAccountName, IOShomePgaeObject.transactionHistoryfinalheaderTitle());
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Validating From Account Transaction History List.")
+	public void ValadateTransactionHistoryListInThreeMonth() throws Exception {
+		try {
+			List<MobileElement> Elementlist = IOShomePgaeObject.accountListinTransectionHistory();
+			int l = Elementlist.size();
+			Asserts.assertTrue(l > 0, "No Transaction History is Display");
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+
+	@Step("Back to Home page from Transaction History statement")
+	public void BackToHomeFromTransactionHistory() throws Exception {
+		try {
+			ButtonVerifyClick(IOShomePgaeObject.closeButton());
+			fieldText(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(), IOShomePgaeObject.transactionHistoryBtnLabel());
+			ButtonVerifyClick(IOShomePgaeObject.closeButton());
+			ButtonVerifyClick(IOShomePgaeObject.homeButton());
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Verifies FundTransfer Other DBS/POSB")
+	public void FundTransferOtherBank() throws Exception {
+		try {
+			payAndTransferVerifyClick();
+			EnterPasscodeAndDone();
+			clickAndVerifyOnAllTabAndselectFromTheList(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue());
+			clickingOnAccountTypeInLocalRecipient(CommonTestData.LOCAL_RECIPIENT_LIST_SELECTED_ACCOUNTNAME.getEnumValue());
+			selectFundSourceAndSelectAccount(CommonTestData.SOURCE_ACCOUNT_NAME.getEnumValue());
+            enterAmountAndVerifySgdCurrency("11");
+            verifyReviewTransferAndClickTransferNowButton();
+            verifyTransferredAndReferenceNumberField();
+            BackToHomeFromFundTransfer();
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Click on 'All Tab' section And select option form the list")
+	public void clickAndVerifyOnAllTabAndselectFromTheList(String TabValue) throws Exception {
+		try {
+			ButtonLabelVerifyClick(IOShomePgaeObject.allTab(), CommonTestData.ALL_SECTION.getEnumValue());
+			TakeScreenshot(IOShomePgaeObject.allTabList().get(0));
+			for (int i = 0; i < IOShomePgaeObject.allTabList().size(); i++) {
+				String tabText = IOShomePgaeObject.allTabList().get(i).getText(); 
+				if (tabText.contains(TabValue)) {
+					clickOnElement(IOShomePgaeObject.allTabList().get(i));
+					break;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+
+	}
+	@Step("Click on Account after selecting 'Local Recipients' and verify pageHeader")
+	public void clickingOnAccountTypeInLocalRecipient(String valueSelectedFromList) throws Exception {
+		try {
+			int o = 0;
+			for (int i = 0; i < IOShomePgaeObject.allTabList().size(); i++) {
+				String tabText = IOShomePgaeObject.allTabList().get(i).getText();
+				o++;
+				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
+					clickOnElement(IOShomePgaeObject.allTabList().get(i));
+					break;
+				}
+			}
+
+			GestureUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(o), IOShomePgaeObject.allTab());
+			TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
+			List<MobileElement> Elementlist = IOShomePgaeObject.localRecipientsList();
+			int l = Elementlist.size();
+			int index = 0;
+			String LocalRecipientList = null;
+			for (int i = 0; i < l; i++) {
+				LocalRecipientList = Elementlist.get(i).getText();
+				if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+			Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
+//			String ErrorMsg = getTexOfElement(DBSappObject.ErrorMessgeElement());
+//
+//			if (CommonTestData.ERROR_MSG.getEnumValue().equals(ErrorMsg)) {
+//				TakeScreenshot(DBSappObject.OKButton());
+//				clickOnElement(DBSappObject.OKButton());
+//			}
+			Thread.sleep(3000);
+			String xpath1 = "//XCUIElementTypeStaticText[@name='Primary source of fund']";
+			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
+			if (list1.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				if (isElementVisible(IOShomePgaeObject.primarysourceOfFund()))
+					clickOnElement(IOShomePgaeObject.okButton());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+
+	}
+	@Step("Click on 'Select Fund Source' and Select Account")
+	public void selectFundSourceAndSelectAccount(String SelectedAccountName) throws Exception {
+		try {
+			String xpath = "//XCUIElementTypeStaticText[@name='Select Fund Source']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			
+			if (list.size() > 0) {
+			ButtonLabelVerifyClick(IOShomePgaeObject.selectfundSource(), CommonTestData.SELECT_SOURCE_FUND.getEnumValue());
+			TakeScreenshot(IOShomePgaeObject.selectfundSourceList().get(0));
+			List<MobileElement> AccountName = IOShomePgaeObject.selectfundSourceList();
+			
+			int l = AccountName.size();
+			int index = 0;
+			String AccountNameList = null;
+			for (int i = 0; i < l; i++) {
+				AccountNameList = AccountName.get(i).getText();
+				if (AccountNameList.equalsIgnoreCase(SelectedAccountName)) {
+					index++;
+					clickOnElement(AccountName.get(i));
+					break;
+				}
+			}
+			String xpath1 = "//XCUIElementTypeStaticText[@name='Primary source of fund']";
+			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
+			if (list1.size() > 0) {
+				androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.okButton(),CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(),
+						IOShomePgaeObject.primarysourceOfFund());
+		
+			} }}catch (Exception e) {
+				e.printStackTrace(); throw e;
+			}
+
+		}
+	@Step("Verify 'SGD Currency Field' andIOShomePgaeObject Enter Amount '11'")
+	public void enterAmountAndVerifySgdCurrency(String Amount) throws Exception {
+		try {
+			fieldText(CommonTestData.SGD_CURRENCY_LABEL.getEnumValue(), IOShomePgaeObject.sgdText());
+			enterTextInTextbox(IOShomePgaeObject.amountField(), Amount);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			doneButtonIfAviliable();
+			nextButtonVerifyClick();
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+
+	}
+	@Step(" Verifying page header 'Review Transfer' And Click on 'TRANSFER NOW' Button")
+	public void verifyReviewTransferAndClickTransferNowButton() throws Exception {
+		try {
+			fieldText(CommonTestData.REVIEW_TRANSFER_LABEL.getEnumValue(), IOShomePgaeObject.reviewTransfer());
+			ButtonLabelVerifyClick(IOShomePgaeObject.transferNowButton(), CommonTestData.TRANSFER_NOW_BUTTON.getEnumValue());
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+
+	}
+	@Step(" Verifying page header 'Transferred' And Generated Reference Number")
+	public void verifyTransferredAndReferenceNumberField() throws Exception {
+		try {
+			fieldText(CommonTestData.TRANSFER_TITLE.getEnumValue(), IOShomePgaeObject.transferredTitle());
+			ButtonVerifyClick(IOShomePgaeObject.expandButton2());
+			GestureUtils.scrollUPtoObject("name", "Reference No.", IOShomePgaeObject.referenceNo());
+			fieldText(CommonTestData.REFERENCE_NUMBER.getEnumValue(), IOShomePgaeObject.referenceNo());
+			boolean i= IOShomePgaeObject.referenceNoValue().getText().isEmpty();
+			Asserts.assertTrue(i==false, "Reference Number not Found");
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Back to Home page from Transaction History statement")
+	public void BackToHomeFromFundTransfer() throws Exception {
+		try {
+			ButtonVerifyClick(IOShomePgaeObject.closeButton2());
+			ButtonVerifyClick(IOShomePgaeObject.homeButton());
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
+	public void verifyAccountTypeNameCurrencyAmount(String AccountType,String AccountName, String currency ) throws Exception {
+		try {
+			
+			//VerifyButtonLabelAndClick(DBSappObject.accountSectionHomePage(), CommonTestData.ACCOUNT_SECTION.getEnumValue());
+			//GestureUtils.scrollUPtoObject("text", "digiPortfolio", null);
+			//TakeScreenshot(DBSappObject.depositeHomePage());
+			fieldText(AccountType, IOShomePgaeObject.depositeHomepage());
+			fieldText(AccountName, IOShomePgaeObject.accountNameHomepage());
+			String fag=IOShomePgaeObject.sgdHomepage().getText();
+			String[] arrOfStr = fag.split(" ");
+			Asserts.assertEquals(arrOfStr[0],
+					currency, currency + " is not present");
+			int size=arrOfStr.length;
+			Asserts.assertTrue(size>2, "Reference Number not Found");
+			
+		} catch (Exception e) {
+			throw new Exception(getExceptionMessage(e));
+		}
+	}
+	@Step("Verifies Remittance Corridor")
+	public void VerifyRemittanceCorridor() throws Exception {
+		try {
+			payAndTransferVerifyClick();
+			EnterPasscodeAndDone();
+			overseasVerifyClick(CommonTestData.OVERSEAS_ICON.getEnumValue());
+			SelectingPayeeAfterSelectingOverseas(CommonTestData.PAYEE_NAME_CORRIDOR.getEnumValue());
+			selectFundSourceAndSelectAccountForCorredor(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue());
+			pressEnterKeyAfterEnteringAmount(CommonTestData.CORRIDOR_AMOUNT.getEnumValue());
+			GestureUtils.scrollUPtoObject("name", "NEXT",  null);
+			selectPurposeAccountTypeMobileNumberIfAvaliable("Savings","Personal Gifts","9999999990");
+			ClickOnNextBtnAndVerifiesReviewTransferPage();
+			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
+			ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
+			ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText();
+			BackToHomeFromRemittenceCoridor();
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Verifies Overseas Transfer Page Header on the top & Select Payee and fund source from Overseas Transfer page.")
+	public void SelectingPayeeAfterSelectingOverseas(String valueSelectedFromList) throws Exception {
+		try {
+			//overseasVerifyClick(CommonTestData.OVERSEAS_ICON.getEnumValue());
+			fieldText(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue().toLowerCase(),IOShomePgaeObject.overseaTitle());
+			List<MobileElement> Elementlist = IOShomePgaeObject.commonList();
+			int l = Elementlist.size();
+			int index = 0;
+			String OverseaRecipientList = null;
+			for (int i = 0; i < l; i++) {
+				OverseaRecipientList = Elementlist.get(i).getText();
+				if (OverseaRecipientList.contains(valueSelectedFromList)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+			Asserts.assertTrue(index>0, "No element found in the list of corresponding value");
+			
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Click on 'Select Fund Source' and Select Account")
+	public void selectFundSourceAndSelectAccountForCorredor(String SelectedAccountName) throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.amountFieldInOversea());
+			String xpath = "//XCUIElementTypeStaticText[@name='Select Fund Source']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			
+			if (list.size() > 0) {
+				ButtonLabelVerifyClick(IOShomePgaeObject.selectfundSource(), CommonTestData.SELECT_SOURCE_FUND.getEnumValue());
+			TakeScreenshot(IOShomePgaeObject.commonList().get(0));
+			List<MobileElement> AccountName = IOShomePgaeObject.commonList();
+			int l = AccountName.size();
+			int index = 0;
+			String AccountNameList = null;
+			for (int i = 0; i < l; i++) {
+				AccountNameList = AccountName.get(i).getText();
+				if (AccountNameList.contains(SelectedAccountName) ) {// && AccountNumberList.equalsIgnoreCase(SelectedAccountNumber)
+					index++;
+					clickOnElement(AccountName.get(i));
+					break;
+				}
+			}
+			
+			String xpath1 = "//XCUIElementTypeStaticText[@name='Primary source of fund']";
+			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
+			if (list1.size() > 0) {
+				androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.okButton(),CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(),
+						IOShomePgaeObject.primarysourceOfFund());
+		
+			} 
+			}
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+
+	}
+	@Step("Press enter key after Entering Amount.")
+	public void pressEnterKeyAfterEnteringAmount(String Amt) throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.amountFieldInOversea());
+			enterTextInTextbox(IOShomePgaeObject.amountFieldInOversea(), Amt);
+			doneButtonIfAviliable();
+			TakeScreenshot(IOShomePgaeObject.exchangeRate());
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Verifies Review Transfer Page Header after clicking on Next Button.")
+	public void ClickOnNextBtnAndVerifiesReviewTransferPage() throws Exception {
+		try {
+			
+			nextButtonVerifyClick();
+			fieldText(CommonTestData.REVIEW_TRANSFER.getEnumValue(), IOShomePgaeObject.reviewTransfer());
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Verifies Transfer Submitted Message after clicking on Transfer Now Button.")
+	public void ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(String SuccessMsg) throws Exception {
+		try {
+			ButtonVerifyClick( IOShomePgaeObject.transferNowButton());
+		    fieldText(SuccessMsg, IOShomePgaeObject.transferSubmittedLabel());
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Verifies Reference Number Text after clicking on Image Expand Button.")
+	public void ClickOnImageExpandBtnAndVerifiesReferenceNumberText() throws Exception {
+		try {
+			
+			ButtonVerifyClick(IOShomePgaeObject.downwardArrowInTopUpDonePage());
+			GestureUtils.scrollUPtoObject("name", "Reference No.", IOShomePgaeObject.referenceNo());
+			fieldText(CommonTestData.REFERENCE_NUMBER.getEnumValue(), IOShomePgaeObject.referenceNo());
+			boolean i= IOShomePgaeObject.referenceNoValueInOversea().getText().isEmpty();
+			Asserts.assertTrue(i==false, "Reference Number not Found");
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Verifies Overseas transfer Message after clicking on Share Transfer Details Button.")
+	public void ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText() throws Exception {
+		try {
+			GestureUtils.scrollUPtoObject("name", "SHARE TRANSFER DETAILS", null);
+			ButtonVerifyClick(IOShomePgaeObject.shareTransferDetailButton());
+			fieldText("Transfer Details",IOShomePgaeObject.transferDetailLabel());
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	@Step("Back to Home page from Transaction History statement")
+	public void BackToHomeFromRemittenceCoridor() throws Exception {
+		try {
+			ButtonVerifyClick(IOShomePgaeObject.backButtontransferDetailLabel());
+			ButtonVerifyClick(IOShomePgaeObject.closeIconInOversea());
+			ButtonVerifyClick(IOShomePgaeObject.homeButton());
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
+	public void selectPurposeAccountTypeMobileNumberIfAvaliable(String AccountType,String purpose,String MobileNo) throws Exception//"Savings""Personal Gifts""9999999990"
+	{
+		try {
+			String xpath_account = "//XCUIElementTypeStaticText[contains(@name,'account type')]";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath_account));
+		if (list.size() > 0) {
+			selectAccountType(AccountType);
+		}
+		String xpath_purpose = "//XCUIElementTypeStaticText[contains(@name,'purpose')]";
+		List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath_purpose));
+		if (list1.size() > 0) {
+			selectPurpose(purpose);
+		}
+		String xpath = "//XCUIElementTypeTextField[contains(@value,'Mobile')]";
+		List<RemoteWebElement> list2 = driver.findElements(By.xpath(xpath));
+		if (list2.size() > 0) {
+			enterMobileNo(MobileNo);
+			
+		}
+		
+	}
+	 catch (Exception e) {
+		 e.printStackTrace();
+			throw e;
+	}
 	
+}
+	@Step("Select AccountType")
+	public void selectAccountType(String AccountType) throws Exception//"Savings"
+	{
+		try {
+			ButtonVerifyClick(IOShomePgaeObject.selectAccountType());
+			List<MobileElement> Elementlist = IOShomePgaeObject.commonList();
+			TakeScreenshot(IOShomePgaeObject.commonList().get(0));
+			int l = Elementlist.size();
+			int index = 0;
+			String LocalRecipientList = null;
+			for (int i = 0; i < l; i++) {
+				LocalRecipientList = Elementlist.get(i).getText();
+				if (LocalRecipientList.contains(AccountType)) {
+					index++;
+					clickOnElement(Elementlist.get(i));
+					break;
+				}
+			}
+			Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
+			wait.waitForElementVisibility(IOShomePgaeObject.overseaTitle());
+		}
+	 catch (Exception e) {
+		 e.printStackTrace();
+			throw e;
+	}
+	}
+		@Step("Select purpose")
+		public void selectPurpose(String purpose) throws Exception//"Personal Gifts"
+		{
+			try {
+				ButtonVerifyClick(IOShomePgaeObject.selectPurposeType());
+				List<MobileElement> Elementlist = IOShomePgaeObject.commonList();
+				TakeScreenshot(IOShomePgaeObject.commonList().get(0));
+				int l = Elementlist.size();
+				int index = 0;
+				String LocalRecipientList = null;
+				for (int i = 0; i < l; i++) {
+					LocalRecipientList = Elementlist.get(i).getText();
+					if (LocalRecipientList.contains(purpose)) {
+						index++;
+						clickOnElement(Elementlist.get(i));
+						break;
+					}
+				}
+				Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
+				wait.waitForElementVisibility(IOShomePgaeObject.overseaTitle());
+			}
+		 catch (Exception e) {
+			 e.printStackTrace();
+				throw e;
+		}
+	
+}
+		@Step("enter mobile No.")
+		public void enterMobileNo(String MobileNo) throws Exception
+		{
+			try {
+				TakeScreenshot(IOShomePgaeObject.enterMobileNo());
+				enterTextInTextbox(IOShomePgaeObject.enterMobileNo(), MobileNo);
+				wait.waitForElementVisibility(IOShomePgaeObject.overseaTitle());
+			}
+		 catch (Exception e) {
+			 e.printStackTrace();
+				throw e;
+		}
+	
+}
+		@Step("Verifies Remittance eOTT")
+		public void VerifyRemittanceEOTT() throws Exception {
+			try {
+				payAndTransferVerifyClick();
+				EnterPasscodeAndDone();
+				SelectAllTAB();
+				ButtonVerifyClick(IOShomePgaeObject.searchBoxInPayAndTransfer());
+				String ExpectedEottName = CommonTestData.EOTTREMITTANCE_NAME.getEnumValue();
+				enterTextInTextbox(IOShomePgaeObject.searchBoxInPayAndTransfer(), ExpectedEottName);
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				pressKey(driver, Keys.ENTER);
+				String xpath = "//android.widget.TextView[@text='" + ExpectedEottName + "']";
+				MobileElement ExpectedEottEle = (MobileElement) driver.findElement(By.xpath(xpath));
+				isElementVisible(ExpectedEottEle);
+				clickOnElement(ExpectedEottEle);
+				fieldText(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue(), IOShomePgaeObject.overseaTitle());
+				selectFundSourceAndSelectAccountForCorredor(CommonTestData.EOTTREMITTANCE_NAME.getEnumValue());
+				pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
+				GestureUtils.scrollUPtoObject("name", "Next", null);
+				selectPurposeAccountTypeMobileNumberIfAvaliable(null,CommonTestData.PURPOSE_OF_TRANSFER_TEXT.getEnumValue(),null);
+				ClickOnNextBtnAndVerifiesReviewTransferPage();
+				ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
+				ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
+				ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText();
+				BackToHomeFromRemittenceCoridor();
+				
+			} catch (Exception e) {
+				e.printStackTrace(); throw e;
+			}
+		}
+		@Step("Select All TAB.")
+		public void SelectAllTAB() throws Exception {
+			try {
+				ButtonVerifyClick(IOShomePgaeObject.allTab());
+			} catch (Exception e) {
+				e.printStackTrace(); throw e;
+			}
+		}
+		@Step("Verify CreditCard Temperary Limit Increase")
+		public void CreditCardTempLimitIncrease() throws Exception {
+			try {
+				MoreVerifyAndClickButton();
+				EnterPasscodeAndDone();
+				sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(), CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue());
+				fieldText(CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(), IOShomePgaeObject.temporaryLimitIncreaseHeader());
+				setAmountDurationPurposeForLimitIncrease("100", "wedding");
+				GestureUtils.scrollUPtoObject("name", "NEXT", null );
+				nextButtonVerifyClick();
+				fieldText(CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue(),IOShomePgaeObject.reviewApplicationHeader());
+				 
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
+		}
+		@Step("Enter amount , duration and purposed for creditLimit Increase")
+		public void setAmountDurationPurposeForLimitIncrease(String Amount, String purpos) throws Exception {
+			try {
+				if (isElementEnable(IOShomePgaeObject.additionalCreditLimit()))
+					enterTextInTextbox(IOShomePgaeObject.additionalCreditLimit(), Amount);
+				fieldText(CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(), IOShomePgaeObject.temporaryLimitIncreaseHeader());
+				ButtonVerifyClick( IOShomePgaeObject.purposeCreditLimit());
+				fieldText(CommonTestData.PURPOSE_HEADER_IOS.getEnumValue(), IOShomePgaeObject.selectPurpose());
+				List<MobileElement> Elementlist = IOShomePgaeObject.commonList();
+				int l = Elementlist.size();
+				int index = 0;
+				String purposedFromList = null;
+				for (int i = 1; i <= l; i++) {
+					purposedFromList = Elementlist.get(i).getText();
+					if (purposedFromList.equalsIgnoreCase(purpos)) {
+						index++;
+						clickOnElement(Elementlist.get(i));
+						break;
+					}
+				}
+				
+				fieldText(CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(), IOShomePgaeObject.temporaryLimitIncreaseHeader());
+				ButtonVerifyClick( IOShomePgaeObject.durationCreditLimit());
+				fieldText(CommonTestData.CALENDER_HEADER.getEnumValue(), IOShomePgaeObject.calenderTemporaryLimitIncreaseHeader());
+				ButtonVerifyClick( IOShomePgaeObject.calenderDateOctEleven());
+				ButtonVerifyClick( IOShomePgaeObject.confirmButton());
+				fieldText(CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(), IOShomePgaeObject.temporaryLimitIncreaseHeader());
+				
+			} catch (Exception e) {
+				e.printStackTrace(); throw e;
+			}
+		}
+
+
 }
