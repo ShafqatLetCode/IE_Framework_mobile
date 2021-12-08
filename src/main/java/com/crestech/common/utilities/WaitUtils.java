@@ -20,7 +20,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 public class WaitUtils extends CommandPrompt {
 
 	public AppiumDriver<RemoteWebElement> driver = null;
-	private long WAIT_TIME = 25;
+	private long WAIT_TIME = 60;
 
 	public WaitUtils(AppiumDriver<RemoteWebElement> driver2) {
 		try {

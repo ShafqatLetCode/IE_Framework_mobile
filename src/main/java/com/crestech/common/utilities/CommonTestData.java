@@ -107,11 +107,12 @@ public enum CommonTestData {
 	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
 	POSB_APP_PACKAGE("com.dbs.sit1.posbmbanking"),
 	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
-	DBS_APP_APK("DBS_Android.apk"),
+	DBS_APP_APK("dbsandroidUAT.apk"),
 	POSB_APP_APK("POSB_Android.apk"),
 	iWEALTH_APP_APK("iWealth_Android.apk"),
 	DBS_DIGIBANK("DBS digibank"),
 	ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
+	CURRENCY_NAME("Singapore Dollar"),
 	
 	
 	//ApplyDebitCard
@@ -190,7 +191,8 @@ public enum CommonTestData {
     SOURCE_ACCOUNT_NAME_CORRIDOR("POSB STATEMENT SAVINGS"),
     SOURCE_ACCOUNT_CORRIDOR("420-86201-6"),
 	CORRIDOR_AMOUNT("34"),
-	PAYEE_NAME_CORRIDOR("AUTOAUS"),
+	PAYEE_NAME_CORRIDOR("ad rec new ajay"),
+	OVERSEA_HEADER("Overseas Transfer"),
 	
 	//Remittance EOTT
 	eOTT_AMOUNT("11.65"),
@@ -198,7 +200,7 @@ public enum CommonTestData {
 	REVIEW_TRANSFER("Review Transfer"),
 	REFERENCE_NUMBER_TEXT("Reference No."),
 	OVERSEAS_TRANSFER_TEXT("OVERSEAS TRANSFER"),
-	EOTTREMITTANCE_NAME("BHDeott"),
+	EOTTREMITTANCE_NAME("ad rec new ajay"),// BHDeott
 	PURPOSE_OF_TRANSFER_TEXT("Family support (Workers' remittances)"),
 	REVIEW_RECIPIENT_DETAILS("Review Recipient's Details"),
 
@@ -240,6 +242,7 @@ public enum CommonTestData {
 	LOCAL_TRANSFER_CAHNGE_TITLE("Local Transfer Limit Changed!"), 
 	SET_DAILY_LIMIT_TITLE("Set Daily Limit"),
 	REVIEW_DAILY_LIMIT_TITLE("Review Daily Limit"),
+	
 	ALL_SECTION("ALL"),
 	LOCAL_RECIPIENT_FROMLIST("Local Recipients"),
 	DBS_CURRENT_ACCOUNT_TEXT("DBS CURRENT ACCOUNT"),
@@ -271,6 +274,9 @@ public enum CommonTestData {
 	MAKE_TRANSFER("MAKE A TRANSFER"),
 	REFERENCE_NUMBER("Reference No."),
 	LOCAL_LIMIT_INCREASE_SUCCESS_TITLE_IOS("Local Transfer limit Changed!"),
+	PURPOSE_HEADER_IOS("Select a Purpose"),
+	CALENDER_HEADER("Pick Date"),
+	
 	;
 	
 	private final String message;

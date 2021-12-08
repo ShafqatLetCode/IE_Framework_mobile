@@ -2212,7 +2212,58 @@ public class DBSAndroidObject {
 	public List<MobileElement> AccountList() {
 		return AccountList;
 	}
+
+	@ElementDescription(value = "Amount type in oversea")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'account type')]")
+	private MobileElement accountTypeInOversea;
+
+	public MobileElement  accountTypeInOversea() {
+		return  accountTypeInOversea;
+	}
+	@ElementDescription(value = "purpos in oversea")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'purpose')]")
+	private MobileElement purposTypeInOversea;
+
+	public MobileElement  purposTypeInOversea() {
+		return  purposTypeInOversea;
+	}
+	@ElementDescription(value = "mobile no. in oversea")
+	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@text,'mobile number')]")
+	private MobileElement mobileNoInOversea;
+
+	public MobileElement  mobileNoInOversea() {
+		return  mobileNoInOversea;
+	}
+	@ElementDescription(value = "common List.")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout/android.widget.TextView")
+	private List<MobileElement> commonList;
 	
+	public List<MobileElement> commonList() { 
+		return commonList;
+	}
+	@ElementDescription(value = "overseas transfer header 2")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/text_title_mfe')]")
+	private MobileElement overseasTransferHeader;
+
+	public MobileElement  overseasTransferHeader() {
+		return  overseasTransferHeader;
+	}
+	@ElementDescription(value = "credit card limit calender header")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/tv_displaying_range_header')]")
+	private MobileElement calenderHeaderCreditLimit;
+
+	public MobileElement  calenderHeaderCreditLimit() {
+		return  calenderHeaderCreditLimit;
+	}
+	@ElementDescription(value = "select date oct 11")
+	@AndroidFindBy(xpath = "(//android.widget.TextView[@text='11'])[1]")
+	private MobileElement selectDateOctEleven;
+
+	public MobileElement  selectDateOctEleven() {
+		return  selectDateOctEleven;
+	}
+	
+
 	@ElementDescription(value = "Deposits Account Type")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Deposits']")
 	private MobileElement DepositsAccountType;

@@ -6,6 +6,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.crestech.annotation.values.Author;
 import com.crestech.base.UserBaseTest;
+import com.crestech.common.utilities.CommonTestData;
 import com.crestech.listeners.TestListener;
 import com.crestech.pages.DBS_IOSpage;
 import io.qameta.allure.Description;
@@ -23,7 +24,8 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
-
+			DBSPgaeObject.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue(),
+					CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(), CommonTestData.CURRENCY.getEnumValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -39,7 +41,21 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
 			DBSPgaeObject.logOutApplication();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
+	@Parameters({ "userName", "password" })
+	@Test(priority = 3, enabled = true, description = "Remittance-Corridor-ONEAPP-13407")
+	@Description(value = "Execution of this testcase:: Verifies the Remittance Corridor")
+	@Author(name = "shafqat")
+	public void Remittance_Corridor(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.VerifyRemittanceCorridor();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -54,7 +70,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
-			//Delete Payee Code Start Before Adding Payee DBS/POSB
+			// Delete Payee Code Start Before Adding Payee DBS/POSB
 			DBSPgaeObject.DeletePayee_ToDBSPOSB();
 			DBSPgaeObject.VerifyAddPayeeDBSorPOSB();
 		} catch (Exception e) {
@@ -86,13 +102,13 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
-			DBSPgaeObject.PayeeAddRemittance();
+			DBSPgaeObject.FundTransferOtherBank();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
-	
+
 	@Parameters({ "userName", "password" })
 	@Test(priority = 8, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
 	@Description(value = "Execution of this testcase:: Verifies the Apply Debit Card.")
@@ -116,7 +132,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
-			//Delete Payee Code Start Before Adding Payee Local to Other Bank
+			// Delete Payee Code Start Before Adding Payee Local to Other Bank
 			DBSPgaeObject.DeletePayee_LocalToOtherBank();
 			DBSPgaeObject.PayeeAddLocalOtherBank();
 		} catch (Exception e) {
@@ -124,7 +140,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
-	
+
 	@Parameters({ "userName", "password" })
 	@Test(priority = 10, enabled = true, description = "Payee-Add-BillPayment-ONEAPP-15938")
 	@Description(value = "Execution of this testcase:: Verifies the Payee Add Bill Payment.")
@@ -133,7 +149,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
-			//Delete Payee Code Start Before Adding Payee to Bill Payment.
+			// Delete Payee Code Start Before Adding Payee to Bill Payment.
 			DBSPgaeObject.DeletePayee_ToBillPayment();
 			DBSPgaeObject.PayeeAddBillPayment();
 		} catch (Exception e) {
@@ -141,7 +157,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
-	
+
 	@Parameters({ "userName", "password" })
 	@Test(priority = 11, enabled = true, description = "OpenAccount-ONEAPP-14028")
 	@Description(value = "Execution of this testcase:: Verifies the Open Account.")
@@ -171,7 +187,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
-	
+
 	@Parameters({ "userName", "password" })
 	@Test(priority = 14, enabled = true, description = "FundsTransfer-OwnAccount-ONEAPP-16730")
 	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Own Account.")
@@ -186,7 +202,37 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
-	
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 17, enabled = true, description = "FundsTransfer-OtherPOSBDBS-ONEAPP-16723")
+	@Description(value = "Execution of this testcase:: Verifies FundTransfer Other DBS/POSB")
+	@Author(name = "shafqat")
+	public void FundTransferOtherDBSPOSB(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.FundTransferOtherBank();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 18, enabled = true, description = "TransactionHistory-ONEAPP-14312")
+	@Description(value = "Execution of this testcase:: Verifies Transaction History")
+	@Author(name = "shafqat")
+	public void TransactionHistory(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.transactionHistoryVerify();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
 	@Parameters({ "userName", "password" })
 	@Test(priority = 23, enabled = true, description = "FundsTransfer-PayCreditCard-ONEAPP-14024")
 	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Pay Credit Card.")
@@ -201,7 +247,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
-	
+
 	@Parameters({ "userName", "password" })
 	@Test(priority = 24, enabled = true, description = "FundsTransfer-BillPayment-ONEAPP-14040")
 	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Bill Payment.")

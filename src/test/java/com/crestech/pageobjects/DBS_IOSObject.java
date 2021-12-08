@@ -844,28 +844,6 @@ public class DBS_IOSObject {
 	public List<MobileElement> allTabList() {
 		return localRecipientsList;
 	}
-@ElementDescription(value = "Local Recipients list")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText")
-	private List<MobileElement> localRecipientsList;
-
-	public List<MobileElement> localRecipientsList() {
-		return localRecipientsList;
-	}
-   @ElementDescription(value = "Primary source of fund")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Primary source of fund']")
-	private MobileElement primarysourceOfFund;
-
-	public MobileElement  primarysourceOfFund() {
-		return  primarysourceOfFund;
-	}
-	@ElementDescription(value = "ok button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
-	private MobileElement okButton;
-
-	public MobileElement okButton() {
-		return  okButton;
-	}
-
 	@ElementDescription(value = "'Credit Card' Fund Transfer page Header")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pay To DBS/POSB Card']")
 	private MobileElement CreditCard_PageHeader;
@@ -1255,7 +1233,412 @@ public class DBS_IOSObject {
 	public MobileElement ReviewApplicationPageHeader() { 
 		return  ReviewApplicationPageHeader;
 	}
+	////transection history label
+	@ElementDescription(value = "Transaction History label and button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Transaction History']")
+	private MobileElement transactionHistoryBtnLabel;
+
+	public MobileElement  transactionHistoryBtnLabel() {
+		return  transactionHistoryBtnLabel;
+	}
+	@ElementDescription(value = "3 month option")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='3 Months']")
+	private MobileElement threeMonthOption;
+
+	public MobileElement  threeMonthOption() {
+		return  threeMonthOption;
+	}
+	@ElementDescription(value = "show button")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeButton[@name='SHOW'])[1]")
+	private MobileElement showButton;
+
+	public MobileElement  showButton() {
+		return  showButton;
+	}
+	@ElementDescription(value = "deposite option")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='fe'])[1]")
+	private MobileElement depositeOption;
+
+	public MobileElement  depositeOption() {
+		return  depositeOption;
+	}
+	@ElementDescription(value = "Account list in transaction history")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell/XCUIElementTypeStaticText[1]")
+	private List<MobileElement> accountListinTransectionHistory;
+
+	public List<MobileElement> accountListinTransectionHistory() {
+		return accountListinTransectionHistory;
+	}
+	@ElementDescription(value = "select currency title")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Select Currency']")
+	private MobileElement selectCurrencyTitle;
+
+	public MobileElement  selectCurrencyTitle() {
+		return  selectCurrencyTitle;
+	}
+	@ElementDescription(value = "currency list in transaction history")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell/XCUIElementTypeStaticText")
+	private List<MobileElement> currencyListinTransectionHistory;
+
+	public List<MobileElement> currencyListinTransectionHistory() {
+		return currencyListinTransectionHistory;
+	}
+	@ElementDescription(value = "Transaction History final title")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[1])[2]")
+	private MobileElement transactionHistoryfinalheaderTitle;
+
+	public MobileElement  transactionHistoryfinalheaderTitle() {
+		return  transactionHistoryfinalheaderTitle;
+	}
+	@ElementDescription(value = "transaction history list")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[2])[2]")
+	private List<MobileElement> transectionHistoryList;
+
+	public List<MobileElement> transectionHistoryList() {
+		return transectionHistoryList;
+	}
+	@ElementDescription(value = "close button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='ic close']")
+	private MobileElement closeIconButton;
+
+	public MobileElement  closeIconButton() {
+		return  closeIconButton;
+	}
+	@ElementDescription(value = "back button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='back']")
+	private MobileElement backButton;
+
+	public MobileElement  backButton() {
+		return  backButton;
+	}
+	@ElementDescription(value = "Home button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Home']")
+	private MobileElement homeButton;
+
+	public MobileElement homeButton() {
+		return  homeButton;
+	}
+	///fund transfer to posb dbs
+	@ElementDescription(value = "All tab")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='All']")
+	private MobileElement allTab;
+
+	public MobileElement allTab() {
+		return  allTab;
+	}
+	@ElementDescription(value = "Local Recipients")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Local Recipients'])[1]")
+	private MobileElement localRecipients;
+
+	public MobileElement localRecipients() {
+		return  localRecipients;
+	}
+	@ElementDescription(value = "Local Recipients list")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText")
+	private List<MobileElement> localRecipientsList;
+
+	public List<MobileElement> localRecipientsList() {
+		return localRecipientsList;
+	}
+	@ElementDescription(value = "Primary source of fund")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Primary source of fund']")
+	private MobileElement primarysourceOfFund;
+
+	public MobileElement  primarysourceOfFund() {
+		return  primarysourceOfFund;
+	}
+	@ElementDescription(value = "ok button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
+	private MobileElement okButton;
+
+	public MobileElement okButton() {
+		return  okButton;
+	}
+	@ElementDescription(value = "Select Fund Source")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Select Fund Source']")
+	private MobileElement selectfundSource;
+
+	public MobileElement  selectfundSource() {
+		return  selectfundSource;
+	}
+	@ElementDescription(value = "Select Fund Source list")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell/XCUIElementTypeStaticText")
+	private List<MobileElement> selectfundSourceList;
+
+	public List<MobileElement> selectfundSourceList() {
+		return selectfundSourceList;
+	}
+	@ElementDescription(value = "SGD field")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='SGD'])[2]")
+	private MobileElement sgdText;
+
+	public MobileElement  sgdText() {
+		return  sgdText;
+	}
+	@ElementDescription(value = "Amount field")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='FT_Amount_Field']")
+	private MobileElement amountField;
+
+	public MobileElement   amountField() {
+		return   amountField;
+	}
+	@ElementDescription(value = "Review Transfer")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Transfer']")
+	private MobileElement reviewTransfer;
+
+	public MobileElement   reviewTransfer() {
+		return   reviewTransfer;
+	}
+	@ElementDescription(value = "TRANSFER NOW button")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='TRANSFER NOW'])[1]")
+	private MobileElement transferNowButton;
+
+	public MobileElement transferNowButton() {
+		return  transferNowButton;
+	}
+	@ElementDescription(value = "Transferred title")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Transferred'])[1]")
+	private MobileElement transferredTitle;
+
+	public MobileElement transferredTitle() {
+		return  transferredTitle;
+	}
+	@ElementDescription(value = "MAKE ANOTHER TRANSFER button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='MAKE ANOTHER TRANSFER']")
+	private MobileElement makeAnotherTransferButton;
+
+	public MobileElement  makeAnotherTransferButton() {
+		return   makeAnotherTransferButton;
+	}
+	@ElementDescription(value = "Reference No. value for fund transfer")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText)[15]")
+	private MobileElement referenceNoValueForFundTransfer;
+
+	public MobileElement  referenceNoValueForFundTransfer() {
+		return  referenceNoValueForFundTransfer;
+	}
+	@ElementDescription(value = "close button2")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='close']")
+	private MobileElement closeButton2;
+
+	public MobileElement  closeButton2() {
+		return  closeButton2;
+	}
+	//home page
+	@ElementDescription(value = "Deposite Homepage")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Deposits']")
+	private MobileElement depositeHomepage;
+
+	public MobileElement   depositeHomepage() {
+		return   depositeHomepage;
+	}
+	@ElementDescription(value = "SGD Homepage")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'SGD')]")
+	private MobileElement sgdHomepage;
+
+	public MobileElement sgdHomepage() {
+		return sgdHomepage;
+	}
+	@ElementDescription(value = "Account name Homepage")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeOther/XCUIElementTypeStaticText)[4]")
+	private MobileElement accountNameHomepage;
+
+	public MobileElement  accountNameHomepage() {
+		return   accountNameHomepage;
+	}
 	
+	@ElementDescription(value = " expand button 2")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='arrowDown']")
+	private MobileElement expandButton2;
+
+	public MobileElement  expandButton2() {
+		return  expandButton2;
+	}
+	///corridor remettence
+	@ElementDescription(value = "Account list in Oversease")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell/XCUIElementTypeStaticText")
+	private List<MobileElement> accountListInOversea;
+
+	public List<MobileElement> accountListInOversea() {
+		return accountListInOversea;
+	}
+	@ElementDescription(value = "Amount field in overseas")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='DBSRemittance_SenderAmount']")
+	private MobileElement amountFieldInOversea;
+
+	public MobileElement   amountFieldInOversea() {
+		return   amountFieldInOversea;
+	}
+	@ElementDescription(value = "exchange Rate")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Exchange Rate']")
+	private MobileElement exchangeRate;
+
+	public MobileElement  exchangeRate() {
+		return  exchangeRate;
+	}
+	@ElementDescription(value = "enter mobile no.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[contains(@value,'Mobile')]")
+	private MobileElement enterMobileNo;
+
+	public MobileElement  enterMobileNo() {
+		return  enterMobileNo;
+	}
+	@ElementDescription(value = "select account type")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'account type')]/following-sibling::XCUIElementTypeOther[1]")
+	private MobileElement selectAccountType;
+
+	public MobileElement  selectAccountType() {
+		return  selectAccountType;
+	}
+	@ElementDescription(value = "select purpose type")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'purpose')]/following-sibling::XCUIElementTypeOther[1]")
+	private MobileElement selectPurposeType;
+
+	public MobileElement  selectPurposeType() {
+		return  selectPurposeType;
+	}
+	@ElementDescription(value = "common list")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell/XCUIElementTypeStaticText")
+	private List<MobileElement> commonList;
+
+	public List<MobileElement> commonList() {
+		return commonList;
+	}
+	@ElementDescription(value = "Review transfer")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeNavigationBar[@name='Review Transfer']")
+	private MobileElement reviewTransferLabel;
+
+	public MobileElement  reviewTransferLabel() {
+		return  reviewTransferLabel;
+	}
+	@ElementDescription(value = "Transfer Submitted")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Transfer Submitted']")
+	private MobileElement transferSubmittedLabel;
+
+	public MobileElement  transferSubmittedLabel() {
+		return  transferSubmittedLabel;
+	}
+	@ElementDescription(value = "Reference value in oversea")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText)[23]")
+	private MobileElement referenceNoValueInOversea;
+
+	public MobileElement  referenceNoValueInOversea() {
+		return  referenceNoValueInOversea;
+	}
+	@ElementDescription(value = "SHARE TRANSFER DETAILS btn")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='SHARE TRANSFER DETAILS']")
+	private MobileElement shareTransferDetailButton;
+
+	public MobileElement  shareTransferDetailButton() {
+		return  shareTransferDetailButton;
+	}
+	@ElementDescription(value = "Transfer Details label")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Transfer Details']")
+	private MobileElement transferDetailLabel;
+
+	public MobileElement  transferDetailLabel() {
+		return  transferDetailLabel;
+	}
+	@ElementDescription(value = "backbutton in Transfer Details label")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='DBSRemittance_CompletionCrossButton']")
+	private MobileElement backButtontransferDetailLabel;
+
+	public MobileElement  backButtontransferDetailLabel() {
+		return  backButtontransferDetailLabel;
+	}
+	@ElementDescription(value = "close icon in oversea")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='close icon']")
+	private MobileElement closeIconInOversea;
+
+	public MobileElement  closeIconInOversea() {
+		return  closeIconInOversea;
+	}
+	@ElementDescription(value = "Overseas header")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Overseas Transfer']")
+	private MobileElement overseaTitle;
+
+	public MobileElement  overseaTitle() {
+		return  overseaTitle;
+	}
+	@ElementDescription(value = "search icon in payAndtransfer")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pay & Transfer']")
+	private MobileElement searchBoxInPayAndTransfer;
+
+	public MobileElement  searchBoxInPayAndTransfer() {
+		return  searchBoxInPayAndTransfer;
+	}
+	//////
+	@ElementDescription(value = "Temporary Limit Increase header")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Temporary Limit Increase']")
+	private MobileElement temporaryLimitIncreaseHeader;
+
+	public MobileElement  temporaryLimitIncreaseHeader() {
+		return  temporaryLimitIncreaseHeader;
+	}
+	@ElementDescription(value = "Additional credit limit")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Some placeholder'])[1]/following-sibling::XCUIElementTypeTextField[1]")
+	private MobileElement additionalCreditLimit;
+
+	public MobileElement  additionalCreditLimit() {
+		return  additionalCreditLimit;
+	}
+	@ElementDescription(value = "duration credit limit")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Some placeholder'])[2]/following-sibling::XCUIElementTypeTextField[1]")
+	private MobileElement durationCreditLimit;
+
+	public MobileElement  durationCreditLimit() {
+		return  durationCreditLimit;
+	}
+	@ElementDescription(value = "purpose credit limit")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Some placeholder'])[3]/following-sibling::XCUIElementTypeTextField[1]")
+	private MobileElement purposeCreditLimit;
+
+	public MobileElement  purposeCreditLimit() {
+		return  purposeCreditLimit;
+	}
+	@ElementDescription(value = "Calender Temporary Limit Increase header")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pick Date']")
+	private MobileElement calenderTemporaryLimitIncreaseHeader;
+
+	public MobileElement  calenderTemporaryLimitIncreaseHeader() {
+		return  calenderTemporaryLimitIncreaseHeader;
+	}
+	@ElementDescription(value = "Calender date 11 oct")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='calendarDayCell.TextLabel_11_selected']")
+	private MobileElement calenderDateOctEleven;
+
+	public MobileElement  calenderDateOctEleven() {
+		return  calenderDateOctEleven;
+	}
+	@ElementDescription(value = "confirm button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Confirm']")
+	private MobileElement confirmButton;
+
+	public MobileElement  confirmButton() {
+		return  confirmButton;
+	}
+	@ElementDescription(value = "confirm button 2")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='CONFIRM']")
+	private MobileElement confirmButton2;
+
+	public MobileElement  confirmButton2() {
+		return  confirmButton2;
+	}
+	@ElementDescription(value = "Review Application header")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Application']")
+	private MobileElement reviewApplicationHeader;
+
+	public MobileElement  reviewApplicationHeader() {
+		return  reviewApplicationHeader;
+	}
+	@ElementDescription(value = "Select a Purpose")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Select a Purpose']")
+	private MobileElement selectPurpose;
+
+	public MobileElement  selectPurpose() {
+		return  selectPurpose;
+	}
+
 	public MobileElement TitleField() { 
 		return  TitleField;
 	}
@@ -1321,10 +1704,5 @@ public class DBS_IOSObject {
 	public MobileElement SharePaymentDetailsButton() {
 		return  SharePaymentDetailsButton;
 	}
-	
-	
-	
-	
-	
-	
+
 }
