@@ -31,8 +31,8 @@ public class CommonAppiumTest extends CommandPrompt {
 
 	public CommonAppiumTest(AppiumDriver<RemoteWebElement> driver2) {
 		this.driver = driver2;
-		wait = new WaitUtils(driver2);
-		gesture = new GestureUtils(driver2);
+		wait = new WaitUtils(this.driver);
+		gesture = new GestureUtils(this.driver);
 	}
 
 	/**

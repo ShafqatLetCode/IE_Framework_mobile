@@ -84,14 +84,14 @@ public class Asserts extends UserBaseTest {
 								.log(Status.PASS, message + "\n" + "Snapshot below:",
 										MediaEntityBuilder
 												.createScreenCaptureFromPath(
-														ScreenshotUtils.getScreenshot(ContextManager.getAndroidDriver()))
+														ScreenshotUtils.getScreenshot(ContextManager.getDriver()))
 												.build());
 					} else {
 						ContextManager.getExtentReportForPrecondition()
 								.log(Status.FAIL, message + "\n" + "Snapshot below:",
 										MediaEntityBuilder
 												.createScreenCaptureFromPath(
-														ScreenshotUtils.getScreenshot(ContextManager.getAndroidDriver()))
+														ScreenshotUtils.getScreenshot(ContextManager.getDriver()))
 												.build());
 					}
 					Assert.assertEquals(actual, expected, message);
@@ -154,7 +154,7 @@ public class Asserts extends UserBaseTest {
 								.log(Status.PASS, message + "\n" + "Snapshot below:",
 										MediaEntityBuilder
 												.createScreenCaptureFromPath(
-														ScreenshotUtils.getScreenshot(ContextManager.getAndroidDriver()))
+														ScreenshotUtils.getScreenshot(ContextManager.getDriver()))
 												.build());
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -166,7 +166,7 @@ public class Asserts extends UserBaseTest {
 								.log(Status.FAIL, message + "\n" + "Snapshot below:",
 										MediaEntityBuilder
 												.createScreenCaptureFromPath(
-														ScreenshotUtils.getScreenshot(ContextManager.getAndroidDriver()))
+														ScreenshotUtils.getScreenshot(ContextManager.getDriver()))
 												.build());
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -181,7 +181,7 @@ public class Asserts extends UserBaseTest {
 								.log(Status.FAIL, message + "\n" + "Snapshot below:",
 										MediaEntityBuilder
 												.createScreenCaptureFromPath(
-														ScreenshotUtils.getScreenshot(ContextManager.getAndroidDriver()))
+														ScreenshotUtils.getScreenshot(ContextManager.getDriver()))
 												.build());
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -193,7 +193,7 @@ public class Asserts extends UserBaseTest {
 								.log(Status.PASS, message + "\n" + "Snapshot below:",
 										MediaEntityBuilder
 												.createScreenCaptureFromPath(
-														ScreenshotUtils.getScreenshot(ContextManager.getAndroidDriver()))
+														ScreenshotUtils.getScreenshot(ContextManager.getDriver()))
 												.build());
 					} catch (Exception e) {
 						// TODO Auto-generated catch block

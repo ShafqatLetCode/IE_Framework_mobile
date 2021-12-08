@@ -309,6 +309,10 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "Next button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='NEXT']")
 	private MobileElement nextButton;
+	
+	@ElementDescription(value = "Next button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='CONFIRM']")
+	private MobileElement confirmButton;
 
 	public MobileElement currencyLabel() {
 		return currencyLabel;
@@ -320,6 +324,10 @@ public class DBSAndroidObject {
 
 	public MobileElement nextButton() {
 		return nextButton;
+	}
+	
+	public MobileElement confirmButton() {
+		return confirmButton;
 	}
 
 	@ElementDescription(value = "Enter Bank Details")
@@ -351,9 +359,10 @@ public class DBSAndroidObject {
 	private MobileElement recipientNameEditBox;
 
 	@ElementDescription(value = "Enter Full Address TextBox")
-	@AndroidFindBy(xpath = "//android.widget.EditText[@text='Full Address']")
+	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@text,'ddress')]")
+	
 	private MobileElement recipientAddressEditBox;
-
+	
 	@ElementDescription(value = "Enter City TextBox")
 	@AndroidFindBy(xpath = "//android.widget.EditText[@text='In the City of']")
 	private MobileElement recipientCityEditBox;
@@ -635,6 +644,10 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']")
 	private MobileElement AddRecipientNowBtn;
 
+	@ElementDescription(value = "Add Recipient Now Button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='Add Overseas Recipient']")
+	private MobileElement AddOverseasRecipientNowBtn;
+	
 	@ElementDescription(value = "Transfer Now Button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='TRANSFER NOW']")
 	private MobileElement TransferNowBtn;
@@ -790,6 +803,10 @@ public class DBSAndroidObject {
 	public MobileElement AddRecipientNowBtn() {
 		return AddRecipientNowBtn;
 	}
+	
+	public MobileElement AddOverseasRecipientNowBtn() {
+		return AddOverseasRecipientNowBtn;
+	}
 
 	public MobileElement TransferSubmittedMsg() {
 		return TransferSubmittedMsg;
@@ -850,7 +867,7 @@ public class DBSAndroidObject {
 	private MobileElement TextViewPurpose;
 
 	@ElementDescription(value = "Billing Organisation")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Billing Organisations']")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Billing Organisation']")
 	private MobileElement BillingOrganisation;
 
 	@ElementDescription(value = "Bill Reference No")
@@ -901,6 +918,10 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,':id/layout_acc_details')]")
 	private List<MobileElement> SelectSourceOfFundsForSavingsDropdownList;
 
+	@ElementDescription(value = "Select source of funds for savings dropdown list")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_toolbar_title'])")
+	private List<MobileElement> SelectSourceAccountFromList;
+	
 	@ElementDescription(value = "Transaction History Label and Button")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Transaction History']")
 	private MobileElement transactionHistoryLabel;
@@ -909,6 +930,10 @@ public class DBSAndroidObject {
 		return SelectSourceOfFundsForSavingsDropdownList;
 	}
 
+	public List<MobileElement> SelectSourceAccountFromList() {
+		return SelectSourceAccountFromList;
+	}
+	
 	public MobileElement SelectSourceOfFundsForSavingsDropdown() {
 		return SelectSourceOfFundsForSavingsDropdown;
 	}

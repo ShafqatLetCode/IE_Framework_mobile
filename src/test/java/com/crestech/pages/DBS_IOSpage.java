@@ -24,11 +24,15 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	CommonAppiumTest commonAppTest = null;
 	AndroidAlert androidAlert = null;
 	GestureUtils gestUtils = null;
-	
+
 	public DBS_IOSpage(AppiumDriver<RemoteWebElement> driver) {
 		super(driver);
 		gestUtils = new GestureUtils(driver);
 		commonAppTest = new CommonAppiumTest(driver);
+		androidAlert = new  AndroidAlert(driver);
+		gestUtils = new GestureUtils(driver);
+		//PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), IOShomePgaeObject);
+
 		androidAlert = new AndroidAlert(driver);
 		// PageFactory.initElements(new AppiumFieldDecorator(driver,
 		// Duration.ofSeconds(5)), IOShomePgaeObject);
@@ -112,9 +116,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			String actualMessage = commonAppTest.getTexOfElement(IOShomePgaeObject.upgradeTitle());
 			if (actualMessage.equalsIgnoreCase(CommonTestData.UPGRADE_EXPERIENCE_MESSAGE.getEnumValue())) {
 				Dimension windowSize1 = driver.manage().window().getSize();
+
 				int y = (int) ((windowSize1.getHeight()) - 10);
 				int x = (int) ((windowSize1.getWidth()) / 2);
 				gestUtils.swipeElementtoCoordinate(IOShomePgaeObject.upgradeSwipeButton(), x, y);
+
 			}
 
 			Asserts.assertEquals(actualMessage, CommonTestData.UPGRADE_EXPERIENCE_MESSAGE.getEnumValue(),
@@ -572,10 +578,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			String currentText = getTexOfElement(IOShomePgaeObject.currentLimitTextButton());
 			String[] arrOfStr = currentText.split(" ");
-
 			verifyClickSetCurrentLimit();
 			// verifySetDailyLimitTitle();
-
 			String selectedValue = null;
 			if (arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_0.getEnumValue())) {
 				selectedValue = selectAmountFromSetCurrentLimitList(AmountToBeselected);
@@ -589,7 +593,6 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					selectedValue = selectAmountFromSetCurrentLimitList(AmountToBeselected);
 			}
 			return selectedValue;
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

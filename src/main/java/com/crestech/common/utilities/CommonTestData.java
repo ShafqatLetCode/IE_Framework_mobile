@@ -13,6 +13,7 @@ public enum CommonTestData {
 	LOCAL_RECIPIENT_ACCOUNT_NUMBER("12322354"),
 	LOCAL_RECIPIENT_BANK_NAME("BANK OF INDIA"),
 	YOU_HAVE_ADDED_RECIPIENT_MSG("You’ve added a recipient"),
+	YOU_HAVE_ADDED_RECIPIENT_MSG2("You've added a recipient"),
 	
 	//Payee Add DBS POSB
 	PAYEEADD_DBSPOSB_RECIPIENT_NAME("Payee DBSPOSB"),
@@ -74,6 +75,7 @@ public enum CommonTestData {
 	
 	//UpdateContact Details
 	UPDATE_CONTACT_DETAILS_PAGEHEADER("Update Contact Details"),
+	CONTACT_DETAILS_PAGEHEADER("Contact Details"),
 	PERSONAL_AND_CONTACTDETAILS_PAGEHEADER("Personal & Contact Details"),
 	CONTACT_DETAILS_TITLE("CONTACT DETAILS"),
 	EMAIL_NOTES("This email address provided will only be used for your iBanking/mobile banking transactions, eStatement(s) and marketing communication (if any)"),
@@ -109,7 +111,7 @@ public enum CommonTestData {
 	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
 	DBS_APP_APK("dbsandroidUAT.apk"),
 	POSB_APP_APK("POSB_Android.apk"),
-	iWEALTH_APP_APK("iWealth_Android.apk"),
+	iWEALTH_APP_APK("iwealthandroidUAT_10Nov.apk"),
 	DBS_DIGIBANK("DBS digibank"),
 	ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
 	CURRENCY_NAME("Singapore Dollar"),
@@ -128,12 +130,6 @@ public enum CommonTestData {
 	APPLICATION_SUBMITTED("Application Submitted"),
 	THANKU_MESSAGE_AFTER_APPLYDEBITCARD("Thank you for your application. Your application is being processed."),
 	SECURE_PIN_PAGE_HEADER("Secure PIN"),
-	NAMETO_APPEAR_ON_DEBITCARD("DBS Passion"),
-	REVIEW_APPLICATION("Review Application"),
-	CREATE_PIN("123456"),
-	CONFIRM_PIN("123456"),
-	
-	
 	
 	//paylah
 	TOPUP_LABEL("Top up"),
@@ -204,7 +200,10 @@ public enum CommonTestData {
 	PURPOSE_OF_TRANSFER_TEXT("Family support (Workers' remittances)"),
 	REVIEW_RECIPIENT_DETAILS("Review Recipient's Details"),
 
-	
+	NAMETO_APPEAR_ON_DEBITCARD("DBS Passion"),
+	REVIEW_APPLICATION("Review Application"),
+	CREATE_PIN("123456"),
+	CONFIRM_PIN("123456"),
 	ENTER_RECIPIENT_DETAILS("Enter Recipient's Details"),
 	REVIEW_ACCOUNT_APPLICATION("Review Account Application"),
 	UPGRADE_EXPERIENCE_MESSAGE("Upgrade your banking experience with us"), 

@@ -63,12 +63,14 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	private AppiumServiceBuilder builder;
 	private static final AllureLifecycle ALLURE_LIFECYCLE = Allure.getLifecycle();
 	public List<String> excelDataList;
-	
+	public ScreenshotUtils scrShotUtils = null;
+
 	Logger logger = Logger.getLogger(UserBaseTest.class);
 
 	public UserBaseTest() 	{
 		try {
 			prop = ConfigurationManager.getInstance();
+			//scrShotUtils = new ScreenshotUtils();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,9 +81,9 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	 * @param name- device name/udid
 	 * @throws Exception
 	 */
-	@Parameters({ "device", "version", "os" })
+	@Parameters({ "device", "version", "os", "manafacturer", "min_Ver", "max_Ver", "individual_ID"})
 	@BeforeMethod(alwaysRun = true)
-	public void startApp(String device, String version, Method method, String os) throws Exception {
+	public void startApp(String device, String version, String os, String manafacturer, String min_Ver, String max_Ver, String individual_ID, Method method) throws Exception {
 		logger.info("Inside Before Method");
 		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 			ContextManager.createNode(method.getName() + " " + device);
@@ -94,7 +96,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			excelDataList.set(14, appName);
 			excelDataList.set(1, appActivity);
 			excelDataList.set(2, appPackage);
-			
+
 		}else if(method.getName().contains("POSB")) {
 			String appName = CommonTestData.POSB_APP_APK.getEnumValue();
 			String appActivity = CommonTestData.DBS_APPS_ACTIVITY.getEnumValue();
@@ -102,7 +104,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			excelDataList.set(14, appName);
 			excelDataList.set(1, appActivity);
 			excelDataList.set(2, appPackage);
-			
+
 		}
 		else if(method.getName().contains("iWEALTH")) {
 			String appName = CommonTestData.iWEALTH_APP_APK.getEnumValue();
@@ -111,15 +113,16 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			excelDataList.set(14, appName);
 			excelDataList.set(1, appActivity);
 			excelDataList.set(2, appPackage);
-			
+
 		}
-		DesiredCapabilities androidCaps = androidNative(excelDataList, device, version, os);
+		DesiredCapabilities androidCaps = androidNative(excelDataList, device, version, os, manafacturer, min_Ver, max_Ver, individual_ID);
 		//DesiredCapabilities androidCaps = androidNative(ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities"), device, version, os);
 		Thread.sleep(2000);
 		try {
 			this.driver = startingServerInstance(androidCaps, os);
-		//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
-			ContextManager.setAndroidDriver(this.driver); 
+			System.out.println("Device :"+ Thread.currentThread().getId()+ " "+driver.getCapabilities().getCapability("pCloudy_DeviceFullName"));
+			//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
+			ContextManager.setDriver(this.driver); 
 		} catch (Exception e) {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 				ContextManager.getExtentReportForPrecondition().skip(MarkupHelper.createLabel("Test Case is SKIPPED", ExtentColor.YELLOW));
@@ -148,7 +151,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			}
 		}
 	}
-	
+
 	/*********************************
 	 * FOR Extent Report Implementation
 	 * @throws Exception 
@@ -188,13 +191,15 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			}
 		}
 
-		System.out.println("stopApp");
-		if (driver != null) {
-			this.driver.quit();
-		}
-		if (os.equalsIgnoreCase("Android"))
-			service.stop();
+				System.out.println("stopApp");
+				if (ContextManager.getDriver() != null) {
+					ContextManager.getDriver().quit();
+				}
+				if (os.equalsIgnoreCase("Android"))
+					service.stop();
 	}
+
+
 
 	@AfterSuite(alwaysRun = true)
 	public void flushReport() {
@@ -225,8 +230,8 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 					e.printStackTrace();
 				}
 			}
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("My Report Flushed End.....");
@@ -240,30 +245,30 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	 * @throws IOException
 	 */
 
-	public synchronized DesiredCapabilities androidNative(List<String> s, String device_udid, String version, String os)
+	public synchronized DesiredCapabilities androidNative(List<String> s, String device_udid, String version, String os, String manafacturer, String min_Ver, String max_Ver, String individual_ID)
 			throws IOException {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		switch (os) {
 		case "Android":
-			  capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device_udid);
-			  capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
-			  capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, s.get(1));
-			  capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY,  s.get(1));
-			  capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE,s.get(2));
-			  capabilities.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + "\\App\\" + s.get(14));
-			  capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
-			  capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device_udid);
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
+			capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, s.get(1));
+			capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY,  s.get(1));
+			capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE,s.get(2));
+			capabilities.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + "\\App\\" + s.get(14));
+			capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
 
-				if (checkDeviceVersion(version))
-					capabilities.setCapability("automationName", s.get(4));
-				else
-					capabilities.setCapability("automationName", "UiAutomator1");
+			if (checkDeviceVersion(version))
+				capabilities.setCapability("automationName", s.get(4));
+			else
+				capabilities.setCapability("automationName", "UiAutomator1");
 
-				if (dontStopAppOnReset == true)
-					capabilities.setCapability(AndroidMobileCapabilityType.DONT_STOP_APP_ON_RESET, true);
-				else
-					capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
-			
+			if (dontStopAppOnReset == true)
+				capabilities.setCapability(AndroidMobileCapabilityType.DONT_STOP_APP_ON_RESET, true);
+			else
+				capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
+
 			capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 600);
 			break;
 
@@ -291,11 +296,11 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			//capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
 			capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, s.get(5));
 			//capabilities.setCapability("chromedriverExecutable", prop.getProperty("browserLocation"));
-//			if (checkDeviceVersion(version)) {
-//				capabilities.setCapability("automationName", s.get(4));
-//			} else {
-//				capabilities.setCapability("automationName", "UiAutomator1");
-//			}
+			//			if (checkDeviceVersion(version)) {
+			//				capabilities.setCapability("automationName", s.get(4));
+			//			} else {
+			//				capabilities.setCapability("automationName", "UiAutomator1");
+			//			}
 			if (dontStopAppOnReset == true) {
 				capabilities.setCapability(AndroidMobileCapabilityType.DONT_STOP_APP_ON_RESET, true);
 			} else {
@@ -305,7 +310,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 		case "pCloudyAndroid":
 
-			System.out.println(device_udid + "," + version);
+			//System.out.println(device_udid + "," + version);
 			capabilities.setCapability("pCloudy_Username", s.get(12));
 			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
 			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
@@ -320,6 +325,12 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("pCloudy_WildNet", "false");
 			capabilities.setCapability("autoGrantPermissions", "true");
 			capabilities.setCapability("pCloudy_EnableVideo", "true");
+
+			//capabilities.setCapability("pCloudy_DeviceManafacturer", manafacturer);
+			//capabilities.setCapability("pCloudy_MinVersion",min_Ver); 
+			//capabilities.setCapability("pCloudy_MaxVersion",max_Ver); 
+			//capabilities.setCapability("pCloudy_Individual",individual_ID);
+			capabilities.setCapability(MobileCapabilityType.NO_RESET, false);
 
 			if (checkDeviceVersion(version)) {
 				capabilities.setCapability("automationName", "UiAutomator2");
@@ -349,7 +360,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("fullReset", false);
 			capabilities.setCapability("pCloudy_EnableVideo", "true");
 			break;
-		
+
 		case "pCloudyAndroidChrome":
 			capabilities.setCapability("pCloudy_Username", s.get(12));
 			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
@@ -363,11 +374,11 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("pCloudy_WildNet", "false");
 
 			if (checkDeviceVersion(version)) {
-			capabilities.setCapability("automationName", "UiAutomator2");
-			capabilities.setCapability("uiautomator2ServerLaunchTimeout", 90000);
-			capabilities.setCapability("noSign", true);
+				capabilities.setCapability("automationName", "UiAutomator2");
+				capabilities.setCapability("uiautomator2ServerLaunchTimeout", 90000);
+				capabilities.setCapability("noSign", true);
 			} else {
-			capabilities.setCapability("automationName", "UiAutomator1");
+				capabilities.setCapability("automationName", "UiAutomator1");
 			}
 			break;
 
@@ -395,41 +406,41 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			 * driver = new AndroidDriver<RemoteWebElement>(new
 			 * URL("http://127.0.0.1:4723/wd/hub"), androidCaps);
 			 */
-			
-			
-//			  //install nodejs in your system ->through nodejs install appium 
-//			  // Build the Appium service
-			  builder = new AppiumServiceBuilder();
-			  builder.withIPAddress(prop.getProperty("server_address"));
-			  builder.usingPort(Integer.parseInt(prop.getProperty("port")));
-			  builder.withCapabilities(androidCaps);
-			  builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
-			  builder.withLogFile(new File("C:\\Users\\Public\\Desktop\\Appium.text"));
-			  
-			  
-			  // Start the server with the builder 
-			  service =  AppiumDriverLocalService.buildService(builder);
-			 
-			  System.out.println(service.getUrl().toString()); 
-				try {
-					service.start();
-				} finally {
-					service.stop();
-				}
-			 
-//			Process p = Runtime.getRuntime().exec("cmd.exe /c start appium");
-//			Thread.sleep(5000);
-				
+
+
+			//			  //install nodejs in your system ->through nodejs install appium 
+			//			  // Build the Appium service
+			builder = new AppiumServiceBuilder();
+			builder.withIPAddress(prop.getProperty("server_address"));
+			builder.usingPort(Integer.parseInt(prop.getProperty("port")));
+			builder.withCapabilities(androidCaps);
+			builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
+			builder.withLogFile(new File("C:\\Users\\Public\\Desktop\\Appium.text"));
+
+
+			// Start the server with the builder 
+			service =  AppiumDriverLocalService.buildService(builder);
+
+			System.out.println(service.getUrl().toString()); 
+			try {
+				service.start();
+			} finally {
+				service.stop();
+			}
+
+			//			Process p = Runtime.getRuntime().exec("cmd.exe /c start appium");
+			//			Thread.sleep(5000);
+
 			//	 driver = new AndroidDriver<RemoteWebElement>(service.getUrl(), androidCaps);
-				  //This time out is set because test can be run on slow Android SDK emulator
-				 // PageFactory.initElements(new AppiumFieldDecorator(driver, ofSeconds(5)), this);
-				
-				
+			//This time out is set because test can be run on slow Android SDK emulator
+			// PageFactory.initElements(new AppiumFieldDecorator(driver, ofSeconds(5)), this);
+
+
 			driver = new AndroidDriver<RemoteWebElement>(androidCaps);
 		} else if (os.equalsIgnoreCase("pCloudyAndroid") || os.equalsIgnoreCase("pCloudyAndroidChrome")) {
 			driver = new AndroidDriver<RemoteWebElement>(
 					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
-					}
+		}
 		else {
 			driver = new IOSDriver<RemoteWebElement>(
 					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
@@ -499,11 +510,11 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 		return false;
 	}
-	
+
 	public static void addAttachment() {
-		ALLURE_LIFECYCLE.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) ContextManager.getAndroidDriver()).getScreenshotAs(OutputType.BYTES));
+		ALLURE_LIFECYCLE.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) ContextManager.getDriver()).getScreenshotAs(OutputType.BYTES));
 	}
-	
+
 	public void addAttachment(RemoteWebDriver driver) {
 		ALLURE_LIFECYCLE.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
 	}

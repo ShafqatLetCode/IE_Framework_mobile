@@ -11,17 +11,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.crestech.appium.utils.CommandPrompt;
-import com.crestech.appium.utils.CommonAppiumTest;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.remote.MobileCapabilityType;
 
 public class WaitUtils extends CommandPrompt {
 
 	public AppiumDriver<RemoteWebElement> driver = null;
-	private long WAIT_TIME = 60;
-
+	private long WAIT_TIME = 90;
 	public WaitUtils(AppiumDriver<RemoteWebElement> driver2) {
 		try {
 			this.driver = driver2;
@@ -85,7 +82,7 @@ public class WaitUtils extends CommandPrompt {
 	 */
 	public void waitForElementToBeClickable(MobileElement element) throws Exception {
 		try {
-			System.out.println(driver.getCapabilities().getCapability("pCloudy_DeviceFullName"));
+			//System.out.println(driver.getCapabilities().getCapability(MobileCapabilityType.DEVICE_NAME));
 			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 		} catch (Exception e) {
