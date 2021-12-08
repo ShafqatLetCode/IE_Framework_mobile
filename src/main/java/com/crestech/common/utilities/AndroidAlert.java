@@ -6,7 +6,6 @@ import java.util.Set;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.remote.RemoteWebElement;
 import com.crestech.appium.utils.CommonAppiumTest;
-import com.crestech.base.UserBaseTest;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.qameta.allure.Step;

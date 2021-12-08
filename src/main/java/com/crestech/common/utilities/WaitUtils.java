@@ -14,13 +14,11 @@ import com.crestech.appium.utils.CommandPrompt;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.remote.MobileCapabilityType;
 
 public class WaitUtils extends CommandPrompt {
 
 	public AppiumDriver<RemoteWebElement> driver = null;
-	private long WAIT_TIME = 120;
-
+	private long WAIT_TIME = 90;
 	public WaitUtils(AppiumDriver<RemoteWebElement> driver2) {
 		try {
 			this.driver = driver2;
