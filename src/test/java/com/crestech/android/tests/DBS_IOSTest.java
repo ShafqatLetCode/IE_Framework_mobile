@@ -1,64 +1,59 @@
 package com.crestech.android.tests;
 
 import org.apache.log4j.Logger;
-import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.crestech.annotation.values.Author;
-import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.base.UserBaseTest;
 import com.crestech.common.utilities.CommonTestData;
 import com.crestech.listeners.TestListener;
-import com.crestech.pageobjects.DBS_IOSObject;
-import com.crestech.pages.DBSAndroidPage;
 import com.crestech.pages.DBS_IOSpage;
-
 import io.qameta.allure.Description;
 
 @Listeners(TestListener.class)
 public class DBS_IOSTest extends UserBaseTest {
-	
+
 	Logger logger = Logger.getLogger(DBSAndroidTest.class.getName());
 
-	
-	@Parameters({"userName", "password" })
-	@Test(priority=1, enabled=true, description = "Verify the account detail on dashboard page")
+	@Parameters({ "userName", "password" })
+	@Test(priority = 1, enabled = true, description = "Verify the account detail on dashboard page")
 	@Description(value = "Execution of this testcase:: AccountDetails-CASA-ONEAPP-14400")
 	@Author(name = "Shafqat Ali")
-	public void accountDetails_CASA(String userName,String password) throws Exception {
+	public void accountDetails_CASA(String userName, String password) throws Exception {
 		try {
-			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
-			DBSPgaeObject.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue() ,CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(),CommonTestData.CURRENCY.getEnumValue() );
-			
+			DBSPgaeObject.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue(),
+					CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(), CommonTestData.CURRENCY.getEnumValue());
 		} catch (Exception e) {
-			e.printStackTrace(); 
-			throw e; 
-		}
-	}
-	@Parameters({"userName", "password" })
-	@Test(priority=2, enabled=true, description = "Verify the Logout functionality for Applications")
-	@Description(value = "Execution of this testcase:: Logout-ONEAPP-9392")
-	@Author(name = "Shafqat Ali")
-	public void Logout_ONEAPP(String userName,String password) throws Exception {
-		try {
-			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
-			DBSPgaeObject.logInApplication(userName, password);
-			DBSPgaeObject.logOutApplication();
-			
-		} catch (Exception e) {
-			e.printStackTrace(); 
+			e.printStackTrace();
 			throw e;
 		}
 	}
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 2, enabled = true, description = "Verify the Logout functionality for Applications")
+	@Description(value = "Execution of this testcase:: Logout-ONEAPP-9392")
+	@Author(name = "Shafqat Ali")
+	public void Logout_ONEAPP(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.logOutApplication();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
 	@Parameters({ "userName", "password" })
 	@Test(priority = 3, enabled = true, description = "Remittance-Corridor-ONEAPP-13407")
 	@Description(value = "Execution of this testcase:: Verifies the Remittance Corridor")
 	@Author(name = "shafqat")
 	public void Remittance_Corridor(String userName, String password) throws Exception {
 		try {
-			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
 			DBSPgaeObject.VerifyRemittanceCorridor();
 		} catch (Exception e) {
@@ -66,55 +61,46 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
-	@Parameters({"userName", "password" })
-	@Test(priority=6, enabled=true, description = "Verify the Topup Paylah in Applications")
-	@Description(value = "Execution of this testcase:: TopUp-PayLah-ONEAPP-13915")
-	@Author(name = "Shafqat Ali")
-	public void Topup_Paylah(String userName,String password) throws Exception { 
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 5, enabled = true, description = "Payee-Add-DBSorPOSB-ONEAPP-14675")
+	@Description(value = "Execution of this testcase:: Verifies the Payee add DSB or POSB.")
+	@Author(name = "Divya Devi")
+	public void Payee_Add_DBSorPOSB(String userName, String password) throws Exception {
 		try {
-			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
-			DBSPgaeObject.TopupPaylah();
+			// Delete Payee Code Start Before Adding Payee DBS/POSB
+			DBSPgaeObject.DeletePayee_ToDBSPOSB();
+			DBSPgaeObject.VerifyAddPayeeDBSorPOSB();
 		} catch (Exception e) {
-			e.printStackTrace(); 
+			e.printStackTrace();
 			throw e;
 		}
 	}
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 6, enabled = true, description = "Verify the Topup Paylah in Applications")
+	@Description(value = "Execution of this testcase:: TopUp-PayLah-ONEAPP-13915")
+	@Author(name = "Shafqat Ali")
+	public void Topup_Paylah(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.TopupPaylah();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
 	@Parameters({ "userName", "password" })
 	@Test(priority = 7, enabled = true, description = "Payee-Add-Remittance-ONEAPP-13679")
 	@Description(value = "Execution of this testcase:: Verify the Add Remittance payee")
 	@Author(name = "Shafqat Ali")
 	public void Payee_Add_Remittance(String userName, String password) throws Exception {
 		try {
-			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
-			DBSPgaeObject.logInApplication(userName, password);
-			DBSPgaeObject.PayeeAddRemittance();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
-	@Parameters({"userName", "password" })
-	@Test(priority=12,enabled=true,description = "Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit")
-	@Description(value = "Execution of this testcase:: ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847")
-	@Author(name = "Shafqat Ali")
-	public void ChangeLocalFundsTransferLimit(String userName,String password) throws Exception { 
-		try {
-			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
-			DBSPgaeObject.logInApplication(userName, password);
-			DBSPgaeObject.ChangeLocalFundsTransferLimit();
-		} catch (Exception e) {
-			e.printStackTrace(); 
-			throw e;
-		}
-	}
-	@Parameters({"userName", "password" })
-	@Test(priority=17, enabled=true, description = "FundsTransfer-OtherPOSBDBS-ONEAPP-16723")
-	@Description(value = "Execution of this testcase:: Verifies FundTransfer Other DBS/POSB")
-	@Author(name = "shafqat")
-	public void FundTransferOtherDBSPOSB(String userName,String password) throws Exception {
-		try {
-			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
 			DBSPgaeObject.FundTransferOtherBank();
 		} catch (Exception e) {
@@ -122,22 +108,158 @@ public class DBS_IOSTest extends UserBaseTest {
 			throw e;
 		}
 	}
-	
-	@Parameters({"userName", "password" })
-	@Test(priority=27, enabled=true, description = "TransactionHistory-ONEAPP-14312")
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 8, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
+	@Description(value = "Execution of this testcase:: Verifies the Apply Debit Card.")
+	@Author(name = "Divya Devi")
+	public void ApplyDebitCard_DBS(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.ApplyDebitCard();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 9, enabled = true, description = "Payee-Add-Local-OtherBank-ONEAPP-15677")
+	@Description(value = "Execution of this testcase:: Verifies the Payee Add Local Other Bank.")
+	@Author(name = "Divya Devi")
+	public void Payee_Add_Local_OtherBank(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			// Delete Payee Code Start Before Adding Payee Local to Other Bank
+			DBSPgaeObject.DeletePayee_LocalToOtherBank();
+			DBSPgaeObject.PayeeAddLocalOtherBank();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 10, enabled = true, description = "Payee-Add-BillPayment-ONEAPP-15938")
+	@Description(value = "Execution of this testcase:: Verifies the Payee Add Bill Payment.")
+	@Author(name = "Divya Devi")
+	public void Payee_Add_BillPayment(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			// Delete Payee Code Start Before Adding Payee to Bill Payment.
+			DBSPgaeObject.DeletePayee_ToBillPayment();
+			DBSPgaeObject.PayeeAddBillPayment();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 11, enabled = true, description = "OpenAccount-ONEAPP-14028")
+	@Description(value = "Execution of this testcase:: Verifies the Open Account.")
+	@Author(name = "Divya Devi")
+	public void OpenAccount(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.OpenAccount();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 12, enabled = true, description = "Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit")
+	@Description(value = "Execution of this testcase:: ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847")
+	@Author(name = "Shafqat Ali")
+	public void ChangeLocalFundsTransferLimit(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.ChangeLocalFundsTransferLimit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 14, enabled = true, description = "FundsTransfer-OwnAccount-ONEAPP-16730")
+	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Own Account.")
+	@Author(name = "Divya Devi")
+	public void FundsTransferOwnAccount(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.VerifyFundTransfer_OwnAccount();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 17, enabled = true, description = "FundsTransfer-OtherPOSBDBS-ONEAPP-16723")
+	@Description(value = "Execution of this testcase:: Verifies FundTransfer Other DBS/POSB")
+	@Author(name = "shafqat")
+	public void FundTransferOtherDBSPOSB(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.FundTransferOtherBank();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 18, enabled = true, description = "TransactionHistory-ONEAPP-14312")
 	@Description(value = "Execution of this testcase:: Verifies Transaction History")
 	@Author(name = "shafqat")
-	public void TransactionHistory(String userName,String password) throws Exception {
+	public void TransactionHistory(String userName, String password) throws Exception {
 		try {
-			DBS_IOSpage DBSPgaeObject = new  DBS_IOSpage(driver);
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);
 			DBSPgaeObject.transactionHistoryVerify();
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e; 
+			throw e;
 		}
 	}
-	
 
+	@Parameters({ "userName", "password" })
+	@Test(priority = 23, enabled = true, description = "FundsTransfer-PayCreditCard-ONEAPP-14024")
+	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Pay Credit Card.")
+	@Author(name = "Divya Devi")
+	public void FundsTransfer_PayCreditCard(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.FundsTransfer_PayCreditCard();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
+	@Parameters({ "userName", "password" })
+	@Test(priority = 24, enabled = true, description = "FundsTransfer-BillPayment-ONEAPP-14040")
+	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Bill Payment.")
+	@Author(name = "Divya Devi")
+	public void FundsTransfer_BillPayment(String userName, String password) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject.logInApplication(userName, password);
+			DBSPgaeObject.FundsTransfer_BillPayment();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 }

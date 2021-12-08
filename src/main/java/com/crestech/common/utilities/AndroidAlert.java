@@ -6,7 +6,6 @@ import java.util.Set;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.remote.RemoteWebElement;
 import com.crestech.appium.utils.CommonAppiumTest;
-import com.crestech.base.UserBaseTest;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.qameta.allure.Step;
@@ -19,10 +18,12 @@ public class AndroidAlert{
 
 	public AppiumDriver<RemoteWebElement> driver;
 	CommonAppiumTest commonAppTest = null;
+	GestureUtils gestUtils = null;
 	
 	public AndroidAlert(AppiumDriver<RemoteWebElement> driver2) {
 		this.driver = driver2;
 		commonAppTest = new CommonAppiumTest(driver);
+		gestUtils = new GestureUtils(driver);
 	}
 	
 	public String ToastMessage() throws Exception    //android.widget.Toast[1]
@@ -306,7 +307,7 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 				Dimension windowSize1 = driver.manage().window().getSize();
 				int y =(int)((windowSize1.getHeight())-10);
 				int x =(int)((windowSize1.getWidth())/2);
-				GestureUtils.swipeElementtoCoordinate(obj.swipeButton(),  x,  y);
+				gestUtils.swipeElementtoCoordinate(obj.swipeButton(),  x,  y);
 			}
 			
 			Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
