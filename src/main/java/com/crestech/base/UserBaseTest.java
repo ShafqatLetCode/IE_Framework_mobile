@@ -9,7 +9,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -49,7 +48,6 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
-import android.os.Build;
 
 /**
  *  *  * @author Divya, Shafkat,Shubham  *  
@@ -66,8 +64,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	private static final AllureLifecycle ALLURE_LIFECYCLE = Allure.getLifecycle();
 	public List<String> excelDataList;
 	public ScreenshotUtils scrShotUtils = null;
-	List<AppiumDriver<RemoteWebElement>> driverList= new ArrayList<AppiumDriver<RemoteWebElement>>();
-	
+
 	Logger logger = Logger.getLogger(UserBaseTest.class);
 
 	public UserBaseTest() 	{
@@ -99,7 +96,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			excelDataList.set(14, appName);
 			excelDataList.set(1, appActivity);
 			excelDataList.set(2, appPackage);
-			
+
 		}else if(method.getName().contains("POSB")) {
 			String appName = CommonTestData.POSB_APP_APK.getEnumValue();
 			String appActivity = CommonTestData.DBS_APPS_ACTIVITY.getEnumValue();
@@ -107,7 +104,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			excelDataList.set(14, appName);
 			excelDataList.set(1, appActivity);
 			excelDataList.set(2, appPackage);
-			
+
 		}
 		else if(method.getName().contains("iWEALTH")) {
 			String appName = CommonTestData.iWEALTH_APP_APK.getEnumValue();
@@ -116,19 +113,16 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			excelDataList.set(14, appName);
 			excelDataList.set(1, appActivity);
 			excelDataList.set(2, appPackage);
-			
+
 		}
 		DesiredCapabilities androidCaps = androidNative(excelDataList, device, version, os, manafacturer, min_Ver, max_Ver, individual_ID);
 		//DesiredCapabilities androidCaps = androidNative(ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities"), device, version, os);
 		Thread.sleep(2000);
 		try {
 			this.driver = startingServerInstance(androidCaps, os);
-			System.out.println("Thread ID : "+Thread.currentThread().getId());
-			System.out.println("Device Name1 : "+driver.getCapabilities().getCapability("pCloudy_DeviceFullName"));
-			System.out.println("Device Name2 : "+driver.getCapabilities().getCapability(MobileCapabilityType.DEVICE_NAME));
-			driverList.add(driver);
-		//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
-			ContextManager.setAndroidDriver(this.driver); 
+			System.out.println("Device :"+ Thread.currentThread().getId()+ " "+driver.getCapabilities().getCapability("pCloudy_DeviceFullName"));
+			//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
+			ContextManager.setDriver(this.driver); 
 		} catch (Exception e) {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 				ContextManager.getExtentReportForPrecondition().skip(MarkupHelper.createLabel("Test Case is SKIPPED", ExtentColor.YELLOW));
@@ -157,7 +151,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			}
 		}
 	}
-	
+
 	/*********************************
 	 * FOR Extent Report Implementation
 	 * @throws Exception 
@@ -197,15 +191,15 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			}
 		}
 
-//		System.out.println("stopApp");
-//		if (driver != null) {
-//			this.driver.quit();
-//		}
-//		if (os.equalsIgnoreCase("Android"))
-//			service.stop();
+				System.out.println("stopApp");
+				if (ContextManager.getDriver() != null) {
+					ContextManager.getDriver().quit();
+				}
+				if (os.equalsIgnoreCase("Android"))
+					service.stop();
 	}
-	
-	
+
+
 
 	@AfterSuite(alwaysRun = true)
 	public void flushReport() {
@@ -236,13 +230,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 					e.printStackTrace();
 				}
 			}
-			
-			System.out.println("stopApp");
-			if (driverList.size() > 0) {
-				System.out.println("driver size : "+driverList.size());
-				for(AppiumDriver<RemoteWebElement> driver:driverList)
-					driver.quit();
-			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -262,25 +250,25 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		switch (os) {
 		case "Android":
-			  capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device_udid);
-			  capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
-			  capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, s.get(1));
-			  capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY,  s.get(1));
-			  capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE,s.get(2));
-			  capabilities.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + "\\App\\" + s.get(14));
-			  capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
-			  capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, device_udid);
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, version);
+			capabilities.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, s.get(1));
+			capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY,  s.get(1));
+			capabilities.setCapability(AndroidMobileCapabilityType.APP_PACKAGE,s.get(2));
+			capabilities.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + "\\App\\" + s.get(14));
+			capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
 
-				if (checkDeviceVersion(version))
-					capabilities.setCapability("automationName", s.get(4));
-				else
-					capabilities.setCapability("automationName", "UiAutomator1");
+			if (checkDeviceVersion(version))
+				capabilities.setCapability("automationName", s.get(4));
+			else
+				capabilities.setCapability("automationName", "UiAutomator1");
 
-				if (dontStopAppOnReset == true)
-					capabilities.setCapability(AndroidMobileCapabilityType.DONT_STOP_APP_ON_RESET, true);
-				else
-					capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
-			
+			if (dontStopAppOnReset == true)
+				capabilities.setCapability(AndroidMobileCapabilityType.DONT_STOP_APP_ON_RESET, true);
+			else
+				capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
+
 			capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 600);
 			break;
 
@@ -308,11 +296,11 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			//capabilities.setCapability(MobileCapabilityType.UDID, s.get(6));
 			capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, s.get(5));
 			//capabilities.setCapability("chromedriverExecutable", prop.getProperty("browserLocation"));
-//			if (checkDeviceVersion(version)) {
-//				capabilities.setCapability("automationName", s.get(4));
-//			} else {
-//				capabilities.setCapability("automationName", "UiAutomator1");
-//			}
+			//			if (checkDeviceVersion(version)) {
+			//				capabilities.setCapability("automationName", s.get(4));
+			//			} else {
+			//				capabilities.setCapability("automationName", "UiAutomator1");
+			//			}
 			if (dontStopAppOnReset == true) {
 				capabilities.setCapability(AndroidMobileCapabilityType.DONT_STOP_APP_ON_RESET, true);
 			} else {
@@ -328,8 +316,8 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
 			capabilities.setCapability("newCommandTimeout", 600);
 			capabilities.setCapability("launchTimeout", 90000);
-			//capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
-			//capabilities.setCapability("platformVersion", version);
+			capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
+			capabilities.setCapability("platformVersion", version);
 			capabilities.setCapability("platformName", "Android");
 			capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
 			capabilities.setCapability("appPackage", s.get(2));
@@ -337,13 +325,13 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("pCloudy_WildNet", "false");
 			capabilities.setCapability("autoGrantPermissions", "true");
 			capabilities.setCapability("pCloudy_EnableVideo", "true");
-			
-			capabilities.setCapability("pCloudy_DeviceManafacturer", manafacturer);
-			capabilities.setCapability("pCloudy_MinVersion",min_Ver); 
-			capabilities.setCapability("pCloudy_MaxVersion",max_Ver); 
-			capabilities.setCapability("pCloudy_Individual",individual_ID);
+
+			//capabilities.setCapability("pCloudy_DeviceManafacturer", manafacturer);
+			//capabilities.setCapability("pCloudy_MinVersion",min_Ver); 
+			//capabilities.setCapability("pCloudy_MaxVersion",max_Ver); 
+			//capabilities.setCapability("pCloudy_Individual",individual_ID);
 			capabilities.setCapability(MobileCapabilityType.NO_RESET, false);
-			
+
 			if (checkDeviceVersion(version)) {
 				capabilities.setCapability("automationName", "UiAutomator2");
 				capabilities.setCapability("uiautomator2ServerLaunchTimeout", 90000);
@@ -372,7 +360,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("fullReset", false);
 			capabilities.setCapability("pCloudy_EnableVideo", "true");
 			break;
-		
+
 		case "pCloudyAndroidChrome":
 			capabilities.setCapability("pCloudy_Username", s.get(12));
 			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
@@ -386,11 +374,11 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("pCloudy_WildNet", "false");
 
 			if (checkDeviceVersion(version)) {
-			capabilities.setCapability("automationName", "UiAutomator2");
-			capabilities.setCapability("uiautomator2ServerLaunchTimeout", 90000);
-			capabilities.setCapability("noSign", true);
+				capabilities.setCapability("automationName", "UiAutomator2");
+				capabilities.setCapability("uiautomator2ServerLaunchTimeout", 90000);
+				capabilities.setCapability("noSign", true);
 			} else {
-			capabilities.setCapability("automationName", "UiAutomator1");
+				capabilities.setCapability("automationName", "UiAutomator1");
 			}
 			break;
 
@@ -418,41 +406,41 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			 * driver = new AndroidDriver<RemoteWebElement>(new
 			 * URL("http://127.0.0.1:4723/wd/hub"), androidCaps);
 			 */
-			
-			
-//			  //install nodejs in your system ->through nodejs install appium 
-//			  // Build the Appium service
-			  builder = new AppiumServiceBuilder();
-			  builder.withIPAddress(prop.getProperty("server_address"));
-			  builder.usingPort(Integer.parseInt(prop.getProperty("port")));
-			  builder.withCapabilities(androidCaps);
-			  builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
-			  builder.withLogFile(new File("C:\\Users\\Public\\Desktop\\Appium.text"));
-			  
-			  
-			  // Start the server with the builder 
-			  service =  AppiumDriverLocalService.buildService(builder);
-			 
-			  System.out.println(service.getUrl().toString()); 
-				try {
-					service.start();
-				} finally {
-					service.stop();
-				}
-			 
-//			Process p = Runtime.getRuntime().exec("cmd.exe /c start appium");
-//			Thread.sleep(5000);
-				
+
+
+			//			  //install nodejs in your system ->through nodejs install appium 
+			//			  // Build the Appium service
+			builder = new AppiumServiceBuilder();
+			builder.withIPAddress(prop.getProperty("server_address"));
+			builder.usingPort(Integer.parseInt(prop.getProperty("port")));
+			builder.withCapabilities(androidCaps);
+			builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
+			builder.withLogFile(new File("C:\\Users\\Public\\Desktop\\Appium.text"));
+
+
+			// Start the server with the builder 
+			service =  AppiumDriverLocalService.buildService(builder);
+
+			System.out.println(service.getUrl().toString()); 
+			try {
+				service.start();
+			} finally {
+				service.stop();
+			}
+
+			//			Process p = Runtime.getRuntime().exec("cmd.exe /c start appium");
+			//			Thread.sleep(5000);
+
 			//	 driver = new AndroidDriver<RemoteWebElement>(service.getUrl(), androidCaps);
-				  //This time out is set because test can be run on slow Android SDK emulator
-				 // PageFactory.initElements(new AppiumFieldDecorator(driver, ofSeconds(5)), this);
-				
-				
+			//This time out is set because test can be run on slow Android SDK emulator
+			// PageFactory.initElements(new AppiumFieldDecorator(driver, ofSeconds(5)), this);
+
+
 			driver = new AndroidDriver<RemoteWebElement>(androidCaps);
 		} else if (os.equalsIgnoreCase("pCloudyAndroid") || os.equalsIgnoreCase("pCloudyAndroidChrome")) {
 			driver = new AndroidDriver<RemoteWebElement>(
 					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
-					}
+		}
 		else {
 			driver = new IOSDriver<RemoteWebElement>(
 					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
@@ -522,11 +510,11 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 		return false;
 	}
-	
+
 	public static void addAttachment() {
-		ALLURE_LIFECYCLE.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) ContextManager.getAndroidDriver()).getScreenshotAs(OutputType.BYTES));
+		ALLURE_LIFECYCLE.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) ContextManager.getDriver()).getScreenshotAs(OutputType.BYTES));
 	}
-	
+
 	public void addAttachment(RemoteWebDriver driver) {
 		ALLURE_LIFECYCLE.addAttachment(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMM-yy_hh:mm:ss")), "image/png", "png", ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
 	}

@@ -64,11 +64,11 @@ public class ContextManager {
 		extent.flush();
 	}
 
-	public static void setAndroidDriver(AppiumDriver<RemoteWebElement> driver) {
+	public static void setDriver(AppiumDriver<RemoteWebElement> driver) {
 		driverMapper.put(Thread.currentThread().getId(), driver);
 	}
 
-	public static AppiumDriver<RemoteWebElement> getAndroidDriver() {
+	public static AppiumDriver<RemoteWebElement> getDriver() {
 		return  driverMapper.get(Thread.currentThread().getId());
 	}
 	

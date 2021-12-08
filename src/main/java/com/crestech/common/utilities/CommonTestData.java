@@ -158,7 +158,8 @@ public enum CommonTestData {
 	SECURE_PIN_PAGE_HEADER("Secure PIN"),
 	
 
-	YOU_HAVE_ADDED_RECIPIENT_MSG("You've added a recipient"),
+	YOU_HAVE_ADDED_RECIPIENT_MSG("You’ve added a recipient"),
+	YOU_HAVE_ADDED_RECIPIENT_MSG2("You've added a recipient"),
 
 	NAMETO_APPEAR_ON_DEBITCARD("DBS Passion"),
 	REVIEW_APPLICATION("Review Application"),

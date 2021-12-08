@@ -95,10 +95,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void logInApplication(String userName, String password, String appName) throws Exception {
 		try {
 			CommonAlertElements btnElements = new CommonAlertElements(driver);
-			//Thread.sleep(40000);
-			String quitButtonXpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button";
-			//WebDriverWait Wait = new WebDriverWait(driver, 300);
 			Thread.sleep(45000);
+			String quitButtonXpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button";
+			//WebDriverWait Wait = new WebDriverWait(driver, 55);
 			//Wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(quitButtonXpath)));
 			List<RemoteWebElement> list = driver.findElements(By.xpath(quitButtonXpath));
 			//System.out.println(list.size()+" : "+driver.getCapabilities().getCapability(MobileCapabilityType.DEVICE_NAME));
@@ -110,14 +109,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					relaunchingPOSB();
 				else if (appName.contains("iWEALTH"))
 					relaunchingIwealth();
-				System.out.println("Relaunching Completed");
+				//System.out.println("Relaunching Completed");
 				wait.waitForElementToBeClickable(DBSappObject.loginButton());
 				Thread.sleep(5000);
 			}
 			
 			UpdateUATN4Server();
 			clickOnLoginButton();
-			System.out.println("Click on 1st Login Button");
+			//System.out.println("Click on 1st Login Button");
 			sendDataInUserId(userName);
 			sendDataInUserPin(password);
 			clickOnLoginButton();
@@ -170,25 +169,24 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Select And Save UAT N4 Server")
 	public void UpdateUATN4Server() throws Exception {
 		try {
-			
 			TakeScreenshot(DBSappObject.PreLoginBtn());
 			clickOnElement(DBSappObject.PreLoginBtn());
-			System.out.println("PreLoginBtn Clicked");
+			//System.out.println("PreLoginBtn Clicked");
 			TakeScreenshot(DBSappObject.MoreButton());
 			clickOnElement(DBSappObject.MoreButton());
-			System.out.println("MoreButton Clicked");
+			//System.out.println("MoreButton Clicked");
 			TakeScreenshot(DBSappObject.ChangeServerBtn());
 			clickOnElement(DBSappObject.ChangeServerBtn());
-			System.out.println("ChangeServerBtn Clicked");
+			//System.out.println("ChangeServerBtn Clicked");
 			Thread.sleep(2000);
 			gestUtils.scrollUPtoObject("text", "UAT N4", DBSappObject.SelectUATN4_Server());
-			System.out.println("SelectUATN4_Server Scroll");
+			//System.out.println("SelectUATN4_Server Scroll");
 			TakeScreenshot(DBSappObject.SelectUATN4_Server());
 			clickOnElement(DBSappObject.SelectUATN4_Server());
-			System.out.println("SelectUATN4_Server Clicked");
+			//System.out.println("SelectUATN4_Server Clicked");
 			TakeScreenshot(DBSappObject.ChangeServerSaveBtn());
 			clickOnElement(DBSappObject.ChangeServerSaveBtn());
-			System.out.println("ChangeServerSaveBtn Clicked");
+			//System.out.println("ChangeServerSaveBtn Clicked");
 		} catch (Exception e) {
 			throw e;
 		}
@@ -421,13 +419,23 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN() throws Exception {
 		try {
 			EnterPasscodeAndDone();
-			Thread.sleep(20000);
+			//Thread.sleep(20000);
 			wait.waitForElementVisibility(DBSappObject.SuccessTickImageView());
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			if (isElementVisible(DBSappObject.SuccessTickImageView()))
-				Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
-						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
-						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not matching");
+			if (isElementVisible(DBSappObject.SuccessTickImageView())) {
+				if(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue()))
+					Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
+							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
+							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not matching");
+				
+				else if(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue())) {
+					Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
+							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue(),
+							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue() + " Text is not matching");
+				}
+				
+			}
+				
 		} catch (Exception e) {
 			throw e;
 		}
@@ -447,6 +455,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(DBSappObject.AddLocalRecipient());
 			}
+			wait.waitForElementVisibility(DBSappObject.PageHeader());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(),
 					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue() + " Page Header is not matching");
@@ -462,6 +471,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			wait.waitForElementVisibility(DBSappObject.SelectBankAccount());
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(DBSappObject.SelectBankAccount());
+			wait.waitForElementToBeClickable(DBSappObject.EditFields().get(0));
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(),
 					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
@@ -685,7 +695,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void sendDataInSearchBoxAndSelectFromDropDown(String searchBoxData, String valueSelectedFromList,
 			MobileElement searchField) throws Exception {
 		try {
-
 			if (isElementEnable(searchField))
 				enterTextInTextbox(searchField, searchBoxData);
 			TakeScreenshot(DBSappObject.countryList().get(0));
@@ -854,6 +863,22 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 
 	}
+	
+	@Step("clicking On 'ADD RECIPIENT NOW' button")
+	public void ClickOnAddRecipientNowBtnForAddPayeeRemittance() throws Exception {
+		try {
+			wait.waitForElementVisibility(DBSappObject.AddRecipientNowBtn());
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			String actualText = getTexOfElement(DBSappObject.AddRecipientNowBtn());
+			if (actualText.equalsIgnoreCase(CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue()))
+				clickOnElement(DBSappObject.AddRecipientNowBtn());
+			Thread.sleep(4000);
+			Asserts.assertEquals(actualText, CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue(), "Button not matching");
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
 
 	@Step("Verify 'Reference No. Field and its value' field and Verify 'MAKE A TRANSFER' Button After Expanding & Scrolling to the Page.")
 	public void verifyReferenceFieldAndItsValue(String expectedText) throws Exception {
@@ -865,8 +890,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.MAKE_TRANSFER.getEnumValue(), "'MAKE A TRANSFER' Text is not found");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.ReferenceNumberText()), expectedText,
 					"'Reference no Field' is not found");
-			boolean i = DBSappObject.referenceNoValue().getText().isEmpty();
-			Asserts.assertTrue(i == false, "Reference Number not Found");
+			//boolean i = DBSappObject.referenceNoValue().getText().isEmpty();
+			//Asserts.assertTrue(i == false, "Reference Number not Found");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -920,6 +945,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verify 'Top Up Paylah Label' field And Verify 'Enter Amount' field")
 	public void verifyReviewTopUpLabel(String expectedText) throws Exception {
 		try {
+			wait.waitForElementVisibility(DBSappObject.reviewTopUpLabel());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.reviewTopUpLabel()), expectedText,
 					"'Top Up Paylah' Text is not found");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.displayAmount()),
@@ -937,8 +963,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 			if (actualText.equalsIgnoreCase(expectecText))
 				clickOnElement(DBSappObject.topUpNowButton());
-
 			Asserts.assertEquals(actualText, expectecText, "TOP UP NOW button Not exist");
+			wait.waitForElementVisibility(DBSappObject.topUpDoneLabel());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.topUpDoneLabel()),
 					CommonTestData.TOPUP_UP_DONE_LABEL.getEnumValue(), "'Top-up Done' Text is not found");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.displayAmount()),
@@ -1254,7 +1280,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 			driver.hideKeyboard();
 			clickOnElement(DBSappObject.SelectSourceOfFundsForSavingsDropdown());
-			selectElementFromTheGivenList(DBSappObject.SelectSourceAccountFromList(),
+			selectElementFromTheGivenList(DBSappObject.SelectSourceOfFundsForSavingsDropdownList(),
 					CommonTestData.SELECT_ACCOUNT.getEnumValue());
 
 		} catch (Exception e) {
@@ -1455,6 +1481,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void verifyValidationForPayeeAdd(String ExpectedRecipientName, String BankName, String AccountNumber)
 			throws Exception {
 		try {
+			wait.waitForElementVisibility(DBSappObject.LogoutBtn());
 			Asserts.assertTrue(DBSappObject.LogoutBtn().isDisplayed(), "Log Out Button not found.");
 			Asserts.assertTrue(DBSappObject.makeTransferButton().isDisplayed(), "Make A Transfer Button not found.");
 			String[] ExpTitleList = new String[] { "Recipient's Name", "Country", "Recipient's Bank",
@@ -1574,6 +1601,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			wait.waitForElementVisibility(DBSappObject.NextButtonToAddedLocalRecipient());
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(DBSappObject.NextButtonToAddedLocalRecipient());
+			wait.waitForElementVisibility(DBSappObject.AddRecipientNowBtn());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
@@ -1620,7 +1648,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			overseasVerifyClick(CommonTestData.OVERSEAS_ICON.getEnumValue());
-			ClickOnAddRecipientNowBtn();
+			ClickOnAddRecipientNowBtnForAddPayeeRemittance();
 			sendDataInSearchBoxAndSelectFromDropDown(CommonTestData.COUNTRY_AUS.getEnumValue(),
 					CommonTestData.COUNTRY_AUS.getEnumValue(), DBSappObject.locationAutocompleteSearchBox());
 			CurrencyTypeVerifyClick(CommonTestData.CURRENCY_AUS.getEnumValue());
@@ -1632,17 +1660,24 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			sendFullName(CommonTestData.FULL_NAME.getEnumValue());
 			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			sendAddress(CommonTestData.ADDRESS.getEnumValue());
-			String cityXpath = "//android.widget.EditText[@text='In the City of']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(cityXpath));
-			if(list.size()>0)
-				sendcity(CommonTestData.CITY.getEnumValue());
+//			String cityXpath = "//android.widget.EditText[@text='In the City of']";
+//			List<RemoteWebElement> list = driver.findElements(By.xpath(cityXpath));
+//			if(list.size()>0)
+			sendcity(CommonTestData.CITY.getEnumValue());
 			ClickOnNextButton();
 			verifyRecipientReviewDetailLabel(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue());
 			ClickOnAddRecipientNowBtn();
 			EnterPasscodeAndDone();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()).toLowerCase(),
+			wait.waitForElementVisibility(DBSappObject.MainHeaderOrSuccessMsgElement());
+			if(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue()))
+				Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()).toLowerCase(),
 					CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue().toLowerCase(),
-					"'You've added a recipient label' Text is not matching");
+					"'You’ve added a recipient label' Text is not matching");
+			else if(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue())) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()).toLowerCase(),
+						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue().toLowerCase(),
+						"You've added a recipient' Text is not matching");
+			}
 			verifyReferenceFieldAndItsValue(CommonTestData.REFERENCE_NUMBER.getEnumValue());
 		} catch (Exception e) {
 			throw e;

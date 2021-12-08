@@ -84,7 +84,7 @@ public class WaitUtils extends CommandPrompt {
 	 */
 	public void waitForElementToBeClickable(MobileElement element) throws Exception {
 		try {
-			System.out.println(driver.getCapabilities().getCapability(MobileCapabilityType.DEVICE_NAME));
+			//System.out.println(driver.getCapabilities().getCapability(MobileCapabilityType.DEVICE_NAME));
 			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 		} catch (Exception e) {

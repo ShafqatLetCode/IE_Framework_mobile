@@ -100,7 +100,7 @@ public class TestListener extends UserBaseTest implements ITestListener {
 		System.out.println("I am in onTestSuccess method " + getTestMethodName(iTestResult) + " succeed");
 		// Extent reports log operation for passed tests.
 		// ExtentTestManager.getTest().log(LogStatus.PASS, "Test passed");
-		WebDriver driver = ContextManager.getAndroidDriver();
+		WebDriver driver = ContextManager.getDriver();
 
 		// Allure ScreenShotRobot and SaveTestLog
 		if (driver instanceof WebDriver) {
@@ -115,7 +115,7 @@ public class TestListener extends UserBaseTest implements ITestListener {
 
 		// Get driver from BaseTest and assign to local webdriver variable.
 		Object testClass = iTestResult.getInstance();
-		RemoteWebDriver driver = ContextManager.getAndroidDriver();
+		RemoteWebDriver driver = ContextManager.getDriver();
 
 		// Allure ScreenShotRobot and SaveTestLog
 		if (driver instanceof WebDriver) {
