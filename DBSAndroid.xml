@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite thread-count="5" configfailurepolicy="continue"
-	name="Appium pCloudy Suite" parallel="tests">		
+	name="Appium pCloudy Android Suite" parallel="tests">		
 	<listeners>
 		<listener class-name="com.crestech.listeners.AlterSuite" />
 		<!-- <listener class-name="com.crestech.listeners.TestListener" /> -->
