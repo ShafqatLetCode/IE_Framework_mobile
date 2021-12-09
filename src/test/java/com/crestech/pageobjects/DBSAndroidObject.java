@@ -619,6 +619,11 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "Page Header List")
 	@AndroidFindBy(xpath = " //android.widget.RelativeLayout//android.widget.TextView[contains(@resource-id,':id/text')]")
 	private List<MobileElement> PageHeaderList;
+	
+	@ElementDescription(value = "Payment Submitted Lable")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.dbsmbanking:id/text_transfer_result']")
+	private MobileElement PaymentSubmittedLable;
+	
 
 	@ElementDescription(value = "Page Header List")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/text')]")
@@ -778,6 +783,10 @@ public class DBSAndroidObject {
 
 	public List<MobileElement> PageHeaderList() {
 		return PageHeaderList;
+	}
+	
+	public MobileElement PaymentSubmittedLable() {
+		return PaymentSubmittedLable;
 	}
 
 	public List<MobileElement> PageHeaderList2() {
@@ -1413,6 +1422,10 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "MAKE ANOTHER TRANSFER BUTTON")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='MAKE ANOTHER TRANSFER']")
 	private MobileElement MakeAnotherTransferBtn;
+	
+	@ElementDescription(value = "MAKE ANOTHER PAYMENT BUTTON")
+	@AndroidFindBy(xpath = "//android.widget.Button[contains(@resource-id,'id/btn_another_transfer')]")
+	private MobileElement MakeAnotherPaymentBtn;
 
 	@ElementDescription(value = "Sending Amount Element")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/card_amount')]")
@@ -1468,6 +1481,10 @@ public class DBSAndroidObject {
 
 	public MobileElement MakeAnotherTransferBtn() {
 		return MakeAnotherTransferBtn;
+	}
+	
+	public MobileElement MakeAnotherPaymentBtn() {
+		return MakeAnotherPaymentBtn;
 	}
 
 	public MobileElement TransferDateTextElement() {
