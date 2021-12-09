@@ -68,6 +68,25 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		}
 	}
 
+	
+	public void locationSwipPopup() throws Exception    
+	{
+		
+		try {
+			Thread.sleep(5000);
+			String Xpath = "//XCUIElementTypeStaticText[@name=' Upgrade your banking experience with us']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(Xpath));
+			if (list.size() > 0) {
+					Dimension windowSize1 = driver.manage().window().getSize();
+					int y =(int)((windowSize1.getHeight())-10);
+					int x =(int)((windowSize1.getWidth())/2);
+					gestUtils.swipeElementtoCoordinate(IOShomePgaeObject.swipeButton(),  x,  y);
+				}
+			
+		} catch (Exception e) {
+			e.printStackTrace(); throw e;
+		}
+	}
 	/**
 	 * Method to tap on Login Button on 1st page
 	 * 
@@ -464,6 +483,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			// swipeUpgadeExperienceAlert();
 			// handlingFingurePrintAlert();
 			// handlingRecordingAlert();
+			locationSwipPopup();
 			verifyWelcomeToText();
 			verifyDigibankText();
 
