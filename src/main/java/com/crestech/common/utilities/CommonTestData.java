@@ -71,7 +71,7 @@ public enum CommonTestData {
 	FUNDTRANSFER_FROM_OWN_ACCOUNT_NUMBER("028-976191-5"),
 	FUNDTRANSFER_FROM_OWN_ACCOUNT_NAME("DBS Multiplier Account"),
 	TRANSFER_TO_YOUR_ACCOUNT("Transfer to Your Account"),
-	
+	YOUR_DBSPOSB_ACCOUNTS("Your DBS/POSB Accounts"),
 	
 	//UpdateContact Details
 	UPDATE_CONTACT_DETAILS_PAGEHEADER("Update Contact Details"),
@@ -109,7 +109,7 @@ public enum CommonTestData {
 	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
 	POSB_APP_PACKAGE("com.dbs.sit1.posbmbanking"),
 	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
-	DBS_APP_APK("dbsandroidUAT.apk"),
+	DBS_APP_APK("DBS_Android.apk"),
 	POSB_APP_APK("POSB_Android.apk"),
 	iWEALTH_APP_APK("iwealthandroidUAT_10Nov.apk"),
 	DBS_DIGIBANK("DBS digibank"),
@@ -150,7 +150,7 @@ public enum CommonTestData {
 	ACCOUNT_BENIFITS("Account Benefits"),
 	MONTHLY_SAVING_AMT_BALANCE("50"),
 	IMPORTANT_NOTES("Important Notes"),
-	WARNING_HEADING_TEXT("Warning Advisory from the Singapore Police Force"),
+	WARNING_HEADING_TEXT(" Advisory from the Singapore Police Force"),
 	WARNING("Warning"),
 	YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE("Your account is open and ready to use!"),
 	

@@ -1705,4 +1705,11 @@ public class DBS_IOSObject {
 		return  SharePaymentDetailsButton;
 	}
 
+	@ElementDescription(value = "swipe button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeImage[@name='TravelMode_Close']")
+	private MobileElement swipeButton;
+
+	public MobileElement  swipeButton() {
+		return  swipeButton;
+	}
 }
