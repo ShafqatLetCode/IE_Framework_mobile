@@ -421,6 +421,21 @@ public class GestureUtils {
 			throw new Exception(e);
 		}
 	}
+	public void scrollUPtoObjectIos(String attribute, String value, MobileElement element) throws Exception {
+		try {
+			HashMap<String,Object>ScrollObject=new HashMap<>();
+			ScrollObject.put("direction", "down");
+			ScrollObject.put(attribute, value);
+			
+			driver.executeScript("mobile:scroll",ScrollObject);
+
+			if(element !=null)
+				Asserts.assertTrue(element.isDisplayed(), "Element not found");
+
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+	}
 	
 	public void scrollDOWNtoObject(String attribute, String value, MobileElement element) throws Exception {
 		try {
