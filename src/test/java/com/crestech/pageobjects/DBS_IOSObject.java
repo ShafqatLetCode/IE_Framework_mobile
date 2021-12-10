@@ -453,8 +453,8 @@ public class DBS_IOSObject {
 	private MobileElement ReviewRecipientDetailsPageHeader;
 	
 	@ElementDescription(value = "'Add Recipient Now' Button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='ADD RECIPIENT NOW']")
-	private MobileElement ADDRecipientNowButton;
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='ADD RECIPIENT NOW']")//
+	private MobileElement ADDRecipientNowButton;//
 	
 	@ElementDescription(value = "Payee Added Success Image")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeImage")
@@ -696,7 +696,7 @@ public class DBS_IOSObject {
 		return  searchBoxforLocation;
 	}
 	@ElementDescription(value = "country Element list")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell/XCUIElementTypeStaticText)")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell/XCUIElementTypeStaticText")
 	private List<MobileElement> countryList;
 
 	public List<MobileElement> countryList() {
@@ -1440,7 +1440,7 @@ public class DBS_IOSObject {
 		return sgdHomepage;
 	}
 	@ElementDescription(value = "Account name Homepage")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeOther/XCUIElementTypeStaticText)[4]")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='DBS SAVINGS PLUS']")
 	private MobileElement accountNameHomepage;
 
 	public MobileElement  accountNameHomepage() {
@@ -1553,12 +1553,19 @@ public class DBS_IOSObject {
 	public MobileElement  closeIconInOversea() {
 		return  closeIconInOversea;
 	}
-	@ElementDescription(value = "Overseas header")
+	@ElementDescription(value = "Overseas Transfer header")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Overseas Transfer']")
-	private MobileElement overseaTitle;
+	private MobileElement overseaTransferTitle;
 
-	public MobileElement  overseaTitle() {
-		return  overseaTitle;
+	public MobileElement  overseaTransferTitle() {
+		return  overseaTransferTitle;
+	}
+	@ElementDescription(value = "Transfer Overseas  header")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Transfer Overseas']")
+	private MobileElement transferOverseaTitle;
+
+	public MobileElement  transferOverseaTitle() {
+		return  transferOverseaTitle;
 	}
 	@ElementDescription(value = "search icon in payAndtransfer")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pay & Transfer']")
@@ -1705,4 +1712,33 @@ public class DBS_IOSObject {
 		return  SharePaymentDetailsButton;
 	}
 
+	@ElementDescription(value = "swipe button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeImage[@name='TravelMode_Close']")
+	private MobileElement swipeButton;
+
+	public MobileElement  swipeButton() {
+		return  swipeButton;
+	}
+	@ElementDescription(value = "Account section on HomePage")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Accounts']")
+	private MobileElement accountSectionHomePage;
+
+	public MobileElement  accountSectionHomePage() {
+		return  accountSectionHomePage;
+	}
+	@ElementDescription(value = "Add oversea recipient when no recpient added")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeButton)[5]")
+	private MobileElement addOverseaRecipientFirst;
+
+	public MobileElement  addOverseaRecipientFirst() {
+		return  addOverseaRecipientFirst;
+	}
+	@ElementDescription(value = "Add oversea recipient when  recpient added")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Add overseas recipient'])[2]/preceding-sibling::XCUIElementTypeButton")
+	private MobileElement addOverseaRecipientSecond;
+
+	public MobileElement  addOverseaRecipientSecond() {
+		return  addOverseaRecipientSecond;
+	}
+	
 }

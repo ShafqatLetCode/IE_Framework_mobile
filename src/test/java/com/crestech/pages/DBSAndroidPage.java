@@ -103,7 +103,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void logInApplication(String userName, String password, String appName) throws Exception {
 		try {
 			CommonAlertElements btnElements = new CommonAlertElements(driver);
-			Thread.sleep(45000);
+			Thread.sleep(4000);
 			String quitButtonXpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(quitButtonXpath));
 			if (list.size() > 0) {
@@ -781,6 +781,22 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Click On Next Button.")
+	public void ClickOnNextButton1() throws Exception {
+		try {
+			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
+			String nextButtonXpath = "//android.widget.Button[@text='NEXT']";
+			List<RemoteWebElement> nextButton = driver.findElements(By.xpath(nextButtonXpath));
+			if (nextButton.size() > 0) {
+				TakeScreenshot(DBSappObject.nextButton());
+				if (getTexOfElement(DBSappObject.nextButton()).equalsIgnoreCase("NEXT"))
+					clickOnElement(DBSappObject.nextButton());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	@Step("Click On Next Button.")
 	public void ClickOnNextButton() throws Exception {
 		try {
 			String confirmButtonXpath = "//android.widget.Button[@text='CONFIRM']";
@@ -790,14 +806,16 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if(confirmButton.size()>0) {
 				gestUtils.scrollUPtoObject("text", "CONFIRM", DBSappObject.confirmButton());
 				TakeScreenshot(DBSappObject.confirmButton());
+			
 			}
 			else if(nextButton.size()>0) {
 				gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 				TakeScreenshot(DBSappObject.nextButton());
+				if (getTexOfElement(DBSappObject.nextButton()).equalsIgnoreCase("NEXT"))
+					clickOnElement(DBSappObject.nextButton());
 			}
 			
-			if (getTexOfElement(DBSappObject.nextButton()).equalsIgnoreCase("NEXT"))
-				clickOnElement(DBSappObject.nextButton());
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1977,7 +1995,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (isElementEnable(DBSappObject.searchBox()))
 				enterTextInTextbox(DBSappObject.searchBox(), searchBoxData);
 
-			wait.waitForElementVisibility(DBSappObject.searchTextElement().get(0));
+			TakeScreenshot(DBSappObject.searchTextElement().get(0));
 			List<MobileElement> Elementlist = DBSappObject.searchTextElement();
 			List<MobileElement> ElementlistClickable = DBSappObject.searchClickableElement();
 			int l = Elementlist.size();
@@ -1992,8 +2010,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				}
 			}
 			Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
+			EnterPasscodeAndDone();
 			verifyPageHeader(ExpecetedText, PageHeader);
-			TakeScreenshot(PageHeader);
+			
 		} catch (Exception e) {
 
 
@@ -2007,6 +2026,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void verifyPageHeader(String expectedText, MobileElement ele) throws Exception {
 		try {
 			if (ele != null)
+				TakeScreenshot(ele);
 				Asserts.assertEquals(getTexOfElement(ele).toLowerCase(), expectedText.toLowerCase(),
 						"'Header Title' is not Matching");
 		} catch (Exception e) {
@@ -2039,9 +2059,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void ClickOnToOtherBankLimit() throws Exception {
 		try {
 			selectAccountTypeInLocalFundTransfer(CommonTestData.TO_OTHERBANK_LABEL.getEnumValue());
+			EnterPasscodeAndDone();
 			verifyPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL.getEnumValue(),
 					DBSappObject.PageHeaderList2().get(0));
-			TakeScreenshot(DBSappObject.PageHeaderList2().get(0));
+			//TakeScreenshot(DBSappObject.PageHeaderList2().get(0));
+			
 
 		} catch (Exception e) {
 
@@ -3220,7 +3242,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			int l = Elementlist.size();
 			int index = 0;
 			String purposedFromList = null;
-			for (int i = 1; i <= l; i++) {
+			for (int i = 0; i < l; i++) {
 				purposedFromList = Elementlist.get(i).getText();
 				if (purposedFromList.equalsIgnoreCase(purpos)) {
 					index++;
@@ -3234,12 +3256,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.durationOption());
 			TakeScreenshot(DBSappObject.calenderHeaderCreditLimit());
 			clickOnElement(DBSappObject.selectDateOctEleven());
-			clickOnElement(DBSappObject.OKButton());
+			DBSappObject.OKButton().click();
+			//clickOnElement(DBSappObject.OKButton());
 			TakeScreenshot(DBSappObject.PageHeader());
 			clickOnElement(DBSappObject.durationOption());
 			TakeScreenshot(DBSappObject.calenderHeaderCreditLimit());
 			clickOnElement(DBSappObject.selectDateOctEleven());
-			clickOnElement(DBSappObject.OKButton());
+			DBSappObject.OKButton().click();
+			//clickOnElement(DBSappObject.OKButton());
 			TakeScreenshot(DBSappObject.PageHeader());
 //			String[] arrOfStr = cureentDate.split(" ");
 //			String year = arrOfStr[2];
@@ -3586,16 +3610,20 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(),
 						CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), DBSappObject.PageHeader());
 				setAmountDurationPurposeForLimitIncrease("100", "wedding");
-				gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.NextBtn());
-				sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(),
-						CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(),
-						CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), DBSappObject.PageHeader());
-				setAmountDurationPurposeForLimitIncrease("100", "wedding");
-
-				gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.NextBtn());
-				ClickOnNextButton();
+				gestUtils.scrollUPtoObject("text", "NEXT", null);
+//				sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(),
+//						CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(),
+//						CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), DBSappObject.PageHeader());
+//				setAmountDurationPurposeForLimitIncrease("100", "wedding");
+//
+//				gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.NextBtn());
+				ClickOnNextButton1();
+				Thread.sleep(3000);
+				for(int i=0; i<DBSappObject.PageHeaderList2().size();i++ ) {
+					System.out.println(DBSappObject.PageHeaderList2().get(i).getText());
+				}
 				verifyPageHeader(CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue(),
-						DBSappObject.PageHeader());
+						DBSappObject.PageHeaderList2().get(2));
 
 			} catch (Exception e) {
 				e.printStackTrace();

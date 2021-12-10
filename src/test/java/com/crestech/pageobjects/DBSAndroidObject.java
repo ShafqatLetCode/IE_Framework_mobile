@@ -1395,7 +1395,7 @@ public class DBSAndroidObject {
 	private MobileElement ErrorMessgeElement;
 
 	@ElementDescription(value = "OK Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.dbsmbanking:id/tv_ok_id']")
 	private MobileElement OKButton;
 
 	@ElementDescription(value = "Transfer Via Fast Transfer Toggle")
