@@ -2166,6 +2166,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			EnterBillingOrganisationDetails(CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
 					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
 			ClickOnNextButton();
+			Thread.sleep(2000);
 			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ReviewRecipientDetailsPageHeader()),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Page Header not displaying.");
 			VerifyBillingOrganisationAndBillReferenceNumber(
@@ -2222,7 +2223,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			TakeScreenshot(IOShomePgaeObject.BillsButton());
 			clickOnElement(IOShomePgaeObject.BillsButton());
 
-			String xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']";
+			String xpath = "//XCUIElementTypeButton[@name='ADD RECIPIENT NOW']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0) {
 				TakeScreenshot(IOShomePgaeObject.AddRecipientNowButton());
@@ -2231,7 +2232,6 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				TakeScreenshot(IOShomePgaeObject.AddBillingOrganisation());
 				clickOnElement(IOShomePgaeObject.AddBillingOrganisation());
 			}
-			
 			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.EnterRecipientDetailsPageHeader()),
 					" 'Enter Recipient's Details' Page Header not displaying.");
 		} catch (Exception e) {

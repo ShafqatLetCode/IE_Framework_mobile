@@ -3318,7 +3318,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			VerifyButtonLabelAndClick(DBSappObject.accountSectionHomePage(), CommonTestData.ACCOUNT_SECTION.getEnumValue());
 
-			gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
+		//	gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
 			TakeScreenshot(DBSappObject.depositeHomePage());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.depositeHomePage()), AccountType,
 					AccountType + " is not present");
@@ -3326,8 +3326,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					AccountName + " is not present");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.currencyHomePage()), currency,
 					currency + " is not present");
-			boolean i = DBSappObject.amountValueHomePage().getText().isEmpty();
-			Asserts.assertTrue(i == false, "Reference Number not Found");
+			//boolean i = DBSappObject.amountValueHomePage().getText().isEmpty();
+			//Asserts.assertTrue(i == false, "Amount not Found");
 
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));

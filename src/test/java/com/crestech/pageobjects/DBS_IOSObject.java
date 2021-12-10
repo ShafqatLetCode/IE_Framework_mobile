@@ -428,7 +428,7 @@ public class DBS_IOSObject {
 	private MobileElement SelectBankAccount;
 	
 	@ElementDescription(value = "'Enter Recipient's Details' Page Header")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Enter Recipient's Details']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Enter Recipient')]")
 	private MobileElement EnterRecipientDetailsPageHeader;
 	
 	
