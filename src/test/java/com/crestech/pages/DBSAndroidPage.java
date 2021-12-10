@@ -3594,14 +3594,7 @@ clickOnElement(DBSappObject.ContactSearchfield());
 	public void verifyAccountTypeNameCurrencyAmount(String AccountType, String AccountName, String currency)
 			throws Exception {
 		try {
-
-			
 			VerifyButtonLabelAndClick(DBSappObject.accountSectionHomePage(), CommonTestData.ACCOUNT_SECTION.getEnumValue());
-
-
-			VerifyButtonLabelAndClick(DBSappObject.accountSectionHomePage(),
-					CommonTestData.ACCOUNT_SECTION.getEnumValue());
-
 			gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
 			TakeScreenshot(DBSappObject.depositeHomePage());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.depositeHomePage()), AccountType,
@@ -3610,8 +3603,8 @@ clickOnElement(DBSappObject.ContactSearchfield());
 					AccountName + " is not present");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.currencyHomePage()), currency,
 					currency + " is not present");
-		//	boolean i = DBSappObject.amountValueHomePage().getText().isEmpty();
-		//	Asserts.assertTrue(i == false, "Reference Number not Found");
+			//boolean i = DBSappObject.amountValueHomePage().getText().isEmpty();
+			//Asserts.assertTrue(i == false, "Amount not Found");
 
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
