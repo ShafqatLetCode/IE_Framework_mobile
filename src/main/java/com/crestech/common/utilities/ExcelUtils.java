@@ -52,6 +52,7 @@ public class ExcelUtils {
 			XSSFCell cell = null;
 			XSSFWorkbook wb = null;
 			XSSFSheet sheet = null;
+			DataFormatter formatter = new DataFormatter();
 			List<String> val = new ArrayList<String>();
 			// Open excel
 			try {
@@ -65,10 +66,14 @@ public class ExcelUtils {
 			for (int i = 0; i < sheet.getLastRowNum() + 1; i++) {
 				row = sheet.getRow(i);
 				cell = row.getCell(0);
-				if (cell.getStringCellValue().equals(key)) {
+				if(formatter.formatCellValue(cell).equals(key))
+				//if (cell.getStringCellValue().equals(key)) 
+					{
+					
 					for (Iterator<Cell> cit = row.iterator(); cit.hasNext();) {
 						Cell cell_value = cit.next();
-						val.add(cell_value.getStringCellValue());
+						val.add(formatter.formatCellValue(cell_value));
+						//val.add(cell_value.getStringCellValue());
 					}
 					break;
 				}
