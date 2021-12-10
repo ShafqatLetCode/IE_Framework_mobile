@@ -446,11 +446,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("2FA VERIFICATION")
 	public void handling2faVerification(String titleText) throws Exception {
 		try {
-
 			fieldText(titleText, IOShomePgaeObject.title2FA());
 			sendPinIn2faSecureBox(CommonTestData.PIN_2FA.getEnumValue());
 			doneVerifyClick();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -477,15 +475,13 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			clickOnLoginButton_0();
 			sendDataInUserId(userName);
 			sendDataInUserPin(password);
-			//String s1 = driver.getPageSource();
-			//System.out.println(s1);
 			clickOnLoginButton_2();
-			//locationSwipPopup();
-			// IOShomePgaeObject.handlingMotionAndFitnessAlert();
-			// swipeUpgadeExperienceAlert();
-			// handlingFingurePrintAlert();
-			// handlingRecordingAlert();
 
+			// handling2faVerification(password); 
+//			 IOShomePgaeObject.handlingMotionAndFitnessAlert();
+//			 swipeUpgadeExperienceAlert();
+//			 handlingFingurePrintAlert();
+//			 handlingRecordingAlert();
 			locationSwipPopup();
 			verifyWelcomeToText();
 			verifyDigibankText();
@@ -796,8 +792,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					CommonTestData.PAYEEADD_DBSPOSB_BANK_NAME.getEnumValue(),
 					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
 			ClickOnNextButton();
-			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ReviewRecipientDetailsPageHeader()),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Page Header not displaying.");
+			fieldText(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue(),
+					IOShomePgaeObject.reviewRecipientDetailTitle());
 
 			ClickOnAddRecipientNowBtn();
 			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
@@ -984,31 +980,25 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void verifyValidationForPayeeAdd(String ExpectedRecipientName, String BankName, String AccountNumber)
 			throws Exception {
 		try {
-			Asserts.assertTrue(IOShomePgaeObject.LogoutBtn().isDisplayed(), "Log Out Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.logoutPaylah().isDisplayed(), "Log Out Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.closeButton().isDisplayed(), "Close Button not found.");
 			Asserts.assertTrue(IOShomePgaeObject.makeTransferButton().isDisplayed(),
 					"Make A Transfer Button not found.");
-			Asserts.assertTrue(IOShomePgaeObject.closeButton().isDisplayed(), "Close Button not found.");
-
-			Asserts.assertTrue(IOShomePgaeObject.RecipientNameText().isDisplayed(),
-					"'Recipient's Name' text is not dispalying After adding Payee.");
+		
 			String RecipientNameXpath = "//XCUIElementTypeStaticText[@name='" + ExpectedRecipientName + "']";
 			MobileElement RecipientNameElement = (MobileElement) driver.findElement(By.xpath(RecipientNameXpath));
-			Asserts.assertEquals(getTexOfElement(RecipientNameElement), ExpectedRecipientName,
-					ExpectedRecipientName + " is not matching after adding payee");
-
-			Asserts.assertTrue(IOShomePgaeObject.RecipientBankText().isDisplayed(),
-					"'Recipient's Bank' text is not dispalying After adding Payee.");
+			fieldText(ExpectedRecipientName,  RecipientNameElement);
+			
+			
 			String BankNameXpath = "//XCUIElementTypeStaticText[@name='" + BankName + "']";
 			MobileElement BankNameElement = (MobileElement) driver.findElement(By.xpath(BankNameXpath));
-			Asserts.assertEquals(getTexOfElement(BankNameElement), BankName,
-					BankName + " is not matching after adding payee");
+			fieldText(BankName,  BankNameElement);
 
-			Asserts.assertTrue(IOShomePgaeObject.RecipientAccountNo().isDisplayed(),
-					"'Recipient's Account No.' text is not dispalying After adding Payee.");
+
 			String AccountNumberXpath = "//XCUIElementTypeStaticText[@name='" + AccountNumber + "']";
 			MobileElement AccountNumberElement = (MobileElement) driver.findElement(By.xpath(AccountNumberXpath));
-			Asserts.assertEquals(getTexOfElement(AccountNumberElement), AccountNumber,
-					AccountNumber + " is not matching after adding payee");
+			fieldText(AccountNumber,  AccountNumberElement);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1042,10 +1032,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			TakeScreenshot(IOShomePgaeObject.SelectBankAccount());
 			clickOnElement(IOShomePgaeObject.SelectBankAccount());
-
-			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.EnterRecipientDetailsPageHeader()),
-					" 'Enter Recipient's Details' Page Header not displaying.");
-
+            TakeScreenshot(IOShomePgaeObject.EnterRecipientNameEditableField());
 			enterTextInTextbox(IOShomePgaeObject.EnterRecipientNameEditableField(), ExpectedRecipientName);
 
 			clickOnElement(IOShomePgaeObject.SelectBankDropdown());
@@ -1057,6 +1044,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			clickOnElement(Selectbank);
 
 			enterTextInTextbox(IOShomePgaeObject.EnterAccountNumberEditField(), AccountNumber);
+			driver.hideKeyboard();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1081,13 +1069,14 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verify 'You Have Added Recipient Msg' After Entering Secure PIN.")
 	public void VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN() throws Exception {
 		try {
-			EnterPasscodeAndDone();
+			EnterPasscode();
 			Thread.sleep(20000);
-			TakeScreenshot(IOShomePgaeObject.SuccessImage().get(3));
-			if (isElementVisible(IOShomePgaeObject.SuccessImage().get(3)))
-				Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.YouHaveAddedRecipient()),
-						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
-						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not matching");
+			TakeScreenshot(IOShomePgaeObject.YouHaveAddedRecipient());
+			String actualText = getTexOfElement(IOShomePgaeObject.YouHaveAddedRecipient()).trim().toLowerCase();
+            String  ExpectedText = CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG3.getEnumValue().toLowerCase();
+            
+			Asserts.assertTrue(actualText.contains(ExpectedText), "You Have added a recipient text not matching");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -2330,8 +2319,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				TakeScreenshot(IOShomePgaeObject.AddBillingOrganisation());
 				clickOnElement(IOShomePgaeObject.AddBillingOrganisation());
 			}
-			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.EnterRecipientDetailsPageHeader()),
-					" 'Enter Recipient's Details' Page Header not displaying.");
+
 		} catch (Exception e) {
 			e.printStackTrace(); 
 			throw e;

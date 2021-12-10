@@ -43,7 +43,7 @@ public class Asserts extends UserBaseTest {
 		}
 	}
 
-	public static void assertFalseScreenshot(boolean condition, String message) throws Exception {
+	public void assertFalseScreenshot(boolean condition, String message) throws Exception {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertFalse(condition, message);
@@ -58,7 +58,7 @@ public class Asserts extends UserBaseTest {
 		}
 	}
 
-	public  static void assertFalse(boolean condition, String message) throws Exception {
+	public  void assertFalse(boolean condition, String message) throws Exception {
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.assertFalse(condition, message);

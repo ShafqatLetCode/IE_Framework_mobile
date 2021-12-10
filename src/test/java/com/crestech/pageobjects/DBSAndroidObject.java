@@ -1389,7 +1389,13 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "OK Button")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.dbsmbanking:id/tv_ok_id']")
 	private MobileElement OKButton;
-
+	
+	@ElementDescription(value = "Close Button to Closing The Overseas screen.")
+	@AndroidFindBy(xpath = "//android.widget.ImageButton[contains(@resource-id,':id/img_scan')]")
+	private MobileElement CloseBtn_OverseasScreen;
+	
+	
+	
 	@ElementDescription(value = "Transfer Via Fast Transfer Toggle")
 	@AndroidFindBy(xpath = "//android.widget.Switch[contains(@resource-id,':id/switch_transfer_type')]")
 	private MobileElement TransferViaFastTransferToggle;
@@ -1429,11 +1435,16 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "Back Icon")
 	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/back_icon')]")
 	private MobileElement BackIcon;
-
+	
 	@ElementDescription(value = "Close Button")
 	@AndroidFindBy(xpath = "//android.widget.ImageView[@content-desc='CLOSE']")
 	private MobileElement CloseButton;
 
+	public MobileElement CloseBtn_OverseasScreen() {
+		return CloseBtn_OverseasScreen;
+	}
+	
+	
 	public MobileElement MakeAnotherPaymentBtn() {
 		return MakeAnotherPaymentBtn;
 	}
@@ -1789,11 +1800,11 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "Payee Added Expandable Icon List")
 	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/tv_expandable_item_selected')]")
 	private List<MobileElement> PayeeAddedExpandableIconList;
-
+	
 	@ElementDescription(value = "payee_details_title_name.")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/payee_details_title_name')]")
 	private MobileElement payee_details_title_name;
-
+	
 	@ElementDescription(value = "More Option Button.")
 	@AndroidFindBy(xpath = "//android.widget.ImageView[@content-desc='More options']")
 	private MobileElement MoreOptionBtn;
