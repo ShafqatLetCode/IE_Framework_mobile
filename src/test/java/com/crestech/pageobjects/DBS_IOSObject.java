@@ -1719,6 +1719,7 @@ public class DBS_IOSObject {
 	public MobileElement  swipeButton() {
 		return  swipeButton;
 	}
+
 	@ElementDescription(value = "Account section on HomePage")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Accounts']")
 	private MobileElement accountSectionHomePage;
