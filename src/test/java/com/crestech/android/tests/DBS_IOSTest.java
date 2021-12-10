@@ -66,7 +66,7 @@ public class DBS_IOSTest extends UserBaseTest {
 	@Test(priority = 5, enabled = true, description = "Payee-Add-DBSorPOSB-ONEAPP-14675")
 	@Description(value = "Execution of this testcase:: Verifies the Payee add DSB or POSB.")
 	@Author(name = "Divya Devi")
-	public void Payee_Add_DBSorPOSB(String userName, String password) throws Exception {
+	public void Payee_AddOwnBank(String userName, String password) throws Exception {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject.logInApplication(userName, password);

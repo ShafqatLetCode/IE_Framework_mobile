@@ -1,6 +1,12 @@
 package com.crestech.android.tests;
 
+import static org.testng.Assert.assertFalse;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.logging.Logger;
+
+import org.openqa.selenium.By;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -14,14 +20,16 @@ import io.qameta.allure.Description;
 
 @Listeners(TestListener.class)
 public class DBSAndroidTest extends UserBaseTest {
-
+	
+	Asserts Assert = null;
 	public DBSAndroidTest() throws Exception {
 		super();
+		Assert = new Asserts();
 	}
 	
 
 	Logger logger = Logger.getLogger(DBSAndroidTest.class.getName());
-	Asserts Assert = new Asserts();
+	
 
 	
 	/******************Start Test Script For DBS App************************************/
@@ -55,6 +63,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			throw e;
 		}
 	}
+	
 	@Parameters({ "userName", "password" })
 	@Test(priority = 3, enabled = true, description = "Remittance-Corridor-ONEAPP-13407")
 	@Description(value = "Execution of this testcase:: Verifies the Remittance Corridor")
@@ -89,10 +98,11 @@ public class DBSAndroidTest extends UserBaseTest {
 	@Test(priority = 5, enabled = true, description = "Payee-Add-DBSorPOSB-ONEAPP-14675")
 	@Description(value = "Execution of this testcase:: Verifies the Payee add DSB or POSB.")
 	@Author(name = "Divya Devi")
-	public void Payee_Add_DBSorPOSB(String userName, String password) throws Exception {
+	public void Payee_Add_ToOwnAccount(String userName, String password) throws Exception {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");
+			dbspage.DeletePayeeDBSPOSB(CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue());
 			dbspage.VerifyAddPayeeDBSorPOSB();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,8 +133,12 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
             dbspage.logInApplication(userName, password, "DBS");
+            dbspage.DeletePayeeRemittance(CommonTestData.FULL_NAME.getEnumValue());
 			dbspage.PayeeAddRemittance();
 		} catch (Exception e) {
+			StringWriter sw = new StringWriter();
+			e.printStackTrace(new PrintWriter(sw));
+			Assert.assertFalse(true, sw.toString()); 
 			e.printStackTrace();
 			throw e;
 		}
@@ -153,6 +167,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");
+			dbspage.DeletePayeeLocalToOtherBank(CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue());
 			dbspage.PayeeAddLocalOtherBank();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -168,6 +183,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage.logInApplication(userName, password, "DBS");
+			dbspage.DeletePayeeToBillPayment(CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue());
 			dbspage.PayeeAddBillPayment();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -247,8 +263,12 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage.logInApplication(userName, password, "DBS");
 			dbspage.FundsTransfer_OtherBank_NonFASTFuture("DBS");
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			StringWriter sw = new StringWriter();
+			e.printStackTrace(new PrintWriter(sw));
+			Asserts.assertEquals("A", "B", "Unable to Fund Transfer Other bank Non Fast Future "+ sw.toString());
+			//Assert.assertFalse(true,"Unable to Fund Transfer Other bank Non Fast Future"+ sw.toString()); 
+//			e.printStackTrace();
+//			throw e;
 		}
 	}
 

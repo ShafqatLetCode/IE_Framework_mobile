@@ -69,6 +69,7 @@ public class WaitUtils extends CommandPrompt {
 			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.visibilityOf(element));
 		} catch (Exception e) {
+			//Assert.assertFalse(true, element + "Element not Visible."); 
 			e.printStackTrace();
 			throw e;
 		}

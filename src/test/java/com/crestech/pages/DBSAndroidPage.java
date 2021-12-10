@@ -14,6 +14,7 @@ import org.apache.xpath.axes.WalkingIteratorSorted;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -47,7 +48,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	AndroidAlert androidAlert = null;
 	WaitUtils wait = null;
 	GestureUtils gestUtils = null;
-
+	Asserts Assert = null;
 	public DBSAndroidPage(AppiumDriver<RemoteWebElement> driver) throws Exception {
 		super(driver);
 		try {
@@ -56,6 +57,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			androidAlert = new AndroidAlert(driver);
 			wait = new WaitUtils(driver);
 			gestUtils = new GestureUtils(driver);
+			Assert = new Asserts();
 			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), DBSappObject);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -412,9 +414,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader();
-			String randomString = GenerateRandomRecipientName();
-			String ExpectedRecipientName = CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue()
-					.concat(randomString);
+			
+			String ExpectedRecipientName = CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue();
 			EnterRecipientDetailsAfterSelectingBankAccountOption(ExpectedRecipientName,
 					CommonTestData.PAYEEADD_DBSPOSB_BANK_NAME.getEnumValue(),
 					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
@@ -423,9 +424,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
 			verifyValidationForPayeeAdd(ExpectedRecipientName, CommonTestData.PAYEEADD_DBSPOSB_BANK_NAME.getEnumValue(),
 					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
-//			clickOnElement(DBSappObject.BackIcon());
-			// com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-//			DeletePayee(ExpectedRecipientName);
+			
+			//Leaving on Home Page After adding payee to DBS/POSB for next run.
+			ClickOnBackIcon();
+			ClickOnHomeButton();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -436,9 +439,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN() throws Exception {
 		try {
 			EnterPasscodeAndDone();
-			// Thread.sleep(20000);
-			wait.waitForElementVisibility(DBSappObject.SuccessTickImageView());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			TakeScreenshot(DBSappObject.SuccessTickImageView());
 			if (isElementVisible(DBSappObject.SuccessTickImageView())) {
 				if (getTexOfElement(DBSappObject.PageHeaderForOpenAccount()).toLowerCase()
 						.equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue()))
@@ -772,7 +773,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Click On Next Button.")
-	public void ClickOnNextButtonWhileOpeningOpenAccount() throws Exception {
+	public void ClickOnNextButton1() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			String nextButtonXpath = "//android.widget.Button[@text='NEXT']";
@@ -1171,7 +1172,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
-			ClickOnBillModuleAndClickOnAddBillingOrganisation();
+			ClickOnBillsModule();
+			ClickOnAddBillingOrganisation();
 			EnterBillingOrganisationDetails(CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
 					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
 			ClickOnNextButton();
@@ -1217,12 +1219,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Click On Bill Module & Verify Enter Recipient Page Header After Click On Add Billing Organisation.")
-	public void ClickOnBillModuleAndClickOnAddBillingOrganisation() throws Exception {
+	@Step("Verify Enter Recipient Page Header After Click On Add Billing Organisation.")
+	public void ClickOnAddBillingOrganisation() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.BillsButton());
-			clickOnElement(DBSappObject.BillsButton());
-
 			String xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0) {
@@ -1235,6 +1234,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
+		}
+	}
+	
+	@Step("Click On Bills Module.")
+	public void ClickOnBillsModule() throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.BillsButton());
+			clickOnElement(DBSappObject.BillsButton());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e; 
 		}
 	}
 
@@ -1311,7 +1321,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			SelectOpenAccountOptionAndVerifyAccountBenifitsPageHeader();
 			ClickOnopenAccountInStepButton();
 			EnterMonthlySavingsAmtAndSelectSourceOfFundsForSavings();
-			ClickOnNextButtonWhileOpeningOpenAccount();
+			ClickOnNextButton1();
 			VerifyWarningMessageAndImportantNotes();
 			ClickOnIAcknowledgeButtonAndReviewOpenAccountApplication();
 			ClickOnOpenAccountNowButton();
@@ -1517,9 +1527,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
 			verifyValidationForPayeeAdd(ExpectedRecipientName, CommonTestData.LOCAL_RECIPIENT_BANK_NAME.getEnumValue(),
 					ExpectedAccountNumber);
-			clickOnElement(DBSappObject.BackIcon());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			DeletePayee(ExpectedRecipientName);
+			
+			//Leaving on Home Page After adding payee Local To Other Bank for next run.
+			ClickOnBackIcon();
+			ClickOnHomeButton();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1563,51 +1575,169 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			throw e;
 		}
 	}
-
-	@Step("Delete Payee.")
-	public void DeletePayee(String ExpectedRecipientName) throws Exception {
+	
+	@Step("Delete Payee To DBS/POSB.")
+	public void DeletePayeeDBSPOSB(String ExpectedRecipientName) throws Exception {
 		try {
-			ClickOnLocalAndDeletePayeeToIcon();
-			ClickOnMoreOptionBtnAndDeletePayeeBtn();
-			ClickOnYesBtn();
-
-			String ErrorissueXpath = "//android.widget.TextView[@text='You may be facing some delays and we are trying to sort it out now. Sorry for the inconvenience. Do check back later.']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(ErrorissueXpath));
-
-			// "This service isn't available right now. You can try again soon, or call 1800
-			// 111 1111 for assistance."
-
-			if (list.size() > 0) {
-				clickOnElement(DBSappObject.OKButton());
-				wait.waitForElementVisibility(DBSappObject.PayeeAddedExpandableIconList().get(0));
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(DBSappObject.PayeeAddedExpandableIconList().get(0));
-				wait.waitForElementVisibility(DBSappObject.payee_details_title_name());
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				Asserts.assertEquals(getTexOfElement(DBSappObject.payee_details_title_name()),
-						CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
-						CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue()
-								+ " is not matching after adding payee");
-				ClickOnMoreOptionBtnAndDeletePayeeBtn();
-				ClickOnYesBtn();
-			}
-			ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedRecipientName);
+			ClickOnPayAndTransferBtn();
+			EnterPasscodeAndDone();
+			ClickOnLocalModule();
+			DeletePayee(ExpectedRecipientName);
+			ClickOnCloseButton();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
+	
+	
+	@Step("Delete Payee To Local To Other Bank.")
+	public void DeletePayeeLocalToOtherBank(String ExpectedRecipientName) throws Exception {
+		try {
+			ClickOnPayAndTransferBtn();
+			EnterPasscodeAndDone();
+			ClickOnLocalModule();
+			DeletePayee(ExpectedRecipientName);
+			ClickOnCloseButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Delete Payee To Remittance.")
+	public void DeletePayeeRemittance(String ExpectedRecipientName) throws Exception {
+		try {
+			ClickOnPayAndTransferBtn();
+			EnterPasscodeAndDone();
+			overseasVerifyClick(CommonTestData.OVERSEAS_ICON.getEnumValue());
+			DeletePayee(ExpectedRecipientName);
+			ClickOnOverseasScreenClosingButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Click On Close Button to closing Overseas Screen.")
+	public void ClickOnOverseasScreenClosingButton() throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.CloseBtn_OverseasScreen()); 
+			clickOnElement(DBSappObject.CloseBtn_OverseasScreen()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	
+	
+	@Step("Delete Payee To Bill Payment.")
+	public void DeletePayeeToBillPayment(String ExpectedRecipientName) throws Exception {
+		try {
+			ClickOnPayAndTransferBtn();
+			EnterPasscodeAndDone();
+			ClickOnBillsModule();
+			DeletePayee(ExpectedRecipientName);
+			ClickOnCloseButton();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Click On Close Button.")
+	public void ClickOnCloseButton() throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.CloseButton()); 
+			clickOnElement(DBSappObject.CloseButton());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e; 
+		}
+	}
+
+	@Step("Delete Payee.")
+	public void DeletePayee(String ExpectedRecipientName) throws Exception {
+		try {
+			// "This service isn't available right now. You can try again soon, or call 1800
+			// 111 1111 for assistance."
+			
+			String xpath = "//android.widget.ImageView[contains(@resource-id,':id/tv_expandable_item_selected')]";
+			List<RemoteWebElement> Payeelist = driver.findElements(By.xpath(xpath));
+			int ExpectedTotalPayeeSize = Payeelist.size();
+			if(ExpectedTotalPayeeSize>0) {
+				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
+					ClickOnDeletePayeeToIcon(i);
+					TakeScreenshot(DBSappObject.payee_details_title_name()); 
+					Asserts.assertEquals(getTexOfElement(DBSappObject.payee_details_title_name()),
+							CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
+							CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue() + " is not matching after adding payee");
+					String RecipientNameXpath =	"//android.widget.TextView[@text='" + ExpectedRecipientName + "']";
+					List<RemoteWebElement> RecipientNameElementList = driver.findElements(By.xpath(RecipientNameXpath));
+					if (RecipientNameElementList.size() > 0) {
+						ClickOnMoreOptionBtnAndDeletePayeeBtn();
+						ClickOnYesBtn();
+
+						for (int innerLoop = 0; innerLoop < 2; innerLoop++) {
+							//Sometimes this alert with message (You may be facing some delays and
+							//we are trying to sort it out now. Sorry for the inconvenience.
+							// Do check back later.) coming. So this Thread.sleep(); added here.
+							
+							Thread.sleep(4000); 
+							String ErrorissueXpath = 	"//android.widget.TextView[@resource-id='android:id/message']";
+							List<RemoteWebElement> list = driver.findElements(By.xpath(ErrorissueXpath));
+							if (list.size() > 0) {
+								if(getTexOfElement(DBSappObject.ErrorMessgeElement()).contains("You may be facing some delays")) {
+									TakeScreenshot(DBSappObject.OKButton());
+									clickOnElement(DBSappObject.OKButton());
+									ClickOnDeletePayeeToIcon(i);
+									TakeScreenshot(DBSappObject.payee_details_title_name()); 
+									Asserts.assertEquals(getTexOfElement(DBSappObject.payee_details_title_name()),
+											CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
+											CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue() + " is not matching after adding payee");
+									ClickOnMoreOptionBtnAndDeletePayeeBtn();
+									ClickOnYesBtn();
+								} 
+							}
+						}
+						
+						ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedRecipientName,ExpectedTotalPayeeSize);
+						break;
+					} else {
+						clickOnElement(DBSappObject.BackBtnImageView());
+					}
+				}
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
 
 	@Step("Click On OK Button after verifying 'Payee Name deleted' message.")
-	public void ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(String ExpectedRecipientName) throws Exception {
+	public void ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(String ExpectedRecipientName, int ExpectedTotalPayeeSize) throws Exception {
 		try {
-			String payeeName = ExpectedRecipientName + " deleted";
+			String payeeName = ExpectedRecipientName + " deleted.";
 			System.out.println(payeeName);
-			String xpath = "//android.widget.TextView[@text='" + payeeName + "']";
-			MobileElement payeeNames = (MobileElement) driver.findElement(By.xpath(xpath));
-			if (isElementVisible(payeeNames))
+			String PayeeNameXpath = "//android.widget.TextView[@text='" + payeeName + "']";
+			MobileElement DeletePayeeMessageElement = (MobileElement) driver
+					.findElement(By.xpath(PayeeNameXpath));
+			if (isElementVisible(DeletePayeeMessageElement)) {
+				TakeScreenshot(DBSappObject.OKButton());
 				clickOnElement(DBSappObject.OKButton());
-			Thread.sleep(1000);
+				Thread.sleep(1000);
+			}
+			
+			String xpath = "//android.widget.ImageView[contains(@resource-id,':id/tv_expandable_item_selected')]";
+			List<RemoteWebElement> Payeelist = driver.findElements(By.xpath(xpath));
+			
+			int ActualTotalPayeeSize = Payeelist.size();
+			int ExpectedTotalSizeAfterDeletingPayee = ExpectedTotalPayeeSize - 1; 
+			Asserts.assertEquals(String.valueOf(ExpectedTotalSizeAfterDeletingPayee),
+					String.valueOf(ActualTotalPayeeSize), " Payee is not deleting after adding payee.");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1619,27 +1749,29 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			if (isElementVisible(DBSappObject.AreYouSureToDeleteThisPayeeMessage()))
 				clickOnElement(DBSappObject.YesBtn());
-			wait.waitForElementVisibility(DBSappObject.OKButton());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
 
-	@Step("Click On Local And 'PayeeAdded Recipient Details Showing Icon' Button.")
-	public void ClickOnLocalAndDeletePayeeToIcon() throws Exception {
+	@Step("Click On Local Module.")
+	public void ClickOnLocalModule() throws Exception {
 		try {
-			wait.waitForElementVisibility(DBSappObject.LocalButton());
+			TakeScreenshot(DBSappObject.LocalButton()); 
 			clickOnElement(DBSappObject.LocalButton());
-			wait.waitForElementVisibility(DBSappObject.PayeeAddedExpandableIconList().get(0));
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			clickOnElement(DBSappObject.PayeeAddedExpandableIconList().get(0));
-			wait.waitForElementVisibility(DBSappObject.payee_details_title_name());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			Asserts.assertEquals(getTexOfElement(DBSappObject.payee_details_title_name()),
-					CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
-					CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue() + " is not matching after adding payee");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	
+	@Step("Click On Delete payee I Icon from the list.")
+	public void ClickOnDeletePayeeToIcon(int index) throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.PayeeAddedExpandableIconList().get(index)); 
+			clickOnElement(DBSappObject.PayeeAddedExpandableIconList().get(index));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1650,11 +1782,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void ClickOnMoreOptionBtnAndDeletePayeeBtn() throws Exception {
 		try {
 			clickOnElement(DBSappObject.MoreOptionBtn());
-			wait.waitForElementVisibility(DBSappObject.DeletePayeeBtn());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			TakeScreenshot(DBSappObject.DeletePayeeBtn()); 
 			clickOnElement(DBSappObject.DeletePayeeBtn());
-			wait.waitForElementVisibility(DBSappObject.AreYouSureToDeleteThisPayeeMessage());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			TakeScreenshot(DBSappObject.AreYouSureToDeleteThisPayeeMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1820,9 +1950,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			sendFullName(CommonTestData.FULL_NAME.getEnumValue());
 			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			sendAddress(CommonTestData.ADDRESS.getEnumValue());
-//			String cityXpath = "//android.widget.EditText[@text='In the City of']";
-//			List<RemoteWebElement> list = driver.findElements(By.xpath(cityXpath));
-//			if(list.size()>0)
 			sendcity(CommonTestData.CITY.getEnumValue());
 			ClickOnNextButton();
 			verifyRecipientReviewDetailLabel(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue());
@@ -2688,6 +2815,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 			TakeScreenshot(DBSappObject.ReferenceNumberText());
 			clickOnElement(DBSappObject.BackIcon());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -2821,6 +2949,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			wait.waitForElementVisibility(Element);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 		} catch (Exception e) {
+		//	Assert.assertFalse(true, "Screenshot not captured due to element invisibility"); 
 			e.printStackTrace();
 			throw e;
 		}
@@ -2896,7 +3025,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Back to Home page from Transaction History statement")
 	public void BackToHomeFromTransactionHistory(String appName) throws Exception {
 		try {
-			clickOnElementOnEnable(DBSappObject.backButton());
+			ClickOnBackButton();
 			if (appName.contains("DBS"))
 				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
 						DBSappObject.TransactionHistoryHeaderForDBS());
@@ -2906,15 +3035,49 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			else if (appName.contains("POSB"))
 				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
 						DBSappObject.TransactionHistoryHeaderForiWEALTH());
-			clickOnElementOnEnable(DBSappObject.backButton());
-			clickOnElementOnEnable(DBSappObject.homeButton());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-
+			
+			//Leaving On Home Page for next run.
+			ClickOnBackButton();
+			ClickOnHomeButton();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
+	
+	@Step("Click On Home Button.")
+	public void ClickOnHomeButton() throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.homeButton());
+			clickOnElement(DBSappObject.homeButton()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e; 
+		}
+	}
+	
+	@Step("Click On Back Button.")
+	public void ClickOnBackButton() throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.backButton());
+			clickOnElement(DBSappObject.backButton()); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e; 
+		}
+	}
+	
+	@Step("Click On Back Button.")
+	public void ClickOnBackIcon() throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.BackIcon());
+			clickOnElement(DBSappObject.BackIcon());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e; 
+		}
+	}
+	
 
 	@Step("Click on 'Show' Button and then Verifying From Account.")
 	public void ClickOnShowButtonAndVerifyHeader(String ExpectedAccountName) throws Exception {
@@ -3138,8 +3301,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			VerifyLastUpdatedDateOfCheckboxes();
 
 			// Leave On Home Page for next case run.
-			clickOnElementOnEnable(DBSappObject.backButton());
-			clickOnElementOnEnable(DBSappObject.backButton());
+			ClickOnBackButton();
+			ClickOnBackButton();
+			ClickOnHomeButton();
 		} catch (Exception e) {
 			throw e;
 		}
