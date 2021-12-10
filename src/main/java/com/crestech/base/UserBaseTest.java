@@ -358,7 +358,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("platformName", "ios");
 			capabilities.setCapability("noReset", true);
 			capabilities.setCapability("fullReset", false);
-			capabilities.setCapability("pCloudy_EnableVideo", "true");
+		capabilities.setCapability("pCloudy_EnableVideo", "true");
 			break;
 
 		case "pCloudyAndroidChrome":
@@ -445,7 +445,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			driver = new IOSDriver<RemoteWebElement>(
 					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
 		}
-		driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
+		driver.manage().timeouts().implicitlyWait(20000, TimeUnit.MILLISECONDS);
 		return driver;
 	}
 
