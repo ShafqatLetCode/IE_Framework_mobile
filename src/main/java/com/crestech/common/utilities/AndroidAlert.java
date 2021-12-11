@@ -19,11 +19,12 @@ public class AndroidAlert{
 	public AppiumDriver<RemoteWebElement> driver;
 	CommonAppiumTest commonAppTest = null;
 	GestureUtils gestUtils = null;
-	
+	HandleException obj_handleexception = null;
 	public AndroidAlert(AppiumDriver<RemoteWebElement> driver2) {
 		this.driver = driver2;
 		commonAppTest = new CommonAppiumTest(driver);
 		gestUtils = new GestureUtils(driver);
+		obj_handleexception =new HandleException(null, null);
 	}
 	
 	public String ToastMessage() throws Exception    //android.widget.Toast[1]
@@ -95,10 +96,12 @@ public class AndroidAlert{
 			Asserts.assertEquals(actualMessage, expectecMessage, "Message Not matching");
 			if (actualMessage.equalsIgnoreCase(expectecMessage))
 				commonAppTest.clickOnElement(Button);
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Alert Handling  ",e);		
 		}
-	
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Alert Handling   ",e);
+		}
 	}
 	/**
 	 *handling of fingerprint alert appear after login
@@ -112,10 +115,12 @@ public class AndroidAlert{
 				if(actualMessage.equalsIgnoreCase(expectecMessage))
 					commonAppTest.clickOnElement(Button);
 				Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Finger Print Alert Handling  ",e);		
 		}
-	
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Finger Print Alert Handling   ",e);
+		}
 	}
 
 /**
@@ -131,10 +136,12 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 		Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
 			if(actualMessage.equalsIgnoreCase(expectecMessage))
 				commonAppTest.clickOnElement(Button);
-	} catch (Exception e) {
-		e.printStackTrace(); throw e;
+	} catch (HandleException e) {	
+		obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Recording Alert Handling  ",e);		
 	}
-
+	catch (Exception e) {			
+		obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Recording Alert Handling   ",e);
+	}
 }
 	/**
 	 *Relaunch application alert

@@ -116,8 +116,8 @@ public class WaitUtils extends CommandPrompt {
 		try {
 			driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			//System.out.println("Inside take ele visi catch" );
+			throw new HandleException ("IMPLICIT_WAIT_EXCEPTION", "Element not Visible on the screen ::",e);
 		}
 	}
 	

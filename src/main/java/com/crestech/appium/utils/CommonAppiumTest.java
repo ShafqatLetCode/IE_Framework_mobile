@@ -51,9 +51,13 @@ public class CommonAppiumTest extends CommandPrompt {
 		((AndroidDriver<RemoteWebElement>)driver).startActivity(activity);
 		wait.ImplicitlyWait();
 	
-		} catch (Exception e) {
-			
-			e.printStackTrace(); throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("RELAUNCHING_EXCEPTION", " Failed to Relaunching Application  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("RELAUNCHING_EXCEPTION", " Failed to Relaunching Application  ",e);
 		}
 	}
 	/**
@@ -63,11 +67,8 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public void clickOnElement(MobileElement element) throws Exception {
 		try {
-			//if (element != null) {
 				wait.waitForElementToBeClickable(element);
 				element.click();
-//			} else
-//				throw new Exception("The element isn't provided or may be null.");
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On Element  ",e);
 			//System.out.println("Inside Appply debit card catch "+e.getCode());		
@@ -160,7 +161,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			wait.waitForElementVisibility(element);
 			return element.isEnabled();
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw new HandleException ("WAITELEMENT_ENABLE_EXCEPTION", "Element not Enable on the screen ::",e);
 		}
 	}
 	/**
