@@ -1091,7 +1091,11 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "Add Billing Organisation")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Add Billing Organisation']")
 	private MobileElement AddBillingOrganisation;
-
+	
+	@ElementDescription(value = "Add Oversea Recipient")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Add Overseas Recipient']")
+	private MobileElement AddOverseasRecipient;
+	
 	@ElementDescription(value = "Select Billing Organisation")
 	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,':id/edit_user_id')]")
 	private MobileElement SelectBillingOrganisation;
@@ -1170,6 +1174,10 @@ public class DBSAndroidObject {
 
 	public MobileElement NonFastTransactionService() {
 		return NonFastTransactionService;
+	}
+	
+	public MobileElement AddOverseasRecipient() {
+		return AddOverseasRecipient;
 	}
 	
 	@ElementDescription(value = "Fast Transaction Service Message")

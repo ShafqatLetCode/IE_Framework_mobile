@@ -496,8 +496,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN() throws Exception {
 		try {
 			EnterPasscodeAndDone();
+			Thread.sleep(4000); 
+			if (DBSappObject.SuccessTickImageView().isDisplayed()) {
 			TakeScreenshot(DBSappObject.SuccessTickImageView());
-			if (isElementVisible(DBSappObject.SuccessTickImageView())) {
 				if(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue()))
 					Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
 							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
@@ -507,10 +508,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
 							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue(),
 							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue() + " Text is not matching");
-				}
-				
-			}
-				
+				}	
+			} else {
+				if(androidAlert.isAlertPresent()) {
+					System.out.println("Alert title :: "+this.driver.switchTo().alert().getText()); 
+					Asserts.assertFail(this.driver.switchTo().alert().getText());
+				}	
+				Asserts.assertFail("You Have added a Recipient Page not displaying");
+			}		
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FILEDVERIFICATION_EXCEPTION", " Failed to verify you've added recipient msg  ",e);
 			//System.out.println("Inside Appply debit card catch "+e.getCode());		
@@ -989,11 +994,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Enter city EditBox")
 	public void sendcity(String text) throws Exception {
 		try {
-			if (isElementEnable(DBSappObject.recipientCityEditBox()))
+			String xpath = "//android.widget.EditText[@text='In the City of']";
+			List<RemoteWebElement> CityList = driver.findElements(By.xpath(xpath));
+			if (CityList.size() > 0)
 				enterTextInTextbox(DBSappObject.recipientCityEditBox(), text);
 
-			// Asserts.assertTrue(isElementEnable(DBSappObject.recipientCityEditBox()),
-			// "EditField is not enable");
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Send City in EditBox ",e);
 			//System.out.println("Inside Appply debit card catch "+e.getCode());		
@@ -1046,12 +1051,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("clicking On 'ADD RECIPIENT NOW' button")
 	public void ClickOnAddRecipientNowBtnForAddPayeeRemittance() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.AddRecipientNowBtn()); 
-			String actualText = getTexOfElement(DBSappObject.AddRecipientNowBtn());
-			if (actualText.equalsIgnoreCase(CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue()))
+			String xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			if (list.size() > 0) {
+				TakeScreenshot(DBSappObject.AddRecipientNowBtn());
 				clickOnElement(DBSappObject.AddRecipientNowBtn());
-			Thread.sleep(4000);
-			Asserts.assertEquals(actualText, CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue(), "Button not matching");
+			} else {
+				TakeScreenshot(DBSappObject.AddOverseasRecipient());
+				clickOnElement(DBSappObject.AddOverseasRecipient());
+			}
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ",e);
 			//System.out.println("Inside Appply debit card catch "+e.getCode());		
@@ -1363,8 +1371,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
 					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
 			ClickOnMakeAPaymentAndEnterAmountInAmountEditField();
+			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			ClickOnNextButton();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
+			TakeScreenshot(DBSappObject.PageHeader2()); 
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader2()),
 					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(),
 					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue() + " Text is not matching");
 			ClickOnPayNowButton();
@@ -1437,15 +1447,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Click On Make A Payment Button And Enter Amount In Amount Edit Field.")
+	@Step("Click On Make A Payment Button.")
 	public void ClickOnMakeAPaymentAndEnterAmountInAmountEditField() throws Exception {
 		try {
 			TakeScreenshot(DBSappObject.MakeAPaymentButton());
 			clickOnElement(DBSappObject.MakeAPaymentButton());
+			TakeScreenshot(DBSappObject.PageHeader2());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader2()),
-					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue(),
-					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Text is not matching");
-			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+						CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue(),
+						CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Text is not matching");	
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Make A Payment Button ",e);
 			//System.out.println("Inside Appply debit card catch "+e.getCode());		
