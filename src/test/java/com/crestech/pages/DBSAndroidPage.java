@@ -27,6 +27,7 @@ import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonAlertElements;
 import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.GestureUtils;
+import com.crestech.common.utilities.HandleException;
 import com.crestech.common.utilities.WaitUtils;
 import com.crestech.pageobjects.DBSAndroidObject;
 
@@ -49,6 +50,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	WaitUtils wait = null;
 	GestureUtils gestUtils = null;
 	Asserts Assert = null;
+	HandleException obj_handleexception=null;
 
 	public DBSAndroidPage(AppiumDriver<RemoteWebElement> driver) throws Exception {
 		super(driver);
@@ -59,6 +61,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			wait = new WaitUtils(driver);
 			gestUtils = new GestureUtils(driver);
 			Assert = new Asserts();
+			obj_handleexception =new HandleException(null, null);
 			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), DBSappObject);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,7 +107,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void logInApplication(String userName, String password, String appName) throws Exception {
 		try {
 			CommonAlertElements btnElements = new CommonAlertElements(driver);
-			Thread.sleep(4000);
+			Thread.sleep(40000);
 			String quitButtonXpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(quitButtonXpath));
 			if (list.size() > 0) {
@@ -434,9 +437,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnBackIcon();
 			ClickOnHomeButton();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Add payee DBSorPOSB  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Add payee DBSorPOSB  ",e);
 		}
 	}
 
@@ -459,9 +466,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				
 			}
 				
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FILEDVERIFICATION_EXCEPTION", " Failed to verify you've added recipient msg  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FILEDVERIFICATION_EXCEPTION", " Failed to verify you've added recipient msg  ",e);
 		}
 	}
 
@@ -481,9 +492,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(),
 					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue() + " Page Header is not matching");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Local Recipient Button and verify page header ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Local Recipient Button and verify page header ",e);
 		}
 	}
 
@@ -507,9 +522,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			MobileElement Selectbank = (MobileElement) driver.findElement(By.xpath(xpath));
 			clickOnElement(Selectbank);
 			enterTextInTextbox(DBSappObject.EditFields().get(2), AccountNumber);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Details   ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Details  ",e);
 		}
 	}
 
@@ -568,9 +587,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				if (doneButtonList.size() > 0)
 					clickOnElement(DBSappObject.DoneButtonForPasscode());
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("ENTER_PASSCODE_EXCEPTION", " Failed to enter passcode  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("ENTER_PASSCODE_EXCEPTION", " Failed to enter passcode  ",e);
 		}
 	}
 
@@ -683,9 +706,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			TakeScreenshot(DBSappObject.PayAndTransferBtn());
 			if (isElementVisible(DBSappObject.PayAndTransferBtn()))
 				clickOnElement(DBSappObject.PayAndTransferBtn());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Pay and Transfer Button  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On On Pay and Transfer Button  ",e);
 		}
 	}
 
@@ -816,9 +843,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 			
 		
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed Click On Next Button  ",e);
 		}
 
 	}
@@ -917,9 +948,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				clickOnElement(DBSappObject.AddRecipientNowBtn());
 			Thread.sleep(4000);
 			Asserts.assertEquals(actualText, CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue(), "Button not matching");
-		} catch (Exception e) {
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ",e);
 		}
 
 	}
@@ -969,9 +1004,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 			Asserts.assertEquals(actualText, expectecText, "Top up Label Not matching");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify TopUp lable and click  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify TopUp lable and click  ",e);
 		}
 
 	}
@@ -988,9 +1027,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(actualText, expectecText, "PayLah Label Not matching");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.topUpPaylahLabel()),
 					CommonTestData.TOPUP_PAYLAH_LABEL.getEnumValue(), "'Top Up Paylah' Text is not found");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify Paylah label and click  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify Paylah label and click  ",e);
 		}
 	}
 
@@ -999,9 +1042,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			enterTextInTextbox(DBSappObject.currencyTextBox(), text);
 			TakeScreenshot(DBSappObject.currencyTextBox());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to enter currency   ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to enter currency  ",e);
 		}
 	}
 
@@ -1013,9 +1060,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					"'Top Up Paylah' Text is not found");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.displayAmount()),
 					CommonTestData.AMOUNT_PAYLAH.getEnumValue(), "'Display Amount' is incorrect");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FIELDVERIFICATION_EXCEPTION", " Failed to verify fileds:TopUp Label and Enter Amount  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FIELDVERIFICATION_EXCEPTION", " Failed to verify fileds:TopUp Label and Enter Amount  ",e);
 		}
 	}
 
@@ -1033,9 +1084,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.TOPUP_UP_DONE_LABEL.getEnumValue(), "'Top-up Done' Text is not found");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.displayAmount()),
 					CommonTestData.AMOUNT_PAYLAH.getEnumValue(), "'Display Amount' is incorrect");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify click on TopUp Now Button and Top-up Done field and Display amount  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify click on TopUp Now Button and Top-up Done field and Display amount  ",e);
 		}
 
 	}
@@ -1047,9 +1102,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (actualText.equalsIgnoreCase(expectecText))
 				clickOnElement(DBSappObject.logOutPaylahButton());
 			Asserts.assertEquals(actualText, expectecText, "LogOut button Not exist");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on LogOut Button  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on LogOut Button  ",e);
 		}
 	}
 
@@ -1072,9 +1131,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			gestUtils.scrollUPtoObject("text", "APPLY NOW", DBSappObject.ApplyNowButton());
 			clickOnElement(DBSappObject.ApplyNowButton());
 			ClickOnSubmitButtonAfterSettingCardPIN();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Apply Debit card  ",e);
+			System.out.println("Inside Appply debit card catch"+e.getCode());		
+		}
+		catch (Exception e) {			
+			System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Apply Debit card  ",e);
 		}
 	}
 
@@ -1103,9 +1166,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				System.out.println("Inside : " + CommonTestData.APPLICATION_SUBMITTED.getEnumValue());
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXEPTION", " Failed to Set card PIN And Click On Submit Button  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXEPTION", " Failed to Click On Submit Button  ",e);
 		}
 	}
 
@@ -1155,10 +1222,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			clickOnElement(DBSappObject.SendMeDBSPrmotionViaMail());
 
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw e;
+		}  catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to enter debit card details  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to enter debit card details  ",e);
 		}
 	}
 
@@ -1173,15 +1243,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			EnterPasscodeAndDone();
 			selectDebitCardType(CommonTestData.DEBIT_CARD_NAME.getEnumValue());
 			TakeScreenshot(DBSappObject.AccountToBeLinkedToTheCardField());
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Debit card and authenticate ",e);
+		}
+		catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Debit card and authenticate ",e);
 		}
 	}
-
 	@Step("Verifies the Payee Add Bill Payment and after completion payment verifies the transfering amount.")
 	public void PayeeAddBillPayment() throws Exception {
 		try {
@@ -1522,27 +1590,36 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click on 'Account type' From List under Local fund Limit page'")
 	public void selectDebitCardType(String debitCardToBeSelected) throws Exception {
 		try {
-			wait.waitForElementVisibility(DBSappObject.DebitCardDetailsDropdownList().get(0));
-			List<MobileElement> Elementlist = DBSappObject.DebitCardDetailsDropdownList();
-			int l = Elementlist.size();
-			int index = 0;
-			String accountFromList = null;
-			for (int i = 0; i <= l; i++) {
-				accountFromList = Elementlist.get(i).getText();
-				if (accountFromList.contains(debitCardToBeSelected)) {
-					index++;
-					clickOnElement(Elementlist.get(i));
-					break;
+			if(DBSappObject.DebitCardDetailsDropdownList().size()>0) {
+				wait.waitForElementVisibility(DBSappObject.DebitCardDetailsDropdownList().get(0));
+				List<MobileElement> Elementlist = DBSappObject.DebitCardDetailsDropdownList();
+				int l = Elementlist.size();
+				int index = 0;
+				String accountFromList = null;
+				for (int i = 0; i <= l; i++) {
+					accountFromList = Elementlist.get(i).getText();
+					if (accountFromList.contains(debitCardToBeSelected)) {
+						index++;
+						clickOnElement(Elementlist.get(i));
+						break;
+					}
 				}
+				Asserts.assertTrue(index > 0,
+						"No " + debitCardToBeSelected + " found in the list of corresponding value");
+			} else {
+				if(androidAlert.isAlertPresent()) {
+					System.out.println("Alert title :: "+this.driver.switchTo().alert().getText()); 
+				}	
+				Asserts.assertFail(debitCardToBeSelected + " not found in the list as list size is 0");
 			}
-
-			Asserts.assertTrue(index > 0, "No " + debitCardToBeSelected + " found in the list of corresponding value");
+		} catch (HandleException e) {
+			//System.out.println("Inside select debit card type catch" + e.getCode());
+			obj_handleexception.throwHandleException("ELEMENTNOTINLIST_EXCEPTION",
+					" Failed to Select Debit card type:: " + debitCardToBeSelected, e);
 		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+			//System.out.println("Inside select debit card type catch 3");
+			obj_handleexception.throwException("ELEMENTNOTINLIST_EXCEPTION",
+					" Failed to Select Debit card type " + debitCardToBeSelected, e);
 		}
 	}
 
@@ -1550,28 +1627,34 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void selectElementFromTheGivenList(List<MobileElement> elementList, String elementToBeSelected)
 			throws Exception {
 		try {
-			wait.waitForElementVisibility(elementList.get(1));
-			List<MobileElement> Elementlist = elementList;
-			int l = Elementlist.size();
-			int index = 0;
-			String accountFromList = null;
-			for (int i = 0; i < l; i++) {
-				accountFromList = Elementlist.get(i).getText();
-				if (accountFromList.contains(elementToBeSelected)) {
-					index++;
-					clickOnElement(Elementlist.get(i));
-					break;
+			if (elementList.size() > 0) {
+				wait.waitForElementVisibility(elementList.get(1));
+				List<MobileElement> Elementlist = elementList;
+				int l = Elementlist.size();
+				int index = 0;
+				String accountFromList = null;
+				for (int i = 0; i < l; i++) {
+					accountFromList = Elementlist.get(i).getText();
+					if (accountFromList.contains(elementToBeSelected)) {
+						index++;
+						clickOnElement(Elementlist.get(i));
+						break;
+					}
 				}
+
+				Asserts.assertTrue(index > 0,
+						"No " + elementToBeSelected + " found in the list of corresponding value");
 			}
-
-			Asserts.assertTrue(index > 0, "No " + elementToBeSelected + " found in the list of corresponding value");
-
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+			else {
+				Asserts.assertFail(elementToBeSelected + " not found in the list as list size is 0");
+			}
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("ELEMENTNOTINLIST_EXCEPTION", " Failed to select element from the list  ",e);
+			//System.out.println("Inside Appply debit card catch"+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("ELEMENTNOTINLIST_EXCEPTION", " Failed to select element from the list  ",e);
 		}
 	}
 
@@ -1580,28 +1663,35 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			throws Exception {
 		MobileElement element = null;
 		try {
-			wait.waitForElementVisibility(elementList.get(1));
-			int l = elementList.size();
+			if(elementList.size() > 0) {
+				wait.waitForElementVisibility(elementList.get(1));
+				int l = elementList.size();
 
-			String accountFromList = null;
-			for (int i = 0; i < l; i++) {
-				accountFromList = elementList.get(i).getText();
-				System.out.println(accountFromList + " : " + i);
-				if (accountFromList.contains(elementTextToBeVerified)) {
-					element = elementList.get(i);
-					break;
+				String accountFromList = null;
+				for (int i = 0; i < l; i++) {
+					accountFromList = elementList.get(i).getText();
+					System.out.println(accountFromList + " : " + i);
+					if (accountFromList.contains(elementTextToBeVerified)) {
+						element = elementList.get(i);
+						break;
+					}
 				}
+				return element;
 			}
-			return element;
-
+			else {
+				Asserts.assertFail(elementTextToBeVerified + " not found in the list as list size is 0");
+			}
+			
+		} catch (HandleException e) {
+			//System.out.println("Inside select debit card type catch" + e.getCode());
+			obj_handleexception.throwHandleException("ELEMENTNOTINLIST_EXCEPTION",
+					" Failed to Select Debit card type:: " + elementTextToBeVerified, e);
 		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+			//System.out.println("Inside select debit card type catch 3");
+			obj_handleexception.throwException("ELEMENTNOTINLIST_EXCEPTION",
+					" Failed to Select Debit card type " + elementTextToBeVerified, e);
 		}
-
+		return element;
 	}
 
 	@Step("Verifies the Payee Add Local OtherBank and verifies 'YOU HAVE ADDED RECIPIENT MSG' .")
@@ -1612,14 +1702,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnLocalButton();
 			clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader();
 
-			String randomString = GenerateRandomRecipientName();
-			String ExpectedRecipientName = CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue().concat(randomString);
+			String ExpectedRecipientName = CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue();
 			System.out.println("ExpectedRecipientName is: " + ExpectedRecipientName);
 
-			int randomInt = GenerateRandomInt();
-			String s = String.valueOf(randomInt);
-			System.out.println("random number:" + s);
-			String ExpectedAccountNumber = CommonTestData.LOCAL_RECIPIENT_ACCOUNT_NUMBER.getEnumValue().concat(s);
+//			int randomInt = GenerateRandomInt();
+//			String s = String.valueOf(randomInt);
+//			System.out.println("random number:" + s);
+			String ExpectedAccountNumber = CommonTestData.LOCAL_RECIPIENT_ACCOUNT_NUMBER.getEnumValue();
 			System.out.println("ExpectedAccountNumber is: " + ExpectedAccountNumber);
 
 			EnterRecipientDetailsAfterSelectingBankAccountOption(ExpectedRecipientName,
@@ -1634,12 +1723,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnBackIcon();
 			ClickOnHomeButton();
 			
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		}catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute PayeeAddLocalOtherBank ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute PayeeAddLocalOtherBank  ",e);
 		}
 	}
 
@@ -1648,12 +1738,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			TakeScreenshot(DBSappObject.LocalButton());
 			clickOnElement(DBSappObject.LocalButton());
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Button  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Button  ",e);
 		}
 	}
 
@@ -1678,12 +1769,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					BankName + " is not matching after adding payee");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PayeeValueList().get(3)), AccountNumber,
 					AccountNumber + " is not matching after adding payee");
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FILEDVERIFICATION_EXCEPTION", " Failed to verify LogOut, Make Transfer Button etc  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FILEDVERIFICATION_EXCEPTION", " Failed to verify LogOut, Make Transfer Button etc  ",e);
 		}
 	}
 	
@@ -1695,9 +1787,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnLocalModule();
 			DeletePayee(ExpectedRecipientName);
 			ClickOnCloseButton();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee  For DBS/POSB.",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee For DBS/POSB. ",e);
 		}
 	}
 	
@@ -1710,9 +1806,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnLocalModule();
 			DeletePayee(ExpectedRecipientName);
 			ClickOnCloseButton();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee  For Local To Other Bank",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee Local To Other Bank ",e);
 		}
 	}
 	
@@ -1762,9 +1862,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			TakeScreenshot(DBSappObject.CloseButton()); 
 			clickOnElement(DBSappObject.CloseButton());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e; 
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button ",e);
 		}
 	}
 
@@ -1800,8 +1904,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 							List<RemoteWebElement> list = driver.findElements(By.xpath(ErrorissueXpath));
 							if (list.size() > 0) {
 								if(getTexOfElement(DBSappObject.ErrorMessgeElement()).contains("You may be facing some delays")) {
-									TakeScreenshot(DBSappObject.OKButton());
-									clickOnElement(DBSappObject.OKButton());
+									TakeScreenshot(DBSappObject.OKButtonDeletePayee());
+									clickOnElement(DBSappObject.OKButtonDeletePayee());
 									ClickOnDeletePayeeToIcon(i);
 									TakeScreenshot(DBSappObject.payee_details_title_name()); 
 									Asserts.assertEquals(getTexOfElement(DBSappObject.payee_details_title_name()),
@@ -1820,12 +1924,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					}
 				}
 			}	
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee  ",e);
 		}
 	}
 	
@@ -1839,8 +1944,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			MobileElement DeletePayeeMessageElement = (MobileElement) driver
 					.findElement(By.xpath(PayeeNameXpath));
 			if (isElementVisible(DeletePayeeMessageElement)) {
-				TakeScreenshot(DBSappObject.OKButton());
-				clickOnElement(DBSappObject.OKButton());
+				TakeScreenshot(DBSappObject.OKButtonDeletePayee());
+				clickOnElement(DBSappObject.OKButtonDeletePayee());
 				Thread.sleep(1000);
 			}
 			
@@ -1852,12 +1957,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(String.valueOf(ExpectedTotalSizeAfterDeletingPayee),
 					String.valueOf(ActualTotalPayeeSize), " Payee is not deleting after adding payee.");
 			
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button and delete msg  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button and delete msg  ",e);
 		}
 	}
 
@@ -1866,12 +1972,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			if (isElementVisible(DBSappObject.AreYouSureToDeleteThisPayeeMessage()))
 				clickOnElement(DBSappObject.YesBtn());
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Yes Button  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Yes Button   ",e);
 		}
 	}
 
@@ -1880,9 +1987,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			TakeScreenshot(DBSappObject.LocalButton()); 
 			clickOnElement(DBSappObject.LocalButton());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Module  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Module  ",e);
 		}
 	}
 	
@@ -1892,12 +2003,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			TakeScreenshot(DBSappObject.PayeeAddedExpandableIconList().get(index)); 
 			clickOnElement(DBSappObject.PayeeAddedExpandableIconList().get(index));
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Delete Payee Icon(i)  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Delete Payee Icon(i)  ",e);
 		}
 	}
 
@@ -1908,12 +2020,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			TakeScreenshot(DBSappObject.DeletePayeeBtn()); 
 			clickOnElement(DBSappObject.DeletePayeeBtn());
 			TakeScreenshot(DBSappObject.AreYouSureToDeleteThisPayeeMessage());
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On More and Delete Payee Button  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On More and Delete Payee Button  ",e);
 		}
 	}
 
@@ -1926,12 +2039,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not matching.");
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button and verify Add Recipient Now  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button and verify Add Recipient Now  ",e);
 		}
 	}
 
@@ -2056,9 +2170,13 @@ clickOnElement(DBSappObject.ContactSearchfield());
 				TakeScreenshot(DBSappObject.CloseButton());
 				clickOnElement(DBSappObject.CloseButton());
 			}
-
-		} catch (Exception e) {
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Button  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Button  ",e);
 		}
 	}
 
@@ -2117,12 +2235,13 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			verifyReviewTopUpLabel(CommonTestData.TOPUP_REVIEW_LABEL.getEnumValue());
 			topUpNowVerifyClick(CommonTestData.TOPUP_NOW_BUTTOM_LABEL.getEnumValue());
 			logOutTopUpVerifyClick(CommonTestData.LOGOUT_PAYLAH.getEnumValue());
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		}  catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute TopUp Paylah  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute TopUp Paylah  ",e);
 		}
 	}
 
@@ -3181,10 +3300,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 		try {
 			wait.waitForElementVisibility(Element);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-		} catch (Exception e) {
-		//	Assert.assertFalse(true, "Screenshot not captured due to element invisibility"); 
-			e.printStackTrace();
-			throw e;
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("SCREENSHOT", " Failed to capture the screenshot ",e);
+		}
+		catch (Exception e) {
+			obj_handleexception.throwException("SCREENSHOT", " Failed to capture the screenshot ",e);
 		}
 	}
 
@@ -3293,9 +3413,13 @@ clickOnElement(DBSappObject.ContactSearchfield());
 		try {
 			TakeScreenshot(DBSappObject.homeButton());
 			clickOnElement(DBSappObject.homeButton()); 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e; 
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Home Button  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Home Button  ",e);
 		}
 	}
 	
@@ -3315,9 +3439,13 @@ clickOnElement(DBSappObject.ContactSearchfield());
 		try {
 			TakeScreenshot(DBSappObject.BackIcon());
 			clickOnElement(DBSappObject.BackIcon());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e; 
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Button  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Button  ",e);
 		}
 	}
 	

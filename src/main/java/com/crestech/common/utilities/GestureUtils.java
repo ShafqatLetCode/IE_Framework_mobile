@@ -417,8 +417,8 @@ public class GestureUtils {
 			if(element !=null)
 				Asserts.assertTrue(element.isDisplayed(), "Element not found");
 
-		} catch (Exception e) {
-			throw new Exception(e);
+		} catch (HandleException e) {	
+			throw new HandleException ("SCROLL_TO_OBJECT_EXCEPTION", "Failed to scroll to the element ::",e);	
 		}
 	}
 	public void scrollUPtoObjectIos(String attribute, String value, MobileElement element) throws Exception {
