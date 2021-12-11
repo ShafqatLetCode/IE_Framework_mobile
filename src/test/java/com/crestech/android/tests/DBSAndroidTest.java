@@ -34,37 +34,41 @@ public class DBSAndroidTest extends UserBaseTest {
 
 	
 	/******************Start Test Script For DBS App************************************/
-//	@Parameters({ "userName", "password" })
-//	@Test(priority = 1, enabled = true, description = "AccountDetails-CASA-ONEAPP-14400")
-//	@Description(value = "Execution of this testcase:: Verify the account detail on dashboard page. ")
-//	@Author(name = "Shafqat Ali")
-//	public void AccountDetails_CASA(String userName, String password) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage.logInApplication(userName, password, "DBS");
-//			dbspage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue() ,CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(),CommonTestData.CURRENCY.getEnumValue() );
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw e;
-//		}
-//	}
-//	
-//	@Parameters({ "userName", "password" })
-//	@Test(priority = 2, enabled = true, description = "Logout-ONEAPP-9392")
-//	@Description(value = "Execution of this testcase:: Verify the Logout functionality for Applications.")
-//	@Author(name = "Shafqat Ali")
-//	public void Logout_ONEAPP(String userName, String password) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage.logInApplication(userName, password, "DBS");
-//			dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(),
-//					CommonTestData.RATE_MESSAGE.getEnumValue());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw e;
-//		}
-//	}
-//	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 1, enabled = true, description = "AccountDetails-CASA-ONEAPP-14400")
+	@Description(value = "Execution of this testcase:: Verify the account detail on dashboard page. ")
+	@Author(name = "Shafqat Ali")
+	public void AccountDetails_CASA(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "DBS");
+			dbspage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue() ,CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(),CommonTestData.CURRENCY.getEnumValue() );
+		} catch (HandleException e) {
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+		}
+		catch (Exception e) {
+			Asserts.assertFail( "Unable to execute Account Details CASA "+e.getMessage());
+		}
+	}
+	
+	@Parameters({ "userName", "password" })
+	@Test(priority = 2, enabled = true, description = "Logout-ONEAPP-9392")
+	@Description(value = "Execution of this testcase:: Verify the Logout functionality for Applications.")
+	@Author(name = "Shafqat Ali")
+	public void Logout_ONEAPP(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "DBS");
+			dbspage.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(),
+					CommonTestData.RATE_MESSAGE.getEnumValue());
+		} catch (HandleException e) {
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+		}
+		catch (Exception e) {
+			Asserts.assertFail( "Unable to execute Log Out "+e.getMessage());
+		}
+	}
+	
 //	@Parameters({ "userName", "password" })
 //	@Test(priority = 3, enabled = true, description = "Remittance-Corridor-ONEAPP-13407")
 //	@Description(value = "Execution of this testcase:: Verifies the Remittance Corridor")
@@ -95,109 +99,112 @@ public class DBSAndroidTest extends UserBaseTest {
 //		}
 //	}
 //
-	@Parameters({ "userName", "password" })
-	@Test(priority = 5, enabled = true, description = "Payee-Add-DBSorPOSB-ONEAPP-14675")
-	@Description(value = "Execution of this testcase:: Verifies the Payee add DSB or POSB.")
-	@Author(name = "Divya Devi")
-	public void Payee_Add_ToOwnAccount(String userName, String password) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage.logInApplication(userName, password, "DBS");
-			dbspage.DeletePayeeDBSPOSB(CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue());
-			dbspage.VerifyAddPayeeDBSorPOSB();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
-//
-	@Parameters({ "userName", "password" })
-	@Test(priority = 6, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
-	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
-	@Author(name = "Shafqat Ali")
-	public void Topup_Paylah(String userName, String password) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage.logInApplication(userName, password, "DBS");
-			dbspage.TopupPaylah();
-		} catch (HandleException e) {
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
-		}
-		catch (Exception e) {
-			Asserts.assertFail( "Unable to execute TopUp Paylah "+e.getMessage());
-		}
-	}
-//		
 //	@Parameters({ "userName", "password" })
-//	@Test(priority = 7, enabled = true, description = "Payee-Add-Remittance-ONEAPP-13679")
-//	@Description(value = "Execution of this testcase:: Verify the Add Remittance payee")
-//	@Author(name = "Shafqat Ali")
-//	public void Payee_Add_Remittance(String userName, String password) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//            dbspage.logInApplication(userName, password, "DBS");
-//            dbspage.DeletePayeeRemittance(CommonTestData.FULL_NAME.getEnumValue());
-//			dbspage.PayeeAddRemittance();
-//		} catch (Exception e) {
-//			StringWriter sw = new StringWriter();
-//			e.printStackTrace(new PrintWriter(sw));
-//			Assert.assertFalse(true, sw.toString()); 
-//			e.printStackTrace();
-//			throw e;
-//		}
-//	}
-
-	@Parameters({ "userName", "password" })
-	@Test(priority = 8, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
-	@Description(value = "Execution of this testcase:: Verifies the Apply Debit Card.")
-	@Author(name = "Divya Devi")
-	public void ApplyDebitCard(String userName, String password) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage.logInApplication(userName, password, "DBS");
-			dbspage.ApplyDebitCard();
-		} catch (HandleException e) {
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
-		}
-		catch (Exception e) {
-			Asserts.assertFail( "Unable to execute Apply Debit card"+e.getMessage());
-		}
-	}
-
-	@Parameters({ "userName", "password" })
-	@Test(priority = 9, enabled = true, description = "Payee-Add-Local-OtherBank-ONEAPP-15677")
-	@Description(value = "Execution of this testcase:: Verifies the Payee Add Local Other Bank.")
-	@Author(name = "Divya Devi")
-	public void Payee_Add_Local_OtherBank(String userName, String password) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage.logInApplication(userName, password, "DBS");
-			dbspage.DeletePayeeLocalToOtherBank(CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue());
-			dbspage.PayeeAddLocalOtherBank();
-		} catch (HandleException e) {
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
-		}
-		catch (Exception e) {
-			Asserts.assertFail( "Unable to execute Payee Add Local OtherBank "+e.getMessage());
-		}
-	}
-//
-//	@Parameters({ "userName", "password" })
-//	@Test(priority = 10, enabled = true, description = "Payee-Add-BillPayment-ONEAPP-15938")
-//	@Description(value = "Execution of this testcase:: Verifies the Payee Add Bill Payment.")
+//	@Test(priority = 5, enabled = true, description = "Payee-Add-DBSorPOSB-ONEAPP-14675")
+//	@Description(value = "Execution of this testcase:: Verifies the Payee add DSB or POSB.")
 //	@Author(name = "Divya Devi")
-//	public void Payee_Add_BillPayment(String userName, String password) throws Exception {
+//	public void Payee_Add_ToOwnAccount(String userName, String password) throws Exception {
 //		try {
 //			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 //			dbspage.logInApplication(userName, password, "DBS");
-//			dbspage.DeletePayeeToBillPayment(CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue());
-//			dbspage.PayeeAddBillPayment();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw e;
+//			dbspage.DeletePayeeDBSPOSB(CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue());
+//			dbspage.VerifyAddPayeeDBSorPOSB();
+//		} catch (HandleException e) {
+//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+//		}
+//		catch (Exception e) {
+//			Asserts.assertFail( "Unable to execute Payee Add To DBS/POSB "+e.getMessage());
 //		}
 //	}
-//	
+//
+//	@Parameters({ "userName", "password" })
+//	@Test(priority = 6, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
+//	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
+//	@Author(name = "Shafqat Ali")
+//	public void Topup_Paylah(String userName, String password) throws Exception {
+//		try {
+//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+//			dbspage.logInApplication(userName, password, "DBS");
+//			dbspage.TopupPaylah();
+//		} catch (HandleException e) {
+//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+//		}
+//		catch (Exception e) {
+//			Asserts.assertFail( "Unable to execute TopUp Paylah "+e.getMessage());
+//		}
+//	}
+		
+	@Parameters({ "userName", "password" })
+	@Test(priority = 7, enabled = true, description = "Payee-Add-Remittance-ONEAPP-13679")
+	@Description(value = "Execution of this testcase:: Verify the Add Remittance payee")
+	@Author(name = "Shafqat Ali")
+	public void Payee_Add_Remittance(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+            dbspage.logInApplication(userName, password, "DBS");
+            dbspage.DeletePayeeRemittance(CommonTestData.FULL_NAME.getEnumValue());
+			dbspage.PayeeAddRemittance();
+		} catch (HandleException e) {
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+		}
+		catch (Exception e) {
+			Asserts.assertFail( "Unable to execute Payee Add To Remittance "+e.getMessage());
+		}
+	}
+
+//	@Parameters({ "userName", "password" })
+//	@Test(priority = 8, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
+//	@Description(value = "Execution of this testcase:: Verifies the Apply Debit Card.")
+//	@Author(name = "Divya Devi")
+//	public void ApplyDebitCard(String userName, String password) throws Exception {
+//		try {
+//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+//			dbspage.logInApplication(userName, password, "DBS");
+//			dbspage.ApplyDebitCard();
+//		} catch (HandleException e) {
+//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+//		}
+//		catch (Exception e) {
+//			Asserts.assertFail( "Unable to execute Apply Debit card"+e.getMessage());
+//		}
+//	}
+
+//	@Parameters({ "userName", "password" })
+//	@Test(priority = 9, enabled = true, description = "Payee-Add-Local-OtherBank-ONEAPP-15677")
+//	@Description(value = "Execution of this testcase:: Verifies the Payee Add Local Other Bank.")
+//	@Author(name = "Divya Devi")
+//	public void Payee_Add_Local_OtherBank(String userName, String password) throws Exception {
+//		try {
+//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+//			dbspage.logInApplication(userName, password, "DBS");
+//			dbspage.DeletePayeeLocalToOtherBank(CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue());
+//			dbspage.PayeeAddLocalOtherBank();
+//		} catch (HandleException e) {
+//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+//		}
+//		catch (Exception e) {
+//			Asserts.assertFail( "Unable to execute Payee Add Local OtherBank "+e.getMessage());
+//		}
+//	}
+
+	@Parameters({ "userName", "password" })
+	@Test(priority = 10, enabled = true, description = "Payee-Add-BillPayment-ONEAPP-15938")
+	@Description(value = "Execution of this testcase:: Verifies the Payee Add Bill Payment.")
+	@Author(name = "Divya Devi")
+	public void Payee_Add_BillPayment(String userName, String password) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage.logInApplication(userName, password, "DBS");
+			dbspage.DeletePayeeToBillPayment(CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue());
+			dbspage.PayeeAddBillPayment();
+		} catch (HandleException e) {
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+		}
+		catch (Exception e) {
+			Asserts.assertFail( "Unable to execute Payee Add Bill Payment "+e.getMessage());
+		}
+	}
+	
 //
 //	@Parameters({ "userName", "password" })
 //	@Test(priority = 11, enabled = true, description = "OpenAccount-ONEAPP-14028")

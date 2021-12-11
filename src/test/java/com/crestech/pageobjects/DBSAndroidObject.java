@@ -874,13 +874,13 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Bill Reference No.']")
 	private MobileElement BillReferenceNo;
 
-	@ElementDescription(value = "DBS CASHLINE Value")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='DBS CASHLINE']")
-	private MobileElement DBSCASHLINE;
-
-	@ElementDescription(value = "Reference Number Value")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='0824867822']")
-	private MobileElement ReferenceNumberValue;
+//	@ElementDescription(value = "DBS CASHLINE Value")
+//	@AndroidFindBy(xpath = "//android.widget.TextView[@text='DBS CASHLINE']")
+//	private MobileElement DBSCASHLINE;
+//
+//	@ElementDescription(value = "Reference Number Value")
+//	@AndroidFindBy(xpath = "//android.widget.TextView[@text='0824867822']")
+//	private MobileElement ReferenceNumberValue;
 
 	@ElementDescription(value = "MAKE A PAYMENT BUTTON")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='MAKE A PAYMENT']")
@@ -966,13 +966,13 @@ public class DBSAndroidObject {
 		return MakeAPaymentButton;
 	}
 
-	public MobileElement ReferenceNumberValue() {
-		return ReferenceNumberValue;
-	}
-
-	public MobileElement DBSCASHLINE() {
-		return DBSCASHLINE;
-	}
+//	public MobileElement ReferenceNumberValue() {
+//		return ReferenceNumberValue;
+//	}
+//
+//	public MobileElement DBSCASHLINE() {
+//		return DBSCASHLINE;
+//	}
 
 	public MobileElement BillReferenceNo() {
 		return BillReferenceNo;
