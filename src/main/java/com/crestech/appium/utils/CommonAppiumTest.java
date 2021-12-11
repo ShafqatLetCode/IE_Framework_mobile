@@ -9,6 +9,7 @@ import org.openqa.selenium.remote.RemoteWebElement;
 
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.GestureUtils;
+import com.crestech.common.utilities.HandleException;
 import com.crestech.common.utilities.WaitUtils;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -28,11 +29,13 @@ public class CommonAppiumTest extends CommandPrompt {
 	public AppiumDriver<RemoteWebElement> driver;
 	public WaitUtils wait = null;
 	public GestureUtils gesture = null;
+	HandleException obj_handleexception=null;
 
 	public CommonAppiumTest(AppiumDriver<RemoteWebElement> driver2) {
 		this.driver = driver2;
 		wait = new WaitUtils(this.driver);
 		gesture = new GestureUtils(this.driver);
+		obj_handleexception =new HandleException(null, null);
 	}
 
 	/**
@@ -60,16 +63,20 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public void clickOnElement(MobileElement element) throws Exception {
 		try {
-			if (element != null) {
+			//if (element != null) {
 				wait.waitForElementToBeClickable(element);
 				element.click();
-			} else
-				throw new Exception("The element isn't provided or may be null.");
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+//			} else
+//				throw new Exception("The element isn't provided or may be null.");
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On Element  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On Element  ",e);
 		}
 	}
-
 	/**
 	 * SendText to textFiled
 	 * 
@@ -81,8 +88,13 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			wait.waitForElementVisibility(element);
 			element.sendKeys(keysToSend);
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("SEND_KEYS_EXCEPTION", " Failed to enter text in textbox  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("SEND_KEYS_EXCEPTION", " Failed to enter text in textbox  ",e);
 		}
 	}
 	
@@ -108,9 +120,15 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			wait.waitForElementVisibility(element);
 			return element.getText();
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("GETTEXT_EXCEPTION", " Failed to fetch the element's text  ",e);
+			//System.out.println("Inside Appply debit card catch "+e.getCode());		
 		}
+		catch (Exception e) {			
+			//System.out.println("Inside Appply debit card catch");
+			obj_handleexception.throwException("GETTEXT_EXCEPTION", " Failed to fetch the element's text  ",e);
+		}
+		return null;
 	}
 
 	/**
@@ -125,7 +143,9 @@ public class CommonAppiumTest extends CommandPrompt {
 			wait.waitForElementVisibility(element);
 			return element.isDisplayed();
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			System.out.println("Inside take ele visi catch" );
+			throw new HandleException ("WAITELEMENTVISIBLE_EXCEPTION", "Element not visible on the screen ::",e);
+		
 		}
 	}
 	/**
@@ -301,7 +321,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw new HandleException ("BACKBUTTONCLICK_EXCEPTION", "Failed To click on Back Button ::",e);
 		}
 	}
 

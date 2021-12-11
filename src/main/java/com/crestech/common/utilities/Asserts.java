@@ -208,5 +208,19 @@ public class Asserts extends UserBaseTest {
 			e.printStackTrace(); throw e;
 		}
 	}
+	
+	public static void assertFail(String message) throws Exception {
+		try {
+			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
+				Assert.fail( message);
+			} else if (prop.getProperty("ReportType").trim().equalsIgnoreCase("extent")) {
+				//log( message, "assertfail");
+				Assert.fail( message);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); throw e;
+		}
+	}
 
 }

@@ -69,9 +69,10 @@ public class WaitUtils extends CommandPrompt {
 			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.visibilityOf(element));
 		} catch (Exception e) {
-			//Assert.assertFalse(true, element + "Element not Visible."); 
-			e.printStackTrace();
-			throw e;
+			//e.printStackTrace();
+			System.out.println("Inside take ele visi catch" );
+			throw new HandleException ("WAITELEMENTVISIBLE_EXCEPTION", "Element not visible on the screen ::",e);
+		
 		}
 	}
 
@@ -87,8 +88,8 @@ public class WaitUtils extends CommandPrompt {
 			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			//System.out.println("Inside take ele visi catch" );
+			throw new HandleException ("WAITELEMENTCLICKABLE_EXCEPTION", "Element not clickable on the screen ::",e);
 		}
 	}
 

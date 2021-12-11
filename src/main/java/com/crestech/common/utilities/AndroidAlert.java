@@ -316,5 +316,17 @@ public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String
 			e.printStackTrace(); throw e;
 		}
 	}
+	
+	public boolean isAlertPresent() {
+		try {
+			this.driver.switchTo().alert();
+			return true;
+		} // try
+		catch (Exception Ex) {
+			return false;
+		} // catch
+	} // isAlertPresent()
+
+
 
 }
