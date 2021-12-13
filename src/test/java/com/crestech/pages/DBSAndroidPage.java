@@ -444,7 +444,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.SOURCE_ACCOUNT_CORRIDOR.getEnumValue());
 			pressEnterKeyAfterEnteringAmount(CommonTestData.CORRIDOR_AMOUNT.getEnumValue());
 			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.NextBtn());
-			selectPurposeAccountTypeMobileNumberIfAvaliable("Savings","Personal Gifts","9999999990");
+			selectPurposeAccountTypeMobileNumberIfAvaliable(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),
+					CommonTestData.PURPOSE.getEnumValue(),CommonTestData.MOBILE_NUMBER.getEnumValue());
 			ClickOnNextBtnAndVerifiesReviewTransferPage();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
 					DBSappObject.TransferSubmittedImage(), DBSappObject.TransferSubmittedMsg());
@@ -474,12 +475,12 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(ExpectedEottEle);
 			selectFundSourceAndSelectAccountForCorredor(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue(), null);
 			pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
-			gestUtils.scrollUPtoObject("resource-id", "id/btn_remitnext", DBSappObject.NextBtn());
-			clickOnElement(DBSappObject.SelectPurposeOfTransfer());
-			clickOnElement(DBSappObject.FundTransferPurposeOption());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.TextViewPurpose()),
-					CommonTestData.PURPOSE_OF_TRANSFER_TEXT.getEnumValue(),
-					CommonTestData.PURPOSE_OF_TRANSFER_TEXT.getEnumValue() + " Text is not found");
+//			gestUtils.scrollUPtoObject("resource-id", "id/btn_remitnext", DBSappObject.NextBtn());
+//			clickOnElement(DBSappObject.SelectPurposeOfTransfer());
+//			clickOnElement(DBSappObject.FundTransferPurposeOption());
+//			Asserts.assertEquals(getTexOfElement(DBSappObject.TextViewPurpose()),
+//					CommonTestData.PURPOSE_OF_TRANSFER_TEXT.getEnumValue(),
+//					CommonTestData.PURPOSE_OF_TRANSFER_TEXT.getEnumValue() + " Text is not found");
 			gestUtils.scrollUPtoObject("text", "Next", null);
 			selectPurposeAccountTypeMobileNumberIfAvaliable(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),
 					CommonTestData.PURPOSE.getEnumValue(),CommonTestData.MOBILE_NUMBER.getEnumValue());
