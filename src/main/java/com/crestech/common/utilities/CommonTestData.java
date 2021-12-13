@@ -137,6 +137,12 @@ public enum CommonTestData {
 	APPLICATION_SUBMITTED("Application Submitted"),
 	THANKU_MESSAGE_AFTER_APPLYDEBITCARD("Thank you for your application. Your application is being processed."),
 	SECURE_PIN_PAGE_HEADER("Secure PIN"),
+	NAMETO_APPEAR_ON_DEBITCARD("DBS Passion"),
+	REVIEW_APPLICATION("Review Application"),
+	CREATE_PIN("123456"),
+	CONFIRM_PIN("123456"),
+	
+	
 	
 	//paylah
 	TOPUP_LABEL("Top up"),
@@ -210,11 +216,14 @@ public enum CommonTestData {
 	PURPOSE("Personal Gifts"),
 	MOBILE_NUMBER("9999999990"),
 	
+	
+	//Credit card Limit Increase
+	CREDITCARD_LIMITINCREASE_AMOUNT("100"),
+	CREDITCARD_LIMITINCREASE_PURPOSE("wedding"),
+	TEMP_LIMIT_INCREASE("Temporary Credit Limit Increase"),
+	TEMP_LIMIT_INCREASE_TITLE("Temporary Limit Increase"),
+	
 
-	NAMETO_APPEAR_ON_DEBITCARD("DBS Passion"),
-	REVIEW_APPLICATION("Review Application"),
-	CREATE_PIN("123456"),
-	CONFIRM_PIN("123456"),
 	ENTER_RECIPIENT_DETAILS("Enter Recipient's Details"),
 	REVIEW_ACCOUNT_APPLICATION("Review Account Application"),
 	UPGRADE_EXPERIENCE_MESSAGE("Upgrade your banking experience with us"), 
@@ -252,7 +261,6 @@ public enum CommonTestData {
 	LOCAL_TRANSFER_CAHNGE_TITLE("Local Transfer Limit Changed!"), 
 	SET_DAILY_LIMIT_TITLE("Set Daily Limit"),
 	REVIEW_DAILY_LIMIT_TITLE("Review Daily Limit"),
-	
 	ALL_SECTION("ALL"),
 	LOCAL_RECIPIENT_FROMLIST("Local Recipients"),
 	DBS_CURRENT_ACCOUNT_TEXT("DBS CURRENT ACCOUNT"),
@@ -276,8 +284,6 @@ public enum CommonTestData {
 	TRANSFERRED("Transferred"),
     STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
 	SHOW_BUTTON("SHOW"),
-	TEMP_LIMIT_INCREASE("Temporary Credit Limit Increase"),
-	TEMP_LIMIT_INCREASE_TITLE("Temporary Limit Increase"),
 	REVIEW_APPLICATION_CREDITLIMIT_TITLE("Review Application"),
 	ADD_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
 	ADD_NOW_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
@@ -286,7 +292,6 @@ public enum CommonTestData {
 	LOCAL_LIMIT_INCREASE_SUCCESS_TITLE_IOS("Local Transfer limit Changed!"),
 	PURPOSE_HEADER_IOS("Select a Purpose"),
 	CALENDER_HEADER("Pick Date"),
-	
 	;
 	
 	private final String message;
