@@ -1405,7 +1405,7 @@ public class DBSAndroidObject {
 	
 	@ElementDescription(value = "OK Button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
-	private MobileElement OKButtonDeletePayee;
+	private MobileElement Alert_OKButton;
 	
 	
 	@ElementDescription(value = "Transfer Via Fast Transfer Toggle")
@@ -1509,8 +1509,8 @@ public class DBSAndroidObject {
 		return OKButton;
 	}
 	
-	public MobileElement OKButtonDeletePayee() {
-		return OKButtonDeletePayee;
+	public MobileElement Alert_OKButton() {
+		return Alert_OKButton;
 	}
 
 	public MobileElement PrimarySourceOfFund() {
