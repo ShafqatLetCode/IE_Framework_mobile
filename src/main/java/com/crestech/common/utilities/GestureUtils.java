@@ -33,19 +33,23 @@ public class GestureUtils {
 	public  AppiumDriver<RemoteWebElement> driver;
 	public  WaitUtils wait = null;
 	public  TouchAction touch =null;
+	HandleException obj_handleexception=null;
 	public GestureUtils(AppiumDriver<RemoteWebElement> driver2) {
 		this.driver = driver2;
 		wait = new WaitUtils(this.driver);
 		touch = new TouchAction(this.driver);
+		obj_handleexception=new HandleException(null, null);
 	}
 	//Working methods starts
 	public void DragAndDropElementToElement(MobileElement Element1, MobileElement Element2) throws Exception {
+		
 		try {
 			if(Element1.isDisplayed()&&Element2.isDisplayed())
 				touch.longPress(longPressOptions().withElement(element(Element1))).moveTo(element(Element2)).release()
 					.perform();
-		} catch (Exception e) {
-			throw new Exception(e);
+		} 
+		catch (Exception e) {	
+			obj_handleexception.throwException("DRAGDROP_EXCEPTION", " Failed to perform drag and drop   ",e);
 		}
 	}
 	
@@ -418,8 +422,11 @@ public class GestureUtils {
 				Asserts.assertTrue(element.isDisplayed(), "Element not found");
 
 		} catch (HandleException e) {	
-			throw new HandleException ("SCROLL_TO_OBJECT_EXCEPTION", "Failed to scroll to the element ::",e);	
+			throw new HandleException ("SCROLL_EXCEPTION", "Failed to scroll to the element ::",e);	
+		}catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to scroll to the element  ",e);
 		}
+
 	}
 	public void scrollUPtoObjectIos(String attribute, String value, MobileElement element) throws Exception {
 		try {
@@ -462,8 +469,11 @@ public class GestureUtils {
 
 			if(element !=null)
 				Asserts.assertTrue(element.isDisplayed(), "Element not found");
-		} catch (Exception e) {
-			throw new Exception(e);
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("SCROLL_EXCEPTION", " Failed to perform scroll ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to perform scroll  ",e);
 		}
 	}
 
