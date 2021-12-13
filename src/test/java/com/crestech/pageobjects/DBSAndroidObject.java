@@ -102,7 +102,7 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "PreLogin Button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='PRE LOGIN']")
 	private MobileElement PreLoginBtn;
-
+	
 	@ElementDescription(value = "ChangeServer Button")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Change Server']")
 	private MobileElement ChangeServerBtn;

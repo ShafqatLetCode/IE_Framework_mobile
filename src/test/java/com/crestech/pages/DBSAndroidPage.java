@@ -694,10 +694,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						break;
 					}
 				}
-				Asserts.assertTrue(index>0, "No element found in the list of corresponding value");
+				Asserts.assertTrue(index > 0, "Overseas Payee " +valueSelectedFromList+" not found in the list to initiate the fund transfer");
 			}
-			else {	
-				Asserts.assertFail(valueSelectedFromList + " not found in the list as list size is 0");
+			else
+			{
+				Asserts.assertFail("No Receipient found in the Oversea Payee list");
 			}
 		}  catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Overseas Payee ",e);		
@@ -4119,16 +4120,25 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue());
 				EnterPasscodeAndDone();
 				verifyPageHeader(CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), DBSappObject.PageHeader());
-				setAmountDurationPurposeForLimitIncrease("100", "wedding");
+				setAmountDurationPurposeForLimitIncrease(CommonTestData.CREDITCARD_LIMITINCREASE_AMOUNT.getEnumValue()
+						, CommonTestData.CREDITCARD_LIMITINCREASE_PURPOSE.getEnumValue());
+				
 				gestUtils.scrollUPtoObject("text", "NEXT", null);
 				
 				ClickOnNextButton1();
 				Thread.sleep(3000);
-				for(int i=0; i<DBSappObject.PageHeaderList2().size();i++ ) {
-					System.out.println(DBSappObject.PageHeaderList2().get(i).getText());
+//				for(int i=0; i<DBSappObject.PageHeaderList2().size();i++ ) {
+//					System.out.println(DBSappObject.PageHeaderList2().get(i).getText());
+//				}
+				
+				MobileElement element = null;
+				element = verifyElementExistInTheList(DBSappObject.PageHeaderList2(),
+						CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue());
+				if (element != null) {
+					Asserts.assertEquals(getTexOfElement(element),
+							CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue(),
+							CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue() + " Text is not matching");
 				}
-				verifyPageHeader(CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue(),
-						DBSappObject.PageHeaderList2().get(2));
 
 			}catch (HandleException e) {	
 				obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Credit Card Temp Limit Increase ",e);
@@ -4184,23 +4194,19 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						index++;
 						clickOnElement(Elementlist.get(i));
 						Thread.sleep(3000);
+						break;
 					}
-					Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
-					wait.waitForElementVisibility(DBSappObject.PageHeaderList2().get(0));
 				}
+				Asserts.assertTrue(index > 0,"Account Type "+AccountType + " Not found in the list.");
+				wait.waitForElementVisibility(DBSappObject.PageHeaderList2().get(0));
 			}else {
-				if(androidAlert.isAlertPresent()) {
-					System.out.println("Alert title :: "+this.driver.switchTo().alert().getText()); 
-				}	
-				Asserts.assertFail(AccountType + " not found in the list as list size is 0");
+				Asserts.assertFail("Account type " + AccountType + " Not found in the list as list size is 0");
 			}
 		}
 		catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Account Type ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Account Type ",e);			
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Account Type ",e);
 		}
 		}
@@ -4404,16 +4410,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						if (LocalRecipientList.contains(purpose)) {
 							index++;
 							clickOnElement(Elementlist.get(i));
+							Thread.sleep(2000); 
 							break;
 						}
 					}
-					Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
+					Asserts.assertTrue(index > 0, "Purpose "+ purpose + " Not found in the list.");
 					wait.waitForElementVisibility(DBSappObject.PageHeaderList2().get(0));
-				}else {
-					if(androidAlert.isAlertPresent()) {
-						System.out.println("Alert title :: "+this.driver.switchTo().alert().getText()); 
-					}	
-					Asserts.assertFail(purpose + " not found in the list as list size is 0");
+				}else {	
+					Asserts.assertFail("Purpose "+ purpose + " not found in the list as list size is 0");
 				}	
 			}
 			catch (HandleException e) {	
