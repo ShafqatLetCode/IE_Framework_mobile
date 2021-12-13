@@ -17,6 +17,7 @@ import io.qameta.allure.Description;
 public class DBSAndroidTest extends UserBaseTest {
 	
 	Asserts Assert = null;
+	DBSAndroidPage dbspage1 = null;
 	public DBSAndroidTest() throws Exception {
 		super();
 		Assert = new Asserts();
@@ -367,12 +368,15 @@ public class DBSAndroidTest extends UserBaseTest {
 	public void UpdatePersonalParticular(String userName, String password) throws Exception {
 			try {
 				DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-				dbspage.logInApplication(userName, password, "DBS");
-				dbspage.UpdatePersonalDetails("DBS");
+				dbspage1 = dbspage;
+				dbspage1.logInApplication(userName, password, "DBS");
+				dbspage1.UpdatePersonalDetails("DBS");
 			} catch (HandleException e) {
+				dbspage1.verifyDigibankAlert();
 				Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
 			}
 			catch (Exception e) {
+				dbspage1.verifyDigibankAlert();
 				Asserts.assertFail( "Unable to execute update Personal Particular "+e.getMessage());
 			}
 	}
@@ -383,17 +387,21 @@ public class DBSAndroidTest extends UserBaseTest {
 //	@Author(name = "Divya Devi")
 //	public void FundsTransfer_OtherBank_FAST_FUTURE(String userName, String password) throws Exception {
 //		try {
+//			
 //			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage.logInApplication(userName, password, "DBS");
-//			dbspage.FundsTransfer_OtherBank_FASTFuture("DBS");
+//			dbspage1 = dbspage;
+//			dbspage1.logInApplication(userName, password, "DBS");
+//			dbspage1.FundsTransfer_OtherBank_FASTFuture("DBS");
 //		} catch (HandleException e) {
+//			dbspage1.verifyDigibankAlert();
 //			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
 //		}
 //		catch (Exception e) {
+//			dbspage1.verifyDigibankAlert();
 //			Asserts.assertFail( "Unable to execute Fund Transfer Other bank Fast Future "+e.getMessage());
 //		}
 //	}
-//
+
 //	@Parameters({ "userName", "password" })
 //	@Test(priority = 22, enabled = true, description = "FundsTransfer-OtherBank-FAST-ONEAPP-16725")
 //	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Other Bank Immediate Transfer Date.")
@@ -404,6 +412,7 @@ public class DBSAndroidTest extends UserBaseTest {
 //			dbspage.logInApplication(userName, password, "DBS");
 //			dbspage.FundsTransfer_OtherBank_FAST("DBS");
 //		} catch (HandleException e) {
+	//dbspage1.verifyDigibankAlert();
 //			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
 //		}
 //		catch (Exception e) {
@@ -418,12 +427,15 @@ public class DBSAndroidTest extends UserBaseTest {
 	public void FundsTransfer_PayCreditCard(String userName, String password) throws Exception {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage.logInApplication(userName, password, "DBS");
-			dbspage.FundsTransfer_PayCreditCard();
+			dbspage1 = dbspage;
+			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.FundsTransfer_PayCreditCard();
 		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
 		}
 		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
 			Asserts.assertFail( "Unable to execute Fund Transfer Pay Credit Card "+e.getMessage());
 		}
 	}
@@ -436,12 +448,15 @@ public class DBSAndroidTest extends UserBaseTest {
 	public void FundsTransfer_BillPayment(String userName, String password) throws Exception {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage.logInApplication(userName, password, "DBS");
-			dbspage.FundsTransfer_BillPayment();
+			dbspage1 = dbspage;
+			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.FundsTransfer_BillPayment();
 		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
 		}
 		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
 			Asserts.assertFail( "Unable to execute Fund Transfer Bill Payment "+e.getMessage());
 		}
 	}
