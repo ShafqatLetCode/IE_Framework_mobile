@@ -141,6 +141,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			AndroidAlert androidAlert = new AndroidAlert(driver);
 			Thread.sleep(2000);
 			String getStartedXpath = null;
+			
 			if (appName.contains("POSB"))
 				getStartedXpath = "//android.widget.Button[@resource-id='com.dbs.sit1.posbmbanking:id/btn_get_started']";
 			else if (appName.contains("DBS"))
@@ -204,14 +205,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			TakeScreenshot(DBSappObject.ChangeServerSaveBtn());
 			clickOnElement(DBSappObject.ChangeServerSaveBtn());
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("UPDATESERVER_EXCEPTION", " Failed to Update UAT Server " ,e);
+			obj_handleexception.throwHandleException("SELECTUATSERVER_EXCEPTION", " Failed to Update UAT Server " ,e);
 			//System.out.println("Inside Appply debit card catch "+e.getCode());		
 		}
 		catch (Exception e) {			
 			//System.out.println("Inside Appply debit card catch");
-			obj_handleexception.throwException("UPDATESERVER_EXCEPTION", " Failed to Update UAT Server ",e);
+			obj_handleexception.throwException("SELECTUATSERVER_EXCEPTION", " Failed to Update UAT Server ",e);
 		}
 	}
+	
 
 	@Step("Clicked on Login button")
 	public void clickOnLoginButton() throws Exception {
@@ -312,8 +314,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					DBSappObject.logOutPaylahButton());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.postLogoutAlertMessage()),
 					CommonTestData.RATE_MESSAGE.getEnumValue(), "'Tap on the stars to rate' Text is not found");
-		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to logout and verify tap on the stars message  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to logout and verify tap on the stars message  ",e);
 		}
 	}
 
@@ -716,9 +721,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (isElementVisible(successImage))
 				Asserts.assertEquals(getTexOfElement(transfferdSubmitMsgEle), SuccessMsg,
 						SuccessMsg + " Text is not matching");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to CLick on transfer now and Verify success message ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to CLick on transfer now and Verify success message  ",e);
 		}
 	}
 
@@ -918,7 +925,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 		catch (Exception e) {			
 			//System.out.println("Inside Appply debit card catch");
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed Click On Next Button  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ",e);
 		}
 	}
 
@@ -1870,10 +1877,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickOnElement(DBSappObject.LocalButton());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Button  ",e);
-			//System.out.println("Inside Appply debit card catch "+e.getCode());		
-		}
+				}
 		catch (Exception e) {			
-			//System.out.println("Inside Appply debit card catch");
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Button  ",e);
 		}
 	}
@@ -2426,12 +2431,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 				TakeScreenshot(ele);
 				Asserts.assertEquals(getTexOfElement(ele).toLowerCase(), expectedText.toLowerCase(),
 						"'Header Title' is not Matching");
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to verify page header ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to verify page header ",e);
 		}
 	}
 
@@ -2746,9 +2750,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 
 				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select fund source and account ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select fund source and account  ",e);
 		}
 
 	}
@@ -2832,12 +2838,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 					CommonTestData.SGD_CURRENCY_LABEL.getEnumValue(), "'Currency' is not Matching");
 			enterTextInTextbox(DBSappObject.amountTransferTextBox(), Amount);
 			TakeScreenshot(DBSappObject.amountTransferTextBox());
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify SGD Currency field and enter amount",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify SGD Currency field and enter amount  ",e);
 		}
 
 	}
@@ -2849,12 +2854,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			verifyPageHeader(CommonTestData.REVIEW_TRANSFER_LABEL.getEnumValue(), DBSappObject.PageHeader());
 			TakeScreenshot(DBSappObject.TransferNowBtn());
 			VerifyButtonLabelAndClick(DBSappObject.TransferNowBtn(), CommonTestData.TRANSFER_NOW_BUTTON.getEnumValue());
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify review transfer and click on Transfer now button ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", "  Failed to verify review transfer and click on Transfer now button   ",e);
 		}
 
 	}
@@ -2869,9 +2873,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			TakeScreenshot( DBSappObject.ReferenceNumberText());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.ReferenceNumberText()), CommonTestData.REFERENCE_NUMBER.getEnumValue(),
 					"'Reference no Field' is not found");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify page header and generated reference number ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify page header and generated reference number   ",e);
 		}
 	}
 
@@ -2894,7 +2900,7 @@ clickOnElement(DBSappObject.ContactSearchfield());
 	}
 
 	@Step("Verifies FundTransfer Other DBS/POSB")
-	public void FundTransferOtherBank() throws Exception {
+	public void FundTransferOtherAccountSameBank() throws Exception {
 		try {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
@@ -2909,12 +2915,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			verifyReviewTransferAndClickTransferNowButton();
 			verifyTransferredAndReferenceNumberField();
 			clickOnLogoutAndVerifyInFundTransfer();
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		}catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify fund transfer other DBS_POSB  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to verify fund transfer other DBS_POSB  ",e);
 		}
 	}
 
@@ -2942,12 +2947,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 					+ "	SGD";
 			VerifyAccountDetailsAfterFundTransferToOwnAccount(ExpectedToAccountNumber, ExpectedToAccountName,
 					ExpectedFromAccountNumber, ExpectedFromAccountName);
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		}catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify Fund transfer to own account  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify Fund transfer to own account ",e);
 		}
 	}
 
@@ -2984,12 +2988,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel3List().get(1)),
 					ExpectedToAccountNumber,
 					ExpectedToAccountNumber + " is not matching after fund transfer to own account");
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify account details after fund transfer  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify account details after fund transfer  ",e);
 		}
 	}
 
@@ -2998,12 +3001,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 		try {
 			TakeScreenshot(DBSappObject.AllTab());
 			clickOnElement(DBSappObject.AllTab());
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab   ",e);
 		}
 	}
 
@@ -3021,6 +3023,7 @@ clickOnElement(DBSappObject.ContactSearchfield());
 				}
 			}
 			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
+			if(DBSappObject.SubTitleTextList().size()>0) {
 			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
 			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
 			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
@@ -3039,6 +3042,10 @@ clickOnElement(DBSappObject.ContactSearchfield());
 
 			TakeScreenshot(DBSappObject.PageHeader());
 			verifyPageHeader(CommonTestData.TRANSFER_TO_YOUR_ACCOUNT.getEnumValue(), DBSappObject.PageHeader());
+			}else
+			{
+				Asserts.assertFail("No element found in the list as list size is 0");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -3072,12 +3079,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 						clickOnElement(DBSappObject.OKButton());
 				}
 			}
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select any fund source account  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", "Failed to select any fund source account  ",e);
 		}
 	}
 
@@ -3136,13 +3142,13 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			SelectTimeAndAccountTypeForStatement(appname, ExpectedFromBankName);
 			ClickOnShowButtonAndVerifyHeader(ExpectedFromBankName);
 			ValadateTransactionHistoryListInThreeMonth();
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify fund transfer other bank NON-FAST FUTURE  ",e);
 		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", "Failed to verify fund transfer other bank NON-FAST FUTURE   ",e);
+		}
+
 	}
 
 	@Step("Verify Fund Transfer For Other Bank Fast transfer when future date selected.")
@@ -3182,13 +3188,13 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			SelectTimeAndAccountTypeForStatement(appname, ExpectedFromBankName);
 			ClickOnShowButtonAndVerifyHeader(ExpectedFromBankName);
 			ValadateTransactionHistoryListInThreeMonth();
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify fund transfer other bank FAST FUTURE  ",e);
 		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", "Failed to verify fund transfer other bank FAST FUTURE   ",e);
+		}
+
 	}
 
 	@Step("Verify Fund Transfer For Other Bank Non Fast transfer.")
@@ -3228,12 +3234,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			SelectTimeAndAccountTypeForStatement(appname, ExpectedFromBankName);
 			ClickOnShowButtonAndVerifyHeader(ExpectedFromBankName);
 			ValadateTransactionHistoryListInThreeMonth();
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify fund transfer other bank NON-FAST  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", "Failed to verify fund transfer other bank NON-FAST   ",e);
 		}
 	}
 
@@ -3275,12 +3280,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			SelectTimeAndAccountTypeForStatement(appname, ExpectedFromBankName);
 			ClickOnShowButtonAndVerifyHeader(ExpectedFromBankName);
 			ValadateTransactionHistoryListInThreeMonth();
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify fund transfer other bank FAST  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", "Failed to verify fund transfer other bank FAST   ",e);
 		}
 	}
 
@@ -3293,10 +3297,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			TakeScreenshot(DBSappObject.ReferenceNumberText());
 			clickOnElement(DBSappObject.BackIcon());
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on expandable button and scroll down to reference# and click back button ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on expandable button and scroll down to reference# and click back button ",e);
 		}
 	}
 
@@ -3323,12 +3328,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNumberList().get(1)).trim(), ExpectedToBankName,
 					ExpectedToBankName + " is not matching");
 
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", "failed to verify logout, make another transfer and transferred ammount value after transfer ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " failed to verify logout, make another transfer and transferred ammount value after transfer  ",e);
 		}
 	}
 
@@ -3343,13 +3347,13 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			TakeScreenshot(DBSappObject.NonFastTransactionService());
 			Asserts.assertTrue(DBSappObject.NonFastTransactionService().isDisplayed(),
 					"Non-Fast Service not available in review.");
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify review transfer page and non fast service  ",e);
 		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify review transfer page and non fast service ",e);
+		}
+
 	}
 
 	@Step("Verify 'Review Transfer' Page And 'Fast' Service In Review")
@@ -3363,12 +3367,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			TakeScreenshot(DBSappObject.FastTransactionService());
 			Asserts.assertTrue(DBSappObject.FastTransactionService().isDisplayed(),
 					"Fast Service not available in review.");
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify review transfer page and  fast service  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify review transfer page and  fast service ",e);
 		}
 	}
 
@@ -3382,12 +3385,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 
 			TakeScreenshot(DBSappObject.TransferViaFastTransferToggle());
 			clickOnElement(DBSappObject.TransferViaFastTransferToggle());
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", "Failed to verify page header and click on fast toggle to disable it",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify page header and click on fast toggle to disable it  ",e);
 		}
 	}
 
@@ -3410,13 +3412,12 @@ clickOnElement(DBSappObject.ContactSearchfield());
 						DBSappObject.TransactionHistoryHeaderForiWEALTH());
 				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForiWEALTH());
 			}
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
-		}
+		} catch (HandleException e) {	
+				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click transaction history and verify page header  ",e);
+			}
+			catch (Exception e) {		
+				obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click transaction history and verify page header  ",e);
+			}
 
 	}
 
@@ -3432,8 +3433,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 				}
 			}
 
-		} catch (Exception e) {
-			throw new Exception(getExceptionMessage(e));
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select "+TabValue+ " from All Tab section  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION"," Failed to select "+TabValue+ " from All Tab section  ",e);
 		}
 	}
 
@@ -3477,12 +3481,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 						DBSappObject.TransactionHistoryHeaderForiWEALTH());
 				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForiWEALTH());
 			}
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		}catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select '3 Months Transaction History' And 'From Account' from 'Deposit Account' section ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",  " Failed to select '3 Months Transaction History' And 'From Account' from 'Deposit Account' section ",e);
 		}
 	}
 
@@ -3514,12 +3517,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 
 			Asserts.assertTrue(index > 0, "No " + AccountToBeSelected + " found in the list of corresponding value");
 
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select Account type under local fund limit page  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", "Failed to select Account type under local fund limit page  ",e);
 		}
 	}
 
@@ -3598,13 +3600,13 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			EnterPasscodeAndDone();
 			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNameToCheckTransactionHistory()),
 					ExpectedAccountName, ExpectedAccountName + " is not matching.");
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click show button and verify amount  ",e);
 		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click show button and verify amount",e);
+		}
+
 	}
 
 	@Step("Validating From Account Transaction History List.")
@@ -3614,13 +3616,13 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			int l = Elementlist.size();
 			Asserts.assertTrue(l > 0, "No Transaction History is Display");
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify from account transaction history list  ",e);
 		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify from account transaction history list ",e);
+		}
+
 	}
 
 	public void transactionHistoryVerify(String appName) throws Exception {
@@ -3682,12 +3684,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			TakeScreenshot(DBSappObject.TransferDateTextElement());
 			Asserts.assertEquals(ActualSelectedDate.split(" ")[0], "20", "Selected Date is not Matching");
 
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select future date and verification  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select future date and verification ",e);
 		}
 	}
 
@@ -3805,9 +3806,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 				if (isElementVisible(DBSappObject.PrimarySourceOfFund()))
 					clickOnElement(DBSappObject.OKButton());
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		}catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select account from local recipient and verify header  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select account from local recipient and verify header  ",e);
 		}
 	}
 
@@ -3831,8 +3834,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			ClickOnBackButton();
 			ClickOnHomeButton();
 
-		} catch (Exception e) {
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to update personal details  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", "  Failed to update personal details  ",e);
 		}
 	}
 
@@ -3840,12 +3846,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 	public void ClickOnBackToMoreServicesBtn() throws Exception {
 		try {
 			clickOnElement(DBSappObject.BACKTOMoreServicesBtn());
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on Back toMore button  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on Back toMore button  ",e);
 		}
 	}
 
@@ -3864,9 +3869,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 						ExpectedLastUpdatedDateValue,
 						ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify last update on checkbox ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify last update on checkbox  ",e);
 		}
 	}
 
@@ -3894,12 +3901,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 						"Update More Details Btn is not displayed.");
 			}
 
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on confirm button and verify success message  and all buttons  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on confirm button and verify success message  and all buttons ",e);
 		}
 	}
 
@@ -3922,9 +3928,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.TermsAndConditionsMsg()),
 					CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue(),
 					CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue() + " Text is not matching");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select All checkboxes  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select All checkboxes  ",e);
 		}
 		
 	}
@@ -4008,10 +4016,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.UPPSectionLabel()),
 					CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue(),
 					CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue() + " Text is not matching");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select Personal And contact details and verify all fields  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select Personal And contact details and verify all fields ",e);
 		}
 	}
 	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
@@ -4059,9 +4068,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 					"Personal And Contact Details Tab is not displayed.");
 			Asserts.assertTrue(isElementVisible(DBSappObject.MailingAddressTab()),
 					"Mailing Address Tab is not displayed.");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;  
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select update contact details and verify visibility all fields  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select update contact details and verify visibility all fields  ",e);
 		} 
 	}
 		@Step("Verify CreditCard Temperary Limit Increase")
@@ -4182,9 +4193,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			// Leaving On Home Page for Next case Run.
 			clickOnElement(DBSappObject.BackIcon());
 			clickOnElement(DBSappObject.homeButton());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to fund transfer pay credit card  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to fund transfer pay credit card    ",e);
 		}
 	}
 
@@ -4211,9 +4224,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 			// Leaving On Home Page for Next case Run.
 			clickOnElement(DBSappObject.BackIcon());
 			clickOnElement(DBSappObject.homeButton());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify Fund transfer bill payment  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to verify Fund transfer bill payment  ",e);
 		}
 	}
 
@@ -4250,9 +4265,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 					ExpectedToAccountNumber,
 					ExpectedToAccountNumber + " is not matching after Fund Transfer Credit Cards.");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify credit card name and account number  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify credit card name and account number  ",e);
 		}
 	}
 
@@ -4290,9 +4307,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 					CommonTestData.CREDIT_CARD_PAGEHEADER.getEnumValue(),
 					CommonTestData.CREDIT_CARD_PAGEHEADER.getEnumValue() + " Text is not matching");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select credit card and account type in credit card  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select credit card and account type in credit card ",e);
 		}
 	}
 		@Step("Select purpose")
@@ -4372,9 +4391,11 @@ clickOnElement(DBSappObject.ContactSearchfield());
 					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue(),
 					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Text is not matching");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select billing organiation , to account and verify page header  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select billing organiation , to account and verify page header  ",e);
 		}
 	}
 

@@ -71,10 +71,8 @@ public class CommonAppiumTest extends CommandPrompt {
 				element.click();
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On Element  ",e);
-			//System.out.println("Inside Appply debit card catch "+e.getCode());		
-		}
+				}
 		catch (Exception e) {			
-			//System.out.println("Inside Appply debit card catch");
 			obj_handleexception.throwException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On Element  ",e);
 		}
 	}

@@ -211,6 +211,13 @@ public class Asserts extends UserBaseTest {
 	
 	public static void assertFail(String message) throws Exception {
 		try {
+			
+//			Object androidAlert;
+//			if(androidAlert.isAlertPresent()) {
+//				System.out.println("Alert title :: "+ this.driver.switchTo().alert().getText()); 
+//				Asserts.assertFail(this.driver.switchTo().alert().getText());
+//			}	
+			
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
 				Assert.fail( message);
 			} else if (prop.getProperty("ReportType").trim().equalsIgnoreCase("extent")) {
