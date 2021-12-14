@@ -34,7 +34,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue() ,CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(),CommonTestData.CURRENCY.getEnumValue() );
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -54,7 +54,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(),
 					CommonTestData.RATE_MESSAGE.getEnumValue());
 		} catch (HandleException e) {
@@ -75,7 +75,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.VerifyRemittanceCorridor();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -95,7 +95,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.VerifyRemittanceEOTT();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -115,7 +115,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.DeletePayeeDBSPOSB(CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue());
 			dbspage1.VerifyAddPayeeDBSorPOSB();
 		} catch (HandleException e) {
@@ -136,7 +136,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.TopupPaylah();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -156,7 +156,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.DeletePayeeRemittance(CommonTestData.FULL_NAME.getEnumValue());
 			dbspage1.PayeeAddRemittance();
 		} catch (HandleException e) {
@@ -177,7 +177,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.ApplyDebitCard();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -197,7 +197,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.DeletePayeeLocalToOtherBank(CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue());
 			dbspage1.PayeeAddLocalOtherBank();
 		} catch (HandleException e) {
@@ -218,7 +218,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.DeletePayeeToBillPayment(CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue());
 			dbspage1.PayeeAddBillPayment();
 		} catch (HandleException e) {
@@ -240,7 +240,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.OpenAccount();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -260,7 +260,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.ChangeLocalFundsTransferLimit();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -280,7 +280,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.VerifyPeekBalance();
 		}  catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -301,7 +301,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.VerifyFundTransfer_OwnAccount();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -321,7 +321,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.FundsTransfer_OtherBank_NonFASTFuture("DBS");
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -341,7 +341,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.FundsTransfer_OtherBank_NonFAST("DBS");
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -362,7 +362,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			 dbspage1 = dbspage;
-			 dbspage1.logInApplication(userName, password, "DBS");
+			 dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			 dbspage1.FundTransferDBSPOSB();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -382,7 +382,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			 dbspage1 = dbspage;
-			 dbspage1.logInApplication(userName, password, "DBS");
+			 dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			 dbspage1.transactionHistoryVerify("DBS");
 			 dbspage1.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
 		} catch (HandleException e) {
@@ -403,7 +403,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			 dbspage1 = dbspage;
-			 dbspage1.logInApplication(userName, password,"DBS");
+			 dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			 dbspage1.CreditCardTempLimitIncrease();
 		} catch (HandleException e) {
 			 dbspage1.verifyDigibankAlert();
@@ -423,7 +423,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			try {
 				DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 				dbspage1 = dbspage;
-				dbspage1.logInApplication(userName, password, "DBS");
+				dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 				dbspage1.UpdatePersonalDetails("DBS");
 			} catch (HandleException e) {
 				dbspage1.verifyDigibankAlert();
@@ -444,7 +444,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.FundsTransfer_OtherBank_FASTFuture("DBS");
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -464,7 +464,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.FundsTransfer_OtherBank_FAST("DBS");
 		} catch (HandleException e) {
 	            dbspage1.verifyDigibankAlert();
@@ -484,7 +484,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.FundsTransfer_PayCreditCard();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -505,7 +505,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
-			dbspage1.logInApplication(userName, password, "DBS");
+			dbspage1.logInApplication(userName, password, "DBS" , CommonTestData.N4_SERVER.getEnumValue());
 			dbspage1.FundsTransfer_BillPayment();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
@@ -590,7 +590,7 @@ public class DBSAndroidTest extends UserBaseTest {
 //		try {
 //			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 //			dbspage1 = dbspage;
-//			dbspage1.logInApplication(userName, password, "iWEALTH");
+//			dbspage1.logInApplication(userName, password,"iWEALTH" , CommonTestData.N4_SERVER.getEnumValue());
 //			dbspage1.TopupPaylah();
 //		} catch (HandleException e) {
 //			dbspage1.verifyDigibankAlert();
