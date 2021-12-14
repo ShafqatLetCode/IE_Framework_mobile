@@ -40,12 +40,15 @@ public enum CommonTestData {
 	ADDRESS("Cherry Blossom Flower Drive 90 Canbera 123334"),
 	CITY("Canbera"),
 	
-	//FundTransfer NonFast
+	//FundTransfer NonFast/Fast
 	ERROR_MSG("We are unable to process your request. Please contact our Customer Service Hotline at 1800-111 1111 or +65-6327 2265(if you are calling from abroad)."),
 	FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK("INDIAN OVERSEAS BANK 582177606001"),
 	FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME("DBS SAVINGS PLUS"),
 	FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME("Sakshi"),
 	LOCAL_TRANSFER_PayNow("Local Transfer & PayNow"),
+	IMMEDIATE_TEXT("Immediate"),
+	COMMENT_NONFAST_TRANSFER("Non Fast"),
+	COMMENT_FAST_TRANSFER("Fast"),
 	
 	//Optional Data for Fund Transfer Non Fast
 //	FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK("CITIBANK NA 8484848383"),
@@ -79,6 +82,8 @@ public enum CommonTestData {
 	FUNDTRANSFER_FROM_OWN_ACCOUNT_NAME("DBS Multiplier Account"),
 	TRANSFER_TO_YOUR_ACCOUNT("Transfer to Your Account"),
 	YOUR_DBSPOSB_ACCOUNTS("Your DBS/POSB Accounts"),
+	TRANSFERRED("Transferred"),
+	
 	
 	//UpdateContact Details
 	UPDATE_CONTACT_DETAILS_PAGEHEADER("Update Contact Details"),
@@ -119,10 +124,13 @@ public enum CommonTestData {
 	DBS_APP_APK("DBS_Android.apk"),
 	POSB_APP_APK("POSB_Android.apk"),
 	iWEALTH_APP_APK("iwealthandroidUAT_10Nov.apk"),
-	DBS_DIGIBANK("DBS digibank"),
-	ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
-	CURRENCY_NAME("Singapore Dollar"),
 	
+	//Server Details
+	N4_SERVER("UAT N4"),
+	M2_SERVER("UAT M2"),
+	
+	//Log in Application
+	DBS_DIGIBANK("DBS digibank"),
 	
 	//ApplyDebitCard
 	DEBIT_CARD_NAME("PASSION POSB MASTERCARD DEBIT CARD"),
@@ -172,8 +180,9 @@ public enum CommonTestData {
     SOURCE_ACCOUNT_NAME("DBS SAVINGS PLUS"),
     SOURCE_ACCOUNT_NUMBER("028-6-333121"),
     LOCAL_RECIPIENT_LIST_SELECTED_ACCOUNTNAME("DBS CURRENT 001-992414-6"),
-	
-	
+    AMOUNT_FUNDTRANSFER("11"),
+    TRANSFER_DBS_POSB("Transfer to DBS/POSB"),
+    
 	//Relanching alert message
 	RELAUNCH_MESSAGE("Your application's security profile has been updated. Please re-launch the application to continue."),
 	
@@ -222,76 +231,63 @@ public enum CommonTestData {
 	CREDITCARD_LIMITINCREASE_PURPOSE("wedding"),
 	TEMP_LIMIT_INCREASE("Temporary Credit Limit Increase"),
 	TEMP_LIMIT_INCREASE_TITLE("Temporary Limit Increase"),
+	REVIEW_APPLICATION_CREDITLIMIT_TITLE("Review Application"),
+	CALENDER_HEADER("Pick Date"),
 	
-
+	
+	//Change Local Fund Transfer Limit
+	LOCAL_TRANSFER_LIMIT_LABEL("Local Transfer Limit"),
+	SELECTED_LIMIT_1("40,000.00"), 
+	SELECTED_LIMIT_50000("50,000.00"), 
+	SELECTED_LIMIT_0("0.00"),
+	SELECTED_LIMIT_500("500.00"),
+	LOCAL_TRANSFER_CAHNGE_TITLE("Local Transfer Limit Changed!"), 
+	SET_DAILY_LIMIT_TITLE("Set Daily Limit"),
+	REVIEW_DAILY_LIMIT_TITLE("Review Daily Limit"),
+	CHANGE_DAILY_LIMIT_BUTTON("CHANGE DAILY LIMIT NOW"), 
+	LOCAL_LIMIT_INCREASE_SUCCESS_TITLE_IOS("Local Transfer limit Changed!"),
+	
+	
+	//Transaction History
+	TRANSCETION_HISTORY_LABEL("Transaction History"),
+	ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
+	CURRENCY_NAME("Singapore Dollar"),
+	STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
+	SHOW_BUTTON("SHOW"),
+	
+	
 	ENTER_RECIPIENT_DETAILS("Enter Recipient's Details"),
 	REVIEW_ACCOUNT_APPLICATION("Review Account Application"),
 	UPGRADE_EXPERIENCE_MESSAGE("Upgrade your banking experience with us"), 
 	SETUP("Let's Set Up"),
 	MOTION_FITNESS_MESSAGE("“DBS digibank” Would Like to Access Your Motion & Fitness Activity"),
 	
-	
-	
 	// ScreenName-OneAppPostLogin
 	LOGOUT_ISO("logout"), 
 	SGD_CURRENCY_LABEL("SGD"), 
-	REVIEW_TOPUP_HEADER_IOS("Review Top-Up"),
 	LOGOT_PAYLAH_IOS("Log Out"), 
-	TITLE_2FA("Secure PIN"), 
 	DONE_2FA_IOS("Done"),
 	PIN_2FA("123456"),
 	
-	
-	
-	// local transfer limit increase
+
 	MORE_LABEL("More"),
 	PAY_TRANSFER_ICON("Pay & Transfer"),
-	LOCAL_FUND_Transfer_LABEL("Local Fund Transfer"),
-	LOCAL_TRANSFER_LIMIT_LABEL("Local Transfer Limit"),
 	LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS("local"),
 	TO_OTHERBANK_LABEL("To Other Banks"), 
 	TRANSFER_TO_OTHERBANK_LABEL_LABEL("Transfer to Other Banks"),
-	SELECTED_LIMIT_1("40,000.00"), 
-	SELECTED_LIMIT_50000("50,000.00"), 
-	SELECTED_LIMIT_0("0.00"),
-	LOCAL_TRANSFER_LABEL("Local Transfer Limit"), 
 	TRANSFER_TO_OTHERBANK_LABEL("Transfer to Other Banks"),
-	CHANGE_DAILY_LIMIT_BUTTON("CHANGE DAILY LIMIT NOW"), 
-	BACK_TOMORE_BUTTON("BACK TO MORE"),
-	LOCAL_TRANSFER_CAHNGE_TITLE("Local Transfer Limit Changed!"), 
-	SET_DAILY_LIMIT_TITLE("Set Daily Limit"),
-	REVIEW_DAILY_LIMIT_TITLE("Review Daily Limit"),
 	ALL_SECTION("ALL"),
 	LOCAL_RECIPIENT_FROMLIST("Local Recipients"),
 	DBS_CURRENT_ACCOUNT_TEXT("DBS CURRENT ACCOUNT"),
-	TRANSFER_DBS_POSB("Transfer to DBS/POSB"),
 	SELECT_SOURCE_FUND("Select Fund Source"),
-	DBS_MULTIPLIER_ACCOUNT_TEXT("DBS Multiplier Account"),
 	PRIMARY_SOURCE_ALERT_TITLE("Primary source of fund"),
-	OK_BUTTON("OK"),
 	REVIEW_TRANSFER_LABEL("Review Transfer"),
 	TRANSFER_NOW_BUTTON("TRANSFER NOW"),
 	TRANSFER_TITLE("Transferred"),
-	TRANSCETION_HISTORY_LABEL("Transaction History"),
-	ACCOUNT_STATEMENT_NAME("POSB STATEMENT SAVINGS 420-86201-6"),
-	HOME_BUTTON("Home"),
-	BILLING_ORGANISATION_LABEL("Billing Organisations"),
-	TRANSFER_OTHERBANK("Transfer to Other Banks"),
-	COMMENT_LOCAL_RECIPIENT("Non Fast transfer"),
-	IMMEDIATE_TEXT("Immediate"),
-	AMOUNT_FUNDTRANSFER("11"),
-	AMOUNT_FUNDTRANSFER_VERIFY("11.00"),
-	TRANSFERRED("Transferred"),
-    STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
-	SHOW_BUTTON("SHOW"),
-	REVIEW_APPLICATION_CREDITLIMIT_TITLE("Review Application"),
 	ADD_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
-	ADD_NOW_RECIPIENT_LABEL("ADD RECIPIENT NOW"),
 	MAKE_TRANSFER("MAKE A TRANSFER"),
 	REFERENCE_NUMBER("Reference No."),
-	LOCAL_LIMIT_INCREASE_SUCCESS_TITLE_IOS("Local Transfer limit Changed!"),
 	PURPOSE_HEADER_IOS("Select a Purpose"),
-	CALENDER_HEADER("Pick Date"),
 	;
 	
 	private final String message;
