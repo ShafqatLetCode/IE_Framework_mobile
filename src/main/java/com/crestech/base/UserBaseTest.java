@@ -81,48 +81,21 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	 * @param name- device name/udid
 	 * @throws Exception
 	 */
-	@Parameters({ "device", "version", "os", "manafacturer", "min_Ver", "max_Ver", "individual_ID"})
+	@Parameters({ "device", "version", "os", "manafacturer", "min_Ver", "max_Ver", "individual_ID", "app_Name"})
 	@BeforeMethod(alwaysRun = true)
-	public void startApp(String device, String version, String os, String manafacturer, String min_Ver, String max_Ver, String individual_ID, Method method) throws Exception {
+	public void startApp(String device, String version, String os, String manafacturer, String min_Ver, String max_Ver, String individual_ID, Method method, String app_Name) throws Exception {
 		logger.info("Inside Before Method");
 		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 			ContextManager.createNode(method.getName() + " " + device);
 		}
 		excelDataList = ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities");
-		if(method.getName().contains("DBS")) {
-			String appName = CommonTestData.DBS_APP_APK.getEnumValue();
-			String appActivity = CommonTestData.DBS_APPS_ACTIVITY.getEnumValue();
-			String appPackage = CommonTestData.DBS_APP_PACKAGE.getEnumValue();
-			excelDataList.set(14, appName);
-			excelDataList.set(1, appActivity);
-			excelDataList.set(2, appPackage);
-
-		}else if(method.getName().contains("POSB")) {
-			String appName = CommonTestData.POSB_APP_APK.getEnumValue();
-			String appActivity = CommonTestData.DBS_APPS_ACTIVITY.getEnumValue();
-			String appPackage = CommonTestData.POSB_APP_PACKAGE.getEnumValue();
-			excelDataList.set(14, appName);
-			excelDataList.set(1, appActivity);
-			excelDataList.set(2, appPackage);
-
-		}
-		else if(method.getName().contains("iWEALTH")) {
-			String appName = CommonTestData.iWEALTH_APP_APK.getEnumValue();
-			String appActivity = CommonTestData.DBS_APPS_ACTIVITY.getEnumValue();
-			String appPackage = CommonTestData.IWEALTH_APP_PACKAGE.getEnumValue();
-			excelDataList.set(14, appName);
-			excelDataList.set(1, appActivity);
-			excelDataList.set(2, appPackage);
-
-		}
 		DesiredCapabilities androidCaps = androidNative(excelDataList, device, version, os, manafacturer, min_Ver, max_Ver, individual_ID);
-		//DesiredCapabilities androidCaps = androidNative(ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities"), device, version, os);
 		Thread.sleep(2000);
 		try {
 			this.driver = startingServerInstance(androidCaps, os);
-			System.out.println("Device :"+ Thread.currentThread().getId()+ " "+driver.getCapabilities().getCapability("pCloudy_DeviceFullName"));
 			//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 			ContextManager.setDriver(this.driver); 
+			this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		} catch (Exception e) {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 				ContextManager.getExtentReportForPrecondition().skip(MarkupHelper.createLabel("Test Case is SKIPPED", ExtentColor.YELLOW));
@@ -135,7 +108,6 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		}
 
 	}
-
 
 	@BeforeSuite(alwaysRun = true)
 	public void beforeSuite() throws Exception {
@@ -326,10 +298,10 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("autoGrantPermissions", "true");
 			capabilities.setCapability("pCloudy_EnableVideo", "true");
 
-			//capabilities.setCapability("pCloudy_DeviceManafacturer", manafacturer);
-			//capabilities.setCapability("pCloudy_MinVersion",min_Ver); 
-			//capabilities.setCapability("pCloudy_MaxVersion",max_Ver); 
-			//capabilities.setCapability("pCloudy_Individual",individual_ID);
+//			capabilities.setCapability("pCloudy_DeviceManafacturer", manafacturer);
+//			capabilities.setCapability("pCloudy_MinVersion",min_Ver); 
+//			capabilities.setCapability("pCloudy_MaxVersion",max_Ver); 
+//			capabilities.setCapability("pCloudy_Individual",individual_ID);
 			capabilities.setCapability(MobileCapabilityType.NO_RESET, false);
 
 			if (checkDeviceVersion(version)) {

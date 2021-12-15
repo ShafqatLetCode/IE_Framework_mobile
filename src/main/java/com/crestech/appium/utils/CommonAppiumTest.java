@@ -442,5 +442,17 @@ public class CommonAppiumTest extends CommandPrompt {
 			throw new HandleException ("ENABLE_EXCEPTION", "Failed To Check Enability of Element ::",e);
 		}
 	}
+	
+	public boolean isElementVisible2(MobileElement element) throws Exception {
+		try {
+			//wait.waitForElementVisibility(element);
+			return element.isDisplayed();
+		} catch (Exception e) {
+			return false;
+//			System.out.println("Inside take ele visi catch" );
+//			throw new HandleException ("WAITELEMENTVISIBLE_EXCEPTION", "Element not visible on the screen ::",e);
+		
+		}
+	}
 
 }
