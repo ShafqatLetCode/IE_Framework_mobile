@@ -55,6 +55,7 @@ public class AlterSuite implements IAlterSuiteListener {
 			dynamictests.get(0).getLocalParameters().put("min_Ver", deviceList.get(0).get("min_Ver"));
 			dynamictests.get(0).getLocalParameters().put("max_Ver", deviceList.get(0).get("max_Ver"));
 			dynamictests.get(0).getLocalParameters().put("individual_ID", deviceList.get(0).get("individual_ID"));
+			dynamictests.get(0).getLocalParameters().put("app_Name", deviceList.get(0).get("app_Name"));
 			List<XmlTest> clonedTests = new ArrayList<>();
 			for (XmlTest each : dynamictests) {
 				for (int i = 1; i < deviceList.size(); i++) {
@@ -65,11 +66,12 @@ public class AlterSuite implements IAlterSuiteListener {
 					cloned.getLocalParameters().put("os", deviceList.get(i).get("os"));
 					cloned.getLocalParameters().put("userName", deviceList.get(i).get("userName"));
 					cloned.getLocalParameters().put("password", deviceList.get(i).get("password"));
-					
+			
 					cloned.getLocalParameters().put("manafacturer", deviceList.get(i).get("manafacturer"));
 					cloned.getLocalParameters().put("min_Ver", deviceList.get(i).get("min_Ver"));
 					cloned.getLocalParameters().put("max_Ver", deviceList.get(i).get("max_Ver"));
 					cloned.getLocalParameters().put("individual_ID", deviceList.get(i).get("individual_ID"));
+					cloned.getLocalParameters().put("app_Name", deviceList.get(i).get("app_Name"));
 					
 					cloned.getXmlClasses().addAll(each.getClasses());
 					clonedTests.add(cloned);
@@ -131,6 +133,7 @@ public class AlterSuite implements IAlterSuiteListener {
 				device.put("min_Ver", jsonObject.getString("min_Ver"));
 				device.put("max_Ver", jsonObject.getString("max_Ver"));
 				device.put("individual_ID", jsonObject.getString("individual_ID"));
+				device.put("app_Name", jsonObject.getString("app_Name"));
 				deviceList.add(device);
 			}
 			return deviceList;

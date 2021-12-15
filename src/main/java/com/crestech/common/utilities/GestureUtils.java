@@ -10,6 +10,8 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
@@ -71,7 +73,7 @@ public class GestureUtils {
 	public void longPressOnAndroidElement(WebElement ele) throws Exception {
 		try {
 			AndroidTouchAction touch = new AndroidTouchAction(driver);
-			touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(ele))).perform();
+			touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(ele))).perform().release();
 		} catch (Exception e) {
 			throw new Exception(e); 
 		} 

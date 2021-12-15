@@ -3,6 +3,7 @@ package com.crestech.pages;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Random;
 import java.util.logging.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.appium.utils.CommonAppiumTest;
@@ -112,37 +114,37 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			List<RemoteWebElement> list = driver.findElements(By.xpath(quitButtonXpath));
 			if (list.size() > 0) {
 				driver.closeApp();
-				if (appName.contains("DBS"))
-					relaunchingDBS();
-				else if (appName.contains("POSB"))
-					relaunchingPOSB();
-				else if (appName.contains("iWEALTH"))
-					relaunchingIwealth();
+				relaunchingDBS();
 				wait.waitForElementToBeClickable(DBSappObject.loginButton());
 				Thread.sleep(5000);
+				System.out.println("Relaunch Done");
 			}
-			
 			SelectUATServer(serverName);
+			System.out.println("UAT server selected");
 			clickOnLoginButton();
+			System.out.println("clickOnLoginButton");
 			sendDataInUserId(userName);
+			System.out.println("sendDataInUserId");
 			sendDataInUserPin(password);
+			System.out.println("sendDataInUserPin");
 			clickOnLoginButton();
+			System.out.println("clickOnLoginButton");
 			digitalTokenSetUp();
 			AndroidAlert androidAlert = new AndroidAlert(driver);
-			Thread.sleep(2000);
+			Thread.sleep(4000);
 			String getStartedXpath = null;
-			
-			if (appName.contains("POSB"))
-				getStartedXpath = "//android.widget.Button[@resource-id='com.dbs.sit1.posbmbanking:id/btn_get_started']";
-			else if (appName.contains("DBS"))
+//			
+//			if (appName.contains("POSB"))
+//				getStartedXpath = "//android.widget.Button[@resource-id='com.dbs.sit1.posbmbanking:id/btn_get_started']";
+//			else if (appName.contains("DBS"))
 				getStartedXpath = "//android.widget.Button[@resource-id='com.dbs.sit1.dbsmbanking:id/btn_get_started']";
-			else if (appName.contains("iWEALTH"))
-				getStartedXpath = "//android.widget.Button[@resource-id='com.dbs.sg.uat.dbsiwealth:id/btn_get_started']";
-
+//			else if (appName.contains("iWEALTH"))
+//				getStartedXpath = "//android.widget.Button[@resource-id='com.dbs.sg.uat.dbsiwealth:id/btn_get_started']";
 			List<RemoteWebElement> getStartedlist = driver.findElements(By.xpath(getStartedXpath));
-			if (getStartedlist.size() > 0)
+			if (getStartedlist.size() > 0) {
 				clickOnElement((MobileElement) getStartedlist.get(0));
-
+				System.out.println("Click on Get Started");
+			}
 			String errorAlertOKButton = "//android.widget.Button[@resource-id='android:id/button1']";
 			List<RemoteWebElement> errorAlertOKButtonlist = driver.findElements(By.xpath(errorAlertOKButton));
 
@@ -170,11 +172,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 
 		}catch (HandleException e) {	
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application " ,e);
-					
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application " ,e);		
 		}
-		catch (Exception e) {			
-			
+		catch (Exception e) {				
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application ",e);
 		}
 	}
@@ -185,9 +185,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPreloginButton();
 			ClickOnMoreModuleOnLoginPage();
 			ClickOnChangeServerButton();
+			gestUtils.scrollUPtoObject("text", serverName, null);
 			String serverNameXpath = "//android.widget.TextView[@text='"+serverName+"']";
 			MobileElement serverNameElement = (MobileElement) driver.findElement(By.xpath(serverNameXpath));
-			gestUtils.scrollUPtoObject("text", serverName, serverNameElement);
 			TakeScreenshot(serverNameElement);
 			clickOnElement(serverNameElement);
 			ClickOnChangeServerSaveButton();
@@ -231,8 +231,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Clicked on Pre-Login button")
 	public void ClickOnPreloginButton() throws Exception {
 		try {
+			int count = 0;
 			TakeScreenshot(DBSappObject.PreLoginBtn());
-			clickOnElement(DBSappObject.PreLoginBtn());
+			do {
+				clickOnElement(DBSappObject.PreLoginBtn());
+				Thread.sleep(5000);
+				count++;
+			}while(isElementVisible2(DBSappObject.PreLoginBtn()) && count < 3);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Prelogin Button " ,e);		
 		}
@@ -240,6 +245,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Prelogin Button ",e);
 		}
 	}
+
 	
 	@Step("Click On More Module On Login Page")
 	public void ClickOnMoreModuleOnLoginPage() throws Exception{
@@ -257,14 +263,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Clicked on Login button")
 	public void clickOnLoginButton() throws Exception {
 		try {
-			//System.out.println(driver.getCapabilities().getCapability("pCloudy_DeviceFullName"));
+			int count =0;
 			TakeScreenshot(DBSappObject.loginButton());
-			clickOnElement(DBSappObject.loginButton());
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button " ,e);		
-		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ",e);
+			do {
+				clickOnElement(DBSappObject.loginButton());
+				Thread.sleep(5000);
+				count++;
+			} while (isElementVisible2(DBSappObject.loginButton()) && count < 3);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
 		}
 	}
 
@@ -2084,8 +2093,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 							List<RemoteWebElement> list = driver.findElements(By.xpath(ErrorissueXpath));
 							if (list.size() > 0) {
 								if(getTexOfElement(DBSappObject.ErrorMessgeElement()).contains("You may be facing some delays")) {
-									TakeScreenshot(DBSappObject.Alert_OKButton());
-									clickOnElement(DBSappObject.Alert_OKButton());
+									ClickOnOKButton_Alert();
 									ClickOnDeletePayeeToIcon(i);
 									TakeScreenshot(DBSappObject.payee_details_title_name()); 
 									Asserts.assertEquals(getTexOfElement(DBSappObject.payee_details_title_name()),
@@ -2216,105 +2224,49 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 
-	@Step("verify balance on peek balance popup in prelogin page should be same as current account balance in dashboard with current date and time.")
+	@Step("Verify Peek Balance.")
 	public void VerifyPeekBalance() throws Exception {
 		try {
-			ClickOnMoreButton();
-			EnterPasscodeAndDone();
 			Asserts.assertTrue(isElementVisible(DBSappObject.DepositsAccountType()),
 					"Deposits Account Type is not displayed on home page after login.");
-			clickOnElement(DBSappObject.DepositsAccountName().get(0));
-			EnterPasscodeAndDone();
+			if(DBSappObject.DepositsAccountName().size() > 0) {
+				String DepositeAccountNameOnDashboard = getAndClickOnDepositeAccountNameFromDashboard();
+				EnterPasscodeAndDone();
+				String ExpectedAvailableBalanceValue = getAvailableBalance(CommonTestData.AVAILABLE_BALANCE_TITLE.getEnumValue());
+				String ExpectedTotalBalanceValue =  getTotalBalance(CommonTestData.TOTAL_BALANCE_TITLE.getEnumValue());
+				String ExpectedUserAccountName = GetUserAccountName(DepositeAccountNameOnDashboard);
+				String ExpectedUserAccountNumber = GetUserAccountNumber();
+				ClickOnToolBarBackIcon();
 
-			for (int i = 0; i < DBSappObject.AccountTitleList().size(); i++) {
-				String j = DBSappObject.AccountTitleList().get(i).getText();
-				System.out.println(i + ":   " + j);
+				ClickOnMoreButton();
+				EnterPasscodeAndDone();
+				SelectPeekBalanceModule();
+				EnablePeekBalanceToggle();
+				SelectAccountToEnablePeekBalance(ExpectedUserAccountName);
+				
+				String SelectedAccountNameWithAccountNumber = ExpectedUserAccountName + " " + ExpectedUserAccountNumber;
+				verifySelectedAccountForPeekBalance(CommonTestData.ACCOUNT_FOR_PEEK_BALANCE.getEnumValue(), SelectedAccountNameWithAccountNumber);
+				
+				ClickOnSaveButton();
+				ClickOnOkButtonInPersonalizeYourDevicePopup();
+				AcceptDigiBankAlert(CommonTestData.PEEK_BALANCE_DIGIALERT_MSG.getEnumValue());
+				
+				ClickOnBackButtonImageView();
+				clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
+				ClickOnCloseBtnToClosingTapToStarPage();
+				VerifyPeekBalanceEnabilityOnLogInPage(CommonTestData.PEEK_BALANCE_SUBTITLE.getEnumValue());
 
-				String x = DBSappObject.AccountValueList().get(i).getText();
-				System.out.println(i + ":   " + x);
+				// TODO: Code Add for tap and hold on above element and get total amount balance
+				TapAndHoldPeekBalance();
+				
+				// DeRegister/Disable Process to removing peek balance from login page for next run.
+				ClickOnLoginButtonAfterEnablePeekBalance();
+				ClickOnNOTYouLink();
+				ClickOnDeregisterButtonInDigiAlertPopup(CommonTestData.PEEK_BALANCE_DEREGISTER_MESSAGE.getEnumValue());
 			}
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountTitleList().get(1)),
-					CommonTestData.TOTAL_BALANCE_TITLE.getEnumValue(),
-					CommonTestData.TOTAL_BALANCE_TITLE.getEnumValue() + " Text is not matching.");
-
-			String ExpectedTotalBalanceValue = DBSappObject.AccountValueList().get(1).getText();
-			System.out.println("ExpectedTotalBalanceValue:   " + ExpectedTotalBalanceValue);
-
-			String ExpectedUserAccountName = DBSappObject.UserAccountName().getText();
-			System.out.println("ExpectedUserAccountName:   " + ExpectedUserAccountName);
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.UserAccountName()),
-					CommonTestData.USER_ACCOUNT_NAME.getEnumValue(),
-					CommonTestData.USER_ACCOUNT_NAME.getEnumValue() + " Text is not matching.");
-
-			String ExpectedUserAccountNumber = DBSappObject.UserAccountNumber().getText();
-			System.out.println("ExpectedUserAccountNumber:   " + ExpectedUserAccountNumber);
-
-			clickOnElement(DBSappObject.ToolbarBackIcon());
-
-			ClickOnMoreButton();
-			EnterPasscodeAndDone();
-            clickOnElement(DBSappObject.ContactSearchfield());
-			clickOnElement(DBSappObject.EditTextSearchBox());
-			enterTextInTextbox(DBSappObject.EditTextSearchBox(), CommonTestData.PEEK_BALANCE.getEnumValue());
-			TakeScreenshot(DBSappObject.SelectPeekBalance());
-			clickOnElement(DBSappObject.SelectPeekBalance());
-
-			for (int i = 0; i < DBSappObject.AccountTitleList().size(); i++) {
-				String j = DBSappObject.AccountTitleList().get(i).getText();
-				System.out.println(i + "App Settings:   " + j);
-			}
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountTitleList().get(1)),
-					CommonTestData.APP_SETTINGS.getEnumValue(),
-					CommonTestData.APP_SETTINGS.getEnumValue() + " Text is not matching.");
-
-			clickOnElement(DBSappObject.PeekBalanceToggle());
-			clickOnElement(DBSappObject.AccountForPeekBalanceDropdown());
-
-			String xpath = "//android.widget.TextView[@text='" + ExpectedUserAccountName + "']";
-			MobileElement selectAccount = (MobileElement) driver.findElement(By.xpath(xpath));
-			clickOnElement(selectAccount);
-
-			String SelectedAccountNameWithAccountNumber = ExpectedUserAccountName + " " + ExpectedUserAccountNumber;
-			System.out.println("SelectedAccountNameWithAccountNumber+: " + SelectedAccountNameWithAccountNumber);
-			Asserts.assertEquals(getTexOfElement(DBSappObject.SelectedAccountForPeekBalance()),
-					SelectedAccountNameWithAccountNumber,
-					SelectedAccountNameWithAccountNumber + " Text is not matching.");
-			clickOnElement(DBSappObject.SaveBtn());
-			if (isElementVisible(DBSappObject.PersonalizeYourDevicePopup())) {
-				TakeScreenshot(DBSappObject.PersonalizeYourDevicePopup());
-				clickOnElement(DBSappObject.OKBtn_PersonalizeYourDevicePopup());
-			}
-
-			String ErrorMsg = getTexOfElement(DBSappObject.ErrorMessgeElement());
-
-			if (CommonTestData.PEEK_BALANCE_DIGIALERT_MSG.getEnumValue().equals(ErrorMsg)) {
-				TakeScreenshot(DBSappObject.Alert_OKButton());
-				clickOnElement(DBSappObject.Alert_OKButton());
-			}
-			
-			ClickOnBackButtonImageView();
-			clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
-			clickOnElement(DBSappObject.CloseBtnToClosingTapToStarPage());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PeekBalanceSubtitle()),
-					CommonTestData.PEEK_BALANCE_SUBTITLE.getEnumValue(),
-					CommonTestData.PEEK_BALANCE_SUBTITLE.getEnumValue() + " Text is not matching.");
-
-			// TODO: Code Add for tap and hold on above element and get total amount balance
-
-			// DeRegister Process to removing peek balance from login page for next run.
-			clickOnElement(DBSappObject.LogInButton());
-			TakeScreenshot(DBSappObject.NotYouLink());
-			clickOnElement(DBSappObject.NotYouLink());
-			String PeekBalance_DeregisterAlertMsg = getTexOfElement(DBSappObject.ErrorMessgeElement());
-
-			if (CommonTestData.PEEK_BALANCE_DEREGISTER_MESSAGE.getEnumValue().equals(PeekBalance_DeregisterAlertMsg)) {
-				TakeScreenshot(DBSappObject.PeekbalanceDeregisterButton());
-				clickOnElement(DBSappObject.PeekbalanceDeregisterButton());
-			}
-
+				else 	
+					Asserts.assertFail("Deposite Account Name not showing on the Dashboard Page.");
+				
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Peek balance ",e);			
 		}
@@ -2322,10 +2274,282 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Peek balance  ",e);
 		}
 	}
+	
+	@Step("Get And Click On Deposite Account Name From Dashboard.")
+	public String getAndClickOnDepositeAccountNameFromDashboard() throws Exception{ 
+		try {
+			String DepositeAccountNameOnDashboard = DBSappObject.DepositsAccountName().get(0).getText();
+			clickOnElement(DBSappObject.DepositsAccountName().get(0));
+			return DepositeAccountNameOnDashboard;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to get And Click On Deposite Account Name From Dashboard ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to get And Click On Deposite Account Name From Dashboard ",e);
+		}
+		return null; 
+	}
+	
+	@Step("Click On Toolbar Back Icon.")
+	public void ClickOnToolBarBackIcon() throws Exception {
+		try {
+			clickOnElement(DBSappObject.ToolbarBackIcon());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Toolbar Back Icon ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Toolbar Back Icon ", e);
+		}
+	}
+	
+	@Step("Get User Account Number")
+	public String GetUserAccountNumber() throws Exception{
+		try {
+			String ExpectedUserAccountNumber = DBSappObject.UserAccountNumber().getText();
+			return ExpectedUserAccountNumber;
+		} catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to get User Account Number ",e);
+		}
+		return null; 
+	}
+	
+	@Step("Get User Account name")
+	public String GetUserAccountName(String DepositeAccountNameOnDashboard) throws Exception{
+		try {
+			String ExpectedUserAccountName = DBSappObject.UserAccountName().getText();
+			Asserts.assertEquals(getTexOfElement(DBSappObject.UserAccountName()),
+					DepositeAccountNameOnDashboard, DepositeAccountNameOnDashboard + " Text is not matching.");
+			return ExpectedUserAccountName;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to get User Account Name ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to get User Account Name ",e);
+		}
+		return null; 
+	}
+	
+	@Step("Get Total Balance")
+	public String getTotalBalance(String TotalBalanceTitle) throws Exception{
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountTitleList().get(1)),
+					TotalBalanceTitle, TotalBalanceTitle + " Text is not matching.");
 
+			String ExpectedTotalBalanceValue = DBSappObject.AccountValueList().get(1).getText();
+			return ExpectedTotalBalanceValue;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to get Total Balance ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to get Total Balance  ",e);
+		}
+		return null; 
+	}
+	
+	@Step("Get Available Balance")
+	public String getAvailableBalance(String AvailableBalanceTitle) throws Exception{
+		try {
+			TakeScreenshot(DBSappObject.UserAccountName());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountTitleList().get(0)),
+					AvailableBalanceTitle,
+					AvailableBalanceTitle + " Text is not matching.");
+			String ExpectedAvailableBalanceValue = DBSappObject.AccountValueList().get(0).getText();
+			return ExpectedAvailableBalanceValue;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to get Available Balance ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to get Available Balance  ",e);
+		}
+		return null; 
+	}
+	
+	@Step("Select Peek Balance Module After Search.")
+	public void SelectPeekBalanceModule() throws Exception{
+		try {
+			TakeScreenshot(DBSappObject.ContactSearchfield());
+			clickOnElement(DBSappObject.ContactSearchfield());
+			TakeScreenshot(DBSappObject.EditTextSearchBox());
+			clickOnElement(DBSappObject.EditTextSearchBox());
+			enterTextInTextbox(DBSappObject.EditTextSearchBox(), CommonTestData.PEEK_BALANCE.getEnumValue());
+			TakeScreenshot(DBSappObject.SelectPeekBalance());
+			clickOnElement(DBSappObject.SelectPeekBalance());
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Peek balance Module. ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Peek balance Module.  ",e);
+		}
+	}
+	
+	@Step("Enable Peek balance Toggle.")
+	public void EnablePeekBalanceToggle() throws Exception{
+		try {
+			TakeScreenshot(DBSappObject.PeekBalanceToggle());
+			clickOnElement(DBSappObject.PeekBalanceToggle());
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enable Peek balance Toggle. ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enable Peek balance Toggle.  ",e);
+		}
+	}
+	
+	@Step("Select Account To Enable Peek Balance.")
+	public void SelectAccountToEnablePeekBalance(String ExpectedUserAccountName) throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.AccountForPeekBalanceDropdown());
+			clickOnElement(DBSappObject.AccountForPeekBalanceDropdown());
+			String xpath = "//android.widget.TextView[@text='" + ExpectedUserAccountName + "']";
+			MobileElement selectAccount = (MobileElement) driver.findElement(By.xpath(xpath));
+			TakeScreenshot(selectAccount);
+			clickOnElement(selectAccount); 
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Account To Enable Peek Balance ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Account To Enable Peek Balance  ", e);
+		}
+	}
+	
+	
+	@Step("verify Selected Account For Peek Balance")
+	public void verifySelectedAccountForPeekBalance(String AccountTitle, String SelectedAccountNameWithAccountNumber) throws Exception{
+		try {
+			TakeScreenshot(DBSappObject.SelectedAccountForPeekBalance().get(0));
+			Asserts.assertEquals(getTexOfElement(DBSappObject.SelectedAccountForPeekBalance().get(0)),
+					AccountTitle, AccountTitle + " Text is not matching.");
+			Asserts.assertEquals(getTexOfElement(DBSappObject.SelectedAccountForPeekBalance().get(1)),
+					SelectedAccountNameWithAccountNumber, SelectedAccountNameWithAccountNumber + " Text is not matching."); 
+		}  catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify Selected Account For Peek Balance ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify Selected Account For Peek Balance ", e);
+		}
+	}
+	
+	@Step("Click On Save Button.")
+	public void ClickOnSaveButton() throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.SaveBtn());
+			clickOnElement(DBSappObject.SaveBtn());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Save Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Save Button  ", e);
+		}
+	}
+	
+	@Step("Click On Ok Button After Displaying Personalize Your Device Popup.")
+	public void ClickOnOkButtonInPersonalizeYourDevicePopup() throws Exception {
+		try {
+			if (isElementVisible(DBSappObject.PersonalizeYourDevicePopup())) {
+				TakeScreenshot(DBSappObject.PersonalizeYourDevicePopup());
+				clickOnElement(DBSappObject.OKBtn_PersonalizeYourDevicePopup());
+			}
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Ok Button After Displaying PersonalizeYourDevicePopup ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Ok Button After Displaying PersonalizeYourDevicePopup ",e);
+		}
+	}
+	
+	@Step("Accept Digi Bank Alert.")
+	public void AcceptDigiBankAlert(String alertText) throws Exception{
+		try {
+			String ErrorMsg = getTexOfElement(DBSappObject.ErrorMessgeElement());
+			if (ErrorMsg.contains(alertText)) 
+				ClickOnOKButton_Alert();
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Accept Digi Bank Alert ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Accept Digi Bank Alert  ",e);
+		}
+	}
+	
+	@Step("Verify Visibility of Peek Balance on Login Page.")
+	public void VerifyPeekBalanceEnabilityOnLogInPage(String PeekBalanceSubtitle) throws Exception {
+		try {
+			Thread.sleep(10000); 
+			TakeScreenshot(DBSappObject.PeekBalanceSubtitle()); 
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PeekBalanceSubtitle()),
+					PeekBalanceSubtitle, PeekBalanceSubtitle + " Text is not matching.");
+		}  catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify visibility of Peek Balance On Login page. ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify visibility of Peek Balance On Login page. ",e);
+		}
+	}
+	
+	
+	@Step("Tap And Hold to Peek Balance On the Login Page.")
+	public void TapAndHoldPeekBalance() throws Exception  {
+		try {
+			gestUtils.longPressOnAndroidElement(DBSappObject.PeekBalanceSubtitle());
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Tap And Hold On Peek Balance. ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Tap And Hold On Peek Balance. ",e);
+		}
+	}
+	
+	@Step("Click On Deregister Button.")
+	public void ClickOnDeregisterButtonInDigiAlertPopup(String peekBalanceDeregisterMsg) throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.ErrorMessgeElement());
+			String PeekBalance_DeregisterAlertMsg = getTexOfElement(DBSappObject.ErrorMessgeElement());
+			System.out.println("PeekBalance_DeregisterAlertMsg:: " + PeekBalance_DeregisterAlertMsg);
+			if (peekBalanceDeregisterMsg.contains(PeekBalance_DeregisterAlertMsg)) {
+				TakeScreenshot(DBSappObject.PeekbalanceDeregisterButton());
+				clickOnElement(DBSappObject.PeekbalanceDeregisterButton());
+				Thread.sleep(1000);
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deregister Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deregister Button  ", e);
+		}
+	}
 
+	@Step("Click On Close Button To Closing Tap To Star Page after logout.")
+	public void ClickOnCloseBtnToClosingTapToStarPage() throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.CloseBtnToClosingTapToStarPage());
+			clickOnElement(DBSappObject.CloseBtnToClosingTapToStarPage());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Close Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Close Button  ", e);
+		}
+	}
+	
+	@Step("Click On LogIn Button.")
+	public void ClickOnLoginButtonAfterEnablePeekBalance() throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.LogInButton());
+			clickOnElement(DBSappObject.LogInButton());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On LogIn Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On LogIn Button  ", e);
+		}
+	}
+	
+	@Step("Click On Not You Link Button.")
+	public void ClickOnNOTYouLink() throws Exception {
+		try {
+			TakeScreenshot(DBSappObject.NotYouLink());
+			clickOnElement(DBSappObject.NotYouLink());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button  ", e);
+		}
+	}
 
-	@Step("Click On More Button and then 2FA Authentication Done.")
+	@Step("Click On More Button.")
 	public void ClickOnMoreButton() throws Exception {
 		try {
 			TakeScreenshot(DBSappObject.MoreBtn());
@@ -2828,15 +3052,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					}
 				}
 			}
-//				String xpath1 = "//android.widget.TextView[contains(@resource-id,'id/tv_primary_account_bottom_sheet_title')]";
-//				List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
-//				if (list1.size() > 0) {
-//					androidAlert.AlertHandlingWithButtonMessage(DBSappObject.OKButton(),
-//							CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(),
-//							DBSappObject.primarysourceAlertTitle());
-//					verifyPageHeader(CommonTestData.TRANSFER_DBS_POSB.getEnumValue(), DBSappObject.PageHeader());
-//				}
-			
+
 			String xpath1 = "//android.widget.TextView[contains(@resource-id,'id/tv_primary_account_bottom_sheet_title')]";
 			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
 			if (list1.size() > 0) {
@@ -3431,26 +3647,25 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			VerifyButtonLabelAndClick(DBSappObject.transactionHistoryLabelAndButton(),
 					CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			EnterPasscodeAndDone();
-			if (appName.contains("DBS")) {
+			//if (appName.contains("DBS")) {
 				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
 						DBSappObject.TransactionHistoryHeaderForDBS());
 				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForDBS());
-			} else if (appName.contains("POSB")) {
-				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
-						DBSappObject.TransactionHistoryHeaderForPOSB());
-				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForPOSB());
-			} else if (appName.contains("iWEALTH")) {
-				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
-						DBSappObject.TransactionHistoryHeaderForiWEALTH());
-				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForiWEALTH());
-			}
+//			} else if (appName.contains("POSB")) {
+//				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
+//						DBSappObject.TransactionHistoryHeaderForPOSB());
+//				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForPOSB());
+//			} else if (appName.contains("iWEALTH")) {
+//				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
+//						DBSappObject.TransactionHistoryHeaderForiWEALTH());
+//				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForiWEALTH());
+//			}
 		} catch (HandleException e) {	
 				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click transaction history and verify page header  ",e);
 			}
 			catch (Exception e) {		
 				obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click transaction history and verify page header  ",e);
 			}
-
 	}
 
 	@Step("Select option From All Tab section")
@@ -3489,30 +3704,30 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void SelectTimeAndAccountTypeForStatement(String appName, String AccountName) throws Exception {
 		try {
 			clickOnElement(DBSappObject.threeMonthLabel());
-			if (appName.contains("DBS"))
+			//if (appName.contains("DBS"))
 				clickOnElement(DBSappObject.DepositAccountButtonDBS());
 
-			else if (appName.contains("POSB"))
-				clickOnElement(DBSappObject.DepositAccountButtonPOSB());
-
-			else if (appName.contains("iWEALTH"))
-				clickOnElement(DBSappObject.DepositAccountButtoniWEALTH());
+//			else if (appName.contains("POSB"))
+//				clickOnElement(DBSappObject.DepositAccountButtonPOSB());
+//
+//			else if (appName.contains("iWEALTH"))
+//				clickOnElement(DBSappObject.DepositAccountButtoniWEALTH());
 
 			selectAccountTypeInTransactionHistory(AccountName, appName);
 
-			if (appName.contains("DBS")) {
+			//if (appName.contains("DBS")) {
 				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
 						DBSappObject.TransactionHistoryHeaderForDBS());
 				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForDBS());
-			} else if (appName.contains("POSB")) {
-				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
-						DBSappObject.TransactionHistoryHeaderForPOSB());
-				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForPOSB());
-			} else if (appName.contains("iWEALTH")) {
-				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
-						DBSappObject.TransactionHistoryHeaderForiWEALTH());
-				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForiWEALTH());
-			}
+//			} else if (appName.contains("POSB")) {
+//				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
+//						DBSappObject.TransactionHistoryHeaderForPOSB());
+//				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForPOSB());
+//			} else if (appName.contains("iWEALTH")) {
+//				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
+//						DBSappObject.TransactionHistoryHeaderForiWEALTH());
+//				TakeScreenshot(DBSappObject.TransactionHistoryHeaderForiWEALTH());
+//			}
 		}catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select '3 Months Transaction History' And 'From Account' from 'Deposit Account' section ",e);
 		}
@@ -3520,25 +3735,26 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",  " Failed to select '3 Months Transaction History' And 'From Account' from 'Deposit Account' section ",e);
 		}
 	}
-
+	
 	@Step("Click on 'Account type' From List under Local fund Limit page'")
 	public void selectAccountTypeInTransactionHistory(String AccountToBeSelected, String appName) throws Exception {
 		try {
-			List<MobileElement> Elementlist = null;
-			if (appName.contains("DBS")) {
-				wait.waitForElementVisibility(DBSappObject.AccountNameListInTransactionHistoryForDBS().get(1));
+			List<MobileElement> Elementlist = new ArrayList<MobileElement>();
+			//if (appName.contains("DBS")) {
+			if(DBSappObject.AccountNameListInTransactionHistoryForDBS().size() > 0) {
+				//wait.waitForElementVisibility(DBSappObject.AccountNameListInTransactionHistoryForDBS().get(0));
 				Elementlist = DBSappObject.AccountNameListInTransactionHistoryForDBS();
-			} else if (appName.contains("POSB")) {
-				wait.waitForElementVisibility(DBSappObject.AccountNameListInTransactionHistoryForPOSB().get(1));
-				Elementlist = DBSappObject.AccountNameListInTransactionHistoryForPOSB();
-			} else if (appName.contains("iWEALTH")) {
-				wait.waitForElementVisibility(DBSappObject.AccountNameListInTransactionHistoryForiWEALTH().get(1));
-				Elementlist = DBSappObject.AccountNameListInTransactionHistoryForiWEALTH();
-			}
+//			} else if (appName.contains("POSB")) {
+//				wait.waitForElementVisibility(DBSappObject.AccountNameListInTransactionHistoryForPOSB().get(1));
+//				Elementlist = DBSappObject.AccountNameListInTransactionHistoryForPOSB();
+//			} else if (appName.contains("iWEALTH")) {
+//				wait.waitForElementVisibility(DBSappObject.AccountNameListInTransactionHistoryForiWEALTH().get(1));
+//				Elementlist = DBSappObject.AccountNameListInTransactionHistoryForiWEALTH();
+//			}
 			int l = Elementlist.size();
 			int index = 0;
 			String accountFromList = null;
-			for (int i = 1; i <= l; i++) {
+			for (int i = 0; i < l; i++) {
 				accountFromList = Elementlist.get(i).getText();
 				if (accountFromList.contains(AccountToBeSelected)) {
 					index++;
@@ -3548,7 +3764,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 
 			Asserts.assertTrue(index > 0, "No " + AccountToBeSelected + " found in the list of corresponding value");
-
+			}
+				
+			else {
+				Asserts.assertFail("No Account Type found as the list size is zero");
+			}
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select Account type under local fund limit page  ",e);
 		}
@@ -3556,20 +3776,20 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", "Failed to select Account type under local fund limit page  ",e);
 		}
 	}
-
+	
 	@Step("Back to Home page from Transaction History statement")
 	public void BackToHomeFromTransactionHistory(String appName) throws Exception {
 		try {
 			ClickOnBackButton();
-			if (appName.contains("DBS"))
+			//if (appName.contains("DBS"))
 				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
 						DBSappObject.TransactionHistoryHeaderForDBS());
-			else if (appName.contains("POSB"))
-				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
-						DBSappObject.TransactionHistoryHeaderForPOSB());
-			else if (appName.contains("POSB"))
-				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
-						DBSappObject.TransactionHistoryHeaderForiWEALTH());
+//			else if (appName.contains("POSB"))
+//				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
+//						DBSappObject.TransactionHistoryHeaderForPOSB());
+//			else if (appName.contains("POSB"))
+//				verifyPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(),
+//						DBSappObject.TransactionHistoryHeaderForiWEALTH());
 			
 			//Leaving On Home Page for next run.
 			ClickOnBackButton();
@@ -3707,8 +3927,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String CalendardateXpath = "//android.view.View[@text='20']";
 			MobileElement Calendardate = (MobileElement) driver.findElement(By.xpath(CalendardateXpath));
 			clickOnElement(Calendardate);
-			TakeScreenshot(DBSappObject.Alert_OKButton());
-			clickOnElement(DBSappObject.Alert_OKButton());
+			ClickOnOKButton_Alert();
 			String ActualSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
 			TakeScreenshot(DBSappObject.TransferDateTextElement());
 			Asserts.assertEquals(ActualSelectedDate.split(" ")[0], "20", "Selected Date is not Matching");
@@ -3800,20 +4019,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				Asserts.assertFail("No receipient found in the Local recipient list");
 			}
 			
-			
-			String ErrorMsg = getTexOfElement(DBSappObject.ErrorMessgeElement());
-
-			if (CommonTestData.ERROR_MSG.getEnumValue().equals(ErrorMsg)) {
-				TakeScreenshot(DBSappObject.OKButton());
-				clickOnElement(DBSappObject.OKButton());
-			}
 
 			String xpath1 = "//android.widget.TextView[@text='Primary source of fund']";
 			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
 			if (list1.size() > 0) {
 				TakeScreenshot(DBSappObject.PrimarySourceOfFund());
 				if (isElementVisible(DBSappObject.PrimarySourceOfFund()))
-					clickOnElement(DBSappObject.OKButton());
+					clickOnElement(DBSappObject.Alert_OKButton());
 			}
 		}catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select account from local recipient and verify header  ",e);
@@ -3837,7 +4049,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			VerifyPersonalDetailsPage(appName);
 			ClickOnCheckboxes();
 			ClickOnNextButton();
-			ClickOnConfirmButton();
+			ClickOnConfirmButton(appName);
 			
 			//Verify Final Result after go through on Personal Details Page.
 			ClickOnBackToMoreServicesBtn();
@@ -3900,27 +4112,34 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Click On Confirm Button and Verify 'Successfully Updated' Message, 'Back Button', 'logout Button', 'Update More Details' button & 'Back to More Services' Button.")
-	public void ClickOnConfirmButton() throws Exception {
+	public void ClickOnConfirmButton(String appName) throws Exception {
 		try {
-			gestUtils.scrollUPtoObject("text", "CONFIRM", DBSappObject.ConfirmBtn());
+			gestUtils.scrollUPtoObject(null, null, null);
 			TakeScreenshot(DBSappObject.ConfirmBtn());
 			clickOnElement(DBSappObject.ConfirmBtn());
 			EnterPasscodeAndDone();
 			if (isElementVisible(DBSappObject.CompletionStatusImage())) {
 				TakeScreenshot(DBSappObject.SuccessfullyUpdatedMessageEle());
-				Asserts.assertEquals(getTexOfElement(DBSappObject.SuccessfullyUpdatedMessageEle()),
-						CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue(),
-						CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue() + " Text is not matching");
-
-				Asserts.assertTrue(isElementVisible(DBSappObject.LogoutBtn()), "Log Out is not displayed.");
-				Asserts.assertTrue(isElementVisible(DBSappObject.BackBtnImageView()),
-						"Back Btn Image View is not displayed.");
-				gestUtils.scrollUPtoObject("text", "UPDATE MORE DETAILS", DBSappObject.UpdateMoreDetailsBtn());
-				TakeScreenshot(DBSappObject.UpdateMoreDetailsBtn());
+				if(appName.equalsIgnoreCase("DBS")) {
+					Asserts.assertEquals(getTexOfElement(DBSappObject.SuccessfullyUpdatedMessageEle()),
+							CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue(),
+							CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue() + " Text is not matching");
+					gestUtils.scrollUPtoObject(null, null, null);
+					TakeScreenshot(DBSappObject.UpdateMoreDetailsBtn());
+					Asserts.assertTrue(isElementVisible(DBSappObject.UpdateMoreDetailsBtn()),
+							"Update More Details Btn is not displayed.");
+				}
+				else if(appName.equalsIgnoreCase("iWEALTH")) {
+					Asserts.assertEquals(getTexOfElement(DBSappObject.SuccessfullyUpdatedMessageEle()),
+							CommonTestData.REQUESTS_SUBMITTED_MESSAGE.getEnumValue(),
+							CommonTestData.REQUESTS_SUBMITTED_MESSAGE.getEnumValue() + " Text is not matching");
+					gestUtils.scrollUPtoObject(null, null, null);
+					TakeScreenshot(DBSappObject.UpdateMailingAddressBtn());
+					Asserts.assertTrue(isElementVisible(DBSappObject.UpdateMailingAddressBtn()),
+							"Update Mailing Address Btn is not displayed.");
+				}
 				Asserts.assertTrue(isElementVisible(DBSappObject.BACKTOMoreServicesBtn()),
 						"BACK TO More Services Btn is not displayed.");
-				Asserts.assertTrue(isElementVisible(DBSappObject.UpdateMoreDetailsBtn()),
-						"Update More Details Btn is not displayed.");
 			}
 
 		} catch (HandleException e) {	
@@ -4540,6 +4759,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Back Button")
 	public void ClickOnBackButtonImageView() throws Exception{
 		try {
+			TakeScreenshot(DBSappObject.BackBtnImageView());
 			clickOnElement(DBSappObject.BackBtnImageView());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on Back Button. ",e);		

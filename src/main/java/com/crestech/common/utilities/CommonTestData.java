@@ -41,7 +41,6 @@ public enum CommonTestData {
 	CITY("Canbera"),
 	
 	//FundTransfer NonFast/Fast
-	ERROR_MSG("We are unable to process your request. Please contact our Customer Service Hotline at 1800-111 1111 or +65-6327 2265(if you are calling from abroad)."),
 	FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK("INDIAN OVERSEAS BANK 582177606001"),
 	FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME("DBS SAVINGS PLUS"),
 	FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME("Sakshi"),
@@ -99,15 +98,18 @@ public enum CommonTestData {
 	TERMS_AND_CONDITIOINS_MESSAGE("I have read and agree to these important terms."),
 	REVIEW_REQUEST_PAGE_HEADER("Review Request"),
 	SUCCESSFULLY_UPDATED_MESSAGE("Successfully updated"),
+	REQUESTS_SUBMITTED_MESSAGE("Requests submitted"),
 	
 	//PeekBalance
 	TOTAL_BALANCE_TITLE("Total Balance"),
+	AVAILABLE_BALANCE_TITLE("Available Balance"),
 	USER_ACCOUNT_NAME("DBS SAVINGS PLUS"),
 	PEEK_BALANCE("Peek Balance"),
 	APP_SETTINGS("App Settings"),
-	PEEK_BALANCE_DIGIALERT_MSG("You have successfully personalised your digibank profile. If unauthorised, call +65 63272265. 12/02 11:36."),
+	ACCOUNT_FOR_PEEK_BALANCE("Account for Peek Balance"),
+	PEEK_BALANCE_DIGIALERT_MSG("You have successfully personalised your digibank profile"),
 	PEEK_BALANCE_SUBTITLE("PEEK BALANCE"),
-	PEEK_BALANCE_DEREGISTER_MESSAGE("You will no longer enjoy benefits like peek balance and log in with finger print or face. Do you want to continue?"),
+	PEEK_BALANCE_DEREGISTER_MESSAGE("You will no longer enjoy benefits"),
 	
 	//Page Headers in Application
 	RECIPIENT_DETAILS_PAGEHEADER("Recipient's Details"),

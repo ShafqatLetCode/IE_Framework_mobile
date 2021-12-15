@@ -2317,11 +2317,11 @@ public class DBSAndroidObject {
 	private List<MobileElement> DepositsAccountName;
 
 	@ElementDescription(value = "Deposits Account Type")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_value')]")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/value')]")
 	private List<MobileElement> AccountValueList;
-
+	
 	@ElementDescription(value = "Deposits Account Name")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_title')]")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/title')]")
 	private List<MobileElement> AccountTitleList;
 	
 	@ElementDescription(value = "User Account Name")
@@ -2350,7 +2350,7 @@ public class DBSAndroidObject {
 	
 	@ElementDescription(value = "Selected Account For Peek Balance.")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/dropdown_pb_acc')]")
-	private MobileElement SelectedAccountForPeekBalance;
+	private List<MobileElement> SelectedAccountForPeekBalance;
 	
 	@ElementDescription(value = "Save Button to Save Peek Balance on login page.")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Save']")
@@ -2416,7 +2416,7 @@ public class DBSAndroidObject {
 		return SaveBtn;
 	}
 	
-	public MobileElement SelectedAccountForPeekBalance() {
+	public List<MobileElement> SelectedAccountForPeekBalance() {
 		return SelectedAccountForPeekBalance;
 	}
 	
@@ -2476,4 +2476,13 @@ public class DBSAndroidObject {
 	public MobileElement CreditCard_PageHeader() {
 		return CreditCard_PageHeader;
 	}
+
+	@ElementDescription(value = "UPDATE MORE DETAILS Button.")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='UPDATE MAILING ADDRESS']")
+	private MobileElement UpdateMailingAddressBtn;
+
+	public MobileElement UpdateMailingAddressBtn() {
+		return UpdateMailingAddressBtn;
+	}
+
 }
