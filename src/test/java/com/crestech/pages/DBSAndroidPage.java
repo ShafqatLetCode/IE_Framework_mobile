@@ -231,11 +231,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Clicked on Pre-Login button")
 	public void ClickOnPreloginButton() throws Exception {
 		try {
+			int count = 0;
 			TakeScreenshot(DBSappObject.PreLoginBtn());
 			do {
 				clickOnElement(DBSappObject.PreLoginBtn());
 				Thread.sleep(5000);
-			}while(isElementVisible2(DBSappObject.PreLoginBtn()));
+				count++;
+			}while(isElementVisible2(DBSappObject.PreLoginBtn()) && count < 3);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Prelogin Button " ,e);		
 		}
@@ -261,14 +263,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Clicked on Login button")
 	public void clickOnLoginButton() throws Exception {
 		try {
-			//System.out.println(driver.getCapabilities().getCapability("pCloudy_DeviceFullName"));
+			int count =0;
 			TakeScreenshot(DBSappObject.loginButton());
-			clickOnElement(DBSappObject.loginButton());
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button " ,e);		
-		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ",e);
+			do {
+				clickOnElement(DBSappObject.loginButton());
+				Thread.sleep(5000);
+				count++;
+			} while (isElementVisible2(DBSappObject.loginButton()) && count < 3);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
 		}
 	}
 
@@ -2465,8 +2470,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verify Visibility of Peek Balance on Login Page.")
 	public void VerifyPeekBalanceEnabilityOnLogInPage(String PeekBalanceSubtitle) throws Exception {
 		try {
+			Thread.sleep(10000); 
 			TakeScreenshot(DBSappObject.PeekBalanceSubtitle()); 
-			Thread.sleep(2000); 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PeekBalanceSubtitle()),
 					PeekBalanceSubtitle, PeekBalanceSubtitle + " Text is not matching.");
 		}  catch (HandleException e) {	
