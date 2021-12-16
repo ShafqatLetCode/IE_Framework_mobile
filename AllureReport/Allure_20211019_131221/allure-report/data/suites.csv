@@ -1,2 +1,0 @@
-"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"broken","Tue Oct 19 13:12:08 IST 2021","Tue Oct 19 13:12:10 IST 2021","1622","Suite","Test","com.crestech.android.tests.pCloudyAndroidTest","com.crestech.android.tests.pCloudyAndroidTest","SampleAndroidTest","Sample test for Android","TestCases For Pcloudy Sample Project"
