@@ -239,13 +239,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Clicked on Pre-Login button")
 	public void ClickOnPreloginButton() throws Exception {
 		try {
-		//	int count = 0;
+			int count = 0;
 			TakeScreenshot(DBSappObject.PreLoginBtn());
-			//do {
+			do {
 				clickOnElement(DBSappObject.PreLoginBtn());
 				Thread.sleep(5000);
-			//	count++;
-			//}while(isElementVisible2(DBSappObject.PreLoginBtn()) && count < 3);
+				count++;
+			} while (isElementVisible2(DBSappObject.PreLoginBtn()) && count < 3);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Prelogin Button " ,e);		
 		}
