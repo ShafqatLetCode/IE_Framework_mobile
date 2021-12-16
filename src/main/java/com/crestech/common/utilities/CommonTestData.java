@@ -31,7 +31,7 @@ public enum CommonTestData {
 	//CATHOLIC FOUNDATION
 	//34545434
 	
-	//Payee-Add-Remittance
+	//Payee-Add-Remittance **Android**
 	COUNTRY_AUS("Australia"),
 	CURRENCY_AUS("AUD"),
 	BANK_BCD_CODE("610104"),
@@ -39,6 +39,10 @@ public enum CommonTestData {
 	FULL_NAME("AUTOAUS4"),
 	ADDRESS("Cherry Blossom Flower Drive 90 Canbera 123334"),
 	CITY("Canbera"),
+	
+	//Payee-Add-Remittance **IOS**
+	ADDRESS_SHORT("Cherry"),
+	COUNTRY_AUS_SEARCH("AUS"),
 	
 	//FundTransfer NonFast/Fast
 	FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK("INDIAN OVERSEAS BANK 582177606001"),

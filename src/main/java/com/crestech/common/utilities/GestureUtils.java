@@ -679,4 +679,38 @@ public class GestureUtils {
 			throw new Exception(e);
 		}
 	}
+	
+	public void scrollUPtoObjectBelowSpecificElement(String attribute, String value, MobileElement element,MobileElement specificPosition) throws Exception {
+		try {
+			Dimension windowSize = driver.manage().window().getSize();
+			System.out.println("getSessionId :"+driver.getSessionId());
+			
+			int h = windowSize.getHeight();
+			int y1 = (int) (h * 0.2);
+			int y2 = (int) (h - y1);
+			int x = (int) ((windowSize.getWidth()) / 2);
+			String str = attribute + "=" + "\"" + value + "\"";
+
+			String s1 = driver.getPageSource();
+			int count = 0;
+			WaitUtils wait = new WaitUtils(driver);
+			wait.ImplicitlyWait();
+			while ((driver.getPageSource().contains(str) != true) && count == 0) {
+				touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
+						.moveTo(element(specificPosition)).release().perform();
+				String s2 = driver.getPageSource();
+				if (s1.equals(s2) != true) {
+					s1 = s2;
+				} else
+					count = 1;
+			}
+			if(element !=null)
+				Asserts.assertTrue(element.isDisplayed(), "Element not found");
+
+		} catch (HandleException e) {	
+			throw new HandleException ("SCROLL_EXCEPTION", "Failed to scroll to the element ::",e);	
+		}catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to scroll to the element  ",e);
+		}
+	}
 }

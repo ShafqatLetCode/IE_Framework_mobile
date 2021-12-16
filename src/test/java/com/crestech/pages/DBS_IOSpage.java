@@ -2,6 +2,8 @@ package com.crestech.pages;
 
 import java.util.List;
 import java.util.logging.Logger;
+
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
@@ -154,8 +156,16 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void handlingFingurePrintAlert() throws Exception // android.widget.Toast[1]
 	{
 		try {
-			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.fingerpringAlertClosedButton(),
-					CommonTestData.SETUP.getEnumValue(), IOShomePgaeObject.fingerpringAlertMessage());
+//			Thread.sleep(5000);
+//			String xpath = "//XCUIElementTypeStaticText[@name='Let's Set Up']']";
+//			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+//			if (list.size() > 0) {
+			if(isElementVisible(IOShomePgaeObject.fingerpringAlertMessage())) {
+				ButtonVerifyClick(IOShomePgaeObject.fingerpringAlertClosedButton());
+//				androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.fingerpringAlertClosedButton(),
+//						CommonTestData.SETUP.getEnumValue(), IOShomePgaeObject.fingerpringAlertMessage());
+				}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -167,8 +177,16 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void handlingRecordingAlert() throws Exception // android.widget.Toast[1]
 	{
 		try {
-			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.recordingAlertClosedButton(),
-					CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue(), IOShomePgaeObject.recordingAlertMessage());
+//			Thread.sleep(1000);
+//			String xpath = "//XCUIElementTypeButton[@name='introClose']";
+//			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+//			if (list.size() > 0) {
+			if(isElementVisible(IOShomePgaeObject.recordingAlertClosedButton())) {
+				ButtonVerifyClick(IOShomePgaeObject.recordingAlertClosedButton());
+//				androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.recordingAlertClosedButton(),
+//						CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue(), IOShomePgaeObject.recordingAlertMessage());
+				}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -180,8 +198,16 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void handlingMotionAndFitnessAlert() throws Exception // android.widget.Toast[1]
 	{
 		try {
-			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.alertFitnessActivityTitle(),
-					CommonTestData.SETUP.getEnumValue(), IOShomePgaeObject.alertOkButton());
+			
+//			Thread.sleep(1000);
+//			String Xpath = "//XCUIElementTypeStaticText[contains(@name,'Like to Access Your Motion & Fitness Activity')]";
+//			List<RemoteWebElement> list = driver.findElements(By.xpath(Xpath));
+//			if (list.size() > 0) {
+			if(isElementVisible(IOShomePgaeObject.alertFitnessActivityTitle())) {
+				ButtonVerifyClick(IOShomePgaeObject.alertOkButton());
+//			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.alertFitnessActivityTitle(),
+//					CommonTestData.SETUP.getEnumValue(), IOShomePgaeObject.alertOkButton());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -446,9 +472,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("2FA VERIFICATION")
 	public void handling2faVerification(String titleText) throws Exception {
 		try {
+
 			fieldText(titleText, IOShomePgaeObject.title2FA());
 			sendPinIn2faSecureBox(CommonTestData.PIN_2FA.getEnumValue());
 			doneVerifyClick();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -472,19 +500,26 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Login the application with USER ID and PIN")
 	public void logInApplication(String userName, String password) throws Exception {
 		try {
+			clickOnPreLoginButton();
+			//selectUATserver("UAT N1");
 			clickOnLoginButton_0();
 			sendDataInUserId(userName);
 			sendDataInUserPin(password);
+			//String s1 = driver.getPageSource();
+			//System.out.println(s1);
 			clickOnLoginButton_2();
+			//digitalToken();
+			//managementSwipeAlert();
+			//handlingMotionAndFitnessAlert();
+		   // locationSwipPopup();
+			
+		   // swipeUpgadeExperienceAlert();
+			//handlingFingurePrintAlert();
+			//handlingRecordingAlert();
 
-			// handling2faVerification(password); 
-//			 IOShomePgaeObject.handlingMotionAndFitnessAlert();
-//			 swipeUpgadeExperienceAlert();
-//			 handlingFingurePrintAlert();
-//			 handlingRecordingAlert();
-			locationSwipPopup();
-			verifyWelcomeToText();
-			verifyDigibankText();
+           // locationSwipPopup();
+		  //  verifyWelcomeToText();
+        	//verifyDigibankText();
 
 
 		} catch (Exception e) {
@@ -792,8 +827,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					CommonTestData.PAYEEADD_DBSPOSB_BANK_NAME.getEnumValue(),
 					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
 			ClickOnNextButton();
-			fieldText(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue(),
-					IOShomePgaeObject.reviewRecipientDetailTitle());
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ReviewRecipientDetailsPageHeader()),
+					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Page Header not displaying.");
 
 			ClickOnAddRecipientNowBtn();
 			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
@@ -980,25 +1015,31 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void verifyValidationForPayeeAdd(String ExpectedRecipientName, String BankName, String AccountNumber)
 			throws Exception {
 		try {
-			Asserts.assertTrue(IOShomePgaeObject.logoutPaylah().isDisplayed(), "Log Out Button not found.");
-			Asserts.assertTrue(IOShomePgaeObject.closeButton().isDisplayed(), "Close Button not found.");
+			Asserts.assertTrue(IOShomePgaeObject.LogoutBtn().isDisplayed(), "Log Out Button not found.");
 			Asserts.assertTrue(IOShomePgaeObject.makeTransferButton().isDisplayed(),
 					"Make A Transfer Button not found.");
-		
+			Asserts.assertTrue(IOShomePgaeObject.closeButton().isDisplayed(), "Close Button not found.");
+
+			Asserts.assertTrue(IOShomePgaeObject.RecipientNameText().isDisplayed(),
+					"'Recipient's Name' text is not dispalying After adding Payee.");
 			String RecipientNameXpath = "//XCUIElementTypeStaticText[@name='" + ExpectedRecipientName + "']";
 			MobileElement RecipientNameElement = (MobileElement) driver.findElement(By.xpath(RecipientNameXpath));
-			fieldText(ExpectedRecipientName,  RecipientNameElement);
-			
-			
+			Asserts.assertEquals(getTexOfElement(RecipientNameElement), ExpectedRecipientName,
+					ExpectedRecipientName + " is not matching after adding payee");
+
+			Asserts.assertTrue(IOShomePgaeObject.RecipientBankText().isDisplayed(),
+					"'Recipient's Bank' text is not dispalying After adding Payee.");
 			String BankNameXpath = "//XCUIElementTypeStaticText[@name='" + BankName + "']";
 			MobileElement BankNameElement = (MobileElement) driver.findElement(By.xpath(BankNameXpath));
-			fieldText(BankName,  BankNameElement);
+			Asserts.assertEquals(getTexOfElement(BankNameElement), BankName,
+					BankName + " is not matching after adding payee");
 
-
+			Asserts.assertTrue(IOShomePgaeObject.RecipientAccountNo().isDisplayed(),
+					"'Recipient's Account No.' text is not dispalying After adding Payee.");
 			String AccountNumberXpath = "//XCUIElementTypeStaticText[@name='" + AccountNumber + "']";
 			MobileElement AccountNumberElement = (MobileElement) driver.findElement(By.xpath(AccountNumberXpath));
-			fieldText(AccountNumber,  AccountNumberElement);
-
+			Asserts.assertEquals(getTexOfElement(AccountNumberElement), AccountNumber,
+					AccountNumber + " is not matching after adding payee");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1032,7 +1073,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			TakeScreenshot(IOShomePgaeObject.SelectBankAccount());
 			clickOnElement(IOShomePgaeObject.SelectBankAccount());
-            TakeScreenshot(IOShomePgaeObject.EnterRecipientNameEditableField());
+
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.EnterRecipientDetailsPageHeader()),
+					" 'Enter Recipient's Details' Page Header not displaying.");
+
 			enterTextInTextbox(IOShomePgaeObject.EnterRecipientNameEditableField(), ExpectedRecipientName);
 
 			clickOnElement(IOShomePgaeObject.SelectBankDropdown());
@@ -1044,7 +1088,6 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			clickOnElement(Selectbank);
 
 			enterTextInTextbox(IOShomePgaeObject.EnterAccountNumberEditField(), AccountNumber);
-			driver.hideKeyboard();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1069,14 +1112,13 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verify 'You Have Added Recipient Msg' After Entering Secure PIN.")
 	public void VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN() throws Exception {
 		try {
-			EnterPasscode();
+			EnterPasscodeAndDone();
 			Thread.sleep(20000);
-			TakeScreenshot(IOShomePgaeObject.YouHaveAddedRecipient());
-			String actualText = getTexOfElement(IOShomePgaeObject.YouHaveAddedRecipient()).trim().toLowerCase();
-            String  ExpectedText = CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG3.getEnumValue().toLowerCase();
-            
-			Asserts.assertTrue(actualText.contains(ExpectedText), "You Have added a recipient text not matching");
-			
+			TakeScreenshot(IOShomePgaeObject.SuccessImage().get(3));
+			if (isElementVisible(IOShomePgaeObject.SuccessImage().get(3)))
+				Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.YouHaveAddedRecipient()),
+						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
+						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not matching");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1138,7 +1180,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			ClickOnAddOverseaRecipientButton();
 //			sendCountryAUSInSearchBoxAndSelectFromDropDown(CommonTestData.COUNTRY_AUS.getEnumValue(),
 //					CommonTestData.COUNTRY_AUS.getEnumValue());
-			sendCountryInSearchBoxAndSelectFromDropDown(CommonTestData.COUNTRY_AUS.getEnumValue(),
+			sendCountryInSearchBoxAndSelectFromDropDown(CommonTestData.COUNTRY_AUS_SEARCH.getEnumValue(),
 					CommonTestData.COUNTRY_AUS.getEnumValue());
 			CurrencyTypeVerifyClick(CommonTestData.CURRENCY_AUS.getEnumValue());
 			ClickOnNextButton();
@@ -1149,7 +1191,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			verifyRecipientReviewDetailAndClickOnAddRecipientVutton();
 			EnterPasscode();
 			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.addedRecipientTitle()).toLowerCase(),
-					CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue().toLowerCase(),
+					CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue().toLowerCase(),
 					"'You've added a recipient label' Text is not matching");
 			verifyReferenceFieldAndItsValue(CommonTestData.REFERENCE_NUMBER.getEnumValue());
 		} catch (Exception e) {
@@ -1175,7 +1217,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			
 			if (isElementEnable(IOShomePgaeObject.searchBoxforLocation())) {
 				clickOnElement(IOShomePgaeObject.searchBoxforLocation());
-				enterTextInTextbox(IOShomePgaeObject.searchBoxforLocation(), searchBoxData);}
+				//enterTextInTextbox(IOShomePgaeObject.searchBoxforLocation(), searchBoxData);
+				sendTextWithKeypad(searchBoxData);
+				}
 			
 			
 //			 String arr[] = {"a", "A", "u","U","s","S"};	
@@ -1324,8 +1368,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 
 			sendAccountNo(CommonTestData.ACCOUNT_NO.getEnumValue());
 			sendFullName(CommonTestData.FULL_NAME.getEnumValue());
-			gestUtils.scrollUPtoObject("name", "NEXT", null);
-			sendAddress(CommonTestData.ADDRESS.getEnumValue());
+			gestUtils.scrollUPtoObjectIos("name", "NEXT", null);
+			sendAddress(CommonTestData.ADDRESS_SHORT.getEnumValue());
 			sendcity(CommonTestData.CITY.getEnumValue());
 
 		} catch (Exception e) {
@@ -1366,8 +1410,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void sendAddress(String text) throws Exception {
 		try {
 			TakeScreenshot(IOShomePgaeObject.recipientDetailAddress());
-			if (isElementEnable(IOShomePgaeObject.recipientDetailAddress()))
-				enterTextInTextbox(IOShomePgaeObject.recipientDetailAddress(), text);
+			clickOnElementOnEnable(IOShomePgaeObject.recipientDetailAddress());
+			sendTextWithKeypad(text);
+			//if (isElementEnable(IOShomePgaeObject.recipientDetailAddress()))
+			//	enterTextInTextbox(IOShomePgaeObject.recipientDetailAddress(), text);
 			doneButtonIfAviliable();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1379,8 +1425,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void sendcity(String text) throws Exception {
 		try {
 			TakeScreenshot(IOShomePgaeObject.recipientDetailCity());
-			if (isElementEnable(IOShomePgaeObject.recipientDetailCity()))
-				enterTextInTextbox(IOShomePgaeObject.recipientDetailCity(), text);
+			clickOnElementOnEnable(IOShomePgaeObject.recipientDetailCity());
+			sendTextWithKeypad(text);
+			//if (isElementEnable(IOShomePgaeObject.recipientDetailCity()))
+			//	enterTextInTextbox(IOShomePgaeObject.recipientDetailCity(), text);
 			doneButtonIfAviliable();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1393,6 +1441,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			fieldText(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue(),
 					IOShomePgaeObject.reviewRecipientDetailTitle());
+			gestUtils.scrollUPtoObjectIos("name", "ADD RECIPIENT NOW", null);
 			ButtonVerifyClick(IOShomePgaeObject.ADDRecipientNowButton());
 
 		} catch (Exception e) {
@@ -1405,14 +1454,15 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void verifyReferenceFieldAndItsValue(String expectedText) throws Exception {
 		try {
 			clickOnElement(IOShomePgaeObject.expandButton());
-			gestUtils.scrollUPtoObject("name", "Reference No.", IOShomePgaeObject.referenceNumber());
+			gestUtils.scrollUPtoObjectIos("name", "Reference No.", null);
+			//gestUtils.scrollUPtoObject("name", "Reference No.", IOShomePgaeObject.referenceNo());
 			TakeScreenshot(IOShomePgaeObject.makeTransferButton());
 			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.makeTransferButton()).toLowerCase(),
 					CommonTestData.MAKE_TRANSFER.getEnumValue().toLowerCase(), "'MAKE A TRANSFER' Text is not found");
-			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.referenceNumber()).toLowerCase(),
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.referenceNo()).toLowerCase(),
 					expectedText.toLowerCase(), "'Reference no Field' is not found");
-			boolean i = IOShomePgaeObject.referenceNoValue().getText().isEmpty();
-			Asserts.assertTrue(i == false, "Reference Number not Found");
+			//boolean i = IOShomePgaeObject.referenceNoValue().getText().isEmpty();
+			//Asserts.assertTrue(i == false, "Reference Number not Found");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -1733,7 +1783,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			ButtonLabelVerifyClick(IOShomePgaeObject.accountSectionHomePage(), CommonTestData.ACCOUNT_SECTION.getEnumValue());
 			int x=getXCoordinateOfElement(IOShomePgaeObject.welcomeToText());
 			int y=getYCoordinateOfElement(IOShomePgaeObject.welcomeToText());
-			gestUtils.DragAndDropElementToCoordinate(IOShomePgaeObject.accountSectionHomePage(), x, y+130);
+			gestUtils.DragAndDropElementToCoordinate(IOShomePgaeObject.accountSectionHomePage(), x, y+150);
 			Thread.sleep(1000);
 			fieldText(AccountType, IOShomePgaeObject.depositeHomepage());
 			fieldText(AccountName, IOShomePgaeObject.accountNameHomepage());
@@ -1741,7 +1791,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			String[] arrOfStr = fag.split(" ");
 			Asserts.assertEquals(arrOfStr[0],
 					currency, currency + " is not present");
-			int size=arrOfStr.length;
+			//int size=arrOfStr.length;
 			//Asserts.assertTrue(size==2, "Reference Number not Found");
 			
 		} catch (Exception e) {
@@ -1757,6 +1807,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			SelectingPayeeAfterSelectingOverseas(CommonTestData.PAYEE_NAME_CORRIDOR.getEnumValue());
 			selectFundSourceAndSelectAccountForCorredor(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue());
 			pressEnterKeyAfterEnteringAmount(CommonTestData.CORRIDOR_AMOUNT.getEnumValue());
+			Thread.sleep(2000);
 			gestUtils.scrollUPtoObjectIos("label", "NEXT",  null);
 			//gestUtils.scrollUPtoObject("name", "NEXT",  null);
 			selectPurposeAccountTypeMobileNumberIfAvaliable("Savings","Personal Gifts","9999999990");
@@ -1855,6 +1906,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifies Transfer Submitted Message after clicking on Transfer Now Button.")
 	public void ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(String SuccessMsg) throws Exception {
 		try {
+			//scrool
+			gesture.scrollUPtoObjectIos("name", "TRANSFER NOW", null);			
 			ButtonVerifyClick( IOShomePgaeObject.transferNowButton());
 		    fieldText(SuccessMsg, IOShomePgaeObject.transferSubmittedLabel());
 		} catch (Exception e) {
@@ -1866,10 +1919,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			
 			ButtonVerifyClick(IOShomePgaeObject.downwardArrowInTopUpDonePage());
-			gestUtils.scrollUPtoObject("name", "Reference No.", IOShomePgaeObject.referenceNo());
+			gestUtils.scrollUPtoObjectIos("name", "Reference No.", null);
 			fieldText(CommonTestData.REFERENCE_NUMBER.getEnumValue(), IOShomePgaeObject.referenceNo());
-			boolean i= IOShomePgaeObject.referenceNoValueInOversea().getText().isEmpty();
-			Asserts.assertTrue(i==false, "Reference Number not Found");
+//			boolean i= IOShomePgaeObject.referenceNoValueInOversea().getText().isEmpty();
+//			Asserts.assertTrue(i==false, "Reference Number not Found");
 		} catch (Exception e) {
 			e.printStackTrace(); throw e;
 		}
@@ -1877,7 +1930,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifies Overseas transfer Message after clicking on Share Transfer Details Button.")
 	public void ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText() throws Exception {
 		try {
-			gestUtils.scrollUPtoObject("name", "SHARE TRANSFER DETAILS", null);
+			gestUtils.scrollUPtoObjectIos("name", "SHARE TRANSFER DETAILS", null);
 			ButtonVerifyClick(IOShomePgaeObject.shareTransferDetailButton());
 			Thread.sleep(5000);
 			//fieldText("Transfer Details",IOShomePgaeObject.transferDetailLabel());
@@ -2253,7 +2306,6 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			EnterBillingOrganisationDetails(CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
 					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
 			ClickOnNextButton();
-			Thread.sleep(2000);
 			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ReviewRecipientDetailsPageHeader()),
 					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Page Header not displaying.");
 			VerifyBillingOrganisationAndBillReferenceNumber(
@@ -2310,7 +2362,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			TakeScreenshot(IOShomePgaeObject.BillsButton());
 			clickOnElement(IOShomePgaeObject.BillsButton());
 
-			String xpath = "//XCUIElementTypeButton[@name='ADD RECIPIENT NOW']";
+			String xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0) {
 				TakeScreenshot(IOShomePgaeObject.AddRecipientNowButton());
@@ -2319,7 +2371,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				TakeScreenshot(IOShomePgaeObject.AddBillingOrganisation());
 				clickOnElement(IOShomePgaeObject.AddBillingOrganisation());
 			}
-
+			
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.EnterRecipientDetailsPageHeader()),
+					" 'Enter Recipient's Details' Page Header not displaying.");
 		} catch (Exception e) {
 			e.printStackTrace(); 
 			throw e;
@@ -2871,10 +2925,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	{
 		
 		try {
-			Thread.sleep(5000);
-			String Xpath = "//XCUIElementTypeStaticText[@name=' Upgrade your banking experience with us']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(Xpath));
-			if (list.size() > 0) {
+//			Thread.sleep(1000);
+//			String Xpath = "//XCUIElementTypeStaticText[@name='Upgrade your banking experience with us']";
+//			List<RemoteWebElement> list = driver.findElements(By.xpath(Xpath));
+//			if (list.size() > 0) {
+			if(isElementVisible(IOShomePgaeObject.swipeButton())) {
 					Dimension windowSize1 = driver.manage().window().getSize();
 					int y =(int)((windowSize1.getHeight())-10);
 					int x =(int)((windowSize1.getWidth())/2);
@@ -2898,6 +2953,128 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			else
 				ButtonVerifyClick(IOShomePgaeObject.addOverseaRecipientFirst());
 
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	@Step("digital Token Setup")
+	public void digitalToken() throws Exception {
+		try {
+			
+			if(isElementVisible(IOShomePgaeObject.setupTokenMessage())) {
+			//if (list.size() > 0) {
+				ButtonVerifyClick(IOShomePgaeObject.setupNowButton());
+				clickOnDigitalTokenAlert();
+//				String xpath1 = "//XCUIElementTypeStaticText[@name='Please note you can only have one digital token registered to your profile. Any digital token on an alternative device will therefore be automatically deregistered.']";
+//				List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
+//				if (list1.size() > 0) {
+//					ButtonVerifyClick(IOShomePgaeObject.continueButton());
+//				Thread.sleep(2000);
+//				}
+				EnterPasscodeAndDone();
+				EnterPasscodeAndDone();
+				clickOnDoneOnYouHaveSetupDigiToken();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	@Step("send key with keyboard")
+	public void sendTextWithKeypad(String Text) throws Exception {
+		try {
+			Thread.sleep(5000);
+			String text =Text.toLowerCase();
+			int length=text.length();
+			for (int i = 0; i < length; i++) {
+			String L=Character.toString(text.charAt(i));
+			String U=Character.toString(text.toUpperCase().charAt(i));		
+					String lowerxpath = "//XCUIElementTypeKey[@name='" + L + "']";
+					String upperxpath = "//XCUIElementTypeKey[@name='" + U + "']";
+					List<RemoteWebElement> listLower = driver.findElements(By.xpath(lowerxpath));
+					List<RemoteWebElement> listupper = driver.findElements(By.xpath(upperxpath));
+					if (listLower.size() > 0)
+					{
+					clickOnElement((MobileElement)listLower.get(0));
+					Thread.sleep(2000);
+					}
+					else if(listupper.size() > 0)
+					{
+					clickOnElement((MobileElement)listupper.get(0));
+					Thread.sleep(2000);
+					}
+					else
+						Asserts.assertTrue(false,"no elemet is present on keyboard");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	@Step("slect UAT server")
+	public void selectUATserver(String UAT) throws Exception {
+		try {
+			ButtonVerifyClick(IOShomePgaeObject.moreOnLogin());
+			TakeScreenshot(IOShomePgaeObject.serverLabel());
+			IOShomePgaeObject.changeServerButton().click();
+			Thread.sleep(2000);
+			TakeScreenshot(IOShomePgaeObject.changeServerLabel());
+			gestUtils.scrollUPtoObjectIos("name", UAT, null);
+			String xpath = "//XCUIElementTypeStaticText[@name='" + UAT + "']";
+			MobileElement button = (MobileElement) driver.findElement(By.xpath(xpath));
+			clickOnElement(button);
+			
+			ButtonVerifyClick(IOShomePgaeObject.saveButton());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	@Step("Clicked on Pre Login button")
+	public void clickOnPreLoginButton() throws Exception {
+		try {
+			if(isElementVisible(IOShomePgaeObject.preLoginButton())) {
+				ButtonVerifyClick(IOShomePgaeObject.preLoginButton());
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	@Step("Clicked on Digital token Registration message")
+	public void clickOnDigitalTokenAlert() throws Exception {
+		try {
+			if(isElementVisible(IOShomePgaeObject.digitokeRegisterAlertMsg())) {
+				ButtonVerifyClick(IOShomePgaeObject.continueButton());
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	@Step("Clicked on Done on You have setup digital token")
+	public void clickOnDoneOnYouHaveSetupDigiToken() throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.youHaveSetTokenMessage());
+			ButtonVerifyClick(IOShomePgaeObject.doneButton2());
+				}
+		 catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	@Step("Swiping the aler message ")
+	public void managementSwipeAlert() throws Exception {
+		try {
+			if(isElementVisible(IOShomePgaeObject.managementAlertMsg())) {
+				Dimension windowSize1 = driver.manage().window().getSize();
+				int y =(int)((windowSize1.getHeight())-10);
+				int x =(int)((windowSize1.getWidth())/2);
+				gestUtils.swipeElementtoCoordinate(IOShomePgaeObject.swipeButton2(),  x,  y);
+				
+				}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

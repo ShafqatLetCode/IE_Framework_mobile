@@ -68,7 +68,7 @@ public class DBS_IOSObject {
 
 ///fitness activity alert
 	@ElementDescription(value = "fitness activity alert")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='“DBS digibank” Would Like to Access Your Motion & Fitness Activity']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Like to Access Your Motion & Fitness Activity')]")
 	private MobileElement alertFitnessActivityTitle;
 
 	@ElementDescription(value = "alert ok button")
@@ -84,7 +84,7 @@ public class DBS_IOSObject {
 	private MobileElement upgradeTitle;
 
 	@ElementDescription(value = "fingureprint alert message")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Let's Set Up']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Set Up')]")
 	private MobileElement fingerpringAlertMessage;
 
 	@ElementDescription(value = "fingureprint alert closed button")
@@ -427,17 +427,17 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Bank Account']")
 	private MobileElement SelectBankAccount;
 	
-
 	@ElementDescription(value = "'Enter Recipient's Details' Page Header")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Enter Recipient')]")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Enter Recipient's Details']")
 	private MobileElement EnterRecipientDetailsPageHeader;
 	
+	
 	@ElementDescription(value = "'Enter recipient's name' Editable Field.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeTextField")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='Enter recipient's name']")
 	private MobileElement EnterRecipientNameEditableField;
 	
 	@ElementDescription(value = "Select Bank Dropdown")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeTextField")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='Select bank']")
 	private MobileElement SelectBankDropdown;
 	
 	@ElementDescription(value = "'Search Bank Name' Field.")
@@ -461,30 +461,32 @@ public class DBS_IOSObject {
 	private List<MobileElement> SuccessImage;
 	
 	@ElementDescription(value = "You Have Added Recipient Message")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'added a recipient')]")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='You've added a recipient'])[1]")
 	private MobileElement YouHaveAddedRecipient;
-	
-//	@ElementDescription(value = "You Have Added Recipient Message")
-//	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='You've added a recipient'])[1]")
-//	private MobileElement YouHaveAddedRecipient;
 	
 	@ElementDescription(value = "Log Out Button After adding Payee")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Log Out']")
 	private MobileElement LogoutBtn;
-
-	@ElementDescription(value = "'Make A Transfer' Button After adding Payee")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='MAKE A TRANSFER']")
-	private MobileElement makeTransferButton;
 	
-//	@ElementDescription(value = "'Make A Transfer' Button After adding Payee")
-//	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='MAKE A TRANSFER'])[1]")
-//	private MobileElement makeTransferButton;
+	@ElementDescription(value = "'Make A Transfer' Button After adding Payee")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='MAKE A TRANSFER'])[1]")
+	private MobileElement makeTransferButton;
 	
 	@ElementDescription(value = "'Close' Button After adding Payee")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='close']")
 	private MobileElement closeButton;
 	
+	@ElementDescription(value = "'Recipient's Account No.' text dispalying After adding Payee.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Recipient's Account No.']")
+	private MobileElement RecipientAccountNo;
 	
+	@ElementDescription(value = "'Recipient's Bank' text dispalying After adding Payee.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Recipient's Bank']")
+	private MobileElement RecipientBankText;
+	
+	@ElementDescription(value = "'Recipient's Name' text dispalying After adding Payee.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Recipient's Name']")
+	private MobileElement RecipientNameText;
 	
 	@ElementDescription(value = "Added Payee 'i icon' list.")
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeButton[@name='i icon'])")
@@ -567,6 +569,17 @@ public class DBS_IOSObject {
 		return IiconList;
 	}
 	
+	public MobileElement RecipientAccountNo() { 
+		return RecipientAccountNo;
+	}
+	
+	public MobileElement RecipientBankText() { 
+		return RecipientBankText;
+	}
+	
+	public MobileElement RecipientNameText() { 
+		return RecipientNameText;
+	}
 	
 	public MobileElement closeButton() { 
 		return closeButton;
@@ -611,6 +624,10 @@ public class DBS_IOSObject {
 	}
 	public MobileElement EnterRecipientNameEditableField() {
 		return EnterRecipientNameEditableField;
+	}
+	
+	public MobileElement EnterRecipientDetailsPageHeader() {
+		return EnterRecipientDetailsPageHeader;
 	}
 	
 	public MobileElement SelectBankAccount() {
@@ -707,21 +724,21 @@ public class DBS_IOSObject {
 		return  recipientDetailTitle;
 	}
 	@ElementDescription(value = "Enter Recipient's Account no. editbox")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='AddPayeeRecipientDetails_Enter account no.']")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell)[1]")
 	private MobileElement recipientDetailAccountNumver;
 
 	public MobileElement  recipientDetailAccountNumver() {
 		return  recipientDetailAccountNumver;
 	}
 	@ElementDescription(value = "Enter Recipient's Name editbox")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='AddPayeeRecipientDetails_Enter recipient's full name']")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell)[2]")
 	private MobileElement recipientDetailAccountName;
 
 	public MobileElement  recipientDetailAccountName() {
 		return recipientDetailAccountName;
 	}
 	@ElementDescription(value = "Enter Recipient's Address editbox")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Full Address']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'ddress')]")
 	private MobileElement recipientDetailAddress;
 
 	public MobileElement  recipientDetailAddress() {
@@ -1718,11 +1735,111 @@ public class DBS_IOSObject {
 		return  addOverseaRecipientFirst;
 	}
 	@ElementDescription(value = "Add oversea recipient when  recpient added")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Add overseas recipient'])[2]/preceding-sibling::XCUIElementTypeButton")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Add overseas recipient']/preceding-sibling::XCUIElementTypeButton")
 	private MobileElement addOverseaRecipientSecond;
 
 	public MobileElement  addOverseaRecipientSecond() {
 		return  addOverseaRecipientSecond;
 	}
+	@ElementDescription(value = "Pre login button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='PRE LOGIN']")
+	private MobileElement preLoginButton;
+
+	public MobileElement  preLoginButton() {
+		return  preLoginButton;
+	}
+	@ElementDescription(value = "setup now button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='SET UP NOW']")
+	private MobileElement setupNowButton;
+
+	public MobileElement  setupNowButton() {
+		return  setupNowButton;
+	}
+	@ElementDescription(value = "setup Token message")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Set up your Digital Token']")
+	private MobileElement setupTokenMessage;
+
+	public MobileElement  setupTokenMessage() {
+		return  setupTokenMessage;
+	}
+	@ElementDescription(value = "you have set Token message")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'ve set up your digital token')]")
+	private MobileElement youHaveSetTokenMessage;
+
+	public MobileElement  youHaveSetTokenMessage() {
+		return  youHaveSetTokenMessage;
+	}
+	
+	@ElementDescription(value = "continue button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Continue']")
+	private MobileElement continueButton;
+
+	public MobileElement  continueButton() {
+		return  continueButton;
+	}
+	@ElementDescription(value = "done Token button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='DONE']")
+	private MobileElement doneButton2;
+
+	public MobileElement  doneButton2() {
+		return  doneButton2;
+	}
+	@ElementDescription(value = "More on login")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='More']")
+	private MobileElement moreOnLogin;
+
+	public MobileElement  moreOnLogin() {
+		return  moreOnLogin;
+	}
+	@ElementDescription(value = "Server label")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='SERVER']")
+	private MobileElement serverLabel;
+
+	public MobileElement  serverLabel() {
+		return  serverLabel;
+	}
+	@ElementDescription(value = "change Server button")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell)[1]")
+	private MobileElement changeServerButton;
+
+	public MobileElement  changeServerButton() {
+		return  changeServerButton;
+	}
+	@ElementDescription(value = "change Server label")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Change Server']")
+	private MobileElement changeServerLabel;
+
+	public MobileElement  changeServerLabel() {
+		return  changeServerLabel;
+	}
+	@ElementDescription(value = "save button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='SAVE']")
+	private MobileElement saveButton;
+
+	public MobileElement  saveButton() {
+		return  saveButton;
+	}
+	@ElementDescription(value = "First Time digital token alert")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Please note you can only have one digital token registered to your profile. Any digital token on an alternative device will therefore be automatically deregistered.']")
+	private MobileElement digitokeRegisterAlertMsg;
+
+	public MobileElement  digitokeRegisterAlertMsg() {
+		return  digitokeRegisterAlertMsg;
+	}
+	@ElementDescription(value = "Iwealth management alert")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Welcome to digibank for Wealth Management']")
+	private MobileElement managementAlertMsg;
+
+	public MobileElement  managementAlertMsg() {
+		return  managementAlertMsg;
+	}
+	@ElementDescription(value = "Iwealth swipeButton")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeImage[@name='TravelMode_Close']")
+	private MobileElement swipeButton2;
+
+	public MobileElement  swipeButton2() {
+		return  swipeButton2;
+	}
+	
 	
 }

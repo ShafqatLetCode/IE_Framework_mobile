@@ -1,5 +1,10 @@
 package com.crestech.pages;
 
+import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
+import static io.appium.java_client.touch.offset.PointOption.point;
+import static java.time.Duration.ofSeconds;
+import org.openqa.selenium.Dimension;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -10,6 +15,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -25,6 +31,7 @@ import com.crestech.common.utilities.WaitUtils;
 import com.crestech.pageobjects.DBSAndroidObject;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.qameta.allure.Step;
 
@@ -42,7 +49,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	GestureUtils gestUtils = null;
 	Asserts Assert = null;
 	HandleException obj_handleexception=null;
-
+	public  TouchAction touch =null;
 	public DBSAndroidPage(AppiumDriver<RemoteWebElement> driver) throws Exception {
 		super(driver);
 		try {
@@ -53,6 +60,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			gestUtils = new GestureUtils(driver);
 			Assert = new Asserts();
 			obj_handleexception =new HandleException(null, null);
+			touch = new TouchAction(this.driver);
 			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), DBSappObject);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -127,7 +135,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			System.out.println("sendDataInUserId");
 			sendDataInUserPin(password);
 			System.out.println("sendDataInUserPin");
-			clickOnLoginButton();
+			clickOnLoginButton2();
 			System.out.println("clickOnLoginButton");
 			digitalTokenSetUp();
 			AndroidAlert androidAlert = new AndroidAlert(driver);
@@ -231,13 +239,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Clicked on Pre-Login button")
 	public void ClickOnPreloginButton() throws Exception {
 		try {
-			int count = 0;
+		//	int count = 0;
 			TakeScreenshot(DBSappObject.PreLoginBtn());
-			do {
+			//do {
 				clickOnElement(DBSappObject.PreLoginBtn());
 				Thread.sleep(5000);
-				count++;
-			}while(isElementVisible2(DBSappObject.PreLoginBtn()) && count < 3);
+			//	count++;
+			//}while(isElementVisible2(DBSappObject.PreLoginBtn()) && count < 3);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Prelogin Button " ,e);		
 		}
@@ -250,8 +258,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On More Module On Login Page")
 	public void ClickOnMoreModuleOnLoginPage() throws Exception{
 		try {
-				TakeScreenshot(DBSappObject.MoreButton());
+			int count = 0;
+			TakeScreenshot(DBSappObject.MoreButton());
+			do {
 				clickOnElement(DBSappObject.MoreButton());
+				Thread.sleep(3000);
+				count++;
+			}while(isElementVisible2(DBSappObject.MoreButton()) && count < 3);
+				
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Button " ,e);		
 		}
@@ -262,6 +276,23 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 	@Step("Clicked on Login button")
 	public void clickOnLoginButton() throws Exception {
+		try {
+			int count =0;
+			TakeScreenshot(DBSappObject.loginButton());
+			do {
+				clickOnElement(DBSappObject.loginButton());
+				Thread.sleep(5000);
+				count++;
+			} while (!isElementVisible2(DBSappObject.userIdEditText()) && count < 3);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
+		}
+	}
+	
+	@Step("Clicked on Login button after Enter User Pin")
+	public void clickOnLoginButton2() throws Exception {
 		try {
 			int count =0;
 			TakeScreenshot(DBSappObject.loginButton());
@@ -2913,7 +2944,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click on Account after selecting 'Local Recipients' and verify pageHeader")
 	public void clickingOnAccountTypeInLocalRecipient_1(String valueSelectedFromList) throws Exception {
 		try {
-			
 			int o = 0;
 			for (int i = 0; i < DBSappObject.AllTabOptionsList().size(); i++) {
 				String tabText = DBSappObject.AllTabOptionsList().get(i).getText();
@@ -2922,31 +2952,77 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					break;
 				}
 			}
-
 			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
-			if(DBSappObject.SubTitleTextList().size()>0)
-			{
-			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
-			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
-			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
-			int l = Elementlist.size();
-			int index = 0;
-			String LocalRecipientList = null;
-			for (int i = 0; i < l; i++) {
-				LocalRecipientList = Elementlist.get(i).getText();
-				if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
-					index++;
-					clickOnElement(ElementlistClickable.get(i));
-					break;
-				}
-			}
+		
+		    Dimension windowSize = driver.manage().window().getSize();
+			System.out.println("getSessionId :"+driver.getSessionId());
 			
-			Asserts.assertTrue(index > 0, "Local Recipient " +valueSelectedFromList+" not found in the list to initiate the fund transfer");
+			int h = windowSize.getHeight();
+			int y1 = (int) (h * 0.2);
+			int y2 = (int) (h - y1);
+			int x = (int) ((windowSize.getWidth()) / 2);
+			
+			String s1 = driver.getPageSource();
+			int count = 0;
+			int index = 0;
+			WaitUtils wait = new WaitUtils(driver);
+			wait.ImplicitlyWait();
+			while (count == 0 && index == 0) {
+				if (DBSappObject.SubTitleTextList().size() > 0) {
+					TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
+					List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
+					List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
+					int length = Elementlist.size();
+					String LocalRecipientList = null;
+					if (length < 2) {
+						for (int i = 0; i < length; i++) {
+							LocalRecipientList = Elementlist.get(i).getText();
+							if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+								index++;
+								clickOnElement(ElementlistClickable.get(i));
+								break;
+							}
+						}
+						// Exception Handling without scrolling case and no expected element found in
+						// the list then index ==0
+						if (index == 0 && count == 0)
+							Asserts.assertFail("Local Recipient " + valueSelectedFromList
+									+ " not found in the list to initiate the fund transfer");
+						else
+							break;
+					} else
+
+						// Code will work :: When Need to scroll
+						for (int i = 0; i < length; i++) {
+							LocalRecipientList = Elementlist.get(i).getText();
+							if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+								index++;
+								clickOnElement(ElementlistClickable.get(i));
+								break;
+							}
+						}
+					if (index == 0) {
+						touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
+								.moveTo(element(DBSappObject.AllTab())).release().perform();
+
+						String s2 = driver.getPageSource();
+						if (s1.equals(s2) != true)
+							s1 = s2;
+						else
+							count = 1;
+					} else
+						break;
+
+					// Exception Handling in scrolling case and no expected element found in the
+					// list then index ==0, count ==1
+					if (count == 1 && index == 0)
+						Asserts.assertFail("Local Recipient " + valueSelectedFromList
+								+ " not found in the list to initiate the fund transfer");
+
+				} else
+					Asserts.assertFail("No receipient Found in the Local recipient list");
 			}
-			else
-			{
-				Asserts.assertFail("No  receipient Found in the Local recipient list");
-			}
+
 			Thread.sleep(2000);
 			String xpath = "//android.widget.TextView[@text='Primary source of fund']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
@@ -2962,7 +3038,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			catch (Exception e) {		
 				obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select account from local recipient and verify header  ",e);
 			}
-
 	}
 
 	@Step("Click on 'Select Fund Source' and Select Account")
@@ -3089,9 +3164,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step(" Verifying page header 'Review Transfer' And Click on 'TRANSFER NOW' Button")
 	public void verifyReviewTransferAndClickTransferNowButton() throws Exception {
 		try {
-			wait.waitForElementVisibility(DBSappObject.PageHeader());
-			verifyPageHeader(CommonTestData.REVIEW_TRANSFER_LABEL.getEnumValue(), DBSappObject.PageHeader());
+			Thread.sleep(4000); 
 			TakeScreenshot(DBSappObject.TransferNowBtn());
+			verifyPageHeader(CommonTestData.REVIEW_TRANSFER_LABEL.getEnumValue(), DBSappObject.PageHeader());
 			VerifyButtonLabelAndClick(DBSappObject.TransferNowBtn(), CommonTestData.TRANSFER_NOW_BUTTON.getEnumValue());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify review transfer and click on Transfer now button ",e);
@@ -3105,6 +3180,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step(" Verifying page header 'Transferred' And Generated Reference Number")
 	public void verifyTransferredAndReferenceNumberField() throws Exception {
 		try {
+			Thread.sleep(4000); 
 			verifyPageHeader(CommonTestData.TRANSFER_TITLE.getEnumValue(), DBSappObject.PageHeaderList().get(0));
 			clickOnElement(DBSappObject.expandButton2());
 			gestUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
@@ -3288,9 +3364,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertTrue(index > 0, "Your DBS/POSB ACcounts " +valueSelectedFromList+" not found in the list to initiate the fund transfer");
 			}
 			else
-			{
 				Asserts.assertFail("No receipient found in the Your DBS/POSB Own Account List.");
-			}
+			
 			
 			TakeScreenshot(DBSappObject.PageHeader());
 			verifyPageHeader(CommonTestData.TRANSFER_TO_YOUR_ACCOUNT.getEnumValue(), DBSappObject.PageHeader());
@@ -3301,7 +3376,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Select Any Fund Source Account After clicking on add sign for select fund source.")
-	public void SelectFundSourceAccount(String fromOwnAccount) throws Exception {
+	public void SelectFundSourceAccount(String fromAccount) throws Exception {
 		try {
 			String xpath = "//android.widget.TextView[@text='Select Fund Source']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
@@ -3310,15 +3385,19 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				TakeScreenshot(DBSappObject.SelectFundSourcePage());
 				clickOnElement(DBSappObject.SelectFundSourcePage());
 				TakeScreenshot(DBSappObject.SelectLocalRecipientToAccount().get(0));
-
+                int selectedAccount =0;
 				for (int i = 0; i < DBSappObject.SelectLocalRecipientToAccount().size(); i++) {
 					String actualfromOwnAccount = DBSappObject.SelectLocalRecipientToAccount().get(i).getText();
-					if (actualfromOwnAccount.contains(fromOwnAccount)) {
+					if (actualfromOwnAccount.contains(fromAccount)) {
+						selectedAccount++;
 						clickOnElement(DBSappObject.SelectLocalRecipientToAccount().get(i));
 						break;
 					}
 				}
-
+				
+				if(selectedAccount == 0)
+				Asserts.assertFail("Select Fund Source " +fromAccount+" not found in the list to initiate the fund transfer");
+				
 				String xpath1 = "//android.widget.TextView[@text='Primary source of fund']";
 				List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
 				if (list1.size() > 0) {
@@ -3326,7 +3405,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					if (isElementVisible(DBSappObject.PrimarySourceOfFund()))
 						clickOnElement(DBSappObject.Alert_OKButton());
 				}
-			}
+			}else
+				Asserts.assertFail("No Account found in the Select Fund Source Account List.");
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select any fund source account  ",e);
 		}
@@ -3363,11 +3443,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			clickingOnAccountTypeInLocalRecipient(ExpectedToBankNameWithAccountNo);
 
 			DisableToTransferViaFastToggle();
-
-			TakeScreenshot(DBSappObject.EditFields().get(0));
-			clickOnElement(DBSappObject.EditFields().get(0));
-			enterTextInTextbox(DBSappObject.EditFields().get(0), CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
-
+			EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue(),  DBSappObject.EditFields().get(0));
+            //Add Scroll to select fund source on the top of the page after disabling the fast toggle.
+			gestUtils.scrollDOWNtoObject(null, null, null);
 			String ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME.getEnumValue();
 			SelectFundSourceAccount(ExpectedFromBankName);
 
@@ -3408,16 +3486,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK
 					.getEnumValue();
 			clickingOnAccountTypeInLocalRecipient(ExpectedToBankNameWithAccountNo);
-
-			TakeScreenshot(DBSappObject.EditFields().get(0));
-			clickOnElement(DBSappObject.EditFields().get(0));
-			enterTextInTextbox(DBSappObject.EditFields().get(0), CommonTestData.COMMENT_FAST_TRANSFER.getEnumValue());
-
+			
 			String ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME.getEnumValue();
 			SelectFundSourceAccount(ExpectedFromBankName);
 
 			SelectFutureDateThroughCalendar();
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+			EnterCommentForRecipientInEditField(CommonTestData.COMMENT_FAST_TRANSFER.getEnumValue(),  DBSappObject.EditFields().get(0));
 			ClickOnNextButton();
 			VerifyReviewTransferPageAndFastServiceInReview();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
@@ -3455,16 +3530,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					.getEnumValue();
 			clickingOnAccountTypeInLocalRecipient(ExpectedToBankNameWithAccountNo);
 			DisableToTransferViaFastToggle();
-
-			TakeScreenshot(DBSappObject.EditFields().get(0));
-			clickOnElement(DBSappObject.EditFields().get(0));
-			enterTextInTextbox(DBSappObject.EditFields().get(0), CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
-
+			EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue(),  DBSappObject.EditFields().get(0));
+            //Add Scroll to select fund source on the top of the page after disabling the fast toggle.
+			gestUtils.scrollDOWNtoObject(null, null, null);
 			String ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME.getEnumValue();
 			SelectFundSourceAccount(ExpectedFromBankName);
-
-			String ExpectedSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
-			Asserts.assertEquals(CommonTestData.IMMEDIATE_TEXT.getEnumValue(), ExpectedSelectedDate, "Selected Date is not Matching");
+			VerifyImmediateText(CommonTestData.IMMEDIATE_TEXT.getEnumValue());
+		
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			ClickOnNextButton();
 			VerifyReviewTransferPageAndNonFastServiceInReview();
@@ -3489,6 +3561,35 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", "Failed to verify fund transfer other bank NON-FAST   ",e);
 		}
 	}
+	
+	@Step("Verify Immediate text")
+	public void VerifyImmediateText(String ActualSelectedDate)throws Exception {
+		try {
+			String ExpectedSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
+			Asserts.assertEquals(ActualSelectedDate, ExpectedSelectedDate, "Immediate text is not Matching in date section.");
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Verify Immediate Text ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", "Failed to Verify Immediate Text. ",e);
+		}
+	}
+	
+	@Step("Enter Comment for Recipient In Edit Field")
+	public void EnterCommentForRecipientInEditField(String Comment, MobileElement EditFieldElement)throws Exception {
+		try {
+			TakeScreenshot(EditFieldElement);
+			clickOnElement(EditFieldElement);
+			enterTextInTextbox(EditFieldElement, Comment);
+			driver.hideKeyboard();
+			Thread.sleep(2000); 
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Enter comments in edit field. ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", "Failed to Enter comments in edit field. ",e);
+		}
+	}
 
 	@Step("Verify Fund Transfer For Other Bank Fast transfer.")
 	public void FundsTransfer_OtherBank_FAST(String appname) throws Exception {
@@ -3499,17 +3600,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK
 					.getEnumValue();
 			clickingOnAccountTypeInLocalRecipient(ExpectedToBankNameWithAccountNo);
-
-			TakeScreenshot(DBSappObject.EditFields().get(0));
-			clickOnElement(DBSappObject.EditFields().get(0));
-			enterTextInTextbox(DBSappObject.EditFields().get(0), CommonTestData.COMMENT_FAST_TRANSFER.getEnumValue());
-
+			
 			String ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME.getEnumValue();
 			SelectFundSourceAccount(ExpectedFromBankName);
-
-			String ExpectedSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
-			Asserts.assertEquals(CommonTestData.IMMEDIATE_TEXT.getEnumValue(), ExpectedSelectedDate, "Selected Date is not Matching");
+			VerifyImmediateText(CommonTestData.IMMEDIATE_TEXT.getEnumValue());
+	
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+			EnterCommentForRecipientInEditField(CommonTestData.COMMENT_FAST_TRANSFER.getEnumValue(),  DBSappObject.EditFields().get(0));
 			ClickOnNextButton();
 			VerifyReviewTransferPageAndFastServiceInReview();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
@@ -3993,33 +4090,77 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					break;
 				}
 			}
-			
-			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
-			
-			if(DBSappObject.SubTitleTextList().size()>0) {
-			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
-			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
-			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
-			int l = Elementlist.size();
-			int index = 0;
-			String LocalRecipientList = null;
-			for (int i = 0; i < l; i++) {
-				LocalRecipientList = Elementlist.get(i).getText();
-				if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
-					index++;
-					clickOnElement(ElementlistClickable.get(i));
-					break;
-				}
-				
-			}
-			Asserts.assertTrue(index > 0, "Local Recipient " +valueSelectedFromList+" not found in the list to initiate the fund transfer");
-			}
-			else
-			{
-				Asserts.assertFail("No receipient found in the Local recipient list");
-			}
-			
 
+			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
+			Dimension windowSize = driver.manage().window().getSize();
+
+			int h = windowSize.getHeight();
+			int y1 = (int) (h * 0.2);
+			int y2 = (int) (h - y1);
+			int x = (int) ((windowSize.getWidth()) / 2);
+
+			String s1 = driver.getPageSource();
+			int count = 0;
+			int index = 0;
+			WaitUtils wait = new WaitUtils(driver);
+			wait.ImplicitlyWait();
+			while (count == 0 && index == 0) {
+				if (DBSappObject.SubTitleTextList().size() > 0) {
+					TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
+					List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
+					List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
+					int length = Elementlist.size();
+					String LocalRecipientList = null;
+					if (length < 2) {
+						for (int i = 0; i < length; i++) {
+							LocalRecipientList = Elementlist.get(i).getText();
+							if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+								index++;
+								clickOnElement(ElementlistClickable.get(i));
+								break;
+							}
+						}
+						// Exception Handling without scrolling case and no expected element found in
+						// the list then index ==0
+						if (index == 0 && count == 0)
+							Asserts.assertFail("Local Recipient " + valueSelectedFromList
+									+ " not found in the list to initiate the fund transfer");
+						else
+							break;
+					} else
+
+						// Code will work :: When Need to scroll
+						for (int i = 0; i < length; i++) {
+							LocalRecipientList = Elementlist.get(i).getText();
+							if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+								index++;
+								clickOnElement(ElementlistClickable.get(i));
+								break;
+							}
+						}
+					if (index == 0) {
+						touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
+								.moveTo(element(DBSappObject.AllTab())).release().perform();
+
+						String s2 = driver.getPageSource();
+						if (s1.equals(s2) != true)
+							s1 = s2;
+						else
+							count = 1;
+					} else
+						break;
+
+					// Exception Handling in scrolling case and no expected element found in the
+					// list then index ==0, count ==1
+					if (count == 1 && index == 0)
+						Asserts.assertFail("Local Recipient " + valueSelectedFromList
+								+ " not found in the list to initiate the fund transfer");
+
+				} else
+					Asserts.assertFail("No receipient Found in the Local Recipient list");
+			}
+
+			Thread.sleep(2000);
 			String xpath1 = "//android.widget.TextView[@text='Primary source of fund']";
 			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
 			if (list1.size() > 0) {
@@ -4027,11 +4168,12 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				if (isElementVisible(DBSappObject.PrimarySourceOfFund()))
 					clickOnElement(DBSappObject.Alert_OKButton());
 			}
-		}catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select account from local recipient and verify header  ",e);
-		}
-		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select account from local recipient and verify header  ",e);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to select account from local recipient and verify header  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to select account from local recipient and verify header  ", e);
 		}
 	}
 
@@ -4573,28 +4715,76 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 
 			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
-			if(DBSappObject.SubTitleTextList().size()>0) {
-			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
-			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
-			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
-			int l = Elementlist.size();
+
+			Dimension windowSize = driver.manage().window().getSize();
+			System.out.println("getSessionId :" + driver.getSessionId());
+
+			int h = windowSize.getHeight();
+			int y1 = (int) (h * 0.2);
+			int y2 = (int) (h - y1);
+			int x = (int) ((windowSize.getWidth()) / 2);
+
+			String s1 = driver.getPageSource();
+			int count = 0;
 			int index = 0;
-			String ToAccountOptionInSelectedTab = null;
-			for (int i = 0; i < l; i++) {
-				ToAccountOptionInSelectedTab = Elementlist.get(i).getText();
-				if (ToAccountOptionInSelectedTab.equalsIgnoreCase(valueSelectedFromList)) {
-					index++;
-					clickOnElement(ElementlistClickable.get(i));
-					break;
-				}
+			WaitUtils wait = new WaitUtils(driver);
+			wait.ImplicitlyWait();
+			while (count == 0 && index == 0) {
+				if (DBSappObject.SubTitleTextList().size() > 0) {
+					TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
+					List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
+					List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
+					int length = Elementlist.size();
+					String CreditCardList = null;
+					if (length < 2) {
+						for (int i = 0; i < length; i++) {
+							CreditCardList = Elementlist.get(i).getText();
+							if (CreditCardList.equalsIgnoreCase(valueSelectedFromList)) {
+								index++;
+								clickOnElement(ElementlistClickable.get(i));
+								break;
+							}
+						}
+						// Exception Handling without scrolling case and no expected element found in
+						// the list then index ==0
+						if (index == 0 && count == 0)
+							Asserts.assertFail("Credit Cards " + valueSelectedFromList
+									+ " not found in the list to initiate the fund transfer.");
+						else
+							break;
+					} else
+
+						// Code will work :: When Need to scroll
+						for (int i = 0; i < length; i++) {
+							CreditCardList = Elementlist.get(i).getText();
+							if (CreditCardList.equalsIgnoreCase(valueSelectedFromList)) {
+								index++;
+								clickOnElement(ElementlistClickable.get(i));
+								break;
+							}
+						}
+					if (index == 0) {
+						touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
+								.moveTo(element(DBSappObject.AllTab())).release().perform();
+
+						String s2 = driver.getPageSource();
+						if (s1.equals(s2) != true)
+							s1 = s2;
+						else
+							count = 1;
+					} else
+						break;
+
+					// Exception Handling in scrolling case and no expected element found in the
+					// list then index ==0, count ==1
+					if (count == 1 && index == 0)
+						Asserts.assertFail("Credit Cards " + valueSelectedFromList
+								+ " not found in the list to initiate the fund transfer.");
+
+				} else
+					Asserts.assertFail("No receipient found in the Credit Cards list");
 			}
-			Asserts.assertTrue(index > 0, "Credit Cards " +valueSelectedFromList+" not found in the list to initiate the fund transfer.");
-			}
-			else
-			{
-				Asserts.assertFail("No receipient found in the Credit Cards list");
-			}
-			
+
 			Asserts.assertEquals(getTexOfElement(DBSappObject.CreditCard_PageHeader()),
 					CommonTestData.CREDIT_CARD_PAGEHEADER.getEnumValue(),
 					CommonTestData.CREDIT_CARD_PAGEHEADER.getEnumValue() + " Text is not matching");
@@ -4660,7 +4850,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click on 'To Account Bill' after selecting 'Billing organisation' and verify Page Header")
 	public void clickingOnAccountTypeInBillingOrganisations(String valueSelectedFromList) throws Exception {
 		try {
-		//	gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get( DBSappObject.AllTabOptionsList().size()-1), DBSappObject.AllTab());
+			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get( DBSappObject.AllTabOptionsList().size()-1), DBSappObject.AllTab());
 			
 			int o = 0;
 			for (int i = 0; i < DBSappObject.AllTabOptionsList().size(); i++) {
@@ -4672,29 +4862,75 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				}
 			}
 
-			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
+		//	gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
 			
-			if(DBSappObject.SubTitleTextList().size() > 0) {
-			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
-			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
-			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
-			int l = Elementlist.size();
+			Dimension windowSize = driver.manage().window().getSize();
+			System.out.println("getSessionId :" + driver.getSessionId());
+
+			int h = windowSize.getHeight();
+			int y1 = (int) (h * 0.2);
+			int y2 = (int) (h - y1);
+			int x = (int) ((windowSize.getWidth()) / 2);
+
+			String s1 = driver.getPageSource();
+			int count = 0;
 			int index = 0;
-			String ToAccountOptionInSelectedTab = null;
-			for (int i = 0; i < l; i++) {
-				ToAccountOptionInSelectedTab = Elementlist.get(i).getText();
-				if (ToAccountOptionInSelectedTab.equalsIgnoreCase(valueSelectedFromList)) {
-					index++;
-					clickOnElement(ElementlistClickable.get(i));
-					break;
-				}
+			WaitUtils wait = new WaitUtils(driver);
+			wait.ImplicitlyWait();
+			while (count == 0 && index == 0) {
+				if (DBSappObject.SubTitleTextList().size() > 0) {
+					TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
+					List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
+					List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
+					int length = Elementlist.size();
+					String BillingOrganisationlist = null;
+					if (length < 2) {
+						for (int i = 0; i < length; i++) {
+							BillingOrganisationlist = Elementlist.get(i).getText();
+							if (BillingOrganisationlist.equalsIgnoreCase(valueSelectedFromList)) {
+								index++;
+								clickOnElement(ElementlistClickable.get(i));
+								break;
+							}
+						}
+						// Exception Handling without scrolling case and no expected element found in
+						// the list then index ==0
+						if (index == 0 && count == 0)
+							Asserts.assertFail("Billing Organisation " +valueSelectedFromList+" not found in the list to initiate the fund transfer.");
+						else
+							break;
+					} else
+
+						// Code will work :: When Need to scroll
+						for (int i = 0; i < length; i++) {
+							BillingOrganisationlist = Elementlist.get(i).getText();
+							if (BillingOrganisationlist.equalsIgnoreCase(valueSelectedFromList)) {
+								index++;
+								clickOnElement(ElementlistClickable.get(i));
+								break;
+							}
+						}
+					if (index == 0) {
+						touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
+								.moveTo(element(DBSappObject.AllTab())).release().perform();
+
+						String s2 = driver.getPageSource();
+						if (s1.equals(s2) != true)
+							s1 = s2;
+						else
+							count = 1;
+					} else
+						break;
+
+					// Exception Handling in scrolling case and no expected element found in the
+					// list then index ==0, count ==1
+					if (count == 1 && index == 0)
+						Asserts.assertFail("Billing Organisation " +valueSelectedFromList+" not found in the list to initiate the fund transfer.");
+
+				} else
+					Asserts.assertFail("No receipient found in the Billing Organisation list");
 			}
-			Asserts.assertTrue(index > 0, "Billing Organisation " +valueSelectedFromList+" not found in the list to initiate the fund transfer.");
-		}
-		else
-		{
-			Asserts.assertFail("No receipient found in the Billing Organisation list");
-		}
+			
 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader2()),
 					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue(),
