@@ -163,21 +163,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.FINGERPRINT_MESSAGE.getEnumValue());
 			androidAlert.recordingAlertHandlingWithButtonMessage(btnElements.closeButton(),
 					CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.WelcomeToText()).trim(),
-					CommonTestData.WELCOME.getEnumValue(),
-					CommonTestData.WELCOME.getEnumValue() + " text is not found");
-
-			TakeScreenshot(DBSappObject.DigibankText());
-			if (DBSappObject.DigibankText().getText().equalsIgnoreCase(CommonTestData.DIGIBANK.getEnumValue())) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.DigibankText()).trim(),
-						CommonTestData.DIGIBANK.getEnumValue(),
-						CommonTestData.DIGIBANK.getEnumValue() + " text is not found");
-			} else if (DBSappObject.DigibankText().getText()
-					.equalsIgnoreCase(CommonTestData.DBS_DIGIBANK.getEnumValue())) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.DigibankText()).trim(),
-						CommonTestData.DBS_DIGIBANK.getEnumValue(),
-						CommonTestData.DBS_DIGIBANK.getEnumValue() + " text is not found");
-			}
+			TakeScreenshot(DBSappObject.PayAndTransferBtn()); 
 
 		}catch (HandleException e) {	
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application " ,e);		
@@ -367,6 +353,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Application Logout & Verifies the 'Tap on the stars to rate' field Message.")
 	public void clickOnLogoutAndVerify(String logoutTextMsg, String Ratingmsg) throws Exception {
 		try {
+			VerifyWelcomeMessagesOnDashboardPage(CommonTestData.WELCOME.getEnumValue(), CommonTestData.DIGIBANK.getEnumValue(), CommonTestData.DBS_DIGIBANK.getEnumValue());
 			TakeScreenshot(DBSappObject.logoutButton());
 			androidAlert.AlertHandlingWithButtonMessage(DBSappObject.logoutButton(), logoutTextMsg,
 					DBSappObject.logoutButton());
@@ -2095,60 +2082,165 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Delete Payee.")
 	public void DeletePayee(String ExpectedRecipientName) throws Exception {
 		try {
-			// "This service isn't available right now. You can try again soon, or call 1800
-			// 111 1111 for assistance."
+//			String xpath = "//android.widget.ImageView[contains(@resource-id,':id/tv_expandable_item_selected')]";
+//			List<RemoteWebElement> Payeelist = driver.findElements(By.xpath(xpath));
+//			int ExpectedTotalPayeeSize = Payeelist.size();
+//			if(ExpectedTotalPayeeSize>0) {
+//				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
+//					ClickOnDeletePayeeToIcon(i);
+//					TakeScreenshot(DBSappObject.payee_details_title_name()); 
+//					Asserts.assertEquals(getTexOfElement(DBSappObject.payee_details_title_name()),
+//							CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
+//							CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue() + " is not matching after adding payee");
+//					String RecipientNameXpath =	"//android.widget.TextView[@text='" + ExpectedRecipientName + "']";
+//					List<RemoteWebElement> RecipientNameElementList = driver.findElements(By.xpath(RecipientNameXpath));
+//					if (RecipientNameElementList.size() > 0) {
+//						ClickOnMoreOptionBtnAndDeletePayeeBtn();
+//						ClickOnYesBtn();
+//
+//						for (int innerLoop = 0; innerLoop < 2; innerLoop++) {
+//							//Sometimes this alert with message (You may be facing some delays and
+//							//we are trying to sort it out now. Sorry for the inconvenience.
+//							// Do check back later.) coming. So this Thread.sleep(); added here.
+//							
+//							Thread.sleep(4000); 
+//							String ErrorissueXpath = 	"//android.widget.TextView[@resource-id='android:id/message']";
+//							List<RemoteWebElement> list = driver.findElements(By.xpath(ErrorissueXpath));
+//							if (list.size() > 0) {
+//								if(getTexOfElement(DBSappObject.ErrorMessgeElement()).contains("You may be facing some delays")) {
+//									ClickOnOKButton_Alert();
+//									ClickOnDeletePayeeToIcon(i);
+//									TakeScreenshot(DBSappObject.payee_details_title_name()); 
+//									Asserts.assertEquals(getTexOfElement(DBSappObject.payee_details_title_name()),
+//											CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
+//											CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue() + " is not matching after adding payee");
+//									ClickOnMoreOptionBtnAndDeletePayeeBtn();
+//									ClickOnYesBtn();
+//								} 
+//							}
+//						}
+//						
+//						ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedRecipientName);
+//						//VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayeeSize);
+//						break;
+//					} else {
+//						ClickOnBackButtonImageView();
+//					}
+//				}
+//			}	
+//			
+			Dimension windowSize = driver.manage().window().getSize();
+			int h = windowSize.getHeight();
+			int y1 = (int) (h * 0.2);
+			int y2 = (int) (h - y1);
+			int x = (int) ((windowSize.getWidth()) / 2);
+			String s1 = driver.getPageSource();
+			int count = 0;
+			int deletePayee =0;
+			WaitUtils wait = new WaitUtils(driver);
+			wait.ImplicitlyWait();
 			
-			String xpath = "//android.widget.ImageView[contains(@resource-id,':id/tv_expandable_item_selected')]";
-			List<RemoteWebElement> Payeelist = driver.findElements(By.xpath(xpath));
-			int ExpectedTotalPayeeSize = Payeelist.size();
-			if(ExpectedTotalPayeeSize>0) {
-				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
-					ClickOnDeletePayeeToIcon(i);
-					TakeScreenshot(DBSappObject.payee_details_title_name()); 
-					Asserts.assertEquals(getTexOfElement(DBSappObject.payee_details_title_name()),
-							CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
-							CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue() + " is not matching after adding payee");
-					String RecipientNameXpath =	"//android.widget.TextView[@text='" + ExpectedRecipientName + "']";
-					List<RemoteWebElement> RecipientNameElementList = driver.findElements(By.xpath(RecipientNameXpath));
-					if (RecipientNameElementList.size() > 0) {
-						ClickOnMoreOptionBtnAndDeletePayeeBtn();
-						ClickOnYesBtn();
-
-						for (int innerLoop = 0; innerLoop < 2; innerLoop++) {
-							//Sometimes this alert with message (You may be facing some delays and
-							//we are trying to sort it out now. Sorry for the inconvenience.
-							// Do check back later.) coming. So this Thread.sleep(); added here.
+			if (DBSappObject.AllTabOptionsList().size() > 0) {
+				while (count == 0 && deletePayee == 0) {
+					List<MobileElement> Elementlist = DBSappObject.AllTabOptionsList();
+					int length = Elementlist.size();
+					String DeleteRecipientList = null;
+					
+					if (length < 4) {
+						for (int i = 0; i < length; i++) {
+							DeleteRecipientList = Elementlist.get(i).getText();
 							
-							Thread.sleep(4000); 
-							String ErrorissueXpath = 	"//android.widget.TextView[@resource-id='android:id/message']";
-							List<RemoteWebElement> list = driver.findElements(By.xpath(ErrorissueXpath));
-							if (list.size() > 0) {
-								if(getTexOfElement(DBSappObject.ErrorMessgeElement()).contains("You may be facing some delays")) {
-									ClickOnOKButton_Alert();
-									ClickOnDeletePayeeToIcon(i);
-									TakeScreenshot(DBSappObject.payee_details_title_name()); 
-									Asserts.assertEquals(getTexOfElement(DBSappObject.payee_details_title_name()),
-											CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
-											CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue() + " is not matching after adding payee");
+							if (DeleteRecipientList.contains(ExpectedRecipientName)) {
+								ClickOnDeletePayeeToIcon(i);
+								verifyPageHeader(CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(), DBSappObject.payee_details_title_name());
+								String RecipientNameXpath =	"//android.widget.TextView[@text='" + ExpectedRecipientName + "']";
+								List<RemoteWebElement> RecipientNameElementList = driver.findElements(By.xpath(RecipientNameXpath));
+								if (RecipientNameElementList.size() > 0) {
 									ClickOnMoreOptionBtnAndDeletePayeeBtn();
 									ClickOnYesBtn();
+									HandlingErrorPopupInDeletePayee(i);
+									ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedRecipientName);
+									deletePayee++;
+									//VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayeeSize);
+									break;	
 								} 
+								else 
+									ClickOnBackButtonImageView();
+							}	
+						}
+						if (deletePayee == 0 && count == 0)
+							break;
+					}else {
+						for (int i = 0; i < length; i++) {
+							DeleteRecipientList = Elementlist.get(i).getText();
+							if (DeleteRecipientList.contains(ExpectedRecipientName)) {
+								ClickOnDeletePayeeToIcon(i);
+								verifyPageHeader(CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(), DBSappObject.payee_details_title_name());
+								String RecipientNameXpath =	"//android.widget.TextView[@text='" + ExpectedRecipientName + "']";
+								List<RemoteWebElement> RecipientNameElementList = driver.findElements(By.xpath(RecipientNameXpath));
+								if (RecipientNameElementList.size() > 0) {
+									ClickOnMoreOptionBtnAndDeletePayeeBtn();
+									ClickOnYesBtn();
+									HandlingErrorPopupInDeletePayee(i);
+									ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedRecipientName);
+									deletePayee++;
+									// VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayeeSize);
+									break;	
+								}else 
+									ClickOnBackButtonImageView();
 							}
 						}
 						
-						ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedRecipientName);
-						VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayeeSize);
-						break;
-					} else {
-						ClickOnBackButtonImageView();
+						if (deletePayee == 0) {
+							touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
+									.moveTo(element(DBSappObject.RECIPIENTS_TAB())).release().perform();
+
+							String s2 = driver.getPageSource();
+							if (s1.equals(s2) != true)
+								s1 = s2;
+							else
+								count = 1;
+						} else
+							break;	
+						
+						if (deletePayee == 0 && count==1)
+							break;
 					}
 				}
-			}	
-		} catch (HandleException e) {	
+			}
+			}catch (HandleException e) {	
 			obj_handleexception.throwHandleException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee  ",e);		
 		}
 		catch (Exception e) {			
 			obj_handleexception.throwException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee  ",e);
+		}
+	}
+	
+	public void HandlingErrorPopupInDeletePayee(int index) throws Exception{
+		try {
+			for (int innerLoop = 0; innerLoop < 2; innerLoop++) {
+				//Sometimes this alert with message (You may be facing some delays and
+				//we are trying to sort it out now. Sorry for the inconvenience.
+				// Do check back later.) coming. So this Thread.sleep(); added here.
+				
+				Thread.sleep(4000); 
+				String ErrorissueXpath = 	"//android.widget.TextView[@resource-id='android:id/message']";
+				List<RemoteWebElement> list = driver.findElements(By.xpath(ErrorissueXpath));
+				if (list.size() > 0) {
+					if(getTexOfElement(DBSappObject.ErrorMessgeElement()).contains("You may be facing some delays")) {
+						ClickOnOKButton_Alert();
+						ClickOnDeletePayeeToIcon(index);
+						verifyPageHeader(CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(), DBSappObject.payee_details_title_name());
+						ClickOnMoreOptionBtnAndDeletePayeeBtn();
+						ClickOnYesBtn();
+					} 
+				}
+			}
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Error Popup in delete payee.  ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Handle Error Popup in delete payee.  ",e);
 		}
 	}
 	
@@ -3346,27 +3438,70 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
 			
-			if(DBSappObject.SubTitleTextList().size()>0) {
-			TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
-			List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
-			List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
-			int l = Elementlist.size();
+			Dimension windowSize = driver.manage().window().getSize();
+			int h = windowSize.getHeight();
+			int y1 = (int) (h * 0.2);
+			int y2 = (int) (h - y1);
+			int x = (int) ((windowSize.getWidth()) / 2);
+			String s1 = driver.getPageSource();
+			int count = 0;
 			int index = 0;
-			String ToOwnAccountList = null;
-			for (int i = 0; i < l; i++) {
-				ToOwnAccountList = Elementlist.get(i).getText();
-				if (ToOwnAccountList.equalsIgnoreCase(valueSelectedFromList)) {
-					index++;
-					clickOnElement(ElementlistClickable.get(i));
-					break;
-				}
+			WaitUtils wait = new WaitUtils(driver);
+			wait.ImplicitlyWait();
+			while (count == 0 && index == 0) {
+				if (DBSappObject.SubTitleTextList().size() > 0) {
+					TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
+					List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
+					List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
+					int length = Elementlist.size();
+					String LocalRecipientList = null;
+					if (length < 2) {
+						for (int i = 0; i < length; i++) {
+							LocalRecipientList = Elementlist.get(i).getText();
+							if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+								index++;
+								clickOnElement(ElementlistClickable.get(i));
+								break;
+							}
+						}
+						// Exception Handling without scrolling case and no expected element found in
+						// the list then index ==0
+						if (index == 0 && count == 0)
+							Asserts.assertFail("Your DBS/POSB Accounts " +valueSelectedFromList+" not found in the list to initiate the fund transfer");
+						else
+							break;
+					} else
+
+						// Code will work :: When Need to scroll
+						for (int i = 0; i < length; i++) {
+							LocalRecipientList = Elementlist.get(i).getText();
+							if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+								index++;
+								clickOnElement(ElementlistClickable.get(i));
+								break;
+							}
+						}
+					if (index == 0) {
+						touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
+								.moveTo(element(DBSappObject.AllTab())).release().perform();
+
+						String s2 = driver.getPageSource();
+						if (s1.equals(s2) != true)
+							s1 = s2;
+						else
+							count = 1;
+					} else
+						break;
+
+					// Exception Handling in scrolling case and no expected element found in the
+					// list then index ==0, count ==1
+					if (count == 1 && index == 0)
+						Asserts.assertFail("Your DBS/POSB Accounts " +valueSelectedFromList+" not found in the list to initiate the fund transfer");
+
+				} else
+					Asserts.assertFail("No receipient found in the Your DBS/POSB Own Account List.");
 			}
-			Asserts.assertTrue(index > 0, "Your DBS/POSB ACcounts " +valueSelectedFromList+" not found in the list to initiate the fund transfer");
-			}
-			else
-				Asserts.assertFail("No receipient found in the Your DBS/POSB Own Account List.");
-			
-			
+			Thread.sleep(2000);
 			TakeScreenshot(DBSappObject.PageHeader());
 			verifyPageHeader(CommonTestData.TRANSFER_TO_YOUR_ACCOUNT.getEnumValue(), DBSappObject.PageHeader());
 		} catch (Exception e) {
@@ -4410,17 +4545,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			throws Exception {
 		try {
 			VerifyButtonLabelAndClick(DBSappObject.accountSectionHomePage(), CommonTestData.ACCOUNT_SECTION.getEnumValue());
-			gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
+			gestUtils.scrollDOWNtoObject("text", "Deposits", null);
 			TakeScreenshot(DBSappObject.depositeHomePage());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.depositeHomePage()), AccountType,
 					AccountType + " is not present");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.accountNameHomePage()), AccountName,
 					AccountName + " is not present");
+			gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
 			Asserts.assertEquals(getTexOfElement(DBSappObject.currencyHomePage()), currency,
 					currency + " is not present");
-			//boolean i = DBSappObject.amountValueHomePage().getText().isEmpty();
-			//Asserts.assertTrue(i == false, "Amount not Found");
-
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",e);		
 		}
@@ -5023,6 +5156,29 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 		catch (Exception e) {			
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Exceute Change Local Funds Transfer Limit ",e);
+		}
+	}
+	
+	@Step("Verify 'Welcome to DigiBank' Messages on dashboard Page.")
+	public void VerifyWelcomeMessagesOnDashboardPage(String welcome, String DigiBank, String DBSDigibank) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.WelcomeToText()).trim(),
+					welcome, welcome + " text is not matching.");
+
+			TakeScreenshot(DBSappObject.DigibankText());
+			if (DBSappObject.DigibankText().getText().equalsIgnoreCase(DigiBank)) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.DigibankText()).trim(),
+						DigiBank, DigiBank + " text is not matching.");
+			} else if (DBSappObject.DigibankText().getText()
+					.equalsIgnoreCase(DBSDigibank)) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.DigibankText()).trim(),
+						DBSDigibank,DBSDigibank + " text is not matching.");
+			}
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify welcome messages " ,e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify welcome messages ",e);
 		}
 	}
 }

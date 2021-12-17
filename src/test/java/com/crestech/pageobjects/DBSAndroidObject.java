@@ -1092,6 +1092,12 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Add Billing Organisation']")
 	private MobileElement AddBillingOrganisation;
 	
+	@ElementDescription(value = "RECIPIENTS")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='RECIPIENTS']")
+	private MobileElement RECIPIENTS_TAB;
+	
+	
+	
 	@ElementDescription(value = "Add Oversea Recipient")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Add Overseas Recipient']")
 	private MobileElement AddOverseasRecipient;
@@ -1262,6 +1268,10 @@ public class DBSAndroidObject {
 
 	public MobileElement AddBillingOrganisation() {
 		return AddBillingOrganisation;
+	}
+	
+	public MobileElement RECIPIENTS_TAB() {
+		return RECIPIENTS_TAB;
 	}
 
 	public MobileElement BillsButton() {
