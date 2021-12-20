@@ -2490,9 +2490,21 @@ public class DBSAndroidObject {
 	@ElementDescription(value = "UPDATE MORE DETAILS Button.")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='UPDATE MAILING ADDRESS']")
 	private MobileElement UpdateMailingAddressBtn;
+	
+	
+	@ElementDescription(value = "Quit Button.")
+	@AndroidFindBy(xpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button")
+	private MobileElement quitBtn;
+	
+	
+	
 
 	public MobileElement UpdateMailingAddressBtn() {
 		return UpdateMailingAddressBtn;
+	}
+
+	public MobileElement quitBtn() {
+		return quitBtn;
 	}
 
 }

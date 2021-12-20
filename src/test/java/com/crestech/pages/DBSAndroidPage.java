@@ -13,7 +13,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+
+import org.apache.commons.math3.stat.ranking.TiesStrategy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
@@ -117,16 +120,23 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void LogInApplicationWithSelectUATServer(String userName, String password, String appName, String serverName) throws Exception {
 		try {
 			CommonAlertElements btnElements = new CommonAlertElements(driver);
-			Thread.sleep(40000);
-			String quitButtonXpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(quitButtonXpath));
-			if (list.size() > 0) {
+			//Thread.sleep(40000);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			//String quitButtonXpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button";
+			//List<RemoteWebElement> list = driver.findElements(By.xpath(quitButtonXpath));
+			//MobileElement quit = (MobileElement) driver.findElement(By.xpath(quitButtonXpath));		
+			if(isElementVisible2(DBSappObject.quitBtn()))
+			{
+			//if (list.size() > 0) {
 				driver.closeApp();
 				relaunchingDBS();
 				wait.waitForElementToBeClickable(DBSappObject.loginButton());
-				Thread.sleep(5000);
+				//Thread.sleep(5000);
 				System.out.println("Relaunch Done");
+			//}
 			}
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			
 			SelectUATServer(serverName);
 			System.out.println("UAT server selected");
 			clickOnLoginButton();
@@ -178,17 +188,23 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void LogInApplication(String userName, String password, String appName) throws Exception {
 		try {
 			CommonAlertElements btnElements = new CommonAlertElements(driver);
-			Thread.sleep(40000);
-			String quitButtonXpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(quitButtonXpath));
-			if (list.size() > 0) {
+			//Thread.sleep(40000);
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			//String quitButtonXpath = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.Button";
+			//List<RemoteWebElement> list = driver.findElements(By.xpath(quitButtonXpath));
+			//MobileElement quit = (MobileElement) driver.findElement(By.xpath(quitButtonXpath));		
+			if(isElementVisible2(DBSappObject.quitBtn()))
+			{
+			//if (list.size() > 0) {
 				driver.closeApp();
 				relaunchingDBS();
 				wait.waitForElementToBeClickable(DBSappObject.loginButton());
 				Thread.sleep(5000);
 				System.out.println("Relaunch Done");
+			//}
 			}
-		
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			
 			clickOnLoginButton();
 			System.out.println("clickOnLoginButton");
 			sendDataInUserId(userName);
@@ -496,11 +512,21 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						CommonTestData.EMAIL_OTP_MESSAGE.getEnumValue());
 				verifyPageAndSendOtpToEditBox(CommonTestData.OTP.getEnumValue(),
 						CommonTestData.SMS_OTP_MESSAGE.getEnumValue());
-				Thread.sleep(4000);
-				gestUtils.scrollUPtoObject("text", "DONE", DBSappObject.doneButton());
-				String xpath = "//android.widget.Button[@text='DONE']";
+				
+				wait.waitForElementVisibility(DBSappObject.tokenGetSetupMessage());
+				
+				String xpath = "//android.widget.Button[@text='DONE']";				               
 				List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+				
 				if (list.size() > 0) {
+					TakeScreenshot(DBSappObject.doneButton());
+					androidAlert.AlertHandlingWithButtonMessage(DBSappObject.doneButton(),
+							CommonTestData.DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP.getEnumValue(),
+							DBSappObject.tokenGetSetupMessage());
+				}
+				else if (list.size()==0)
+				{
+					gestUtils.scrollUPtoObject("text", "DONE", null);					
 					TakeScreenshot(DBSappObject.doneButton());
 					androidAlert.AlertHandlingWithButtonMessage(DBSappObject.doneButton(),
 							CommonTestData.DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP.getEnumValue(),
@@ -4098,11 +4124,12 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 	public void TakeScreenshot(MobileElement Element) throws Exception {
 		try {
-			wait.waitForElementVisibility(Element);
+			//wait.waitForElementVisibility(Element);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-		}catch (HandleException e) {
-			obj_handleexception.throwHandleException("SCREENSHOT", " Failed to capture the screenshot ",e);
 		}
+//			catch (HandleException e) {
+//			obj_handleexception.throwHandleException("SCREENSHOT", " Failed to capture the screenshot ",e);
+//		}
 		catch (Exception e) {
 			obj_handleexception.throwException("SCREENSHOT", " Failed to capture the screenshot ",e);
 		}
