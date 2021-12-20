@@ -68,6 +68,7 @@ public class WaitUtils extends CommandPrompt {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.visibilityOf(element));
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 		} catch (Exception e) {
 			//e.printStackTrace();
 			System.out.println("Inside take ele visi catch" );

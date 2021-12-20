@@ -68,6 +68,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	public void clickOnElement(MobileElement element) throws Exception {
 		try {
 				wait.waitForElementToBeClickable(element);
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				element.click();
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On Element  ",e);
@@ -86,6 +87,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	public void enterTextInTextbox(MobileElement element, String keysToSend) throws Exception {
 		try {
 			wait.waitForElementVisibility(element);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			element.sendKeys(keysToSend);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("SEND_KEYS_EXCEPTION", " Failed to enter text in textbox  ",e);

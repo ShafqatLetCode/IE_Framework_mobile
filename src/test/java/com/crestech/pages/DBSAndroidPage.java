@@ -422,22 +422,20 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Application Logout & Verifies the 'Tap on the stars to rate' field Message.")
-	public void clickOnLogoutAndVerify(String logoutTextMsg, String Ratingmsg) throws Exception {
+	@Step("Verify Logout.")
+	public void VerifyLogout(String logoutTextMsg, String Ratingmsg) throws Exception {
 		try {
-			VerifyWelcomeMessagesOnDashboardPage(CommonTestData.WELCOME.getEnumValue(), CommonTestData.DIGIBANK.getEnumValue(), CommonTestData.DBS_DIGIBANK.getEnumValue());
-			TakeScreenshot(DBSappObject.logoutButton());
+			VerifyWelcomeMessagesOnDashboardPage(CommonTestData.WELCOME.getEnumValue(),
+					CommonTestData.DIGIBANK.getEnumValue(), CommonTestData.DBS_DIGIBANK.getEnumValue());
+			wait.waitForElementVisibility(DBSappObject.logoutButton());
 			androidAlert.AlertHandlingWithButtonMessage(DBSappObject.logoutButton(), logoutTextMsg,
 					DBSappObject.logoutButton());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.postLogoutAlertMessage()), Ratingmsg,
 					"'Tap on the stars to rate' Text is not found");
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Log Out  ",e);
-					
-		}
-		catch (Exception e) {			
-			
-			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Log Out  ",e);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Log Out  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Log Out  ", e);
 		}
 	}
 
@@ -549,14 +547,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			ClickOnOverseasModule(CommonTestData.OVERSEAS_ICON.getEnumValue());
+			verifyPageHeader(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue(), DBSappObject.OverseasTransferPage());
 			SelectOverseaPayee(CommonTestData.PAYEE_NAME_CORRIDOR.getEnumValue());
 			selectFundSourceAndSelectAccountForCorredor(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue(),
 					CommonTestData.SOURCE_ACCOUNT_CORRIDOR.getEnumValue());
+			verifyPageHeader(CommonTestData.OVERSEA_HEADER.getEnumValue(), DBSappObject.overseasTransferHeader());
 			pressEnterKeyAfterEnteringAmount(CommonTestData.CORRIDOR_AMOUNT.getEnumValue());
 			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.NextBtn());
 			selectPurposeAccountTypeMobileNumberIfAvaliable(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),
 					CommonTestData.PURPOSE.getEnumValue(),CommonTestData.MOBILE_NUMBER.getEnumValue());
-			ClickOnNextBtnAndVerifiesReviewTransferPage();
+			ClickOnNextButtonForEOTTCORRIDOR();
+			verifyPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue(), DBSappObject.ReviewTransferPageHeader());
 			ClickOnTransferNowBtn();
 			VerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
 					DBSappObject.TransferSubmittedImage(), DBSappObject.TransferSubmittedMsg());
@@ -569,6 +570,28 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Remittance Corridor  ",e);
 		}
 	}
+	
+	@Step("Select EOTT")
+	public void SelectEOTT() throws Exception{
+		try {
+			clickOnElement(DBSappObject.editSearchField());
+			String ExpectedEottName = CommonTestData.EOTTREMITTANCE_NAME.getEnumValue();
+			enterTextInTextbox(DBSappObject.editSearchField(), ExpectedEottName);
+			pressKey(driver, Keys.ENTER);
+			String xpath = "//android.widget.TextView[@text='" + ExpectedEottName + "']";
+			MobileElement ExpectedEottEle = (MobileElement) driver.findElement(By.xpath(xpath));
+			if(isElementVisible2(ExpectedEottEle))
+			clickOnElement(ExpectedEottEle);
+			else
+				Asserts.assertFail("EOTT "+ExpectedEottName + " Not Found corresponding to this user.");
+		}
+		catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab   ",e);
+		}
+	}
 
 	@Step("Verifies Remittance eOTT")
 	public void VerifyRemittanceEOTT() throws Exception {
@@ -576,27 +599,16 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			SelectAllTAB();
-			clickOnElement(DBSappObject.editSearchField());
-			String ExpectedEottName = CommonTestData.EOTTREMITTANCE_NAME.getEnumValue();
-			enterTextInTextbox(DBSappObject.editSearchField(), ExpectedEottName);
-			pressKey(driver, Keys.ENTER);
-			String xpath = "//android.widget.TextView[@text='" + ExpectedEottName + "']";
-			MobileElement ExpectedEottEle = (MobileElement) driver.findElement(By.xpath(xpath));
-			isElementVisible(ExpectedEottEle);
-			clickOnElement(ExpectedEottEle);
+			SelectEOTT();
 			selectFundSourceAndSelectAccountForCorredor(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue(), null);
+			verifyPageHeader(CommonTestData.OVERSEA_HEADER.getEnumValue(), DBSappObject.overseasTransferHeader());
 			pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
-//			gestUtils.scrollUPtoObject("resource-id", "id/btn_remitnext", DBSappObject.NextBtn());
-//			clickOnElement(DBSappObject.SelectPurposeOfTransfer());
-//			clickOnElement(DBSappObject.FundTransferPurposeOption());
-//			Asserts.assertEquals(getTexOfElement(DBSappObject.TextViewPurpose()),
-//					CommonTestData.PURPOSE_OF_TRANSFER_TEXT.getEnumValue(),
-//					CommonTestData.PURPOSE_OF_TRANSFER_TEXT.getEnumValue() + " Text is not found");
 			gestUtils.scrollUPtoObject("text", "Next", null);
 			selectPurposeAccountTypeMobileNumberIfAvaliable(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),
 					CommonTestData.PURPOSE.getEnumValue(),CommonTestData.MOBILE_NUMBER.getEnumValue());
 			gestUtils.scrollUPtoObject("text", "NEXT", null);
-			ClickOnNextBtnAndVerifiesReviewTransferPage();
+			ClickOnNextButtonForEOTTCORRIDOR();
+			verifyPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue(), DBSappObject.ReviewTransferPageHeader());
 			ClickOnTransferNowBtn();
 			VerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue(),
 					DBSappObject.TransferSubmittedImage(), DBSappObject.TransferSubmittedMsg());
@@ -615,15 +627,19 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
-			clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader();
-			
+			clickOnAddLocalRecipientBtn();
+			verifyPageHeader(CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(), DBSappObject.PageHeader());
+			SelectBankAccount();
+			verifyPageHeader(CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader());
 			String ExpectedRecipientName = CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue();
-			EnterRecipientDetailsAfterSelectingBankAccountOption(ExpectedRecipientName,
+			EnterRecipientDetails(ExpectedRecipientName,
 					CommonTestData.PAYEEADD_DBSPOSB_BANK_NAME.getEnumValue(),
 					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
-			ClickOnNextBtnAndReviewRecipientDetails();
+			ClickOnNextBtn();
+			verifyPageHeader(CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader());
 			ClickOnAddRecipientNowBtn();
-			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
+			EnterPasscodeAndDone();
+			VerifyYouHaveAddedRecipientMessage();
 			verifyValidationForPayeeAdd(ExpectedRecipientName, CommonTestData.PAYEEADD_DBSPOSB_BANK_NAME.getEnumValue(),
 					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
 			
@@ -641,89 +657,120 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Verify 'You Have Added Recipient Msg' After Entering Secure PIN.")
-	public void VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN() throws Exception {
+	@Step("Verify 'You Have Added Recipient Message'.")
+	public void VerifyYouHaveAddedRecipientMessage() throws Exception {
 		try {
-			EnterPasscodeAndDone();
 			Thread.sleep(10000); 
-			if (DBSappObject.SuccessTickImageView().isDisplayed()) {
-			TakeScreenshot(DBSappObject.SuccessTickImageView());
+			if (isElementVisible2(DBSappObject.SuccessTickImageView())) {
 				if(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue()))
 					Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
 							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
 							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not matching");
 				
-				else if(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue())) {
+				else if(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue())) 
 					Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
 							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue(),
 							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue() + " Text is not matching");
-				}	
-			} else {	
-				Asserts.assertFail("You Have added a Recipient Page not displaying");
-			}		
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FILEDVERIFICATION_EXCEPTION", " Failed to verify you've added recipient msg  ",e);
 					
+			} else 
+				Asserts.assertFail("You Have added a Recipient Page not displaying");
+					
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FILEDVERIFICATION_EXCEPTION", " Failed to verify you've added recipient Message ",e);		
 		}
 		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FILEDVERIFICATION_EXCEPTION", " Failed to verify you've added recipient msg  ",e);
+			obj_handleexception.throwException("FILEDVERIFICATION_EXCEPTION", " Failed to verify you've added recipient Message ",e);
 		}
 	}
 
-	@Step("Verify Local Transfer Pay Now Page Header After Clicking On Add Local Recipient Page Header.")
-	public void clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader() throws Exception {
+	@Step("Click On Add Local Recipient Button.")
+	public void clickOnAddLocalRecipientBtn() throws Exception {
 		try {
 			String xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0) {
-				TakeScreenshot(DBSappObject.AddRecipientNowBtn());
+			if (list.size() > 0) 
 				clickOnElement(DBSappObject.AddRecipientNowBtn());
-			} else {
-				TakeScreenshot(DBSappObject.AddLocalRecipient());
+			 else 
 				clickOnElement(DBSappObject.AddLocalRecipient());
-			}
-			wait.waitForElementVisibility(DBSappObject.PageHeader());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(),
-					CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue() + " Page Header is not matching");
+			
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Local Recipient Button and verify page header ",e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Local Recipient Button ",e);
 					
 		}
 		catch (Exception e) {			
 			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Local Recipient Button and verify page header ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Local Recipient Button ",e);
 		}
 	}
 
-	@Step("Enter Recipient Details Into Bank Account Section.")
-	public void EnterRecipientDetailsAfterSelectingBankAccountOption(String ExpectedRecipientName, String BankName,
+	@Step("Enter Recipient Details.")
+	public void EnterRecipientDetails(String ExpectedRecipientName, String BankName,
 			String AccountNumber) throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.SelectBankAccount());
-			clickOnElement(DBSappObject.SelectBankAccount());
-			wait.waitForElementToBeClickable(DBSappObject.EditFields().get(0));
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(),
-					CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue() + " Text is not found");
-			enterTextInTextbox(DBSappObject.EditFields().get(0), ExpectedRecipientName);
+			EnterRecipientName(ExpectedRecipientName);
+			SelectBankName(BankName);
+			EnterAccountNumber(AccountNumber);
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Recipient Details  ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Recipient Details ",e);
+		}
+	}
+	
+	@Step("Enter Account Number")
+	public void EnterAccountNumber(String AccountNumber) throws Exception {
+		try {
+			enterTextInTextbox(DBSappObject.EditFields().get(2), AccountNumber);
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Account Number ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Account Number ",e);
+		}
+	}
+	
+	@Step("Enter Recipient Name")
+	public void EnterRecipientName(String ExpectedRecipientName) throws Exception {
+		try {
+			enterTextInTextbox(DBSappObject.EditFields().get(0), ExpectedRecipientName); 
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Recipient Name ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Recipient Name ",e);
+		}
+	}
+	
+	@Step("Select Bank Name")
+	public void SelectBankName(String BankName) throws Exception {
+		try {
 			clickOnElement(DBSappObject.EditFields().get(1));
 			clickOnElement(DBSappObject.SearchField());
 			enterTextInTextbox(DBSappObject.SearchField(), BankName);
-			backButton();
-			gestUtils.scrollUPtoObject("text", "BANK OF INDIA", DBSappObject.SelectBankOFIndia());
+			driver.hideKeyboard();
+			
+			gestUtils.scrollUPtoObject("text", BankName , DBSappObject.SelectBankOFIndia());
 			String xpath = "//android.widget.RelativeLayout//android.widget.TextView[@text='" + BankName + "']";
 			MobileElement Selectbank = (MobileElement) driver.findElement(By.xpath(xpath));
 			clickOnElement(Selectbank);
-			enterTextInTextbox(DBSappObject.EditFields().get(2), AccountNumber);
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Details   ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Bank Name ",e);			
 		}
 		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Details  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Bank Name ",e);
+		}
+	}
+	
+	@Step("Select Bank Account.")
+	public void SelectBankAccount() throws Exception {
+		try {
+			clickOnElement(DBSappObject.SelectBankAccount());
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Bank Account ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Bank Account ",e);
 		}
 	}
 
@@ -775,7 +822,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String xpath = "//android.widget.EditText[@text='••••••']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0) {
-				TakeScreenshot(DBSappObject.PasscodeField());
 				enterTextInTextbox(DBSappObject.PasscodeField(), CommonTestData.OTP.getEnumValue());
 				String doneButtonxpath = "//android.widget.Button[@text='Done']";
 				List<RemoteWebElement> doneButtonList = driver.findElements(By.xpath(doneButtonxpath));
@@ -837,15 +883,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Verifies Review Transfer Page Header after clicking on Next Button.")
-	public void ClickOnNextBtnAndVerifiesReviewTransferPage() throws Exception {
+	@Step("Click on Next Button.")
+	public void ClickOnNextButtonForEOTTCORRIDOR() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.NextBtn());
 			clickOnElement(DBSappObject.NextBtn());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.ReviewTransferPageHeader()),
-					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
-					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
-			TakeScreenshot(DBSappObject.ReviewTransferPageHeader());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
 		}
@@ -872,7 +914,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifiesTransferSubmittedMsg(String SuccessMsg, MobileElement successImage,
 			MobileElement transfferdSubmitMsgEle) throws Exception {
 		try {
-			TakeScreenshot(successImage);
 			if (isElementVisible(successImage))
 				Asserts.assertEquals(getTexOfElement(transfferdSubmitMsgEle), SuccessMsg,
 						SuccessMsg + " Text is not matching");
@@ -919,7 +960,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Pay & Transfer Button.")
 	public void ClickOnPayAndTransferBtn() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.PayAndTransferBtn());
+			//TakeScreenshot(DBSappObject.PayAndTransferBtn());
 			clickOnElement(DBSappObject.PayAndTransferBtn());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Pay and Transfer Button  ",e);			
@@ -938,17 +979,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (actualText.equalsIgnoreCase(expectecText))
 				clickOnElement(DBSappObject.Btnlist().get(3));
 			
-			TakeScreenshot(DBSappObject.OverseasTransferPage());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.OverseasTransferPage()).toLowerCase(),
-					CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue().toLowerCase(),
-					CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue() + " Text is not found");
-
+			wait.waitForElementVisibility(DBSappObject.OverseasTransferPage());
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Overseas Button  ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Overseas Button  ",e);		
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on Overseas Button ",e);
 		}
 	}
@@ -971,15 +1006,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 	}
 
-	@Step("Enter the text in search and select the corresponding value in the dropdown")
-	public void sendDataInSearchBoxAndSelectFromDropDown(String searchBoxData, String valueSelectedFromList,
+	@Step("Select Country")
+	public void SelectCountry(String searchBoxData, String valueSelectedFromList,
 			MobileElement searchField) throws Exception {
 		try {
 			if (isElementEnable(searchField))
 				enterTextInTextbox(searchField, searchBoxData);
 			List<MobileElement> Elementlist = DBSappObject.countryList();
 			if (Elementlist.size() > 0) {
-				TakeScreenshot(Elementlist.get(0));
 				List<MobileElement> ElementlistClickable = DBSappObject.dropDowmList();
 				int l = Elementlist.size();
 				int index = 0;
@@ -993,25 +1027,19 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					}
 				}
 
-				Asserts.assertTrue(index > 0, "No element found in the lis of corresponding value");
-			} else {
-				if (androidAlert.isAlertPresent()) {
-					System.out.println("Alert title :: " + this.driver.switchTo().alert().getText());
-				}
-				Asserts.assertFail(valueSelectedFromList + " not found in the list as list size is 0");
-			}
+				Asserts.assertTrue(index > 0, "No element found in the list.");
+			} else 
+				Asserts.assertFail("Country "+ valueSelectedFromList + " not found in the list as list size is 0");
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Send Data In Search Box ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Country ",e);			
 		}
 		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to to Send Data In Search Box ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Country ",e);
 		}
 	}
 
-	@Step("Select CurrencyType From the List")
-	public void CurrencyTypeVerifyClick(String expectecCurrency) throws Exception {
+	@Step("Select Currency Type")
+	public void SelectCurrencyType(String expectecCurrency) throws Exception {
 		try {
 			if (DBSappObject.currencyOptionList().size() > 0) {
 				TakeScreenshot(DBSappObject.currencyOptionList().get(0));
@@ -1025,20 +1053,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						break;
 					}
 				}
-
-				Asserts.assertTrue(index > 0, "No currency found in the list of corresponding value");
-			} else {
-				if (androidAlert.isAlertPresent()) {
-					System.out.println("Alert title :: " + this.driver.switchTo().alert().getText());
-				}
+				if(index==0)
+				Asserts.assertFail("Currency Type " +expectecCurrency +" Not found in the list");
+			} else 
 				Asserts.assertFail(expectecCurrency + " not found in the list as list size is 0");
-			}
 		}catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Currency Type from list. ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Currency Type from list. ",e);			
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Currency Type from list.  ",e);
 		}
 	}
@@ -1089,90 +1111,72 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Enter data in Bank Code EditBox")
-	public void sendBankCode(String text) throws Exception {
+	@Step("Enter Bank Code")
+	public void EnterBankCode(String text) throws Exception {
 		try {
-
 			if (isElementEnable(DBSappObject.enterBankcodeTextField()))
 				enterTextInTextbox(DBSappObject.enterBankcodeTextField(), text);
-
 			Asserts.assertTrue(isElementEnable(DBSappObject.enterBankcodeTextField()), "EditField is not enable");
-			TakeScreenshot(DBSappObject.enterBankcodeTextField());
-
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Send Bank Code in EditBox ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Bank Code ",e);		
 		}
 		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Send Bank Code in EditBox  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Bank Code ",e);
 		}
 	}
 
-	@Step("Enter Account No EditBox")
-	public void sendAccountNo(String text) throws Exception {
+	@Step("Enter Account Number")
+	public void enterAccountNumberForRemittance(String text) throws Exception {
 		try {
 			if (isElementEnable(DBSappObject.recipientAccountNoEditBox()))
 				enterTextInTextbox(DBSappObject.recipientAccountNoEditBox(), text);
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Send Account Number in EditBox ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Account Number ",e);			
 		}
 		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Send Account Number in EditBox  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Account Number ",e);
 		}
 	}
 
-	@Step("Enter Full name EditBox")
-	public void sendFullName(String text) throws Exception {
+	@Step("Enter Full Name")
+	public void EnterFullName(String text) throws Exception {
 		try {
 			if (isElementEnable(DBSappObject.recipientNameEditBox()))
 				enterTextInTextbox(DBSappObject.recipientNameEditBox(), text);
-			TakeScreenshot(DBSappObject.recipientAddressEditBox());
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Send Full Name in EditBox ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Full Name ",e);		
 		}
 		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Send Full Name in EditBox  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Full Name ",e);
 		}
 	}
 
-	@Step("Enter Address EditBox")
-	public void sendAddress(String text) throws Exception {
+	@Step("Enter Address")
+	public void EnterAddress(String text) throws Exception {
 		try {
 			if (isElementEnable(DBSappObject.recipientAddressEditBox()))
 				enterTextInTextbox(DBSappObject.recipientAddressEditBox(), text);
 
-			// Asserts.assertTrue(isElementEnable(DBSappObject.recipientAddressEditBox()),
-			// "EditField is not enable");
 		}catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Send Address in EditBox ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Address ",e);	
 		}
 		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Send Address in EditBox  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Address ",e);
 		}
 	}
 
-	@Step("Enter city EditBox")
-	public void sendcity(String text) throws Exception {
+	@Step("Enter City")
+	public void EnterCity(String text) throws Exception {
 		try {
 			String xpath = "//android.widget.EditText[@text='In the City of']";
 			List<RemoteWebElement> CityList = driver.findElements(By.xpath(xpath));
 			if (CityList.size() > 0)
 				enterTextInTextbox(DBSappObject.recipientCityEditBox(), text);
-
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Send City in EditBox ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter City ",e);		
 		}
 		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Send City in EditBox  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter City  ",e);
 		}
 	}
 
@@ -1198,21 +1202,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void ClickOnAddRecipientNowBtn() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "ADD RECIPIENT NOW", DBSappObject.AddRecipientNowBtn());
-			TakeScreenshot(DBSappObject.AddRecipientNowBtn());
 			String actualText = getTexOfElement(DBSappObject.AddRecipientNowBtn());
 			if (actualText.equalsIgnoreCase(CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue()))
 				clickOnElement(DBSappObject.AddRecipientNowBtn());
 			Thread.sleep(4000);
 			Asserts.assertEquals(actualText, CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue(), "Button not matching");
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ",e);		
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ",e);
 		}
-
 	}
 	
 	@Step("clicking On 'ADD RECIPIENT NOW' button")
@@ -1220,13 +1220,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			String xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0) {
-				TakeScreenshot(DBSappObject.AddRecipientNowBtn());
+			if (list.size() > 0) 
 				clickOnElement(DBSappObject.AddRecipientNowBtn());
-			} else {
-				TakeScreenshot(DBSappObject.AddOverseasRecipient());
+			 else 
 				clickOnElement(DBSappObject.AddOverseasRecipient());
-			}
+			
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ",e);
 					
@@ -1242,19 +1240,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			clickOnElement(DBSappObject.expandButton());
 			gestUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
-			TakeScreenshot(DBSappObject.makeTransferButton());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.makeTransferButton()),
 					CommonTestData.MAKE_TRANSFER.getEnumValue(), "'MAKE A TRANSFER' Text is not found");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.ReferenceNumberText()), expectedText,
 					"'Reference no Field' is not found");
-			//boolean i = DBSappObject.referenceNoValue().getText().isEmpty();
-			//Asserts.assertTrue(i == false, "Reference Number not Found");
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Reference Field Value ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Reference Field Value ",e);		
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Reference Field Value  ",e);
 		}
 	}
@@ -1307,7 +1300,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void sendCurrencyInTextField(String text) throws Exception {
 		try {
 			enterTextInTextbox(DBSappObject.currencyTextBox(), text);
-			TakeScreenshot(DBSappObject.currencyTextBox());
+			//TakeScreenshot(DBSappObject.currencyTextBox());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to enter currency   ",e);
 					
@@ -1368,13 +1361,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (actualText.equalsIgnoreCase(expectecText))
 				clickOnElement(DBSappObject.logOutPaylahButton());
 			Asserts.assertEquals(actualText, expectecText, "LogOut button Not exist");
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on LogOut Button  ",e);
-					
-		}
-		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on LogOut Button  ",e);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on LogOut Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on LogOut Button  ", e);
 		}
 	}
 
@@ -1383,139 +1373,349 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			ClickOnMoreButton();
 			EnterPasscodeAndDone();
-			SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN();
+			ClickOnCardsModule();
+			SelectDebitCard();
+			EnterPasscodeAndDone();
+			selectDebitCardType(CommonTestData.DEBIT_CARD_NAME.getEnumValue());
 			FillingDetailsToApplyingDebitCard();
+			ClickOnSendMeDBSPrmotionViaMailCheckbox();
 			ClickOnNextButton();
 			MobileElement element = null;
 			element = verifyElementExistInTheList(DBSappObject.PageHeaderList(),
 					CommonTestData.REVIEW_APPLICATION.getEnumValue());
-			if (element != null) {
-				Asserts.assertEquals(getTexOfElement(element), CommonTestData.REVIEW_APPLICATION.getEnumValue(),
-						CommonTestData.REVIEW_APPLICATION.getEnumValue() + " Text is not found");
-			}
+			if (element != null)
+				verifyPageHeader(CommonTestData.REVIEW_APPLICATION.getEnumValue(), element);
 
-			gestUtils.scrollUPtoObject("text", "APPLY NOW", DBSappObject.ApplyNowButton());
-			clickOnElement(DBSappObject.ApplyNowButton());
-			ClickOnSubmitButtonAfterSettingCardPIN();
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Apply Debit card  ",e);
-			System.out.println("Inside Appply debit card catch"+e.getCode());		
-		}
-		catch (Exception e) {			
-			System.out.println("Inside Appply debit card catch");
-			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Apply Debit card  ",e);
-		}
-	}
-
-	@Step("Verifies the Set Card Pin Page Header and then Submit While Entering Confirm and Create New Pin & Verifies the 'Application Submitted' Message.")
-	public void ClickOnSubmitButtonAfterSettingCardPIN() throws Exception {
-		try {
-			MobileElement element = null;
+			ClickonApplyButton();
 			element = verifyElementExistInTheList(DBSappObject.PageHeaderList(),
 					CommonTestData.SET_CARD_PIN.getEnumValue());
-			if (element != null) {
-				Asserts.assertEquals(getTexOfElement(element), CommonTestData.SET_CARD_PIN.getEnumValue(),
-						CommonTestData.SET_CARD_PIN.getEnumValue() + " Text is not found");
-			}
+			if (element != null)
+				verifyPageHeader(CommonTestData.SET_CARD_PIN.getEnumValue(), element);
+			SetDebitCardPin(CommonTestData.CREATE_PIN.getEnumValue(), CommonTestData.CONFIRM_PIN.getEnumValue());
+			ClickOnSubmitButton();
+			VerifyApplicationSubmittedMessage(CommonTestData.APPLICATION_SUBMITTED.getEnumValue());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Apply Debit card  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Apply Debit card  ", e);
+		}
+	}
+	
+	@Step("Verify Application Submitted Message")
+	public void VerifyApplicationSubmittedMessage(String ApplicationSubmittedMessage) throws Exception {
+		try {
+		MobileElement element = null;
+		element = verifyElementExistInTheList(DBSappObject.PageHeaderList(),ApplicationSubmittedMessage);
+		if (element != null) 
+			Asserts.assertEquals(getTexOfElement(element), ApplicationSubmittedMessage, ApplicationSubmittedMessage + " Text is not Matching");
+	}catch (HandleException e) {
+		obj_handleexception.throwHandleException("FUNCTIONAL_EXEPTION", " Failed to Click On Apply Button  ", e);
+	} catch (Exception e) {
+		obj_handleexception.throwException("FUNCTIONAL_EXEPTION", " Failed to Click On Apply Button  ", e);
+	}
+}
+	
+	@Step("Click on Apply Button")
+	public void ClickonApplyButton() throws Exception {
+		try {
+			gestUtils.scrollUPtoObject("text", "APPLY NOW", DBSappObject.ApplyNowButton());
+			clickOnElement(DBSappObject.ApplyNowButton());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXEPTION", " Failed to Click On Apply Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXEPTION", " Failed to Click On Apply Button  ", e);
+		}
+	}
+	
+	@Step("Set debit card PIN.")
+	public void SetDebitCardPin(String createPin, String ConfirmPin) throws Exception {
+		try {
 			clickOnElement(DBSappObject.CreateYourPINField());
-			enterTextInTextbox(DBSappObject.CreateYourPINField(), CommonTestData.CREATE_PIN.getEnumValue());
+			enterTextInTextbox(DBSappObject.CreateYourPINField(), createPin);
 			clickOnElement(DBSappObject.ConfirmNewPINField());
-			enterTextInTextbox(DBSappObject.ConfirmNewPINField(), CommonTestData.CONFIRM_PIN.getEnumValue());
+			enterTextInTextbox(DBSappObject.ConfirmNewPINField(), ConfirmPin);
 			driver.hideKeyboard();
-			clickOnElement(DBSappObject.submitButton());
-
-			element = verifyElementExistInTheList(DBSappObject.PageHeaderList(),
-					CommonTestData.APPLICATION_SUBMITTED.getEnumValue());
-			if (element != null) {
-				Asserts.assertEquals(getTexOfElement(element), CommonTestData.APPLICATION_SUBMITTED.getEnumValue(),
-						CommonTestData.APPLICATION_SUBMITTED.getEnumValue() + " Text is not Matching");
-				System.out.println("Inside : " + CommonTestData.APPLICATION_SUBMITTED.getEnumValue());
-			}
-
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXEPTION", " Failed to Set card PIN And Click On Submit Button  ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXEPTION", " Failed to Set card PIN ",e);	
 		}
 		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FUNCTIONAL_EXEPTION", " Failed to Click On Submit Button  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXEPTION", " Failed to Set card PIN ",e);
 		}
 	}
 
-	@Step("Filling Required Details to applying Debit Card like as 'AccountToBeLinkedToTheCardField',"
-			+ " 'Title', 'EnterNameToAppearOnTheCardField', 'Race', 'Marital Status','Residential Type',"
-			+ "'Education','Economic Status','Annual Income', 'And Select Checkbox SendMeDBSPrmotionViaMail'.")
-	public void FillingDetailsToApplyingDebitCard() throws Exception {
+	@Step("Click on Submit Button")
+	public void ClickOnSubmitButton() throws Exception {
 		try {
-			// To filling Debit Card Details for applying Debit card.
+			clickOnElement(DBSappObject.submitButton());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXEPTION", " Failed to Click On Submit Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXEPTION", " Failed to Click On Submit Button ", e);
+		}
+	}
+
+	@Step("Click On 'Account To Be Linked To The Card' Field")
+	public void ClickOnAccountToBeLinkedToTheCardField() throws Exception {
+		try {
 			clickOnElement(DBSappObject.AccountToBeLinkedToTheCardField());
-			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),
-					CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
-
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Account To Be Linked To The Card' Field ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Account To Be Linked To The Card' Field ", e);
+		}
+	}
+	
+	@Step("Select Account Linked With Debit Card")
+	public void SelectAccountLinkedWithDebitCard(String linkedAccount) throws Exception {
+		try {
+			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),linkedAccount, " Account Linked With Debit Card");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Account Linked With Debit Card ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Account Linked With Debit Card ", e);
+		}
+	}
+	
+	@Step("Select Title")
+	public void SelectTitle(String title) throws Exception {
+		try {
+			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(), title, "Title");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Title ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Title ", e);
+		}
+	}
+	
+	@Step("Click On 'Title' Field")
+	public void ClickOnTitleField() throws Exception {
+		try {
 			clickOnElement(DBSappObject.TitleField());
-			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),
-					CommonTestData.TITLE.getEnumValue());
-
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Title' Field ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Title' Field ", e);
+		}
+	}
+	
+	@Step("Enter Name To Appear On The Card")
+	public void EnterNameToAppearOnTheCard(String Name) throws Exception {
+		try {
 			clickOnElement(DBSappObject.EnterNameToAppearOnTheCardField());
-			enterTextInTextbox(DBSappObject.EnterNameToAppearOnTheCardField(),
-					CommonTestData.NAMETO_APPEAR_ON_DEBITCARD.getEnumValue());
+			enterTextInTextbox(DBSappObject.EnterNameToAppearOnTheCardField(), Name);
 			driver.hideKeyboard();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Title' Field ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Title' Field ", e);
+		}
+	}
+	
+	@Step("Click On 'Race' Field")
+	public void ClickOnRaceField() throws Exception {
+		try {
 			gestUtils.scrollUPtoObject("text", "Education", DBSappObject.EducationField());
 			clickOnElement(DBSappObject.RaceField());
-			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),
-					CommonTestData.RACE.getEnumValue());
-
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Race' Field ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Race' Field ", e);
+		}
+	}
+	
+	@Step("Select Race")
+	public void SelectRace(String race) throws Exception {
+		try {
+			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),race, "Race");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Race ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Race ", e);
+		}
+	}
+	
+	@Step("Click On 'Marital Status' Field")
+	public void ClickOnMaritalStatusField() throws Exception {
+		try {
 			clickOnElement(DBSappObject.MaritalStatusField());
-			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),
-					CommonTestData.MARITAL_STATUS.getEnumValue());
-
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Marital Status' Field ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Marital Status' Field ", e);
+		}
+	}
+	
+	@Step("Click On 'Residential Type' Field")
+	public void ClickOnResidentialTypeField() throws Exception {
+		try {
 			clickOnElement(DBSappObject.ResidentialTypeField());
-			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),
-					CommonTestData.RESIDENCE_TYPE.getEnumValue());
-
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Residential Type' Field ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Residential Type' Field ", e);
+		}
+	}
+	
+	@Step("Click On 'Education' Field")
+	public void ClickOnEducationField() throws Exception {
+		try {
 			clickOnElement(DBSappObject.EducationField());
-			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),
-					CommonTestData.EDUCATION.getEnumValue());
-
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Education' Field ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Education' Field ", e);
+		}
+	}
+	
+	@Step("Click On 'Economic Status' Field")
+	public void ClickOnEconomicStatusField() throws Exception {
+		try {
 			clickOnElement(DBSappObject.EconomicStatusField());
-			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),
-					CommonTestData.ECONOMIC_STATUS.getEnumValue());
-
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Economic Status' Field ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Economic Status' Field ", e);
+		}
+	}
+	
+	@Step("Click On 'Annual Income' Field")
+	public void ClickOnAnnualIncomeField() throws Exception {
+		try {
 			clickOnElement(DBSappObject.AnnualIncomeField());
-			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),
-					CommonTestData.ANNUAL_INCOME.getEnumValue());
-
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Annual Income' Field ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Annual Income' Field ", e);
+		}
+	}
+	
+	
+	@Step("Click On 'Send Me DBS Prmotion Via Mail' checkbox")
+	public void ClickOnSendMeDBSPrmotionViaMailCheckbox() throws Exception {
+		try {
 			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
 			clickOnElement(DBSappObject.SendMeDBSPrmotionViaMail());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Send Me DBS Prmotion Via Mail' checkbox ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Send Me DBS Prmotion Via Mail' checkbox ", e);
+		}
+	}
+	
+	@Step("Select Marital Status")
+	public void SelectMaritalStatus(String MaritalStatus) throws Exception {
+		try {
+			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(), MaritalStatus, "Marital Status");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Marital Status ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Marital Status ", e);
+		}
+	}
+	
+	@Step("Select Residential Type")
+	public void SelectResidentialType(String ResidentialType) throws Exception {
+		try {
+			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(), ResidentialType, "Residence Type");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Residential Type ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Residential Type ", e);
+		}
+	}
+	
+	@Step("Select Economic Status")
+	public void SelectEconomicStatus(String EconomicStatus) throws Exception {
+		try {
+			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(),EconomicStatus, "Economic Status");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Economic Status ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Economic Status ", e);
+		}
+	}
+	
+	@Step("Select Education")
+	public void SelectEducation(String Education) throws Exception {
+		try {
+			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(), Education, "Education");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Education ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Education ", e);
+		}
+	}
+	
+	@Step("Select Annual Income ")
+	public void SelectAnnualIncome(String AnnualIncome) throws Exception {
+		try {
+			selectElementFromTheGivenList(DBSappObject.DebitCardDetailsDropdownList(), AnnualIncome, "Annaul Income");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Annual Income ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Annual Income ", e);
+		}
+	}
+	
+	@Step("Fill Details To Applying Debit Card.")
+	public void FillingDetailsToApplyingDebitCard() throws Exception {
+		try {
+			ClickOnAccountToBeLinkedToTheCardField();
+			SelectAccountLinkedWithDebitCard(CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
 
+			ClickOnTitleField();
+			SelectTitle(CommonTestData.TITLE.getEnumValue());
+			
+			EnterNameToAppearOnTheCard(CommonTestData.NAMETO_APPEAR_ON_DEBITCARD.getEnumValue());
+			
+			ClickOnRaceField();
+			SelectRace(CommonTestData.RACE.getEnumValue());
+			
+			ClickOnMaritalStatusField();
+			SelectMaritalStatus(CommonTestData.MARITAL_STATUS.getEnumValue());
+			
+			ClickOnResidentialTypeField();
+			SelectResidentialType(CommonTestData.RESIDENCE_TYPE.getEnumValue());
+			
+			ClickOnEducationField();
+			SelectEducation(CommonTestData.EDUCATION.getEnumValue());
+
+			ClickOnEconomicStatusField();
+			SelectEconomicStatus(CommonTestData.ECONOMIC_STATUS.getEnumValue());
+
+			ClickOnAnnualIncomeField();
+			SelectAnnualIncome(CommonTestData.ANNUAL_INCOME.getEnumValue());
 		}  catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to enter debit card details  ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to enter debit card details  ",e);			
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to enter debit card details  ",e);
 		}
 	}
 
-	@Step("Select Debit Card Option After Clicking on Cards Section and then 2FA Authentication Done.")
-	public void SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN() throws Exception {
+	@Step("Click On Cards Module")
+	public void ClickOnCardsModule() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "Cards", DBSappObject.CardsButton());
-			if (isElementVisible(DBSappObject.CardsButton()))
-				clickOnElement(DBSappObject.CardsButton());
-			TakeScreenshot(DBSappObject.SelectDebitCard());
-			clickOnElement(DBSappObject.SelectDebitCard());
-			EnterPasscodeAndDone();
-			selectDebitCardType(CommonTestData.DEBIT_CARD_NAME.getEnumValue());
-			TakeScreenshot(DBSappObject.AccountToBeLinkedToTheCardField());
+			clickOnElement(DBSappObject.CardsButton());
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Debit card and authenticate ",e);
-		}
-		catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Debit card and authenticate ",e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Cards Module ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Cards Module ", e);
 		}
 	}
+	
+	@Step("Select Debit Card")
+	public void SelectDebitCard() throws Exception {
+		try {
+			clickOnElement(DBSappObject.SelectDebitCard());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Debit Card ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Debit Card ", e);
+		}
+	}
+
 	@Step("Verifies the Payee Add Bill Payment and after completion payment verifies the transfering amount.")
 	public void PayeeAddBillPayment() throws Exception {
 		try {
@@ -1526,14 +1726,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			EnterBillingOrganisationDetails(CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
 					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
 			ClickOnNextButton();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not matching.");
+			verifyPageHeader(CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader());
 			VerifyBillingOrganisationAndBillReferenceNumber(
 					CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
 					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
 			ClickOnAddRecipientNowBtn();
-			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
+			EnterPasscodeAndDone();
+			VerifyYouHaveAddedRecipientMessage();
 			VerifyBillingOrganisationAndBillReferenceNumber(
 					CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue(),
 					CommonTestData.PAYEEADD_BILLPAYMENT_REFERENCENUMBER.getEnumValue());
@@ -1541,7 +1740,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			verifyPageHeader(CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue(), DBSappObject.PageHeader2());
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			ClickOnNextButton();
-			TakeScreenshot(DBSappObject.PageHeaderList2().get(0));
+			
 			MobileElement element = null;
 			element = verifyElementExistInTheList(DBSappObject.PageHeaderList2(),
 					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue());
@@ -1549,50 +1748,68 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				verifyPageHeader(CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(), element);
 			
 			ClickOnPayNowButton();
-			VerifyPaymentSubmittedMsg();
+			VerifyDetailsAfterSubmitPayment();
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Payee Add To Bill Payment ",e);
-					
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Payee Add To Bill Payment ",e);		
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Payee Add to Bill Payment  ",e);
+		}
+	}
+	
+	@Step("Enter Reference Number")
+	public void EnterReferenceNumber(String ReferenceNo) throws Exception {
+		try {
+			clickOnElement(DBSappObject.EnterReferenceNoEditField());
+			enterTextInTextbox(DBSappObject.EnterReferenceNoEditField(), ReferenceNo);
+			driver.hideKeyboard();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Enter Reference Number ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Reference Number ",
+					e);
+		}
+	}
+	
+	@Step("Select Billing Organisation")
+	public void SelectBillingOrganisation(String AccountName) throws Exception {
+		try {
+			wait.waitForElementVisibility(DBSappObject.SelectBillingOrganisation());
+			clickOnElement(DBSappObject.SelectBillingOrganisation());
+			clickOnElement(DBSappObject.SearchForBillingOrganisationField());
+			enterTextInTextbox(DBSappObject.SearchForBillingOrganisationField(), AccountName);
+			clickOnElement(DBSappObject.SelectSearchedOption());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Select Billing Organisation ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Billing Organisation ",
+					e);
 		}
 	}
 
 	@Step("Enter Billing Organisation Details.")
 	public void EnterBillingOrganisationDetails(String AccountName, String ReferenceNo) throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.SelectBillingOrganisation());
-			clickOnElement(DBSappObject.SelectBillingOrganisation());
-			clickOnElement(DBSappObject.SearchForBillingOrganisationField());
-			enterTextInTextbox(DBSappObject.SearchForBillingOrganisationField(), AccountName);
-			clickOnElement(DBSappObject.SelectSearchedOption());
-			clickOnElement(DBSappObject.EnterReferenceNoEditField());
-			enterTextInTextbox(DBSappObject.EnterReferenceNoEditField(), ReferenceNo);
-			backButton();
+			SelectBillingOrganisation(AccountName);
+			EnterReferenceNumber(ReferenceNo);
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Billing Organisation Details ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Billing Organisation Details ",e);			
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Billing Organisation Details ",e);
 		}
 	}
 
-	@Step("Verify Enter Recipient Page Header After Click On Add Billing Organisation.")
+	@Step("Click On Add Billing Organisation.")
 	public void ClickOnAddBillingOrganisation() throws Exception {
 		try {
 			String xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0) {
-				TakeScreenshot(DBSappObject.AddRecipientNowBtn());
+			if (list.size() > 0) 
 				clickOnElement(DBSappObject.AddRecipientNowBtn());
-			} else {
-				TakeScreenshot(DBSappObject.AddBillingOrganisation());
+			 else 
 				clickOnElement(DBSappObject.AddBillingOrganisation());
-			}
+			
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Billing Organisation Button ",e);
 					
@@ -1606,14 +1823,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Bills Module.")
 	public void ClickOnBillsModule() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.BillsButton());
 			clickOnElement(DBSappObject.BillsButton());
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Bill Module ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Bill Module ",e);		
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Bill Module ",e);
 		}
 	}
@@ -1621,57 +1835,101 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Make A Payment Button.")
 	public void ClickOnMakeAPayment() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.MakeAPaymentButton());
+			wait.waitForElementVisibility(DBSappObject.MakeAPaymentButton());
 			clickOnElement(DBSappObject.MakeAPaymentButton());
-			Thread.sleep(2000); 
-			TakeScreenshot(DBSappObject.AmountEditableField());
+			wait.waitForElementVisibility(DBSappObject.AmountEditableField());
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Make A Payment Button ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Make A Payment Button ",e);		
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on Make A Payment Button ",e);
 		}
 	}
 
-	@Step("Verify Payment Submitted Message & Verifies the 'Log out', "
-			+ "'Make Another Transfer' Button, 'Share Payment Details' Button and 'Transferred Amount Value' "
-			+ "after transferring the fund")
-	public void VerifyPaymentSubmittedMsg() throws Exception {
+	@Step("Verify Details After Submit Payment")
+	public void VerifyDetailsAfterSubmitPayment() throws Exception {
 		try {
-			Thread.sleep(2000); 
-				MobileElement element = null;
-				element = verifyElementExistInTheList(DBSappObject.PageHeaderList2(),
-						CommonTestData.PAYMENT_SUBMITTED.getEnumValue());
-				if (element != null) 
-					verifyPageHeader(CommonTestData.PAYMENT_SUBMITTED.getEnumValue(), element);
+			Thread.sleep(2000);
+			MobileElement element = null;
+			element = verifyElementExistInTheList(DBSappObject.PageHeaderList2(),
+					CommonTestData.PAYMENT_SUBMITTED.getEnumValue());
+			if (element != null)
+				verifyPageHeader(CommonTestData.PAYMENT_SUBMITTED.getEnumValue(), element);
 
-				TakeScreenshot(DBSappObject.AmountEditableField());
-				Asserts.assertEquals(getTexOfElement(DBSappObject.AmountEditableField()),
-						CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + ".00",
-						CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + " Text is not matching.");
-
-			Asserts.assertTrue(DBSappObject.LOGOUTButton().isDisplayed(), "Log Out Button not found.");
-
-			gestUtils.scrollUPtoObject("text", "MAKE ANOTHER PAYMENT", DBSappObject.MakeAnotherPaymentBtn());
-			Asserts.assertTrue(DBSappObject.MakeAnotherPaymentBtn().isDisplayed(),
-					"Make Another Transfer Button not found.");
+			VerifyTransferredAmount(CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+			VerifyLogOutButton();
+			VerifyMakeAnotherPaymentButton();
+			VerifySharePaymentDetailsButton();
+			VerifyBackIcon();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Details After Submit Payment ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Details After Submit Payment ", e);
+		}
+	}
+	
+	@Step("Verify Transferred Amount.")
+	public void VerifyTransferredAmount(String ExpectedAmt) throws Exception{
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.AmountEditableField()),
+					ExpectedAmt + ".00",
+					ExpectedAmt + " Text is not matching.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Transferred Amount ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to  Transferred Amount ", e);
+		}
+	}
+	
+	@Step("Verify Back Icon.")
+	public void VerifyBackIcon() throws Exception{
+		try {
+			Asserts.assertTrue(DBSappObject.BackIcon().isDisplayed(), "'Back' Icon not found.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Back Icon ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Back Icon ", e);
+		}
+	}
+	
+	@Step("Verify Share Payment Details button.")
+	public void VerifySharePaymentDetailsButton() throws Exception{
+		try {
 			Asserts.assertTrue(DBSappObject.SharePaymentDetailsButton().isDisplayed(),
 					"'Share Payment Details' Button not found.");
-			Asserts.assertTrue(DBSappObject.BackIcon().isDisplayed(), "'Back' Button not found.");
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Details After Submit Payment ",e);		
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Share Payment Details Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Share Payment Details Button ", e);
 		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Details After Submit Payment ",e);
+	}
+	
+	@Step("Verify MAKE ANOTHER Payment button.")
+	public void VerifyMakeAnotherPaymentButton() throws Exception{
+		try {
+			gestUtils.scrollUPtoObject("text", "MAKE ANOTHER PAYMENT", DBSappObject.MakeAnotherPaymentBtn());
+			Asserts.assertTrue(DBSappObject.MakeAnotherPaymentBtn().isDisplayed(),
+					"Make Another payment Button not found.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify MAKE ANOTHER PAYMENT Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify MAKE ANOTHER PAYMENT Button ", e);
 		}
 	}
 	
 	@Step("Click On Pay Now Button.")
 	public void ClickOnPayNowButton() throws Exception { 
 		try {
-			TakeScreenshot(DBSappObject.PayNowButton());
 			clickOnElement(DBSappObject.PayNowButton());
 			Thread.sleep(2000); 
 		} catch (HandleException e) {	
@@ -1712,15 +1970,19 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			ClickOnMoreButton();
 			EnterPasscodeAndDone();
-			ClickOnDepositAccountsAnd2FAAuthenticationDone();
+			ClickOnDepositAccountModule();
+			EnterPasscodeAndDone();
+			verifyPageHeader(CommonTestData.OPEN_ACCOUNT.getEnumValue(), DBSappObject.PageHeaderForOpenAccount());
 			SelectOpenAccountOption();
 			verifyPageHeader(CommonTestData.ACCOUNT_BENIFITS.getEnumValue(), DBSappObject.PageHeaderForOpenAccount());
 			ClickOnopenAccountInStepButton();
+			verifyPageHeader(CommonTestData.OPEN_ACCOUNT.getEnumValue(), DBSappObject.PageHeader());
 			EnterMonthlySavingAmount();
 			SelectSourceOfFundsForSavings();
 			ClickOnNextButton1();
 			VerifyWarningMessageAndImportantNotes();
 			ClickOnIAcknowledgeButton();
+			verifyPageHeader(CommonTestData.REVIEW_ACCOUNT_APPLICATION.getEnumValue(), DBSappObject.PageHeader2());
 			ReviewOpenAccountApplication();
 			ClickOnOpenAccountNowButton();
 			VerifyDetailsAfterOpenAccount();
@@ -1732,12 +1994,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Select Open Account Option By Clicking And Verify Account Benifits Page Header.")
+	@Step("Select Open Account Option.")
 	public void SelectOpenAccountOption() throws Exception {
 		try {
 			selectElementFromTheGivenList(DBSappObject.SelectOpenAccountOptionList(),
-					CommonTestData.OPEN_ACCOUNT_OPTION.getEnumValue());
-			TakeScreenshot(DBSappObject.PageHeaderForOpenAccount()); 
+					CommonTestData.OPEN_ACCOUNT_OPTION.getEnumValue(), "Open Account Option");
 		}  catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Open Account Option  ",e);			
 		}
@@ -1751,7 +2012,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			clickOnElement(DBSappObject.SelectSourceOfFundsForSavingsDropdown());
 			selectElementFromTheGivenList(DBSappObject.DepositsAccountName(),
-					CommonTestData.SELECT_ACCOUNT.getEnumValue());
+					CommonTestData.SELECT_ACCOUNT.getEnumValue(),"Select Source Of Funds For Savings");
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select source of fund account for savings ",e);			
 		}
@@ -1779,8 +2040,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void ClickOnopenAccountInStepButton() throws Exception {
 		try {
 			clickOnElement(DBSappObject.StepOpenAccountButton());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()), CommonTestData.OPEN_ACCOUNT.getEnumValue(),
-					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Page Header Text is not matching");
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Open Account In Step 2/3 Button  ",e);			
 		}
@@ -1789,20 +2048,16 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Click On Deposit Accounts Module And 2FA Authentication Done And Verifies the Open Account Page Header.")
-	public void ClickOnDepositAccountsAnd2FAAuthenticationDone() throws Exception {
+	@Step("Click On Deposit Accounts Module.")
+	public void ClickOnDepositAccountModule() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "Deposit Accounts", DBSappObject.DepositAccountsModule());
 			clickOnElement(DBSappObject.DepositAccountsModule());
-			EnterPasscodeAndDone();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
-					CommonTestData.OPEN_ACCOUNT.getEnumValue(),
-					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Page Header Text is not matching");
 		}  catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deposit Account Module  ",e);			
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deposit Accounts Module. ",e);			
 		}
 		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deposit Account Module  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deposit Accounts Module. ",e);
 		}
 	}
 
@@ -1833,34 +2088,28 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 	
-	@Step("Verify 'Your account is open and ready to use!' Message After Open Account.")
+	@Step("Verify 'Your account is open and ready to use!' Message.")
 	public void VerifyDetailsAfterOpenAccount() throws Exception {
 		try {
 			Thread.sleep(5000); 
-				TakeScreenshot(DBSappObject.OpenAcconuntSuccessImageIcon()); 
-				Asserts.assertEquals(getTexOfElement(DBSappObject.AccountStatusMessage()),
+			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountStatusMessage()),
 						CommonTestData.YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE.getEnumValue(),
 						CommonTestData.YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE.getEnumValue()
 								+ " Message is not matching.");
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Details After Open Account ",e);			
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'Your account is open and ready to use!' Message ",e);			
 		}
 		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", "  Failed to Verify Details After Open Account ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", "  Failed to Verify 'Your account is open and ready to use!' Message ",e);
 		}
 	}
 
 	@Step("Review Open Account Application.")
 	public void ReviewOpenAccountApplication() throws Exception {
 		try {
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader2()),
-					CommonTestData.REVIEW_ACCOUNT_APPLICATION.getEnumValue(),
-					CommonTestData.REVIEW_ACCOUNT_APPLICATION.getEnumValue() + " Text is not matched.");
 			if (isElementVisible(DBSappObject.YouAreOpeningText())) {
 			Asserts.assertTrue(DBSappObject.YouAreOpeningText().isDisplayed(),
 					"You Are Opening" + " text not displaying.");
-			String a = getTexOfElement(DBSappObject.AccountNameList().get(0));
-			System.out.println("0" + a);
 			Asserts.assertEquals(getTexOfElement(DBSappObject.AccountNameList().get(0)),
 					CommonTestData.OPEN_ACCOUNT_OPTION.getEnumValue(), " Given account is not matched or found.");
 			}
@@ -1886,7 +2135,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Click on 'Account type' From List under Local fund Limit page'")
+	@Step("Select Debit card Type")
 	public void selectDebitCardType(String debitCardToBeSelected) throws Exception {
 		try {
 			if(DBSappObject.DebitCardDetailsDropdownList().size()>0) {
@@ -1894,17 +2143,18 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				List<MobileElement> Elementlist = DBSappObject.DebitCardDetailsDropdownList();
 				int l = Elementlist.size();
 				int index = 0;
-				String accountFromList = null;
+				String DebitCardType = null;
 				for (int i = 0; i <= l; i++) {
-					accountFromList = Elementlist.get(i).getText();
-					if (accountFromList.contains(debitCardToBeSelected)) {
+					DebitCardType = Elementlist.get(i).getText();
+					if (DebitCardType.contains(debitCardToBeSelected)) {
 						index++;
 						clickOnElement(Elementlist.get(i));
 						break;
 					}
 				}
-				Asserts.assertTrue(index > 0,
-						"No " + debitCardToBeSelected + " found in the list of corresponding value");
+				if(index == 0)
+					Asserts.assertFail(
+						"Debit Card Type " + debitCardToBeSelected + " Not found in the list.");
 			} else {	
 				Asserts.assertFail(debitCardToBeSelected + " not found in the list as list size is 0");
 			}
@@ -1918,7 +2168,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Select element from the given lists")
-	public void selectElementFromTheGivenList(List<MobileElement> elementList, String elementToBeSelected)
+	public void selectElementFromTheGivenList(List<MobileElement> elementList, String elementToBeSelected, String ElementName)
 			throws Exception {
 		try {
 			if (elementList.size() > 0) {
@@ -1936,21 +2186,16 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						break;
 					}
 				}
-				Asserts.assertTrue(index > 0,
-						"No " + elementToBeSelected + " found in the list.");
+				Asserts.assertTrue(index > 0,"The "+ 
+						ElementName+ " "  + elementToBeSelected + " Not found in the list.");
 			}
-			else {
-				if(androidAlert.isAlertPresent()) {
-					System.out.println("Alert title :: "+this.driver.switchTo().alert().getText()); 
-					Asserts.assertFail(this.driver.switchTo().alert().getText());
-				}	
-				Asserts.assertFail(elementToBeSelected + " not found in the list as list size is 0");
-			}
+			else 
+				Asserts.assertFail("The "+ ElementName+ " "  + elementToBeSelected + " not found in the list as list size is 0");
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("ELEMENTNOTINLIST_EXCEPTION", " Failed to select element from the list  ",e);	
+			obj_handleexception.throwHandleException("ELEMENTNOTINLIST_EXCEPTION", " Failed to select the " + ElementName+ " "  + elementToBeSelected +" from the list",e);	
 		}
 		catch (Exception e) {			
-			obj_handleexception.throwException("ELEMENTNOTINLIST_EXCEPTION", " Failed to select element from the list  ",e);
+			obj_handleexception.throwException("ELEMENTNOTINLIST_EXCEPTION", " Failed to select the " + ElementName+ " "  + elementToBeSelected +" from the list ",e);
 		}
 	}
 
@@ -1959,7 +2204,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			throws Exception {
 		MobileElement element = null;
 		try {
-			if(elementList.size() > 0) {
+			Thread.sleep(2000); 
+			if (elementList.size() > 0) {
 				wait.waitForElementVisibility(elementList.get(1));
 				int l = elementList.size();
 
@@ -1973,17 +2219,12 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					}
 				}
 				return element;
-			}
-			else {
+			} else 
 				Asserts.assertFail(elementTextToBeVerified + " not found in the list as list size is 0");
-			}
-			
 		} catch (HandleException e) {
-			//System.out.println("Inside select debit card type catch" + e.getCode());
 			obj_handleexception.throwHandleException("ELEMENTNOTINLIST_EXCEPTION",
 					" Failed to Select Debit card type:: " + elementTextToBeVerified, e);
 		} catch (Exception e) {
-			//System.out.println("Inside select debit card type catch 3");
 			obj_handleexception.throwException("ELEMENTNOTINLIST_EXCEPTION",
 					" Failed to Select Debit card type " + elementTextToBeVerified, e);
 		}
@@ -1996,8 +2237,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			clickOnLocalButton();
-			clickOnAddLocalRecipientBtnAndVerifyLocalTransferPayNowPageHeader();
-
+			clickOnAddLocalRecipientBtn();
+			verifyPageHeader(CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(), DBSappObject.PageHeader());
+			SelectBankAccount();
+			verifyPageHeader(CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader());
+			
 			String ExpectedRecipientName = CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue();
 			System.out.println("ExpectedRecipientName is: " + ExpectedRecipientName);
 
@@ -2007,11 +2251,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String ExpectedAccountNumber = CommonTestData.LOCAL_RECIPIENT_ACCOUNT_NUMBER.getEnumValue();
 			System.out.println("ExpectedAccountNumber is: " + ExpectedAccountNumber);
 
-			EnterRecipientDetailsAfterSelectingBankAccountOption(ExpectedRecipientName,
+			EnterRecipientDetails(ExpectedRecipientName,
 					CommonTestData.LOCAL_RECIPIENT_BANK_NAME.getEnumValue(), ExpectedAccountNumber);
-			ClickOnNextBtnAndReviewRecipientDetails();
+			ClickOnNextBtn();
+			verifyPageHeader(CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader());
 			ClickOnAddRecipientNowBtn();
-			VerifyYouHaveAddedRecipientMsgAfterEnterSecurePIN();
+			EnterPasscodeAndDone();
+			VerifyYouHaveAddedRecipientMessage();
 			verifyValidationForPayeeAdd(ExpectedRecipientName, CommonTestData.LOCAL_RECIPIENT_BANK_NAME.getEnumValue(),
 					ExpectedAccountNumber);
 			
@@ -2019,13 +2265,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnBackIcon();
 			ClickOnHomeButton();
 			
-		}catch (HandleException e) {	
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute PayeeAddLocalOtherBank ",e);
-					
-		}
-		catch (Exception e) {			
-			
-			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute PayeeAddLocalOtherBank  ",e);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute PayeeAddLocalOtherBank ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute PayeeAddLocalOtherBank  ", e);
 		}
 	}
 
@@ -2042,36 +2286,107 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Verifies Visibilty of 'logout' and 'make a transfer' button and Verifies the recipient name, account number, bank name.")
+	@Step("Verify Validation For Payee Add.")
 	public void verifyValidationForPayeeAdd(String ExpectedRecipientName, String BankName, String AccountNumber)
 			throws Exception {
 		try {
-			wait.waitForElementVisibility(DBSappObject.LogoutBtn());
-			Asserts.assertTrue(DBSappObject.LogoutBtn().isDisplayed(), "Log Out Button not found.");
-			Asserts.assertTrue(DBSappObject.makeTransferButton().isDisplayed(), "Make A Transfer Button not found.");
+			verifyLogOutButton();
+			verifyMakeTransferButton();
 			String[] ExpTitleList = new String[] { "Recipient's Name", "Country", "Recipient's Bank",
 					"Recipient's Account No.", "Reference No." };
-
-			for (int i = 0; i < DBSappObject.PayeeTitleList().size(); i++) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.PayeeTitleList().get(i)), ExpTitleList[i],
-						ExpTitleList[i] + "Titles is not matching after adding payee");
-			}
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PayeeValueList().get(0)), ExpectedRecipientName,
-					ExpectedRecipientName + " is not matching after adding payee");
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PayeeValueList().get(2)), BankName,
-					BankName + " is not matching after adding payee");
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PayeeValueList().get(3)), AccountNumber,
-					AccountNumber + " is not matching after adding payee");
+			verifyTitles(ExpTitleList, DBSappObject.PayeeTitleList());
+			VerifyRecipientName(ExpectedRecipientName);
+			VerifyBankName(BankName);
+			VerifyAccountNumber(AccountNumber);
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FILEDVERIFICATION_EXCEPTION", " Failed to verify LogOut, Make Transfer Button etc  ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify validation for payee add ",e);			
 		}
 		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FILEDVERIFICATION_EXCEPTION", " Failed to verify LogOut, Make Transfer Button etc  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify validation for payee add ",e);
 		}
 	}
+	
+	@Step("Verify Account Number")
+	public void VerifyAccountNumber(String AccountNumber) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PayeeValueList().get(3)), AccountNumber,
+					AccountNumber + " is not matching after adding payee");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Account Number ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Account Number ", e);
+		}
+	}
+	
+	@Step("Verify Bank Name")
+	public void VerifyBankName(String BankName) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PayeeValueList().get(2)), BankName,
+					BankName + " is not matching after adding payee");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Bank Name ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Bank Name ", e);
+		}
+	}
+	
+	@Step("Verify Recipient Name")
+	public void VerifyRecipientName(String ExpectedRecipientName) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PayeeValueList().get(0)), ExpectedRecipientName,
+					ExpectedRecipientName + " is not matching after adding payee");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Recipient Name ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Recipient Name ", e);
+		}
+	}
+	
+	@Step("Verify titles")
+	public void verifyTitles(String[] ExpTitleList, List<MobileElement> eleList) throws Exception { 
+		try {
+			for (int i = 0; i < eleList.size(); i++) { 
+				Asserts.assertEquals(getTexOfElement(eleList.get(i)), ExpTitleList[i],
+						ExpTitleList[i] + "Titles is not matching.");
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify Titles ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify Titles ", e);
+		}
+	}
+	
+	@Step("Verify Logout Button")
+	public void verifyLogOutButton() throws Exception {
+		try {
+			wait.waitForElementVisibility(DBSappObject.LogoutBtn());
+			Asserts.assertTrue(DBSappObject.LogoutBtn().isDisplayed(), "Log Out Button not found.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify LogOut Button ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify LogOut Button ", e);
+		}
+	}
+
+	@Step("Verify Make Transfer Button")
+	public void verifyMakeTransferButton() throws Exception {
+		try {
+			Asserts.assertTrue(DBSappObject.makeTransferButton().isDisplayed(), "Make A Transfer Button not found.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Make A Transfer Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Make A Transfer Button ", e);
+		}
+	}
+	
+	
 	
 	@Step("Delete Payee To DBS/POSB.")
 	public void DeletePayeeDBSPOSB(String ExpectedRecipientName) throws Exception {
@@ -2082,11 +2397,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			DeletePayee(ExpectedRecipientName);
 			ClickOnCloseButton();
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee  For DBS/POSB.",e);
-					
+			obj_handleexception.throwHandleException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee  For DBS/POSB.",e);		
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee For DBS/POSB. ",e);
 		}
 	}
@@ -2116,14 +2429,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			ClickOnOverseasModule(CommonTestData.OVERSEAS_ICON.getEnumValue());
+			verifyPageHeader(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue(), DBSappObject.OverseasTransferPage());
 			DeletePayee(ExpectedRecipientName);
 			ClickOnOverseasScreenClosingButton();
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee Remittance ",e);
-					
+			obj_handleexception.throwHandleException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee Remittance ",e);		
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee Remittance ",e);
 		}
 	}
@@ -2131,18 +2443,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Close Button to closing Overseas Screen.")
 	public void ClickOnOverseasScreenClosingButton() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.CloseBtn_OverseasScreen()); 
 			clickOnElement(DBSappObject.CloseBtn_OverseasScreen()); 
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button  ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button ",e);		
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button ",e);
 		}
 	}
-	
 	
 	
 	@Step("Delete Payee To Bill Payment.")
@@ -2153,23 +2461,22 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnBillsModule();
 			DeletePayee(ExpectedRecipientName);
 			ClickOnCloseButton();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee Bill Payment ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee Bill Payment ",e);
 		}
 	}
 	
 	@Step("Click On Close Button.")
 	public void ClickOnCloseButton() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.CloseButton()); 
 			clickOnElement(DBSappObject.CloseButton());
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button  ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button  ",e);	
 		}
 		catch (Exception e) {			
-			
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button ",e);
 		}
 	}
@@ -2177,53 +2484,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Delete Payee.")
 	public void DeletePayee(String ExpectedRecipientName) throws Exception {
 		try {
-//			String xpath = "//android.widget.ImageView[contains(@resource-id,':id/tv_expandable_item_selected')]";
-//			List<RemoteWebElement> Payeelist = driver.findElements(By.xpath(xpath));
-//			int ExpectedTotalPayeeSize = Payeelist.size();
-//			if(ExpectedTotalPayeeSize>0) {
-//				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
-//					ClickOnDeletePayeeToIcon(i);
-//					TakeScreenshot(DBSappObject.payee_details_title_name()); 
-//					Asserts.assertEquals(getTexOfElement(DBSappObject.payee_details_title_name()),
-//							CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
-//							CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue() + " is not matching after adding payee");
-//					String RecipientNameXpath =	"//android.widget.TextView[@text='" + ExpectedRecipientName + "']";
-//					List<RemoteWebElement> RecipientNameElementList = driver.findElements(By.xpath(RecipientNameXpath));
-//					if (RecipientNameElementList.size() > 0) {
-//						ClickOnMoreOptionBtnAndDeletePayeeBtn();
-//						ClickOnYesBtn();
-//
-//						for (int innerLoop = 0; innerLoop < 2; innerLoop++) {
-//							//Sometimes this alert with message (You may be facing some delays and
-//							//we are trying to sort it out now. Sorry for the inconvenience.
-//							// Do check back later.) coming. So this Thread.sleep(); added here.
-//							
-//							Thread.sleep(4000); 
-//							String ErrorissueXpath = 	"//android.widget.TextView[@resource-id='android:id/message']";
-//							List<RemoteWebElement> list = driver.findElements(By.xpath(ErrorissueXpath));
-//							if (list.size() > 0) {
-//								if(getTexOfElement(DBSappObject.ErrorMessgeElement()).contains("You may be facing some delays")) {
-//									ClickOnOKButton_Alert();
-//									ClickOnDeletePayeeToIcon(i);
-//									TakeScreenshot(DBSappObject.payee_details_title_name()); 
-//									Asserts.assertEquals(getTexOfElement(DBSappObject.payee_details_title_name()),
-//											CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
-//											CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue() + " is not matching after adding payee");
-//									ClickOnMoreOptionBtnAndDeletePayeeBtn();
-//									ClickOnYesBtn();
-//								} 
-//							}
-//						}
-//						
-//						ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedRecipientName);
-//						//VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayeeSize);
-//						break;
-//					} else {
-//						ClickOnBackButtonImageView();
-//					}
-//				}
-//			}	
-//			
 			Dimension windowSize = driver.manage().window().getSize();
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
@@ -2232,8 +2492,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String s1 = driver.getPageSource();
 			int count = 0;
 			int deletePayee =0;
-			WaitUtils wait = new WaitUtils(driver);
-			wait.ImplicitlyWait();
 			
 			if (DBSappObject.AllTabOptionsList().size() > 0) {
 				while (count == 0 && deletePayee == 0) {
@@ -2244,14 +2502,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					if (length < 4) {
 						for (int i = 0; i < length; i++) {
 							DeleteRecipientList = Elementlist.get(i).getText();
-							
 							if (DeleteRecipientList.contains(ExpectedRecipientName)) {
 								ClickOnDeletePayeeToIcon(i);
 								verifyPageHeader(CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(), DBSappObject.payee_details_title_name());
 								String RecipientNameXpath =	"//android.widget.TextView[@text='" + ExpectedRecipientName + "']";
 								List<RemoteWebElement> RecipientNameElementList = driver.findElements(By.xpath(RecipientNameXpath));
 								if (RecipientNameElementList.size() > 0) {
-									ClickOnMoreOptionBtnAndDeletePayeeBtn();
+									ClickOnMoreOptionBtn();
+									ClickOnDeletePayeeBtn();
 									ClickOnYesBtn();
 									HandlingErrorPopupInDeletePayee(i);
 									ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedRecipientName);
@@ -2274,7 +2532,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 								String RecipientNameXpath =	"//android.widget.TextView[@text='" + ExpectedRecipientName + "']";
 								List<RemoteWebElement> RecipientNameElementList = driver.findElements(By.xpath(RecipientNameXpath));
 								if (RecipientNameElementList.size() > 0) {
-									ClickOnMoreOptionBtnAndDeletePayeeBtn();
+									ClickOnMoreOptionBtn();
 									ClickOnYesBtn();
 									HandlingErrorPopupInDeletePayee(i);
 									ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedRecipientName);
@@ -2289,7 +2547,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						if (deletePayee == 0) {
 							touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
 									.moveTo(element(DBSappObject.RECIPIENTS_TAB())).release().perform();
-
+                            Thread.sleep(2000);
 							String s2 = driver.getPageSource();
 							if (s1.equals(s2) != true)
 								s1 = s2;
@@ -2326,7 +2584,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 						ClickOnOKButton_Alert();
 						ClickOnDeletePayeeToIcon(index);
 						verifyPageHeader(CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(), DBSappObject.payee_details_title_name());
-						ClickOnMoreOptionBtnAndDeletePayeeBtn();
+						ClickOnMoreOptionBtn();
+						ClickOnDeletePayeeBtn();
 						ClickOnYesBtn();
 					} 
 				}
@@ -2348,9 +2607,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String PayeeNameXpath = "//android.widget.TextView[@text='" + payeeName + "']";
 			MobileElement DeletePayeeMessageElement = (MobileElement) driver
 					.findElement(By.xpath(PayeeNameXpath));
-			if (isElementVisible(DeletePayeeMessageElement)) {
+			if (isElementVisible2(DeletePayeeMessageElement)) 
 				ClickOnOKButton_Alert();
-			}
+			
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button and delete msg  ",e);		
 		}
@@ -2362,7 +2621,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Yes Button after verifying 'Are you sure to delete payee' message.")
 	public void ClickOnYesBtn() throws Exception {
 		try {
-			if (isElementVisible(DBSappObject.AreYouSureToDeleteThisPayeeMessage()))
+			if (isElementVisible2(DBSappObject.AreYouSureToDeleteThisPayeeMessage()))
 				clickOnElement(DBSappObject.YesBtn());
 			    Thread.sleep(2000); 
 		} catch (HandleException e) {	
@@ -2377,7 +2636,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Local Module.")
 	public void ClickOnLocalModule() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.LocalButton()); 
+		//	TakeScreenshot(DBSappObject.LocalButton()); 
 			clickOnElement(DBSappObject.LocalButton());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Module  ",e);
@@ -2390,63 +2649,77 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 	
 	
-	@Step("Click On Delete payee I Icon from the list.")
+	@Step("Click On i Icon from the list.")
 	public void ClickOnDeletePayeeToIcon(int index) throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.PayeeAddedExpandableIconList().get(index)); 
+		//	TakeScreenshot(DBSappObject.PayeeAddedExpandableIconList().get(index)); 
 			clickOnElement(DBSappObject.PayeeAddedExpandableIconList().get(index));
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Delete Payee Icon(i)  ",e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Icon(i)  ",e);
 					
 		}
 		catch (Exception e) {			
 			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Delete Payee Icon(i)  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Icon(i)  ",e);
 		}
 	}
 
-	@Step("Click On 'More Options' Button And 'Delete payee' Button.")
-	public void ClickOnMoreOptionBtnAndDeletePayeeBtn() throws Exception {
+	@Step("Click On 'More Options' Button.")
+	public void ClickOnMoreOptionBtn() throws Exception {
 		try {
 			clickOnElement(DBSappObject.MoreOptionBtn());
-			TakeScreenshot(DBSappObject.DeletePayeeBtn()); 
-			clickOnElement(DBSappObject.DeletePayeeBtn());
-			TakeScreenshot(DBSappObject.AreYouSureToDeleteThisPayeeMessage());
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On More and Delete Payee Button  ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Options Button  ",e);			
 		}
-		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On More and Delete Payee Button  ",e);
+		catch (Exception e) {				
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Options Button  ",e);
+		}
+	}
+	
+	
+	@Step("Click On 'Delete payee' Button.")
+	public void ClickOnDeletePayeeBtn() throws Exception {
+		try {
+			clickOnElement(DBSappObject.DeletePayeeBtn());
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Delete Payee Button  ",e);			
+		}
+		catch (Exception e) {				
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on Delete Payee Button  ",e);
 		}
 	}
 
-	@Step("Click On Next Btn And Review Recipient Details.")
-	public void ClickOnNextBtnAndReviewRecipientDetails() throws Exception {
+	@Step("Click On Next Btn.")
+	public void ClickOnNextBtn() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.NextButtonToAddedLocalRecipient());
 			clickOnElement(DBSappObject.NextButtonToAddedLocalRecipient());
 			wait.waitForElementVisibility(DBSappObject.AddRecipientNowBtn());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(),
-					CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue() + " Text is not matching.");
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button and verify Add Recipient Now  ",e);
-					
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
 		}
 		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button and verify Add Recipient Now  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);
 		}
 	}
 
+	@Step("Verify Deposit Account Type On Dashboard Page")
+	public void VerifyDepositAccountTypeOnDashboardPage() throws Exception {
+		try {
+			Asserts.assertTrue(isElementVisible(DBSappObject.DepositsAccountType()),
+					"Deposits Account Type is not displayed on home page after login.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Deposit Account Type On Dashboard Page ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Deposit Account Type On Dashboard Page ", e);
+		}
+	}
 
 	@Step("Verify Peek Balance.")
 	public void VerifyPeekBalance() throws Exception {
 		try {
-			Asserts.assertTrue(isElementVisible(DBSappObject.DepositsAccountType()),
-					"Deposits Account Type is not displayed on home page after login.");
+			VerifyDepositAccountTypeOnDashboardPage();
 			if(DBSappObject.DepositsAccountName().size() > 0) {
 				String DepositeAccountNameOnDashboard = getAndClickOnDepositeAccountNameFromDashboard();
 				EnterPasscodeAndDone();
@@ -2470,7 +2743,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				AcceptDigiBankAlert(CommonTestData.PEEK_BALANCE_DIGIALERT_MSG.getEnumValue());
 				
 				ClickOnBackButtonImageView();
-				clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
+				VerifyLogout(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
 				ClickOnCloseBtnToClosingTapToStarPage();
 				VerifyPeekBalanceEnabilityOnLogInPage(CommonTestData.PEEK_BALANCE_SUBTITLE.getEnumValue());
 
@@ -2584,12 +2857,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Select Peek Balance Module After Search.")
 	public void SelectPeekBalanceModule() throws Exception{
 		try {
-			TakeScreenshot(DBSappObject.ContactSearchfield());
 			clickOnElement(DBSappObject.ContactSearchfield());
-			TakeScreenshot(DBSappObject.EditTextSearchBox());
 			clickOnElement(DBSappObject.EditTextSearchBox());
 			enterTextInTextbox(DBSappObject.EditTextSearchBox(), CommonTestData.PEEK_BALANCE.getEnumValue());
-			TakeScreenshot(DBSappObject.SelectPeekBalance());
 			clickOnElement(DBSappObject.SelectPeekBalance());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Peek balance Module. ",e);			
@@ -2602,7 +2872,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Enable Peek balance Toggle.")
 	public void EnablePeekBalanceToggle() throws Exception{
 		try {
-			TakeScreenshot(DBSappObject.PeekBalanceToggle());
 			clickOnElement(DBSappObject.PeekBalanceToggle());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enable Peek balance Toggle. ",e);			
@@ -2615,11 +2884,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Select Account To Enable Peek Balance.")
 	public void SelectAccountToEnablePeekBalance(String ExpectedUserAccountName) throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.AccountForPeekBalanceDropdown());
 			clickOnElement(DBSappObject.AccountForPeekBalanceDropdown());
 			String xpath = "//android.widget.TextView[@text='" + ExpectedUserAccountName + "']";
 			MobileElement selectAccount = (MobileElement) driver.findElement(By.xpath(xpath));
-			TakeScreenshot(selectAccount);
 			clickOnElement(selectAccount); 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Account To Enable Peek Balance ", e);
@@ -2632,7 +2899,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("verify Selected Account For Peek Balance")
 	public void verifySelectedAccountForPeekBalance(String AccountTitle, String SelectedAccountNameWithAccountNumber) throws Exception{
 		try {
-			TakeScreenshot(DBSappObject.SelectedAccountForPeekBalance().get(0));
 			Asserts.assertEquals(getTexOfElement(DBSappObject.SelectedAccountForPeekBalance().get(0)),
 					AccountTitle, AccountTitle + " Text is not matching.");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.SelectedAccountForPeekBalance().get(1)),
@@ -2647,7 +2913,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Save Button.")
 	public void ClickOnSaveButton() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.SaveBtn());
 			clickOnElement(DBSappObject.SaveBtn());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Save Button ", e);
@@ -2659,10 +2924,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Ok Button After Displaying Personalize Your Device Popup.")
 	public void ClickOnOkButtonInPersonalizeYourDevicePopup() throws Exception {
 		try {
-			if (isElementVisible(DBSappObject.PersonalizeYourDevicePopup())) {
-				TakeScreenshot(DBSappObject.PersonalizeYourDevicePopup());
+			if (isElementVisible2(DBSappObject.PersonalizeYourDevicePopup())) 
 				clickOnElement(DBSappObject.OKBtn_PersonalizeYourDevicePopup());
-			}
+			
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Ok Button After Displaying PersonalizeYourDevicePopup ",e);			
 		}
@@ -2689,7 +2953,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifyPeekBalanceEnabilityOnLogInPage(String PeekBalanceSubtitle) throws Exception {
 		try {
 			Thread.sleep(10000); 
-			TakeScreenshot(DBSappObject.PeekBalanceSubtitle()); 
 			Asserts.assertEquals(getTexOfElement(DBSappObject.PeekBalanceSubtitle()),
 					PeekBalanceSubtitle, PeekBalanceSubtitle + " Text is not matching.");
 		}  catch (HandleException e) {	
@@ -2716,14 +2979,12 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Deregister Button.")
 	public void ClickOnDeregisterButtonInDigiAlertPopup(String peekBalanceDeregisterMsg) throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.ErrorMessgeElement());
 			String PeekBalance_DeregisterAlertMsg = getTexOfElement(DBSappObject.ErrorMessgeElement());
-			System.out.println("PeekBalance_DeregisterAlertMsg:: " + PeekBalance_DeregisterAlertMsg);
-			if (peekBalanceDeregisterMsg.contains(PeekBalance_DeregisterAlertMsg)) {
-				TakeScreenshot(DBSappObject.PeekbalanceDeregisterButton());
+			
+			if (peekBalanceDeregisterMsg.contains(PeekBalance_DeregisterAlertMsg)) 
 				clickOnElement(DBSappObject.PeekbalanceDeregisterButton());
+			
 				Thread.sleep(1000);
-			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deregister Button ", e);
 		} catch (Exception e) {
@@ -2734,7 +2995,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Close Button To Closing Tap To Star Page after logout.")
 	public void ClickOnCloseBtnToClosingTapToStarPage() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.CloseBtnToClosingTapToStarPage());
 			clickOnElement(DBSappObject.CloseBtnToClosingTapToStarPage());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Close Button ", e);
@@ -2746,7 +3006,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On LogIn Button.")
 	public void ClickOnLoginButtonAfterEnablePeekBalance() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.LogInButton());
 			clickOnElement(DBSappObject.LogInButton());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On LogIn Button ", e);
@@ -2758,7 +3017,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Not You Link Button.")
 	public void ClickOnNOTYouLink() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.NotYouLink());
 			clickOnElement(DBSappObject.NotYouLink());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button ", e);
@@ -2770,15 +3028,12 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On More Button.")
 	public void ClickOnMoreButton() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.MoreBtn());
 			clickOnElement(DBSappObject.MoreBtn());
 
 			String xpath = "//android.widget.ImageView[@content-desc='CLOSE']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0) {
-				TakeScreenshot(DBSappObject.CloseButton());
-				clickOnElement(DBSappObject.CloseButton());
-			}
+			if (list.size() > 0) 
+				ClickOnCloseButton();
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Button  ",e);			
 		}
@@ -2793,41 +3048,54 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			ClickOnOverseasModule(CommonTestData.OVERSEAS_ICON.getEnumValue());
+			verifyPageHeader(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue(), DBSappObject.OverseasTransferPage());
 			ClickOnAddRecipientNowBtnForAddPayeeRemittance();
-			sendDataInSearchBoxAndSelectFromDropDown(CommonTestData.COUNTRY_AUS.getEnumValue(),
+			SelectCountry(CommonTestData.COUNTRY_AUS.getEnumValue(),
 					CommonTestData.COUNTRY_AUS.getEnumValue(), DBSappObject.locationAutocompleteSearchBox());
-			CurrencyTypeVerifyClick(CommonTestData.CURRENCY_AUS.getEnumValue());
+			SelectCurrencyType(CommonTestData.CURRENCY_AUS.getEnumValue());
 			ClickOnNextButton();
-			sendBankCode(CommonTestData.BANK_BCD_CODE.getEnumValue());
+			EnterBankCode(CommonTestData.BANK_BCD_CODE.getEnumValue());
 			ClickOnNextButton();
 			ClickOnNextButton();
-			sendAccountNo(CommonTestData.ACCOUNT_NO.getEnumValue());
-			sendFullName(CommonTestData.FULL_NAME.getEnumValue());
+			enterAccountNumberForRemittance(CommonTestData.ACCOUNT_NO.getEnumValue());
+			EnterFullName(CommonTestData.FULL_NAME.getEnumValue());
 			gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton());
-			sendAddress(CommonTestData.ADDRESS.getEnumValue());
-			sendcity(CommonTestData.CITY.getEnumValue());
+			EnterAddress(CommonTestData.ADDRESS.getEnumValue());
+			EnterCity(CommonTestData.CITY.getEnumValue());
 			ClickOnNextButton();
-			verifyRecipientReviewDetailLabel(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue());
+			verifyPageHeader(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue(), DBSappObject.recipientReviewDetailLabel()); 
 			ClickOnAddRecipientNowBtn();
 			EnterPasscodeAndDone();
+			verifyYouHaveAddedMessage();
+			verifyReferenceFieldAndItsValue(CommonTestData.REFERENCE_NUMBER.getEnumValue());
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Add payee Remittance  ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Add payee Remittance  ",e);
+		}
+	}
+	
+	@Step("Verify 'You've added a recipient' Message")
+	public void verifyYouHaveAddedMessage() throws Exception {
+		try {
 			wait.waitForElementVisibility(DBSappObject.MainHeaderOrSuccessMsgElement());
-			if(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue()))
+			if (getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()).toLowerCase()
+					.equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue()))
 				Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()).toLowerCase(),
-					CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue().toLowerCase(),
-					"'You’ve added a recipient label' Text is not matching");
-			else if(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue())) {
+						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue().toLowerCase(),
+						"'You’ve added a recipient label' Text is not matching");
+			else if (getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()).toLowerCase()
+					.equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue()))
 				Asserts.assertEquals(getTexOfElement(DBSappObject.MainHeaderOrSuccessMsgElement()).toLowerCase(),
 						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue().toLowerCase(),
 						"You've added a recipient' Text is not matching");
-			}
-			verifyReferenceFieldAndItsValue(CommonTestData.REFERENCE_NUMBER.getEnumValue());
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Add payee Remittance  ",e);
-					
-		}
-		catch (Exception e) {			
-			
-			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Add payee Remittance  ",e);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify 'You've added a recipient' Message ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify 'You've added a recipient' Message ", e);
 		}
 	}
 
@@ -2843,13 +3111,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			verifyReviewTopUpLabel(CommonTestData.TOPUP_REVIEW_LABEL.getEnumValue());
 			topUpNowVerifyClick(CommonTestData.TOPUP_NOW_BUTTOM_LABEL.getEnumValue());
 			logOutTopUpVerifyClick(CommonTestData.LOGOUT_PAYLAH.getEnumValue());
-		}  catch (HandleException e) {	
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute TopUp Paylah  ",e);
-					
-		}
-		catch (Exception e) {			
-			
-			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute TopUp Paylah  ",e);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute TopUp Paylah  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute TopUp Paylah  ", e);
 		}
 	}
 
@@ -2876,13 +3141,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					}
 				}
 				Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
-			}else {
-				if(androidAlert.isAlertPresent()) {
-					System.out.println("Alert title :: "+this.driver.switchTo().alert().getText()); 
-					Asserts.assertFail(this.driver.switchTo().alert().getText());
-				}	
+			}else 	
 				Asserts.assertFail(valueSelectedFromList + " not found in the list as list size is 0");
-			}
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Data From Dropdown.  ",e);			
 		}
@@ -2894,8 +3154,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifying page header")
 	public void verifyPageHeader(String expectedText, MobileElement ele) throws Exception {
 		try {
-			//if (ele != null)
-				TakeScreenshot(ele);
+			    wait.waitForElementVisibility(ele);
 				Asserts.assertEquals(getTexOfElement(ele).toLowerCase(), expectedText.toLowerCase(),
 						"'Header Title' is not Matching");
 		} catch (HandleException e) {	
@@ -3073,7 +3332,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verifying and click 'BACK TO MORE' BUTTON ")
 	public void ClickOnBackToMoreButton() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.successTitleLabel());
 			clickOnElementOnEnable(DBSappObject.backToMoreButton());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back To More Button  ",e);		
@@ -3082,6 +3340,19 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back To More Button  ",e);
 		}
 	}
+	
+	@Step("Click 'BACK TO Home' BUTTON ")
+	public void ClickOnBackToHomeButton() throws Exception {
+		try {
+			clickOnElement(DBSappObject.BACKToHOME());
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click 'BACK TO Home' BUTTON ",e);		
+		}
+		catch (Exception e) {				
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click 'BACK TO Home' BUTTON ",e);
+		}
+	}
+
 
 	@Step("Verify Amount display After Limit get Changed")
 	public void verifyDisplayAmountLocalTransferLimitChange(String expectedText) throws Exception {
@@ -3127,104 +3398,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Click on Account after selecting 'Local Recipients' and verify pageHeader")
-	public void clickingOnAccountTypeInLocalRecipient_1(String valueSelectedFromList) throws Exception {
-		try {
-			int o = 0;
-			for (int i = 0; i < DBSappObject.AllTabOptionsList().size(); i++) {
-				String tabText = DBSappObject.AllTabOptionsList().get(i).getText();
-				o++;
-				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
-					break;
-				}
-			}
-			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
-		
-		    Dimension windowSize = driver.manage().window().getSize();
-			System.out.println("getSessionId :"+driver.getSessionId());
-			
-			int h = windowSize.getHeight();
-			int y1 = (int) (h * 0.2);
-			int y2 = (int) (h - y1);
-			int x = (int) ((windowSize.getWidth()) / 2);
-			
-			String s1 = driver.getPageSource();
-			int count = 0;
-			int index = 0;
-			WaitUtils wait = new WaitUtils(driver);
-			wait.ImplicitlyWait();
-			while (count == 0 && index == 0) {
-				if (DBSappObject.SubTitleTextList().size() > 0) {
-					TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
-					List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
-					List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
-					int length = Elementlist.size();
-					String LocalRecipientList = null;
-					if (length < 2) {
-						for (int i = 0; i < length; i++) {
-							LocalRecipientList = Elementlist.get(i).getText();
-							if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
-								index++;
-								clickOnElement(ElementlistClickable.get(i));
-								break;
-							}
-						}
-						// Exception Handling without scrolling case and no expected element found in
-						// the list then index ==0
-						if (index == 0 && count == 0)
-							Asserts.assertFail("Local Recipient " + valueSelectedFromList
-									+ " not found in the list to initiate the fund transfer");
-						else
-							break;
-					} else
-
-						// Code will work :: When Need to scroll
-						for (int i = 0; i < length; i++) {
-							LocalRecipientList = Elementlist.get(i).getText();
-							if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
-								index++;
-								clickOnElement(ElementlistClickable.get(i));
-								break;
-							}
-						}
-					if (index == 0) {
-						touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
-								.moveTo(element(DBSappObject.AllTab())).release().perform();
-
-						String s2 = driver.getPageSource();
-						if (s1.equals(s2) != true)
-							s1 = s2;
-						else
-							count = 1;
-					} else
-						break;
-
-					// Exception Handling in scrolling case and no expected element found in the
-					// list then index ==0, count ==1
-					if (count == 1 && index == 0)
-						Asserts.assertFail("Local Recipient " + valueSelectedFromList
-								+ " not found in the list to initiate the fund transfer");
-
-				} else
-					Asserts.assertFail("No receipient Found in the Local recipient list");
-			}
-
-			Thread.sleep(2000);
-			String xpath = "//android.widget.TextView[@text='Primary source of fund']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0) {
-				TakeScreenshot(DBSappObject.PrimarySourceOfFund());
-				clickOnElement(DBSappObject.Alert_OKButton());
-			}
-			verifyPageHeader(CommonTestData.TRANSFER_DBS_POSB.getEnumValue(), DBSappObject.PageHeader());
-			TakeScreenshot(DBSappObject.PageHeader());
-		}catch (HandleException e) {	
-				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select account from local recipient and verify header  ",e);
-			}
-			catch (Exception e) {		
-				obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select account from local recipient and verify header  ",e);
-			}
-	}
 
 	@Step("Click on 'Select Fund Source' and Select Account")
 	public void selectFundSourceAndSelectAccount(String SelectedAccountName, String SelectedAccountNumber)
@@ -3292,22 +3465,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			throws Exception {
 		try {
 			Thread.sleep(10000);	
-			TakeScreenshot(DBSappObject.overseasTransferHeader());
 			String xpath = "//android.widget.TextView[@text='Select Fund Source']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0) {
 				VerifyButtonLabelAndClick(DBSappObject.selectFundSourceTextButton(),
 						CommonTestData.SELECT_SOURCE_FUND.getEnumValue());
-				TakeScreenshot(DBSappObject.selectFundSourceListAccountName2().get(0));
 				List<MobileElement> AccountName = DBSappObject.selectFundSourceListAccountName2();
-				
 				int l = AccountName.size();
-				int index = 0;
 				String AccountNameList = null;
 				for (int i = 0; i < l; i++) {
 					AccountNameList = AccountName.get(i).getText();
 					if (AccountNameList.equalsIgnoreCase(SelectedAccountName)) {
-						index++;
 						clickOnElement(AccountName.get(i));
 						break;
 					}
@@ -3320,7 +3488,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				androidAlert.AlertHandlingWithButtonMessage(DBSappObject.Alert_OKButton(),
 						CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(),
 						DBSappObject.primarysourceAlertTitle());
-				verifyPageHeader(CommonTestData.OVERSEA_HEADER.getEnumValue(), DBSappObject.overseasTransferHeader());
 			}
 			
 		} catch (HandleException e) {	
@@ -3337,7 +3504,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.sgdFieldText()),
 					CommonTestData.SGD_CURRENCY_LABEL.getEnumValue(), "'Currency' is not Matching");
 			enterTextInTextbox(DBSappObject.amountTransferTextBox(), Amount);
-			TakeScreenshot(DBSappObject.amountTransferTextBox());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify SGD Currency field and enter amount",e);
 		}
@@ -3347,61 +3513,34 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 	}
 
-	@Step(" Verifying page header 'Review Transfer' And Click on 'TRANSFER NOW' Button")
-	public void verifyReviewTransferAndClickTransferNowButton() throws Exception {
+	@Step("Click on 'TRANSFER NOW' Button")
+	public void ClickOnTransferNowButton() throws Exception {
 		try {
-			Thread.sleep(4000); 
-			TakeScreenshot(DBSappObject.TransferNowBtn());
-			verifyPageHeader(CommonTestData.REVIEW_TRANSFER_LABEL.getEnumValue(), DBSappObject.PageHeader());
 			VerifyButtonLabelAndClick(DBSappObject.TransferNowBtn(), CommonTestData.TRANSFER_NOW_BUTTON.getEnumValue());
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify review transfer and click on Transfer now button ",e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Transfer now button ",e);
 		}
 		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", "  Failed to verify review transfer and click on Transfer now button   ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", "  Failed to Click on Transfer now button   ",e);
 		}
-
 	}
 
-	@Step(" Verifying page header 'Transferred' And Generated Reference Number")
-	public void verifyTransferredAndReferenceNumberField() throws Exception {
+	@Step(" Verifying Reference Number")
+	public void verifyReferenceNumberField() throws Exception {
 		try {
-			Thread.sleep(4000); 
-			verifyPageHeader(CommonTestData.TRANSFER_TITLE.getEnumValue(), DBSappObject.PageHeaderList().get(0));
 			clickOnElement(DBSappObject.expandButton2());
 			gestUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
 
-			TakeScreenshot( DBSappObject.ReferenceNumberText());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.ReferenceNumberText()), CommonTestData.REFERENCE_NUMBER.getEnumValue(),
 					"'Reference no Field' is not found");
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify page header and generated reference number ",e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify reference number ",e);
 		}
 		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify page header and generated reference number   ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify reference number   ",e);
 		}
 	}
 
-	@Step(" Verifying page header 'Transferred' And Click on 'Logout' Button")
-	public void verifyTransferredTitleAndClickOnLogout() throws Exception {
-		try {
-			verifyPageHeader(CommonTestData.TRANSFER_TITLE.getEnumValue(), DBSappObject.PageHeader());
-			logOutTopUpVerifyClick("Log Out");
-			VerifyButtonLabelAndClick(DBSappObject.TransferNowBtn(), CommonTestData.TRANSFER_NOW_BUTTON.getEnumValue());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.postLogoutAlertMessage()),
-					CommonTestData.RATE_MESSAGE.getEnumValue(), "'Tap on the stars to rate' Text is not found");
-		} catch (Exception e) {
-
-
-			e.printStackTrace();
-
-			throw e;
-		}
-
-	}
-
-	
-	
 	
 	@Step("Verifies FundTransfer Other DBS/POSB")
 	public void FundTransferDBSPOSB() throws Exception {
@@ -3409,15 +3548,18 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			SelectAllTAB();
-			selectOptionFromAllTabSection(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue());
-			clickingOnAccountTypeInLocalRecipient_1(
-					CommonTestData.LOCAL_RECIPIENT_LIST_SELECTED_ACCOUNTNAME.getEnumValue());
+			ClickOnLocalRecipient();
+			SelectToAccountFromLocalRecipient(CommonTestData.LOCAL_RECIPIENT_LIST_SELECTED_ACCOUNTNAME.getEnumValue());
 			selectFundSourceAndSelectAccount(CommonTestData.SOURCE_ACCOUNT_NAME.getEnumValue(),
 					CommonTestData.SOURCE_ACCOUNT_NUMBER.getEnumValue());
 			enterAmountAndVerifySgdCurrency(CommonTestData.AMOUNT_FUNDTRANSFER.getEnumValue());
 			ClickOnNextButton();
-			verifyReviewTransferAndClickTransferNowButton();
-			verifyTransferredAndReferenceNumberField();
+			Thread.sleep(4000); 
+			verifyPageHeader(CommonTestData.REVIEW_TRANSFER_LABEL.getEnumValue(), DBSappObject.PageHeader());
+			ClickOnTransferNowButton();
+			Thread.sleep(4000); 
+			verifyPageHeader(CommonTestData.TRANSFER_TITLE.getEnumValue(), DBSappObject.PageHeaderList().get(0));
+			verifyReferenceNumberField();
 			clickOnLogoutAndVerifyInFundTransfer();
 		}catch (HandleException e) {	
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify fund transfer other DBS_POSB  ",e);
@@ -3436,14 +3578,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			SelectAllTAB();
-			SelectOWNAccountAndAnyAccountOption(CommonTestData.FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER.getEnumValue());
+			ClickOnYourDBSPOSBAccounts();
+			SelectToAccountFromYourDBSPOSBAccountlist(CommonTestData.FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER.getEnumValue());
+			verifyPageHeader(CommonTestData.TRANSFER_TO_YOUR_ACCOUNT.getEnumValue(), DBSappObject.PageHeader());
 			String ExpectedFromAccountName = CommonTestData.FUNDTRANSFER_FROM_OWN_ACCOUNT_NAME.getEnumValue();
 			SelectFundSourceAccount(ExpectedFromAccountName);
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			ClickOnNextButton();
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader()),
-					CommonTestData.REVIEW_TRANSFER.getEnumValue(),
-					CommonTestData.REVIEW_TRANSFER.getEnumValue() + " Text is not matching");
+			verifyPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue(), DBSappObject.PageHeader());
 			ClickOnTransferNowBtn();
 			VerifiesTransferSubmittedMsg(CommonTestData.TRANSFERRED.getEnumValue(),
 					DBSappObject.ImageForPaymentSuccess(), DBSappObject.PageHeader());
@@ -3454,11 +3596,26 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					+ "	SGD";
 			VerifyAccountDetailsAfterFundTransferToOwnAccount(ExpectedToAccountNumber, ExpectedToAccountName,
 					ExpectedFromAccountNumber, ExpectedFromAccountName);
+			
+			//Leave On Home Page for next case run.
+			ClickOnBackToHomeButton();
 		}catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify Fund transfer to own account  ",e);
 		}
 		catch (Exception e) {		
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify Fund transfer to own account ",e);
+		}
+	}
+	
+	@Step("Verify 'Back To Home' Button. ")
+	public void VerifyBackToHomeButton() throws Exception {
+		try {
+			Asserts.assertTrue(DBSappObject.BACKToHOME().isDisplayed(), "BACK To HOME Button not found.");
+		}catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'Back To Home' Button. ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'Back To Home' Button.  ",e);
 		}
 	}
 
@@ -3467,35 +3624,16 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String ExpectedToAccountName, String ExpectedFromAccountNumber, String ExpectedFromAccountName)
 			throws Exception {
 		try {
-			Asserts.assertTrue(DBSappObject.LOGOUTButton().isDisplayed(), "Log Out Button not matching.");
-			Asserts.assertTrue(DBSappObject.BACKToHOME().isDisplayed(), "BACK To HOME Button not found.");
-			gestUtils.scrollUPtoObject("text", "MAKE ANOTHER TRANSFER", DBSappObject.MakeAnotherTransferBtn()); 
-			Asserts.assertTrue(DBSappObject.MakeAnotherTransferBtn().isDisplayed(),
-					"MAKE ANOTHER TRANSFER Button not found.");
-
+			VerifyLogOutButton();
+			VerifyBackToHomeButton();
+			VerifyMakeAnotherTransferButton();
 			String[] ExpTitleList = new String[] { "From", "To", "When", "Source Account Balance",
 					"Destination Account Balance", "Reference No." };
-
-			for (int i = 0; i < DBSappObject.FundTransferDetailslabel1List().size(); i++) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel1List().get(i)),
-						ExpTitleList[i], ExpTitleList[i] + "Titles is not matching after adding payee");
-			}
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel2List().get(0)),
-					ExpectedFromAccountName,
-					ExpectedFromAccountName + " is not matching after Fund Transfer to Own Account");
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel2List().get(1)),
-					ExpectedToAccountName,
-					ExpectedToAccountName + " is not matching after Fund Transfer to Own Account");
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel3List().get(0)),
-					ExpectedFromAccountNumber,
-					ExpectedFromAccountNumber + " is not matching after Fund Transfer to Own Account.");
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel3List().get(1)),
-					ExpectedToAccountNumber,
-					ExpectedToAccountNumber + " is not matching after fund transfer to own account");
+			verifyTitles(ExpTitleList, DBSappObject.FundTransferDetailslabel1List());
+			VerifyFromAccountName(ExpectedFromAccountName);
+			VerifyToAccountName(ExpectedToAccountName);
+			VerifyFromAccountNumber(ExpectedFromAccountNumber); 
+			VerifyToAccountNumber(ExpectedFromAccountNumber); 
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify account details after fund transfer  ",e);
 		}
@@ -3503,11 +3641,41 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify account details after fund transfer  ",e);
 		}
 	}
+	
+	@Step("Verify 'From Account Name' On Transfer submitted Page.")
+	public void VerifyFromAccountName(String ExpectedFromAccountName) throws Exception{
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel2List().get(0)),
+					ExpectedFromAccountName,
+					ExpectedFromAccountName + " is not matching after Fund Transfer");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify 'From Account Name' On Transfer submitted Page. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify 'From Account Name' On Transfer submitted Page. ", e);
+		}
+	}
+	
+	@Step("Verify 'To Account Name' On Transfer submitted Page.")
+	public void VerifyToAccountName(String ExpectedToAccountName) throws Exception{
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel2List().get(1)),
+					ExpectedToAccountName,
+					ExpectedToAccountName + " is not matching after Fund Transfer.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify 'To Account Name' On Transfer submitted Page. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify 'To Account Name' On Transfer submitted Page. ", e);
+		}
+	}
 
 	@Step("Select All TAB.")
 	public void SelectAllTAB() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.AllTab());
+			//TakeScreenshot(DBSappObject.AllTab());
 			clickOnElement(DBSappObject.AllTab());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab  ",e);
@@ -3517,9 +3685,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-
-	@Step("Select 'Your DBS/POSB Accounts' and then verify 'Transfer to Your Account' Page header after selecting any own account option.")
-	public void SelectOWNAccountAndAnyAccountOption(String valueSelectedFromList) throws Exception {
+	
+	@Step("Click On 'Your DBS/POSB Accounts' option under All Tab .")
+	public void ClickOnYourDBSPOSBAccounts() throws Exception {
 		try {
 			int o = 0;
 			for (int i = 0; i < DBSappObject.AllTabOptionsList().size(); i++) {
@@ -3531,7 +3699,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				}
 			}
 			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
-			
+		}catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Your DBS/POSB Accounts' option under All Tab ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Your DBS/POSB Accounts' option under All Tab ",e);
+		}
+	}
+
+	@Step("Select 'To Account' From Your DBS POSB Account list.")
+	public void SelectToAccountFromYourDBSPOSBAccountlist(String valueSelectedFromList) throws Exception {
+		try {
 			Dimension windowSize = driver.manage().window().getSize();
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
@@ -3540,19 +3718,18 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String s1 = driver.getPageSource();
 			int count = 0;
 			int index = 0;
-			WaitUtils wait = new WaitUtils(driver);
-			wait.ImplicitlyWait();
+		
 			while (count == 0 && index == 0) {
 				if (DBSappObject.SubTitleTextList().size() > 0) {
 					TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
 					List<MobileElement> Elementlist = DBSappObject.SubTitleTextList();
 					List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
 					int length = Elementlist.size();
-					String LocalRecipientList = null;
+					String YouDBSPOSBAccount = null;
 					if (length < 2) {
 						for (int i = 0; i < length; i++) {
-							LocalRecipientList = Elementlist.get(i).getText();
-							if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+							YouDBSPOSBAccount = Elementlist.get(i).getText();
+							if (YouDBSPOSBAccount.equalsIgnoreCase(valueSelectedFromList)) {
 								index++;
 								clickOnElement(ElementlistClickable.get(i));
 								break;
@@ -3568,8 +3745,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 						// Code will work :: When Need to scroll
 						for (int i = 0; i < length; i++) {
-							LocalRecipientList = Elementlist.get(i).getText();
-							if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
+							YouDBSPOSBAccount = Elementlist.get(i).getText();
+							if (YouDBSPOSBAccount.equalsIgnoreCase(valueSelectedFromList)) {
 								index++;
 								clickOnElement(ElementlistClickable.get(i));
 								break;
@@ -3578,7 +3755,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					if (index == 0) {
 						touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
 								.moveTo(element(DBSappObject.AllTab())).release().perform();
-
+                        Thread.sleep(2000);
 						String s2 = driver.getPageSource();
 						if (s1.equals(s2) != true)
 							s1 = s2;
@@ -3596,11 +3773,12 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					Asserts.assertFail("No receipient found in the Your DBS/POSB Own Account List.");
 			}
 			Thread.sleep(2000);
-			TakeScreenshot(DBSappObject.PageHeader());
-			verifyPageHeader(CommonTestData.TRANSFER_TO_YOUR_ACCOUNT.getEnumValue(), DBSappObject.PageHeader());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select To Account From Your DBS POSB Account list ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select To Account From Your DBS POSB Account list ",e);
 		}
 	}
      
@@ -3647,7 +3825,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Enter Amount On Fund Transfer Page.")
 	public void EnterAmount(MobileElement editField, String textToEnter) throws Exception {
 		try {
-			TakeScreenshot(editField);
 			clickOnElement(editField);
 			enterTextInTextbox(editField, textToEnter); 
 			driver.hideKeyboard();
@@ -3917,7 +4094,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			clickOnElement(DBSappObject.FooterExpandableBtn());
 			gestUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
-			TakeScreenshot(DBSappObject.ReferenceNumberText());
+			wait.waitForElementVisibility(DBSappObject.ReferenceNumberText());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on expandable button and scroll down to reference",e);
 		}
@@ -4102,26 +4279,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 	}
 
-	@Step("Select option From All Tab section")
-	public void selectOptionFromAllTabSection(String TabValue) throws Exception {
-		try {
-			TakeScreenshot(DBSappObject.AllTabOptionsList().get(0));
-			for (int i = 0; i < DBSappObject.AllTabOptionsList().size(); i++) {
-				String tabText = DBSappObject.AllTabOptionsList().get(i).getText();
-				if (tabText.contains(TabValue)) {
-					clickOnElement(DBSappObject.AllTabOptionsList().get(i));
-					break;
-				}
-			}
-
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select "+TabValue+ " from All Tab section  ",e);
-		}
-		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION"," Failed to select "+TabValue+ " from All Tab section  ",e);
-		}
-	}
-
 	public void TakeScreenshot(MobileElement Element) throws Exception {
 		try {
 			//wait.waitForElementVisibility(Element);
@@ -4249,9 +4406,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Home Button.")
 	public void ClickOnHomeButton() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.homeButton());
+			//TakeScreenshot(DBSappObject.homeButton());
 			clickOnElement(DBSappObject.homeButton()); 
-			TakeScreenshot(DBSappObject.WelcomeToText()); 
+			//TakeScreenshot(DBSappObject.WelcomeToText()); 
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Home Button  ",e);		
 		}
@@ -4263,7 +4420,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Back Button.")
 	public void ClickOnBackButton() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.backButton());
+		//	TakeScreenshot(DBSappObject.backButton());
 			clickOnElement(DBSappObject.backButton()); 
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Button  ",e);			
@@ -4276,7 +4433,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Back Icon.")
 	public void ClickOnBackIcon() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.BackIcon());
+			//TakeScreenshot(DBSappObject.BackIcon());
 			clickOnElement(DBSappObject.BackIcon());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Icon  ",e);		
@@ -4408,19 +4565,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					break;
 				}
 			}
-			TakeScreenshot(DBSappObject.PageHeader());
 			
-			//String cureentDate = getTexOfElement(DBSappObject.durationOption());
 			clickOnElement(DBSappObject.durationOption());
-			TakeScreenshot(DBSappObject.calenderHeaderCreditLimit());
 			clickOnElement(DBSappObject.selectDateOctEleven());
 			clickOnElement(DBSappObject.OKButton());
-			TakeScreenshot(DBSappObject.PageHeader());
 			clickOnElement(DBSappObject.durationOption());
-			TakeScreenshot(DBSappObject.calenderHeaderCreditLimit());
 			clickOnElement(DBSappObject.selectDateOctEleven());
 			clickOnElement(DBSappObject.OKButton());
-			TakeScreenshot(DBSappObject.PageHeader());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Set Amount Duration Purpose For Limit Increase  ",e);
 		}
@@ -4527,11 +4678,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			Thread.sleep(2000);
 			String xpath1 = "//android.widget.TextView[@text='Primary source of fund']";
 			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
-			if (list1.size() > 0) {
-				TakeScreenshot(DBSappObject.PrimarySourceOfFund());
-				if (isElementVisible(DBSappObject.PrimarySourceOfFund()))
-					clickOnElement(DBSappObject.Alert_OKButton());
-			}
+			if (list1.size() > 0)
+				clickOnElement(DBSappObject.Alert_OKButton());
+			
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Select 'To Account' from local Recipient list  ", e);
@@ -4547,24 +4696,45 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnMoreButton();
 			EnterPasscodeAndDone();
 			SelectUpdateContactDetails();
-			TakeScreenshot(DBSappObject.BackBtnImageView());
+			wait.waitForElementVisibility(DBSappObject.BackBtnImageView());
 			verifyPageHeader(CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue(), DBSappObject.PageHeaderForOpenAccount());
-			VerifySomeTabVisibiltyOnUpdateContactDetailsPage();
-			SelectPersonalContactDetailsTab();
+			VerifyBackButtonImageView();
+			VerifyPersonalAndContactDetails();
+			VerifyMailingAddress();
+			SelectPersonalContactDetails();
 			EnterPasscodeAndDone();
+			Thread.sleep(4000); 
+			if(getTexOfElement(DBSappObject.UpdateContactDetailsPageHeader()).equals(CommonTestData.PERSONAL_AND_CONTACTDETAILS_PAGEHEADER.getEnumValue())) 
+				verifyPageHeader(CommonTestData.PERSONAL_AND_CONTACTDETAILS_PAGEHEADER.getEnumValue(),DBSappObject.UpdateContactDetailsPageHeader());
+			else if(getTexOfElement(DBSappObject.UpdateContactDetailsPageHeader()).equals(CommonTestData.CONTACT_DETAILS_PAGEHEADER.getEnumValue())) 
+				verifyPageHeader(CommonTestData.CONTACT_DETAILS_PAGEHEADER.getEnumValue(),DBSappObject.UpdateContactDetailsPageHeader());
+				
 			VerifyPersonalDetailsPage(appName);
 			ClickOnCheckboxes();
+			verifyTermsAndConditionsMessage(CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue());
 			ClickOnNextButton();
-			ClickOnConfirmButton(appName);
+			ClickOnConfirmButton();
+			EnterPasscodeAndDone();
+			verifySuccessfullyUpdatedMessage(appName);
+		
 			
 			//Verify Final Result after go through on Personal Details Page.
 			ClickOnBackToMoreServicesBtn();
 			SelectUpdateContactDetails();
 			TakeScreenshot(DBSappObject.BackBtnImageView());
 			verifyPageHeader(CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue(), DBSappObject.PageHeaderForOpenAccount());
-			VerifySomeTabVisibiltyOnUpdateContactDetailsPage();
-			SelectPersonalContactDetailsTab();
+			VerifyBackButtonImageView();
+			VerifyPersonalAndContactDetails();
+			VerifyMailingAddress();
+			SelectPersonalContactDetails();
 			EnterPasscodeAndDone();
+			Thread.sleep(4000); 
+			if(getTexOfElement(DBSappObject.UpdateContactDetailsPageHeader()).equals(CommonTestData.PERSONAL_AND_CONTACTDETAILS_PAGEHEADER.getEnumValue())) 
+				verifyPageHeader(CommonTestData.PERSONAL_AND_CONTACTDETAILS_PAGEHEADER.getEnumValue(),DBSappObject.UpdateContactDetailsPageHeader());
+			else if(getTexOfElement(DBSappObject.UpdateContactDetailsPageHeader()).equals(CommonTestData.CONTACT_DETAILS_PAGEHEADER.getEnumValue())) 
+				verifyPageHeader(CommonTestData.CONTACT_DETAILS_PAGEHEADER.getEnumValue(),DBSappObject.UpdateContactDetailsPageHeader());
+				
+			
 			VerifyPersonalDetailsPage(appName);
 			VerifyLastUpdatedDateOfCheckboxes();
 
@@ -4616,43 +4786,91 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify last update on checkbox  ",e);
 		}
 	}
-
-	@Step("Click On Confirm Button and Verify 'Successfully Updated' Message, 'Back Button', 'logout Button', 'Update More Details' button & 'Back to More Services' Button.")
-	public void ClickOnConfirmButton(String appName) throws Exception {
+	
+	@Step("verify Update More Details Button")
+	public void verifyUpdateMoreDetailsButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject(null, null, null);
-			TakeScreenshot(DBSappObject.ConfirmBtn());
-			clickOnElement(DBSappObject.ConfirmBtn());
-			EnterPasscodeAndDone();
-			if (isElementVisible(DBSappObject.CompletionStatusImage())) {
-				TakeScreenshot(DBSappObject.SuccessfullyUpdatedMessageEle());
-				if(appName.equalsIgnoreCase("DBS")) {
-					Asserts.assertEquals(getTexOfElement(DBSappObject.SuccessfullyUpdatedMessageEle()),
-							CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue(),
-							CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue() + " Text is not matching");
-					gestUtils.scrollUPtoObject(null, null, null);
-					TakeScreenshot(DBSappObject.UpdateMoreDetailsBtn());
-					Asserts.assertTrue(isElementVisible(DBSappObject.UpdateMoreDetailsBtn()),
-							"Update More Details Btn is not displayed.");
-				}
-				else if(appName.equalsIgnoreCase("iWEALTH")) {
-					Asserts.assertEquals(getTexOfElement(DBSappObject.SuccessfullyUpdatedMessageEle()),
-							CommonTestData.REQUESTS_SUBMITTED_MESSAGE.getEnumValue(),
-							CommonTestData.REQUESTS_SUBMITTED_MESSAGE.getEnumValue() + " Text is not matching");
-					gestUtils.scrollUPtoObject(null, null, null);
-					TakeScreenshot(DBSappObject.UpdateMailingAddressBtn());
-					Asserts.assertTrue(isElementVisible(DBSappObject.UpdateMailingAddressBtn()),
-							"Update Mailing Address Btn is not displayed.");
-				}
-				Asserts.assertTrue(isElementVisible(DBSappObject.BACKTOMoreServicesBtn()),
-						"BACK TO More Services Btn is not displayed.");
-			}
+			wait.waitForElementVisibility(DBSappObject.UpdateMoreDetailsBtn());
+			Asserts.assertTrue(isElementVisible(DBSappObject.UpdateMoreDetailsBtn()),
+					"Update More Details Btn is not displayed.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Update More Details Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify Update More Details Button ",
+					e);
+		}
+	}
 
+	@Step("verify Update Mailing Address Button")
+	public void verifyUpdateMailingAddressButton() throws Exception {
+		try {
+			gestUtils.scrollUPtoObject(null, null, null);
+			wait.waitForElementVisibility(DBSappObject.UpdateMailingAddressBtn());
+			Asserts.assertTrue(isElementVisible(DBSappObject.UpdateMailingAddressBtn()),
+					"Update Mailing Address Btn is not displayed.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Update Mailing Address Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Update Mailing Address Button ", e);
+		}
+	}
+	
+	@Step("verify 'Back To More Services' Button")
+	public void verifyBackToMoreServicesButton() throws Exception {
+		try {
+			Asserts.assertTrue(isElementVisible(DBSappObject.BACKTOMoreServicesBtn()),
+					"BACK TO More Services Btn is not displayed.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify 'Back To More Services' Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify 'Back To More Services' Button ", e);
+		}
+	}
+
+	@Step("Verify Successfully Updated Message")
+	public void verifySuccessfullyUpdatedMessage(String appName)throws Exception {
+		try {
+		if (isElementVisible(DBSappObject.CompletionStatusImage())) {
+			wait.waitForElementVisibility(DBSappObject.SuccessfullyUpdatedMessageEle());
+			if(appName.equalsIgnoreCase("DBS")) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.SuccessfullyUpdatedMessageEle()),
+						CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue(),
+						CommonTestData.SUCCESSFULLY_UPDATED_MESSAGE.getEnumValue() + " Text is not matching");
+				verifyUpdateMoreDetailsButton();
+			}
+			else if(appName.equalsIgnoreCase("iWEALTH")) {
+				Asserts.assertEquals(getTexOfElement(DBSappObject.SuccessfullyUpdatedMessageEle()),
+						CommonTestData.REQUESTS_SUBMITTED_MESSAGE.getEnumValue(),
+						CommonTestData.REQUESTS_SUBMITTED_MESSAGE.getEnumValue() + " Text is not matching");
+				verifyUpdateMailingAddressButton();
+			}
+			verifyBackToMoreServicesButton();
+		}
+	}catch (HandleException e) {
+		obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+				" Failed to Verify Successfully Updated Message ", e);
+	} catch (Exception e) {
+		obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+				" Failed to Verify Successfully Updated Message ", e);
+	}
+}
+
+	@Step("Click On Confirm Button")
+	public void ClickOnConfirmButton() throws Exception {
+		try {
+			gestUtils.scrollUPtoObject(null, null, null);
+			clickOnElement(DBSappObject.ConfirmBtn());
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on confirm button and verify success message  and all buttons  ",e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on confirm button ",e);
 		}
 		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on confirm button and verify success message  and all buttons ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on confirm button ",e);
 		}
 	}
 
@@ -4671,101 +4889,180 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					i = 0;
 				}
 			}
-			TakeScreenshot(DBSappObject.TermsAndConditionsMsg());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.TermsAndConditionsMsg()),
-					CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue(),
-					CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue() + " Text is not matching");
+			wait.waitForElementVisibility(DBSappObject.TermsAndConditionsMsg());
+			
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select All checkboxes  ",e);
 		}
 		catch (Exception e) {		
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select All checkboxes  ",e);
 		}
-		
 	}
-
-	@Step("Verify visibility of 'Personal & Contact Details' Page Header, 'Contact Details' &  'Personal Perticulars' Section.")
-	public void VerifyPersonalDetailsPage(String appName) throws Exception {
+	
+	@Step("Verify Terms & Conditions Message.")
+	public void verifyTermsAndConditionsMessage(String termAndConditionsMessage) throws Exception {
 		try {
-			Thread.sleep(4000); 
-			TakeScreenshot(DBSappObject.ContactDetailsTitle()); 
-			System.out.println("text on screen:: "+ getTexOfElement(DBSappObject.UpdateContactDetailsPageHeader()) + " text from test data");
-			
-			if(getTexOfElement(DBSappObject.UpdateContactDetailsPageHeader()).equals(CommonTestData.PERSONAL_AND_CONTACTDETAILS_PAGEHEADER.getEnumValue())) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.UpdateContactDetailsPageHeader()),
-						CommonTestData.PERSONAL_AND_CONTACTDETAILS_PAGEHEADER.getEnumValue(),
-						CommonTestData.PERSONAL_AND_CONTACTDETAILS_PAGEHEADER.getEnumValue() + " Text is not matching");
-			}
-			else if(getTexOfElement(DBSappObject.UpdateContactDetailsPageHeader()).equals(CommonTestData.CONTACT_DETAILS_PAGEHEADER.getEnumValue())) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.UpdateContactDetailsPageHeader()),
-						CommonTestData.CONTACT_DETAILS_PAGEHEADER.getEnumValue(),
-						CommonTestData.CONTACT_DETAILS_PAGEHEADER.getEnumValue() + " Text is not matching");
-			}
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitle()),
-					CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue(),
-					CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue() + " Text is not matching");
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.EmailNotes()), CommonTestData.EMAIL_NOTES.getEnumValue(),
-					CommonTestData.EMAIL_NOTES.getEnumValue() + " Text is not matching");
-
-
-			gestUtils.scrollUPtoObject("text", "PERSONAL PARTICULARS", DBSappObject.PersonalPerticularSectionTitle()); 
-
-			Thread.sleep(1500);
-			TakeScreenshot(DBSappObject.PersonalPerticularSectionTitle());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsChangeBtn()),
-					CommonTestData.CHANGE_BUTTON.getEnumValue(),
-					CommonTestData.CHANGE_BUTTON.getEnumValue() + " Text is not matching");
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PersonalPerticularSectionTitle()),
-					CommonTestData.PERSONAL_PARTICULARS.getEnumValue(),
-					CommonTestData.PERSONAL_PARTICULARS.getEnumValue() + " Text is not matching");
-
-			gestUtils.scrollUPtoObject("text", "MARKETING MESSAGES", DBSappObject.MarketingMessageTitle());
-
-			Thread.sleep(1500);
-			TakeScreenshot(DBSappObject.MarketingMessageTitle());
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PersonalPerticularChangeBtn()),
-					CommonTestData.CHANGE_BUTTON.getEnumValue(),
-					CommonTestData.CHANGE_BUTTON.getEnumValue() + " Text is not matching");
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.MarketingMessageTitle()),
-					CommonTestData.MARKETING_MESSAGE_TITLES.getEnumValue(),
-					CommonTestData.MARKETING_MESSAGE_TITLES.getEnumValue() + " Text is not matching");
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.MarketingMessageNotes()),
-					CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue(),
-					CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue() + " Text is not matching");
-
-			if(appName.equalsIgnoreCase("DBS")) {
-				gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton()); 
-				TakeScreenshot(DBSappObject.nextButton()); 
-			}
-			else if(appName.equalsIgnoreCase("iWEALTH")) {
-				gestUtils.scrollUPtoObject("text", "CONFIRM", DBSappObject.confirmButton()); 
-				TakeScreenshot(DBSappObject.confirmButton()); 
-			}
-			Asserts.assertEquals(getTexOfElement(DBSappObject.UPPSectionLabel()),
-					CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue(),
-					CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue() + " Text is not matching");
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select Personal And contact details and verify all fields  ",e);
-		}
-		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select Personal And contact details and verify all fields ",e);
+			Asserts.assertEquals(getTexOfElement(DBSappObject.TermsAndConditionsMsg()),
+					termAndConditionsMessage, termAndConditionsMessage + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Terms & Conditions Message ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Terms & Conditions Message ", e);
 		}
 	}
 	
-	@Step("Click On Personal & Contact Details Tab.")
-	public void SelectPersonalContactDetailsTab() throws Exception {
+	@Step("Verify Contact Details Title")
+	public void verifyContactDetailsTitle(String ContactDetailsTitle) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsTitle()), ContactDetailsTitle,
+					ContactDetailsTitle + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Contact Details Title ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Contact Details Title ", e);
+		}
+	}
+
+	@Step("Verify Email Notes")
+	public void verifyEmailNotes(String EmailNotes) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.EmailNotes()), EmailNotes,
+					EmailNotes + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Email Notes ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Email Notes ", e);
+		}
+	}
+	
+	@Step("Verify Change Button Under Contact Details")
+	public void verifyChangeButton(String ChangeButton) throws Exception {
+		try {
+			gestUtils.scrollUPtoObject("text", "PERSONAL PARTICULARS", DBSappObject.PersonalPerticularSectionTitle()); 
+			Thread.sleep(1500);
+			wait.waitForElementVisibility(DBSappObject.PersonalPerticularSectionTitle());
+			
+			Asserts.assertEquals(getTexOfElement(DBSappObject.ContactDetailsChangeBtn()),
+					CommonTestData.CHANGE_BUTTON.getEnumValue(),
+					CommonTestData.CHANGE_BUTTON.getEnumValue() + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Change Button Under Contact Details ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Change Button Under Contact Details", e);
+		}
+	}
+	
+	@Step("Verify Personal Particular")
+	public void verifyPersonalParticular(String personalParticular) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PersonalPerticularSectionTitle()),
+					personalParticular,personalParticular + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Personal Particular ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Personal Particular ", e);
+		}
+	}
+	
+	@Step("Verify Change Button Under Personal Particular Section")
+	public void verifyChangeButtonUnderPersonalParticularSection(String ChangeButton) throws Exception {
+		try {
+			gestUtils.scrollUPtoObject("text", "PERSONAL PARTICULARS", DBSappObject.PersonalPerticularSectionTitle()); 
+			gestUtils.scrollUPtoObject("text", "MARKETING MESSAGES", DBSappObject.MarketingMessageTitle());
+			Thread.sleep(1500);
+			wait.waitForElementVisibility(DBSappObject.MarketingMessageTitle());
+			Asserts.assertEquals(getTexOfElement(DBSappObject.PersonalPerticularChangeBtn()),
+					CommonTestData.CHANGE_BUTTON.getEnumValue(),
+					CommonTestData.CHANGE_BUTTON.getEnumValue() + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Change Button Under Personal Particular Section ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Change Button Under Personal Particular Section ", e);
+		}
+	}
+	
+	@Step("Verify Marketing Message Title")
+	public void verifyMarketingMessageTitle(String marketingMessageTitle) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.MarketingMessageTitle()),
+					marketingMessageTitle, marketingMessageTitle + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Marketing Message Title ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Marketing Message Title ", e);
+		}
+	}
+	
+	@Step("Verify Marketing Message Notes")
+	public void verifyMarketingMessageNotes(String marketingMessageNotes) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.MarketingMessageNotes()),
+					marketingMessageNotes,
+					marketingMessageNotes + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Marketing Message Notes ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Marketing Message Notes ", e);
+		}
+	}
+	
+	@Step("Verify 'I would like the bank to:' Message.")
+	public void verifyIWouldLikeTheBankTomessage(String message) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.UPPSectionLabel()),
+					message, message + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'I would like the bank to:' Message ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'I would like the bank to:' Message ", e);
+		}
+	}
+	
+	@Step("Verify visibility of 'Personal & Contact Details' Page Header, 'Contact Details' &  'Personal Perticulars' Section.")
+	public void VerifyPersonalDetailsPage(String appName) throws Exception {
+		try {
+			verifyContactDetailsTitle(CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue());
+			verifyEmailNotes(CommonTestData.EMAIL_NOTES.getEnumValue());
+			verifyChangeButton(CommonTestData.CHANGE_BUTTON.getEnumValue());
+			verifyPersonalParticular(CommonTestData.PERSONAL_PARTICULARS.getEnumValue());
+			verifyChangeButtonUnderPersonalParticularSection(CommonTestData.CHANGE_BUTTON.getEnumValue());
+			verifyMarketingMessageTitle(CommonTestData.MARKETING_MESSAGE_TITLES.getEnumValue());
+			verifyMarketingMessageNotes(CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue());
+
+		
+			if(appName.equalsIgnoreCase("DBS")) 
+				gestUtils.scrollUPtoObject("text", "NEXT", DBSappObject.nextButton()); 
+			else if(appName.equalsIgnoreCase("iWEALTH")) 
+				gestUtils.scrollUPtoObject("text", "CONFIRM", DBSappObject.confirmButton()); 
+			
+			verifyIWouldLikeTheBankTomessage( CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue());
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Personal Details Page  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Personal Details Page ",e);
+		}
+	}
+	
+	@Step("Select Personal & Contact Details under Update Contact Details Page.")
+	public void SelectPersonalContactDetails() throws Exception {
 		try {
 			clickOnElement(DBSappObject.PersonalAndContactDetailsTab());
 			Thread.sleep(2000); 
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Personal And contact details TAB",e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Personal & Contact Details under Update Contact Details Page ",e);
 		}
 		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Personal And contact details TAB ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Personal & Contact Details under Update Contact Details Page ",e);
 		}
 	}
 	
@@ -4775,7 +5072,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			VerifyButtonLabelAndClick(DBSappObject.accountSectionHomePage(), CommonTestData.ACCOUNT_SECTION.getEnumValue());
 			gestUtils.scrollDOWNtoObject("text", "Deposits", null);
-			TakeScreenshot(DBSappObject.depositeHomePage());
+			wait.waitForElementVisibility(DBSappObject.depositeHomePage());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.depositeHomePage()), AccountType,
 					AccountType + " is not present");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.accountNameHomePage()), AccountName,
@@ -4791,16 +5088,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Select Update Contact Details And Verify visibility of 'Back Button', 'Personal & Contact Details' Tab, 'Mailing Address' Tab and 'Update Contact Details' Page Header.")
+	@Step("Select Update Contact Details.")
 	public void SelectUpdateContactDetails() throws Exception {
 		try {
-			TakeScreenshot(DBSappObject.ContactSearchfield()); 
 			clickOnElement(DBSappObject.ContactSearchfield());
-			TakeScreenshot(DBSappObject.EditTextSearchBox()); 
 			clickOnElement(DBSappObject.EditTextSearchBox());
 			enterTextInTextbox(DBSappObject.EditTextSearchBox(),
 					CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue());
-			TakeScreenshot(DBSappObject.UpdateContactDetails());
 			clickOnElement(DBSappObject.UpdateContactDetails());
 			Thread.sleep(2000); 
 		} catch (HandleException e) {	
@@ -4811,79 +5105,97 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		} 
 	}
 	
-	@Step("Verify 'Back Button', 'Mailing Address Tab', 'Personal & Contact Details Tab' on update Contact details Page. ")
-	public void VerifySomeTabVisibiltyOnUpdateContactDetailsPage() throws Exception {
+	
+	@Step("Verify 'Back Button Image View' on update Contact details Page. ")
+	public void VerifyBackButtonImageView() throws Exception {
 		try {
 			Asserts.assertTrue(isElementVisible(DBSappObject.BackBtnImageView()),
 					"Back Btn Image View is not displayed.");
-			Asserts.assertTrue(isElementVisible(DBSappObject.PersonalAndContactDetailsTab()),
-					"Personal And Contact Details Tab is not displayed.");
-			Asserts.assertTrue(isElementVisible(DBSappObject.MailingAddressTab()),
-					"Mailing Address Tab is not displayed.");
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify visibility all fields  ",e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify visibility of 'Back Button Image View' ",e);
 		}
 		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify visibility all fields  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify visibility of 'Back Button Image View' ",e);
 		} 
 	}
 	
-		@Step("Verify CreditCard Temperary Limit Increase")
-		public void CreditCardTempLimitIncrease() throws Exception {
-			try {
-				ClickOnMoreButton();
-				EnterPasscodeAndDone();
-				sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(),
-						CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue());
-				EnterPasscodeAndDone();
-				verifyPageHeader(CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), DBSappObject.PageHeader());
-				setAmountDurationPurposeForLimitIncrease(CommonTestData.CREDITCARD_LIMITINCREASE_AMOUNT.getEnumValue()
-						, CommonTestData.CREDITCARD_LIMITINCREASE_PURPOSE.getEnumValue());
-				
-				gestUtils.scrollUPtoObject("text", "NEXT", null);
-				
-				ClickOnNextButton1();
-				Thread.sleep(3000);
-//				for(int i=0; i<DBSappObject.PageHeaderList2().size();i++ ) {
-//					System.out.println(DBSappObject.PageHeaderList2().get(i).getText());
-//				}
-				
-				MobileElement element = null;
-				element = verifyElementExistInTheList(DBSappObject.PageHeaderList2(),
-						CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue());
-				if (element != null) {
-					Asserts.assertEquals(getTexOfElement(element),
-							CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue(),
-							CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue() + " Text is not matching");
-				}
-
-			}catch (HandleException e) {	
-				obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Credit Card Temp Limit Increase ",e);
-			}
-			catch (Exception e) {		
-				obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Credit Card Temp Limit Increase ",e);
-			} 
+	@Step("Verify 'Personal And Contact Details' on update Contact details Page. ")
+	public void VerifyPersonalAndContactDetails() throws Exception {
+		try {
+			Asserts.assertTrue(isElementVisible(DBSappObject.PersonalAndContactDetailsTab()),
+					"Personal And Contact Details Tab is not displayed.");
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify visibility of 'Personal And Contact Details'  ",e);
 		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify visibility of 'Personal And Contact Details' ",e);
+		} 
+	}
+	
+	@Step("Verify 'Mailing Address' on update Contact details Page. ")
+	public void VerifyMailingAddress() throws Exception {
+		try {
+			Asserts.assertTrue(isElementVisible(DBSappObject.MailingAddressTab()),
+					"Mailing Address Tab is not displayed.");
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify visibility of 'Mailing Address' ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify visibility of 'Mailing Address' ",e);
+		} 
+	}
 
+	
+	@Step("Verify CreditCard Temperary Limit Increase")
+	public void CreditCardTempLimitIncrease() throws Exception {
+		try {
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
+			sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(),
+					CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue());
+			EnterPasscodeAndDone();
+			verifyPageHeader(CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), DBSappObject.PageHeader());
+			setAmountDurationPurposeForLimitIncrease(CommonTestData.CREDITCARD_LIMITINCREASE_AMOUNT.getEnumValue(),
+					CommonTestData.CREDITCARD_LIMITINCREASE_PURPOSE.getEnumValue());
+
+			gestUtils.scrollUPtoObject("text", "NEXT", null);
+
+			ClickOnNextButton1();
+			Thread.sleep(3000);
+
+			MobileElement element = null;
+			element = verifyElementExistInTheList(DBSappObject.PageHeaderList2(),
+					CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue());
+			if (element != null)
+				verifyPageHeader(CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue(), element);
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
+					" Failed to Execute Credit Card Temp Limit Increase ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION",
+					" Failed to Execute Credit Card Temp Limit Increase ", e);
+		}
+	}
 
 	public void selectPurposeAccountTypeMobileNumberIfAvaliable(String AccountType,String purpose,String MobileNo) throws Exception//"Savings""Personal Gifts""9999999990"
 	{
 		try {
 		String xpath_account = "//android.widget.TextView[contains(@text,'account type')]";
 		List<RemoteWebElement> list = driver.findElements(By.xpath(xpath_account));
-		if (list.size() > 0) {
+		if (list.size() > 0) 
 			selectAccountType(AccountType);
-		}
+		
 		String xpath_purpose = "//android.widget.TextView[contains(@text,'purpose')]";
 		List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath_purpose));
-		if (list1.size() > 0) {
+		if (list1.size() > 0) 
 			selectPurpose(purpose);
-		}
+		
 		String xpath = "//android.widget.EditText[contains(@text,'mobile number')]";
 		List<RemoteWebElement> list2 = driver.findElements(By.xpath(xpath));
-		if (list2.size() > 0) {
+		if (list2.size() > 0) 
 			enterMobileNo(MobileNo);
-		}
+		
 	}
 		catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Purpose Account Type, Mobile Number ",e);
@@ -4916,9 +5228,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				}
 				Asserts.assertTrue(index > 0,"Account Type "+AccountType + " Not found in the list.");
 				wait.waitForElementVisibility(DBSappObject.PageHeaderList2().get(0));
-			}else {
+			}else 
 				Asserts.assertFail("Account type " + AccountType + " Not found in the list as list size is 0");
-			}
 		}
 		catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Account Type ",e);			
@@ -4934,42 +5245,38 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			SelectAllTAB();
+			ClickOnCreditCard();
 			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_CREDITCARD_TO_ACCOUNTNUMBER_WITHBANK
 					.getEnumValue();
-			clickingOnAccountTypeInCreditCard(ExpectedToBankNameWithAccountNo);
-
+			SelectToAccountFromCreditCardList(ExpectedToBankNameWithAccountNo);
+			verifyPageHeader(CommonTestData.CREDIT_CARD_PAGEHEADER.getEnumValue(), DBSappObject.CreditCard_PageHeader());
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 
 			String ExpectedFromBankName = CommonTestData.FUNDTRANSFER_CREDITCARD_FROM_ACCOUNT_NAME.getEnumValue();
 			SelectFundSourceAccount(ExpectedFromBankName);
 
-			String ExpectedSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
-			Asserts.assertEquals("Immediate", ExpectedSelectedDate, "Selected Date is not Matching");
+			VerifyImmediateText(CommonTestData.IMMEDIATE_TEXT.getEnumValue());
 
 			ClickOnNextButton();
 			Thread.sleep(2000); 
-			TakeScreenshot(DBSappObject.PageHeader2()); 
-			
-//			for(int i=0; i < DBSappObject.PageHeaderList2().size(); i++) {
-//				System.out.println(DBSappObject.PageHeaderList2().get(i).getText());
-//			}
+
 			MobileElement element = null;
 			element = verifyElementExistInTheList(DBSappObject.PageHeaderList2(),
 					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue());
-			if (element != null) {
-				Asserts.assertEquals(getTexOfElement(element),
-						CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(),
-						CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue() + " Text is not matching");
-			}
+			if (element != null) 
+				verifyPageHeader(CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(), element); 
+			
 			
 			ClickOnPayNowButton();
-			VerifyPaymentSubmittedMsg();
-
+			VerifyDetailsAfterSubmitPayment();
+			ClickOnExpandbutton();
+			
 			String ExpectedFromAccountNumber = CommonTestData.FUNDTRANSFER_CREDITCARD_FROM_ACCOUNT_NUMBER
 					.getEnumValue();
 			String ExpectedToAccountNumber = CommonTestData.FUNDTRANSFER_CREDITCARD_TO_ACCOUNTNUMBER.getEnumValue();
 			String ExpectedToCreditCardName = CommonTestData.FUNDTRANSFER_TOCREDITCARD_NAME.getEnumValue();
-			VerifyVisibiltyOfSomeElements_FundTransferCreditCard(ExpectedFromBankName, ExpectedFromAccountNumber,
+			
+			VerifySomeDetailsAfterCreditCardFundTransfer(ExpectedFromBankName, ExpectedFromAccountNumber,
 					ExpectedToAccountNumber, ExpectedToCreditCardName);
 
 			// Leaving On Home Page for Next case Run.
@@ -4989,27 +5296,24 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			SelectAllTAB();
+			ClickOnBillingOrganisation();
 			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_BillPayment_TO_ACCOUNTNUMBER_WITHBANK
 					.getEnumValue();
-			clickingOnAccountTypeInBillingOrganisations(ExpectedToBankNameWithAccountNo);
+			SelectToAccountFromBillingOrganisationList(ExpectedToBankNameWithAccountNo);
+			verifyPageHeader(CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue(), DBSappObject.PageHeader2());
 			EnterAmount(DBSappObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
-			String ExpectedSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
-			Asserts.assertEquals("Immediate", ExpectedSelectedDate, "Selected Date is not Matching");
+			VerifyImmediateText(CommonTestData.IMMEDIATE_TEXT.getEnumValue());
 
 			ClickOnNextButton();
-			Thread.sleep(2000); 
-			TakeScreenshot(DBSappObject.PageHeader2()); 
+		
 			MobileElement element = null;
 			element = verifyElementExistInTheList(DBSappObject.PageHeaderList2(),
 					CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue());
-			if (element != null) {
-				Asserts.assertEquals(getTexOfElement(element),
-						CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(),
-						CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue() + " Text is not matching");
-			}
+			if (element != null) 
+				verifyPageHeader(CommonTestData.REVIEW_PAYMENT_PAGEHEADER.getEnumValue(), element);
 			
 			ClickOnPayNowButton();
-			VerifyPaymentSubmittedMsg();
+			VerifyDetailsAfterSubmitPayment();
 
 			// Leaving On Home Page for Next case Run.
 			ClickOnBackIcon();
@@ -5023,48 +5327,81 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Verifies the Credit Card Name and Account Number After transferring the fund.")
-	public void VerifyVisibiltyOfSomeElements_FundTransferCreditCard(String ExpectedFromBankName,
+	@Step("Verify Some Details After Credit Card Fund Transfer.")
+	public void VerifySomeDetailsAfterCreditCardFundTransfer(String ExpectedFromBankName,
 			String ExpectedFromAccountNumber, String ExpectedToAccountNumber, String ExpectedToCreditCardName)
 			throws Exception {
 		try {
-			clickOnElement(DBSappObject.FooterExpandableBtn());
-			gestUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
-			TakeScreenshot(DBSappObject.ReferenceNumberText());
-
 			String[] ExpTitleList = new String[] { "From", "To", "When", "Latest Balance", "Reference No." };
+            verifyTitles(ExpTitleList, DBSappObject.FundTransferDetailslabel1List()); 
+            
+            VerifyFromBankName(ExpectedFromBankName); 
+            
+//			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel2List().get(0)),
+//					ExpectedFromBankName, ExpectedFromBankName + " is not matching after Fund Transfer Credit Cards.");
 
-			for (int i = 0; i < DBSappObject.FundTransferDetailslabel1List().size(); i++) {
-				Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel1List().get(i)),
-						ExpTitleList[i],
-						ExpTitleList[i] + "Titles is not matching after transfer fund through credit card.");
-			}
+            VerifyCreditCardName(ExpectedToCreditCardName);
+            VerifyFromAccountNumber(ExpectedFromAccountNumber);
+            VerifyToAccountNumber(ExpectedToAccountNumber);
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", "  Failed to Verify Some Details After Credit Card Fund Transfer ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Some Details After Credit Card Fund Transfer ",e);
+		}
+	}
+	
+	@Step("Verify 'To Account Number' On Transfer submitted Page.")
+	public void VerifyToAccountNumber(String ExpectedToAccountNumber) throws Exception{
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel3List().get(1)),
+					ExpectedToAccountNumber,
+					ExpectedToAccountNumber + " is not matching after Fund Transfer.");
 
-			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel2List().get(0)),
-					ExpectedFromBankName, ExpectedFromBankName + " is not matching after Fund Transfer Credit Cards.");
-
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify 'To Account Number' On Transfer submitted Page. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify 'To Account Number' On Transfer submitted Page. ", e);
+		}
+	}
+	
+	
+	@Step("Verify 'From Account Number' On Transfer submitted Page.")
+	public void VerifyFromAccountNumber(String ExpectedFromAccountNumber) throws Exception{
+		try {
+			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel3List().get(0)),
+					ExpectedFromAccountNumber,
+					ExpectedFromAccountNumber + " is not matching after Fund Transfer.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify 'From Account Number' On Transfer submitted Page. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify 'From Account Number' On Transfer submitted Page. ", e);
+		}
+	}
+	
+	
+	
+	@Step("Verify 'Credit Card Name' On Transfer submitted Page.")
+	public void VerifyCreditCardName(String ExpectedToCreditCardName) throws Exception{
+		try {
 			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel2List().get(1)),
 					ExpectedToCreditCardName,
 					ExpectedToCreditCardName + " is not matching after Fund Transfer Credit Cards.");
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel3List().get(0)),
-					ExpectedFromAccountNumber,
-					ExpectedFromAccountNumber + " is not matching after Fund Transfer Credit Cards.");
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.FundTransferDetailslabel3List().get(1)),
-					ExpectedToAccountNumber,
-					ExpectedToAccountNumber + " is not matching after Fund Transfer Credit Cards.");
-
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify credit card name and account number  ",e);
-		}
-		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify credit card name and account number  ",e);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify 'Credit Card Name' On Transfer submitted Page. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify 'Credit Card Name' On Transfer submitted Page. ", e);
 		}
 	}
-
-	@Step("Click on 'To Account Credit Card' after selecting 'Credit Cards' and verify pageHeader")
-	public void clickingOnAccountTypeInCreditCard(String valueSelectedFromList) throws Exception {
+	
+	@Step("Click on 'Credit Card' Option under All Tab")
+	public void ClickOnCreditCard() throws Exception {
 		try {
 			int o = 0;
 			for (int i = 0; i < DBSappObject.AllTabOptionsList().size(); i++) {
@@ -5077,10 +5414,19 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 
 			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on 'Credit Card' Option under All Tab ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on 'Credit Card' Option under All Tab ",e);
+		}
+	}
 
+	@Step("Select 'To Account' From Credit Card List")
+	public void SelectToAccountFromCreditCardList(String valueSelectedFromList) throws Exception {
+		try {
 			Dimension windowSize = driver.manage().window().getSize();
-			System.out.println("getSessionId :" + driver.getSessionId());
-
+	
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
 			int y2 = (int) (h - y1);
@@ -5089,8 +5435,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String s1 = driver.getPageSource();
 			int count = 0;
 			int index = 0;
-			WaitUtils wait = new WaitUtils(driver);
-			wait.ImplicitlyWait();
+		
 			while (count == 0 && index == 0) {
 				if (DBSappObject.SubTitleTextList().size() > 0) {
 					TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
@@ -5128,7 +5473,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					if (index == 0) {
 						touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
 								.moveTo(element(DBSappObject.AllTab())).release().perform();
-
+                        Thread.sleep(2000);
 						String s2 = driver.getPageSource();
 						if (s1.equals(s2) != true)
 							s1 = s2;
@@ -5147,15 +5492,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					Asserts.assertFail("No receipient found in the Credit Cards list");
 			}
 
-			Asserts.assertEquals(getTexOfElement(DBSappObject.CreditCard_PageHeader()),
-					CommonTestData.CREDIT_CARD_PAGEHEADER.getEnumValue(),
-					CommonTestData.CREDIT_CARD_PAGEHEADER.getEnumValue() + " Text is not matching");
-
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select credit card and account type in credit card  ",e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select 'To Account' From Credit Card List ",e);
 		}
 		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select credit card and account type in credit card ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select 'To Account' From Credit Card List ",e);
 		}
 	}
 		@Step("Select purpose")
@@ -5181,9 +5522,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					}
 					Asserts.assertTrue(index > 0, "Purpose "+ purpose + " Not found in the list.");
 					wait.waitForElementVisibility(DBSappObject.PageHeaderList2().get(0));
-				}else {	
-					Asserts.assertFail("Purpose "+ purpose + " not found in the list as list size is 0");
-				}	
+				}else 
+					Asserts.assertFail("Purpose "+ purpose + " not found in the list as list size is 0");	
 			}
 			catch (HandleException e) {	
 				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Purpose ",e);		
@@ -5196,7 +5536,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		public void enterMobileNo(String MobileNo) throws Exception
 		{
 			try {
-				TakeScreenshot(DBSappObject.mobileNoInOversea());
 				enterTextInTextbox(DBSappObject.mobileNoInOversea(), MobileNo);
 				wait.waitForElementVisibility(DBSappObject.PageHeaderList2().get(0));
 			}
@@ -5208,26 +5547,34 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 }
 
-
-	@Step("Click on 'To Account Bill' after selecting 'Billing organisation' and verify Page Header")
-	public void clickingOnAccountTypeInBillingOrganisations(String valueSelectedFromList) throws Exception {
-		try {
-			gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get( DBSappObject.AllTabOptionsList().size()-1), DBSappObject.AllTab());
-			
-			int o = 0;
-			for (int i = 0; i < DBSappObject.AllTabOptionsList().size(); i++) {
-				String tabText = DBSappObject.AllTabOptionsList().get(i).getText();
-				o++;
-				if (tabText.contains(CommonTestData.BILLING_ORGANISATIONS_TAB.getEnumValue())) {
-					clickOnElement(DBSappObject.AllTabOptionsList().get(i));
-					break;
-				}
+@Step("Click on 'Billing Organisation' Option under All Tab")
+public void ClickOnBillingOrganisation() throws Exception {
+	try {
+		gestUtils.scrollUPtoObject("text", CommonTestData.BILLING_ORGANISATIONS_TAB.getEnumValue(), null);
+		int o = 0;
+		for (int i = 0; i < DBSappObject.AllTabOptionsList().size(); i++) {
+			String tabText = DBSappObject.AllTabOptionsList().get(i).getText();
+			o++;
+			if (tabText.contains(CommonTestData.BILLING_ORGANISATIONS_TAB.getEnumValue())) {
+				clickOnElement(DBSappObject.AllTabOptionsList().get(i));
+				break;
 			}
+		}
 
-		//	gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
+	   gestUtils.DragAndDropElementToElement(DBSappObject.AllTabOptionsList().get(o), DBSappObject.AllTab());
+
+	} catch (HandleException e) {
+		obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on 'Billing Organisation' Option under All Tab", e);
+	} catch (Exception e) {
+		obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on 'Billing Organisation' Option under All Tab ", e);
+	}
+}
 			
+
+	@Step("Select 'To Account' from 'Billing organisation' list")
+	public void SelectToAccountFromBillingOrganisationList(String valueSelectedFromList) throws Exception {
+		try {
 			Dimension windowSize = driver.manage().window().getSize();
-			System.out.println("getSessionId :" + driver.getSessionId());
 
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
@@ -5237,8 +5584,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			String s1 = driver.getPageSource();
 			int count = 0;
 			int index = 0;
-			WaitUtils wait = new WaitUtils(driver);
-			wait.ImplicitlyWait();
 			while (count == 0 && index == 0) {
 				if (DBSappObject.SubTitleTextList().size() > 0) {
 					TakeScreenshot(DBSappObject.SubTitleTextList().get(0));
@@ -5275,7 +5620,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					if (index == 0) {
 						touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
 								.moveTo(element(DBSappObject.AllTab())).release().perform();
-
+                        Thread.sleep(2000);
 						String s2 = driver.getPageSource();
 						if (s1.equals(s2) != true)
 							s1 = s2;
@@ -5292,17 +5637,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				} else
 					Asserts.assertFail("No receipient found in the Billing Organisation list");
 			}
-			
-
-			Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader2()),
-					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue(),
-					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Text is not matching");
-
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select billing organiation , to account and verify page header  ",e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select 'to account' from billing organisation list ",e);
 		}
 		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select billing organiation , to account and verify page header  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select 'to account' from billing organisation list ",e);
 		}
 	}
 	
@@ -5325,7 +5664,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On OK Button.")
 	public void ClickOnOKButton_Alert() throws Exception{
 		try {
-			TakeScreenshot(DBSappObject.Alert_OKButton());
+			//TakeScreenshot(DBSappObject.Alert_OKButton());
 			clickOnElement(DBSappObject.Alert_OKButton());
 			Thread.sleep(1000);
 		} catch (HandleException e) {	
@@ -5357,7 +5696,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Click On Back Button")
 	public void ClickOnBackButtonImageView() throws Exception{
 		try {
-			TakeScreenshot(DBSappObject.BackBtnImageView());
+			//TakeScreenshot(DBSappObject.BackBtnImageView());
 			clickOnElement(DBSappObject.BackBtnImageView());
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on Back Button. ",e);		
