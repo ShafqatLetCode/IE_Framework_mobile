@@ -95,7 +95,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			this.driver = startingServerInstance(androidCaps, os);
 			//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 			ContextManager.setDriver(this.driver); 
-			this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		} catch (Exception e) {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 				ContextManager.getExtentReportForPrecondition().skip(MarkupHelper.createLabel("Test Case is SKIPPED", ExtentColor.YELLOW));
@@ -417,7 +417,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			driver = new IOSDriver<RemoteWebElement>(
 					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
 		}
-		driver.manage().timeouts().implicitlyWait(20000, TimeUnit.MILLISECONDS);
+		//driver.manage().timeouts().implicitlyWait(20000, TimeUnit.MILLISECONDS);
 		return driver;
 	}
 

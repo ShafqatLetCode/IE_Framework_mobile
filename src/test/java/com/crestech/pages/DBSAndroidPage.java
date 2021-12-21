@@ -135,7 +135,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				System.out.println("Relaunch Done");
 			//}
 			}
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			
 			SelectUATServer(serverName);
 			System.out.println("UAT server selected");
@@ -203,7 +203,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				System.out.println("Relaunch Done");
 			//}
 			}
-			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			
 			clickOnLoginButton();
 			System.out.println("clickOnLoginButton");
@@ -628,15 +628,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			ClickOnPayAndTransferBtn();
 			EnterPasscodeAndDone();
 			clickOnAddLocalRecipientBtn();
-			verifyPageHeader(CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(), DBSappObject.PageHeader());
+			verifyPageHeader(CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(), DBSappObject.PageHeader2());
 			SelectBankAccount();
-			verifyPageHeader(CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader());
+			verifyPageHeader(CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader2());
 			String ExpectedRecipientName = CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue();
 			EnterRecipientDetails(ExpectedRecipientName,
 					CommonTestData.PAYEEADD_DBSPOSB_BANK_NAME.getEnumValue(),
 					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
 			ClickOnNextBtn();
-			verifyPageHeader(CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader());
+			verifyPageHeader(CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader2());
 			ClickOnAddRecipientNowBtn();
 			EnterPasscodeAndDone();
 			VerifyYouHaveAddedRecipientMessage();
@@ -660,15 +660,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verify 'You Have Added Recipient Message'.")
 	public void VerifyYouHaveAddedRecipientMessage() throws Exception {
 		try {
-			Thread.sleep(10000); 
+			wait.waitForElementVisibility(DBSappObject.SuccessTickImageView()); 
 			if (isElementVisible2(DBSappObject.SuccessTickImageView())) {
-				if(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue()))
-					Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
+				if(getTexOfElement(DBSappObject.PageHeader2()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue()))
+					Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader2()),
 							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue(),
 							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG.getEnumValue() + " Text is not matching");
 				
-				else if(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue())) 
-					Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeaderForOpenAccount()),
+				else if(getTexOfElement(DBSappObject.PageHeader2()).toLowerCase().equalsIgnoreCase(CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue())) 
+					Asserts.assertEquals(getTexOfElement(DBSappObject.PageHeader2()),
 							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue(),
 							CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue() + " Text is not matching");
 					
@@ -1239,7 +1239,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void verifyReferenceFieldAndItsValue(String expectedText) throws Exception {
 		try {
 			clickOnElement(DBSappObject.expandButton());
-			gestUtils.scrollUPtoObject("text", "Reference No.", DBSappObject.ReferenceNumberText());
+			gestUtils.scrollUPtoObject("text", CommonTestData.MAKE_TRANSFER.getEnumValue(), DBSappObject.makeTransferButton());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.makeTransferButton()),
 					CommonTestData.MAKE_TRANSFER.getEnumValue(), "'MAKE A TRANSFER' Text is not found");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.ReferenceNumberText()), expectedText,
@@ -2238,9 +2238,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			EnterPasscodeAndDone();
 			clickOnLocalButton();
 			clickOnAddLocalRecipientBtn();
-			verifyPageHeader(CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(), DBSappObject.PageHeader());
+			verifyPageHeader(CommonTestData.LOCAL_TRANSFER_PayNow.getEnumValue(), DBSappObject.PageHeader2());
 			SelectBankAccount();
-			verifyPageHeader(CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader());
+			verifyPageHeader(CommonTestData.ENTER_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader2());
 			
 			String ExpectedRecipientName = CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue();
 			System.out.println("ExpectedRecipientName is: " + ExpectedRecipientName);
@@ -2254,7 +2254,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			EnterRecipientDetails(ExpectedRecipientName,
 					CommonTestData.LOCAL_RECIPIENT_BANK_NAME.getEnumValue(), ExpectedAccountNumber);
 			ClickOnNextBtn();
-			verifyPageHeader(CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader());
+			verifyPageHeader(CommonTestData.REVIEW_RECIPIENT_DETAILS.getEnumValue(), DBSappObject.PageHeader2());
 			ClickOnAddRecipientNowBtn();
 			EnterPasscodeAndDone();
 			VerifyYouHaveAddedRecipientMessage();
@@ -3168,11 +3168,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifyButtonLabelAndClick(MobileElement Button, String expectecText) throws Exception {
 		try {
 			String actualText = getTexOfElement(Button);
-			TakeScreenshot(Button);
 			Asserts.assertEquals(actualText, expectecText, "button Not exist");
 			if (actualText.equalsIgnoreCase(expectecText))
 				clickOnElement(Button);
-
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On " + Button + "Button" ,e);
 					
@@ -5072,7 +5070,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			VerifyButtonLabelAndClick(DBSappObject.accountSectionHomePage(), CommonTestData.ACCOUNT_SECTION.getEnumValue());
 			gestUtils.scrollDOWNtoObject("text", "Deposits", null);
-			wait.waitForElementVisibility(DBSappObject.depositeHomePage());
 			Asserts.assertEquals(getTexOfElement(DBSappObject.depositeHomePage()), AccountType,
 					AccountType + " is not present");
 			Asserts.assertEquals(getTexOfElement(DBSappObject.accountNameHomePage()), AccountName,
