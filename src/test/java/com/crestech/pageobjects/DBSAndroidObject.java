@@ -2143,9 +2143,6 @@ public class DBSAndroidObject {
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_upp_section_label__id')]")
 	private MobileElement UPPSectionLabel;
 	
-	@ElementDescription(value = "Confirm Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='CONFIRM']")
-	private MobileElement ConfirmBtn;
 	
 	@ElementDescription(value = "Completion Status Image")
 	@AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.dbs.sit1.dbsmbanking:id/iv_status_completion']")
@@ -2180,9 +2177,6 @@ public class DBSAndroidObject {
 		return CompletionStatusImage;
 	}
 	
-	public MobileElement ConfirmBtn() { 
-		return ConfirmBtn;
-	}
 	
 	public MobileElement UPPSectionLabel() { 
 		return UPPSectionLabel;

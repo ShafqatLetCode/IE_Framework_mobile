@@ -384,7 +384,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			 dbspage1 = dbspage;
 			 dbspage1.LogInApplication(userName, password, app_Name);
-			 dbspage1.transactionHistoryVerify(app_Name);
+			 dbspage1.verifyTransactionHistory(app_Name);
 			 dbspage1.VerifyLogout(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();

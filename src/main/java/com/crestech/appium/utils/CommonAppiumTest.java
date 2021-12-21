@@ -49,12 +49,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		
 		Activity activity = new Activity(appPackage, appActivity);
 		((AndroidDriver<RemoteWebElement>)driver).startActivity(activity);
-		wait.ImplicitlyWait();
-	
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("RELAUNCHING_EXCEPTION", " Failed to Relaunching Application  ",e);
-			//System.out.println("Inside Appply debit card catch "+e.getCode());		
-		}
+		} 
 		catch (Exception e) {			
 			//System.out.println("Inside Appply debit card catch");
 			obj_handleexception.throwException("RELAUNCHING_EXCEPTION", " Failed to Relaunching Application  ",e);
@@ -68,7 +63,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	public void clickOnElement(MobileElement element) throws Exception {
 		try {
 				//wait.waitForElementToBeClickable(element);
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				//com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				element.click();
 		}
 //		} catch (HandleException e) {	
@@ -88,7 +83,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	public void enterTextInTextbox(MobileElement element, String keysToSend) throws Exception {
 		try {
 			//wait.waitForElementVisibility(element);
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			//com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			element.sendKeys(keysToSend);
 		}
 //		} catch (HandleException e) {	
