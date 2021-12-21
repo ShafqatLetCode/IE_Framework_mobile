@@ -49,12 +49,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		
 		Activity activity = new Activity(appPackage, appActivity);
 		((AndroidDriver<RemoteWebElement>)driver).startActivity(activity);
-		wait.ImplicitlyWait();
-	
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("RELAUNCHING_EXCEPTION", " Failed to Relaunching Application  ",e);
-			//System.out.println("Inside Appply debit card catch "+e.getCode());		
-		}
+		} 
 		catch (Exception e) {			
 			//System.out.println("Inside Appply debit card catch");
 			obj_handleexception.throwException("RELAUNCHING_EXCEPTION", " Failed to Relaunching Application  ",e);
@@ -67,11 +62,13 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public void clickOnElement(MobileElement element) throws Exception {
 		try {
-				wait.waitForElementToBeClickable(element);
+				//wait.waitForElementToBeClickable(element);
+				//com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				element.click();
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On Element  ",e);
-				}
+		}
+//		} catch (HandleException e) {	
+//			obj_handleexception.throwHandleException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On Element  ",e);
+//				}
 		catch (Exception e) {			
 			obj_handleexception.throwException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On Element  ",e);
 		}
@@ -85,12 +82,14 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public void enterTextInTextbox(MobileElement element, String keysToSend) throws Exception {
 		try {
-			wait.waitForElementVisibility(element);
+			//wait.waitForElementVisibility(element);
+			//com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			element.sendKeys(keysToSend);
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("SEND_KEYS_EXCEPTION", " Failed to enter text in textbox  ",e);
-			//System.out.println("Inside Appply debit card catch "+e.getCode());		
 		}
+//		} catch (HandleException e) {	
+//			obj_handleexception.throwHandleException("SEND_KEYS_EXCEPTION", " Failed to enter text in textbox  ",e);
+//			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+//		}
 		catch (Exception e) {			
 			//System.out.println("Inside Appply debit card catch");
 			obj_handleexception.throwException("SEND_KEYS_EXCEPTION", " Failed to enter text in textbox  ",e);
@@ -118,12 +117,13 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public String getTexOfElement(MobileElement element) throws Exception {
 		try {
-			wait.waitForElementVisibility(element);
+		//	wait.waitForElementVisibility(element);
 			return element.getText();
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("GETTEXT_EXCEPTION", " Failed to fetch the element's text  ",e);
-			//System.out.println("Inside Appply debit card catch "+e.getCode());		
 		}
+//		} catch (HandleException e) {	
+//			obj_handleexception.throwHandleException("GETTEXT_EXCEPTION", " Failed to fetch the element's text  ",e);
+//			//System.out.println("Inside Appply debit card catch "+e.getCode());		
+//		}
 		catch (Exception e) {			
 			//System.out.println("Inside Appply debit card catch");
 			obj_handleexception.throwException("GETTEXT_EXCEPTION", " Failed to fetch the element's text  ",e);
@@ -140,7 +140,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public boolean isElementVisible(MobileElement element) throws Exception {
 		try {
-			wait.waitForElementVisibility(element);
+			//wait.waitForElementVisibility(element);
 			return element.isDisplayed();
 		} catch (Exception e) {
 			System.out.println("Inside take ele visi catch" );
@@ -157,7 +157,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public boolean isElementEnable(MobileElement element) throws Exception {
 		try {
-			wait.waitForElementVisibility(element);
+			//wait.waitForElementVisibility(element);
 			return element.isEnabled();
 		} catch (Exception e) {
 			throw new HandleException ("WAITELEMENT_ENABLE_EXCEPTION", "Element not Enable on the screen ::",e);
@@ -172,7 +172,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public boolean isElementSelected(MobileElement element) throws Exception {
 		try {
-			wait.waitForElementVisibility(element);
+		//	wait.waitForElementVisibility(element);
 			return element.isSelected();
 		} catch (Exception e) {
 			e.printStackTrace(); throw e;
@@ -434,7 +434,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	public void clickOnElementOnEnable(MobileElement element) throws Exception {
 		try {
 			if (isElementEnable(element)) {
-				Asserts.assertTrue(isElementEnable(element), "button Not enable");
+				//Asserts.assertTrue(isElementEnable(element), "button Not enable");
 				element.click();
 			} else
 				throw new Exception("The element isn't provided or may be null.");

@@ -18,7 +18,7 @@ import io.appium.java_client.MobileElement;
 public class WaitUtils extends CommandPrompt {
 
 	public AppiumDriver<RemoteWebElement> driver = null;
-	private long WAIT_TIME = 90;
+	private long WAIT_TIME = 40;
 	public WaitUtils(AppiumDriver<RemoteWebElement> driver2) {
 		try {
 			this.driver = driver2;
@@ -114,10 +114,10 @@ public class WaitUtils extends CommandPrompt {
 	 */
 	public void ImplicitlyWait() throws Exception {
 		try {
-			driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
+			//driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
 		} catch (Exception e) {
 			//System.out.println("Inside take ele visi catch" );
-			throw new HandleException ("IMPLICIT_WAIT_EXCEPTION", "Element not Visible on the screen ::",e);
+			//throw new HandleException ("IMPLICIT_WAIT_EXCEPTION", "Element not Visible on the screen ::",e);
 		}
 	}
 	
