@@ -70,7 +70,8 @@ public class CommonAppiumTest extends CommandPrompt {
 //			obj_handleexception.throwHandleException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On Element  ",e);
 //				}
 		catch (Exception e) {			
-			obj_handleexception.throwException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On Element  ",e);
+			//obj_handleexception.throwException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On Element  ",e);
+		throw e;
 		}
 	}
 	/**
@@ -92,7 +93,8 @@ public class CommonAppiumTest extends CommandPrompt {
 //		}
 		catch (Exception e) {			
 			//System.out.println("Inside Appply debit card catch");
-			obj_handleexception.throwException("SEND_KEYS_EXCEPTION", " Failed to enter text in textbox  ",e);
+			//obj_handleexception.throwException("SEND_KEYS_EXCEPTION", " Failed to enter text in textbox  ",e);
+		throw e;
 		}
 	}
 	
@@ -105,7 +107,8 @@ public class CommonAppiumTest extends CommandPrompt {
 				throw new Exception("Key not provided");
 		} 
 		catch (Exception e) {			
-			obj_handleexception.throwException("PRESSENTERKEY_EXCEPTION", " Failed to Pressing Enter Key ",e);
+			//obj_handleexception.throwException("PRESSENTERKEY_EXCEPTION", " Failed to Pressing Enter Key ",e);
+			throw e;
 		}
 	}
 
@@ -126,9 +129,10 @@ public class CommonAppiumTest extends CommandPrompt {
 //		}
 		catch (Exception e) {			
 			//System.out.println("Inside Appply debit card catch");
-			obj_handleexception.throwException("GETTEXT_EXCEPTION", " Failed to fetch the element's text  ",e);
+			//obj_handleexception.throwException("GETTEXT_EXCEPTION", " Failed to fetch the element's text  ",e);
+			//return null;
+			throw e;	
 		}
-		return null;
 	}
 
 	/**
@@ -143,9 +147,9 @@ public class CommonAppiumTest extends CommandPrompt {
 			//wait.waitForElementVisibility(element);
 			return element.isDisplayed();
 		} catch (Exception e) {
-			System.out.println("Inside take ele visi catch" );
-			throw new HandleException ("WAITELEMENTVISIBLE_EXCEPTION", "Element not visible on the screen ::",e);
-		
+//			System.out.println("Inside take ele visi catch" );
+//			throw new HandleException ("WAITELEMENTVISIBLE_EXCEPTION", "Element not visible on the screen ::",e);
+			throw e;	
 		}
 	}
 	/**
@@ -160,7 +164,8 @@ public class CommonAppiumTest extends CommandPrompt {
 			//wait.waitForElementVisibility(element);
 			return element.isEnabled();
 		} catch (Exception e) {
-			throw new HandleException ("WAITELEMENT_ENABLE_EXCEPTION", "Element not Enable on the screen ::",e);
+			//throw new HandleException ("WAITELEMENT_ENABLE_EXCEPTION", "Element not Enable on the screen ::",e);
+			throw e;	
 		}
 	}
 	/**
@@ -175,7 +180,8 @@ public class CommonAppiumTest extends CommandPrompt {
 		//	wait.waitForElementVisibility(element);
 			return element.isSelected();
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			//e.printStackTrace(); 
+			throw e;
 		}
 	}
 
@@ -189,7 +195,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			return element.getLocation();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;	
 		}
 	}
 
@@ -204,7 +210,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			wait.waitForElementToBeClickable(element);
 			return element.getLocation().getX();
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw e;	
 		}
 	}
 
@@ -219,7 +225,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			wait.waitForElementToBeClickable(element);
 			return element.getLocation().getY();
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw e;	
 		}
 	}
 
@@ -233,7 +239,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).pressKey(new KeyEvent(AndroidKey.HOME));
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw e;	
 		}
 	}
 
@@ -246,7 +252,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).lockDevice();
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw e;	
 		}
 	}
 
@@ -261,7 +267,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			boolean isLocked = ((AndroidDriver<RemoteWebElement>) driver).isDeviceLocked();
 			return isLocked;
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw e;	
 		}
 	}
 
@@ -275,7 +281,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).unlockDevice();
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw e;	
 		}
 	}
 
@@ -296,7 +302,7 @@ public class CommonAppiumTest extends CommandPrompt {
 				driver.executeScript("pCloudy_enableWifi", true);
 			}
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw e;	
 		}
 	}
 
@@ -309,7 +315,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).openNotifications();
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw e;	
 		}
 
 	}
@@ -321,9 +327,18 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			((AndroidDriver<RemoteWebElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 		} catch (Exception e) {
-			throw new HandleException ("BACKBUTTONCLICK_EXCEPTION", "Failed To click on Back Button ::",e);
+			//throw new HandleException ("BACKBUTTONCLICK_EXCEPTION", "Failed To click on Back Button ::",e);
+			throw e;	
 		}
 	}
+	
+	public void hideKeyboard() {
+		try {
+		driver.hideKeyboard();
+	}catch (Exception e) {
+		throw e;	
+	}
+}
 
 	/**
 	 * disable Wifi
@@ -342,7 +357,7 @@ public class CommonAppiumTest extends CommandPrompt {
 
 			}
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw e;	
 		}
 	}
 
@@ -350,7 +365,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			driver.resetApp();
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw e;	
 		}
 	}
 
@@ -364,7 +379,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		try {
 			driver.launchApp();
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			throw e;	
 		}
 	}
 
@@ -439,7 +454,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			} else
 				throw new Exception("The element isn't provided or may be null.");
 		} catch (Exception e) {
-			throw new HandleException ("ENABLE_EXCEPTION", "Failed To Check Enability of Element ::",e);
+			throw e;
 		}
 	}
 	

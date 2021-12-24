@@ -66,6 +66,8 @@ public enum CommonTestData {
 	FUNDTRANSFER_TOCREDITCARD_NAME("DBS/POSB CREDIT CARDS"),
 	FUNDTRANSFER_CREDITCARD_FROM_ACCOUNT_NUMBER("420-86201-6 SGD"),
 	FUNDTRANSFER_CREDITCARD_TO_ACCOUNTNUMBER("5520380050035787"),
+	CREDIT_CARD_PAGEHEADER_IOS("Pay To DBS/POSB Card"),
+	
 	
 	//FundTransfer BillPayment
 	FUNDTRANSFER_BillPayment_TO_ACCOUNTNUMBER_WITHBANK("0824867822 POSB STATEMENT SAVINGS"),
@@ -75,13 +77,15 @@ public enum CommonTestData {
 	
 	
 	//FundTransferTo OwnAccount
-	FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER("420-86386-1"),
-	FUNDTRANSFER_TO_OWN_ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
+//	FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER("420-86386-1"),
+//	FUNDTRANSFER_TO_OWN_ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
 	FUNDTRANSFER_FROM_OWN_ACCOUNT_NUMBER("028-976191-5"),
 	FUNDTRANSFER_FROM_OWN_ACCOUNT_NAME("DBS Multiplier Account"),
 	TRANSFER_TO_YOUR_ACCOUNT("Transfer to Your Account"),
 	YOUR_DBSPOSB_ACCOUNTS("Your DBS/POSB Accounts"),
 	TRANSFERRED("Transferred"),
+	FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER("028-966021-3"),
+	FUNDTRANSFER_TO_OWN_ACCOUNT_NAME("DBS AUTOSAVE"),
 	
 	
 	//UpdateContact Details
@@ -110,6 +114,7 @@ public enum CommonTestData {
 	PEEK_BALANCE_DIGIALERT_MSG("You have successfully personalised your digibank profile"),
 	PEEK_BALANCE_SUBTITLE("PEEK BALANCE"),
 	PEEK_BALANCE_DEREGISTER_MESSAGE("You will no longer enjoy benefits"),
+	EXISTING_PEEKBALANCE_ENABLE_MESSAGE("Existing Personalization will be removed, Do you want to proceed?"),
 	
 	//Page Headers in Application
 	RECIPIENT_DETAILS_PAGEHEADER("Recipient's Details"),
@@ -173,7 +178,7 @@ public enum CommonTestData {
 	ACCOUNT_BENIFITS("Account Benefits"),
 	MONTHLY_SAVING_AMT_BALANCE("50"),
 	IMPORTANT_NOTES("Important Notes"),
-	WARNING_HEADING_TEXT(" Advisory from the Singapore Police Force"),
+	WARNING_HEADING_TEXT("Advisory from the Singapore Police Force"),
 	WARNING("Warning"),
 	YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE("Your account is open and ready to use!"),
 	
@@ -184,6 +189,7 @@ public enum CommonTestData {
     LOCAL_RECIPIENT_LIST_SELECTED_ACCOUNTNAME("DBS CURRENT 001-992414-6"),
     AMOUNT_FUNDTRANSFER("11"),
     TRANSFER_DBS_POSB("Transfer to DBS/POSB"),
+    TEMP_LIMIT_INCREASE_SEARCH("Temporary"),
     
 	//Relanching alert message
 	RELAUNCH_MESSAGE("Your application's security profile has been updated. Please re-launch the application to continue."),
@@ -209,7 +215,6 @@ public enum CommonTestData {
     //Remittance Corridor
 	OVERSEAS_ICON("Overseas"),
     SOURCE_ACCOUNT_NAME_CORRIDOR("POSB STATEMENT SAVINGS"),
-    SOURCE_ACCOUNT_CORRIDOR("420-86201-6"),
 	CORRIDOR_AMOUNT("34"),
 	PAYEE_NAME_CORRIDOR("ad rec new ajay"),
 	OVERSEA_HEADER("Overseas Transfer"),
@@ -252,10 +257,12 @@ public enum CommonTestData {
 	
 	//Transaction History
 	TRANSCETION_HISTORY_LABEL("Transaction History"),
-	ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
+	//ACCOUNT_NAME("POSB STATEMENT SAVINGS"),
 	CURRENCY_NAME("Singapore Dollar"),
-	STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
+	//STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
 	SHOW_BUTTON("SHOW"),
+	ACCOUNT_NAME("DBS SAVINGS PLUS"),
+	STATEMENT_TITLE("DBS SAVINGS PLUS"),
 	
 	
 	ENTER_RECIPIENT_DETAILS("Enter Recipient's Details"),

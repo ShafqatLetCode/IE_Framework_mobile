@@ -1,0 +1,203 @@
+package com.crestech.pages.androidpage.more;
+
+import java.time.Duration;
+import java.util.List;
+import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.PageFactory;
+import com.crestech.annotation.values.ElementDescription;
+import com.crestech.appium.utils.CommonAppiumTest;
+import com.crestech.common.utilities.Asserts;
+import com.crestech.common.utilities.CommonTestData;
+import com.crestech.common.utilities.GestureUtils;
+import com.crestech.common.utilities.HandleException;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.qameta.allure.Step;
+
+/**
+ * @author Divya
+ *
+ */
+public class transactionHistory extends CommonAppiumTest{
+	
+	public AppiumDriver<RemoteWebElement> driver = null;
+	HandleException obj_handleexception = null;
+	GestureUtils gestUtils = null;
+	More more = null;
+	
+	
+	public transactionHistory(AppiumDriver<RemoteWebElement> driver) throws Exception {
+		super(driver);
+		try {
+			this.driver = driver;
+			obj_handleexception = new HandleException(null, null);
+			gestUtils = new GestureUtils(driver);
+			more = new More(driver);
+			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@ElementDescription(value = "Transaction History Header")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.dbsmbanking:id/text']")
+	private MobileElement TransactionHistoryHeaderDBS;
+	
+	@ElementDescription(value = "3 three month  Label")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='3 Months']")
+	private MobileElement threeMonthLabel;
+	
+	@ElementDescription(value = "Deposit Account Button")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.dbs.sit1.dbsmbanking:id/iv_expandable_item_head_expand']")
+	private MobileElement DepositAccountButtonDBS;
+	
+	@ElementDescription(value = "POSB STATEMENT SAVINGS Button")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.dbsmbanking:id/tv_expandable_item_head_title']")
+	private List<MobileElement> AccountNameListInTransactionHistoryForDBS;
+	
+	@ElementDescription(value = "Show button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='SHOW']")
+	private MobileElement showButton;
+
+	@ElementDescription(value = "DropDown List")
+	@AndroidFindBy(xpath = "//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup")
+	private List<MobileElement> dropDowmList;
+	
+	@ElementDescription(value = "back button")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,'id/back_btn')]")
+	private MobileElement backButton;
+	
+	@ElementDescription(value = "Account name to checking transaction history.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_accountName')]")
+	private MobileElement AccountNameToCheckTransactionHistory;
+
+	@Step("Click On Back Button.")
+	public void ClickOnBackButton() throws Exception {
+		try {
+			clickOnElement(backButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Button  ", e);
+		}
+	}
+	
+	@Step("Back to Home page from Transaction History statement")
+	public void BackToHomeFromTransactionHistory() throws Exception {
+		try {
+			ClickOnBackButton();
+			verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
+			ClickOnBackButton();
+			more.ClickOnHomeButton();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back To Home Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back To Home Button  ", e);
+		}
+	}
+	
+	@Step("Verify Account Name To Check Transaction History")
+	public void AccountNameToCheckTransactionHistory(String expectedText) throws Exception {
+		try {
+			wait.fluentWaitForElement(AccountNameToCheckTransactionHistory);
+			Asserts.assertEquals(getTexOfElement(AccountNameToCheckTransactionHistory).toLowerCase(), expectedText.toLowerCase(),
+					"'Header Title' is not Matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to verify Account Name To Check Transaction History ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to verify Account Name To Check Transaction History ", e);
+		}
+	}
+
+	@Step("Verify Transaction History Data For Three Months.")
+	public void VerifyTransactionHistoryDataForThreeMonths() throws Exception {
+		try {
+			int l = dropDowmList.size();
+			Asserts.assertTrue(l > 0, "No Transaction History is Display");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Verify Transaction History Data For Three Months ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Transaction History Data For Three Months ", e);
+		}
+	}
+	
+	@Step("Click on 'Show' Button")
+	public void ClickOnShowButton() throws Exception {
+		try {
+			clickOnElement(showButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click show button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click show button ", e);
+		}
+	}
+	
+	@Step("Select '3 Months Transaction History' ")
+	public void SelectThreeMonths() throws Exception {
+		try {
+			clickOnElement(threeMonthLabel);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("SCREENSHOT", " Failed to Select '3 Months Transaction History' ",	e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("SCREENSHOT", " Failed to Select '3 Months Transaction History' ", e);
+		}
+	}
+
+	@Step("Click On Deposit Account And Select From Account")
+	public void ClickOnDepositAccountAndSelectFromAccount(String AccountName) throws Exception {
+		try {
+			clickOnElement(DepositAccountButtonDBS);
+			selectFromAccountFromDepositeSection(AccountName);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Deposit Account And Select From Account ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION"," Failed to Click On Deposit Account And Select From Account ", e);
+		}
+	}
+
+	@Step("Click on 'From Account' From Deposit Section")
+	public void selectFromAccountFromDepositeSection(String AccountToBeSelected) throws Exception {
+		try {
+			if (AccountNameListInTransactionHistoryForDBS.size() > 0) {
+
+				int l = AccountNameListInTransactionHistoryForDBS.size();
+				int index = 0;
+				String accountFromList = null;
+				for (int i = 0; i < l; i++) {
+					accountFromList = AccountNameListInTransactionHistoryForDBS.get(i).getText();
+					if (accountFromList.contains(AccountToBeSelected)) {
+						index++;
+						clickOnElement(AccountNameListInTransactionHistoryForDBS.get(i));
+						break;
+					}
+				}
+				if (index == 0)
+					Asserts.assertFail("'From Account '" + AccountToBeSelected + " not found in the Deposite Section List.");
+			} else
+				Asserts.assertFail("No From Account found in the Deposit Section as list size is zero");
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to select 'From Account' from Deposit Section. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select 'From Account' from Deposit Section.  ", e);
+		}
+	}
+	
+	@Step("Verifying 'Transaction History' page header")
+	public void verifyTransactionHistoryPageHeader(String expectedText) throws Exception {
+		try {
+			wait.fluentWaitForElement(TransactionHistoryHeaderDBS);
+			Asserts.assertEquals(getTexOfElement(TransactionHistoryHeaderDBS).toLowerCase(), expectedText.toLowerCase(),
+					"'Header Title' is not Matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Transaction History' page header ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Transaction History' page header ", e);
+		}
+	}
+	
+
+}

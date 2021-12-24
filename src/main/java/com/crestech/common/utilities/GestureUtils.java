@@ -66,7 +66,7 @@ public class GestureUtils {
 			if(Element.isDisplayed())
 				touch.longPress(longPressOptions().withElement(element(Element))).moveTo(point(x, y)).release().perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 	
@@ -75,7 +75,7 @@ public class GestureUtils {
 			AndroidTouchAction touch = new AndroidTouchAction(driver);
 			touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(ele))).perform().release();
 		} catch (Exception e) {
-			throw new Exception(e); 
+			throw e;
 		} 
 	}
 	public void longPressOnMiddleOfScreen(int durationInSecond) throws Exception {
@@ -86,7 +86,7 @@ public class GestureUtils {
 			int x =(int)((windowSize1.getWidth())/2);
 			touch.longPress(LongPressOptions.longPressOptions().withPosition(point(x, y)).withDuration(ofSeconds(durationInSecond))).perform();
 		} catch (Exception e) {
-			throw new Exception(e); 
+			throw e;
 		} 
 	}
 	public void longPressOnMobileElementSpecficLocation(MobileElement Element, int dur, int x, int y) throws Exception {
@@ -95,36 +95,33 @@ public class GestureUtils {
 			touch.longPress(longPressOptions().withElement(element(Element)).withPosition(point(x, y))
 					.withDuration(ofSeconds(dur))).release().perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 	
 	public void tapAtSpecificPosition(int x, int y) throws Exception {
 		try {
-			wait.ImplicitlyWait();
 			touch.tap(tapOptions().withPosition(point(x, y))).perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	public void DoubleTaponMobileElement(MobileElement Element) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(Element);
 			touch.tap(tapOptions().withElement(element(Element))).release()
 					.tap(tapOptions().withElement(element(Element))).release().perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	public void DoubleTaponMobileElementSpecific(MobileElement Element, int x, int y) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(Element);
 			touch.tap(tapOptions().withElement(element(Element)).withPosition(point(x, y))).release()
 					.tap(tapOptions().withElement(element(Element)).withPosition(point(x, y))).release().perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 	
@@ -154,7 +151,7 @@ public class GestureUtils {
 			dragNDrop.addAction(finger.createPointerUp(PointerInput.MouseButton.MIDDLE.asArg()));
 			driver.perform(Arrays.asList(dragNDrop));
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	} 
 
@@ -174,7 +171,7 @@ public class GestureUtils {
 			System.out.println("Swipe up was Successfully done.");
 		} catch (Exception e) {
 			System.out.println("swipe up was not successfull");
-			throw new Exception(e); 
+			throw e;
 		}
 	}
 
@@ -193,7 +190,7 @@ public class GestureUtils {
 			System.out.println("Swipe down was Successfully done");
 		} catch (Exception e) {
 			System.out.println("swipe down was not successfull");
-			throw new Exception(e); 
+			throw e;
 		}
 	}
 
@@ -219,7 +216,7 @@ public class GestureUtils {
 			System.out.println("Swipe Successfully");
 		} catch (Exception e) {
 			System.out.println("Image swipe was not successfull");
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
@@ -243,7 +240,7 @@ public class GestureUtils {
 			action.longPress(ele);
 			action.perform();
 		} catch (Exception e) {
-			throw new Exception(e);  
+			throw e;
 		}
 	}
 
@@ -256,7 +253,7 @@ public class GestureUtils {
 			params.put("duration", "3");
 			driver.executeScript("mobile:touch:gesture", params);
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
@@ -265,7 +262,7 @@ public class GestureUtils {
 //			wait.waitForElementToBeClickable(Element);
 //			touch.tap(tapOptions().withElement(element(Element))).perform();
 //		} catch (Exception e) {
-//			throw new Exception(e);
+//			throw e;
 //		}
 //	}
 
@@ -274,84 +271,77 @@ public class GestureUtils {
 			wait.waitForElementToBeClickable(Element);
 			touch.tap(tapOptions().withElement(element(Element)).withPosition(point(x, y))).perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	public void MultipleTapWithTwoFinger(MobileElement Element1, MobileElement Element2) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(Element1);
-			wait.waitForElementToBeClickable(Element2);
 			new MultiTouchAction(driver).add(touch.tap(tapOptions().withElement(element(Element1))))
 					.add(touch.tap(tapOptions().withElement(element(Element2)))).perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	public void MultipleTaponElementsSpecificPosition(MobileElement Element1, MobileElement Element2, int x1, int y1,
 			int x2, int y2) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(Element1);
-			wait.waitForElementToBeClickable(Element2);
 			new MultiTouchAction(driver)
 					.add(touch.tap(tapOptions().withElement(element(Element1)).withPosition(point(x1, y1))))
 					.add(touch.tap(tapOptions().withElement(element(Element2)).withPosition(point(x2, y2)))).perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	public void ManytapOnMobileElement(MobileElement Element, int count) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(Element);
 			for (int i = 0; i < count; i++) {
 				touch.tap(tapOptions().withElement(element(Element))).perform();
 				Duration.ofMillis(50);
 			}
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	public void ManytabSpecificPosionOnMobileElement(MobileElement Element, int x, int y) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(Element);
 			touch.tap(tapOptions().withElement(element(Element)).withPosition(point(x, y))).perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	public void ManytapSpecificPosion(int x, int y, int count) throws Exception {
 		try {
-			wait.ImplicitlyWait();
 			for (int i = 0; i < count; i++) {
 				touch.tap(tapOptions().withPosition(point(x, y))).perform();
 				Duration.ofMillis(50);
 			}
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	public void longPressonSpecificLocation(int x, int y, int dur) throws Exception {
 		try {
-			wait.ImplicitlyWait();
+			
 			touch.longPress(longPressOptions().withPosition(point(x, y)).withDuration(ofSeconds(dur))).release()
 					.perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	public void MultipleTaponSpecificPositions(int x1, int y1, int x2, int y2) throws Exception {
 		try {
-			wait.ImplicitlyWait();
+			
 			new MultiTouchAction(driver).add(touch.tap(tapOptions().withPosition(point(x1, y1))))
 					.add(touch.tap(tapOptions().withPosition(point(x2, y2)))).perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
@@ -362,7 +352,7 @@ public class GestureUtils {
 			touch.longPress(longPressOptions().withElement(element(Element1)).withDuration(ofSeconds(2)))
 					.moveTo(element(Element2)).release().perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
@@ -372,7 +362,7 @@ public class GestureUtils {
 			touch.longPress(longPressOptions().withElement(element(Element)).withDuration(ofSeconds(2)))
 					.moveTo(point(x, y)).release().perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
@@ -383,17 +373,17 @@ public class GestureUtils {
 					.moveTo(element(Element)).release().perform();
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	public void swipeCoordinatetoCoordinate(int x1, int y1, int x2, int y2) throws Exception {
 		try {
-			wait.ImplicitlyWait();
+			
 			touch.longPress(longPressOptions().withPosition(point(x1, y1)).withDuration(ofSeconds(2)))
 					.moveTo(point(x1, y1)).release().perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
@@ -409,8 +399,7 @@ public class GestureUtils {
 
 			String s1 = driver.getPageSource();
 			int count = 0;
-			WaitUtils wait = new WaitUtils(driver);
-			wait.ImplicitlyWait();
+		
 			while ((driver.getPageSource().contains(str) != true) && count == 0) {
 				touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
 						.moveTo(point(x, y1)).release().perform();
@@ -426,7 +415,7 @@ public class GestureUtils {
 		} catch (HandleException e) {	
 			throw new HandleException ("SCROLL_EXCEPTION", "Failed to scroll to the element ::",e);	
 		}catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to scroll to the element  ",e);
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to scroll to the element  ",e);
 		}
 
 	}
@@ -442,13 +431,40 @@ public class GestureUtils {
 				Asserts.assertTrue(element.isDisplayed(), "Element not found");
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 	
+	public void scrollUPIos() throws Exception {
+		try {
+			HashMap<String, Object> ScrollObject = new HashMap<>();
+			ScrollObject.put("direction", "down");
+			
+
+			driver.executeScript("mobile:scroll", ScrollObject);
+
+
+		} catch (Exception e) {
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to perform scroll  ", e);
+		}
+	}
+
+	public void scrollDownIos() throws Exception {
+		try {
+			HashMap<String, Object> ScrollObject = new HashMap<>();
+			ScrollObject.put("direction", "up");
+			
+
+			driver.executeScript("mobile:scroll", ScrollObject);
+
+		} catch (Exception e) {
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to perform scroll  ", e);
+		}
+	}
+	
+	
 	public void scrollDOWNtoObject(String attribute, String value, MobileElement element) throws Exception {
 		try {
-			wait.ImplicitlyWait();
 			Dimension windowSize = driver.manage().window().getSize();
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
@@ -458,7 +474,7 @@ public class GestureUtils {
 
 			String s1 = driver.getPageSource();
 			int count = 0;
-			wait.ImplicitlyWait();
+			
 			while ((driver.getPageSource().contains(str) != true) && count == 0) {
 				touch.longPress(longPressOptions().withPosition(point(x, y1)).withDuration(ofSeconds(2)))
 						.moveTo(point(x, y2)).release().perform();
@@ -482,14 +498,14 @@ public class GestureUtils {
 	public boolean scrollUPwithinCoordinatetoObject(String attribute, String value, int leftabove_x1, int leftabove_y1,
 			int rightbelow_x2, int rightbelow_y2) throws Exception {
 		try {
-			wait.ImplicitlyWait();
+			
 			int y1 = (int) (leftabove_y1 * 0.05);
 			int y2 = (int) (rightbelow_y2 - y1);
 			int x = (int) (leftabove_x1 + ((rightbelow_x2) / 2));
 			String str = attribute + "=" + "\"" + value + "\"";
 			String s1 = driver.getPageSource();
 			int count = 0;
-			wait.ImplicitlyWait();
+			
 			while ((driver.getPageSource().contains(str) != true) && count == 0) {
 				touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
 						.moveTo(point(x, y1)).release().perform();
@@ -504,21 +520,19 @@ public class GestureUtils {
 			else
 				return false;
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	public boolean scrollDOWNwithinCoordinatetoObject(String attribute, String value, int leftabove_x1,
 			int leftabove_y1, int rightbelow_x2, int rightbelow_y2) throws Exception {
 		try {
-			wait.ImplicitlyWait();
 			int y1 = (int) (leftabove_y1 * 0.05);
 			int y2 = (int) (rightbelow_y2 - y1);
 			int x = (int) (leftabove_x1 + ((rightbelow_x2) / 2));
 			String str = attribute + "=" + "\"" + value + "\"";
 			String s1 = driver.getPageSource();
 			int count = 0;
-			wait.ImplicitlyWait();
 
 			while ((driver.getPageSource().contains(str) != true) && count == 0) {
 				touch.longPress(longPressOptions().withPosition(point(x, y1)).withDuration(ofSeconds(2)))
@@ -535,7 +549,7 @@ public class GestureUtils {
 				return false;
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
@@ -545,7 +559,6 @@ public class GestureUtils {
 
 	public void AllTypeSwipeOperation(String SwipeTypeDirection, int Percentage) throws Exception {
 		try {
-			wait.ImplicitlyWait();
 			Dimension windowSize = driver.manage().window().getSize();
 			int y = (int) ((windowSize.getHeight()) / 2);
 			int x = (int) ((windowSize.getWidth()) / 2);
@@ -576,7 +589,7 @@ public class GestureUtils {
 	    }
 
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 	
@@ -644,7 +657,6 @@ public class GestureUtils {
 
 	public void ZoomOut(int percentage) throws Exception {
 		try {
-			wait.ImplicitlyWait();
 			Dimension windowSize1 = driver.manage().window().getSize();
 			int y = (int) ((windowSize1.getHeight()) / 2);
 			int x = (int) ((windowSize1.getWidth()) / 2);
@@ -657,13 +669,12 @@ public class GestureUtils {
 					.add(touch.longPress(longPressOptions().withPosition(point(x, y2))).moveTo(point(x, y22)))
 					.perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	public void ZoomIN(int percentage) throws Exception {
 		try {
-			wait.ImplicitlyWait();
 			Dimension windowSize1 = driver.manage().window().getSize();
 			int y = (int) ((windowSize1.getHeight()) / 2);
 			int x = (int) ((windowSize1.getWidth()));//// 2
@@ -676,7 +687,7 @@ public class GestureUtils {
 					.add(touch.longPress(longPressOptions().withPosition(point(x1, y))).moveTo(point(x22, y)))
 					.perform();
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw e;
 		}
 	}
 	
@@ -694,7 +705,7 @@ public class GestureUtils {
 			String s1 = driver.getPageSource();
 			int count = 0;
 			WaitUtils wait = new WaitUtils(driver);
-			wait.ImplicitlyWait();
+			
 			while ((driver.getPageSource().contains(str) != true) && count == 0) {
 				touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
 						.moveTo(element(specificPosition)).release().perform();
@@ -710,7 +721,7 @@ public class GestureUtils {
 		} catch (HandleException e) {	
 			throw new HandleException ("SCROLL_EXCEPTION", "Failed to scroll to the element ::",e);	
 		}catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to scroll to the element  ",e);
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to scroll to the element  ",e);
 		}
 	}
 }
