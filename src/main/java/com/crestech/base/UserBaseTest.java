@@ -96,7 +96,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 			ContextManager.setDriver(this.driver); 
 			Thread.sleep(3000);
-			this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		} catch (Exception e) {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 				ContextManager.getExtentReportForPrecondition().skip(MarkupHelper.createLabel("Test Case is SKIPPED", ExtentColor.YELLOW));
@@ -320,8 +320,8 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
 			capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
 			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
-			capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
-			capabilities.setCapability("platformVersion", version);
+//			capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
+//			capabilities.setCapability("platformVersion", version);
 			capabilities.setCapability("newCommandTimeout", 600);
 			capabilities.setCapability("launchTimeout", 90000);
 			capabilities.setCapability("bundleId", s.get(7));
@@ -334,6 +334,11 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		    capabilities.setCapability("autoGrantPermissions", "true");
 		    capabilities.setCapability("acceptAlerts", true);
 		    capabilities.setCapability("idleTimeout",180);
+		    
+			capabilities.setCapability("pCloudy_DeviceManafacturer", manafacturer);
+			capabilities.setCapability("pCloudy_MinVersion",min_Ver); 
+			capabilities.setCapability("pCloudy_MaxVersion",max_Ver); 
+			capabilities.setCapability("pCloudy_Individual",individual_ID);
 
 			break;
 
