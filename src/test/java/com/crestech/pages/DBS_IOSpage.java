@@ -648,8 +648,6 @@ public class DBS_IOSpage extends CommonAppiumTest {
             	 verifyWelcomeToTextIwealth();
                 verifyDigibankwealthText();
              }
-
-
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Login the application with USER ID and PIN ", e);
 		} catch (Exception e) {
@@ -3697,15 +3695,15 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			if(nextButton.size() > 0) {
 				TakeScreenshot(nextButton.get(nextButton.size()-1));
 				String actualText = commonAppTest.getTexOfElement((MobileElement) nextButton.get(1));
-				if (actualText.equalsIgnoreCase("NEXT"))
-					commonAppTest.clickOnElement((MobileElement) nextButton.get(1));
+				//if (actualText.equalsIgnoreCase("NEXT"))
+				commonAppTest.clickOnElement((MobileElement) nextButton.get(1));
 				Asserts.assertEquals(actualText, "NEXT", "Button not found");
 			}
 			else if(nextButton1.size() > 0) {
-				TakeScreenshot(nextButton.get(nextButton1.size()-1));
+				//TakeScreenshot(nextButton.get(nextButton1.size()-1));
 				String actualText = commonAppTest.getTexOfElement((MobileElement) nextButton1.get(1));
-				if (actualText.equalsIgnoreCase("NEXT"))
-					commonAppTest.clickOnElement((MobileElement) nextButton1.get(1));
+				//if (actualText.equalsIgnoreCase("Next"))
+				commonAppTest.clickOnElement((MobileElement) nextButton1.get(1));
 				Asserts.assertEquals(actualText, "Next", "Button not found");
 			}
 			
@@ -3724,12 +3722,20 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			
 			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.SetCardPINPageHeader()),
 							CommonTestData.SET_CARD_PIN.getEnumValue() + " Page Header not displaying.");
+			//XCUIElementTypeOther
+			List<RemoteWebElement> list = driver.findElements(By.xpath("//XCUIElementTypeOther"));
+			System.out.println("PIN Size : "+list.size());
+			//List<RemoteWebElement> list1 = driver.findElements(By.name("Create Your PIN"));
+			clickOnElement((MobileElement) list.get(0));
+			System.out.println("CreateYourPINField");
+			enterTextInTextbox((MobileElement) list.get(0), CommonTestData.CREATE_PIN.getEnumValue());
 			
-			clickOnElement(IOShomePgaeObject.CreateYourPINField());
-			enterTextInTextbox(IOShomePgaeObject.CreateYourPINField(), CommonTestData.CREATE_PIN.getEnumValue());
-			clickOnElement(IOShomePgaeObject.ConfirmNewPINField());
-			enterTextInTextbox(IOShomePgaeObject.ConfirmNewPINField(), CommonTestData.CONFIRM_PIN.getEnumValue());
-			driver.hideKeyboard();
+			//List<RemoteWebElement> list2 = driver.findElements(By.name("Confirm New PIN"));
+			clickOnElement((MobileElement) list.get(1));
+			enterTextInTextbox((MobileElement) list.get(1), CommonTestData.CONFIRM_PIN.getEnumValue());
+			System.out.println("ConfirmNewPINField");
+			//driver.hideKeyboard();
+			doneButtonIfAviliable();
 			
 			clickOnElement(IOShomePgaeObject.submitButton());
 			
@@ -3752,10 +3758,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Select Debit Card Option After Clicking on Cards Section and then 2FA Authentication Done.")
 	public void SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN() throws Exception {
 		try {
-			sendDataInCommonSearchBoxAndSelectFromDropDown("Cards", null);
+			sendDataInCommonSearchBoxAndSelectFromDropDown("Cards", "Cards");
 			//gestUtils.scrollUPtoObjectIos("label", "Cards", null);
-			if (isElementVisible(IOShomePgaeObject.CardsButton()))
-				clickOnElement(IOShomePgaeObject.CardsButton());
+			//if (isElementVisible(IOShomePgaeObject.CardsButton()))
+			//	clickOnElement(IOShomePgaeObject.CardsButton());
 			TakeScreenshot(IOShomePgaeObject.SelectDebitCard()); 
 			clickOnElement(IOShomePgaeObject.SelectDebitCard());
 			EnterPasscodeAndDone();
@@ -3771,6 +3777,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Click on 'Account type' From List under Local fund Limit page'")
 	public void selectDebitCardType(String debitCardToBeSelected) throws Exception {
 		try {
+			Thread.sleep(9000);
 			//TakeScreenshot(IOShomePgaeObject.DebitCardDetailsDropdownList().get(1)); 
 			if(IOShomePgaeObject.DebitCardDetailsDropdownList().size() >0) {
 			List<MobileElement> Elementlist = IOShomePgaeObject.DebitCardDetailsDropdownList();
@@ -4118,7 +4125,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("digital Token Setup")
 	public void digitalToken() throws Exception {
 		try {
-			
+			Thread.sleep(5000);
 			if(isElementVisible2(IOShomePgaeObject.setupTokenMessage())) {
 			//if (list.size() > 0) {
 				ButtonVerifyClick(IOShomePgaeObject.setupNowButton());
