@@ -9,6 +9,7 @@ import static org.testng.Assert.assertFalse;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.junit.Assert;
@@ -191,9 +192,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 //						CommonTestData.SETUP.getEnumValue(), IOShomePgaeObject.fingerpringAlertMessage());
 				}
 			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handling FingurePrint Alert  ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Handling FingurePrint Alert ", e);
 		}
 
 	}
@@ -212,9 +214,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 //						CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue(), IOShomePgaeObject.recordingAlertMessage());
 				}
 			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handling Recording Alert  ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Handling Recording Alert ", e);
 		}
 
 	}
@@ -233,9 +236,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 //			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.alertFitnessActivityTitle(),
 //					CommonTestData.SETUP.getEnumValue(), IOShomePgaeObject.alertOkButton());
 			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handling MOTION AND FITNESS ALERT Alert  ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Handling MOTION AND FITNESS ALERT Alert ", e);
 		}
 
 	}
@@ -271,9 +275,21 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			fieldText(CommonTestData.WELCOME.getEnumValue(), IOShomePgaeObject.welcomeToText());
 
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify 'Welcome To' Field  ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify 'Welcome To' Field ", e);
+		}
+	}
+	@Step("verify 'Welcome To' Field")
+	public void verifyWelcomeToTextIwealth() throws Exception {
+		try {
+			fieldText(CommonTestData.WELCOME.getEnumValue(), IOShomePgaeObject.welcomeToTextIwealth());
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify 'Welcome To' Field  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify 'Welcome To' Field ", e);
 		}
 	}
 
@@ -282,9 +298,21 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			fieldText(CommonTestData.DIGIBANK.getEnumValue(), IOShomePgaeObject.digibankText());
 
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify 'digibank' Field  ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify 'digibank' Field ", e);
+		}
+	}
+	@Step("verify 'DBS digibank' Field")
+	public void verifyDigibankwealthText() throws Exception {
+		try {
+			fieldText(CommonTestData.DIGIBANK.getEnumValue(), IOShomePgaeObject.digibankTextwealth());
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify 'DBS digibank' Field  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify ' DBS digibank' Field ", e);
 		}
 	}
 
@@ -475,9 +503,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void ClickOnNextButton2() throws Exception {
 		try {
 			ButtonVerifyClick(IOShomePgaeObject.nextButton2());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ",e);
 		}
 
 	}
@@ -586,36 +616,42 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 
 	@Step("Login the application with USER ID and PIN")
-	public void logInApplication(String userName, String password) throws Exception {
+	public void logInApplication(String userName, String password ,String app_Name) throws Exception {
 		try {
 			clickOnPreLoginButton();
 			//selectUATserver("UAT N1");
-			//Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-			//System.out.println(System.currentTimeMillis());
 			clickOnLoginButton_0();
-			//System.out.println(System.currentTimeMillis());
 			sendDataInUserId(userName);
 			sendDataInUserPin(password);
 			//String s1 = driver.getPageSource();
 			//System.out.println(s1);
-			clickOnLoginButton_2();
-            digitalToken();
-//            managementSwipeAlert();
-////            handlingMotionAndFitnessAlert();
-             locationSwipPopup();
-//////			
-//           //swipeUpgadeExperienceAlert();
-//           handlingFingurePrintAlert();
-//           handlingRecordingAlert();
-//
-//          
-//           verifyWelcomeToText();
-//           verifyDigibankText();
-
-
+			 clickOnLoginButton_2();
+			 this.driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+             digitalToken();
+             handlingMotionAndFitnessAlert();
+             if(app_Name=="DBS") {
+            	 locationSwipPopup();
+            	 }
+             else
+            	 managementSwipeAlert();
+       
+             
+             handlingFingurePrintAlert();
+             handlingRecordingAlert();
+             this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+             if(app_Name=="DBS") {
+            	 verifyWelcomeToText();
+                 verifyDigibankText();
+            	 }
+             else
+             {
+            	 verifyWelcomeToTextIwealth();
+                verifyDigibankwealthText();
+             }
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Login the application with USER ID and PIN ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Login the application with USER ID and PIN ", e);
 		}
 	}
 
@@ -967,11 +1003,12 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
 			
 			// Leave On Home Page to this test case for next run.
-			ClickOnCloseButton();
-			ClickOnHomeButton();
+			//ClickOnCloseButton();
+			//ClickOnHomeButton();
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Add payee DBSorPOSB  ",	e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Add payee DBSorPOSB  ", e);
 		}
 	}
 
@@ -987,20 +1024,23 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			// Leave On Home Page to this test case for next run.
 			ClickOnCloseButton();
 			ClickOnHomeButton();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee to DBS/POSB ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee to DBS/POSB ", e);
 		}
 	} 
+	
 
 	@Step("Click On Local Button.")
 	public void clickOnLocalButton() throws Exception {
 		try {
 			TakeScreenshot(IOShomePgaeObject.LocalButton());
 			clickOnElement(IOShomePgaeObject.LocalButton());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Button ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Button ", e);
 		}
 	}
 
@@ -1042,9 +1082,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			// Leave On Home Page to this test case for next run.
 			ClickOnCloseButton();
 			ClickOnHomeButton();	
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Payee Add Local Other Bank ",	e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Payee Add Local Other Bank  ", e);
 		}
 	}
 	
@@ -1059,9 +1100,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			// Leave On Home Page to this test case for next run.
 			ClickOnCloseButton();
 			ClickOnHomeButton();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee to Local To Other Bank ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee to Local To Other Bank ",e);
 		}
 	} 
 	
@@ -1071,9 +1114,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			TakeScreenshot(IOShomePgaeObject.HOMEButton()); 
 			clickOnElement(IOShomePgaeObject.HOMEButton());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button  ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e; 
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button ", e);
 		}
 	}
 	
@@ -1082,9 +1126,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			TakeScreenshot(IOShomePgaeObject.closeButton()); 
 			clickOnElement(IOShomePgaeObject.closeButton());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button  ",	e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e; 
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button ", e);
 		}
 	}
 
@@ -1151,15 +1196,15 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					}
 				}
 			}
-			else
-			{
-				Asserts.assertFail("No Receipient found in the Local Payee list");
-			}
+//			else
+//			{
+//				Asserts.assertFail("No Receipient found in the Local Payee list");
+//			}
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Overseas Payee ",e);		
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee ",e);		
 		}
 		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Overseas Payee ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee ",e);
 		}
 	}
 
@@ -1192,9 +1237,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			MobileElement AccountNumberElement = (MobileElement) driver.findElement(By.xpath(AccountNumberXpath));
 			Asserts.assertEquals(getTexOfElement(AccountNumberElement), AccountNumber,
 					AccountNumber + " is not matching after adding payee");
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'You Have Added Recipient Msg' After Entering Secure PIN. ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'You Have Added Recipient Msg' After Entering Secure PIN. ", e);
 		}
 	}
 
@@ -1213,9 +1259,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 
 			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.LocalTransferPayNowPageHeader()),
 					" 'Local Transfer & Pay Now' Page Header not displaying.");
+		}  catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On ADD RECIPIENT NOW Button  ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On ADD RECIPIENT NOW Button ", e);
 		}
 	}
 
@@ -1247,9 +1294,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			List<RemoteWebElement> enterAccountNumberEditField = driver.findElements(By.name("Enter account no."));
 			enterTextInTextbox((MobileElement) enterAccountNumberEditField.get(enterAccountNumberEditField.size()-1), AccountNumber);
 			doneButtonIfAviliable();
+			
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Recipient Details Into Bank Account Section.  ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Recipient Details Into Bank Account Section. ", e);
 		}
 	}
 
@@ -1262,9 +1311,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				clickOnElement(IOShomePgaeObject.ADDRecipientNowButton());
 			Thread.sleep(4000);
 			Asserts.assertEquals(actualText, CommonTestData.ADD_RECIPIENT_LABEL.getEnumValue(), "Button not matching");
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On ADD RECIPIENT NOW Button  ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On ADD RECIPIENT NOW Button ", e);
 		}
 	}
 	
@@ -1281,9 +1331,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				Asserts.assertEquals(getTexOfElement((MobileElement) youHaveAddedRecipient.get(youHaveAddedRecipient.size()-1)),
 						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue(),
 						CommonTestData.YOU_HAVE_ADDED_RECIPIENT_MSG2.getEnumValue() + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'You Have Added Recipient Msg' After Entering Secure PIN. ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'You Have Added Recipient Msg' After Entering Secure PIN. ", e);
 		}
 	}
 
@@ -1297,6 +1348,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			if (list.size() > 0) {
 				TakeScreenshot(IOShomePgaeObject.secureBox());
 				enterTextInTextbox(IOShomePgaeObject.secureBox(), CommonTestData.OTP.getEnumValue());
+				Thread.sleep(5000);
 				String doneButtonxpath = "//XCUIElementTypeButton[@name='Done']";
 				List<RemoteWebElement> doneButtonList = driver.findElements(By.xpath(doneButtonxpath));
 				if (doneButtonList.size() > 0)
@@ -1374,6 +1426,23 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Add payee Remittance  ",e);
 		}
 	}
+	@Step("Delete Payee to Remittence")
+	public void DeletePayee_ToRemittence() throws Exception {
+		try {
+			ClickOnPayAndTransferButton();
+			EnterPasscodeAndDone();
+			overseasVerifyClick(CommonTestData.OVERSEAS_ICON.getEnumValue());
+			DeletePayee(CommonTestData.FULL_NAME.getEnumValue());
+			
+			// Leave On Home Page to this test case for next run.
+			ClickOnCloseButton();
+			ClickOnHomeButton();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee to DBS/POSB ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee to DBS/POSB ", e);
+		}
+	} 
 	@Step("Verifying Header You've added a recipient")
 	public void verifyYouHaveAddedRecipient() throws Exception {
 		try {
@@ -1776,9 +1845,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			//Leaving On Home Page for Next case Run.
 //			ClickOnCloseButton();
 //			ClickOnHomeButton();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to fund transfer pay credit card  ",
+					e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to fund transfer pay credit card    ", e);
 		}
 	}
 	
@@ -1794,15 +1865,17 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				gestUtils.scrollDownIos();
 				//TakeScreenshot(IOShomePgaeObject.SelectFundSourcePage());
 				clickOnElement(IOShomePgaeObject.SelectFundSourcePage());
-				TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
-
+				//TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
+				int index=0;
 				for (int i = 0; i < IOShomePgaeObject.localRecipientsList().size(); i++) {
 					String actualfromOwnAccount = IOShomePgaeObject.localRecipientsList().get(i).getText();
 					if (actualfromOwnAccount.contains(fromOwnAccount)) {
 						clickOnElement(IOShomePgaeObject.localRecipientsList().get(i));
+						index++;
 						break;
 					}
 				}
+				Asserts.assertTrue(index>0, "No Account " +fromOwnAccount+" not found in the list to initiate the fund transfer");
 
 				Thread.sleep(3000);
 				String xpath1 = "//XCUIElementTypeStaticText[@name='Primary source of fund']";
@@ -1815,8 +1888,15 @@ public class DBS_IOSpage extends CommonAppiumTest {
 //						clickOnElement(IOShomePgaeObject.okButton());
 				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			else
+			{
+				Asserts.assertFail("No Account found in the list");
+			}
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Any Fund Source Account After clicking on add sign for select fund source. ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Any Fund Source Account After clicking on add sign for select fund source. ",e);
 		}
 	}
 	@Step("Verify Transaction History")
@@ -2562,8 +2642,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			enterTextInTextbox(editField, textToEnter);
 			//backButton();
 			doneButtonIfAviliable();
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Amount In Editable field to transfer fund ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Amount In Editable field to transfer fund ",e);
 		}
 	}
 	
@@ -2585,9 +2668,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 						CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + ".00",
 						CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue() + " Text is not matching.");
 			//}
-		} catch (Exception e) {
-			e.printStackTrace(); 
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Transfer Now Button And Verify Payment Submitted Message ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Transfer Now Button And Verify Payment Submitted Message ",e);
 		}
 	}
 	
@@ -2611,9 +2696,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			fieldText(CommonTestData.REFERENCE_NUMBER.getEnumValue(), IOShomePgaeObject.referenceNo());
 			//TakeScreenshot(IOShomePgaeObject.referenceNo());
 
-		} catch (Exception e) {
-			e.printStackTrace(); 
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verifies the 'Log out', 'Make Another Transfer' Button, 'Share Payment Details' Button. ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verifies the 'Log out', 'Make Another Transfer' Button, 'Share Payment Details' Button. ",e);
 		}
 	}
 	
@@ -3118,9 +3205,12 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			// Leave On Home Page to this test case for next run.
 			ClickOnCloseButton();
 			ClickOnHomeButton();
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
+					" Failed to Execute Payee Add To Bill Payment ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-            throw e;
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Payee Add to Bill Payment  ",
+					e);
 		}
 	}
 	
@@ -3137,9 +3227,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			// Leave On Home Page to this test case for next run.
 			ClickOnCloseButton();
 			ClickOnHomeButton();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Delete Payee to Bill Payment.",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Delete Payee to Bill Payment. ",e);
 		}
 	}
 	
@@ -3161,9 +3253,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			List<RemoteWebElement> recipientDetailsHeader = driver.findElements(By.name("Enter Recipient’s Details"));
 			Asserts.assertTrue(isElementVisible2((MobileElement) recipientDetailsHeader.get(recipientDetailsHeader.size()-1)),
 					" 'Enter Recipient’s Details' Page Header not displaying.");
-		} catch (Exception e) {
-			e.printStackTrace(); 
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Bill Module & Verify Enter Recipient Page Header After Click On Add Billing Organisation.",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Bill Module & Verify Enter Recipient Page Header After Click On Add Billing Organisation. ",e);
 		}
 	}
 	
@@ -3200,8 +3294,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					ReferenceNum + " Text is not matching");
 			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.PayeeBillPaymentDetailsList().get(3)), "Bill Reference No.",
 					"Bill Reference No." + " Text is not matching");
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verifies Billing Organisation And Bill Reference Number ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verifies Billing Organisation And Bill Reference Number ",e);
 		}
 	}
 	
@@ -3215,8 +3312,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Page Header not displaying.");
 			
 			EnterAmount(IOShomePgaeObject.AmountEditableField(), CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Click On Make A Payment Button And Enter Amount In Amount Edit Field. ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Click On Make A Payment Button And Enter Amount In Amount Edit Field. ",e);
 		}
 	}
 	
@@ -3241,8 +3341,12 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			
 			//Leaving On Home page for next case run.
 			//clickOnElement(IOShomePgaeObject.BackToHomeButton()); 
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Fund transfer to own account  ", e);
 		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Fund transfer to own account ", e);
 		}
 	}
 	
@@ -3253,8 +3357,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			//Asserts.assertTrue(IOShomePgaeObject.BackToHomeButton().isDisplayed(), "BACK To HOME Button not found.");
 			Asserts.assertTrue(IOShomePgaeObject.MakeAnotherTransferButton2().isDisplayed(),
 					"MAKE ANOTHER TRANSFER Button not found.");
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Account Details After Fund Transfer To Own Account. ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Account Details After Fund Transfer To Own Account. ",e);
 		}
 	}
 
@@ -3268,8 +3375,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			//if (isElementVisible(successImage))
 				Asserts.assertEquals(getTexOfElement(transfferdSubmitMsgEle), SuccessMsg,
 						SuccessMsg + " Text is not matching");
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verifies Transfer Submitted Message after clicking on Transfer Now Button. ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verifies Transfer Submitted Message after clicking on Transfer Now Button. ",e);
 		}
 	}
 	
@@ -3402,9 +3512,12 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			// Leave On Home Page to this test case for next run.
 //			ClickOnCloseButton();
 //			ClickOnHomeButton();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
+					" Failed to verify Fund transfer bill payment  ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to verify Fund transfer bill payment  ",
+					e);
 		}
 	}
 	
@@ -3565,9 +3678,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			// Leave On Home Page to this test case for next run.
 			ClickOnCloseButton();
 			ClickOnHomeButton();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Apply Debit card  ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Apply Debit card  ", e);
 		}
 	}
 	
@@ -3593,9 +3707,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				Asserts.assertEquals(actualText, "Next", "Button not found");
 			}
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		}catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);
 		}
 
 	}
@@ -3631,9 +3747,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					"'Back To More Services' Button not found.");
 			Asserts.assertTrue(IOShomePgaeObject.closeButton().isDisplayed(), "Close Button not found.");
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Verifies the Set Card Pin Page Header and then Submit While Entering Confirm and Create New Pin & Verifies the 'Application Submitted' Message. ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Verifies the Set Card Pin Page Header and then Submit While Entering Confirm and Create New Pin & Verifies the 'Application Submitted' Message. ",e);
 		}
 	}
 
@@ -3649,9 +3767,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			EnterPasscodeAndDone();
 			selectDebitCardType(CommonTestData.DEBIT_CARD_NAME.getEnumValue());
 			TakeScreenshot(IOShomePgaeObject.AccountToBeLinkedToTheCardField()); 
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Debit Card Option After Clicking on Cards Section and then 2FA Authentication Done", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Debit Card Option After Clicking on Cards Section and then 2FA Authentication Done", e);
 		}
 	}
 	
@@ -3660,6 +3779,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			Thread.sleep(9000);
 			//TakeScreenshot(IOShomePgaeObject.DebitCardDetailsDropdownList().get(1)); 
+			if(IOShomePgaeObject.DebitCardDetailsDropdownList().size() >0) {
 			List<MobileElement> Elementlist = IOShomePgaeObject.DebitCardDetailsDropdownList();
 			int l = Elementlist.size();
 			int index = 0;
@@ -3673,9 +3793,16 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				}
 			}
 			Asserts.assertTrue(index > 0, "No " + debitCardToBeSelected + " found in the list of corresponding value");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			}
+			else
+			{
+				Asserts.assertFail("No DebitCard found in the list");
+			}
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on 'Account type' From List under Local fund Limit page",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on 'Account type' From List under Local fund Limit page",e);
 		}
 	}
 	
@@ -3782,9 +3909,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			// Leave On Home Page to this test case for next run.
 			//ClickOnCloseButton();
 			//ClickOnHomeButton();
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Open Account ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Exceute Open Account ", e);
 		}
 	}
 
@@ -3797,9 +3925,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.AccountBenefitsPageHeader()),
 					CommonTestData.ACCOUNT_BENIFITS.getEnumValue(),
 					CommonTestData.ACCOUNT_BENIFITS.getEnumValue() + " Page Header Text is not matching");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Overseas Payee ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Overseas Payee ",e);
 		}
 	}
 
@@ -3814,9 +3944,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			clickOnElement(IOShomePgaeObject.SelectSourceOfFundsForSavingsDropdown());
 			selectElementFromTheGivenList(IOShomePgaeObject.SelectSourceOfFundsForSavingsDropdownList(),
 					CommonTestData.SELECT_ACCOUNT.getEnumValue());
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Monthly Savings Amount And Select Source Of Funds For Savings. ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Monthly Savings Amount And Select Source Of Funds For Savings.",e);
 		}
 	}
 
@@ -3829,9 +3961,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		
 			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.OpenAccountPageHeader()), CommonTestData.OPEN_ACCOUNT.getEnumValue(),
 					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Page Header Text is not matching");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Open Account In 2/3 Step Button ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Open Account In 2/3 Step Button",e);
 		}
 	}
 
@@ -3845,11 +3979,13 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			EnterPasscodeAndDone();
 			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.OpenAccountPageHeader()),
 					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Page Header not displaying.");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deposit Accounts Module And 2FA Authentication Done And Verifies the Open Account Page Header. ",e);		
 		}
-	}
+		catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deposit Accounts Module And 2FA Authentication Done And Verifies the Open Account Page Header.", e);
+		}
+		}
 
 	@Step("Verify Warning Message And Important Notes.")
 	public void VerifyWarningMessageAndImportantNotes() throws Exception {
@@ -3866,9 +4002,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.WarningHeading()),
 					CommonTestData.WARNING_HEADING_TEXT.getEnumValue(),
 					CommonTestData.WARNING_HEADING_TEXT.getEnumValue() + " Message is not matching");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Warning Message And Important Notes. ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Warning Message And Important Notes. ",e);
 		}
 	}
 
@@ -3884,11 +4022,12 @@ public class DBS_IOSpage extends CommonAppiumTest {
 						CommonTestData.YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE.getEnumValue(),
 						CommonTestData.YOUR_ACCOUNT_OPEN_READYTOUSE_MESSAGE.getEnumValue()
 								+ " Message is not matching.");
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Open Account Now Button And Got 'Your account is open and ready to use!' Message.",e);		
 		}
-	}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Open Account Now Button And Got 'Your account is open and ready to use!' Message. ",e);
+		}	}
 
 	@Step("Click On IAcknowledge Button And Review Open Account Application.")
 	public void ClickOnIAcknowledgeButtonAndReviewOpenAccountApplication() throws Exception {
@@ -3906,9 +4045,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 						" Given account is not matched or found.");
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		}catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On IAcknowledge Button And Review Open Account Application. ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On IAcknowledge Button And Review Open Account Application. ",e);
 		}
 	}
 	
@@ -4001,9 +4142,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				clickOnDoneOnYouHaveSetupDigiToken();
 			}
 
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to digital Token Setup ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to digital Token Setup ", e);
 		}
 	}
 	@Step("send key with keyboard")
@@ -4106,20 +4248,25 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				//gestUtils.swipeElementtoCoordinate(IOShomePgaeObject.swipeButton2(),  x,  y);
 				
 				}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Swipe the alert message  ", e);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Swipe the alert message ", e);
 		}
+
 	}
 	@Step("Clicked on Next on Confirm Email digital token")
 	public void clickOnNextOnConfirmEmailDigiToken() throws Exception {
 		try {
-			TakeScreenshot(IOShomePgaeObject.confirmEmail());
+			if(isElementVisible2(IOShomePgaeObject.confirmEmail())) 
+			{
 			ButtonVerifyClick(IOShomePgaeObject.nextButton());
 				}
-		 catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		}
+		catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Clicked on Next on Confirm Email digital token ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Clicked on Next on Confirm Email digital token", e);
 		}
 	}
 	public void verifyDigibankAlert() throws Exception
@@ -4179,9 +4326,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 //				}
 //			}
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Scroll To Billing Organisation  ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Scroll To Billing Organisation  ",e);
 		}
 	}
 	
