@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.crestech.annotation.values.ElementDescription;
@@ -447,10 +448,6 @@ public class DBS_IOSObject {
 	@ElementDescription(value = "'Enter Account Number Editable' Field.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='Enter account no.']")
 	private MobileElement EnterAccountNumberEditField;
-
-	@ElementDescription(value = "'Review Recipient's Details' Page Header")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Recipient's Details']")
-	private MobileElement ReviewRecipientDetailsPageHeader;
 	
 	@ElementDescription(value = "'Add Recipient Now' Button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='ADD RECIPIENT NOW']")//
@@ -464,29 +461,6 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='You've added a recipient'])[1]")
 	private MobileElement YouHaveAddedRecipient;
 	
-	@ElementDescription(value = "Log Out Button After adding Payee")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Log Out']")
-	private MobileElement LogoutBtn;
-	
-	@ElementDescription(value = "'Make A Transfer' Button After adding Payee")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='MAKE A TRANSFER'])[1]")
-	private MobileElement makeTransferButton;
-	
-	@ElementDescription(value = "'Close' Button After adding Payee")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='close']")
-	private MobileElement closeButton;
-	
-	@ElementDescription(value = "'Recipient's Account No.' text dispalying After adding Payee.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Recipient's Account No.']")
-	private MobileElement RecipientAccountNo;
-	
-	@ElementDescription(value = "'Recipient's Bank' text dispalying After adding Payee.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Recipient's Bank']")
-	private MobileElement RecipientBankText;
-	
-	@ElementDescription(value = "'Recipient's Name' text dispalying After adding Payee.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Recipient's Name']")
-	private MobileElement RecipientNameText;
 	
 	@ElementDescription(value = "Added Payee 'i icon' list.")
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeButton[@name='i icon'])")
@@ -531,6 +505,13 @@ public class DBS_IOSObject {
 	
 	public MobileElement MakeAnotherTransferButton() { 
 		return MakeAnotherTransferButton;
+	}
+	@ElementDescription(value = "'MAKE ANOTHER TRANSFER' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='MAKE ANOTHER TRANSFER']")
+	private MobileElement MakeAnotherTransferButton2;
+	
+	public MobileElement MakeAnotherTransferButton2() { 
+		return MakeAnotherTransferButton2;
 	}
 	
 	@ElementDescription(value = "'HOME' Button.")
@@ -841,8 +822,15 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTable/XCUIElementTypeOther/XCUIElementTypeStaticText")
 	private List<MobileElement> allTabList;
 
-	public List<MobileElement> allTabList() {
-		return localRecipientsList;
+	public List<MobileElement> allTabList() {//XCUIElementTypeTable/XCUIElementTypeOther/
+		return allTabList;
+	}
+	@ElementDescription(value = "All tab list")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTable/XCUIElementTypeOther")
+	private List<MobileElement> allTabList2;
+
+	public List<MobileElement> allTabList2() {//XCUIElementTypeTable/XCUIElementTypeOther/
+		return allTabList2;
 	}
 	@ElementDescription(value = "'Credit Card' Fund Transfer page Header")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pay To DBS/POSB Card']")
@@ -909,6 +897,7 @@ public class DBS_IOSObject {
 	public MobileElement TransferNowButton() {
 		return  TransferNowButton;
 	}
+
 	
 	@ElementDescription(value = "'Payment Submitted' Message.")
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Payment Submitted'])[1]")
@@ -922,9 +911,17 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='SHARE PAYMENT DETAILS'])[1]")
 	private MobileElement SharePaymentDetailsButton;
 	
+	@ElementDescription(value = "'SHARE PAYMENT DETAILS' Button.")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeButton[@name='SHARE PAYMENT DETAILS'])[1]")
+	private MobileElement SharePaymentDetailsButton2;
+	
 	@ElementDescription(value = "'MAKE ANOTHER PAYMENT' Button.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='MAKE ANOTHER PAYMENT']")
 	private MobileElement MakeAnotherPaymentBtn;
+	
+	@ElementDescription(value = "'MAKE ANOTHER PAYMENT' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='MAKE ANOTHER PAYMENT']")
+	private MobileElement MakeAnotherPaymentBtn2;
 	
 	@ElementDescription(value = "'MAKE ANOTHER PAYMENT' Button.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='arrowDown']")
@@ -980,9 +977,6 @@ public class DBS_IOSObject {
 		return  DebitCardDetailsDropdownList;
 	}
 	
-	@ElementDescription(value = "'Debit Card' Button.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Debit Card]")
-	private MobileElement SelectDebitCard;
 	
 	@ElementDescription(value = "'Account to be linked to the card' Dropdown.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Account to be linked to the card']/XCUIElementTypeOther")
@@ -1085,6 +1079,10 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='OPEN ACCOUNT IN 3 STEPS'])[1]")
 	private MobileElement StepOpenAccountButton;
 	
+	@ElementDescription(value = "'OPEN ACCOUNT IN 3 STEPS' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='OPEN ACCOUNT IN 3 STEPS']/parent::XCUIElementTypeButton")
+	private MobileElement StepOpenAccountButton2;
+	
 	@ElementDescription(value = "'Enter monthly savings amount' Edit Field.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell[2]/XCUIElementTypeTextField")
 	private MobileElement EnterMonthlySavingsAmtEditField;
@@ -1184,8 +1182,10 @@ public class DBS_IOSObject {
 	
 	public MobileElement StepOpenAccountButton() { 
 		return  StepOpenAccountButton;
+	}//StepOpenAccountButton2
+	public MobileElement StepOpenAccountButton2() { 
+		return  StepOpenAccountButton2;
 	}
-	
 	public MobileElement AccountBenefitsPageHeader() { 
 		return  AccountBenefitsPageHeader;
 	}
@@ -1711,13 +1711,27 @@ public class DBS_IOSObject {
 	public MobileElement SharePaymentDetailsButton() {
 		return  SharePaymentDetailsButton;
 	}
+	public MobileElement MakeAnotherPaymentBtn2() {
+		return  MakeAnotherPaymentBtn2;
+	}
+	
+	public MobileElement SharePaymentDetailsButton2() {
+		return  SharePaymentDetailsButton2;
+	}
 
 	@ElementDescription(value = "swipe button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeImage[@name='TravelMode_Close']")
 	private MobileElement swipeButton;
-
+	
 	public MobileElement  swipeButton() {
 		return  swipeButton;
+	}
+	@ElementDescription(value = "GO TO LOCATION SETTINGS button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='GO TO LOCATION SETTINGS']")
+	private MobileElement goToLocationSettingButton;
+	
+	public MobileElement  goToLocationSettingButton() {
+		return  goToLocationSettingButton;
 	}
 
 	@ElementDescription(value = "Account section on HomePage")
@@ -1840,6 +1854,66 @@ public class DBS_IOSObject {
 	public MobileElement  swipeButton2() {
 		return  swipeButton2;
 	}
+	@ElementDescription(value = "confirm email")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Confirm your email address']")
+	private MobileElement confirmEmail;
+
+	public MobileElement  confirmEmail() {
+		return  confirmEmail;
+	}
+	@ElementDescription(value = "next Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='NEXT']")
+	private MobileElement nextButton2;
+
+	public MobileElement  nextButton2() {
+		return  nextButton2;
+	}
+	
+	@ElementDescription(value = "'Debit Card' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Debit Card']")
+	private MobileElement SelectDebitCard;
+	@ElementDescription(value = "TRANSFER NOW button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='TRANSFER NOW']")
+	private MobileElement transferNowButton2;
+
+	public MobileElement transferNowButton2() {
+		return  transferNowButton2;
+	}
 	
 	
+	
+	
+	@ElementDescription(value = "Log Out Button After adding Payee")
+	@FindBy(name = "Log Out")
+	private MobileElement LogoutBtn;
+	//XCUIElementTypeStaticText[@name='Log Out']
+	
+	@ElementDescription(value = "'Make A Transfer' Button After adding Payee")
+	@FindBy(name = "MAKE A TRANSFER")
+	private MobileElement makeTransferButton;
+	//XCUIElementTypeStaticText[@name='MAKE A TRANSFER'])[1]
+	
+	@ElementDescription(value = "'Close' Button After adding Payee")
+	@FindBy(name = "close")
+	private MobileElement closeButton;
+	//XCUIElementTypeButton[@name='close']
+	
+	@ElementDescription(value = "'Recipient's Account No.' text dispalying After adding Payee.")
+	@FindBy(name = "Recipient's Account No.")
+	private MobileElement RecipientAccountNo;
+	//XCUIElementTypeStaticText[@name='Recipient's Account No.']
+	
+	@ElementDescription(value = "'Recipient's Bank' text dispalying After adding Payee.")
+	@FindBy(name = "Recipient's Bank")
+	private MobileElement RecipientBankText;
+	//XCUIElementTypeStaticText[@name='Recipient's Bank']
+	
+	@ElementDescription(value = "'Recipient's Name' text dispalying After adding Payee.")
+	@FindBy(name = "Recipient's Name")
+	private MobileElement RecipientNameText;
+	//XCUIElementTypeStaticText[@name='Recipient's Name']
+	
+	@ElementDescription(value = "'Review Recipient's Details' Page Header")
+	@FindBy(name = "Review Recipient's Details")
+	private MobileElement ReviewRecipientDetailsPageHeader;
 }

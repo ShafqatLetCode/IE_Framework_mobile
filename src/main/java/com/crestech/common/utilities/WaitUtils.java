@@ -1,17 +1,18 @@
 package com.crestech.common.utilities;
 
 import java.util.concurrent.TimeUnit;
-
+import java.time.Duration;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
 import com.crestech.appium.utils.CommandPrompt;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
@@ -58,6 +59,21 @@ public class WaitUtils extends CommandPrompt {
 		}
 	}
 
+	public void fluentWaitForElement(MobileElement element) throws Exception {
+		try {
+		FluentWait<WebDriver> wait = new WebDriverWait(driver, WAIT_TIME)
+					.withTimeout(Duration.ofSeconds(WAIT_TIME))
+					.pollingEvery(Duration.ofSeconds(3))
+					.ignoring(NoSuchElementException.class,StaleElementReferenceException.class);
+		
+	    wait.until(ExpectedConditions.visibilityOf(element));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+
 	/**
 	 * This method will wait element visibility in seconds
 	 *
@@ -71,8 +87,8 @@ public class WaitUtils extends CommandPrompt {
 		} catch (Exception e) {
 			//e.printStackTrace();
 			System.out.println("Inside take ele visi catch" );
-			throw new HandleException ("WAITELEMENTVISIBLE_EXCEPTION", "Element not visible on the screen ::",e);
-		
+			//throw new HandleException ("WAITELEMENTVISIBLE_EXCEPTION", "Element not visible on the screen ::",e);
+			throw e;
 		}
 	}
 
@@ -89,7 +105,8 @@ public class WaitUtils extends CommandPrompt {
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 		} catch (Exception e) {
 			//System.out.println("Inside take ele visi catch" );
-			throw new HandleException ("WAITELEMENTCLICKABLE_EXCEPTION", "Element not clickable on the screen ::",e);
+			//throw new HandleException ("WAITELEMENTCLICKABLE_EXCEPTION", "Element not clickable on the screen ::",e);
+			throw e;
 		}
 	}
 

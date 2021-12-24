@@ -103,46 +103,7 @@ public class AndroidAlert{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Alert Handling   ",e);
 		}
 	}
-	/**
-	 *handling of fingerprint alert appear after login
-	 */
-	@Step("Accepting Alert Message")
-	public void fingerprintAlertHandlingWithButtonMessage(MobileElement Button, String expectecMessage) throws Exception    //android.widget.Toast[1]
-	{
-		try {
-			CommonAlertElements obj =new CommonAlertElements(driver);
-			String actualMessage = commonAppTest.getTexOfElement(obj.headerFingerprintMessage());
-				if(actualMessage.equalsIgnoreCase(expectecMessage))
-					commonAppTest.clickOnElement(Button);
-				Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Finger Print Alert Handling  ",e);		
-		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Finger Print Alert Handling   ",e);
-		}
-	}
-
-/**
- *handling of recording alert appear after login
- */
-@Step("Accepting Alert Message")
-public void recordingAlertHandlingWithButtonMessage(MobileElement Button, String expectecMessage) throws Exception    //android.widget.Toast[1]
-{
-	try {
-
-		CommonAlertElements obj =new CommonAlertElements(driver);
-		String actualMessage = commonAppTest.getTexOfElement(obj.headerRecordingMessage());
-		Asserts.assertEquals(actualMessage, expectecMessage, "Alert Message Not matching");
-			if(actualMessage.equalsIgnoreCase(expectecMessage))
-				commonAppTest.clickOnElement(Button);
-	} catch (HandleException e) {	
-		obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Recording Alert Handling  ",e);		
-	}
-	catch (Exception e) {			
-		obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Recording Alert Handling   ",e);
-	}
-}
+	
 	/**
 	 *Relaunch application alert
 	 */

@@ -18,6 +18,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	
 	Asserts Assert = null;
 	DBSAndroidPage dbspage1 = null;
+
 	public DBSAndroidTest() throws Exception {
 		super();
 		Assert = new Asserts();
@@ -36,10 +37,10 @@ public class DBSAndroidTest extends UserBaseTest {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
 			dbspage1.LogInApplicationWithSelectUATServer(userName, password, app_Name , CommonTestData.N4_SERVER.getEnumValue());
-			dbspage1.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue() ,CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(),CommonTestData.CURRENCY.getEnumValue() );
+			dbspage1.verifyAccountDetailsOnHomePage();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -56,11 +57,10 @@ public class DBSAndroidTest extends UserBaseTest {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
 			dbspage1.LogInApplication(userName, password, app_Name);
-			dbspage1.VerifyLogout(CommonTestData.LOGOUT.getEnumValue(),
-					CommonTestData.RATE_MESSAGE.getEnumValue());
+			dbspage1.VerifyLogout(CommonTestData.RATE_MESSAGE.getEnumValue());
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -80,7 +80,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.VerifyRemittanceCorridor();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -100,7 +100,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.VerifyRemittanceEOTT();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -121,7 +121,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.VerifyAddPayeeDBSorPOSB();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -138,10 +138,10 @@ public class DBSAndroidTest extends UserBaseTest {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
 			dbspage1.LogInApplication(userName, password, app_Name);
-			dbspage1.TopupPaylah();
+			dbspage1.VerifyTopupPaylah();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -159,10 +159,10 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1 = dbspage;
 			dbspage1.LogInApplication(userName, password, app_Name);
 			dbspage1.DeletePayeeRemittance(CommonTestData.FULL_NAME.getEnumValue());
-			dbspage1.PayeeAddRemittance();
+			dbspage1.VerifyPayeeAddRemittance();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -182,7 +182,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.ApplyDebitCard();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -203,7 +203,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.PayeeAddLocalOtherBank();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -224,7 +224,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.PayeeAddBillPayment();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -245,7 +245,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.OpenAccount();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -265,7 +265,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.ChangeLocalFundsTransferLimit();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -285,7 +285,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.VerifyPeekBalance();
 		}  catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -306,7 +306,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.VerifyFundTransfer_OwnAccount();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -326,7 +326,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.FundsTransfer_OtherBank_NonFASTFuture(app_Name);
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -346,7 +346,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.FundsTransfer_OtherBank_NonFAST(app_Name);
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -367,7 +367,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			 dbspage1.FundTransferDBSPOSB();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -385,10 +385,10 @@ public class DBSAndroidTest extends UserBaseTest {
 			 dbspage1 = dbspage;
 			 dbspage1.LogInApplication(userName, password, app_Name);
 			 dbspage1.verifyTransactionHistory(app_Name);
-			 dbspage1.VerifyLogout(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
+			 dbspage1.VerifyLogout(CommonTestData.RATE_MESSAGE.getEnumValue());
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -408,7 +408,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			 dbspage1.CreditCardTempLimitIncrease();
 		} catch (HandleException e) {
 			 dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			 dbspage1.verifyDigibankAlert();
@@ -428,7 +428,7 @@ public class DBSAndroidTest extends UserBaseTest {
 				dbspage1.UpdatePersonalDetails(app_Name);
 			} catch (HandleException e) {
 				dbspage1.verifyDigibankAlert();
-				Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+				Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 			}
 			catch (Exception e) {
 				dbspage1.verifyDigibankAlert();
@@ -449,7 +449,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.FundsTransfer_OtherBank_FASTFuture(app_Name);
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -469,7 +469,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.FundsTransfer_OtherBank_FAST(app_Name);
 		} catch (HandleException e) {
 	            dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			 dbspage1.verifyDigibankAlert();
@@ -489,7 +489,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.FundsTransfer_PayCreditCard();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -510,7 +510,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			dbspage1.FundsTransfer_BillPayment();
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
@@ -519,130 +519,4 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 	
 	/******************End Test Script For DBS App************************************/
-/******************Start Test Script For POSB App************************************/
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 25, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
-//	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
-//	@Author(name = "Shafqat Ali")
-//	public void Topup_Paylah_POSB(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1=dbspage;
-//			dbspage1.logInApplication(userName, password, "POSB");
-//			dbspage1.TopupPaylah();
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Topup Paylah_POSB "+e.getMessage());
-//		}
-//	}
-//	
-//	@Parameters({"userName", "password" })
-//	@Test(priority=26, enabled=true, description = "TransactionHistory-ONEAPP-14312")
-//	@Description(value = "Execution of this testcase:: Verifies Transaction History")
-//	@Author(name = "shafqat")
-//	public void TransactionHistory_POSB(String userName,String password) throws Exception {
-//		try {
-//			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			 dbspage1=dbspage;
-//			 dbspage1.logInApplication(userName, password,"POSB");
-//			 dbspage1.transactionHistoryVerify("POSB");
-//			 dbspage1.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Transaction History_POSB "+e.getMessage());
-//		}
-//	}
-//	
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 27, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
-//	@Description(value = "Execution of this testcase:: Verifies the Apply Debit Card.")
-//	@Author(name = "Divya Devi")
-//	public void ApplyDebitCard_POSB(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1 = dbspage;
-//			dbspage1.logInApplication(userName, password, "POSB");
-//			dbspage1.ApplyDebitCard();
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Apply Debit Card_POSB "+e.getMessage());
-//		}
-//	}
-	
-	/******************END Test Script For POSB App************************************/
-	/******************Start Test Script For iWEALTH App************************************/
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 28, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
-//	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
-//	@Author(name = "Shafqat Ali")
-//	public void Topup_Paylah_iWEALTH(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1 = dbspage;
-//			dbspage1.logInApplication(userName, password,"iWEALTH" , CommonTestData.N4_SERVER.getEnumValue());
-//			dbspage1.TopupPaylah();
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Topup Paylah iWEALTH "+e.getMessage());
-//		}
-//	}
-//	
-//	@Parameters({"userName", "password" })
-//	@Test(priority=29, enabled=true, description = "TransactionHistory-ONEAPP-14312")
-//	@Description(value = "Execution of this testcase:: Verifies Transaction History")
-//	@Author(name = "shafqat")
-//	public void TransactionHistory_iWEALTH(String userName,String password) throws Exception {
-//		try {
-//			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			 dbspage1=dbspage;
-//			 dbspage1.logInApplication(userName, password, "iWEALTH");
-//			 dbspage1.transactionHistoryVerify("iWEALTH");
-//			 dbspage1.clickOnLogoutAndVerify(CommonTestData.LOGOUT.getEnumValue(), CommonTestData.RATE_MESSAGE.getEnumValue());
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Transaction History_iWEALTH "+e.getMessage());
-//		}
-//	}
-//	
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 30, enabled = true, description = "ApplyDebitCard-ONEAPP-15861")
-//	@Description(value = "Execution of this testcase:: Verifies the Apply Debit Card.")
-//	@Author(name = "Divya Devi")
-//	public void ApplyDebitCard_iWEALTH(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1 = dbspage;
-//			dbspage1.logInApplication(userName, password, "iWEALTH");
-//			dbspage1.ApplyDebitCard();
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Apply Debit Card_iWEALTH "+e.getMessage());
-//		}
-//	}
-	/******************END Test Script For iWEALTH App************************************/
-	
 }

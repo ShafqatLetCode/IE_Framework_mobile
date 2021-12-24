@@ -95,6 +95,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			this.driver = startingServerInstance(androidCaps, os);
 			//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 			ContextManager.setDriver(this.driver); 
+			Thread.sleep(3000);
 			this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		} catch (Exception e) {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
@@ -324,13 +325,16 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("newCommandTimeout", 600);
 			capabilities.setCapability("launchTimeout", 90000);
 			capabilities.setCapability("bundleId", s.get(7));
-			capabilities.setCapability("acceptAlerts", false);
 			capabilities.setCapability("automationName", s.get(4));
 			capabilities.setCapability("pCloudy_WildNet", "false");
 			capabilities.setCapability("platformName", "ios");
 			capabilities.setCapability("noReset", true);
 			capabilities.setCapability("fullReset", false);
-		capabilities.setCapability("pCloudy_EnableVideo", "true");
+		    capabilities.setCapability("pCloudy_EnableVideo", "true");
+		    capabilities.setCapability("autoGrantPermissions", "true");
+		    capabilities.setCapability("acceptAlerts", true);
+		    capabilities.setCapability("idleTimeout",180);
+
 			break;
 
 		case "pCloudyAndroidChrome":
