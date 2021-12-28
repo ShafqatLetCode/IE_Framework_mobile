@@ -351,8 +351,8 @@ public class GestureUtils {
 			wait.waitForElementVisibility(Element2);
 			touch.longPress(longPressOptions().withElement(element(Element1)).withDuration(ofSeconds(2)))
 					.moveTo(element(Element2)).release().perform();
-		} catch (Exception e) {
-			throw e;
+		} catch (Exception e) {		
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ",e);
 		}
 	}
 
@@ -361,8 +361,8 @@ public class GestureUtils {
 			wait.waitForElementVisibility(Element);
 			touch.longPress(longPressOptions().withElement(element(Element)).withDuration(ofSeconds(2)))
 					.moveTo(point(x, y)).release().perform();
-		} catch (Exception e) {
-			throw e;
+		} catch (Exception e) {		
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ",e);
 		}
 	}
 
@@ -372,8 +372,8 @@ public class GestureUtils {
 			touch.longPress(longPressOptions().withPosition(point(x, y)).withDuration(ofSeconds(2)))
 					.moveTo(element(Element)).release().perform();
 
-		} catch (Exception e) {
-			throw e;
+		}catch (Exception e) {		
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ",e);
 		}
 	}
 
@@ -382,8 +382,9 @@ public class GestureUtils {
 			
 			touch.longPress(longPressOptions().withPosition(point(x1, y1)).withDuration(ofSeconds(2)))
 					.moveTo(point(x1, y1)).release().perform();
-		} catch (Exception e) {
-			throw e;
+		
+		}catch (Exception e) {		
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ",e);
 		}
 	}
 
@@ -430,8 +431,10 @@ public class GestureUtils {
 			if(element !=null)
 				Asserts.assertTrue(element.isDisplayed(), "Element not found");
 
-		} catch (Exception e) {
-			throw e;
+		} catch (HandleException e) {	
+			throw new HandleException ("SCROLL_EXCEPTION", "Failed to scroll to the element ::",e);	
+		}catch (Exception e) {		
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to scroll to the element  ",e);
 		}
 	}
 	

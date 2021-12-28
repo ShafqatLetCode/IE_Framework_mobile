@@ -167,6 +167,14 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='digibank']")
 	private MobileElement digibankText;
 
+	@ElementDescription(value = "'Welcome to' textfield")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Welcome to']")
+	private MobileElement welcomeToTextIwealth;
+
+	@ElementDescription(value = "'digibank' textfield")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='DBS digibank']")
+	private MobileElement digibankTextwealth;
+	
 	@ElementDescription(value = "logout Button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='logout']")
 	private MobileElement logOutButton;
@@ -177,6 +185,13 @@ public class DBS_IOSObject {
 
 	public MobileElement digibankText() {
 		return digibankText;
+	}
+	public MobileElement welcomeToTextIwealth() {
+		return welcomeToTextIwealth;
+	}
+
+	public MobileElement digibankTextwealth() {
+		return digibankTextwealth;
 	}
 
 	public MobileElement logOutButton() {
