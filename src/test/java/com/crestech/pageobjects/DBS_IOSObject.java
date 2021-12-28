@@ -1051,11 +1051,11 @@ public class DBS_IOSObject {
 	private MobileElement SetCardPINPageHeader;
 	
 	@ElementDescription(value = "'Create Your PIN' Page Header.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Create Your PIN']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Create Your PIN']/parent::XCUIElementTypeOther")
 	private MobileElement CreateYourPINField;
 	
 	@ElementDescription(value = "'Confirm New PIN' Page Header.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Confirm New PIN']")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Confirm New PIN']/parent::XCUIElementTypeOther")
 	private MobileElement ConfirmNewPINField;
 	
 	@ElementDescription(value = "'Submit' Button.")
@@ -1882,6 +1882,13 @@ public class DBS_IOSObject {
 
 	public MobileElement  nextButton2() {
 		return  nextButton2;
+	}
+	@ElementDescription(value = "next Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Next']")
+	private MobileElement nextButton4;
+
+	public MobileElement  nextButton4() {
+		return  nextButton4;
 	}
 	
 	@ElementDescription(value = "'Debit Card' Button.")

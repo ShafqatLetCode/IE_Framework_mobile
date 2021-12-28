@@ -511,6 +511,18 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		}
 
 	}
+	@Step("Next click")
+	public void ClickOnNextButton4() throws Exception {
+		try {
+			ButtonVerifyClick(IOShomePgaeObject.nextButton4());
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ",e);
+		}
+
+	}
 
 	@Step("Verifying TOP UP NOW  Label and click")
 	public void topUpNowVerifyClick() throws Exception {
@@ -626,28 +638,29 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			//String s1 = driver.getPageSource();
 			//System.out.println(s1);
 			 clickOnLoginButton_2();
-			 this.driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-             digitalToken();
-             handlingMotionAndFitnessAlert();
-             if(app_Name=="DBS") {
-            	 locationSwipPopup();
-            	 }
-             else
-            	 managementSwipeAlert();
-       
-             
-             handlingFingurePrintAlert();
-             handlingRecordingAlert();
-             this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-             if(app_Name=="DBS") {
-            	 verifyWelcomeToText();
-                 verifyDigibankText();
-            	 }
-             else
-             {
-            	 verifyWelcomeToTextIwealth();
-                verifyDigibankwealthText();
-             }
+			this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+     digitalToken();
+         handlingMotionAndFitnessAlert();
+//            // if(app_Name=="DBS") {
+        	 locationSwipPopup();
+    	// }
+         //  else
+         //  {
+          //	 managementSwipeAlert();
+         //  }
+//             
+          handlingFingurePrintAlert();
+       handlingRecordingAlert();
+     this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+//             if(app_Name=="DBS") {
+	 verifyWelcomeToText();
+             verifyDigibankText();
+//            	 }
+//             else
+//             {
+           	// verifyWelcomeToTextIwealth();
+            // verifyDigibankwealthText();
+//             }
 
 
 		} catch (HandleException e) {
@@ -2249,7 +2262,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			//VerifyButtonLabelAndClick(DBSappObject.accountSectionHomePage(), CommonTestData.ACCOUNT_SECTION.getEnumValue());
 			//gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
 			//TakeScreenshot(DBSappObject.depositeHomePage());
-			verifyAccountSection();
+			//verifyAccountSection();
 			int x=getXCoordinateOfElement(IOShomePgaeObject.welcomeToText());
 			int y=getYCoordinateOfElement(IOShomePgaeObject.welcomeToText());
 			gestUtils.DragAndDropElementToCoordinate(IOShomePgaeObject.accountSectionHomePage(), x, y+150);
@@ -3669,17 +3682,17 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			EnterPasscodeAndDone();
 			SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN();
 			FillingDetailsToApplyingDebitCard();
-			ClickOnNextButton();
+			ClickOnNextButton2();
 		    Asserts.assertTrue(isElementVisible(IOShomePgaeObject.ReviewApplicationPageHeader()),
 						CommonTestData.REVIEW_APPLICATION.getEnumValue() + " Page Header not displaying.");
 			
 			gestUtils.scrollUPtoObjectIos("label", "NEXT", null);
-		    ClickOnNextButton3();
+		    ClickOnNextButton4();
 			ClickOnSubmitButtonAfterSettingCardPIN();
 			
 			// Leave On Home Page to this test case for next run.
-			ClickOnCloseButton();
-			ClickOnHomeButton();
+			//ClickOnCloseButton();
+			//ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Apply Debit card  ", e);
 		} catch (Exception e) {
@@ -3725,11 +3738,16 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.SetCardPINPageHeader()),
 							CommonTestData.SET_CARD_PIN.getEnumValue() + " Page Header not displaying.");
 			
-			clickOnElement(IOShomePgaeObject.CreateYourPINField());
+			//clickOnElement(IOShomePgaeObject.CreateYourPINField());
 			enterTextInTextbox(IOShomePgaeObject.CreateYourPINField(), CommonTestData.CREATE_PIN.getEnumValue());
-			clickOnElement(IOShomePgaeObject.ConfirmNewPINField());
+			doneButtonIfAviliable();
+			String j= IOShomePgaeObject.CreateYourPINField().getText();
+			System.out.println(j);
+			//clickOnElement(IOShomePgaeObject.ConfirmNewPINField());
 			enterTextInTextbox(IOShomePgaeObject.ConfirmNewPINField(), CommonTestData.CONFIRM_PIN.getEnumValue());
-			driver.hideKeyboard();
+			String o= IOShomePgaeObject.ConfirmNewPINField().getText();
+			System.out.println(o);
+			doneButtonIfAviliable();
 			
 			clickOnElement(IOShomePgaeObject.submitButton());
 			
@@ -3752,10 +3770,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Select Debit Card Option After Clicking on Cards Section and then 2FA Authentication Done.")
 	public void SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN() throws Exception {
 		try {
-			sendDataInCommonSearchBoxAndSelectFromDropDown("Cards", null);
+			sendDataInCommonSearchBoxAndSelectFromDropDown("Cards", "Cards");
 			//gestUtils.scrollUPtoObjectIos("label", "Cards", null);
-			if (isElementVisible(IOShomePgaeObject.CardsButton()))
-				clickOnElement(IOShomePgaeObject.CardsButton());
+//			if (isElementVisible(IOShomePgaeObject.CardsButton()))
+//				clickOnElement(IOShomePgaeObject.CardsButton());
 			TakeScreenshot(IOShomePgaeObject.SelectDebitCard()); 
 			clickOnElement(IOShomePgaeObject.SelectDebitCard());
 			EnterPasscodeAndDone();
@@ -3818,7 +3836,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			doneButtonIfAviliable();
 			TakeScreenshot(IOShomePgaeObject.EducationField()); 
 			
-			gestUtils.scrollUPtoObjectIos("label", "Education", null);
+			//gestUtils.scrollUPtoObjectIos("label", "Education", null);
 //			Dimension windowSize1 = driver.manage().window().getSize();
 //			int y =(int)(windowSize1.getHeight()/2);
 //			int x =(int)((windowSize1.getWidth())/2);
@@ -4118,7 +4136,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("digital Token Setup")
 	public void digitalToken() throws Exception {
 		try {
-			
+			Thread.sleep(5000);
 			if(isElementVisible2(IOShomePgaeObject.setupTokenMessage())) {
 			//if (list.size() > 0) {
 				ButtonVerifyClick(IOShomePgaeObject.setupNowButton());

@@ -1044,6 +1044,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void verifyDigibankAlert() throws Exception {
 		String alertMessage = null;
 		try {
+			Thread.sleep(1000);			
 			if (androidAlert.isAlertPresent()) {
 				System.out.println("Alert title :: " + this.driver.switchTo().alert().getText());
 

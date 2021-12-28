@@ -156,6 +156,14 @@ public class homePage extends CommonAppiumTest {
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='CONFIRM']")
 	private MobileElement confirmButton;
 	
+	@ElementDescription(value = "Get started button")
+	@AndroidFindBy(xpath = "//android.widget.Button[contains(@resource-id,':id/btn_get_started')]")
+	private MobileElement getstartedBtn;
+	
+	@ElementDescription(value = "Handling error alert")
+	@AndroidFindBy(xpath = "//android.widget.Button[@resource-id='android:id/button1']")
+	private MobileElement errorAlertOKButton;
+	
 	@Step("Verify Deposit Account Type On Dashboard Page")
 	public void VerifyDepositAccountTypeOnDashboardPage() throws Exception {
 		try {
@@ -313,11 +321,14 @@ public class homePage extends CommonAppiumTest {
 	@Step("Handling Error Alert.")
 	public void handlingErrorAlert() throws Exception {
 		try {
-			String errorAlertOKButton = "//android.widget.Button[@resource-id='android:id/button1']";
-			List<RemoteWebElement> errorAlertOKButtonlist = driver.findElements(By.xpath(errorAlertOKButton));
-
-			if (errorAlertOKButtonlist.size() > 0)
-				clickOnElement((MobileElement) errorAlertOKButtonlist.get(0));
+			
+			if(isElementVisible2(errorAlertOKButton))
+				clickOnElement(errorAlertOKButton);
+//			String errorAlertOKButton = "//android.widget.Button[@resource-id='android:id/button1']";
+//			List<RemoteWebElement> errorAlertOKButtonlist = driver.findElements(By.xpath(errorAlertOKButton));
+//
+//			if (errorAlertOKButtonlist.size() > 0)
+//				clickOnElement((MobileElement) errorAlertOKButtonlist.get(0));
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Error Alert ", e);
 		} catch (Exception e) {
@@ -328,14 +339,16 @@ public class homePage extends CommonAppiumTest {
 	@Step("Handling Of 'Get Started' Popup.")
 	public void handlingGetStartedPopup() throws Exception {
 		try {
-			Thread.sleep(4000);
-			String getStartedXpath = null;
-
-			//getStartedXpath = "//android.widget.Button[@resource-id='com.dbs.sit1.dbsmbanking:id/btn_get_started']";
-			getStartedXpath = "//android.widget.Button[contains(@resource-id,':id/btn_get_started')]";
-			List<RemoteWebElement> getstartedBtn = driver.findElements(By.xpath(getStartedXpath));
-			if (getstartedBtn.size() > 0) 
-				clickOnElement((MobileElement) getstartedBtn.get(0));
+			if(isElementVisible2(getstartedBtn))
+				clickOnElement(getstartedBtn);
+//			Thread.sleep(4000);
+//			String getStartedXpath = null;
+//
+//			//getStartedXpath = "//android.widget.Button[@resource-id='com.dbs.sit1.dbsmbanking:id/btn_get_started']";
+//			getStartedXpath = "//android.widget.Button[contains(@resource-id,':id/btn_get_started')]";
+//			List<RemoteWebElement> getstartedBtn = driver.findElements(By.xpath(getStartedXpath));
+//			if (getstartedBtn.size() > 0) 
+//				clickOnElement((MobileElement) getstartedBtn.get(0));
 				
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
