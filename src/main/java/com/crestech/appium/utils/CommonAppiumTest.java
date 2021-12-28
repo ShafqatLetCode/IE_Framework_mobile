@@ -207,7 +207,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public int getXCoordinateOfElement(MobileElement element) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(element);
+			//wait.waitForElementToBeClickable(element);
 			return element.getLocation().getX();
 		} catch (Exception e) {
 			throw e;	
@@ -222,7 +222,7 @@ public class CommonAppiumTest extends CommandPrompt {
 	 */
 	public int getYCoordinateOfElement(MobileElement element) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(element);
+			//wait.waitForElementToBeClickable(element);
 			return element.getLocation().getY();
 		} catch (Exception e) {
 			throw e;	

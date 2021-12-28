@@ -397,8 +397,8 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 	
 	@Parameters({"userName", "password","app_Name" })
-	@Test(priority=19, enabled=true, description = "Verifies Credit Card Temperory Limit Increase")
-	@Description(value = "Execution of this testcase:: CreditCardTempLimitIncrease-ONEAPP-16669")
+	@Test(priority=19, enabled=true, description = "CreditCardTempLimitIncrease-ONEAPP-16669")
+	@Description(value = "Execution of this testcase:: Verifies Credit Card Temperory Limit Increase")
 	@Author(name = "shafqat")
 	public void CreditCardTempLimitIncrease(String userName,String password, String app_Name) throws Exception {
 		try {

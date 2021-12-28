@@ -21,8 +21,8 @@ public class DBS_IOSTest extends UserBaseTest {
 	DBS_IOSpage DBSPgaeObject1 = null;
 
 	@Parameters({ "userName", "password","app_Name" })
-	@Test(priority = 1, enabled = true, description = "Verify the account detail on dashboard page")
-	@Description(value = "Execution of this testcase:: AccountDetails-CASA-ONEAPP-14400")
+	@Test(priority = 1, enabled = true, description = "AccountDetails-CASA-ONEAPP-14400")
+	@Description(value = "Execution of this testcase:: Verify the account detail on dashboard page ")
 	@Author(name = "Shafqat Ali")
 	public void accountDetails_CASA(String userName, String password, String app_Name) throws Exception {
 		try {
@@ -43,8 +43,8 @@ public class DBS_IOSTest extends UserBaseTest {
 	}
 
 	@Parameters({ "userName", "password" ,"app_Name"})
-	@Test(priority = 2, enabled = true, description = "Verify the Logout functionality for Applications")
-	@Description(value = "Execution of this testcase:: Logout-ONEAPP-9392")
+	@Test(priority = 2, enabled = true, description = "Logout-ONEAPP-9392")
+	@Description(value = "Execution of this testcase:: Verify the Logout functionality for Applications")
 	@Author(name = "Shafqat Ali")
 	public void Logout_ONEAPP(String userName, String password, String app_Name) throws Exception {
 		try {
@@ -125,8 +125,8 @@ public class DBS_IOSTest extends UserBaseTest {
 	}
 
 	@Parameters({ "userName", "password","app_Name"})
-	@Test(priority = 6, enabled = true, description = "Verify the Topup Paylah in Applications")
-	@Description(value = "Execution of this testcase:: TopUp-PayLah-ONEAPP-13915")
+	@Test(priority = 6, enabled = true, description = "TopUp-PayLah-ONEAPP-13915")
+	@Description(value = "Execution of this testcase:: Verify the Topup Paylah in Applications")
 	@Author(name = "Shafqat Ali")
 	public void Topup_Paylah(String userName, String password, String app_Name) throws Exception {
 		try {
@@ -307,8 +307,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute Change Local Funds Transfer Limit "+e.getMessage());
 		}
 	}
-
-
+  
 	@Parameters({ "userName", "password" ,"app_Name"})
 	@Test(priority = 17, enabled = true, description = "FundsTransfer-OtherPOSBDBS-ONEAPP-16723")
 	@Description(value = "Execution of this testcase:: Verifies FundTransfer Other DBS/POSB")

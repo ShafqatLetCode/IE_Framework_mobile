@@ -64,6 +64,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	private static final AllureLifecycle ALLURE_LIFECYCLE = Allure.getLifecycle();
 	public List<String> excelDataList;
 	public ScreenshotUtils scrShotUtils = null;
+	private static Object syncObj = new Object();
 
 	Logger logger = Logger.getLogger(UserBaseTest.class);
 
@@ -88,7 +89,9 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 			ContextManager.createNode(method.getName() + " " + device);
 		}
+		synchronized (syncObj) {
 		excelDataList = ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities");
+		}
 		DesiredCapabilities androidCaps = androidNative(excelDataList, device, version, os, manafacturer, min_Ver, max_Ver, individual_ID);
 		Thread.sleep(2000);
 		try {
@@ -307,7 +310,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 			if (checkDeviceVersion(version)) {
 				capabilities.setCapability("automationName", "UiAutomator2");
-				capabilities.setCapability("uiautomator2ServerLaunchTimeout", 90000);
+				capabilities.setCapability("uiautomator2ServerLaunchTimeout", 200000);
 				capabilities.setCapability("noSign", true);
 			} else {
 				capabilities.setCapability("automationName", "UiAutomator1");
@@ -320,8 +323,8 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
 			capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
 			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
-//			capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
-//			capabilities.setCapability("platformVersion", version);
+//	capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
+//		capabilities.setCapability("platformVersion", version);
 			capabilities.setCapability("newCommandTimeout", 600);
 			capabilities.setCapability("launchTimeout", 90000);
 			capabilities.setCapability("bundleId", s.get(7));
@@ -334,6 +337,9 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		    capabilities.setCapability("autoGrantPermissions", "true");
 		    capabilities.setCapability("acceptAlerts", true);
 		    capabilities.setCapability("idleTimeout",180);
+		    capabilities.setCapability("autoAcceptAlerts", "true"); 
+		    capabilities.setCapability("autoDissmissAlerts", "true");
+		    capabilities.setCapability("locationServicesAuthorized", "true");
 		    
 			capabilities.setCapability("pCloudy_DeviceManafacturer", manafacturer);
 			capabilities.setCapability("pCloudy_MinVersion",min_Ver); 
