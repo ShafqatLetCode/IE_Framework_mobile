@@ -164,6 +164,14 @@ public class homePage extends CommonAppiumTest {
 	@AndroidFindBy(xpath = "//android.widget.Button[@resource-id='android:id/button1']")
 	private MobileElement errorAlertOKButton;
 	
+	@ElementDescription(value = "Continue Button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='CONTINUE']")
+	private MobileElement continueButton;
+	
+	@ElementDescription(value = "Digital Token SetUp")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/status_message')]")
+	private MobileElement digitalTokenSetUpMessage;
+	
 	@Step("Verify Deposit Account Type On Dashboard Page")
 	public void VerifyDepositAccountTypeOnDashboardPage() throws Exception {
 		try {
@@ -218,22 +226,13 @@ public class homePage extends CommonAppiumTest {
 		}
 	}
 	
-	@Step("Verifying Page after Digital Token setup after clicking on 'Done' button")
+	@Step("Digital Token Set Up")
 	public void digitalTokenSetUp() throws Exception {
 		try {
 			Thread.sleep(4000);
-			String digitalTokenSetUpXpath = "//android.widget.TextView[contains(@resource-id,'id/status_message')]";
-			List<RemoteWebElement> digitalTokenSetUpList = driver.findElements(By.xpath(digitalTokenSetUpXpath));
-			if (digitalTokenSetUpList.size() > 0) {
-				ClickOnSetUpNowButton(CommonTestData.DIGITAL_TOKEN_SETUP_MESSAGE.getEnumValue());
-				String alertMsg = "//android.widget.TextView[@text='Please note you can only have one digital token registered to your profile. Any digital token on an alternative device will therefore be automatically deregistered.']";
-				List<RemoteWebElement> elements = driver.findElements(By.xpath(alertMsg));
-				if (elements.size() > 0) {
-					String continueButtonXpath = "//android.widget.Button[@text='CONTINUE']";
-					List<RemoteWebElement> continueButtons = driver.findElements(By.xpath(continueButtonXpath));
-					continueButtons.get(0).click();
-				}
-				
+			if (isElementVisible2(digitalTokenSetUpMessage)) { 
+				ClickOnSetUpNowButton();
+				ClickOnContinueButton();
 				ClickOnNextButton();
 				
 				EnterEmailOrSMSOTP(CommonTestData.OTP.getEnumValue(),
@@ -243,18 +242,13 @@ public class homePage extends CommonAppiumTest {
 
                 wait.waitForElementVisibility(tokenGetSetupMessage); 
                 
-				String xpath = "//android.widget.Button[@text='DONE']";
-				List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-
-				if (list.size() > 0) {
-					androidAlert.AlertHandlingWithButtonMessage(doneButton,
-							CommonTestData.DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP.getEnumValue(),
-							tokenGetSetupMessage);
-				} else if (list.size() == 0) {
+				if(isElementVisible2(doneButton)) {
+					verifyDigitalTokenMessageAfterSetUp(CommonTestData.DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP.getEnumValue());
+					ClickOnDoneButton();
+				} else {
 					gestUtils.scrollUPtoObject(null, null, null);
-					androidAlert.AlertHandlingWithButtonMessage(doneButton,
-							CommonTestData.DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP.getEnumValue(),
-							tokenGetSetupMessage);
+					verifyDigitalTokenMessageAfterSetUp(CommonTestData.DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP.getEnumValue());
+					ClickOnDoneButton();
 				}
 			}
 		} catch (HandleException e) {
@@ -262,6 +256,44 @@ public class homePage extends CommonAppiumTest {
 					e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to execute Digital Token Setup ", e);
+		}
+	}
+	
+	@Step("verify Digital Token Message After SetUp.")
+	public void verifyDigitalTokenMessageAfterSetUp(String expectecMessage)throws Exception{
+		try {
+			String actualMessage = getTexOfElement(tokenGetSetupMessage);
+			Asserts.assertEquals(actualMessage, expectecMessage, "Message Not matching"); 
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify Digital Token Message After SetUp ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify Digital Token Message After SetUp ", e);
+		}
+	}
+	
+	@Step("Click On Done Button.")
+	public void ClickOnDoneButton()throws Exception{
+		try {
+			clickOnElement(doneButton); 
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Done Button ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Done Button ", e);
+		}
+	}
+	
+	@Step("Click On Continue Button.")
+	public void ClickOnContinueButton()throws Exception{
+		try {
+		if (isElementVisible2(continueButton)) 
+			clickOnElement(continueButton); 
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ", e);
 		}
 	}
 
@@ -288,10 +320,9 @@ public class homePage extends CommonAppiumTest {
 	}
 	
 	@Step("Click on 'SET UP NOW' button ")
-	public void ClickOnSetUpNowButton(String expectecMessage) throws Exception {
+	public void ClickOnSetUpNowButton() throws Exception {
 		try {
-			androidAlert.AlertHandlingWithButtonMessage(setUpNowButton, expectecMessage,
-					tokenSetupMessage);
+			clickOnElement(setUpNowButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Set Up Now Button ",
 					e);

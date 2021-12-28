@@ -2233,7 +2233,20 @@ public class DBS_IOSObject {
 		return DeregisteryourprofileAlert;
 	}
 	
+	@ElementDescription(value = "Allow “DBS digibank” to use your location?")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeAlert[@name='Allow “DBS digibank” to use your location?']")
+	private MobileElement atmLocationAlert;
 	
+	public MobileElement atmLocationAlert() {
+		return atmLocationAlert;
+	}
+	@ElementDescription(value = "DBS digibank” Would Like to Send You Notifications")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeAlert[@name='“DBS digibank” Would Like to Send You Notifications']")
+	private MobileElement sendNotificationAlert;
+	
+	public MobileElement sendNotificationAlert() {
+		return sendNotificationAlert;
+	}
 	
 	
 }

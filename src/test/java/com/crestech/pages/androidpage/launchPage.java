@@ -65,13 +65,13 @@ public class launchPage extends CommonAppiumTest{
 	@Step("Handling Of QUIT Button.")
 	public void handlingQuitButton() throws Exception {
 		try {
-			driver.manage().timeouts().implicitlyWait(45, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(75, TimeUnit.SECONDS);
 			if (isElementVisible2(quitBtn)) {
 				driver.closeApp();
 				relaunchingDBS();
 				wait.fluentWaitForElement(loginButton); 
 			}
-			driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Quit Button ", e);
 		} catch (Exception e) {
