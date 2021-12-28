@@ -46,7 +46,25 @@ public class DBS_IOSObject {
 	@ElementDescription(value = "login Button on 0 page")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Log In']")
 	private MobileElement logInButton_0;
+	
+	@ElementDescription(value = "Not you?")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Not you?']")
+	private MobileElement NotYouLink;
+	
+	public MobileElement NotYouLink() {
+		return NotYouLink;
+	}
 
+	@ElementDescription(value = "Not you?")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Deregister']")
+	private MobileElement PeekbalanceDeregisterButton;
+	
+	public MobileElement PeekbalanceDeregisterButton() {
+		return PeekbalanceDeregisterButton;
+	}
+	
+	
+	
 	public MobileElement userIdEditBox() {
 		return userIdEditBox;
 	}
@@ -136,7 +154,15 @@ public class DBS_IOSObject {
 	@ElementDescription(value = "'Welcome to' textfield")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Welcome to ']")
 	private MobileElement welcomeToText;
-
+	
+	@ElementDescription(value = "Peek Balance Toggle")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeSwitch[@name='Peek Balance']")
+	private MobileElement PeekBalanceToggle;
+	
+	@ElementDescription(value = "Account For Peek Balance Dropdown")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell[2]/XCUIElementTypeTextField")
+	private MobileElement AccountForPeekBalanceDropdown;
+	
 	@ElementDescription(value = "'digibank' textfield")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='digibank']")
 	private MobileElement digibankText;
@@ -194,7 +220,7 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='More']")
 	private MobileElement moreButton;
 
-	public MobileElement moeButton() {
+	public MobileElement moreButton() {
 		return moreButton;
 	}
 
@@ -316,6 +342,17 @@ public class DBS_IOSObject {
 	public MobileElement logoutPaylah() {
 		return logoutPaylah;
 	}
+	
+	@ElementDescription(value = "Logout button on paylah")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='LOG OUT']")
+	private MobileElement logoutpeekbalance;
+
+	public MobileElement logoutpeekbalance() {
+		return logoutpeekbalance;
+	}
+	
+	
+
 
 	// 2fa
 	@ElementDescription(value = "Done button")
@@ -1323,6 +1360,22 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='back']")
 	private MobileElement backButton;
 
+	@ElementDescription(value = "back button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Save']")
+	private MobileElement SaveBtn;
+	
+	@ElementDescription(value = "Personalise Your Device")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeAlert[@name='Personalise Your Device']")
+	private MobileElement PersonalizeYourDevicePopup;
+	
+	public MobileElement  PersonalizeYourDevicePopup() {
+		return  PersonalizeYourDevicePopup;
+	}
+	
+	public MobileElement  SaveBtn() {
+		return  SaveBtn;
+	}
+	
 	public MobileElement  backButton() {
 		return  backButton;
 	}
@@ -1895,7 +1948,77 @@ public class DBS_IOSObject {
 		return  transferNowButton2;
 	}
 	
+	@ElementDescription(value = "UPDATE MORE DETAILS Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='UPDATE MORE DETAILS']")
+	private MobileElement UpdateMoreDetailsBtn;
 	
+	@ElementDescription(value = "TRANSFER NOW button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='UPDATE MAILING ADDRESS']")
+	private MobileElement UpdateMailingAddressBtn;
+	
+	@ElementDescription(value = "Successfully submitted.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Successfully Submitted']")
+	private MobileElement SuccessfullyUpdated;
+	
+	@ElementDescription(value = "Requests submitted")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Requests submitted']")
+	private MobileElement RequestsSubmitted;
+	
+	@ElementDescription(value = "CAllMeCheckbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[contains(@name,'Call')]")
+	private MobileElement CAllMeCheckbox;
+	
+	@ElementDescription(value = "SMS MeCheckbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[contains(@name,'SMS')]")
+	private MobileElement SMSMeCheckbox;
+	
+	@ElementDescription(value = "EMAIL MeCheckbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[contains(@name,'Email')]")
+	private MobileElement EMAILMeCheckbox;
+	
+	@ElementDescription(value = "Fax MeCheckbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[contains(@name,'Fax')]")
+	private MobileElement FAxMeCheckbox;
+	
+	@ElementDescription(value = "MAIL MeCheckbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[contains(@name,'Mail')]")
+	private MobileElement MAILMeCheckbox;
+	
+	public MobileElement CAllMeCheckbox() {
+		return CAllMeCheckbox;
+	}
+	
+	public MobileElement EMAILMeCheckbox() {
+		return EMAILMeCheckbox;
+	}
+	
+	public MobileElement SMSMeCheckbox() {
+		return SMSMeCheckbox;
+	} 
+	
+	public MobileElement FAxMeCheckbox() {
+		return FAxMeCheckbox;
+	}
+	
+	public MobileElement MAILMeCheckbox() {
+		return MAILMeCheckbox;
+	} 
+	
+	public MobileElement RequestsSubmitted() {
+		return RequestsSubmitted;
+	}
+	
+	public MobileElement SuccessfullyUpdated() {
+		return SuccessfullyUpdated;
+	} 
+	
+	public MobileElement UpdateMoreDetailsBtn() {
+		return UpdateMoreDetailsBtn;
+	}
+	
+	public MobileElement UpdateMailingAddressBtn() {
+		return UpdateMailingAddressBtn;
+	}
 	
 	
 	@ElementDescription(value = "Log Out Button After adding Payee")
@@ -1931,4 +2054,179 @@ public class DBS_IOSObject {
 	@ElementDescription(value = "'Review Recipient's Details' Page Header")
 	@FindBy(name = "Review Recipient's Details")
 	private MobileElement ReviewRecipientDetailsPageHeader;
+	
+	@ElementDescription(value = "Deposits")
+	@FindBy(name = "Deposits")
+	private MobileElement Deposits;
+	//(//XCUIElementTypeStaticText[@name="Deposits"])[1]
+	
+	
+	@ElementDescription(value = "Deregister your profile?")
+	@FindBy(name = "Deregister your profile?")
+	private MobileElement DeregisteryourprofileAlert;
+	
+	//XCUIElementTypeAlert[@name='Deregister your profile?']
+	@ElementDescription(value = "Tap and hold to PEEK BALANCE")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Tap and hold to PEEK BALANCE']")
+	private MobileElement peekBalance;
+	//XCUIElementTypeStaticText[@name="Tap and hold to PEEK BALANCE"]
+	
+	@ElementDescription(value = "Update Contact Details")
+	@FindBy(name = "Update Contact Details")
+	private MobileElement UpdateContactDetailsPageHeader;
+	//XCUIElementTypeStaticText[@name='Update Contact Details'] 	
+	
+	@ElementDescription(value = "Mailing Address")
+	@FindBy(name = "Mailing Address")
+	private MobileElement MailingAddressTab;
+	//XCUIElementTypeStaticText[@name='Mailing Address']
+	
+	@ElementDescription(value = "Personal & Contact Details")
+	@FindBy(name = "Personal & Contact Details")
+	private MobileElement PersonalAndContactDetailsTab;
+	//XCUIElementTypeStaticText[@name='Personal & Contact Details']
+	
+	@ElementDescription(value = "Personal & Contact Details")
+	@FindBy(name = "//XCUIElementTypeStaticText[@name='Personal & Contact Details']")
+	private MobileElement PersonalAndContactDetails;
+	
+	public MobileElement PersonalAndContactDetails() {
+		return PersonalAndContactDetails;
+	}
+	
+	@ElementDescription(value = "Contact Details")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Contact Details']")
+	private MobileElement ContactDetails;
+	//XCUIElementTypeStaticText[@name='Contact Details']
+	@ElementDescription(value = "Existing Personalization will be removed, Do you want to proceed?")
+	@FindBy(name = "Existing Personalization will be removed, Do you want to proceed?")
+	private List<MobileElement> persoanliseMessage;
+	
+	
+	@ElementDescription(value = "CONTACT DETAILS Titles")
+	@FindBy(name = "CONTACT DETAILS")
+	private MobileElement ContactDetailsTitle;
+	//XCUIElementTypeStaticText[@name='CONTACT DETAILS']
+	public MobileElement ContactDetailsTitle() {
+		return ContactDetailsTitle;
+	}
+	
+	@ElementDescription(value = "MarketingMessageNotes")
+	@FindBy(name = "Please indicate your preference if you would like to opt in or out of receiving DBS/POSB marketing materials and information relating to services and/or products offered or distributed by DBS/POSB and/or its services and product providers.")
+	private MobileElement MarketingMessageNotes;
+	
+	public MobileElement MarketingMessageNotes() {
+		return MarketingMessageNotes;
+	}
+	@ElementDescription(value = "I would like the bank to:")
+	@FindBy(name = "I would like the bank to:")
+	private MobileElement UPPSectionLabel;
+	
+	public MobileElement UPPSectionLabel() {
+		return UPPSectionLabel;
+	}
+	//XCUIElementTypeStaticText[@name="I would like the bank to:"]
+	
+	@ElementDescription(value = "I have read and agree to these important terms.")
+	@FindBy(name = "I have read and agree to these important terms.")
+	private MobileElement TermsAndConditionsMsg;
+	
+	public MobileElement TermsAndConditionsMsg() {
+		return TermsAndConditionsMsg;
+	}
+	
+	@ElementDescription(value = "Update Contact Details")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Update Contact Details']")
+	private MobileElement UpdateContactDetails;
+	
+	public MobileElement UpdateContactDetails() {
+		return UpdateContactDetails;
+	}
+	
+	
+	
+	//XCUIElementTypeButton[@name='I have read and agree to these important terms.']
+	@ElementDescription(value = "Email Notes")
+	@FindBy(name = "This email address provided will only be used for your iBanking/mobile banking transactions, eStatement(s) and marketing communication (if any)")
+	private MobileElement EmailNotes;
+	
+	@ElementDescription(value = "ContactDetailsChangeBtn.")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeButton[@name='CHANGE'])[1]")
+	private MobileElement ContactDetailsChangeBtn;
+	
+	@ElementDescription(value = "PERSONAL PARTICULARS")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='PERSONAL PARTICULARS']")
+	private MobileElement PersonalPerticularSectionTitle;
+	
+	public MobileElement PersonalPerticularSectionTitle() {
+		return PersonalPerticularSectionTitle;
+	}
+	
+	@ElementDescription(value = "PersonalPerticularChangeBtn")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeButton[@name='CHANGE'])[2]")
+	private MobileElement PersonalPerticularChangeBtn;
+	
+	public MobileElement PersonalPerticularChangeBtn() {
+		return PersonalPerticularChangeBtn;
+	}
+	
+	
+	
+	
+	@ElementDescription(value = "MarketingMessageTitle")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='MARKETING MESSAGES']")
+	private MobileElement MarketingMessageTitle;
+	
+	public MobileElement MarketingMessageTitle() {
+		return MarketingMessageTitle;
+	}
+	
+	
+	public MobileElement ContactDetailsChangeBtn() {
+		return ContactDetailsChangeBtn;
+	}
+	
+	
+	public MobileElement EmailNotes() {
+		return EmailNotes;
+	}
+	
+	public MobileElement ContactDetails() {
+		return ContactDetails;
+	}
+	public List<MobileElement> persoanliseMessage() {
+		return persoanliseMessage; 
+	}
+	
+	public MobileElement MailingAddressTab() {
+		return MailingAddressTab;
+	}
+	
+	public MobileElement PersonalAndContactDetailsTab() {
+		return PersonalAndContactDetailsTab;
+	}
+	
+	public MobileElement Deposits() {
+		return Deposits;
+	}
+	
+	public MobileElement peekBalance() {
+		return peekBalance;
+	}
+	
+	public MobileElement PeekBalanceToggle() {
+		return PeekBalanceToggle;
+	}
+	
+	public MobileElement AccountForPeekBalanceDropdown() {
+		return AccountForPeekBalanceDropdown;
+	}
+	
+	public MobileElement DeregisteryourprofileAlert() {
+		return DeregisteryourprofileAlert;
+	}
+	
+	
+	
+	
 }
