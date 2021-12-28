@@ -7,6 +7,10 @@ import static java.time.Duration.ofSeconds;
 import static org.testng.Assert.assertFalse;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -99,6 +103,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		
 		try {
 			Thread.sleep(5000);
+			
+			
+			
 			String Xpath = "//XCUIElementTypeStaticText[@name=' Upgrade your banking experience with us']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(Xpath));
 			if (list.size() > 0) {
@@ -246,7 +253,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("verify 'Text' Field")
 	public void fieldText(String expectedText, MobileElement Element) throws Exception {
 		try {
-			TakeScreenshot(Element);
+			
 			String actualText = getTexOfElement(Element).trim();
 
 			Asserts.assertEquals(actualText.toLowerCase(), expectedText.toLowerCase(), "text is not found");
@@ -315,6 +322,17 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify ' DBS digibank' Field ", e);
 		}
 	}
+	
+	@Step("Application Logout")
+	public void clickOnLogoutButton() throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.logoutpeekbalance());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Log out Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On log out Button ", e);
+		}
+	}
 
 	@Step("Application click and Verifies Logout")
 	public void clickOnLogoutAndVerify() throws Exception {
@@ -322,9 +340,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.logOutButton(),
 					CommonTestData.LOGOUT_ISO.getEnumValue(), IOShomePgaeObject.logOutButton());
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button  ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On logout Button  ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On logout Button ", e);
 		}
 	}
 	@Step(" Verifies the 'Tap on the stars to rate' field Message.")
@@ -487,11 +505,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifying Next Label and click")
 	public void ClickOnNextButton() throws Exception {
 		try {
-			TakeScreenshot(IOShomePgaeObject.nextButton());
 			String actualText = commonAppTest.getTexOfElement(IOShomePgaeObject.nextButton());
-			if (actualText.equalsIgnoreCase("NEXT"))
-				commonAppTest.clickOnElement(IOShomePgaeObject.nextButton());
-			Asserts.assertEquals(actualText, "NEXT", "Button not found");
+			if (actualText.equalsIgnoreCase("NEXT")) {
+				clickOnElement(IOShomePgaeObject.nextButton());
+			Asserts.assertEquals(actualText, "NEXT", "Button not found");}
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
 		}
@@ -630,39 +647,38 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Login the application with USER ID and PIN")
 	public void logInApplication(String userName, String password ,String app_Name) throws Exception {
 		try {
+
 			clickOnPreLoginButton();
-			//selectUATserver("UAT N1");
+
+			selectUATserver("UAT N1");
 			clickOnLoginButton_0();
+
 			sendDataInUserId(userName);
 			sendDataInUserPin(password);
-			//String s1 = driver.getPageSource();
-			//System.out.println(s1);
+			
 			 clickOnLoginButton_2();
-			this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-     digitalToken();
-         handlingMotionAndFitnessAlert();
-//            // if(app_Name=="DBS") {
-        	 locationSwipPopup();
-    	// }
-         //  else
-         //  {
-          //	 managementSwipeAlert();
-         //  }
-//             
-          handlingFingurePrintAlert();
-       handlingRecordingAlert();
-     this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-//             if(app_Name=="DBS") {
-	 verifyWelcomeToText();
-             verifyDigibankText();
-//            	 }
-//             else
-//             {
-           	// verifyWelcomeToTextIwealth();
-            // verifyDigibankwealthText();
-//             }
-
-
+			 this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+             digitalToken();
+             handlingMotionAndFitnessAlert();
+             if(app_Name=="DBS") {
+            	 locationSwipPopup();
+            	 }
+             else
+            	 managementSwipeAlert();
+       
+             
+             handlingFingurePrintAlert();
+             handlingRecordingAlert();
+             this.driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+             if(app_Name=="DBS") {
+            	 verifyWelcomeToText();
+                 verifyDigibankText();
+            	 }
+             else
+             {
+            	 verifyWelcomeToTextIwealth();
+                verifyDigibankwealthText();
+             }
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Login the application with USER ID and PIN ", e);
 		} catch (Exception e) {
@@ -712,6 +728,48 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			}
 			Asserts.assertTrue(index > 0, "No "+valueSelectedFromList +"element found in the search list");
 			}
+			else	
+				Asserts.assertFail(valueSelectedFromList + " not found in the list as list size is 0");
+			
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Data From Dropdown.  ",e);			
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Data From Dropdown.  ",e);
+		}
+	}
+	
+	
+	@Step("Enter the text in search and select the corresponding value in the dropdown")
+	public void sendDataInCommonSearchBoxAndSelectFromDropDown1(String searchBoxData, String valueSelectedFromList, String valueSelectedFromList2)
+			throws Exception {
+		try {
+			TakeScreenshot(IOShomePgaeObject.searchIcon());
+			clickOnElementOnEnable(IOShomePgaeObject.searchIcon());
+			if (isElementEnable(IOShomePgaeObject.searchBox()))
+				enterTextInTextbox(IOShomePgaeObject.searchBox(), searchBoxData);
+			
+			List<RemoteWebElement> ElementCell = driver.findElementsByXPath("//XCUIElementTypeCell");
+			if(ElementCell.size() > 0) {
+			int sizeList = ElementCell.size();
+			int index = 0;
+			for (int i = 1; i <= sizeList; i++) {
+
+				String xpath = "//XCUIElementTypeCell" + "[" + String.valueOf(i) + "]/XCUIElementTypeStaticText";
+				String Text = driver.findElementByXPath(xpath).getText();
+				System.out.println(Text);
+				if (Text.equalsIgnoreCase(valueSelectedFromList)) {
+					index++;
+					clickOnElement((MobileElement) driver.findElementByXPath(xpath));
+					break;
+				}else if (Text.equalsIgnoreCase(valueSelectedFromList2)) { 
+					index++;
+					clickOnElement((MobileElement) driver.findElementByXPath(xpath));
+					break;
+				}
+			}
+			Asserts.assertTrue(index > 0, "No "+valueSelectedFromList +"element found in the search list");
+			}
 			else {
 				if(androidAlert.isAlertPresent()) {
 					System.out.println("Alert title :: "+this.driver.switchTo().alert().getText()); 
@@ -739,9 +797,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifying button label and clicking on 'More' button ")
 	public void ClickOnMoreButton() throws Exception {
 		try {
-			TakeScreenshot(IOShomePgaeObject.moeButton());
-			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.moeButton(),
-					CommonTestData.MORE_LABEL.getEnumValue(), IOShomePgaeObject.moeButton());
+			TakeScreenshot(IOShomePgaeObject.moreButton());
+			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.moreButton(),
+					CommonTestData.MORE_LABEL.getEnumValue(), IOShomePgaeObject.moreButton());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'More' button  ", e);
 		} catch (Exception e) {
@@ -942,7 +1000,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			verifyClickChangeDailyLimitNowButton();
 			EnterPasscode();
 			verifyLocalTransferlimitChangedHeader(CommonTestData.LOCAL_LIMIT_INCREASE_SUCCESS_TITLE_IOS.getEnumValue());
-			verifyClickBackToMoreButton();
+			ClickOnBackToMoreButton();
 			sendDataInCommonSearchBoxAndSelectFromDropDown(
 					CommonTestData.LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS.getEnumValue(),
 					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue());
@@ -958,9 +1016,23 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 
 	@Step("Verifying Header and click 'BACK TO MORE' BUTTON ")
-	public void verifyClickBackToMoreButton() throws Exception {
+	public void ClickOnBackToMoreButton() throws Exception {
 		try {
-			ButtonVerifyClick(IOShomePgaeObject.backToMoreButton());
+				clickOnElement(IOShomePgaeObject.backToMoreButton());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("click 'BACK TO MORE' BUTTON ")
+	public void ClickOnBackToMoreServicesButton(String appName) throws Exception {
+		try {
+			if (appName.equalsIgnoreCase("iWEALTH")) {
+				clickOnElement(IOShomePgaeObject.backToMoreButton());
+			} else if (appName.equalsIgnoreCase("DBS")) {
+				clickOnElement(IOShomePgaeObject.BackToMoreServicesButton());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -3710,15 +3782,15 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			if(nextButton.size() > 0) {
 				TakeScreenshot(nextButton.get(nextButton.size()-1));
 				String actualText = commonAppTest.getTexOfElement((MobileElement) nextButton.get(1));
-				if (actualText.equalsIgnoreCase("NEXT"))
-					commonAppTest.clickOnElement((MobileElement) nextButton.get(1));
+				//if (actualText.equalsIgnoreCase("NEXT"))
+				commonAppTest.clickOnElement((MobileElement) nextButton.get(1));
 				Asserts.assertEquals(actualText, "NEXT", "Button not found");
 			}
 			else if(nextButton1.size() > 0) {
-				TakeScreenshot(nextButton.get(nextButton1.size()-1));
+				//TakeScreenshot(nextButton.get(nextButton1.size()-1));
 				String actualText = commonAppTest.getTexOfElement((MobileElement) nextButton1.get(1));
-				if (actualText.equalsIgnoreCase("NEXT"))
-					commonAppTest.clickOnElement((MobileElement) nextButton1.get(1));
+				//if (actualText.equalsIgnoreCase("Next"))
+				commonAppTest.clickOnElement((MobileElement) nextButton1.get(1));
 				Asserts.assertEquals(actualText, "Next", "Button not found");
 			}
 			
@@ -3737,7 +3809,15 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			
 			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.SetCardPINPageHeader()),
 							CommonTestData.SET_CARD_PIN.getEnumValue() + " Page Header not displaying.");
+			//XCUIElementTypeOther
+			List<RemoteWebElement> list = driver.findElements(By.xpath("//XCUIElementTypeOther"));
+			System.out.println("PIN Size : "+list.size());
+			//List<RemoteWebElement> list1 = driver.findElements(By.name("Create Your PIN"));
+			clickOnElement((MobileElement) list.get(0));
+			System.out.println("CreateYourPINField");
+			enterTextInTextbox((MobileElement) list.get(0), CommonTestData.CREATE_PIN.getEnumValue());
 			
+
 			//clickOnElement(IOShomePgaeObject.CreateYourPINField());
 			enterTextInTextbox(IOShomePgaeObject.CreateYourPINField(), CommonTestData.CREATE_PIN.getEnumValue());
 			doneButtonIfAviliable();
@@ -3772,8 +3852,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			sendDataInCommonSearchBoxAndSelectFromDropDown("Cards", "Cards");
 			//gestUtils.scrollUPtoObjectIos("label", "Cards", null);
-//			if (isElementVisible(IOShomePgaeObject.CardsButton()))
+
+//	  if (isElementVisible(IOShomePgaeObject.CardsButton()))
 //				clickOnElement(IOShomePgaeObject.CardsButton());
+
 			TakeScreenshot(IOShomePgaeObject.SelectDebitCard()); 
 			clickOnElement(IOShomePgaeObject.SelectDebitCard());
 			EnterPasscodeAndDone();
@@ -3789,6 +3871,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Click on 'Account type' From List under Local fund Limit page'")
 	public void selectDebitCardType(String debitCardToBeSelected) throws Exception {
 		try {
+			Thread.sleep(9000);
 			//TakeScreenshot(IOShomePgaeObject.DebitCardDetailsDropdownList().get(1)); 
 			if(IOShomePgaeObject.DebitCardDetailsDropdownList().size() >0) {
 			List<MobileElement> Elementlist = IOShomePgaeObject.DebitCardDetailsDropdownList();
@@ -4141,7 +4224,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			//if (list.size() > 0) {
 				ButtonVerifyClick(IOShomePgaeObject.setupNowButton());
 				clickOnDigitalTokenAlert();
-				clickOnNextOnConfirmEmailDigiToken();
+			//	clickOnNextOnConfirmEmailDigiToken();
 //				String xpath1 = "//XCUIElementTypeStaticText[@name='Please note you can only have one digital token registered to your profile. Any digital token on an alternative device will therefore be automatically deregistered.']";
 //				List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
 //				if (list1.size() > 0) {
@@ -4344,6 +4427,909 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Scroll To Billing Organisation  ",e);
 		}
 	}
+	
+	@Step("Verify Peek Balance.")
+	public void VerifyPeekBalance(String ExpectedUserAccountName) throws Exception {
+		try {
+			 verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue(),
+			CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(), CommonTestData.CURRENCY.getEnumValue());
+			 String xpath= "//XCUIElementTypeStaticText[@name='"+ExpectedUserAccountName+"']";
+			 List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			 if (list.size() > 0) {
+				String DepositeAccountNameOnDashboard = getAndClickOnDepositeAccountNameFromDashboard(IOShomePgaeObject.accountNameHomepage());
+				EnterPasscodeAndDone();
+				String ExpectedUserAccountNumber = GetUserAccountNumber();
+				ClickOnToolBarBackIcon();
+
+				ClickOnMoreButton();
+				EnterPasscodeAndDone();
+				SelectPeekBalanceModule();
+				EnterPasscodeAndDone();
+				handleConfirmationMessage(CommonTestData.EXISTING_PEEKBALANCE_ENABLE_MESSAGE.getEnumValue());
+                EnablePeekBalanceToggle();
+				SelectAccountToEnablePeekBalance(ExpectedUserAccountName);
+
+				String SelectedAccountNameWithAccountNumber = DepositeAccountNameOnDashboard + " " + ExpectedUserAccountNumber;
+				verifySelectedAccountForPeekBalance(CommonTestData.ACCOUNT_FOR_PEEK_BALANCE.getEnumValue(),
+						SelectedAccountNameWithAccountNumber);
+
+				ClickOnSaveButton();
+				ClickOnOkButtonInPersonalizeYourDevicePopup();
+				ClickOnBackButtonImageView();
+				clickOnLogoutButton();
+				VerifyTabOnStarText(CommonTestData.RATE_MESSAGE.getEnumValue());
+				ClickOnCloseButton();
+                VerifyPeekBalanceEnabilityOnLogInPage(CommonTestData.PEEK_BALANCE_SUBTITLE_IOS.getEnumValue());
+				// TODO: Code Add for tap and hold on above element and get total amount balance
+				TapAndHoldPeekBalance();
+
+				// DeRegister/Disable Process to removing peek balance from login page for next
+				// run.
+				ClickOnLoginButtonAfterEnablePeekBalance();
+				ClickOnNOTYouLink();
+			    ClickOnDeregisterButtonInDigiAlertPopup(CommonTestData.PEEK_BALANCE_DEREGISTER_MESSAGE.getEnumValue());
+				}else
+				Asserts.assertFail("Deposite Account Name not showing on the Dashboard Page.");
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Execute Peek Balance. ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Execute Peek Balance", e);
+		}
+	}
+	
+	@Step("Tap And Hold to Peek Balance On the Login Page.")
+	public void TapAndHoldPeekBalance() throws Exception {
+		try {
+			gestUtils.longPressOnAndroidElement(IOShomePgaeObject.peekBalance());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Tap And Hold On Peek Balance. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Tap And Hold On Peek Balance. ", e);
+		}
+	}
+
+	@Step("Verify Deposit Account Type On Dashboard Page")
+	public void VerifyDepositAccountTypeOnDashboardPage() throws Exception {
+		try {
+			gestUtils.scrollUPIos(); 
+			Asserts.assertTrue(isElementVisible2(IOShomePgaeObject.Deposits()),"Deposits Account Type is not displayed on home page after login.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Deposit Account Type On Dashboard Page. ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Deposit Account Type On Dashboard Page ", e);
+		}
+	}
+	
+	@Step("Click On LogIn Button.")
+	public void ClickOnLoginButtonAfterEnablePeekBalance() throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.logInButton_0());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On LogIn Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On LogIn Button  ", e);
+		}
+	}
+	
+	@Step("Click On Not You Link Button.")
+	public void ClickOnNOTYouLink() throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.NotYouLink());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button  ", e);
+		}
+	}
+
+	@Step("Click On Deregister Button.")
+	public void ClickOnDeregisterButtonInDigiAlertPopup(String peekBalanceDeregisterMsg) throws Exception {
+		try {
+			if (isElementVisible2(IOShomePgaeObject.DeregisteryourprofileAlert()))
+				clickOnElement(IOShomePgaeObject.PeekbalanceDeregisterButton());
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deregister Button ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deregister Button  ", e);
+		}
+	}
+	
+	@Step("Select Peek Balance Module After Search.")
+	public void SelectPeekBalanceModule() throws Exception {
+		try {
+			sendDataInCommonSearchBoxAndSelectFromDropDown("Peek", CommonTestData.PEEK_BALANCE.getEnumValue());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Peek balance Module. ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Peek balance Module.  ", e);
+		}
+	}
+	
+	@Step("Handle Confirmation Message")
+	public void handleConfirmationMessage(String message) throws Exception{
+		try {
+			List<MobileElement> ConfirmationAlert = IOShomePgaeObject.persoanliseMessage() ;
+			if (ConfirmationAlert.size() > 0) {
+				ButtonVerifyClick(IOShomePgaeObject.alertOkButton());
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Handle Confirmation Message ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Handle Confirmation Message ", e);
+		}
+	}
+	
+	@Step("Enable Peek balance Toggle.")
+	public void EnablePeekBalanceToggle() throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.PeekBalanceToggle());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enable Peek balance Toggle. ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enable Peek balance Toggle.  ", e);
+		}
+	}
+
+	@Step("Select Account To Enable Peek Balance.")
+	public void SelectAccountToEnablePeekBalance(String ExpectedUserAccountName) throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.AccountForPeekBalanceDropdown());
+			String xpath = "//XCUIElementTypeStaticText[@name='" + ExpectedUserAccountName + "']";
+			MobileElement selectAccount = (MobileElement) driver.findElement(By.xpath(xpath));
+			clickOnElement(selectAccount);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select Account To Enable Peek Balance ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select Account To Enable Peek Balance  ", e);
+		}
+	}
+	
+	@Step("Get And Click On Deposite Account Name From Dashboard.")
+	public String getAndClickOnDepositeAccountNameFromDashboard(MobileElement depositsAccountName) throws Exception {
+		try {
+			String DepositeAccountNameOnDashboard = depositsAccountName.getText();
+			clickOnElement(depositsAccountName);
+			return DepositeAccountNameOnDashboard;
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to get And Click On Deposite Account Name From Dashboard ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to get And Click On Deposite Account Name From Dashboard ", e);
+		}
+		return null;
+	}
+	
+	@Step("Get User Account Number")
+	public String GetUserAccountNumber() throws Exception {
+		try {
+			String getAccountNumber = driver.findElementByXPath("//XCUIElementTypeStaticText[2]").getText();
+			return getAccountNumber;
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Get User Account Number ", e);
+		}
+		return null;
+	}
+	
+	
+	@Step("verify Selected Account For Peek Balance")
+	public void verifySelectedAccountForPeekBalance(String AccountTitle, String SelectedAccountNameWithAccountNumber)
+			throws Exception {
+		try {
+		
+				String xpath = "//XCUIElementTypeCell[2]/XCUIElementTypeStaticText";
+				String Text = driver.findElementByXPath(xpath).getText();
+			     System.out.println("SelectedAccountNameWithAccountNumber " +Text);
+			Asserts.assertEquals(Text,
+					SelectedAccountNameWithAccountNumber,
+					SelectedAccountNameWithAccountNumber + " Text is not matching.");
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Selected Account For Peek Balance ", e);
+		}
+	}
+	
+	@Step("Click On Toolbar Back Icon.")
+	public void ClickOnToolBarBackIcon() throws Exception {
+		try {
+				String xpath = "//XCUIElementTypeButton[1]";
+				MobileElement back = (MobileElement) driver.findElement(By.xpath(xpath));
+				clickOnElement(back);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Toolbar Back Icon ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Toolbar Back Icon ", e);
+		}
+	}
+	
+	@Step("Click On Save Button.")
+	public void ClickOnSaveButton() throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.SaveBtn());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Save Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Save Button  ", e);
+		}
+	}
+	
+	@Step("Click On Ok Button After Displaying Personalize Your Device Popup.")
+	public void ClickOnOkButtonInPersonalizeYourDevicePopup() throws Exception {
+		try {
+			if (isElementVisible2(IOShomePgaeObject.PersonalizeYourDevicePopup()))
+				clickOnElement(IOShomePgaeObject.alertOkButton());
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On Ok Button After Displaying PersonalizeYourDevicePopup ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On Ok Button After Displaying PersonalizeYourDevicePopup ", e);
+		}
+	}
+	
+	@Step("Click On Back Button")
+	public void ClickOnBackButtonImageView() throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.backButton());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on Back Button. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on Back Button. ", e);
+		}
+	}
+	
+	@Step("Verify Visibility of Peek Balance on Login Page.")
+	public void VerifyPeekBalanceEnabilityOnLogInPage(String peekBalanceSubtitle) throws Exception {
+		try {
+			Thread.sleep(20000); 
+			String a = getTexOfElement(IOShomePgaeObject.peekBalance());
+			System.out.println("a" +a);
+		//	wait.waitForElementVisibility(IOShomePgaeObject.peekBalance());
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.peekBalance()).toLowerCase(), peekBalanceSubtitle.toLowerCase(),
+					peekBalanceSubtitle + " Text is not matching.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify visibility of Peek Balance On Login page. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify visibility of Peek Balance On Login page. ", e);
+		}
+	}
+	
+	@Step("Update Personal Details")
+	public void UpdatePersonalDetails(String appName) throws Exception {
+		try {
+			ClickOnMoreButton();
+			EnterPasscodeAndDone();
+			SelectUpdateContactDetails();
+			verifyUpdateContactDetailsPageHeader(CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue());
+			VerifyBackButtonImageView();
+			VerifyPersonalAndContactDetails();
+		    VerifyMailingAddress();
+			SelectPersonalContactDetails();
+			EnterPasscodeAndDone();
+			verifyPersonalContactDetailsPageHeader();
+            VerifyPersonalDetailsPage(appName);
+			ClickOnCheckboxes();
+            verifyTermsAndConditionsMessage(CommonTestData.TERMS_AND_CONDITIOINS_MESSAGE.getEnumValue(), appName);
+            ClickOnNextButton5();
+            gestUtils.scrollUPtoObjectIos("label", "CONFIRM", null);
+            ClickOnNextButton5();
+			EnterPasscodeAndDone();
+			verifySuccessfullyUpdatedMessage(appName);
+
+			// Verify Final Result after go through on Personal Details Page.
+			ClickOnBackToMoreServicesButton(appName);
+			SelectUpdateContactDetails();
+			verifyUpdateContactDetailsPageHeader(CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue());
+			VerifyBackButtonImageView();
+			VerifyPersonalAndContactDetails();
+			VerifyMailingAddress();
+			SelectPersonalContactDetails();
+			EnterPasscodeAndDone();
+            verifyPersonalContactDetailsPageHeader();
+            VerifyPersonalDetailsPage(appName);
+            VerifyLastUpdatedDateOfCallMeCheckbox();
+            VerifyLastUpdatedDateOfSMSMeCheckbox();
+            VerifyLastUpdatedDateOfEmailMeCheckbox();
+            VerifyLastUpdatedDateOfFAXMeCheckbox();
+            VerifyLastUpdatedDateOfMailMeCheckbox();
+
+			// Leave On Home Page for next case run.
+			ClickOnBackButton();
+			ClickOnHomeButton();
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to update personal details  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", "  Failed to update personal details  ", e);
+		}
+	}
+	
+	@Step("Verify Last Update Date Of CAll me Checkbox.")
+	public void VerifyLastUpdatedDateOfCallMeCheckbox() throws Exception {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Date today = calendar.getTime();
+			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+			String todayAsString = dateFormat.format(today);
+			String ExpectedDate = todayAsString.replaceAll("-", " ");
+			String ExpectedLastUpdatedDateValue = null;
+			
+			String ActualLastUpdatedDateValue = getTexOfElement(IOShomePgaeObject.CAllMeCheckbox());
+			String checkboxarry[] =  ActualLastUpdatedDateValue.split("Last");
+			ExpectedLastUpdatedDateValue = checkboxarry[0] + "Last Updated on " + ExpectedDate;
+		    System.out.println("ExpectedLastUpdatedDateValue: "+ExpectedLastUpdatedDateValue);  
+		    System.out.println("ActualLastUpdatedDateValue: "+ActualLastUpdatedDateValue);  
+			
+			 Asserts.assertEquals(ActualLastUpdatedDateValue, 
+						ExpectedLastUpdatedDateValue,
+						ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to verify last update on call me checkbox ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify last update on call me checkbox  ",e);
+		}
+	}
+	
+	@Step("Verify Last Update Date Of SMS me Checkbox.")
+	public void VerifyLastUpdatedDateOfSMSMeCheckbox() throws Exception {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Date today = calendar.getTime();
+			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+			String todayAsString = dateFormat.format(today);
+			String ExpectedDate = todayAsString.replaceAll("-", " ");
+			String ExpectedLastUpdatedDateValue = null;
+			
+			String ActualLastUpdatedDateValue = getTexOfElement(IOShomePgaeObject.SMSMeCheckbox());
+			String checkboxarry[] =  ActualLastUpdatedDateValue.split("Last");
+			ExpectedLastUpdatedDateValue = checkboxarry[0] + "Last Updated on " + ExpectedDate;
+		    System.out.println("ExpectedLastUpdatedDateValue: "+ExpectedLastUpdatedDateValue);  
+		    System.out.println("ActualLastUpdatedDateValue: "+ActualLastUpdatedDateValue);  
+			
+			 Asserts.assertEquals(ActualLastUpdatedDateValue, 
+						ExpectedLastUpdatedDateValue,
+						ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to verify last update on sms me checkbox ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify last update on sms me checkbox  ",e);
+		}
+	}
+	
+	@Step("Verify Last Update Date Of Email me Checkbox.")
+	public void VerifyLastUpdatedDateOfEmailMeCheckbox() throws Exception {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Date today = calendar.getTime();
+			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+			String todayAsString = dateFormat.format(today);
+			String ExpectedDate = todayAsString.replaceAll("-", " ");
+			String ExpectedLastUpdatedDateValue = null;
+			
+			String ActualLastUpdatedDateValue = getTexOfElement(IOShomePgaeObject.EMAILMeCheckbox());
+			String checkboxarry[] =  ActualLastUpdatedDateValue.split("Last");
+			ExpectedLastUpdatedDateValue = checkboxarry[0] + "Last Updated on " + ExpectedDate;
+		    System.out.println("ExpectedLastUpdatedDateValue: "+ExpectedLastUpdatedDateValue);  
+		    System.out.println("ActualLastUpdatedDateValue: "+ActualLastUpdatedDateValue);  
+			
+			 Asserts.assertEquals(ActualLastUpdatedDateValue, 
+						ExpectedLastUpdatedDateValue,
+						ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to verify last update on Email me checkbox ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify last update on Email me checkbox  ",e);
+		}
+	}
+	
+	@Step("Verify Last Update Date Of FAX me Checkbox.")
+	public void VerifyLastUpdatedDateOfFAXMeCheckbox() throws Exception {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Date today = calendar.getTime();
+			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+			String todayAsString = dateFormat.format(today);
+			String ExpectedDate = todayAsString.replaceAll("-", " ");
+			String ExpectedLastUpdatedDateValue = null;
+			
+			String ActualLastUpdatedDateValue = getTexOfElement(IOShomePgaeObject.FAxMeCheckbox());
+			String checkboxarry[] =  ActualLastUpdatedDateValue.split("Last");
+			ExpectedLastUpdatedDateValue = checkboxarry[0] + "Last Updated on " + ExpectedDate;
+		    System.out.println("ExpectedLastUpdatedDateValue: "+ExpectedLastUpdatedDateValue);  
+		    System.out.println("ActualLastUpdatedDateValue: "+ActualLastUpdatedDateValue);  
+			
+			 Asserts.assertEquals(ActualLastUpdatedDateValue, 
+						ExpectedLastUpdatedDateValue,
+						ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to verify last update on Fax me checkbox ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify last update on Fax me checkbox  ",e);
+		}
+	}
+	
+	@Step("Verify Last Update Date Of Mail me Checkbox.")
+	public void VerifyLastUpdatedDateOfMailMeCheckbox() throws Exception {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			Date today = calendar.getTime();
+			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+			String todayAsString = dateFormat.format(today);
+			String ExpectedDate = todayAsString.replaceAll("-", " ");
+			String ExpectedLastUpdatedDateValue = null;
+			
+			String ActualLastUpdatedDateValue = getTexOfElement(IOShomePgaeObject.MAILMeCheckbox());
+			String checkboxarry[] =  ActualLastUpdatedDateValue.split("Last");
+			ExpectedLastUpdatedDateValue = checkboxarry[0] + "Last Updated on " + ExpectedDate;
+		    System.out.println("ExpectedLastUpdatedDateValue: "+ExpectedLastUpdatedDateValue);  
+		    System.out.println("ActualLastUpdatedDateValue: "+ActualLastUpdatedDateValue);  
+			
+			 Asserts.assertEquals(ActualLastUpdatedDateValue, 
+						ExpectedLastUpdatedDateValue,
+						ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to verify last update on Mail me checkbox ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify last update on Mail me checkbox  ",e);
+		}
+	}
+	
+	
+	@Step("Select Checkboxes. ")
+	public void ClickOnCheckboxes() throws Exception {
+		try {
+			    ClickOnCallMeCheckbox();
+			    ClickOnSMSMeCheckbox();
+			    ClickOnEMAILMeCheckbox();
+				ClickOnMAILMeCheckbox();
+				ClickOnFAXMeCheckbox();
+			} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select All checkboxes  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select All checkboxes  ", e);
+		}
+	}
+	
+	@Step("Select Call me Checkbox.")
+	public void ClickOnCallMeCheckbox() throws Exception {
+		try {
+				clickOnElement(IOShomePgaeObject.CAllMeCheckbox());
+			} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Call me Checkbox ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Call me Checkbox ", e);
+		}
+	}
+	
+	@Step("Select SMS me Checkbox.")
+	public void ClickOnSMSMeCheckbox() throws Exception {
+		try {
+				clickOnElement(IOShomePgaeObject.SMSMeCheckbox());
+			} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select SMS me Checkbox ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select SMS me Checkbox ", e);
+		}
+	}
+	
+	@Step("Select EMAIL me Checkbox.")
+	public void ClickOnEMAILMeCheckbox() throws Exception {
+		try {
+				clickOnElement(IOShomePgaeObject.EMAILMeCheckbox());
+			} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select EMAIL me Checkbox ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select EMAIL me Checkbox ", e);
+		}
+	}
+	
+	@Step("Select MAIL me Checkbox.")
+	public void ClickOnMAILMeCheckbox() throws Exception {
+		try {
+				clickOnElement(IOShomePgaeObject.MAILMeCheckbox());
+			} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select MAIL me Checkbox ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select MAIL me Checkbox ", e);
+		}
+	}
+	
+	@Step("Select FAX me Checkbox.")
+	public void ClickOnFAXMeCheckbox() throws Exception {
+		try {
+				clickOnElement(IOShomePgaeObject.FAxMeCheckbox());
+			} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select FAX me Checkbox ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select FAX me Checkbox ", e);
+		}
+	}
+	
+	
+	
+	
+	@Step("Verifying Next Label and click")
+	public void ClickOnNextButton5() throws Exception {
+		try {
+			List<RemoteWebElement> nextButton = driver.findElements(By.name("NEXT"));
+			List<RemoteWebElement> nextButton1 = driver.findElements(By.name("Next"));
+			List<RemoteWebElement> CONFIRM1 = driver.findElements(By.name("CONFIRM"));
+			if(nextButton.size() > 0) {
+				TakeScreenshot(nextButton.get(nextButton.size()-1));
+				String actualText = commonAppTest.getTexOfElement((MobileElement) nextButton.get(1));
+				if (actualText.equalsIgnoreCase("NEXT"))
+					commonAppTest.clickOnElement((MobileElement) nextButton.get(1));
+				Asserts.assertEquals(actualText, "NEXT", "Button not found");
+			}
+			else if(nextButton1.size() > 0) {
+				TakeScreenshot(nextButton.get(nextButton1.size()-1));
+				String actualText = commonAppTest.getTexOfElement((MobileElement) nextButton1.get(1));
+				if (actualText.equalsIgnoreCase("NEXT"))
+					commonAppTest.clickOnElement((MobileElement) nextButton1.get(1));
+				Asserts.assertEquals(actualText, "Next", "Button not found");
+			}else if(CONFIRM1.size() > 0) {
+				commonAppTest.clickOnElement((MobileElement) CONFIRM1.get(1));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@Step("Click On Back Button.")
+	public void ClickOnBackButton() throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.BackBtn());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Button  ", e);
+		}
+	}
+	
+	@Step("Verify 'Update Contact Details' page header")
+	public void verifyUpdateContactDetailsPageHeader(String expectedText) throws Exception {
+		try {
+			System.out.println(getTexOfElement(IOShomePgaeObject.UpdateContactDetails()));
+			
+			
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.UpdateContactDetails()).toLowerCase() ,expectedText.toLowerCase(),
+					expectedText + " Page Header not displaying.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Update Contact Details' page header ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Update Contact Details' page header ", e);
+		}
+	}
+	
+	@Step("Select Update Contact Details After Search.")
+	public void SelectUpdateContactDetails() throws Exception {
+		try {
+			sendDataInCommonSearchBoxAndSelectFromDropDown1("Update", CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue(),CommonTestData.UPDATE_PARTICULARS.getEnumValue());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Peek balance Module. ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Peek balance Module.  ", e);
+		}
+	}
+	
+	@Step("verify 'Back To More Services' Button")
+	public void verifyBackToMoreButton() throws Exception {
+		try {
+			Asserts.assertTrue(isElementVisible2(IOShomePgaeObject.backToMoreButton()),"BACK TO More Services Btn is not displayed.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify 'Back To More Services' Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify 'Back To More Services' Button ", e);
+		}
+	}
+	
+	@Step("verify 'Back To More Services' Button")
+	public void verifyBackToMoreServicesButton() throws Exception {
+		try {
+			Asserts.assertTrue(isElementVisible2(IOShomePgaeObject.BackToMoreServicesButton()),"BACK TO More Services Btn is not displayed.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify 'Back To More Services' Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify 'Back To More Services' Button ", e);
+		}
+	}
+
+	@Step("Verify 'Back Button Image View' on update Contact details Page. ")
+	public void VerifyBackButtonImageView() throws Exception {
+		try {
+			Asserts.assertTrue(isElementVisible2(IOShomePgaeObject.backButton()), "Back Btn Image View is not displayed.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify visibility of 'Back Button Image View' ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify visibility of 'Back Button Image View' ", e);
+		}
+	}
+	
+	@Step("Verify 'Mailing Address' on update Contact details Page. ")
+	public void VerifyMailingAddress() throws Exception {
+		try {
+			Asserts.assertTrue(isElementVisible2(IOShomePgaeObject.MailingAddressTab()),
+					"Mailing Address Tab is not displayed.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to verify visibility of 'Mailing Address' ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION"," Failed to verify visibility of 'Mailing Address' ", e);
+		}
+	}
+	
+	@Step("Verify 'Personal And Contact Details' on update Contact details Page. ")
+	public void VerifyPersonalAndContactDetails() throws Exception {
+		try {
+			Asserts.assertTrue(isElementVisible2(IOShomePgaeObject.PersonalAndContactDetailsTab()),"Personal And Contact Details Tab is not displayed.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to verify visibility of 'Personal And Contact Details'  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION"," Failed to verify visibility of 'Personal And Contact Details' ", e);
+		}
+	}
+	
+	@Step("Select Personal & Contact Details under Update Contact Details Page.")
+	public void SelectPersonalContactDetails() throws Exception {
+		try {
+			clickOnElement(IOShomePgaeObject.PersonalAndContactDetailsTab());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select Personal & Contact Details under Update Contact Details Page ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select Personal & Contact Details under Update Contact Details Page ", e);
+		}
+	}
+	
+	@Step("Verify Personal And Contact Details Page Header")
+	public void verifyPersonalContactDetailsPageHeader() throws Exception {
+		try {
+			String Xpath = "//XCUIElementTypeStaticText[@name='Contact Details']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(Xpath));
+			if (list.size() > 0) {
+					Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.ContactDetails()).toLowerCase(),
+							CommonTestData.CONTACT_DETAILS_PAGEHEADER.getEnumValue().toLowerCase(),
+							"'Header Title' is not Matching");
+				
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION",
+					" Failed to Verify Personal And Contact Details Page Header ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION",
+					" Failed to Verify Personal And Contact Details Page Header ", e);
+		}
+}
+	
+	@Step("Verify Successfully Updated Message")
+	public void verifySuccessfullyUpdatedMessage(String appName) throws Exception {
+		try {
+		
+				if (appName.equalsIgnoreCase("DBS")) {
+					Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.SuccessfullyUpdated()),
+							CommonTestData.SUCCESSFULLY_SUBMITTED_MESSAGE.getEnumValue(),
+							CommonTestData.SUCCESSFULLY_SUBMITTED_MESSAGE.getEnumValue() + " Text is not matching");
+					verifyUpdateMoreDetailsButton();
+					verifyBackToMoreServicesButton();
+				} else if (appName.equalsIgnoreCase("iWEALTH")) {
+					Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.RequestsSubmitted()),
+							CommonTestData.REQUESTS_SUBMITTED_MESSAGE.getEnumValue(),
+							CommonTestData.REQUESTS_SUBMITTED_MESSAGE.getEnumValue() + " Text is not matching");
+					verifyUpdateMailingAddressButton();
+					verifyBackToMoreButton();
+				}
+				
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Successfully Updated Message ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Successfully Updated Message ", e);
+		}
+	}
+	
+	
+	@Step("verify Update Mailing Address Button")
+	public void verifyUpdateMailingAddressButton() throws Exception {
+		try {
+			gestUtils.scrollUPtoObject(null, null, null);
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.UpdateMailingAddressBtn()),"Update Mailing Address Btn is not displayed.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to verify Update Mailing Address Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION"," Failed to verify Update Mailing Address Button ", e);
+		}
+	}
+
+	@Step("verify Update More Details Button")
+	public void verifyUpdateMoreDetailsButton() throws Exception {
+		try {
+			gestUtils.scrollUPtoObject(null, null, null);
+			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.UpdateMoreDetailsBtn()),"Update More Details Btn is not displayed.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify Update More Details Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify Update More Details Button ",
+					e);
+		}
+	}
+	
+	@Step("Verify Contact Details Title")
+	public void verifyContactDetailsTitle(String contactDetailsTitle) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.ContactDetailsTitle()).toLowerCase(), contactDetailsTitle.toLowerCase(), contactDetailsTitle + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Contact Details Title ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Contact Details Title ", e);
+		}
+	}
+
+	@Step("Verify Email Notes")
+	public void verifyEmailNotes(String emailNotes) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.EmailNotes()).toLowerCase(), emailNotes.toLowerCase(), emailNotes + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Email Notes ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Email Notes ", e);
+		}
+	}
+
+	@Step("Verify Change Button Under Contact Details")
+	public void verifyChangeButton(String ChangeButton) throws Exception {
+		try {
+		//	gestUtils.scrollUPtoObject("text", "PERSONAL PARTICULARS", PersonalPerticularSectionTitle);
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.ContactDetailsChangeBtn()),
+					CommonTestData.CHANGE_BUTTON.getEnumValue(),
+					CommonTestData.CHANGE_BUTTON.getEnumValue() + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Change Button Under Contact Details ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Change Button Under Contact Details", e);
+		}
+	}
+
+	@Step("Verify Personal Particular")
+	public void verifyPersonalParticular(String personalParticular) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.PersonalPerticularSectionTitle()).toLowerCase(), personalParticular.toLowerCase(),
+					personalParticular + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Personal Particular ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Personal Particular ", e);
+		}
+	}
+
+	@Step("Verify Change Button Under Personal Particular Section")
+	public void verifyChangeButtonUnderPersonalParticularSection(String ChangeButton) throws Exception {
+		try {
+			//gestUtils.scrollUPtoObject("text", "MARKETING MESSAGES", MarketingMessageTitle);
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.PersonalPerticularChangeBtn()),
+					CommonTestData.CHANGE_BUTTON.getEnumValue(),
+					CommonTestData.CHANGE_BUTTON.getEnumValue() + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Change Button Under Personal Particular Section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Change Button Under Personal Particular Section ", e);
+		}
+	}
+
+	@Step("Verify Marketing Message Title")
+	public void verifyMarketingMessageTitle(String marketingMessageTitle) throws Exception {
+		try {
+			gestUtils.scrollUPtoObjectIos("label", "MARKETING MESSAGES", null); 
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.MarketingMessageTitle()).toLowerCase(), marketingMessageTitle.toLowerCase(),
+					marketingMessageTitle + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Marketing Message Title ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Marketing Message Title ", e);
+		}
+	}
+
+	@Step("Verify Marketing Message Notes")
+	public void verifyMarketingMessageNotes(String marketingMessageNotes) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.MarketingMessageNotes()).toLowerCase(), marketingMessageNotes.toLowerCase(),
+					marketingMessageNotes + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Marketing Message Notes ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Marketing Message Notes ", e);
+		}
+	}
+
+	@Step("Verify 'I would like the bank to:' Message.")
+	public void verifyIWouldLikeTheBankTomessage(String message) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.UPPSectionLabel()), message,
+					message + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify 'I would like the bank to:' Message ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify 'I would like the bank to:' Message ", e);
+		}
+	}
+
+	@Step("Verify visibility of 'Personal & Contact Details' Page Header, 'Contact Details' &  'Personal Perticulars' Section.")
+	public void VerifyPersonalDetailsPage(String appName) throws Exception {
+		try {
+			verifyContactDetailsTitle(CommonTestData.CONTACT_DETAILS_TITLE.getEnumValue());
+			verifyEmailNotes(CommonTestData.EMAIL_NOTES.getEnumValue());
+			verifyChangeButton(CommonTestData.CHANGE_BUTTON.getEnumValue());
+			verifyPersonalParticular(CommonTestData.PERSONAL_PARTICULARS.getEnumValue());
+			verifyChangeButtonUnderPersonalParticularSection(CommonTestData.CHANGE_BUTTON.getEnumValue());
+			verifyMarketingMessageTitle(CommonTestData.MARKETING_MESSAGE_TITLES.getEnumValue());
+			verifyMarketingMessageNotes(CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue());
+			verifyIWouldLikeTheBankTomessage(CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue());
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify Personal Details Page  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Personal Details Page ", e);
+		}
+	}
+	
+	@Step("Verify Terms & Conditions Message.")
+	public void verifyTermsAndConditionsMessage(String termAndConditionsMessage, String appName) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(IOShomePgaeObject.TermsAndConditionsMsg()), termAndConditionsMessage,
+					termAndConditionsMessage + " Text is not matching");
+			if (appName.equalsIgnoreCase("DBS"))
+				  gestUtils.scrollUPtoObjectIos("label", "NEXT", null);
+			else if (appName.equalsIgnoreCase("iWEALTH"))
+				  gestUtils.scrollUPtoObjectIos("label", "CONFIRM", null);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Verify Terms & Conditions Message ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Terms & Conditions Message ",e);
+		}
+	}
+
 	
 }
 

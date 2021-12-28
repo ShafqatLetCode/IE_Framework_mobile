@@ -90,6 +90,7 @@ public enum CommonTestData {
 	
 	//UpdateContact Details
 	UPDATE_CONTACT_DETAILS_PAGEHEADER("Update Contact Details"),
+	UPDATE_PARTICULARS("Update Particulars"),
 	CONTACT_DETAILS_PAGEHEADER("Contact Details"),
 	PERSONAL_AND_CONTACTDETAILS_PAGEHEADER("Personal & Contact Details"),
 	CONTACT_DETAILS_TITLE("CONTACT DETAILS"),
@@ -103,7 +104,7 @@ public enum CommonTestData {
 	REVIEW_REQUEST_PAGE_HEADER("Review Request"),
 	SUCCESSFULLY_UPDATED_MESSAGE("Successfully updated"),
 	REQUESTS_SUBMITTED_MESSAGE("Requests submitted"),
-	
+	SUCCESSFULLY_SUBMITTED_MESSAGE("Successfully Submitted"),
 	//PeekBalance
 	TOTAL_BALANCE_TITLE("Total Balance"),
 	AVAILABLE_BALANCE_TITLE("Available Balance"),
@@ -113,6 +114,7 @@ public enum CommonTestData {
 	ACCOUNT_FOR_PEEK_BALANCE("Account for Peek Balance"),
 	PEEK_BALANCE_DIGIALERT_MSG("You have successfully personalised your digibank profile"),
 	PEEK_BALANCE_SUBTITLE("PEEK BALANCE"),
+	PEEK_BALANCE_SUBTITLE_IOS("Tap and hold to PEEK BALANCE"),
 	PEEK_BALANCE_DEREGISTER_MESSAGE("You will no longer enjoy benefits"),
 	EXISTING_PEEKBALANCE_ENABLE_MESSAGE("Existing Personalization will be removed, Do you want to proceed?"),
 	

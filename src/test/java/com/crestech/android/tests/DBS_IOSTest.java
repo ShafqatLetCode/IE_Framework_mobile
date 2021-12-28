@@ -102,8 +102,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute Remittance EOTT "+e.getMessage());
 		}
 	}
-
-	@Parameters({ "userName", "password","app_Name" })
+@Parameters({ "userName", "password","app_Name" })
 	@Test(priority = 5, enabled = true, description = "Payee-Add-DBSorPOSB-ONEAPP-14675")
 	@Description(value = "Execution of this testcase:: Verifies the Payee add DSB or POSB.")
 	@Author(name = "Divya Devi")
@@ -207,7 +206,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute Payee Add Local OtherBank "+e.getMessage());
 		}
 	}
-//
+
 	@Parameters({ "userName", "password","app_Name" })
 	@Test(priority = 10, enabled = true, description = "Payee-Add-BillPayment-ONEAPP-15938")
 	@Description(value = "Execution of this testcase:: Verifies the Payee Add Bill Payment.")
@@ -269,6 +268,26 @@ public class DBS_IOSTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute Change Local Funds Transfer Limit "+e.getMessage());
 		}
 	}
+	
+	@Parameters({ "userName", "password" ,"app_Name"})
+	@Test(priority = 13, enabled = true, description = "PeekBalance-MCA-ONEAPP-13982")
+	@Description(value = "Execution of this testcase:: Verifies the Peek Balance.")
+	@Author(name = "Divya Devi")
+	public void PeekBalance_MCA(String userName, String password ,String app_Name) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+       DBSPgaeObject1 = DBSPgaeObject;
+			 DBSPgaeObject1.logInApplication(userName, password, app_Name);
+			DBSPgaeObject1.VerifyPeekBalance("DBS SAVINGS PLUS");
+		}  catch (HandleException e) {
+      DBSPgaeObject1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+      DBSPgaeObject1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Peek Balance "+e.getMessage());
+		}
+	}
 
 	@Parameters({ "userName", "password" ,"app_Name"})
 	@Test(priority = 14, enabled = true, description = "FundsTransfer-OwnAccount-ONEAPP-16730")
@@ -288,7 +307,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute Change Local Funds Transfer Limit "+e.getMessage());
 		}
 	}
-
+  
 	@Parameters({ "userName", "password" ,"app_Name"})
 	@Test(priority = 17, enabled = true, description = "FundsTransfer-OtherPOSBDBS-ONEAPP-16723")
 	@Description(value = "Execution of this testcase:: Verifies FundTransfer Other DBS/POSB")
@@ -308,7 +327,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute Fund Transfer Other DBS/POSB "+e.getMessage());
 		}
 	}
-//
+
 	@Parameters({ "userName", "password","app_Name" })
 	@Test(priority = 18, enabled = true, description = "TransactionHistory-ONEAPP-14312")
 	@Description(value = "Execution of this testcase:: Verifies Transaction History")
@@ -328,7 +347,47 @@ public class DBS_IOSTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute Transaction History "+e.getMessage());
 		}
 	}
-//
+  
+  	@Parameters({"userName", "password","app_Name" })
+	@Test(priority=19, enabled=true, description = "Verifies Credit Card Temperory Limit Increase")
+	@Description(value = "Execution of this testcase:: CreditCardTempLimitIncrease-ONEAPP-16669")
+	@Author(name = "shafqat")
+	public void CreditCardTempLimitIncrease(String userName,String password, String app_Name) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			 DBSPgaeObject1 = DBSPgaeObject;
+			 DBSPgaeObject1.logInApplication(userName, password, app_Name);
+			 DBSPgaeObject1.CreditCardTempLimitIncrease();
+		} catch (HandleException e) {
+			 DBSPgaeObject1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
+		}
+		catch (Exception e) {
+			 DBSPgaeObject1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Credit Card Temp Limit Increase "+e.getMessage());
+		}
+	}
+
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 20, enabled = true, description = "UpdatePersonalParticular-ONEAPP-13921")
+	@Description(value = "Execution of this testcase:: Verifies the Update Personal Particular Details.")
+	@Author(name = "Divya Devi")
+	public void UpdatePersonalParticular(String userName, String password , String app_Name) throws Exception {
+			try {
+				DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+         DBSPgaeObject1 = DBSPgaeObject;
+				 DBSPgaeObject1.logInApplication(userName, password, app_Name);
+				DBSPgaeObject1.UpdatePersonalDetails(app_Name);
+			} catch (HandleException e) {
+        DBSPgaeObject1.verifyDigibankAlert();
+				Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+			}
+			catch (Exception e) {
+        DBSPgaeObject1.verifyDigibankAlert();
+				Asserts.assertFail( "Unable to execute update Personal Particular "+e.getMessage());
+			}
+  }
+
 	@Parameters({ "userName", "password" ,"app_Name"})
 	@Test(priority = 23, enabled = true, description = "FundsTransfer-PayCreditCard-ONEAPP-14024")
 	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Pay Credit Card.")
@@ -368,23 +427,5 @@ public class DBS_IOSTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute Fund Transfer Bill Payment "+e.getMessage());
 		}
 	}
-	@Parameters({"userName", "password","app_Name" })
-	@Test(priority=19, enabled=true, description = "Verifies Credit Card Temperory Limit Increase")
-	@Description(value = "Execution of this testcase:: CreditCardTempLimitIncrease-ONEAPP-16669")
-	@Author(name = "shafqat")
-	public void CreditCardTempLimitIncrease(String userName,String password, String app_Name) throws Exception {
-		try {
-			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
-			 DBSPgaeObject1 = DBSPgaeObject;
-			 DBSPgaeObject1.logInApplication(userName, password, app_Name);
-			 DBSPgaeObject1.CreditCardTempLimitIncrease();
-		} catch (HandleException e) {
-			 DBSPgaeObject1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage()+ e.getCause());
-		}
-		catch (Exception e) {
-			 DBSPgaeObject1.verifyDigibankAlert();
-			Asserts.assertFail( "Unable to execute Credit Card Temp Limit Increase "+e.getMessage());
-		}
-	}
+
 }
