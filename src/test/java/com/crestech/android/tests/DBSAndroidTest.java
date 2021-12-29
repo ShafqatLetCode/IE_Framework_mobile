@@ -37,7 +37,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
 			dbspage1.LogInApplicationWithSelectUATServer(userName, password, app_Name , CommonTestData.N4_SERVER.getEnumValue());
-			dbspage1.verifyAccountDetailsOnHomePage();
+			dbspage1.verifyAccountDetailsOnHomePage(app_Name);
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
@@ -179,7 +179,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
 			dbspage1.LogInApplicationWithSelectUATServer(userName, password, app_Name , CommonTestData.N4_SERVER.getEnumValue());
-			dbspage1.ApplyDebitCard();
+			dbspage1.ApplyDebitCard(app_Name);
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
@@ -242,7 +242,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
 			dbspage1.LogInApplicationWithSelectUATServer(userName, password, app_Name , CommonTestData.N4_SERVER.getEnumValue());
-			dbspage1.OpenAccount();
+			dbspage1.OpenAccount(app_Name);
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
@@ -364,7 +364,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			 dbspage1 = dbspage;
 			 dbspage1.LogInApplicationWithSelectUATServer(userName, password, app_Name , CommonTestData.N4_SERVER.getEnumValue());
-			 dbspage1.FundTransferDBSPOSB();
+			 dbspage1.FundTransferDBSPOSB(app_Name);
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());

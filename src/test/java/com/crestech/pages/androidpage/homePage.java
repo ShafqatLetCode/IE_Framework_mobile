@@ -60,6 +60,10 @@ public class homePage extends CommonAppiumTest {
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'Deposits')]")
 	private MobileElement depositeHomePage;
 	
+	@ElementDescription(value = "Deposite Home page")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'CPFIA/SRS Account')]")
+	private MobileElement SRSACCOUNT;
+	
 	@ElementDescription(value = "Account section Home page")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'ACCOUNTS')]")
 	private MobileElement accountSectionHomePage;
@@ -122,7 +126,7 @@ public class homePage extends CommonAppiumTest {
 	
 	@ElementDescription(value = "Deposits Account Name")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_src_acc_name')]")
-	private List<MobileElement> DepositsAccountName;
+	private MobileElement DepositsAccountName;
 
 	@ElementDescription(value = "Deposits Account Type")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/value')]")
@@ -175,8 +179,11 @@ public class homePage extends CommonAppiumTest {
 	@Step("Verify Deposit Account Type On Dashboard Page")
 	public void VerifyDepositAccountTypeOnDashboardPage() throws Exception {
 		try {
-			gestUtils.scrollUPtoObject("text", "Deposits", DepositsAccountType); 
-			Asserts.assertTrue(isElementVisible(DepositsAccountType),"Deposits Account Type is not displayed on home page after login.");
+			if (isElementVisible2(DepositsAccountType)) {
+				gestUtils.scrollUPtoObject("text", "Deposits", DepositsAccountType);
+				Asserts.assertTrue(isElementVisible(DepositsAccountType),
+						"Deposits Account Type is not displayed on home page after login.");
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Verify Deposit Account Type On Dashboard Page ", e);
@@ -331,7 +338,7 @@ public class homePage extends CommonAppiumTest {
 		}
 	}
 
-	public List<MobileElement> DepositsAccountName() { 
+	public MobileElement DepositsAccountName() { 
 		return DepositsAccountName;
 	}
 	
@@ -438,6 +445,23 @@ public class homePage extends CommonAppiumTest {
 		}
 	}
 	
+	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
+	public void verifyAccountTypeNameCurrencyAmount_iWEAlLTH(String AccountType, String AccountName, String currency)
+			throws Exception {
+		try {
+			clickOnElement(accountSectionHomePage);
+			gestUtils.scrollDOWNtoObject("text", "CPFIA/SRS Account", null);
+			Asserts.assertEquals(getTexOfElement(SRSACCOUNT), AccountType,AccountType + " is not present");
+			Asserts.assertEquals(getTexOfElement(accountNameHomePage), AccountName,AccountName + " is not present");
+			gestUtils.scrollUPtoObject("text", "SGD", null);
+			Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
+		}
+	}
 	
 	@Step("Verify 'Welcome to DigiBank' Messages on dashboard Page.")
 	public void VerifyWelcomeMessagesOnDashboardPage(String welcome, String DigiBank, String DBSDigibank)
@@ -483,8 +507,8 @@ public class homePage extends CommonAppiumTest {
 	@Step("Get And Click On Deposite Account Name From Dashboard.")
 	public String getAndClickOnDepositeAccountNameFromDashboard() throws Exception {
 		try {
-			String DepositeAccountNameOnDashboard = DepositsAccountName.get(0).getText();
-			clickOnElement(DepositsAccountName.get(0));
+			String DepositeAccountNameOnDashboard = DepositsAccountName.getText();
+			clickOnElement(DepositsAccountName);
 			return DepositeAccountNameOnDashboard;
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",

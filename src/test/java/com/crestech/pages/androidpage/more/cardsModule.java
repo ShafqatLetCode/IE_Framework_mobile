@@ -63,6 +63,10 @@ public class cardsModule extends CommonAppiumTest{
 	@ElementDescription(value = "Account to be linked to the card")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Account to be linked to the card']")
 	private MobileElement AccountToBeLinkedToTheCardField;
+	
+	@ElementDescription(value = "Existing ATM Card number to be replaced")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Existing ATM Card number to be replaced']")
+	private MobileElement ExistingATMCardnumbertobereplaced;
 
 	@ElementDescription(value = "Title Field")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Title']")
@@ -250,6 +254,20 @@ public class cardsModule extends CommonAppiumTest{
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
 					" Failed to Click On 'Account To Be Linked To The Card' Field ", e);
+		}
+	}
+	
+	@Step("Click On 'Existing ATM Card number to be replaced' Field")
+	public void ClickOnExistingATMCardNumberToBeReplacedField() throws Exception {
+		try {
+			clickOnElement(ExistingATMCardnumbertobereplaced);
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On 'Existing ATM Card number to be replaced'Field ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On 'Existing ATM Card number to be replaced' Field ", e);
 		}
 	}
 
@@ -444,9 +462,14 @@ public class cardsModule extends CommonAppiumTest{
 	}
 	
 	@Step("Fill Details To Applying Debit Card.")
-	public void FillingDetailsToApplyingDebitCard() throws Exception {
+	public void FillingDetailsToApplyingDebitCard(String appName) throws Exception {
 		try {
-			ClickOnAccountToBeLinkedToTheCardField();
+			if (appName.equals("DBS"))
+				ClickOnAccountToBeLinkedToTheCardField();
+			else if (appName.equals("iWEALTH"))
+				ClickOnExistingATMCardNumberToBeReplacedField();
+			
+			
 			SelectAccountLinkedWithDebitCard(CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
 
 			ClickOnTitleField();
