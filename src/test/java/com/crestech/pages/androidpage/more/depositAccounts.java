@@ -145,11 +145,16 @@ public class depositAccounts extends CommonAppiumTest{
 	}
 
 	@Step("Select Source Of Funds For Savings.")
-	public void SelectSourceOfFundsForSavings() throws Exception {
+	public void SelectSourceOfFundsForSavings(String appName) throws Exception {
 		try {
 			clickOnElement(SelectSourceOfFundsForSavingsDropdown);
-			selectElementFromTheGivenList(DepositsAccountName,
-					CommonTestData.SELECT_ACCOUNT.getEnumValue(), "Select Source Of Funds For Savings");
+			if (appName.equals("DBS"))
+				selectElementFromTheGivenList(DepositsAccountName, CommonTestData.SELECT_ACCOUNT.getEnumValue(),
+						"Select Source Of Funds For Savings");
+			else if (appName.equals("iWEALTH"))
+				selectElementFromTheGivenList(DepositsAccountName,
+						CommonTestData.SELECT_ACCOUNT_iWEALTH.getEnumValue(), "Select Source Of Funds For Savings");
+		
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to select source of fund account for savings ", e);
@@ -210,6 +215,7 @@ public class depositAccounts extends CommonAppiumTest{
 	@Step("Verify Warning Message And Important Notes.")
 	public void VerifyWarningMessageAndImportantNotes() throws Exception {
 		try {
+			wait.fluentWaitForElement(ImportantNotes); 
 			Asserts.assertEquals(getTexOfElement(ImportantNotes),
 					CommonTestData.IMPORTANT_NOTES.getEnumValue(),
 					CommonTestData.IMPORTANT_NOTES.getEnumValue() + " Text is not matching.");

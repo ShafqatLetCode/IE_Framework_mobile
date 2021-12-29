@@ -377,7 +377,8 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Click On Confirm Button")
 	public void ClickOnConfirmButton() throws Exception {
 		try {
-			gestUtils.scrollUPtoObject(null, null, confirmButton);
+			gestUtils.scrollUPtoObject(null, null, null);
+			if(isElementVisible2(confirmButton)) 
 			clickOnElement(confirmButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on confirm button ", e);
