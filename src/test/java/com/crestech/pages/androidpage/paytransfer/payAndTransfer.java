@@ -267,7 +267,7 @@ public class payAndTransfer extends CommonAppiumTest{
 					if (length < 2) {
 						for (int i = 0; i < length; i++) {
 							actualToCreditCardAccount = SubTitleTextList.get(i).getText();
-							if (actualToCreditCardAccount.equalsIgnoreCase(expectedToCreditCardAccount)) {
+							if (actualToCreditCardAccount.contains(expectedToCreditCardAccount)) {
 								index++;
 								clickOnElement(ListElementToClickable.get(i));
 								break;
@@ -285,7 +285,7 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Code will work :: When Need to scroll
 						for (int i = 0; i < length; i++) {
 							actualToCreditCardAccount = SubTitleTextList.get(i).getText();
-							if (actualToCreditCardAccount.equalsIgnoreCase(expectedToCreditCardAccount)) {
+							if (actualToCreditCardAccount.contains(expectedToCreditCardAccount)) {
 								index++;
 								clickOnElement(ListElementToClickable.get(i));
 								break;
@@ -342,7 +342,7 @@ public class payAndTransfer extends CommonAppiumTest{
 					if (length < 2) {
 						for (int i = 0; i < length; i++) {
 							BillingOrganisationlist = SubTitleTextList.get(i).getText();
-							if (BillingOrganisationlist.equalsIgnoreCase(valueSelectedFromList)) {
+							if (BillingOrganisationlist.contains(valueSelectedFromList)) {
 								index++;
 								clickOnElement(ListElementToClickable.get(i));
 								break;
@@ -359,7 +359,7 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Code will work :: When Need to scroll
 						for (int i = 0; i < length; i++) {
 							BillingOrganisationlist = SubTitleTextList.get(i).getText();
-							if (BillingOrganisationlist.equalsIgnoreCase(valueSelectedFromList)) {
+							if (BillingOrganisationlist.contains(valueSelectedFromList)) {
 								index++;
 								clickOnElement(ListElementToClickable.get(i));
 								break;

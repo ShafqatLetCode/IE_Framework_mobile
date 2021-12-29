@@ -229,7 +229,7 @@ public class homePage extends CommonAppiumTest {
 	@Step("Digital Token Set Up")
 	public void digitalTokenSetUp() throws Exception {
 		try {
-			Thread.sleep(4000);
+			//Thread.sleep(4000);
 			if (isElementVisible2(digitalTokenSetUpMessage)) { 
 				ClickOnSetUpNowButton();
 				ClickOnContinueButton();
