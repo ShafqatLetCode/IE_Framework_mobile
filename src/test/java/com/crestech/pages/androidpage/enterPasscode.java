@@ -1,8 +1,6 @@
 package com.crestech.pages.androidpage;
 
 import java.time.Duration;
-import java.util.List;
-import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.annotation.values.ElementDescription;
@@ -48,13 +46,9 @@ public class enterPasscode extends CommonAppiumTest{
 	@Step("Enter Passcode(123456) for Secure Pin Authentication.")
 	public void EnterPasscodeAndDone() throws Exception {
 		try {
-			String xpath = "//android.widget.EditText[@text='••••••']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0) {
+			if (isElementVisible2(PasscodeField)) { 
 				enterTextInTextbox(PasscodeField, CommonTestData.OTP.getEnumValue());
-				String doneButtonxpath = "//android.widget.Button[@text='Done']";
-				List<RemoteWebElement> doneButtonList = driver.findElements(By.xpath(doneButtonxpath));
-				if (doneButtonList.size() > 0)
+				if (isElementVisible2(DoneButton)) 
 					ClickOnDoneButton();
 			}
 		} catch (HandleException e) {
@@ -69,9 +63,9 @@ public class enterPasscode extends CommonAppiumTest{
 		try {
 			clickOnElement(DoneButton);
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("ENTER_PASSCODE_EXCEPTION", " Failed to Click On Done Button  ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Done Button  ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("ENTER_PASSCODE_EXCEPTION", " Failed to Click On Done Button ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Done Button ", e);
 		}
 	}
 }

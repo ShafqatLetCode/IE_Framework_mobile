@@ -436,9 +436,9 @@ public class creditCard extends CommonAppiumTest{
 			String[] ExpTitleList = new String[] { "From", "To", "When", "Latest Balance", "Reference No." };
 			verifyTitles(ExpTitleList, FundTransferDetailslabel1List);
 
-			VerifyFromBankName(ExpectedFromBankName);
+		//	VerifyFromBankName(ExpectedFromBankName);
 			VerifyCreditCardName(ExpectedToCreditCardName);
-			VerifyFromAccountNumber(ExpectedFromAccountNumber);
+		//	VerifyFromAccountNumber(ExpectedFromAccountNumber);
 			VerifyToAccountNumber(ExpectedToAccountNumber);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
