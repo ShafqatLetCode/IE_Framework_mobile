@@ -114,7 +114,9 @@ public enum CommonTestData {
 	SUCCESSFULLY_SUBMITTED_MESSAGE("Successfully Submitted"),
 	//PeekBalance
 	TOTAL_BALANCE_TITLE("Total Balance"),
+	BALANCE_CONTRIBUTION_LIMIT("Balance Contribution Limit"),
 	AVAILABLE_BALANCE_TITLE("Available Balance"),
+	TOTAL_CONTRIBUTION_TO_DATE("Total Contribution To Date"),
 	USER_ACCOUNT_NAME("DBS SAVINGS PLUS"),
 	PEEK_BALANCE("Peek Balance"),
 	APP_SETTINGS("App Settings"),
@@ -225,7 +227,8 @@ public enum CommonTestData {
 
     //Remittance Corridor
 	OVERSEAS_ICON("Overseas"),
-    SOURCE_ACCOUNT_NAME_CORRIDOR("POSB STATEMENT SAVINGS"),
+    SOURCE_ACCOUNT_NAME_CORRIDOR("DBS SAVINGS PLUS"),
+    SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH("DBS Multiplier Account"),
 	CORRIDOR_AMOUNT("34"),
 	PAYEE_NAME_CORRIDOR("ad rec new ajay"),
 	OVERSEA_HEADER("Overseas Transfer"),
@@ -273,6 +276,7 @@ public enum CommonTestData {
 	//STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
 	SHOW_BUTTON("SHOW"),
 	ACCOUNT_NAME("DBS SAVINGS PLUS"),
+	ACCOUNT_NAME_IWEALTH("DBS Multiplier Account"),
 	STATEMENT_TITLE("DBS SAVINGS PLUS"),
 	
 	

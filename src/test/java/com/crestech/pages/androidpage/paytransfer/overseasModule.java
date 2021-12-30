@@ -65,6 +65,10 @@ public class overseasModule extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
 	private MobileElement Alert_OKButton;
 	
+	@ElementDescription(value = "Select Currency")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/currency_text')]")
+	private MobileElement SelectCurrency;
+	
 	@ElementDescription(value = "overseas transfer header")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/text_title_mfe')]")
 	private MobileElement overseasTransferHeader;
@@ -285,6 +289,9 @@ public class overseasModule extends CommonAppiumTest{
 				if(index==0)
 					Asserts.assertFail("Select Fund Source ' " + SelectedAccountName + " ' not found in the list to initiate the fund transfer");
 			
+				if (isElementVisible2(SelectCurrency))
+					clickOnElement(SelectCurrency);
+				
 				handlingOfPrimarySourceOfFundPopup();
 			}
 		} catch (HandleException e) {

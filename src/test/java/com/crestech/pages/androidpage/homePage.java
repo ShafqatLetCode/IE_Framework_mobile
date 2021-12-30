@@ -209,12 +209,9 @@ public class homePage extends CommonAppiumTest {
 	@Step("Click On More Button.")
 	public void ClickOnMoreButton() throws Exception {
 		try {
+			wait.waitForElementToBeClickable(MoreBtn); 
 			clickOnElement(MoreBtn);
-
-			String xpath = "//android.widget.ImageView[@content-desc='CLOSE']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0)
-				ClickOnCloseButton();
+            ClickOnCloseButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Button  ", e);
 		} catch (Exception e) {
@@ -225,6 +222,7 @@ public class homePage extends CommonAppiumTest {
 	@Step("Click On Pay & Transfer Button.")
 	public void ClickOnPayAndTransferBtn() throws Exception {
 		try {
+			wait.waitForElementToBeClickable(PayAndTransferBtn); 
 			clickOnElement(PayAndTransferBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Pay and Transfer Button  ", e);
@@ -236,7 +234,6 @@ public class homePage extends CommonAppiumTest {
 	@Step("Digital Token Set Up")
 	public void digitalTokenSetUp() throws Exception {
 		try {
-			//Thread.sleep(4000);
 			if (isElementVisible2(digitalTokenSetUpMessage)) { 
 				ClickOnSetUpNowButton();
 				ClickOnContinueButton();
@@ -359,14 +356,8 @@ public class homePage extends CommonAppiumTest {
 	@Step("Handling Error Alert.")
 	public void handlingErrorAlert() throws Exception {
 		try {
-			
 			if(isElementVisible2(errorAlertOKButton))
 				clickOnElement(errorAlertOKButton);
-//			String errorAlertOKButton = "//android.widget.Button[@resource-id='android:id/button1']";
-//			List<RemoteWebElement> errorAlertOKButtonlist = driver.findElements(By.xpath(errorAlertOKButton));
-//
-//			if (errorAlertOKButtonlist.size() > 0)
-//				clickOnElement((MobileElement) errorAlertOKButtonlist.get(0));
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Error Alert ", e);
 		} catch (Exception e) {
@@ -378,16 +369,7 @@ public class homePage extends CommonAppiumTest {
 	public void handlingGetStartedPopup() throws Exception {
 		try {
 			if(isElementVisible2(getstartedBtn))
-				clickOnElement(getstartedBtn);
-//			Thread.sleep(4000);
-//			String getStartedXpath = null;
-//
-//			//getStartedXpath = "//android.widget.Button[@resource-id='com.dbs.sit1.dbsmbanking:id/btn_get_started']";
-//			getStartedXpath = "//android.widget.Button[contains(@resource-id,':id/btn_get_started')]";
-//			List<RemoteWebElement> getstartedBtn = driver.findElements(By.xpath(getStartedXpath));
-//			if (getstartedBtn.size() > 0) 
-//				clickOnElement((MobileElement) getstartedBtn.get(0));
-				
+				clickOnElement(getstartedBtn);	
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Handle Of 'Get Started' Popup ", e);
@@ -401,9 +383,11 @@ public class homePage extends CommonAppiumTest {
 	public void handlingFingerPrintAlert(String expectecMessage) throws Exception   
 	{
 		try {
-			String actualMessage = getTexOfElement(headerFingerprintMessage);
-			Asserts.assertEquals(actualMessage, expectecMessage, "Finger Print Message Not matching");
-			clickOnElement(CloseButton);
+			if(isElementVisible2(headerFingerprintMessage)) {
+				String actualMessage = getTexOfElement(headerFingerprintMessage);
+				Asserts.assertEquals(actualMessage, expectecMessage, "Finger Print Message Not matching");
+				clickOnElement(CloseButton);
+			}
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handling Finger Print Alert  ",e);		
 		}
@@ -416,9 +400,11 @@ public class homePage extends CommonAppiumTest {
 	public void handleRecordingAlert(String expectecMessage) throws Exception
 	{
 		try {
-			String actualMessage = getTexOfElement(headerRecordingMessage);
-			Asserts.assertEquals(actualMessage, expectecMessage, "Recording alert Message Not matching");
-			clickOnElement(CloseButton);
+			if(isElementVisible2(headerRecordingMessage)) {
+				String actualMessage = getTexOfElement(headerRecordingMessage);
+				Asserts.assertEquals(actualMessage, expectecMessage, "Recording alert Message Not matching");
+				clickOnElement(CloseButton);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Recording Alert ",
 					e);
@@ -434,7 +420,13 @@ public class homePage extends CommonAppiumTest {
 			clickOnElement(accountSectionHomePage);
 			gestUtils.scrollDOWNtoObject("text", "Deposits", null);
 			Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
-			Asserts.assertEquals(getTexOfElement(accountNameHomePage), AccountName,AccountName + " is not present");
+			
+			if (isElementVisible2(accountNameHomePage)) {
+				Asserts.assertEquals(getTexOfElement(accountNameHomePage), AccountName,
+						AccountName + " is not present");
+			} else
+				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
+			
 			gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
 			Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
 		} catch (HandleException e) {
@@ -450,16 +442,60 @@ public class homePage extends CommonAppiumTest {
 			throws Exception {
 		try {
 			clickOnElement(accountSectionHomePage);
-			gestUtils.scrollDOWNtoObject("text", "CPFIA/SRS Account", null);
-			Asserts.assertEquals(getTexOfElement(SRSACCOUNT), AccountType,AccountType + " is not present");
-			Asserts.assertEquals(getTexOfElement(accountNameHomePage), AccountName,AccountName + " is not present");
-			gestUtils.scrollUPtoObject("text", "SGD", null);
-			Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
+			verifyAccountType(AccountType);
+			verifyAccountName(AccountName);
+			verifyCurrency(currency);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
 					e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
+		}
+	}
+	
+	@Step("Verify 'Currency' on dashboard Page.")
+	public void verifyCurrency(String currency) throws Exception{
+		try {
+			if(isElementVisible2(currencyHomePage)) 
+			Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
+			else
+				Asserts.assertFail(currency + " Not Found on the Dashboard Page."); 
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Currency' on dashboard Page ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Currency' on dashboard Page ", e);
+		}
+	}
+	
+	@Step("Verify 'Account Name' on dashboard Page.")
+	public void verifyAccountName(String AccountName) throws Exception{
+		try {
+			if(isElementVisible2(accountNameHomePage)) 
+			Asserts.assertEquals(getTexOfElement(accountNameHomePage), AccountName,AccountName + " is not present");
+			else
+				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
+			
+			
+			gestUtils.scrollUPtoObject("text", "SGD", null);
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Name' on dashboard Page ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Name' on dashboard Page ", e);
+		}
+	}
+	
+	@Step("Verify 'Account Type' on dashboard Page.")
+	public void verifyAccountType(String AccountType) throws Exception{
+		try {
+			gestUtils.scrollDOWNtoObject("text", "CPFIA/SRS Account", null);
+			Asserts.assertEquals(getTexOfElement(SRSACCOUNT), AccountType, AccountType + " is not present");
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Type' on dashboard Page ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Type' on dashboard Page ", e);
 		}
 	}
 	
@@ -496,6 +532,7 @@ public class homePage extends CommonAppiumTest {
 	@Step("Click On Close Button.")
 	public void ClickOnCloseButton() throws Exception {
 		try {
+			if(isElementVisible2(CloseButton)) 
 			clickOnElement(CloseButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button  ", e);
@@ -565,7 +602,6 @@ public class homePage extends CommonAppiumTest {
 	@Step("Get Available Balance")
 	public String getAvailableBalance(String AvailableBalanceTitle) throws Exception {
 		try {
-			//// TakeScreenshot(DBSappObject.UserAccountName());
 			Asserts.assertEquals(getTexOfElement(AccountTitleList.get(0)), AvailableBalanceTitle,
 					AvailableBalanceTitle + " Text is not matching.");
 			String ExpectedAvailableBalanceValue = AccountValueList.get(0).getText();

@@ -61,7 +61,7 @@ public class preloginPage extends CommonAppiumTest{
 	private MobileElement LogInButton;
 	
 	@Step("Click On LogIn Button.")
-	public void ClickOnLoginButtonAfterEnablePeekBalance() throws Exception {
+	public void ClickOnLoginButton() throws Exception {
 		try {
 			clickOnElement(LogInButton);
 		} catch (HandleException e) {

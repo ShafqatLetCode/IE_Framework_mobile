@@ -161,12 +161,12 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Click on 'From Account' From Deposit Section")
 	public void selectFromAccountFromDepositeSection(String AccountToBeSelected) throws Exception {
 		try {
-			if (AccountNameListInTransactionHistoryForDBS.size() > 0) {
-
+			wait.waitForElementVisibility(AccountNameListInTransactionHistoryForDBS.get(0));
+			if (isElementVisible2(AccountNameListInTransactionHistoryForDBS.get(0))) {  
 				int l = AccountNameListInTransactionHistoryForDBS.size();
 				int index = 0;
 				String accountFromList = null;
-				for (int i = 0; i < l; i++) {
+				for (int i = 0; i < l; i++) { 
 					accountFromList = AccountNameListInTransactionHistoryForDBS.get(i).getText();
 					if (accountFromList.contains(AccountToBeSelected)) {
 						index++;
@@ -176,8 +176,7 @@ public class transactionHistory extends CommonAppiumTest{
 				}
 				if (index == 0)
 					Asserts.assertFail("'From Account '" + AccountToBeSelected + " not found in the Deposite Section List.");
-			} else
-				Asserts.assertFail("No From Account found in the Deposit Section as list size is zero");
+			} 
 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to select 'From Account' from Deposit Section. ", e);
