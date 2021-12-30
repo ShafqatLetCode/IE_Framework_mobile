@@ -143,8 +143,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Log In the Application")
 	public void LogInApplication(String userName, String password, String appName) throws Exception {
 		try {
-			launchpage.handlingQuitButton();
-			launchpage.clickOnLoginButton();
+			//launchpage.handlingQuitButton();
+		//	launchpage.clickOnLoginButton();
+			preloginpage.ClickOnLoginButton(); 
 			loginpage.EnterCredentialsAndLogin(userName, password); 
 			homepage.digitalTokenSetUp();
 			homepage.handlingGetStartedPopup();
@@ -543,7 +544,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 				// DeRegister/Disable Process to removing peek balance from login page for next
 				// run.
-				preloginpage.ClickOnLoginButtonAfterEnablePeekBalance();
+				preloginpage.ClickOnLoginButton();
 				loginpage.ClickOnNOTYouLink();
 				loginpage.ClickOnDeregisterButtonInDigiAlertPopup(CommonTestData.PEEK_BALANCE_DEREGISTER_MESSAGE.getEnumValue());
 			} else

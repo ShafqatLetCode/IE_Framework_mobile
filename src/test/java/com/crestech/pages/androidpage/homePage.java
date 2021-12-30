@@ -234,7 +234,6 @@ public class homePage extends CommonAppiumTest {
 	@Step("Digital Token Set Up")
 	public void digitalTokenSetUp() throws Exception {
 		try {
-			//Thread.sleep(4000);
 			if (isElementVisible2(digitalTokenSetUpMessage)) { 
 				ClickOnSetUpNowButton();
 				ClickOnContinueButton();
@@ -357,14 +356,8 @@ public class homePage extends CommonAppiumTest {
 	@Step("Handling Error Alert.")
 	public void handlingErrorAlert() throws Exception {
 		try {
-			
 			if(isElementVisible2(errorAlertOKButton))
 				clickOnElement(errorAlertOKButton);
-//			String errorAlertOKButton = "//android.widget.Button[@resource-id='android:id/button1']";
-//			List<RemoteWebElement> errorAlertOKButtonlist = driver.findElements(By.xpath(errorAlertOKButton));
-//
-//			if (errorAlertOKButtonlist.size() > 0)
-//				clickOnElement((MobileElement) errorAlertOKButtonlist.get(0));
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Error Alert ", e);
 		} catch (Exception e) {
@@ -376,16 +369,7 @@ public class homePage extends CommonAppiumTest {
 	public void handlingGetStartedPopup() throws Exception {
 		try {
 			if(isElementVisible2(getstartedBtn))
-				clickOnElement(getstartedBtn);
-//			Thread.sleep(4000);
-//			String getStartedXpath = null;
-//
-//			//getStartedXpath = "//android.widget.Button[@resource-id='com.dbs.sit1.dbsmbanking:id/btn_get_started']";
-//			getStartedXpath = "//android.widget.Button[contains(@resource-id,':id/btn_get_started')]";
-//			List<RemoteWebElement> getstartedBtn = driver.findElements(By.xpath(getStartedXpath));
-//			if (getstartedBtn.size() > 0) 
-//				clickOnElement((MobileElement) getstartedBtn.get(0));
-				
+				clickOnElement(getstartedBtn);	
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Handle Of 'Get Started' Popup ", e);
@@ -399,9 +383,11 @@ public class homePage extends CommonAppiumTest {
 	public void handlingFingerPrintAlert(String expectecMessage) throws Exception   
 	{
 		try {
-			String actualMessage = getTexOfElement(headerFingerprintMessage);
-			Asserts.assertEquals(actualMessage, expectecMessage, "Finger Print Message Not matching");
-			clickOnElement(CloseButton);
+			if(isElementVisible2(headerFingerprintMessage)) {
+				String actualMessage = getTexOfElement(headerFingerprintMessage);
+				Asserts.assertEquals(actualMessage, expectecMessage, "Finger Print Message Not matching");
+				clickOnElement(CloseButton);
+			}
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handling Finger Print Alert  ",e);		
 		}
@@ -414,9 +400,11 @@ public class homePage extends CommonAppiumTest {
 	public void handleRecordingAlert(String expectecMessage) throws Exception
 	{
 		try {
-			String actualMessage = getTexOfElement(headerRecordingMessage);
-			Asserts.assertEquals(actualMessage, expectecMessage, "Recording alert Message Not matching");
-			clickOnElement(CloseButton);
+			if(isElementVisible2(headerRecordingMessage)) {
+				String actualMessage = getTexOfElement(headerRecordingMessage);
+				Asserts.assertEquals(actualMessage, expectecMessage, "Recording alert Message Not matching");
+				clickOnElement(CloseButton);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Recording Alert ",
 					e);
