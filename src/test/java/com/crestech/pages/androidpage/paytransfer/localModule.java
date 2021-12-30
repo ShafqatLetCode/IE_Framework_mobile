@@ -1,7 +1,11 @@
 package com.crestech.pages.androidpage.paytransfer;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -126,7 +130,15 @@ public class localModule extends CommonAppiumTest{
 	@ElementDescription(value = "Transfer Date Text Element")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_transfer_date')]")
 	private MobileElement TransferDateTextElement;
-
+	
+	@ElementDescription(value = "Select Next Month")
+	@AndroidFindBy(xpath = "//android.widget.ImageButton[@content-desc='Next month']")
+	private MobileElement SelectNextMonth;
+	
+	@ElementDescription(value = "Static date")
+	@AndroidFindBy(xpath = "//android.view.View[@text='20']")
+	private MobileElement StaticDate;
+	
 	@ElementDescription(value = "Amount Field For Bill Org")
 	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,':id/appCompatEditText')]")
 	private MobileElement AmountEditableField;
@@ -826,40 +838,69 @@ public class localModule extends CommonAppiumTest{
 	public void SelectFutureDate() throws Exception {
 		try {
 			clickOnElement(TransferDateTextElement);
-//			Calendar calendar = Calendar.getInstance();
-//			Date today = calendar.getTime();
-//
-//			calendar.add(Calendar.DAY_OF_YEAR, 1);
-//			Date tomorrow = calendar.getTime();
-//
-//			DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-//
-//			String todayAsString = dateFormat.format(today);
-//			String tomorrowAsString = dateFormat.format(tomorrow);
-//			String ExpectedDate = tomorrowAsString.replaceAll("-", " ");
-//			System.out.println(todayAsString);
-//			System.out.println(tomorrowAsString);
-//			System.out.println(ExpectedDate);
-//			String[] sDate = tomorrowAsString.split("-");
-//			System.out.println(sDate[0]);
-//			String CalendardateXpath = "//android.view.View[@text='" + sDate[0] + "']";
-//         if(sDate[0]<10) sDate[0]+10;
-//			MobileElement Calendardate = (MobileElement) driver.findElement(By.xpath(CalendardateXpath));
-//			if (Calendardate.isEnabled())
-//				clickOnElement(Calendardate);
-//
-//			
-//			String ActualSelectedDate = getTexOfElement(DBSappObject.TransferDateTextElement());
-//			System.out.println(ActualSelectedDate);
-//			Asserts.assertEquals(ActualSelectedDate, ExpectedDate, "Selected Date is not Matching");
 
-			String CalendardateXpath = "//android.view.View[@text='20']";
-			MobileElement Calendardate = (MobileElement) driver.findElement(By.xpath(CalendardateXpath));
-			clickOnElement(Calendardate);
-			ClickOnOKButton();
-			String ActualSelectedDate = getTexOfElement(TransferDateTextElement);
-			Asserts.assertEquals(ActualSelectedDate.split(" ")[0], "20", "Selected Date is not Matching");
-
+			if(isElementEnable(StaticDate)) {
+				clickOnElement(StaticDate);
+				ClickOnOKButton();
+				String ActualSelectedDate = getTexOfElement(TransferDateTextElement);
+				Asserts.assertEquals(ActualSelectedDate.split(" ")[0], "20", "Selected Date is not Matching");
+			}else {
+				Calendar calendar = Calendar.getInstance();
+				Date today = calendar.getTime();
+	
+				calendar.add(Calendar.DAY_OF_YEAR, 1);
+				Date tomorrow = calendar.getTime();
+	
+				DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+	
+				String todayAsString = dateFormat.format(today);
+				String tomorrowAsString = dateFormat.format(tomorrow);
+				String ExpectedDate = tomorrowAsString.replaceAll("-", " ");
+				System.out.println(todayAsString);
+				System.out.println(tomorrowAsString);
+				System.out.println(ExpectedDate);
+				String[] sDate = tomorrowAsString.split("-");
+				System.out.println(sDate[0]);
+				
+				String[] todayDate = todayAsString.split("-");
+				System.out.println(todayDate[0]);
+				
+				String newDate = sDate[0];
+				
+				if(todayDate[0].equals("30") || todayDate[0].equals("31") || todayDate[0].equals("28") || todayDate[0].equals("29")) {
+					calendar.add(Calendar.DAY_OF_YEAR, 14);
+					Date DateAfterFourteenDays = calendar.getTime();
+		
+					DateFormat newDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+		
+					String DateAfterFourteenDaysInFormat = newDateFormat.format(DateAfterFourteenDays);
+					System.out.println("DateAfterFourteenDaysInFormat:: "+DateAfterFourteenDaysInFormat);
+				    ExpectedDate = DateAfterFourteenDaysInFormat.replaceAll("-", " ");
+					System.out.println("ExpectedDate:: "+ExpectedDate);
+					
+					String[] sDate1 = DateAfterFourteenDaysInFormat.split("-");
+					System.out.println("new Selected Date:: "+sDate1[0]);
+					newDate = sDate1[0]; 
+					System.out.println("newDate:: "+ newDate);
+					
+					clickOnElement(SelectNextMonth); 
+				}
+				
+				
+				String CalendardateXpath = "//android.view.View[@text='" + newDate + "']";
+		        
+				MobileElement Calendardate = (MobileElement) driver.findElement(By.xpath(CalendardateXpath));
+				if (Calendardate.isEnabled())
+					clickOnElement(Calendardate);
+	
+				ClickOnOKButton();
+				
+				String ActualSelectedDate = getTexOfElement(TransferDateTextElement);
+				System.out.println("ActualSelectedDate:: "+ActualSelectedDate);
+				System.out.println("ExpectedDate:: "+ExpectedDate);
+				Asserts.assertEquals(ActualSelectedDate, ExpectedDate, "Selected Date is not Matching");
+			}
+			
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to select future date and verification  ", e);
 		} catch (Exception e) {

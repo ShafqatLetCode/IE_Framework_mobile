@@ -164,8 +164,9 @@ public class CommonAppiumTest extends CommandPrompt {
 			//wait.waitForElementVisibility(element);
 			return element.isEnabled();
 		} catch (Exception e) {
+			return false;
 			//throw new HandleException ("WAITELEMENT_ENABLE_EXCEPTION", "Element not Enable on the screen ::",e);
-			throw e;	
+			//throw e;	
 		}
 	}
 	/**

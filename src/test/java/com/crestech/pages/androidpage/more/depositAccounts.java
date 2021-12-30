@@ -169,7 +169,6 @@ public class depositAccounts extends CommonAppiumTest{
 			String ElementName) throws Exception {
 		try {
 			if (elementList.size() > 0) {
-				//wait.waitForElementVisibility(elementList.get(1));
 				List<MobileElement> Elementlist = elementList;
 				int l = Elementlist.size();
 				int index = 0;
@@ -182,8 +181,8 @@ public class depositAccounts extends CommonAppiumTest{
 						break;
 					}
 				}
-				Asserts.assertTrue(index > 0,
-						"The " + ElementName + " " + elementToBeSelected + " Not found in the list.");
+				if(index == 0)
+				Asserts.assertFail("The " + ElementName + " " + elementToBeSelected + " Not found in the list.");
 			} else
 				Asserts.assertFail(
 						"The " + ElementName + " " + elementToBeSelected + " not found in the list as list size is 0");

@@ -502,7 +502,7 @@ public class cardsModule extends CommonAppiumTest{
 		}
 	}
 	
-	@Step("Select element from the given lists")
+	
 	public void selectElementFromTheGivenList(List<MobileElement> elementList, String elementToBeSelected,
 			String ElementName) throws Exception {
 		try {
@@ -519,8 +519,8 @@ public class cardsModule extends CommonAppiumTest{
 						break;
 					}
 				}
-				Asserts.assertTrue(index > 0,
-						"The " + ElementName + " " + elementToBeSelected + " Not found in the list.");
+				if(index == 0)
+				Asserts.assertFail("The " + ElementName + " " + elementToBeSelected + " Not found in the list.");
 			} else
 				Asserts.assertFail(
 						"The " + ElementName + " " + elementToBeSelected + " not found in the list as list size is 0");

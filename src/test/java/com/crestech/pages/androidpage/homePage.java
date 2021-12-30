@@ -420,7 +420,13 @@ public class homePage extends CommonAppiumTest {
 			clickOnElement(accountSectionHomePage);
 			gestUtils.scrollDOWNtoObject("text", "Deposits", null);
 			Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
-			Asserts.assertEquals(getTexOfElement(accountNameHomePage), AccountName,AccountName + " is not present");
+			
+			if (isElementVisible2(accountNameHomePage)) {
+				Asserts.assertEquals(getTexOfElement(accountNameHomePage), AccountName,
+						AccountName + " is not present");
+			} else
+				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
+			
 			gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
 			Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
 		} catch (HandleException e) {

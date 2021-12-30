@@ -548,7 +548,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				loginpage.ClickOnNOTYouLink();
 				loginpage.ClickOnDeregisterButtonInDigiAlertPopup(CommonTestData.PEEK_BALANCE_DEREGISTER_MESSAGE.getEnumValue());
 			} else
-				Asserts.assertFail("Deposite Account Name not showing on the Dashboard Page.");
+				Asserts.assertFail("Account Name not showing on the Dashboard Page.");
 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Peek balance ", e);
@@ -950,7 +950,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterpasscode.EnterPasscodeAndDone();
 			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			transactionhistory.SelectThreeMonths();
-			transactionhistory.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME.getEnumValue());
+			
+			if (appName.equals("DBS"))
+				transactionhistory
+						.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME.getEnumValue());
+			else if (appName.equals("iWEALTH"))
+				transactionhistory
+						.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue());
+			
 			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			transactionhistory.ClickOnShowButton();
 			enterpasscode.EnterPasscodeAndDone();
