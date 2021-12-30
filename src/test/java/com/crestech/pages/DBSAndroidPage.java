@@ -202,14 +202,19 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 
 	@Step("Verifies Remittance Corridor")
-	public void VerifyRemittanceCorridor() throws Exception {
+	public void VerifyRemittanceCorridor(String appName) throws Exception {
 		try {
 			homepage.ClickOnPayAndTransferBtn();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.ClickOnOverseasModule(CommonTestData.OVERSEAS_ICON.getEnumValue());
 			overseasmodule.verifyOverseasTransferPageHeader(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue());
 			overseasmodule.SelectOverseaPayee(CommonTestData.PAYEE_NAME_CORRIDOR.getEnumValue());
-			overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue());
+			
+			if (appName.equals("DBS"))
+				overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue());
+			else if (appName.equals("iWEALTH"))
+				overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH.getEnumValue());
+			
 			overseasmodule.VerifyOverseasTransferHeader(CommonTestData.OVERSEA_HEADER.getEnumValue());
 			overseasmodule.pressEnterKeyAfterEnteringAmount(CommonTestData.CORRIDOR_AMOUNT.getEnumValue());
 			overseasmodule.SelectAdditionalDetails(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),
@@ -229,13 +234,16 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Verifies Remittance eOTT")
-	public void VerifyRemittanceEOTT() throws Exception {
+	public void VerifyRemittanceEOTT(String appName) throws Exception {
 		try {
 			homepage.ClickOnPayAndTransferBtn();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.SelectAllTAB();
 			overseasmodule.SelectEOTT();
-			overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue());
+			if (appName.equals("DBS"))
+				overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue());
+			else if (appName.equals("iWEALTH"))
+				overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH.getEnumValue());
 			overseasmodule.VerifyOverseasTransferHeader(CommonTestData.OVERSEA_HEADER.getEnumValue());
 			overseasmodule.pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
 			overseasmodule.SelectAdditionalDetails(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),
@@ -483,15 +491,25 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Verify Peek Balance.")
-	public void VerifyPeekBalance() throws Exception {
+	public void VerifyPeekBalance(String appName) throws Exception {
 		try {
 			homepage.VerifyDepositAccountTypeOnDashboardPage();
 			if (isElementVisible2(homepage.DepositsAccountName())) { 
 				String DepositeAccountNameOnDashboard = homepage.getAndClickOnDepositeAccountNameFromDashboard();
 				enterpasscode.EnterPasscodeAndDone();
-				String ExpectedAvailableBalanceValue = homepage.getAvailableBalance(
-						CommonTestData.AVAILABLE_BALANCE_TITLE.getEnumValue());
-				String ExpectedTotalBalanceValue = homepage.getTotalBalance(CommonTestData.TOTAL_BALANCE_TITLE.getEnumValue());
+				String ExpectedAvailableBalanceValue =null;
+				String ExpectedTotalBalanceValue = null;
+				if(appName.equals("DBS")) {
+					ExpectedAvailableBalanceValue = homepage.getAvailableBalance(
+							CommonTestData.AVAILABLE_BALANCE_TITLE.getEnumValue());
+					 ExpectedTotalBalanceValue = homepage.getTotalBalance(CommonTestData.TOTAL_BALANCE_TITLE.getEnumValue());
+				}
+				else if(appName.equals("iWEALTH")) {
+					ExpectedAvailableBalanceValue = homepage.getAvailableBalance(
+							CommonTestData.TOTAL_CONTRIBUTION_TO_DATE.getEnumValue());
+			        ExpectedTotalBalanceValue = homepage.getTotalBalance(CommonTestData.BALANCE_CONTRIBUTION_LIMIT.getEnumValue());
+				}
+					 
 				String ExpectedUserAccountName = homepage.GetUserAccountName(DepositeAccountNameOnDashboard);
 				String ExpectedUserAccountNumber = homepage.GetUserAccountNumber();
 				homepage.ClickOnToolBarBackIcon();
@@ -628,8 +646,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			paytransfer.SelectAllTAB();
 			paytransfer.ClickOnLocalRecipient();
 			paytransfer.SelectToAccountFromLocalRecipient(CommonTestData.LOCAL_RECIPIENT_LIST_SELECTED_ACCOUNTNAME.getEnumValue());
-			local.SelectFundSourceAccount(CommonTestData.SOURCE_ACCOUNT_NAME.getEnumValue());
-			
 			
 			String ExpectedFromBankName = null;
 			if (appname.equals("DBS")) {

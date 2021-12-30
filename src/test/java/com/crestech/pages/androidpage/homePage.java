@@ -209,12 +209,9 @@ public class homePage extends CommonAppiumTest {
 	@Step("Click On More Button.")
 	public void ClickOnMoreButton() throws Exception {
 		try {
+			wait.waitForElementToBeClickable(MoreBtn); 
 			clickOnElement(MoreBtn);
-
-			String xpath = "//android.widget.ImageView[@content-desc='CLOSE']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0)
-				ClickOnCloseButton();
+            ClickOnCloseButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Button  ", e);
 		} catch (Exception e) {
@@ -225,6 +222,7 @@ public class homePage extends CommonAppiumTest {
 	@Step("Click On Pay & Transfer Button.")
 	public void ClickOnPayAndTransferBtn() throws Exception {
 		try {
+			wait.waitForElementToBeClickable(PayAndTransferBtn); 
 			clickOnElement(PayAndTransferBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Pay and Transfer Button  ", e);
@@ -450,16 +448,60 @@ public class homePage extends CommonAppiumTest {
 			throws Exception {
 		try {
 			clickOnElement(accountSectionHomePage);
-			gestUtils.scrollDOWNtoObject("text", "CPFIA/SRS Account", null);
-			Asserts.assertEquals(getTexOfElement(SRSACCOUNT), AccountType,AccountType + " is not present");
-			Asserts.assertEquals(getTexOfElement(accountNameHomePage), AccountName,AccountName + " is not present");
-			gestUtils.scrollUPtoObject("text", "SGD", null);
-			Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
+			verifyAccountType(AccountType);
+			verifyAccountName(AccountName);
+			verifyCurrency(currency);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
 					e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
+		}
+	}
+	
+	@Step("Verify 'Currency' on dashboard Page.")
+	public void verifyCurrency(String currency) throws Exception{
+		try {
+			if(isElementVisible2(currencyHomePage)) 
+			Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
+			else
+				Asserts.assertFail(currency + " Not Found on the Dashboard Page."); 
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Currency' on dashboard Page ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Currency' on dashboard Page ", e);
+		}
+	}
+	
+	@Step("Verify 'Account Name' on dashboard Page.")
+	public void verifyAccountName(String AccountName) throws Exception{
+		try {
+			if(isElementVisible2(accountNameHomePage)) 
+			Asserts.assertEquals(getTexOfElement(accountNameHomePage), AccountName,AccountName + " is not present");
+			else
+				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
+			
+			
+			gestUtils.scrollUPtoObject("text", "SGD", null);
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Name' on dashboard Page ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Name' on dashboard Page ", e);
+		}
+	}
+	
+	@Step("Verify 'Account Type' on dashboard Page.")
+	public void verifyAccountType(String AccountType) throws Exception{
+		try {
+			gestUtils.scrollDOWNtoObject("text", "CPFIA/SRS Account", null);
+			Asserts.assertEquals(getTexOfElement(SRSACCOUNT), AccountType, AccountType + " is not present");
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Type' on dashboard Page ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Type' on dashboard Page ", e);
 		}
 	}
 	
@@ -496,6 +538,7 @@ public class homePage extends CommonAppiumTest {
 	@Step("Click On Close Button.")
 	public void ClickOnCloseButton() throws Exception {
 		try {
+			if(isElementVisible2(CloseButton)) 
 			clickOnElement(CloseButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button  ", e);
@@ -565,7 +608,6 @@ public class homePage extends CommonAppiumTest {
 	@Step("Get Available Balance")
 	public String getAvailableBalance(String AvailableBalanceTitle) throws Exception {
 		try {
-			//// TakeScreenshot(DBSappObject.UserAccountName());
 			Asserts.assertEquals(getTexOfElement(AccountTitleList.get(0)), AvailableBalanceTitle,
 					AvailableBalanceTitle + " Text is not matching.");
 			String ExpectedAvailableBalanceValue = AccountValueList.get(0).getText();

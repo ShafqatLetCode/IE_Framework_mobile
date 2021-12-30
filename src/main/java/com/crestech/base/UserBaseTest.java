@@ -306,7 +306,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 //			capabilities.setCapability("pCloudy_MinVersion",min_Ver); 
 //			capabilities.setCapability("pCloudy_MaxVersion",max_Ver); 
 //			capabilities.setCapability("pCloudy_Individual",individual_ID);
-			capabilities.setCapability(MobileCapabilityType.NO_RESET, false);
+			capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
 
 			if (checkDeviceVersion(version)) {
 				capabilities.setCapability("automationName", "UiAutomator2");
