@@ -295,6 +295,14 @@ public class AndroidAlert{
 		} // catch
 	} // isAlertPresent()
 
-
+	public boolean isIOSAlertPresent() {
+		try {
+			this.driver.findElementByXPath("//XCUIElementTypeStaticText[@name='digibank Alert']");
+			return true;
+		} // try
+		catch (Exception Ex) {
+			return false;
+		} // catch
+	} // isAlertPresent()
 
 }
