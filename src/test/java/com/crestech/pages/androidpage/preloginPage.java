@@ -60,10 +60,16 @@ public class preloginPage extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Log In']")
 	private MobileElement LogInButton;
 	
+	
+	
 	@Step("Click On LogIn Button.")
 	public void ClickOnLoginButton() throws Exception {
 		try {
-			clickOnElement(LogInButton);
+			if(isElementVisible2(LogInButton))
+					clickOnElement(LogInButton);
+			else
+				if(isElementVisible2(launchpage.loginButton()))
+					clickOnElement(launchpage.loginButton());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On LogIn Button ", e);
 		} catch (Exception e) {

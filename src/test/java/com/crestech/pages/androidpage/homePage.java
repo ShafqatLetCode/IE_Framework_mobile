@@ -366,9 +366,10 @@ public class homePage extends CommonAppiumTest {
 	}
 
 	@Step("Handling Of 'Get Started' Popup.")
-	public void handlingGetStartedPopup() throws Exception {
+	public void handlingGetStartedPopup(String appName) throws Exception {
 		try {
 			if(isElementVisible2(getstartedBtn))
+		//	if(appName.equalsIgnoreCase("iWEALTH"))
 				clickOnElement(getstartedBtn);	
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",

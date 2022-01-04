@@ -22,13 +22,14 @@ public class launchPage extends CommonAppiumTest{
 	
 	public AppiumDriver<RemoteWebElement> driver = null;
 	HandleException obj_handleexception = null;
-	
+	//preloginPage preloginpg=null;
 	
 	public launchPage(AppiumDriver<RemoteWebElement> driver) throws Exception {
 		super(driver);
 		try {
 			this.driver = driver;
 			obj_handleexception = new HandleException(null, null);
+			//preloginpg =new preloginPage(driver);
 			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,20 +59,29 @@ public class launchPage extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'id/edit_user_id')]")
 	private MobileElement userIdEditText;
 	
+	
+	@ElementDescription(value = "Log In Button prelogin page")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Log In']")
+	private MobileElement LogInButton_preloginpage;
+	
 	public MobileElement quitBtn() { 
 		return quitBtn;
 	}
+	public MobileElement loginButton() { 
+		return loginButton;
+	}
+
 	
 	@Step("Handling Of QUIT Button.")
 	public void handlingQuitButton() throws Exception {
 		try {
-			driver.manage().timeouts().implicitlyWait(75, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(70, TimeUnit.SECONDS);
 			if (isElementVisible2(quitBtn)) {
 				driver.closeApp();
 				relaunchingDBS();
 				wait.fluentWaitForElement(loginButton); 
 			}
-			driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Quit Button ", e);
 		} catch (Exception e) {
@@ -129,11 +139,14 @@ public class launchPage extends CommonAppiumTest{
 	@Step("Clicked on Pre-Login button")
 	public void ClickOnPreloginButton() throws Exception {
 		try {
+			if(isElementVisible2(PreLoginBtn))
+			{
 			int count = 0;
 			do {
 				clickOnElement(PreLoginBtn);
 				count++;
 			} while (!isElementVisible2(MoreButton) && count < 3);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Prelogin Button ", e);
 		} catch (Exception e) {
@@ -144,11 +157,18 @@ public class launchPage extends CommonAppiumTest{
 	@Step("Clicked on Login button")
 	public void clickOnLoginButton() throws Exception {
 		try {
+			if(isElementVisible2(loginButton))
+			{
 			int count = 0;
 			do {
 				clickOnElement(loginButton);
 				count++;
 			} while (!isElementVisible2(userIdEditText) && count < 3);
+			}
+			else if (isElementVisible2(LogInButton_preloginpage))
+			{
+				clickOnElement(LogInButton_preloginpage);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
 		} catch (Exception e) {

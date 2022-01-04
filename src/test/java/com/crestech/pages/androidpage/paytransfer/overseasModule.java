@@ -377,23 +377,18 @@ public class overseasModule extends CommonAppiumTest{
 	}
 	
 	@Step("Select Additional Details if Required")
-	public void SelectAdditionalDetails(String AccountType, String purpose, String MobileNo) throws Exception{
+	public void SelectAdditionalDetails(String ExpectedAccountType, String Purpose, String MobileNo) throws Exception{
 		try {
 			gestUtils.scrollUPtoObject("text", "Next", null);
 			
-			String xpath_account = "//android.widget.TextView[contains(@text,'account type')]";
-			List<RemoteWebElement> AccountTypeList = driver.findElements(By.xpath(xpath_account));
-			if (AccountTypeList.size() > 0)
-				selectAccountType(AccountType);
+			if (isElementVisible2(AccountType))
+				selectAccountType(ExpectedAccountType);
 
-			String xpath_purpose = "//android.widget.TextView[contains(@text,'purpose')]";
-			List<RemoteWebElement> purposeList = driver.findElements(By.xpath(xpath_purpose));
-			if (purposeList.size() > 0)
-				selectPurpose(purpose);
+			
+			if (isElementVisible2(purpose))
+				selectPurpose(Purpose);
 
-			String xpath = "//android.widget.EditText[contains(@text,'mobile number')]";
-			List<RemoteWebElement> MobileNoList = driver.findElements(By.xpath(xpath));
-			if (MobileNoList.size() > 0)
+			if (isElementVisible2(MobileNoField))
 				enterMobileNo(MobileNo);
 
 		} catch (HandleException e) {
@@ -402,6 +397,8 @@ public class overseasModule extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION"," Failed to Select Additional Details ", e);
 		}
 	}
+
+
 	
 	@Step("Select AccountType")
 	public void selectAccountType(String expectedAccountType) throws Exception// "Savings"
@@ -473,18 +470,6 @@ public class overseasModule extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Mobile Number ", e);
 		}
 	}
-	
-//	@Step("Click on Next Button.")
-//	public void ClickOnNextButton() throws Exception {
-//		try {
-//			gestUtils.scrollUPtoObject("text", "NEXT", NextBtn);
-//			clickOnElement(NextBtn);
-//		} catch (HandleException e) {
-//			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ", e);
-//		} catch (Exception e) {
-//			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ", e);
-//		}
-//	}
 	
 
 	@Step("Verify 'Review Transfer' page header")
@@ -611,33 +596,17 @@ public class overseasModule extends CommonAppiumTest{
 		}
 	}
 	
-//	@Step("Click On Next Button.")
-//	public void ClickOnNextBtn() throws Exception {
-//		try {
-//				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
-//				clickOnElement(nextButton);
-//		} catch (HandleException e) {
-//			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
-//		} catch (Exception e) {
-//			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
-//		}
-//	}
-	
 	@Step("Click On Next Button.")
 	public void ClickOnNextButton() throws Exception {
 		try {
-			String confirmButtonXpath = "//android.widget.Button[@text='CONFIRM']";
-			List<RemoteWebElement> confirmButtonList = driver.findElements(By.xpath(confirmButtonXpath));
-			String nextButtonXpath = "//android.widget.Button[@text='NEXT']";
-			List<RemoteWebElement> nextButtonlist = driver.findElements(By.xpath(nextButtonXpath));
-			if (confirmButtonList.size() > 0) {
+			if (isElementVisible2(nextButton)) {
+				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+				clickOnElement(nextButton);
+			}				
+				else if	(isElementVisible2(confirmButton)) {
 				gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
 				clickOnElement(confirmButton);
-			} else if (nextButtonlist.size() > 0) {
-				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
-				if (getTexOfElement(nextButton).equalsIgnoreCase("NEXT"))
-					clickOnElement(nextButton);
-			}
+			}  
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
 		} catch (Exception e) {
@@ -661,9 +630,7 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Enter City")
 	public void EnterCity(String text) throws Exception {
 		try {
-			String xpath = "//android.widget.EditText[@text='In the City of']";
-			List<RemoteWebElement> CityList = driver.findElements(By.xpath(xpath));
-			if (CityList.size() > 0)
+			if (isElementVisible2(CityField))
 				enterTextInTextbox(CityField, text);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter City ", e);
