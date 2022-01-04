@@ -47,7 +47,7 @@ public class GestureUtils {
 		
 		try {
 			if(Element1.isDisplayed()&&Element2.isDisplayed())
-				touch.longPress(longPressOptions().withElement(element(Element1))).moveTo(element(Element2)).release()
+				touch.longPress(longPressOptions().withElement(element(Element1)).withDuration(Duration.ofMillis(40))).moveTo(element(Element2)).release()
 					.perform();
 		} 
 		catch (Exception e) {	

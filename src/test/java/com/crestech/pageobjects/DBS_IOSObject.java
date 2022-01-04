@@ -2233,7 +2233,62 @@ public class DBS_IOSObject {
 		return DeregisteryourprofileAlert;
 	}
 	
+	@ElementDescription(value = "Allow “DBS digibank” to use your location?")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeAlert[@name='Allow “DBS digibank” to use your location?']")
+	private MobileElement atmLocationAlert;
 	
+	public MobileElement atmLocationAlert() {
+		return atmLocationAlert;
+	}
+	@ElementDescription(value = "DBS digibank” Would Like to Send You Notifications")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeAlert[@name='“DBS digibank” Would Like to Send You Notifications']")
+	private MobileElement sendNotificationAlert;
 	
+	public MobileElement sendNotificationAlert() {
+		return sendNotificationAlert;
+	}
+	@ElementDescription(value = "digibank alert")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='digibank Alert']")
+	private MobileElement digibankAlert;
 	
+	public MobileElement digibankAlert() {
+		return digibankAlert;
+	}
+	@ElementDescription(value = "'OK' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
+	private MobileElement OKButton2;
+	
+	public MobileElement OKButton2() {
+		return OKButton2;
+	}
+	
+	@ElementDescription(value = "'check DBSRemit Rate")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Check DBS Remit rates']")
+	private MobileElement checkDBSRemitRate;
+	
+	public MobileElement checkDBSRemitRate() {
+		return checkDBSRemitRate;
+	}
+	
+	@ElementDescription(value = "'activityIndicator")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='customLoadingView_activityIndicator']")
+	private MobileElement activityIndicator;
+	
+	public MobileElement activityIndicator() {
+		return activityIndicator;
+	}
+	@ElementDescription(value = "'animationView")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='animationView']")
+	private MobileElement animationView;
+	
+	public MobileElement animationView() {
+		return animationView;
+	}
+	@ElementDescription(value = "'Authenticating")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Authenticating']")
+	private MobileElement Authenticating;
+	
+	public MobileElement Authenticating() {
+		return Authenticating;
+	}
 }
