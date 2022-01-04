@@ -63,6 +63,10 @@ public class cardsModule extends CommonAppiumTest{
 	@ElementDescription(value = "Account to be linked to the card")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Account to be linked to the card']")
 	private MobileElement AccountToBeLinkedToTheCardField;
+	
+	@ElementDescription(value = "Existing ATM Card number to be replaced")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Existing ATM Card number to be replaced']")
+	private MobileElement ExistingATMCardnumbertobereplaced;
 
 	@ElementDescription(value = "Title Field")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Title']")
@@ -252,6 +256,20 @@ public class cardsModule extends CommonAppiumTest{
 					" Failed to Click On 'Account To Be Linked To The Card' Field ", e);
 		}
 	}
+	
+	@Step("Click On 'Existing ATM Card number to be replaced' Field")
+	public void ClickOnExistingATMCardNumberToBeReplacedField() throws Exception {
+		try {
+			clickOnElement(ExistingATMCardnumbertobereplaced);
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On 'Existing ATM Card number to be replaced'Field ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On 'Existing ATM Card number to be replaced' Field ", e);
+		}
+	}
 
 	@Step("Select Account Linked With Debit Card")
 	public void SelectAccountLinkedWithDebitCard(String linkedAccount) throws Exception {
@@ -379,6 +397,7 @@ public class cardsModule extends CommonAppiumTest{
 	@Step("Click On 'Annual Income' Field")
 	public void ClickOnAnnualIncomeField() throws Exception {
 		try {
+			gestUtils.scrollUPtoObject("text", "Annual Income", AnnualIncomeField);
 			clickOnElement(AnnualIncomeField);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -444,10 +463,19 @@ public class cardsModule extends CommonAppiumTest{
 	}
 	
 	@Step("Fill Details To Applying Debit Card.")
-	public void FillingDetailsToApplyingDebitCard() throws Exception {
+	public void FillingDetailsToApplyingDebitCard(String appName) throws Exception {
 		try {
-			ClickOnAccountToBeLinkedToTheCardField();
-			SelectAccountLinkedWithDebitCard(CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
+			if (appName.equals("DBS")) {
+				ClickOnAccountToBeLinkedToTheCardField();
+				SelectAccountLinkedWithDebitCard(CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
+			}
+			else if (appName.equals("iWEALTH")) {
+				ClickOnExistingATMCardNumberToBeReplacedField();
+				SelectAccountLinkedWithDebitCard(CommonTestData.EXISTING_ATM_CARD_NUMBER_TOBE_REPLACED.getEnumValue());
+			}
+			
+			
+			
 
 			ClickOnTitleField();
 			SelectTitle(CommonTestData.TITLE.getEnumValue());
@@ -479,7 +507,7 @@ public class cardsModule extends CommonAppiumTest{
 		}
 	}
 	
-	@Step("Select element from the given lists")
+	
 	public void selectElementFromTheGivenList(List<MobileElement> elementList, String elementToBeSelected,
 			String ElementName) throws Exception {
 		try {
@@ -496,8 +524,8 @@ public class cardsModule extends CommonAppiumTest{
 						break;
 					}
 				}
-				Asserts.assertTrue(index > 0,
-						"The " + ElementName + " " + elementToBeSelected + " Not found in the list.");
+				if(index == 0)
+				Asserts.assertFail("The " + ElementName + " " + elementToBeSelected + " Not found in the list.");
 			} else
 				Asserts.assertFail(
 						"The " + ElementName + " " + elementToBeSelected + " not found in the list as list size is 0");

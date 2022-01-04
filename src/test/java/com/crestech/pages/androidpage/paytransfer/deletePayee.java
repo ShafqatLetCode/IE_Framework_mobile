@@ -108,22 +108,20 @@ public class deletePayee extends CommonAppiumTest{
 
 			if (AllTabOptionsList.size() > 0) {
 				while (count == 0 && deletePayee == 0) {
-					List<MobileElement> Elementlist = AllTabOptionsList;
-					int length = Elementlist.size();
+					int length = AllTabOptionsList.size();
 					String actualDeleteRecipient = null;
 
 					if (length < 4) {
 						for (int i = 0; i < length; i++) {
-							actualDeleteRecipient = Elementlist.get(i).getText();
-							if (actualDeleteRecipient.equalsIgnoreCase(expectedDeleteRecipient)) {
+							actualDeleteRecipient = AllTabOptionsList.get(i).getText();
+							if (actualDeleteRecipient.equals(expectedDeleteRecipient)) {
 								ClickOnDeletePayeeToIcon(i);
 								verifyPageHeader(CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
 										payee_details_title_name);
 								String RecipientNameXpath = "//android.widget.TextView[@text='" + expectedDeleteRecipient
 										+ "']";
-								List<RemoteWebElement> RecipientNameElementList = driver
-										.findElements(By.xpath(RecipientNameXpath));
-								if (RecipientNameElementList.size() > 0) {
+								MobileElement RecipientNameElement = (MobileElement) driver.findElement(By.xpath(RecipientNameXpath));
+								if (isElementVisible2(RecipientNameElement)) { 
 									ClickOnMoreOptionBtn();
 									ClickOnDeletePayeeBtn();
 									ClickOnYesBtn();
@@ -140,16 +138,15 @@ public class deletePayee extends CommonAppiumTest{
 							break;
 					} else {
 						for (int i = 0; i < length; i++) {
-							actualDeleteRecipient = Elementlist.get(i).getText();
-							if (actualDeleteRecipient.equalsIgnoreCase(expectedDeleteRecipient)) {
+							actualDeleteRecipient = AllTabOptionsList.get(i).getText();
+							if (actualDeleteRecipient.equals(expectedDeleteRecipient)) {
 								ClickOnDeletePayeeToIcon(i);
 								verifyPageHeader(CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
 										payee_details_title_name);
 								String RecipientNameXpath = "//android.widget.TextView[@text='" + expectedDeleteRecipient
 										+ "']";
-								List<RemoteWebElement> RecipientNameElementList = driver
-										.findElements(By.xpath(RecipientNameXpath));
-								if (RecipientNameElementList.size() > 0) {
+								MobileElement RecipientNameElement = (MobileElement) driver.findElement(By.xpath(RecipientNameXpath));
+								if (isElementVisible2(RecipientNameElement)) { 
 									ClickOnMoreOptionBtn();
 									ClickOnDeletePayeeBtn();
 									ClickOnYesBtn();
@@ -276,6 +273,8 @@ public class deletePayee extends CommonAppiumTest{
 	@Step("Click On 'More Options' Button.")
 	public void ClickOnMoreOptionBtn() throws Exception {
 		try {
+			wait.fluentWaitForElement(MoreOptionBtn);
+			wait.waitForElementToBeClickable(MoreOptionBtn); 
 			clickOnElement(MoreOptionBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",

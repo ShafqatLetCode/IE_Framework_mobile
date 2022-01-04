@@ -145,11 +145,16 @@ public class depositAccounts extends CommonAppiumTest{
 	}
 
 	@Step("Select Source Of Funds For Savings.")
-	public void SelectSourceOfFundsForSavings() throws Exception {
+	public void SelectSourceOfFundsForSavings(String appName) throws Exception {
 		try {
 			clickOnElement(SelectSourceOfFundsForSavingsDropdown);
-			selectElementFromTheGivenList(DepositsAccountName,
-					CommonTestData.SELECT_ACCOUNT.getEnumValue(), "Select Source Of Funds For Savings");
+			if (appName.equals("DBS"))
+				selectElementFromTheGivenList(DepositsAccountName, CommonTestData.SELECT_ACCOUNT.getEnumValue(),
+						"Select Source Of Funds For Savings");
+			else if (appName.equals("iWEALTH"))
+				selectElementFromTheGivenList(DepositsAccountName,
+						CommonTestData.SELECT_ACCOUNT_iWEALTH.getEnumValue(), "Select Source Of Funds For Savings");
+		
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to select source of fund account for savings ", e);
@@ -164,7 +169,6 @@ public class depositAccounts extends CommonAppiumTest{
 			String ElementName) throws Exception {
 		try {
 			if (elementList.size() > 0) {
-				//wait.waitForElementVisibility(elementList.get(1));
 				List<MobileElement> Elementlist = elementList;
 				int l = Elementlist.size();
 				int index = 0;
@@ -177,8 +181,8 @@ public class depositAccounts extends CommonAppiumTest{
 						break;
 					}
 				}
-				Asserts.assertTrue(index > 0,
-						"The " + ElementName + " " + elementToBeSelected + " Not found in the list.");
+				if(index == 0)
+				Asserts.assertFail("The " + ElementName + " " + elementToBeSelected + " Not found in the list.");
 			} else
 				Asserts.assertFail(
 						"The " + ElementName + " " + elementToBeSelected + " not found in the list as list size is 0");
@@ -210,6 +214,7 @@ public class depositAccounts extends CommonAppiumTest{
 	@Step("Verify Warning Message And Important Notes.")
 	public void VerifyWarningMessageAndImportantNotes() throws Exception {
 		try {
+			wait.fluentWaitForElement(ImportantNotes); 
 			Asserts.assertEquals(getTexOfElement(ImportantNotes),
 					CommonTestData.IMPORTANT_NOTES.getEnumValue(),
 					CommonTestData.IMPORTANT_NOTES.getEnumValue() + " Text is not matching.");

@@ -93,6 +93,10 @@ public class payAndTransfer extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Bills']")
 	private MobileElement BillsButton;
 	
+	@ElementDescription(value = "Primary source of fund")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Primary source of fund']")
+	private MobileElement PrimarySourceOfFundPopup;
+	
 	@Step("Click On Bills Module.")
 	public void ClickOnBillsModule() throws Exception {
 		try {
@@ -191,7 +195,7 @@ public class payAndTransfer extends CommonAppiumTest{
 					String actualToOWNAccount = null;
 					if (length < 2) {
 						for (int i = 0; i < length; i++) {
-							actualToOWNAccount = SubTitleTextList.get(i).getText();
+							actualToOWNAccount = AllTabOptionsList.get(i).getText();
 							if (actualToOWNAccount.equalsIgnoreCase(expectedToOwnAccount)) {
 								index++;
 								clickOnElement(ListElementToClickable.get(i));
@@ -209,7 +213,7 @@ public class payAndTransfer extends CommonAppiumTest{
 
 						// Code will work :: When Need to scroll
 						for (int i = 0; i < length; i++) {
-							actualToOWNAccount = SubTitleTextList.get(i).getText();
+							actualToOWNAccount = AllTabOptionsList.get(i).getText();
 							if (actualToOWNAccount.equalsIgnoreCase(expectedToOwnAccount)) {
 								index++;
 								clickOnElement(ListElementToClickable.get(i));
@@ -267,7 +271,7 @@ public class payAndTransfer extends CommonAppiumTest{
 					if (length < 2) {
 						for (int i = 0; i < length; i++) {
 							actualToCreditCardAccount = SubTitleTextList.get(i).getText();
-							if (actualToCreditCardAccount.equalsIgnoreCase(expectedToCreditCardAccount)) {
+							if (actualToCreditCardAccount.contains(expectedToCreditCardAccount)) {
 								index++;
 								clickOnElement(ListElementToClickable.get(i));
 								break;
@@ -285,7 +289,7 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Code will work :: When Need to scroll
 						for (int i = 0; i < length; i++) {
 							actualToCreditCardAccount = SubTitleTextList.get(i).getText();
-							if (actualToCreditCardAccount.equalsIgnoreCase(expectedToCreditCardAccount)) {
+							if (actualToCreditCardAccount.contains(expectedToCreditCardAccount)) {
 								index++;
 								clickOnElement(ListElementToClickable.get(i));
 								break;
@@ -342,7 +346,7 @@ public class payAndTransfer extends CommonAppiumTest{
 					if (length < 2) {
 						for (int i = 0; i < length; i++) {
 							BillingOrganisationlist = SubTitleTextList.get(i).getText();
-							if (BillingOrganisationlist.equalsIgnoreCase(valueSelectedFromList)) {
+							if (BillingOrganisationlist.contains(valueSelectedFromList)) {
 								index++;
 								clickOnElement(ListElementToClickable.get(i));
 								break;
@@ -359,7 +363,7 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Code will work :: When Need to scroll
 						for (int i = 0; i < length; i++) {
 							BillingOrganisationlist = SubTitleTextList.get(i).getText();
-							if (BillingOrganisationlist.equalsIgnoreCase(valueSelectedFromList)) {
+							if (BillingOrganisationlist.contains(valueSelectedFromList)) {
 								index++;
 								clickOnElement(ListElementToClickable.get(i));
 								break;
@@ -480,9 +484,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Handle Of 'Primary Source Of Fund' Popup.")
 	public void HandlingOfPrimarySourceOfFundPopup() throws Exception {
 		try {
-			String xpath1 = "//android.widget.TextView[@text='Primary source of fund']";
-			List<RemoteWebElement> primarySourceOfFundPopup = driver.findElements(By.xpath(xpath1));
-			if (primarySourceOfFundPopup.size() > 0)
+			if (isElementVisible2(PrimarySourceOfFundPopup))
 				ClickOnOKButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Of 'Primary Source Of Fund' Popup  ", e);
