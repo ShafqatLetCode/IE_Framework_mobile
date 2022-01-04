@@ -397,6 +397,7 @@ public class cardsModule extends CommonAppiumTest{
 	@Step("Click On 'Annual Income' Field")
 	public void ClickOnAnnualIncomeField() throws Exception {
 		try {
+			gestUtils.scrollUPtoObject("text", "Annual Income", AnnualIncomeField);
 			clickOnElement(AnnualIncomeField);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -464,13 +465,17 @@ public class cardsModule extends CommonAppiumTest{
 	@Step("Fill Details To Applying Debit Card.")
 	public void FillingDetailsToApplyingDebitCard(String appName) throws Exception {
 		try {
-			if (appName.equals("DBS"))
+			if (appName.equals("DBS")) {
 				ClickOnAccountToBeLinkedToTheCardField();
-			else if (appName.equals("iWEALTH"))
+				SelectAccountLinkedWithDebitCard(CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
+			}
+			else if (appName.equals("iWEALTH")) {
 				ClickOnExistingATMCardNumberToBeReplacedField();
+				SelectAccountLinkedWithDebitCard(CommonTestData.EXISTING_ATM_CARD_NUMBER_TOBE_REPLACED.getEnumValue());
+			}
 			
 			
-			SelectAccountLinkedWithDebitCard(CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
+			
 
 			ClickOnTitleField();
 			SelectTitle(CommonTestData.TITLE.getEnumValue());

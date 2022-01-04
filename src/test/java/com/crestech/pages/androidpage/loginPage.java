@@ -60,9 +60,10 @@ public class loginPage extends CommonAppiumTest{
 	
 	@Step("Click On Not You Link Button.")
 	public void ClickOnNOTYouLink() throws Exception {
-		try {
+		try {	
 			clickOnElement(NotYouLink);
-		} catch (HandleException e) {
+			
+		} catch (HandleException e) {			
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button  ", e);
@@ -75,8 +76,10 @@ public class loginPage extends CommonAppiumTest{
 			String PeekBalance_DeregisterAlertMsg = getTexOfElement(ErrorMessgeElement);
 
 			if (peekBalanceDeregisterMsg.contains(PeekBalance_DeregisterAlertMsg))
+			{
 				clickOnElement(PeekbalanceDeregisterButton);
-
+				wait.waitForElementVisibility(userIdEditText);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deregister Button ",
 					e);

@@ -369,7 +369,8 @@ public class localModule extends CommonAppiumTest{
 	@Step("Verifies Transfer Submitted Message")
 	public void VerifiesTransferSubmittedMessage(String SuccessMsg) throws Exception {
 		try {
-			if (isElementVisible(ImageForPaymentSuccess))
+			//if (isElementVisible(ImageForPaymentSuccess))
+			wait.waitForElementVisibility(TransferSuccessMsgElement);
 				Asserts.assertEquals(getTexOfElement(TransferSuccessMsgElement), SuccessMsg,
 						SuccessMsg + " Text is not matching");
 		} catch (HandleException e) {

@@ -120,8 +120,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-	@Step("Log In the Application With Select UAT Server")
-	public void LogInApplicationWithSelectUATServer(String userName, String password, String appName, String serverName)
+	@Step("Pre - requisite script")
+	public void preRequisiteScript(String userName, String password, String appName, String serverName)
 			throws Exception {
 		try {
 			launchpage.handlingQuitButton();
@@ -129,7 +129,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			launchpage.clickOnLoginButton();
 			loginpage.EnterCredentialsAndLogin(userName, password); 
 			homepage.digitalTokenSetUp();
-			homepage.handlingGetStartedPopup();
+			homepage.handlingGetStartedPopup(appName);
 			homepage.handlingErrorAlert();
 			homepage.handlingFingerPrintAlert(CommonTestData.FINGERPRINT_MESSAGE.getEnumValue());
 			homepage.handleRecordingAlert(CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue());
@@ -146,12 +146,16 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			//launchpage.handlingQuitButton();
 		//	launchpage.clickOnLoginButton();
 			preloginpage.ClickOnLoginButton(); 
+			//if(loginpage.ClickOnNOTYouLink())
+//			{
+//			loginpage.ClickOnDeregisterButtonInDigiAlertPopup(CommonTestData.PEEK_BALANCE_DEREGISTER_MESSAGE.getEnumValue());
+//			}
 			loginpage.EnterCredentialsAndLogin(userName, password); 
-			homepage.digitalTokenSetUp();
-			homepage.handlingGetStartedPopup();
-			homepage.handlingErrorAlert();
-			homepage.handlingFingerPrintAlert(CommonTestData.FINGERPRINT_MESSAGE.getEnumValue());
-			homepage.handleRecordingAlert(CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue());
+//			homepage.digitalTokenSetUp();
+//			homepage.handlingGetStartedPopup(appName);
+//			homepage.handlingErrorAlert();
+//			homepage.handlingFingerPrintAlert(CommonTestData.FINGERPRINT_MESSAGE.getEnumValue());
+//			homepage.handleRecordingAlert(CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application ", e);
 		} catch (Exception e) {
@@ -498,6 +502,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			if (isElementVisible2(homepage.DepositsAccountName())) { 
 				String DepositeAccountNameOnDashboard = homepage.getAndClickOnDepositeAccountNameFromDashboard();
 				enterpasscode.EnterPasscodeAndDone();
+				enterpasscode.EnterPasscodeAndDone();
 				String ExpectedAvailableBalanceValue =null;
 				String ExpectedTotalBalanceValue = null;
 				if(appName.equals("DBS")) {
@@ -520,11 +525,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				more.SelectPeekBalanceModule();
 				peek.handleConfirmationMessage();
 				peek.EnablePeekBalanceToggle();
-				peek.SelectAccountToEnablePeekBalance(ExpectedUserAccountName);
-
-				String SelectedAccountNameWithAccountNumber = ExpectedUserAccountName + " " + ExpectedUserAccountNumber;
-				peek.verifySelectedAccountForPeekBalance(CommonTestData.ACCOUNT_FOR_PEEK_BALANCE.getEnumValue(),
-						SelectedAccountNameWithAccountNumber);
+				
+				if(appName.equals("DBS")) {
+					peek.SelectAccountToEnablePeekBalance(ExpectedUserAccountName);
+					String SelectedAccountNameWithAccountNumber = ExpectedUserAccountName + " " + ExpectedUserAccountNumber;
+					peek.verifySelectedAccountForPeekBalance(CommonTestData.ACCOUNT_FOR_PEEK_BALANCE.getEnumValue(),
+							SelectedAccountNameWithAccountNumber);
+					}else if(appName.equals("iWEALTH")) 
+						peek.SelectAccountToEnablePeekBalance(CommonTestData.USER_ACCOUNT_NAME.getEnumValue());
 
 				peek.ClickOnSaveButton();
 				peek.ClickOnOkButtonInPersonalizeYourDevicePopup();
@@ -545,9 +553,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				// DeRegister/Disable Process to removing peek balance from login page for next
 				// run.
 				preloginpage.ClickOnLoginButton();
+				// for handling peek balance login window
 				loginpage.ClickOnNOTYouLink();
 				loginpage.ClickOnDeregisterButtonInDigiAlertPopup(CommonTestData.PEEK_BALANCE_DEREGISTER_MESSAGE.getEnumValue());
-			} else
+				} else
 				Asserts.assertFail("Account Name not showing on the Dashboard Page.");
 
 		} catch (HandleException e) {
@@ -679,7 +688,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.SelectAllTAB();
 			paytransfer.ClickOnYourDBSPOSBAccounts();
-			paytransfer.SelectToAccountFromYourDBSPOSBAccountlist(CommonTestData.FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER.getEnumValue());
+			paytransfer.SelectToAccountFromYourDBSPOSBAccountlist(CommonTestData.FUNDTRANSFER_TO_OWN_ACCOUNT_NAME.getEnumValue());
 			ownAccount.verifyTransferToYourAccountPageHeader(CommonTestData.TRANSFER_TO_YOUR_ACCOUNT.getEnumValue());
 			String ExpectedFromAccountName = CommonTestData.FUNDTRANSFER_FROM_OWN_ACCOUNT_NAME.getEnumValue();
 			ownAccount.SelectFundSourceAccount(ExpectedFromAccountName);
@@ -707,7 +716,6 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		}
 	}
 
-
 	@Step("Verify Fund Transfer For Other Bank Non Fast transfer when future date selected.")
 	public void FundsTransfer_OtherBank_NonFASTFuture(String appname) throws Exception {
 		try {
@@ -720,7 +728,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			paytransfer.SelectToAccountFromLocalRecipient(ExpectedToBankNameWithAccountNo);
 			local.verifyTransferToOtherBankPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue());
 			local.DisableToTransferViaFastToggle();
-			local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
+			//local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
 			// Add Scroll to select fund source on the top of the page after disabling the
 			// fast toggle.
 			gestUtils.scrollDOWNtoObject(null, null, null);
@@ -736,6 +744,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			
 			local.SelectFutureDate();
 			local.EnterAmount(CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+			
+			gestUtils.scrollUPtoObject("text", "NEXT", null);
+			local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
+			
+			
 			local.ClickOnNextButtonToInitiateFundTransfer();
 			local.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue()); 
 			local.VerifyNonFastServiceOnReviewPage();
@@ -839,7 +852,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			paytransfer.SelectToAccountFromLocalRecipient(ExpectedToBankNameWithAccountNo);
 			local.verifyTransferToOtherBankPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue());
 			local.DisableToTransferViaFastToggle();
-			local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
+			//local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
 			// Add Scroll to select fund source on the top of the page after disabling the
 			// fast toggle.
 			gestUtils.scrollDOWNtoObject(null, null, null);
@@ -853,6 +866,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			}
 			local.VerifyImmediateText(CommonTestData.IMMEDIATE_TEXT.getEnumValue());
 			local.EnterAmount(CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+			
+			gestUtils.scrollUPtoObject("text", "NEXT", null);
+			local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
+			
 			local.ClickOnNextButtonToInitiateFundTransfer();
 			local.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue()); 
 			local.VerifyNonFastServiceOnReviewPage();
@@ -961,7 +978,12 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			transactionhistory.ClickOnShowButton();
 			enterpasscode.EnterPasscodeAndDone();
-			transactionhistory.AccountNameToCheckTransactionHistory(CommonTestData.STATEMENT_TITLE.getEnumValue());
+			
+			if (appName.equals("DBS"))
+				transactionhistory.AccountNameToCheckTransactionHistory(CommonTestData.STATEMENT_TITLE.getEnumValue());
+			else if (appName.equals("iWEALTH"))
+				transactionhistory.AccountNameToCheckTransactionHistory(CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue());
+			
 			transactionhistory.VerifyTransactionHistoryDataForThreeMonths();
 			transactionhistory.BackToHomeFromTransactionHistory();
 		} catch (HandleException e) {

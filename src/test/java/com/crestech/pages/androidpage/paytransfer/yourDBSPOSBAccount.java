@@ -260,8 +260,8 @@ public class yourDBSPOSBAccount extends CommonAppiumTest{
 			verifyTitles(ExpTitleList, FundTransferDetailslabel1List);
 			VerifyFromAccountName(ExpectedFromAccountName);
 			VerifyToAccountName(ExpectedToAccountName);
-			VerifyFromAccountNumber(ExpectedFromAccountNumber);
-			VerifyToAccountNumber(ExpectedFromAccountNumber);
+			//VerifyFromAccountNumber(ExpectedFromAccountNumber);
+			//VerifyToAccountNumber(ExpectedFromAccountNumber);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to verify account details after fund transfer  ", e);
