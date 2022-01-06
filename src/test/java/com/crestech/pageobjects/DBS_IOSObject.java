@@ -768,29 +768,7 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='source_account_name']")
 	private MobileElement SelectFundSourcePage;
 	
-	@ElementDescription(value = "'Select Fund Source' Add Button.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='Select billing organisation']")
-	private MobileElement SelectBillingOrganisation;
 	
-	@ElementDescription(value = "'Search for a billing organisation' Edit Field.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeSearchField[@name='Search for a billing organisation']")
-	private MobileElement SearchForBillingOrganisationField;
-	
-	@ElementDescription(value = "'Enter reference no.' Edit Field.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='Enter reference no.']")
-	private MobileElement EnterReferenceNoEditField;
-	
-	public MobileElement  EnterReferenceNoEditField() {
-		return  EnterReferenceNoEditField;
-	}
-	
-	public MobileElement  SearchForBillingOrganisationField() {
-		return  SearchForBillingOrganisationField;
-	}
-	
-	public MobileElement  SelectBillingOrganisation() {
-		return  SelectBillingOrganisation;
-	}
 	
 	public MobileElement  SelectFundSourcePage() {
 		return  SelectFundSourcePage;
@@ -923,9 +901,7 @@ public class DBS_IOSObject {
 	private MobileElement BillsButton;
 
 	
-	@ElementDescription(value = "'Payee Bill Payment Details List'.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell//XCUIElementTypeStaticText")
-	private List<MobileElement> PayeeBillPaymentDetailsList;
+	
 	
 	@ElementDescription(value = "'MAKE A PAYMENT' Button.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='MAKE A PAYMENT']")
@@ -1685,9 +1661,6 @@ public class DBS_IOSObject {
 		return  PayToBillerPageHeader;
 	}
 	
-	public List<MobileElement> PayeeBillPaymentDetailsList() { 
-		return  PayeeBillPaymentDetailsList;
-	}
 	
 	public MobileElement BillsButton() {
 		return  BillsButton;

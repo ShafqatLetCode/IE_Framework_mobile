@@ -471,6 +471,8 @@ public class overseasModule extends CommonAppiumTest{
 				clickOnElement(ExpectedEottEle);
 			else
 				Asserts.assertFail("EOTT " + CommonTestData.EOTTREMITTANCE_NAME.getEnumValue() + " Not Found corresponding to this user.");
+		
+		   ClickOnDoneButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select EOTT  ", e);
 		} catch (Exception e) {

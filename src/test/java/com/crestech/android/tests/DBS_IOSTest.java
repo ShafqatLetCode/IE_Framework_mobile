@@ -221,28 +221,28 @@ public class DBS_IOSTest extends UserBaseTest {
 		}
 	}
 
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 10, enabled = true, description = "Payee-Add-BillPayment-ONEAPP-15938", dependsOnMethods = {
-//			"PreRequisiteScript" })
-//	@Description(value = "Execution of this testcase:: Verifies the Payee Add Bill Payment.")
-//	@Author(name = "Divya Devi")
-//	public void Payee_Add_BillPayment(String userName, String password, String app_Name) throws Exception {
-//		try {
-//			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
-//			DBSPgaeObject1 = DBSPgaeObject;
-//			DBSPgaeObject1.LogInApplication(userName, password);
-//			// Delete Payee Code Start Before Adding Payee to Bill Payment.
-//			DBSPgaeObject1.DeletePayee_ToBillPayment();
-//			DBSPgaeObject1.PayeeAddBillPayment();
-//		} catch (HandleException e) {
-//			DBSPgaeObject1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
-//		} catch (Exception e) {
-//			DBSPgaeObject1.verifyDigibankAlert();
-//			Asserts.assertFail("Unable to execute Payee Add Bill Payment " + e.getMessage());
-//		}
-//	}
-//
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 10, enabled = true, description = "Payee-Add-BillPayment-ONEAPP-15938", dependsOnMethods = {
+			"PreRequisiteScript" })
+	@Description(value = "Execution of this testcase:: Verifies the Payee Add Bill Payment.")
+	@Author(name = "Divya Devi")
+	public void Payee_Add_BillPayment(String userName, String password, String app_Name) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject1 = DBSPgaeObject;
+			DBSPgaeObject1.LogInApplication(userName, password);
+			// Delete Payee Code Start Before Adding Payee to Bill Payment.
+			DBSPgaeObject1.DeletePayee_ToBillPayment();
+			DBSPgaeObject1.PayeeAddBillPayment();
+		} catch (HandleException e) {
+			DBSPgaeObject1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
+		} catch (Exception e) {
+			DBSPgaeObject1.verifyDigibankAlert();
+			Asserts.assertFail("Unable to execute Payee Add Bill Payment " + e.getMessage());
+		}
+	}
+
 //	@Parameters({ "userName", "password", "app_Name" })
 //	@Test(priority = 11, enabled = true, description = "OpenAccount-ONEAPP-14028", dependsOnMethods = {
 //			"PreRequisiteScript" })
@@ -404,26 +404,26 @@ public class DBS_IOSTest extends UserBaseTest {
 //		}
 //	}
 //
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 24, enabled = true, description = "FundsTransfer-BillPayment-ONEAPP-14040", dependsOnMethods = {
-//			"PreRequisiteScript" })
-//	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Bill Payment.")
-//	@Author(name = "Divya Devi")
-//	public void FundsTransfer_BillPayment(String userName, String password, String app_Name) throws Exception {
-//		try {
-//			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
-//			DBSPgaeObject1 = DBSPgaeObject;
-//			DBSPgaeObject1.LogInApplication(userName, password);
-//			DBSPgaeObject1.FundsTransfer_BillPayment();
-//		} catch (HandleException e) {
-//			DBSPgaeObject1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
-//		} catch (Exception e) {
-//			DBSPgaeObject1.verifyDigibankAlert();
-//			Asserts.assertFail("Unable to execute Fund Transfer Bill Payment " + e.getMessage());
-//		}
-//	}
-//
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 24, enabled = true, description = "FundsTransfer-BillPayment-ONEAPP-14040", dependsOnMethods = {
+			"PreRequisiteScript" })
+	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Bill Payment.")
+	@Author(name = "Divya Devi")
+	public void FundsTransfer_BillPayment(String userName, String password, String app_Name) throws Exception {
+		try {
+			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+			DBSPgaeObject1 = DBSPgaeObject;
+			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.FundsTransfer_BillPayment();
+		} catch (HandleException e) {
+			DBSPgaeObject1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
+		} catch (Exception e) {
+			DBSPgaeObject1.verifyDigibankAlert();
+			Asserts.assertFail("Unable to execute Fund Transfer Bill Payment " + e.getMessage());
+		}
+	}
+
 //	@Parameters({ "userName", "password", "app_Name" })
 //	@Test(priority = 25, enabled = true, description = "PeekBalance-MCA-ONEAPP-13982", dependsOnMethods = {
 //			"PreRequisiteScript" })
