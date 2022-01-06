@@ -51,12 +51,12 @@ public class transactionHistory extends CommonAppiumTest{
 	private MobileElement threeMonthLabel;
 	
 	@ElementDescription(value = "Deposit Account Button")
-	@AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.dbs.sit1.dbsmbanking:id/iv_expandable_item_head_expand']")
-	private MobileElement DepositAccountButtonDBS;
+	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,'id/iv_expandable_item_head_expand')]")
+	private MobileElement DepositAccountButton;
 	
-	@ElementDescription(value = "POSB STATEMENT SAVINGS Button")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.dbsmbanking:id/tv_expandable_item_head_title']")
-	private List<MobileElement> AccountNameListInTransactionHistoryForDBS;
+	@ElementDescription(value = "From account list")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/tv_expandable_item_head_title')]")
+	private List<MobileElement> AccountNameListInTransactionHistory;
 	
 	@ElementDescription(value = "Show button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='SHOW']")
@@ -149,7 +149,7 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Click On Deposit Account And Select From Account")
 	public void ClickOnDepositAccountAndSelectFromAccount(String AccountName) throws Exception {
 		try {
-			clickOnElement(DepositAccountButtonDBS);
+			clickOnElement(DepositAccountButton);
 			selectFromAccountFromDepositeSection(AccountName);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Deposit Account And Select From Account ", e);
@@ -161,16 +161,16 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Click on 'From Account' From Deposit Section")
 	public void selectFromAccountFromDepositeSection(String AccountToBeSelected) throws Exception {
 		try {
-			wait.waitForElementVisibility(AccountNameListInTransactionHistoryForDBS.get(0));
-			if (isElementVisible2(AccountNameListInTransactionHistoryForDBS.get(0))) {  
-				int l = AccountNameListInTransactionHistoryForDBS.size();
+			wait.waitForElementVisibility(AccountNameListInTransactionHistory.get(0));
+			if (isElementVisible2(AccountNameListInTransactionHistory.get(0))) {  
+				int l = AccountNameListInTransactionHistory.size();
 				int index = 0;
 				String accountFromList = null;
 				for (int i = 0; i < l; i++) { 
-					accountFromList = AccountNameListInTransactionHistoryForDBS.get(i).getText();
+					accountFromList = AccountNameListInTransactionHistory.get(i).getText();
 					if (accountFromList.contains(AccountToBeSelected)) {
 						index++;
-						clickOnElement(AccountNameListInTransactionHistoryForDBS.get(i));
+						clickOnElement(AccountNameListInTransactionHistory.get(i));
 						break;
 					}
 				}

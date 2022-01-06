@@ -37,6 +37,7 @@ import com.crestech.appium.utils.ConfigurationManager;
 import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.ExcelUtils;
 import com.crestech.common.utilities.ScreenshotUtils;
+import com.crestech.common.utilities.WaitUtils;
 import com.crestech.config.ContextManager;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -65,6 +66,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	public List<String> excelDataList;
 	public ScreenshotUtils scrShotUtils = null;
 	private static Object syncObj = new Object();
+	WaitUtils waitut=null;
 
 	Logger logger = Logger.getLogger(UserBaseTest.class);
 
@@ -90,16 +92,18 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			ContextManager.createNode(method.getName() + " " + device);
 		}
 		synchronized (syncObj) {
-		excelDataList = ExcelUtils.readExcel(System.getProperty("user.dir") + "//TestData//TestData.xlsx", os, "Capabilities");
+		excelDataList = ExcelUtils.readExcel(System.getProperty("user.dir") + File.separator+"TestData"+File.separator+"TestData.xlsx", os, "Capabilities");
 		}
 		DesiredCapabilities androidCaps = androidNative(excelDataList, device, version, os, manafacturer, min_Ver, max_Ver, individual_ID);
-		Thread.sleep(2000);
+		
 		try {
 			this.driver = startingServerInstance(androidCaps, os);
 			//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 			ContextManager.setDriver(this.driver); 
-			Thread.sleep(3000);
-			this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+			waitut =new WaitUtils(this.driver);
+			waitut.ImplicitlyWait(30);
+			
+			
 		} catch (Exception e) {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
 				ContextManager.getExtentReportForPrecondition().skip(MarkupHelper.createLabel("Test Case is SKIPPED", ExtentColor.YELLOW));
@@ -167,7 +171,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			}
 		}
 
-				System.out.println("stopApp");
+				System.out.println("CloseApp");
 				if (ContextManager.getDriver() != null) {
 					ContextManager.getDriver().quit();
 				}
@@ -408,7 +412,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			// Start the server with the builder 
 			service =  AppiumDriverLocalService.buildService(builder);
 
-			System.out.println(service.getUrl().toString()); 
+			//System.out.println(service.getUrl().toString()); 
 			try {
 				service.start();
 			} finally {
@@ -432,7 +436,6 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			driver = new IOSDriver<RemoteWebElement>(
 					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
 		}
-		//driver.manage().timeouts().implicitlyWait(20000, TimeUnit.MILLISECONDS);
 		return driver;
 	}
 

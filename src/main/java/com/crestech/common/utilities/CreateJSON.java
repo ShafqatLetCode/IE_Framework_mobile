@@ -1,5 +1,6 @@
 package com.crestech.common.utilities;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +15,7 @@ public class CreateJSON {
 		try {
 			XSSFWorkbook wb = null;
 			// Create device
-			wb = ExcelUtils.openExcel(System.getProperty("user.dir") + "\\TestData\\TestData.xlsx");
+			wb = ExcelUtils.openExcel(System.getProperty("user.dir") + File.separator+ "TestData"+File.separator+"TestData.xlsx");
 			List<String> device = ExcelUtils.readExcel("Device", "DeviceList", wb);
 			List<String> version = ExcelUtils.readExcel("Version", "DeviceList", wb);
 			List<String> os = ExcelUtils.readExcel("OperatingSystem", "DeviceList", wb);
@@ -37,7 +38,8 @@ public class CreateJSON {
 			System.out.println(jsonObj1);
 
 			FileWriter file = new FileWriter(
-					System.getProperty("user.dir") + "//src//test//resources//AndroidDevices.json");
+					System.getProperty("user.dir") + File.separator+ "src"+ File.separator+ 
+					"test"+ File.separator+ "resources"+ File.separator+ "AndroidDevices.json");
 			file.write(jsonObj1.toJSONString());
 			file.close();
 		} catch (IOException e) {

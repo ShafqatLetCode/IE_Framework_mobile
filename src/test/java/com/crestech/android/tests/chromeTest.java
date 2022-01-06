@@ -25,8 +25,8 @@ public class chromeTest extends UserBaseTest {
 	@Description(value = "TestCases For Pcloudy Sample Project")
 	@Parameters({"userName", "password" })
 	public void SampleAndroidTest(String userName, String password) throws Exception {
-		WaitUtils wait = new WaitUtils(driver);
-		wait.ImplicitlyWait();
+		//WaitUtils wait = new WaitUtils(driver);
+		//wait.ImplicitlyWait();
 			
 		/*****************************
 		 * API DEMOS APPLICATION_ STARTS

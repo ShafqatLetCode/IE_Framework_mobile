@@ -212,9 +212,15 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("Verifying 'Transfer To Other' page header")
 	public void verifyTransferToOtherPageHeader(String expectedText) throws Exception {
 		try {
-			wait.fluentWaitForElement(PageHeaderList.get(0));
-			Asserts.assertEquals(getTexOfElement(PageHeaderList.get(0)).toLowerCase(), expectedText.toLowerCase(),
-					"'Header Title' is not Matching");
+			
+			MobileElement element = null;
+			element = returnElementFromList(PageHeaderList, expectedText);
+			if (element != null) {
+				wait.fluentWaitForElement(element);
+				Asserts.assertEquals(getTexOfElement(element).toLowerCase(), expectedText.toLowerCase(),
+						"'Header Title' is not Matching");
+			}
+			
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Transfer To Other' page header ", e);
 		} catch (Exception e) {
@@ -225,16 +231,12 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("Click On Next Button.")
 	public void ClickOnNextButton() throws Exception {
 		try {
-			String confirmButtonXpath = "//android.widget.Button[@text='CONFIRM']";
-			List<RemoteWebElement> confirmButtonList = driver.findElements(By.xpath(confirmButtonXpath));
-			String nextButtonXpath = "//android.widget.Button[@text='NEXT']";
-			List<RemoteWebElement> nextButtonList = driver.findElements(By.xpath(nextButtonXpath));
-			if (confirmButtonList.size() > 0) {
-				gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
-				clickOnElement(confirmButton);
-			} else if (nextButtonList.size() > 0) {
-				gestUtils.scrollUPtoObject("text", "NEXT",nextButton);
-				clickOnElement(nextButton);
+			if(isElementVisible2(nextButton)) {
+				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+				clickOnElement(nextButton);			
+			}else if(isElementVisible2(confirmButton)) {			
+					gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
+					clickOnElement(confirmButton);
 			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
@@ -354,6 +356,9 @@ public class localTransferLimit extends CommonAppiumTest{
 					" Failed to Click On Change Daily Limit Now Button  ", e);
 		}
 	}
+	
+	
+	
 
 	
 }

@@ -227,7 +227,8 @@ public enum CommonTestData {
     //Remittance Corridor
 	OVERSEAS_ICON("Overseas"),
     SOURCE_ACCOUNT_NAME_CORRIDOR("DBS SAVINGS PLUS"),
-    SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH("DBS Multiplier Account"),
+  //SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH("DBS Multiplier Account"),
+    SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH("DBS SAVINGS PLUS"),
 	CORRIDOR_AMOUNT("34"),
 	PAYEE_NAME_CORRIDOR("ad rec new ajay"),
 	OVERSEA_HEADER("Overseas Transfer"),

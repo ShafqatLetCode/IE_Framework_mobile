@@ -3014,7 +3014,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				int count = 0;
 				int index = 0;
 				WaitUtils wait = new WaitUtils(driver);
-				wait.ImplicitlyWait();
+				
 				while (count == 0 && index == 0) {
 					if (IOShomePgaeObject.localRecipientsList().size() > 0) {
 						//TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
@@ -3315,7 +3315,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				int count = 0;
 				int index = 0;
 				WaitUtils wait = new WaitUtils(driver);
-				wait.ImplicitlyWait();
+			
 				while (count == 0 && index == 0) {
 					if (IOShomePgaeObject.localRecipientsList().size() > 0) {
 						//TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
@@ -3666,7 +3666,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				int count = 0;
 				int index = 0;
 				WaitUtils wait = new WaitUtils(driver);
-				wait.ImplicitlyWait();
+				
 				while (count == 0 && index == 0) {
 					if (IOShomePgaeObject.localRecipientsList().size() > 0) {
 						//TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
@@ -3835,7 +3835,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			int count = 0;
 			int index = 0;
 			WaitUtils wait = new WaitUtils(driver);
-			wait.ImplicitlyWait();
+			
 			while (count == 0 && index == 0) {
 				if (IOShomePgaeObject.localRecipientsList().size() > 0) {
 					//TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));

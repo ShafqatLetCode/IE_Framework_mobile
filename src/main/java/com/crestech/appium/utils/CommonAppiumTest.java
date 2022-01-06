@@ -1,6 +1,8 @@
 package com.crestech.appium.utils;
 
 import java.time.Duration;
+import java.util.List;
+
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.Point;
@@ -298,7 +300,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			if (os.equalsIgnoreCase("Local")) {
 				((AndroidDriver<RemoteWebElement>) driver)
 						.setConnection(new ConnectionStateBuilder().withWiFiEnabled().build());
-				System.out.println("Enable Wifi");
+				//System.out.println("Enable Wifi");
 			} else {
 				driver.executeScript("pCloudy_enableWifi", true);
 			}
@@ -352,7 +354,7 @@ public class CommonAppiumTest extends CommandPrompt {
 			if (os.equalsIgnoreCase("Local")) {
 				((AndroidDriver<RemoteWebElement>) driver)
 						.setConnection(new ConnectionStateBuilder().withWiFiDisabled().build());
-				System.out.println("Disable Wifi");
+				//System.out.println("Disable Wifi");
 			} else {
 				driver.executeScript("pCloudy_enableWifi", false);
 
@@ -470,5 +472,35 @@ public class CommonAppiumTest extends CommandPrompt {
 		
 		}
 	}
+		
+		
+		public MobileElement returnElementFromList(List<MobileElement> elementList, String elementTextToBeVerified)
+				throws Exception {
+			MobileElement element = null;
+			try {
+				if (elementList.size() > 0) {
+					int l = elementList.size();
+
+					String accountFromList = null;
+					for (int i = 0; i < l; i++) {
+						accountFromList = elementList.get(i).getText();
+						if (accountFromList.contains(elementTextToBeVerified)) {
+							element = elementList.get(i);
+							break;
+						}
+					}
+					return element;
+				} else
+					Asserts.assertFail(elementTextToBeVerified + " not found in the list as list size is 0");
+			//} catch (HandleException e) {
+				//obj_handleexception.throwHandleException("ELEMENTNOTINLIST_EXCEPTION"," Failed to get Element :: " + elementTextToBeVerified , e);
+			} catch (Exception e) {
+				//obj_handleexception.throwException("ELEMENTNOTINLIST_EXCEPTION", " Failed to get Element :: " + elementTextToBeVerified, e);
+			throw e;
+			}
+			return element;
+		}
+	
+	
 
 }

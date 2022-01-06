@@ -140,9 +140,7 @@ public class temporaryCreditLimitIncrease extends CommonAppiumTest{
 	public void ClickOnNextButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
-			String nextButtonXpath = "//android.widget.Button[@text='NEXT']";
-			List<RemoteWebElement> nextButtonList = driver.findElements(By.xpath(nextButtonXpath));
-			if (nextButtonList.size() > 0) 
+			if(isElementVisible2(nextButton))
 					clickOnElement(nextButton);
 			
 		} catch (HandleException e) {
