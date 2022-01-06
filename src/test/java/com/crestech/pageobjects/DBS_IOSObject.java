@@ -224,21 +224,8 @@ public class DBS_IOSObject {
 		return moreButton;
 	}
 
-	@ElementDescription(value = "topup button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Top Up']")
-	private MobileElement topUpButton;
+	
 
-	public MobileElement topUpButton() {
-		return topUpButton;
-	}
-
-	@ElementDescription(value = "paylah button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='TopUp_Option_Paylah!_Label']")
-	private MobileElement payLahButton;
-
-	public MobileElement payLahButton() {
-		return payLahButton;
-	}
 
 	@ElementDescription(value = "Top Up PayLah! label")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Top Up PayLah!']")
@@ -288,20 +275,7 @@ public class DBS_IOSObject {
 		return reviewToUpLabel;
 	}
 
-	@ElementDescription(value = "TopUp Now label")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='TOP UP NOW']")
-	private MobileElement topupNowlabel;
-
-	public MobileElement topupNowButtonlabel() {
-		return topupNowlabel;
-	}
-	@ElementDescription(value = "TopUp Now button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='TopUp_Paylah_TOP UP NOW_Button']")
-	private MobileElement topupNowButton;
-
-	public MobileElement topupNowButton() {
-		return topupNowButton;
-	}
+	
 
 	@ElementDescription(value = "TopUp Done Label")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Top-up Done']")
@@ -460,9 +434,7 @@ public class DBS_IOSObject {
 		return changeLimitNowButton;
 	}
 	
-	@ElementDescription(value = "Local button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Local']")
-	private MobileElement LocalButton;
+	
 
 	@ElementDescription(value = "Add Local Recipient button")
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Add Local Recipient'])[1]")
@@ -472,13 +444,8 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='ADD RECIPIENT NOW']")
 	private MobileElement AddRecipientNowButton;
 	
-	@ElementDescription(value = "Local Transfer & Pay Now Page Header")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Local Transfer & PayNow']")
-	private MobileElement LocalTransferPayNowPageHeader;
 	
-	@ElementDescription(value = "Select Bank Account")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Bank Account']")
-	private MobileElement SelectBankAccount;
+	
 	
 	@ElementDescription(value = "'Enter Recipient's Details' Page Header")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Enter Recipient's Details']")
@@ -663,13 +630,7 @@ public class DBS_IOSObject {
 		return EnterRecipientDetailsPageHeader;
 	}
 	
-	public MobileElement SelectBankAccount() {
-		return SelectBankAccount;
-	}
 	
-	public MobileElement LocalTransferPayNowPageHeader() {
-		return LocalTransferPayNowPageHeader;
-	}
 	
 	public MobileElement AddRecipientNowButton() {
 		return AddRecipientNowButton;
@@ -679,9 +640,7 @@ public class DBS_IOSObject {
 		return AddLocalRecipientButton;
 	}
 	
-	public MobileElement LocalButton() {
-		return LocalButton;
-	}
+	
 
 	@ElementDescription(value = " 'backToMoreButton' button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='BACK TO MORE']")

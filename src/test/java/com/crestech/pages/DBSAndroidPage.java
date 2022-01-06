@@ -38,6 +38,7 @@ import com.crestech.pages.androidpage.paytransfer.deletePayee;
 import com.crestech.pages.androidpage.paytransfer.localModule;
 import com.crestech.pages.androidpage.paytransfer.overseasModule;
 import com.crestech.pages.androidpage.paytransfer.payAndTransfer;
+import com.crestech.pages.androidpage.paytransfer.payNow;
 import com.crestech.pages.androidpage.paytransfer.topUpPaylah;
 import com.crestech.pages.androidpage.paytransfer.yourDBSPOSBAccount;
 import io.appium.java_client.AppiumDriver;
@@ -81,7 +82,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	creditCard creditcard = null;
 	depositAccounts depositaccounts= null;
 	deletePayee deletepayee = null;
-	
+	payNow paynow = null;
 	public DBSAndroidPage(AppiumDriver<RemoteWebElement> driver) throws Exception {
 		super(driver);
 		try {
@@ -115,6 +116,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			creditcard = new creditCard(driver);
 			depositaccounts = new depositAccounts(driver);
 			deletepayee = new deletePayee(driver);
+			paynow = new payNow(driver);
 			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), DBSappObject);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1181,5 +1183,51 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		// Generate random integers in range 0 to 99
 		int rand_int1 = rand.nextInt(100);
 		return rand_int1;
+	}
+	
+	@Step("Verify Pay Now NRIC.")
+	public void PayNowNRIC() throws Exception {
+		try {
+			homepage.ClickOnPayAndTransferBtn();
+			enterpasscode.EnterPasscodeAndDone();
+            paytransfer.ClickOnPayNowModule();
+            paynow.handlingTransferToThailandWithPromptPayAlert(CommonTestData.PROMPT_PAY_MESSAGE.getEnumValue());
+            paynow.SelectPayNowToNRIC_FIN();
+            paynow.EnterNRIC_FIN_Number();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify Pay Now NRIC ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Pay Now NRIC ", e);
+		}
+	}
+	
+	@Step("Verify Pay Now UEN.")
+	public void PayNowUEN() throws Exception {
+		try {
+			homepage.ClickOnPayAndTransferBtn();
+			enterpasscode.EnterPasscodeAndDone();
+			paytransfer.ClickOnPayNowModule();
+			paynow.handlingTransferToThailandWithPromptPayAlert(CommonTestData.PROMPT_PAY_MESSAGE.getEnumValue());
+			paynow.SelectPayNowToUEN();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify Pay Now UEN ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Pay Now UEN ", e);
+		}
+	}
+	
+	@Step("Verify Pay Now VPA.")
+	public void PayNowVPA() throws Exception {
+		try {
+			homepage.ClickOnPayAndTransferBtn();
+			enterpasscode.EnterPasscodeAndDone();
+			paytransfer.ClickOnPayNowModule();
+			paynow.handlingTransferToThailandWithPromptPayAlert(CommonTestData.PROMPT_PAY_MESSAGE.getEnumValue());
+			paynow.SelectPayNowToVPA();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify Pay Now VPA ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Pay Now VPA ", e);
+		}
 	}
 }

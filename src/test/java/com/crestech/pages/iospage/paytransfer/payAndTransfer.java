@@ -52,6 +52,54 @@ public class payAndTransfer extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='All']")
 	private MobileElement allTab;
 	
+	@ElementDescription(value = "Local button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Local']")
+	private MobileElement LocalButton;
+	
+	@ElementDescription(value = "'HOME' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Home']")
+	private MobileElement HOMEButton;
+	
+	@ElementDescription(value = "topup button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Top Up']")
+	private MobileElement topUpButton;
+
+
+	@Step("Click On Topup Paylah Module")
+	public void clickOnTopUpModule() throws Exception {
+		try {
+			wait.waitForElementToBeClickable(topUpButton);
+			clickOnElement(topUpButton);
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On TopUp Paylah Module  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On TopUp Paylah Module  ", e);
+		}
+	}
+	
+	@Step("Click on 'Home' Button.")
+	public void ClickOnHomeButton() throws Exception {
+		try {
+			clickOnElement(HOMEButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button ", e);
+		}
+	}
+	
+	@Step("Click On Local Button.")
+	public void clickOnLocalButton() throws Exception {
+		try {
+			wait.waitForElementToBeClickable(LocalButton);
+			clickOnElement(LocalButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Button ", e);
+		}
+	}
+	
 	@Step("Select All TAB under Pay & Transfer.")
 	public void SelectAllTAB() throws Exception {
 		try {

@@ -124,10 +124,6 @@ public class overseasModule extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='DBSRemittance_CompletionCrossButton']")
 	private MobileElement backButtontransferDetailLabel;
 	
-	@ElementDescription(value = "'HOME' Button.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Home']")
-	private MobileElement HOMEButton;
-	
 	@ElementDescription(value = "search icon in payAndtransfer")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pay & Transfer']")
 	private MobileElement searchBoxInPayAndTransfer;
@@ -482,31 +478,18 @@ public class overseasModule extends CommonAppiumTest{
 		}
 	}
 	
-	@Step("Back To Home From Test Case")
-	public void BackToHomeFromTestCase() throws Exception {
+	@Step("Back From Test Case")
+	public void BackFromTestCase() throws Exception {
 		try {
 			ClickOnDBSRemittance_CompletionCrossButton();
 			ClickOnCloseIcon();
-			ClickOnHomeButton();
 		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Back To Home From Test Case ",e);		
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Back From Test Case ",e);		
 		}
 		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Back To Home From Test Case ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Back From Test Case ",e);
 		}
 	}
-	
-	@Step("Click on 'Home' Button.")
-	public void ClickOnHomeButton() throws Exception {
-		try {
-			clickOnElement(HOMEButton);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button ", e);
-		}
-	}
-	
 
 	@Step("Click On DBS Remittance Completion Cross Button.")
 	public void ClickOnDBSRemittance_CompletionCrossButton() throws Exception {

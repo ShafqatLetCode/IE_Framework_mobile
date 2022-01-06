@@ -92,6 +92,9 @@ public enum CommonTestData {
 	YOUR_DBSPOSB_ACCOUNTS("Your DBS/POSB Accounts"),
 	TRANSFERRED("Transferred"),
 	
+	//PayNow NRIC
+	PROMPT_PAY_MESSAGE("Transfer to Thailand with PromptPay"),
+	NRIC_FIN_NUMBER("S0058001E"),
 	
 	//UpdateContact Details
 	UPDATE_CONTACT_DETAILS_PAGEHEADER("Update Contact Details"),
@@ -178,7 +181,6 @@ public enum CommonTestData {
 	TOPUP_UP_DONE_LABEL("Top-up Done"),
 	LOGOUT_PAYLAH("Log Out"),
 	AMOUNT_PAYLAH("5.00"),
-	TOPUP_LABEL_IOS("Top Up"),
 	
 	
 	// OpenAccount

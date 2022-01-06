@@ -2,6 +2,7 @@ package com.crestech.pages.iospage;
 
 import java.time.Duration;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
@@ -38,6 +39,22 @@ public class ratingPage extends CommonAppiumTest{
 	@ElementDescription(value = "tap on star field message")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Tap on the stars to rate']")
 	private MobileElement tapOnStarMessage;
+	
+	@ElementDescription(value = "'Close' Button After adding Payee")
+	@FindBy(name = "close")
+	private MobileElement closeButton;
+	
+	@Step("Click on 'Close' Button.")
+	public void ClickOnCloseButton() throws Exception {
+		try {
+			if(isElementVisible2(closeButton))
+				clickOnElement(closeButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button  ",	e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button ", e);
+		}
+	}
 	
 	@Step("verify 'Tap On The Stars To Rate' Message")
 	public void verifyTapOnTheStarsToRate(String Ratingmsg) throws Exception {

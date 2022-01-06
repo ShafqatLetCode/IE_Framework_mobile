@@ -75,6 +75,42 @@ public class deletePayee extends CommonAppiumTest{
 	private MobileElement DeletePayeeButton;
 	
 	@Step("Delete Payee.")
+	public void DeletePayee(String ExpectedPayee) throws Exception {
+		try {
+			if (payeeList.size() > 0) {
+				int ExpectedTotalPayeeSize = payeeList.size();
+				int ExpectedTotalPayee = IiconList.size();
+				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
+
+					String actualPayee = payeeList.get(i).getText();
+					if (actualPayee.contains(ExpectedPayee)) {
+						int index = i / 2;
+						ClickOnDeletePayeeToIcon(index);
+						ClickOnMoreOptionBtn();
+						ClickOnDeletePayeeBtn();
+						ClickOnYesBtn();
+						// HandlingErrorPopupInDeletePayee();
+						ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedPayee);
+						VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayee);
+						break;
+					}
+				}
+
+			} else {
+				Dimension windowSize1 = driver.manage().window().getSize();
+				int y = (int) ((windowSize1.getHeight()) - 10);
+				int x = (int) ((windowSize1.getWidth()) / 2);
+				gesture.swipeCoordinatetoCoordinate(x, 20, x, y);
+			}
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee ", e);
+		}
+	}
+	
+	@Step("Delete Payee.")
 	public void DeletePayeeForRemittence(String ExpectedPayee) throws Exception {
 		try {
 			if(payeeList.size() > 0) {
@@ -91,8 +127,8 @@ public class deletePayee extends CommonAppiumTest{
 
 							//HandlingErrorPopupInDeletePayee();
 							ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedPayee);
-								VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayee);
-								break;
+							VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayee);
+							break;
 							}
 					}
 			}
