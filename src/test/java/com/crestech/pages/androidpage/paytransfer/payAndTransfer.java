@@ -4,11 +4,8 @@ import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
 import static io.appium.java_client.touch.offset.PointOption.point;
 import static java.time.Duration.ofSeconds;
-
 import java.time.Duration;
 import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -19,7 +16,6 @@ import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 import com.crestech.common.utilities.WaitUtils;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -541,7 +537,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	}
 	
 	@Step("Verifying Overseas Module and click")
-	public void ClickOnOverseasModule(String expectecText) throws Exception {
+	public void ClickOnOverseasModule() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(Btnlist.get(3)); 
 			clickOnElement(Btnlist.get(3));

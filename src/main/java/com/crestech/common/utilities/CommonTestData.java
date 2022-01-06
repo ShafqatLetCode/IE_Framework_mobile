@@ -225,7 +225,6 @@ public enum CommonTestData {
 	
 
     //Remittance Corridor
-	OVERSEAS_ICON("Overseas"),
     SOURCE_ACCOUNT_NAME_CORRIDOR("DBS SAVINGS PLUS"),
     SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH("DBS Multiplier Account"),
 	CORRIDOR_AMOUNT("34"),
@@ -286,7 +285,6 @@ public enum CommonTestData {
 	MOTION_FITNESS_MESSAGE("“DBS digibank” Would Like to Access Your Motion & Fitness Activity"),
 	
 	// ScreenName-OneAppPostLogin
-	LOGOUT_ISO("logout"), 
 	SGD_CURRENCY_LABEL("SGD"), 
 	LOGOT_PAYLAH_IOS("Log Out"), 
 	DONE_2FA_IOS("Done"),
@@ -302,7 +300,7 @@ public enum CommonTestData {
 	ALL_SECTION("ALL"),
 	LOCAL_RECIPIENT_FROMLIST("Local Recipients"),
 	DBS_CURRENT_ACCOUNT_TEXT("DBS CURRENT ACCOUNT"),
-	SELECT_SOURCE_FUND("Select Fund Source"),
+	//SELECT_SOURCE_FUND("Select Fund Source"),
 	PRIMARY_SOURCE_ALERT_TITLE("Primary source of fund"),
 	REVIEW_TRANSFER_LABEL("Review Transfer"),
 	TRANSFER_NOW_BUTTON("TRANSFER NOW"),

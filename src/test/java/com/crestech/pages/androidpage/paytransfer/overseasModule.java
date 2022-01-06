@@ -197,6 +197,11 @@ public class overseasModule extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='CONFIRM']")
 	private MobileElement confirmButton;
 	
+	@ElementDescription(value = "Primary Source Of Fund Popup")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/tv_primary_account_bottom_sheet_title')]")
+	private MobileElement PrimarySourceOfFundPopup;
+
+	
 	@Step("Click On 'ADD RECIPIENT NOW' button under overseas")
 	public void SelectAddRecipientNowButtonUnderOverseas() throws Exception {
 		try {
@@ -270,9 +275,7 @@ public class overseasModule extends CommonAppiumTest{
 	public void SelectSourceOfFund(String SelectedAccountName)
 			throws Exception {
 		try {
-			String xpath = "//android.widget.TextView[@text='Select Fund Source']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0) {
+			if (isElementVisible2(SelectFundSourceText)) {
 				clickOnElement(SelectFundSourceText);
 				int index=0;
 				int l = selectFundSourceAccountList.size();
@@ -295,9 +298,9 @@ public class overseasModule extends CommonAppiumTest{
 				handlingOfPrimarySourceOfFundPopup();
 			}
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Overseas Payee ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on 'Select Fund Source' and Select Account ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Overseas Payee ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on 'Select Fund Source' and Select Account ", e);
 		}
 	}
 	
@@ -315,9 +318,7 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Handle 'Primary Source Of Fund' Popup.")
 	public void handlingOfPrimarySourceOfFundPopup() throws Exception {
 		try {
-			String xpath1 = "//android.widget.TextView[contains(@resource-id,'id/tv_primary_account_bottom_sheet_title')]";
-			List<RemoteWebElement> primarysourceofFundPopup = driver.findElements(By.xpath(xpath1));
-			if (primarysourceofFundPopup.size() > 0)
+			if (isElementVisible2(PrimarySourceOfFundPopup))
 				ClickOnOKButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle 'Primary Source Of Fund' Popup. ", e);

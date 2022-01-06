@@ -289,20 +289,30 @@ public class AndroidAlert{
 		try {
 			this.driver.switchTo().alert();
 			return true;
-		} // try
+		} 
 		catch (Exception Ex) {
 			return false;
-		} // catch
-	} // isAlertPresent()
+		} 
+	} 
 
 	public boolean isIOSAlertPresent() {
 		try {
 			this.driver.findElementByXPath("//XCUIElementTypeStaticText[@name='digibank Alert']");
 			return true;
-		} // try
+		} 
 		catch (Exception Ex) {
 			return false;
-		} // catch
-	} // isAlertPresent()
+		} 
+	}
+	
+	public boolean isIOSOfflineAlertPresent() {
+		try {
+			this.driver.findElementByXPath("//XCUIElementTypeStaticText[@name='You seem to be offline']");
+			return true;
+		} 
+		catch (Exception Ex) {
+			return false;
+		} 
+	}
 
 }

@@ -37,7 +37,7 @@ public class DBS_IOSObject {
 
 	@ElementDescription(value = "login Button on 1st page")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='LOG IN']")
-	private MobileElement logInButton_1;
+	private MobileElement logInButton_launchPage;
 
 	@ElementDescription(value = "login Button on 2nd page")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='LOGIN']")
@@ -73,8 +73,8 @@ public class DBS_IOSObject {
 		return userPinEditBox;
 	}
 
-	public MobileElement logInButton_1() {
-		return logInButton_1;
+	public MobileElement logInButton_launchPage() {
+		return logInButton_launchPage;
 	}
 
 	public MobileElement logInButton_2() {
@@ -1908,20 +1908,8 @@ public class DBS_IOSObject {
 	public MobileElement  digitokeRegisterAlertMsg() {
 		return  digitokeRegisterAlertMsg;
 	}
-	@ElementDescription(value = "Iwealth management alert")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Welcome to digibank for Wealth Management']")
-	private MobileElement managementAlertMsg;
-
-	public MobileElement  managementAlertMsg() {
-		return  managementAlertMsg;
-	}
-	@ElementDescription(value = "Iwealth swipeButton")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeImage[@name='TravelMode_Close']")
-	private MobileElement swipeButton2;
-
-	public MobileElement  swipeButton2() {
-		return  swipeButton2;
-	}
+	
+	
 	@ElementDescription(value = "confirm email")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Confirm your email address']")
 	private MobileElement confirmEmail;
@@ -2291,4 +2279,9 @@ public class DBS_IOSObject {
 	public MobileElement Authenticating() {
 		return Authenticating;
 	}
+	
+	
+	
+	
+	
 }
