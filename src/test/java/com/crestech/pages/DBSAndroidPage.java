@@ -3,8 +3,10 @@ package com.crestech.pages;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.appium.utils.CommonAppiumTest;
@@ -142,9 +144,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 
 	@Step("Log In the Application")
 	public void LogInApplication(String userName, String password) throws Exception {
-		try {
+		try {	
+			wait.ImplicitlyWait(45);
 			preloginpage.ClickOnLoginButton(); 
 			loginpage.EnterCredentialsAndLogin(userName, password); 
+			wait.ImplicitlyWait(15);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application ", e);
 		} catch (Exception e) {
@@ -178,12 +182,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			
 			homepage.ClickOnLogOutButton();
 			
-			String xpath = "//android.widget.ImageView[@content-desc='CLOSE']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0) {
-				homepage.ClickOnCloseButton();
-				homepage.ClickOnLogOutButton();
-			}
+			//String xpath = "//android.widget.ImageView[@content-desc='CLOSE']";
+			//List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			//if (list.size() > 0) {
+			//if(isElementVisible2(null))
+				if(homepage.ClickOnCloseButton())		
+					homepage.ClickOnLogOutButton();
+			
 			
 			ratingpage.verifyTapOnTheStarsToRate(Ratingmsg);
 		} catch (HandleException e) {
@@ -796,6 +801,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			local.SelectFutureDate();
 			local.EnterAmount(CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_FAST_TRANSFER.getEnumValue());
+			pressKey(driver, Keys.ENTER);
 			local.ClickOnNextButtonToInitiateFundTransfer();
 			local.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue()); 
 			local.VerifyFastServiceInReview();
@@ -915,6 +921,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			local.VerifyImmediateText(CommonTestData.IMMEDIATE_TEXT.getEnumValue());
 			local.EnterAmount(CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_FAST_TRANSFER.getEnumValue());
+			pressKey(driver, Keys.ENTER);
 			local.ClickOnNextButtonToInitiateFundTransfer();
 			local.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue()); 
 			local.VerifyFastServiceInReview();

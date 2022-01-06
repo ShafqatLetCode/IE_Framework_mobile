@@ -24,7 +24,7 @@ public class WaitUtils extends CommandPrompt {
 		try {
 			this.driver = driver2;
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw e;
 		}
 	}
@@ -38,7 +38,7 @@ public class WaitUtils extends CommandPrompt {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			js.executeScript("return document.readyState").toString().equals("complete");
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw e;
 		}
 	}
@@ -54,7 +54,7 @@ public class WaitUtils extends CommandPrompt {
 			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
 			wait.until(ExpectedConditions.invisibilityOf(element));
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw e;
 		}
 	}
@@ -68,7 +68,7 @@ public class WaitUtils extends CommandPrompt {
 		
 	    wait.until(ExpectedConditions.visibilityOf(element));
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw e;
 		}
 	}
@@ -86,7 +86,7 @@ public class WaitUtils extends CommandPrompt {
 			wait.until(ExpectedConditions.visibilityOf(element));
 		} catch (Exception e) {
 			//e.printStackTrace();
-			System.out.println("Inside take ele visi catch" );
+			//System.out.println("Inside take ele visi catch" );
 			//throw new HandleException ("WAITELEMENTVISIBLE_EXCEPTION", "Element not visible on the screen ::",e);
 			throw e;
 		}
@@ -109,6 +109,19 @@ public class WaitUtils extends CommandPrompt {
 			throw e;
 		}
 	}
+	
+	public boolean waitForElementToBeClickable2(MobileElement element) throws Exception {
+		try {
+			//System.out.println(driver.getCapabilities().getCapability(MobileCapabilityType.DEVICE_NAME));
+			WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME);
+			wait.until(ExpectedConditions.elementToBeClickable(element));
+			return true;
+		} catch (Exception e) {
+			//System.out.println("Inside take ele visi catch" );
+			//throw new HandleException ("WAITELEMENTCLICKABLE_EXCEPTION", "Element not clickable on the screen ::",e);
+			return false;
+		}
+	}
 
 	/**
 	 * This method will wait for page load Timeout
@@ -129,12 +142,13 @@ public class WaitUtils extends CommandPrompt {
 	 * This method will wait for Element visibility on whole page.
 	 * @throws Exception
 	 */
-	public void ImplicitlyWait() throws Exception {
+	public void ImplicitlyWait(int timeInSeconds) throws Exception {
 		try {
-			//driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
+			driver.manage().timeouts().implicitlyWait(timeInSeconds, TimeUnit.SECONDS);
 		} catch (Exception e) {
 			//System.out.println("Inside take ele visi catch" );
 			//throw new HandleException ("IMPLICIT_WAIT_EXCEPTION", "Element not Visible on the screen ::",e);
+		throw e;
 		}
 	}
 	

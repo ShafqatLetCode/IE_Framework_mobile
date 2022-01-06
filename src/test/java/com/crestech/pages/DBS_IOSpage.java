@@ -2629,7 +2629,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				String s1 = driver.getPageSource();
 				int count = 0;
 				int index = 0;
-				
+
 				while (count == 0 && index == 0) {
 					if (IOShomePgaeObject.localRecipientsList().size() > 0) {
 						//TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
@@ -2931,7 +2931,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				String s1 = driver.getPageSource();
 				int count = 0;
 				int index = 0;
-				
+
 				while (count == 0 && index == 0) {
 					if (IOShomePgaeObject.localRecipientsList().size() > 0) {
 						//TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
@@ -3282,7 +3282,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				String s1 = driver.getPageSource();
 				int count = 0;
 				int index = 0;
-				
+
 				while (count == 0 && index == 0) {
 					if (IOShomePgaeObject.localRecipientsList().size() > 0) {
 						//TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));

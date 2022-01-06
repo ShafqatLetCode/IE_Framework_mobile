@@ -410,6 +410,7 @@ public class localModule extends CommonAppiumTest{
 		try {
 			clickOnElement(EditFields.get(0)); 
 			enterTextInTextbox(EditFields.get(0), Comment);
+			//backButton();
 			hideKeyboard();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Enter comments in edit field. ",e);

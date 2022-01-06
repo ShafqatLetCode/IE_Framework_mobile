@@ -46,7 +46,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute Pre-Requisite Script "+e.getMessage());
 		}
 	}
-	
+
 	@Parameters({ "userName", "password", "app_Name" })
 	@Test(priority = 2, enabled = true, description = "AccountDetails-CASA-ONEAPP-14400", dependsOnMethods={"PreRequisiteScript"})
 	@Description(value = "Execution of this testcase:: Verify the account detail on dashboard page. ")

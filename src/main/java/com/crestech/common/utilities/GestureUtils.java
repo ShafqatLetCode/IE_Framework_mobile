@@ -47,8 +47,10 @@ public class GestureUtils {
 		
 		try {
 			if(Element1.isDisplayed()&&Element2.isDisplayed())
-				touch.longPress(longPressOptions().withElement(element(Element1)).withDuration(Duration.ofMillis(40))).moveTo(element(Element2)).release()
+				touch.longPress(longPressOptions().withElement(element(Element1))).moveTo(element(Element2)).release()
 					.perform();
+//			touch.longPress(longPressOptions().withElement(element(Element1)).withDuration(Duration.ofMillis(40))).moveTo(element(Element2)).release()
+//			.perform();
 		} 
 		catch (Exception e) {	
 			obj_handleexception.throwException("DRAGDROP_EXCEPTION", " Failed to perform drag and drop   ",e);
@@ -391,7 +393,7 @@ public class GestureUtils {
 	public void scrollUPtoObject(String attribute, String value, MobileElement element) throws Exception {
 		try {
 			Dimension windowSize = driver.manage().window().getSize();
-			System.out.println("getSessionId :"+driver.getSessionId());
+			//System.out.println("getSessionId :"+driver.getSessionId());
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
 			int y2 = (int) (h - y1);
@@ -698,7 +700,7 @@ public class GestureUtils {
 	public void scrollUPtoObjectBelowSpecificElement(String attribute, String value, MobileElement element,MobileElement specificPosition) throws Exception {
 		try {
 			Dimension windowSize = driver.manage().window().getSize();
-			System.out.println("getSessionId :"+driver.getSessionId());
+			//System.out.println("getSessionId :"+driver.getSessionId());
 			
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
