@@ -297,13 +297,14 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		}
 	}
 
+	
+	
 	@Step("Verifying Next Label and click")
 	public void ClickOnNextButton() throws Exception {
 		try {
-			String actualText = getTexOfElement(IOShomePgaeObject.nextButton());
-			if (actualText.equalsIgnoreCase("NEXT")) {
+			
 				clickOnElement(IOShomePgaeObject.nextButton());
-			Asserts.assertEquals(actualText, "NEXT", "Button not found");}
+			
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
 		}
@@ -1029,7 +1030,6 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Click on 'Home' Button.")
 	public void ClickOnHomeButton() throws Exception {
 		try {
-			TakeScreenshot(IOShomePgaeObject.HOMEButton()); 
 			clickOnElement(IOShomePgaeObject.HOMEButton());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button  ", e);
@@ -1856,7 +1856,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			paytransfer.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
-			SelectAllTAB();
+			paytransfer.SelectAllTAB();
 			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_CREDITCARD_TO_ACCOUNTNUMBER_WITHBANK
 					.getEnumValue();
 			clickingOnAccountTypeInCreditCard(ExpectedToBankNameWithAccountNo);
@@ -2296,11 +2296,14 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			overseasmodule.pressEnterKeyAfterEnteringAmount(CommonTestData.CORRIDOR_AMOUNT.getEnumValue());
 			
 			overseasmodule.SelectAdditionalDetails(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),CommonTestData.PURPOSE.getEnumValue(), CommonTestData.MOBILE_NUMBER.getEnumValue());
-			ClickOnNextBtnAndVerifiesReviewTransferPage();
-			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
-			ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
-			ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText();
-			//BackToHomeFromRemittenceCoridor();
+			overseasmodule.ClickOnNextButton();
+			overseasmodule.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue());
+			overseasmodule.ClickOnTransferNowButton();
+			overseasmodule.VerifiesTransferSubmittedMessage(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
+	
+			overseasmodule.ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
+			overseasmodule.ClickOnShareTransferDetailsButton();
+			overseasmodule.BackToHomeFromTestCase();
 		}catch (HandleException e) {	
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Remittance Corridor  ",e);			
 		}
@@ -2308,102 +2311,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Remittance Corridor  ",e);
 		}
 	}
-	
-	
-	@Step("Verifies Review Transfer Page Header after clicking on Next Button.")
-	public void ClickOnNextBtnAndVerifiesReviewTransferPage() throws Exception {
-		try {
-			
-			ClickOnNextButton();
-			verifyTextOnScreen(CommonTestData.REVIEW_TRANSFER.getEnumValue(), IOShomePgaeObject.reviewTransfer());
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", "Failed to Verifies Review Transfer Page Header after clicking on Next Button ",e);		
-		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", "Failed to Verifies Review Transfer Page Header after clicking on Next Button ",e);
-		}
-	}
-	@Step("Verifies Transfer Submitted Message after clicking on Transfer Now Button.")
-	public void ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(String SuccessMsg) throws Exception {
-		try {
-			//scrool
-			gesture.scrollUPtoObjectIos("name", "TRANSFER NOW", null);			
-			clickOnTransferNowButton();
-		    verifyTextOnScreen(SuccessMsg, IOShomePgaeObject.transferSubmittedLabel());
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to CLick on transfer now and Verify success message ",e);
-		}
-		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to CLick on transfer now and Verify success message  ",e);
-		}
-	}
-	@Step("click On Transfer Now Button")
-	public void clickOnTransferNowButton() throws Exception {
-		try {
-			ButtonVerifyClick( IOShomePgaeObject.transferNowButton());
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Transfer Now Button  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On  Transfer Now Button ", e);
-		}
-	}
-	@Step("Verifies Reference Number Text after clicking on Image Expand Button.")
-	public void ClickOnImageExpandBtnAndVerifiesReferenceNumberText() throws Exception {
-		try {
-			
-			clickOnExpandButton();
-			gestUtils.scrollUPtoObjectIos("name", "Reference No.", null);
-			verifyTextOnScreen(CommonTestData.REFERENCE_NUMBER.getEnumValue(), IOShomePgaeObject.referenceNo());
-//			boolean i= IOShomePgaeObject.referenceNoValueInOversea().getText().isEmpty();
-//			Asserts.assertTrue(i==false, "Reference Number not Found");
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Image Expand Button ",e);			
-		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Image Expand Button ",e);
-		}
-	}
-	@Step("click On Expand button")
-	public void clickOnExpandButton() throws Exception {
-		try {
-			ButtonVerifyClick(IOShomePgaeObject.downwardArrowInTopUpDonePage());
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On expand Button  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On expand Button ", e);
-		}
-	}
-	@Step("Verifies Overseas transfer Message after clicking on Share Transfer Details Button.")
-	public void ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText() throws Exception {
-		try {
-			gestUtils.scrollUPtoObjectIos("name", "SHARE TRANSFER DETAILS", null);
-			ButtonVerifyClick(IOShomePgaeObject.shareTransferDetailButton());
-			Thread.sleep(5000);
-			//fieldText("Transfer Details",IOShomePgaeObject.transferDetailLabel());
-		}catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Share Transfer Details Button ",e);			
-		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Share Transfer Details Button ",e);
-		}
-	}
-	@Step("Back to Home page from Transaction History statement")
-	public void BackToHomeFromRemittenceCoridor() throws Exception {
-		try {
-			ButtonVerifyClick(IOShomePgaeObject.backButtontransferDetailLabel());
-			ButtonVerifyClick(IOShomePgaeObject.closeIconInOversea());
-			ButtonVerifyClick(IOShomePgaeObject.homeButton());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
-		}
-	}
-	
-	
-	
-	
-	
 	@Step("Enter Amount In Editable field to transfer fund.")
 	public void EnterAmount(MobileElement editField, String textToEnter) throws Exception {
 		try {
@@ -2640,63 +2548,34 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		}
 	}
 		
-		@Step("Verifies Remittance eOTT")
-		public void VerifyRemittanceEOTT() throws Exception {
-			try {
-				paytransfer.ClickOnPayAndTransferButton();
-				enterpasscode.EnterPasscodeAndDone();
-				SelectAllTAB();
-				findPayeeUnderAllTab(CommonTestData.EOTTREMITTANCE_NAME.getEnumValue());
-				//fieldText(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue(), IOShomePgaeObject.overseaTransferTitle());
+	@Step("Verifies Remittance eOTT")
+	public void VerifyRemittanceEOTT(String appName) throws Exception {
+		try {
+			paytransfer.ClickOnPayAndTransferButton();
+			enterpasscode.EnterPasscodeAndDone();
+			paytransfer.SelectAllTAB();
+			overseasmodule.SelectEOTT();
+			if (appName.equals("DBS"))
 				overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue());
-				overseasmodule.pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
-				overseasmodule.SelectAdditionalDetails(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),CommonTestData.PURPOSE.getEnumValue(), CommonTestData.MOBILE_NUMBER.getEnumValue());
-				ClickOnNextBtnAndVerifiesReviewTransferPage();
-				ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
-				ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
-				ClickOnShareTransferDetailsBtnAndVerifiesReferenceNumberText();
-				//BackToHomeFromRemittenceCoridor();
-				
-			}catch (HandleException e) {	
-				obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Remittance EOTT  ",e);			
-			}
-			catch (Exception e) {			
-				obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Remittance EOTT  ",e);
-			}
+			else if (appName.equals("iWEALTH"))
+				overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH.getEnumValue());
+			overseasmodule.pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
+			overseasmodule.SelectAdditionalDetails(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),
+					CommonTestData.PURPOSE.getEnumValue(), CommonTestData.MOBILE_NUMBER.getEnumValue());
+			overseasmodule.ClickOnNextButton();
+			overseasmodule.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue());
+			overseasmodule.ClickOnTransferNowButton();
+			overseasmodule.VerifiesTransferSubmittedMessage(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
+			overseasmodule.ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
+			overseasmodule.ClickOnShareTransferDetailsButton();
+			overseasmodule.BackToHomeFromTestCase();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Remittance EOTT  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Remittance EOTT  ", e);
 		}
-		@Step("Select All TAB.")
-		public void SelectAllTAB() throws Exception {
-			try {
-				wait.waitForElementToBeClickable(IOShomePgaeObject.allTab());
-				ButtonVerifyClick(IOShomePgaeObject.allTab());
-			} catch (HandleException e) {	
-				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab  ",e);
-			}
-			catch (Exception e) {		
-				obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab   ",e);
-			}
-		}
-		@Step("Finding Payee under All Tab")
-		public void findPayeeUnderAllTab(String ExpectedEottName ) throws Exception {
-			try {
-				ButtonVerifyClick(IOShomePgaeObject.searchBoxInPayAndTransfer());
-				enterTextInTextbox(IOShomePgaeObject.searchBoxInPayAndTransfer(), ExpectedEottName);
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				//driver.hideKeyboard();
-				//backButton();
-				pressKey(driver, Keys.ENTER);
-//				String xpath = "//XCUIElementTypeStaticText[@name='" + ExpectedEottName + "']";
-//				MobileElement ExpectedEottEle = (MobileElement) driver.findElement(By.xpath(xpath));
-				MobileElement ExpectedEottEle = (MobileElement) driver.findElement(By.name(ExpectedEottName));
-				//isElementVisible(ExpectedEottEle);
-				clickOnElement(ExpectedEottEle);
-			} catch (HandleException e) {	
-				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Find Payee In All tab  ",e);
-			}
-			catch (Exception e) {		
-				obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Find Payee In All tab   ",e);
-			}
-		}
+	}
+
 		@Step("Verify CreditCard Temperary Limit Increase")
 		public void CreditCardTempLimitIncrease() throws Exception {
 			try {
@@ -3065,7 +2944,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			paytransfer.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
-			SelectAllTAB();
+			paytransfer.SelectAllTAB();
 			SelectOWNAccountAndAnyAccountOption(CommonTestData.FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER.getEnumValue());
 			String ExpectedFromAccountName = CommonTestData.FUNDTRANSFER_FROM_OWN_ACCOUNT_NAME.getEnumValue();
 			SelectFundSourceAccount(ExpectedFromAccountName);
@@ -3233,7 +3112,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			paytransfer.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
-			SelectAllTAB();
+			paytransfer.SelectAllTAB();
 			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_BillPayment_TO_ACCOUNTNUMBER_WITHBANK
 					.getEnumValue();
 			scrollToBillingOrganisation();

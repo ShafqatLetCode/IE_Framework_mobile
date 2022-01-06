@@ -47,6 +47,23 @@ public class payAndTransfer extends CommonAppiumTest{
 	@ElementDescription(value = " Overseas button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Overseas']")
 	private MobileElement overseasButton;
+	
+	@ElementDescription(value = "All tab")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='All']")
+	private MobileElement allTab;
+	
+	@Step("Select All TAB under Pay & Transfer.")
+	public void SelectAllTAB() throws Exception {
+		try {
+			wait.waitForElementToBeClickable(allTab);
+			clickOnElement(allTab);
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab  ",e);
+		}
+		catch (Exception e) {		
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab   ",e);
+		}
+	}
 
 	@Step("Click On Overseas Module")
 	public void ClickOnOverseasModule() throws Exception {

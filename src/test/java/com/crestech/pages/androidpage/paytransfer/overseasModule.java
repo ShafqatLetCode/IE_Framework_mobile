@@ -343,9 +343,9 @@ public class overseasModule extends CommonAppiumTest{
 			else
 				Asserts.assertFail("EOTT " + ExpectedEottName + " Not Found corresponding to this user.");
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab  ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select EOTT  ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab   ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select EOTT  ", e);
 		}
 	}
 	
@@ -532,9 +532,6 @@ public class overseasModule extends CommonAppiumTest{
 		try {
 			gestUtils.scrollUPtoObject("text", "SHARE TRANSFER DETAILS", ShareTransferDetailsBtn);
 			clickOnElement(ShareTransferDetailsBtn);
-			// Asserts.assertEquals(getTexOfElement(DBSappObject.OverseasTransferMsg()),
-			// CommonTestData.OVERSEAS_TRANSFER_TEXT.getEnumValue(),
-			// CommonTestData.OVERSEAS_TRANSFER_TEXT.getEnumValue() + " Text is not found");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Share Transfer Details Button ", e);
 		} catch (Exception e) {

@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.annotation.values.ElementDescription;
@@ -84,6 +85,204 @@ public class overseasModule extends CommonAppiumTest{
 	@ElementDescription(value = "Transfer Overseas  header")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Transfer Overseas']")
 	private MobileElement transferOverseaTitle;
+	
+	@ElementDescription(value = "Next Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='NEXT']")
+	private MobileElement nextButton;
+	
+	@ElementDescription(value = "Review Transfer")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Transfer']")
+	private MobileElement reviewTransfer;
+	
+	@ElementDescription(value = "TRANSFER NOW button")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='TRANSFER NOW'])[1]")
+	private MobileElement transferNowButton;
+	
+	@ElementDescription(value = "Transfer Submitted")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Transfer Submitted']")
+	private MobileElement transferSubmittedLabel;
+	
+	@ElementDescription(value = "Expand Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='icn arrow']")
+	private MobileElement expandButton;
+	
+	@ElementDescription(value = "Reference No.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Reference No.']")
+	private MobileElement referenceNo;
+	
+	@ElementDescription(value = "SHARE TRANSFER DETAILS btn")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='SHARE TRANSFER DETAILS']")
+	private MobileElement shareTransferDetailButton;
+	
+	@ElementDescription(value = "close icon in oversea")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='close icon']")
+	private MobileElement closeIconInOversea;
+	
+	@ElementDescription(value = "backbutton in Transfer Details label")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='DBSRemittance_CompletionCrossButton']")
+	private MobileElement backButtontransferDetailLabel;
+	
+	@ElementDescription(value = "'HOME' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Home']")
+	private MobileElement HOMEButton;
+	
+	@ElementDescription(value = "search icon in payAndtransfer")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pay & Transfer']")
+	private MobileElement searchBoxInPayAndTransfer;
+	
+	@Step("Select EOTT")
+	public void SelectEOTT() throws Exception {
+		try {
+			clickOnElement(searchBoxInPayAndTransfer);
+			enterTextInTextbox(searchBoxInPayAndTransfer, CommonTestData.EOTTREMITTANCE_NAME.getEnumValue());
+			pressKey(driver, Keys.ENTER);
+
+			MobileElement ExpectedEottEle = (MobileElement) driver.findElement(By.name(CommonTestData.EOTTREMITTANCE_NAME.getEnumValue()));
+			if (isElementVisible2(ExpectedEottEle))
+				clickOnElement(ExpectedEottEle);
+			else
+				Asserts.assertFail("EOTT " + CommonTestData.EOTTREMITTANCE_NAME.getEnumValue() + " Not Found corresponding to this user.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select EOTT  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select EOTT  ", e);
+		}
+	}
+	
+	@Step("Back To Home From Test Case")
+	public void BackToHomeFromTestCase() throws Exception {
+		try {
+			ClickOnDBSRemittance_CompletionCrossButton();
+			ClickOnCloseIcon();
+			ClickOnHomeButton();
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Back To Home From Test Case ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Back To Home From Test Case ",e);
+		}
+	}
+	
+	@Step("Click on 'Home' Button.")
+	public void ClickOnHomeButton() throws Exception {
+		try {
+			clickOnElement(HOMEButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button ", e);
+		}
+	}
+	
+
+	@Step("Click On DBS Remittance Completion Cross Button.")
+	public void ClickOnDBSRemittance_CompletionCrossButton() throws Exception {
+		try {
+			clickOnElement(backButtontransferDetailLabel);
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On DBS Remittance Completion Cross Button. ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On DBS Remittance Completion Cross Button. ",e);
+		}
+	}
+	
+	@Step("Click On Close Icon.")
+	public void ClickOnCloseIcon() throws Exception {
+		try {
+			clickOnElement(closeIconInOversea);
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Close Icon. ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Close Icon. ",e);
+		}
+	}
+	
+	@Step("Click On Share Transfer Details Button")
+	public void ClickOnShareTransferDetailsButton() throws Exception {
+		try {
+			gestUtils.scrollUPtoObjectIos("name", "SHARE TRANSFER DETAILS", null);
+			clickOnElement(shareTransferDetailButton);	
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Share Transfer Details Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION"," Failed to Click On Share Transfer Details Button ", e);
+		}
+	}
+	
+	@Step("click On Expand button")
+	public void clickOnExpandButton() throws Exception {
+		try {
+			clickOnElement(expandButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On expand Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On expand Button ", e);
+		}
+	}
+	
+	@Step("Verifies Reference Number Text after clicking on Image Expand Button.")
+	public void ClickOnImageExpandBtnAndVerifiesReferenceNumberText() throws Exception {
+		try {
+			clickOnExpandButton();
+			gestUtils.scrollUPtoObjectIos("name", "Reference No.", null);
+			Asserts.assertEquals(getTexOfElement(referenceNo).trim().toLowerCase(), CommonTestData.REFERENCE_NUMBER.getEnumValue().toLowerCase(),CommonTestData.REFERENCE_NUMBER.getEnumValue() + " Text is not matching.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Image Expand Button ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Image Expand Button ", e);
+		}
+	}
+	
+	@Step("Verifies Transfer Submitted Message")
+	public void VerifiesTransferSubmittedMessage(String SuccessMsg) throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(transferSubmittedLabel).trim().toLowerCase(), SuccessMsg.toLowerCase(),SuccessMsg + " Text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Transfer Submitted Message ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Transfer Submitted Message ", e);
+		}
+	}
+	
+	@Step("Click on Transfer Now Button.")
+	public void ClickOnTransferNowButton() throws Exception {
+		try {
+			gesture.scrollUPtoObjectIos("name", "TRANSFER NOW", null);	
+			clickOnElement(transferNowButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on transfer now Button ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on transfer now Button ", e);
+		}
+	}
+	
+	@Step("Verify 'Review Transfer' page header")
+	public void verifyReviewTransferPageHeader(String expectedText) throws Exception {
+		try {
+			wait.fluentWaitForElement(reviewTransfer);
+			Asserts.assertEquals(getTexOfElement(reviewTransfer).trim().toLowerCase(), expectedText.toLowerCase(),expectedText+ " Page Header is not matching.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to Verify 'Review Transfer' page header  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to Verify 'Review Transfer' page header ", e);
+		}
+	}
+	
+	@Step("Click On Next Button")
+	public void ClickOnNextButton() throws Exception {
+		try {
+				clickOnElement(nextButton);
+		} catch (HandleException e) {	
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
+		}
+		catch (Exception e) {			
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);
+		}
+	}
 	
 	@Step("Select Additional Details if Required")
 	public void SelectAdditionalDetails(String AccountType, String purpose, String MobileNo) throws Exception																										// Gifts""9999999990"

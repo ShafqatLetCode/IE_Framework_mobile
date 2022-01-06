@@ -106,7 +106,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
 			DBSPgaeObject1.LogInApplication(userName, password);
-			DBSPgaeObject1.VerifyRemittanceEOTT();
+			DBSPgaeObject1.VerifyRemittanceEOTT(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode() + "--> " + e.getMessage() );
