@@ -2294,8 +2294,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH.getEnumValue());
 			
 			overseasmodule.pressEnterKeyAfterEnteringAmount(CommonTestData.CORRIDOR_AMOUNT.getEnumValue());
-			gestUtils.scrollUPtoObjectIos("name", "NEXT",  null);
-			selectPurposeAccountTypeMobileNumberIfAvaliable("Savings","Personal Gifts","9999999990");
+			
+			SelectAdditionalDetails(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),CommonTestData.PURPOSE.getEnumValue(), CommonTestData.MOBILE_NUMBER.getEnumValue());
 			ClickOnNextBtnAndVerifiesReviewTransferPage();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
 			ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
@@ -2399,25 +2399,23 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			e.printStackTrace(); throw e;
 		}
 	}
-	public void selectPurposeAccountTypeMobileNumberIfAvaliable(String AccountType,String purpose,String MobileNo) throws Exception//"Savings""Personal Gifts""9999999990"
+	
+	@Step("Select Additional Details if Required")
+	public void SelectAdditionalDetails(String AccountType,String purpose,String MobileNo) throws Exception//"Savings""Personal Gifts""9999999990"
 	{
 		try {
-			String xpath_account = "//XCUIElementTypeStaticText[contains(@name,'account type')]";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath_account));
-		if (list.size() > 0) {
-			selectAccountType(AccountType);
-		}
-		String xpath_purpose = "//XCUIElementTypeStaticText[contains(@name,'purpose')]";
-		List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath_purpose));
-		if (list1.size() > 0) {
+			gestUtils.scrollUPtoObjectIos("name", "NEXT", null);
+
+			if (isElementVisible2(IOShomePgaeObject.selectAccountType()))
+				selectAccountType(AccountType);
+		
+		if (isElementVisible2(IOShomePgaeObject.selectPurposeType()))
 			selectPurpose(purpose);
-		}
-		String xpath = "//XCUIElementTypeTextField[contains(@value,'Mobile')]";
-		List<RemoteWebElement> list2 = driver.findElements(By.xpath(xpath));
-		if (list2.size() > 0) {
+		
+		if (isElementVisible2(IOShomePgaeObject.enterMobileNo()))
 			enterMobileNo(MobileNo);
 			
-		}
+		
 		
 	}
 		catch (HandleException e) {	
@@ -2783,7 +2781,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue());
 				overseasmodule.pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
 				gestUtils.scrollUPtoObjectIos("name", "Next", null);
-				selectPurposeAccountTypeMobileNumberIfAvaliable("Savings","Personal Gifts","9999999990");
+				SelectAdditionalDetails("Savings","Personal Gifts","9999999990");
 				ClickOnNextBtnAndVerifiesReviewTransferPage();
 				ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
 				ClickOnImageExpandBtnAndVerifiesReferenceNumberText();

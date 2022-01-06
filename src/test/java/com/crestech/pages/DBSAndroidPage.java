@@ -134,28 +134,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			homepage.handlingFingerPrintAlert(CommonTestData.FINGERPRINT_MESSAGE.getEnumValue());
 			homepage.handleRecordingAlert(CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue());
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application ", e);
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Pre-Requisite Script ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application ", e);
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Exceute Pre-Requisite Script ", e);
 		}
 	}
 
 	@Step("Log In the Application")
-	public void LogInApplication(String userName, String password, String appName) throws Exception {
+	public void LogInApplication(String userName, String password) throws Exception {
 		try {
-			//launchpage.handlingQuitButton();
-		//	launchpage.clickOnLoginButton();
 			preloginpage.ClickOnLoginButton(); 
-			//if(loginpage.ClickOnNOTYouLink())
-//			{
-//			loginpage.ClickOnDeregisterButtonInDigiAlertPopup(CommonTestData.PEEK_BALANCE_DEREGISTER_MESSAGE.getEnumValue());
-//			}
 			loginpage.EnterCredentialsAndLogin(userName, password); 
-//			homepage.digitalTokenSetUp();
-//			homepage.handlingGetStartedPopup(appName);
-//			homepage.handlingErrorAlert();
-//			homepage.handlingFingerPrintAlert(CommonTestData.FINGERPRINT_MESSAGE.getEnumValue());
-//			homepage.handleRecordingAlert(CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application ", e);
 		} catch (Exception e) {
