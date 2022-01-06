@@ -2295,7 +2295,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			
 			overseasmodule.pressEnterKeyAfterEnteringAmount(CommonTestData.CORRIDOR_AMOUNT.getEnumValue());
 			
-			SelectAdditionalDetails(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),CommonTestData.PURPOSE.getEnumValue(), CommonTestData.MOBILE_NUMBER.getEnumValue());
+			overseasmodule.SelectAdditionalDetails(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),CommonTestData.PURPOSE.getEnumValue(), CommonTestData.MOBILE_NUMBER.getEnumValue());
 			ClickOnNextBtnAndVerifiesReviewTransferPage();
 			ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
 			ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
@@ -2400,77 +2400,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		}
 	}
 	
-	@Step("Select Additional Details if Required")
-	public void SelectAdditionalDetails(String AccountType,String purpose,String MobileNo) throws Exception//"Savings""Personal Gifts""9999999990"
-	{
-		try {
-			gestUtils.scrollUPtoObjectIos("name", "NEXT", null);
-
-			if (isElementVisible2(IOShomePgaeObject.selectAccountType()))
-				selectAccountType(AccountType);
-		
-		if (isElementVisible2(IOShomePgaeObject.selectPurposeType()))
-			selectPurpose(purpose);
-		
-		if (isElementVisible2(IOShomePgaeObject.enterMobileNo()))
-			enterMobileNo(MobileNo);
-			
-		
-		
-	}
-		catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Purpose Account Type, Mobile Number ",e);
-					
-		}
-		catch (Exception e) {			
-			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Purpose Account Type, Mobile Number ",e);
-		}
 	
-}
-	@Step("Select AccountType")
-	public void selectAccountType(String AccountType) throws Exception//"Savings"
-	{
-		try {
-			clickOnAccountType();
-			int index = 0;
-			if(IOShomePgaeObject.commonList().size() >0) {
-			List<MobileElement> Elementlist = IOShomePgaeObject.commonList();
-			TakeScreenshot(IOShomePgaeObject.commonList().get(0));
-			int l = Elementlist.size();
-			
-			String LocalRecipientList = null;
-			for (int i = 0; i < l; i++) {
-				LocalRecipientList = Elementlist.get(i).getText();
-				if (LocalRecipientList.contains(AccountType)) {
-					index++;
-					clickOnElement(Elementlist.get(i));
-					break;
-				}
-			}
-			Asserts.assertTrue(index > 0,   AccountType +" not found in the list ");
-			}
-			else
-			{
-				Asserts.assertFail("No Account found in the  list");
-			}
-			TakeScreenshot(IOShomePgaeObject.transferOverseaTitle());
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Overseas Payee ",e);		
-		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Overseas Payee ",e);
-		}}
-	@Step("Application click on Account Type")
-	public void clickOnAccountType() throws Exception {
-		try {
-			ButtonVerifyClick(IOShomePgaeObject.selectAccountType());
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Account Type  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Account Type ", e);
-		}
-	}
+	
+	
 	
 	@Step("Enter Amount In Editable field to transfer fund.")
 	public void EnterAmount(MobileElement editField, String textToEnter) throws Exception {
@@ -2707,69 +2639,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select account from Cards recipient and verify header  ",e);
 		}
 	}
-		@Step("Select purpose")
-		public void selectPurpose(String purpose) throws Exception//"Personal Gifts"
-		{
-			try {
-				clickOnPurpose();
-				if(IOShomePgaeObject.commonList().size() >0) {
-				List<MobileElement> Elementlist = IOShomePgaeObject.commonList();
-				TakeScreenshot(IOShomePgaeObject.commonList().get(0));
-				int l = Elementlist.size();
-				int index = 0;
-				String LocalRecipientList = null;
-				for (int i = 0; i < l; i++) {
-					LocalRecipientList = Elementlist.get(i).getText();
-					if (LocalRecipientList.contains(purpose)) {
-						index++;
-						clickOnElement(Elementlist.get(i));
-						break;
-					}
-				}
-				Asserts.assertTrue(index > 0, "Purposed " +purpose+" not found in the list");
-				
-			}
-				else
-				{
-					Asserts.assertFail("No purpose List is found");
-				}
-				TakeScreenshot(IOShomePgaeObject.transferOverseaTitle());
-			}
-			catch (HandleException e) {	
-				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select purposed ",e);		
-			}
-			catch (Exception e) {			
-				obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Purposed ",e);
-			}
-	
-}
-		@Step("Application click on Purpose")
-		public void clickOnPurpose() throws Exception {
-			try {
-				ButtonVerifyClick(IOShomePgaeObject.selectPurposeType());
-			} catch (HandleException e) {
-				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Purpose  ", e);
-			} catch (Exception e) {
-				obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Purpose ", e);
-			}
-		}
-		@Step("enter mobile No.")
-		public void enterMobileNo(String MobileNo) throws Exception
-		{
-			try {
-				TakeScreenshot(IOShomePgaeObject.enterMobileNo());
-				enterTextInTextbox(IOShomePgaeObject.enterMobileNo(), MobileNo);
-				doneButtonIfAviliable();
-				wait.waitForElementVisibility(IOShomePgaeObject.transferOverseaTitle());
-			}
-			catch (HandleException e) {	
-				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Mobile Number ",e);		
-			}
-			catch (Exception e) {			
-				obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Mobile Number ",e);
-			}
-	
-}
+		
 		@Step("Verifies Remittance eOTT")
 		public void VerifyRemittanceEOTT() throws Exception {
 			try {
@@ -2780,8 +2650,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				//fieldText(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue(), IOShomePgaeObject.overseaTransferTitle());
 				overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue());
 				overseasmodule.pressEnterKeyAfterEnteringAmount(CommonTestData.eOTT_AMOUNT.getEnumValue());
-				gestUtils.scrollUPtoObjectIos("name", "Next", null);
-				SelectAdditionalDetails("Savings","Personal Gifts","9999999990");
+				overseasmodule.SelectAdditionalDetails(CommonTestData.EOTT_ACCOUNT_TYPE.getEnumValue(),CommonTestData.PURPOSE.getEnumValue(), CommonTestData.MOBILE_NUMBER.getEnumValue());
 				ClickOnNextBtnAndVerifiesReviewTransferPage();
 				ClickOnTransferNowBtnAndVerifiesTransferSubmittedMsg(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
 				ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
