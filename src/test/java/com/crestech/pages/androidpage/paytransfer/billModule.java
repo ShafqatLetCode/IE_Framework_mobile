@@ -3,6 +3,7 @@ package com.crestech.pages.androidpage.paytransfer;
 import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.annotation.values.ElementDescription;
@@ -451,6 +452,7 @@ public class billModule extends CommonAppiumTest{
 			clickOnElement(SelectBillingOrganisation);
 			clickOnElement(SearchForBillingOrganisationField);
 			enterTextInTextbox(SearchForBillingOrganisationField, AccountName);
+			pressKey(driver, Keys.ENTER);
 			clickOnElement(SelectSearchedOption);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Billing Organisation ",e);

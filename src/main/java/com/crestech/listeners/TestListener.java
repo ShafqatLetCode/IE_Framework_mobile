@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -20,14 +21,24 @@ import com.crestech.config.ContextManager;
 import io.qameta.allure.Attachment;
 
 public class TestListener extends UserBaseTest implements ITestListener {
-
+	
 	public TestListener() throws Exception {
 		super();
 	}
 
+	//private static String deviceName =null;
+	
 	private static String getTestMethodName(ITestResult iTestResult) {
 		return iTestResult.getMethod().getConstructorOrMethod().getName();
 	}
+	
+//	private static String getDeviceName(ITestContext iTestContext) {
+//		return deviceName;
+//	}
+//	
+//	private static void setDeviceName(ITestContext iTestContext) {
+//		deviceName= iTestContext.getName();
+//	}
 
 	// Text attachments for Allure
 	@Attachment(value = "Page screenshot", type = "image/png")
@@ -50,8 +61,9 @@ public class TestListener extends UserBaseTest implements ITestListener {
 	@Override
 	public void onStart(ITestContext iTestContext) {
 		try {
-			System.out.println("I am in onStart method " + iTestContext.getName());
-			System.out.println("HI");
+		//	setDeviceName(iTestContext);
+			System.out.println("I am in onStart method " + iTestContext.getName()	);
+			//System.out.println("HI");
 			iTestContext.setAttribute("WebDriver", this.driver);
 			if (prop.getProperty("ReportType").equals("allure")) {
 				try {
@@ -88,8 +100,8 @@ public class TestListener extends UserBaseTest implements ITestListener {
 
 	@Override
 	public void onTestStart(ITestResult iTestResult) {
-		System.out.println(Thread.currentThread().getId());
-		System.out.println("I am in onTestStart method: " + getTestMethodName(iTestResult) + " :start");
+		//System.out.println(Thread.currentThread().getId());
+		System.out.println("I am in onTestStart " +  "Device: "+ iTestResult.getTestContext().getName()+ " Test Case Name: " + getTestMethodName(iTestResult) + " :start");
 		// ExtentTestManager.getTest().log(LogStatus.INFO,
 		// getTestMethodName(iTestResult) + " test is starting.");
 		// Start operation for extent reports.

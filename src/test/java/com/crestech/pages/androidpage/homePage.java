@@ -303,19 +303,15 @@ public class homePage extends CommonAppiumTest {
 
 	@Step("Click On Next Button.")
 	public void ClickOnNextButton() throws Exception {
-		try {
-			String confirmButtonXpath = "//android.widget.Button[@text='CONFIRM']";
-			List<RemoteWebElement> confirmButtonList = driver.findElements(By.xpath(confirmButtonXpath));
-			String nextButtonXpath = "//android.widget.Button[@text='NEXT']";
-			List<RemoteWebElement> nextButtonlist = driver.findElements(By.xpath(nextButtonXpath));
-			if (confirmButtonList.size() > 0) {
-				gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
-				clickOnElement(confirmButton);
-			} else if (nextButtonlist.size() > 0) {
+		try {			
+			if(isElementVisible2(nextButton)) {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
-				if (getTexOfElement(nextButton).equalsIgnoreCase("NEXT"))
-					clickOnElement(nextButton);
+				clickOnElement(nextButton);
 			}
+//			}else if(isElementVisible2(confirmButton)) {			
+//					gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
+//					clickOnElement(confirmButton);
+//			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
 		} catch (Exception e) {
@@ -531,15 +527,21 @@ public class homePage extends CommonAppiumTest {
 	
 	
 	@Step("Click On Close Button.")
-	public void ClickOnCloseButton() throws Exception {
+	public boolean ClickOnCloseButton() throws Exception {
 		try {
 			if(isElementVisible2(CloseButton)) 
+			{
 			clickOnElement(CloseButton);
+			return true;
+			}
+			else
+				return false;
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button  ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button ", e);
 		}
+		return false;
 	}
 	
 	@Step("Get And Click On Deposite Account Name From Dashboard.")

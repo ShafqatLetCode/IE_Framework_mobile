@@ -24,7 +24,7 @@ public class HandleException extends Exception {
     
     public void throwHandleException(String code, String message, HandleException e) throws HandleException
     {
-    	System.out.println("Inside throwhandleexception kywprd");
+    	//System.out.println("Inside throwhandleexception kywprd");
 		if(e.getCode()==null)
 		{
 			throw new HandleException(code, message,e);
@@ -37,7 +37,7 @@ public class HandleException extends Exception {
     }
     public void throwException(String code, String message, Exception e) throws HandleException
     {
-    	System.out.println("Inside throwexception keyword");
+    	//System.out.println("Inside throwexception keyword");
 		throw new HandleException(code, message,e);
     }
     

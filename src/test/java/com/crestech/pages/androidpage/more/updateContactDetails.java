@@ -390,16 +390,12 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Click On Next Button.")
 	public void ClickOnNextButton() throws Exception {
 		try {
-			String confirmButtonXpath = "//android.widget.Button[@text='CONFIRM']";
-			List<RemoteWebElement> confirmButtonList = driver.findElements(By.xpath(confirmButtonXpath));
-			String nextButtonXpath = "//android.widget.Button[@text='NEXT']";
-			List<RemoteWebElement> nextButtonList = driver.findElements(By.xpath(nextButtonXpath));
-			if (confirmButtonList.size() > 0) {
-				gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
-				clickOnElement(confirmButton);
-			} else if (nextButtonList.size() > 0) {
+			if(isElementVisible2(nextButton)) {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
-				clickOnElement(nextButton);
+				clickOnElement(nextButton);			
+			}else if(isElementVisible2(confirmButton)) {			
+					gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
+					clickOnElement(confirmButton);
 			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);

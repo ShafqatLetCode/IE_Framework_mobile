@@ -408,8 +408,8 @@ public class payAndTransfer extends CommonAppiumTest{
 			String s1 = driver.getPageSource();
 			int count = 0;
 			int index = 0;
-			WaitUtils wait = new WaitUtils(driver);
-			wait.ImplicitlyWait();
+			
+			
 			while (count == 0 && index == 0) {
 				if (SubTitleTextList.size() > 0) {
 					int length = SubTitleTextList.size();

@@ -599,14 +599,16 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Click On Next Button.")
 	public void ClickOnNextButton() throws Exception {
 		try {
-			if (isElementVisible2(nextButton)) {
+			wait.fluentWaitForElement(nextButton);
+			if (wait.waitForElementToBeClickable2(nextButton)) {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+				//wait.waitForElementToBeClickable(nextButton);
 				clickOnElement(nextButton);
 			}				
-				else if	(isElementVisible2(confirmButton)) {
-				gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
-				clickOnElement(confirmButton);
-			}  
+//				else if	(isElementVisible2(confirmButton)) {					
+//				gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
+//				clickOnElement(confirmButton);
+//			}  
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
 		} catch (Exception e) {
