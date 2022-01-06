@@ -756,34 +756,10 @@ public class DBS_IOSObject {
 	public MobileElement  recipientDetailTitle() {
 		return  recipientDetailTitle;
 	}
-	@ElementDescription(value = "Enter Recipient's Account no. editbox")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell)[1]")
-	private MobileElement recipientDetailAccountNumver;
+	
 
-	public MobileElement  recipientDetailAccountNumver() {
-		return  recipientDetailAccountNumver;
-	}
-	@ElementDescription(value = "Enter Recipient's Name editbox")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell)[2]")
-	private MobileElement recipientDetailAccountName;
-
-	public MobileElement  recipientDetailAccountName() {
-		return recipientDetailAccountName;
-	}
-	@ElementDescription(value = "Enter Recipient's Address editbox")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'ddress')]")
-	private MobileElement recipientDetailAddress;
-
-	public MobileElement  recipientDetailAddress() {
-		return recipientDetailAddress;
-	}
-	@ElementDescription(value = "Enter Recipient's city editbox")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='In The City Of']")
-	private MobileElement recipientDetailcity;
-
-	public MobileElement  recipientDetailCity() {
-		return recipientDetailcity;
-	}
+	
+	
 	@ElementDescription(value = "Review Recipient's Details title")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Review Recipient')]")
 	private MobileElement reviewRecipientDetailTitle;
@@ -1614,13 +1590,7 @@ public class DBS_IOSObject {
 	public MobileElement  backButtontransferDetailLabel() {
 		return  backButtontransferDetailLabel;
 	}
-	@ElementDescription(value = "close icon in oversea")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='close icon']")
-	private MobileElement closeIconInOversea;
-
-	public MobileElement  closeIconInOversea() {
-		return  closeIconInOversea;
-	}
+	
 	@ElementDescription(value = "Overseas Transfer header")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Overseas Transfer']")
 	private MobileElement overseaTransferTitle;

@@ -33,6 +33,7 @@ public enum CommonTestData {
 	
 	//Payee-Add-Remittance **Android**
 	COUNTRY_AUS("Australia"),
+	COUNTRY_AUS_SEARCH("AUS"),
 	CURRENCY_AUS("AUD"),
 	BANK_BCD_CODE("610104"),
 	ACCOUNT_NO("900132012904"),
@@ -42,7 +43,6 @@ public enum CommonTestData {
 	
 	//Payee-Add-Remittance **IOS**
 	ADDRESS_SHORT("Cherry"),
-	COUNTRY_AUS_SEARCH("AUS"),
 	
 	//FundTransfer NonFast/Fast
 	FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK("INDIAN OVERSEAS BANK 582177606001"),

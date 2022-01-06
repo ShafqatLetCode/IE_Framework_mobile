@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
@@ -129,6 +131,337 @@ public class overseasModule extends CommonAppiumTest{
 	@ElementDescription(value = "search icon in payAndtransfer")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pay & Transfer']")
 	private MobileElement searchBoxInPayAndTransfer;
+	
+	@ElementDescription(value = "Add Overseas Recipient Button")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Add overseas recipient'])[2]")
+	private MobileElement addOverseasRecipientButton;
+	
+	@ElementDescription(value = "Add oversea recipient when no recpient added")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeButton)[5]")
+	private MobileElement AddNowRecipientBtn;
+
+	@ElementDescription(value = "Add oversea recipient when  recpient added")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Add overseas recipient']/preceding-sibling::XCUIElementTypeButton")
+	private MobileElement AddOverseasRecipientBtn;
+	
+	@ElementDescription(value = "'check DBSRemit Rate")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Check DBS Remit rates']")
+	private MobileElement checkDBSRemitRate;
+	
+	@ElementDescription(value = "Search for a Location")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeSearchField[@name='Search for a Location']")
+	private MobileElement searchBoxforLocation;
+
+	@ElementDescription(value = "country Element list")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell/XCUIElementTypeStaticText")
+	private List<MobileElement> countryList;
+	
+	@ElementDescription(value = "currency Element list")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell/XCUIElementTypeStaticText)")
+	private List<MobileElement> currencyList;
+	
+	@ElementDescription(value = "next Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='NEXT']")
+	private MobileElement NEXTButton;
+	
+	@ElementDescription(value = "bank Code")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='addPayee_AUD_BSB_textField']/XCUIElementTypeOther/XCUIElementTypeOther")
+	private MobileElement bankCode;
+	
+	@ElementDescription(value = "Enter Recipient's Details title")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Enter Recipient')]")
+	private MobileElement recipientDetailTitle;
+	
+	@ElementDescription(value = "Enter Recipient's Address editbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'ddress')]")
+	private MobileElement recipientDetailAddress;
+	
+	@ElementDescription(value = "Enter Recipient's Account no. editbox")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell)[1]")
+	private MobileElement recipientDetailAccountNumber;
+	
+	@ElementDescription(value = "Enter Recipient's Name editbox")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell)[2]")
+	private MobileElement recipientDetailAccountName;
+	
+	@ElementDescription(value = "Enter Recipient's city editbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='In The City Of']")
+	private MobileElement recipientDetailcity;
+	
+	@ElementDescription(value = "'Add Recipient Now' Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='ADD RECIPIENT NOW']")//
+	private MobileElement ADDRecipientNowButton;
+	
+	@ElementDescription(value = "Review Recipient's Details title")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Review Recipient')]")
+	private MobileElement reviewRecipientDetailTitle;
+	
+	@ElementDescription(value = "You've added a recipient title")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'added a recipient')]")
+	private MobileElement addedRecipientTitle;
+	
+	@ElementDescription(value = "'Make A Transfer' Button After adding Payee")
+	@FindBy(name = "MAKE A TRANSFER")
+	private MobileElement makeTransferButton;
+	
+	@Step("Click on 'Close' Button.")
+	public void ClickOnCloseButtonInOversea() throws Exception {
+		try {
+			wait.waitForElementToBeClickable(closeIconInOversea);
+			clickOnElement(closeIconInOversea);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on 'Close' Button  ",	e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on 'Close' Button ", e);
+		}
+	}
+	
+
+	@Step("Verify 'Reference No. Field and its value' field and Verify 'MAKE A TRANSFER' Button After Expanding & Scrolling to the Page.")
+	public void verifyReferenceFieldAndItsValue(String expectedText) throws Exception {
+		try {
+			clickOnExpandButton();
+            gestUtils.scrollUPtoObjectIos("name", "Reference No.", null);
+			Asserts.assertEquals(getTexOfElement(makeTransferButton).trim().toLowerCase(), CommonTestData.MAKE_TRANSFER.getEnumValue().toLowerCase(), CommonTestData.MAKE_TRANSFER.getEnumValue()+ " text is not matching");
+			Asserts.assertEquals(getTexOfElement(referenceNo).trim().toLowerCase(), expectedText.toLowerCase(),expectedText + " text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Reference Field Value ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Reference Field Value  ", e);
+		}
+	}
+	
+	@Step("Verify 'You've added a recipient' Message")
+	public void verifyYouHaveAddedMessage(String expectedText) throws Exception { 
+		try {
+			wait.fluentWaitForElement(addedRecipientTitle);
+			Asserts.assertEquals(getTexOfElement(addedRecipientTitle).trim().toLowerCase(), expectedText.toLowerCase(),expectedText+ " text is not matching");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'You've added a recipient' Message ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'You've added a recipient' Message ", e);
+		}
+	}
+	
+	@Step("Verify 'Review Recipient Details' page header")
+	public void verifyReviewRecipientDetailsPageHeader(String expectedText) throws Exception {
+		try {
+			wait.fluentWaitForElement(reviewRecipientDetailTitle);
+			Asserts.assertEquals(getTexOfElement(reviewRecipientDetailTitle).trim().toLowerCase(), expectedText.toLowerCase(),expectedText+ " text is not matching.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to Verify 'Review Recipient Details' page header ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to Verify 'Review Recipient Details' page header ", e);
+		}
+	}
+	
+	@Step("clicking On 'ADD RECIPIENT NOW' button")
+	public void ClickOnAddRecipientNowBtn() throws Exception {
+		try {
+			gestUtils.scrollUPtoObjectIos("name", "ADD RECIPIENT NOW", null);
+			clickOnElement(ADDRecipientNowButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ",e);
+		}
+	}
+	
+	@Step("Enter City")
+	public void EnterCity(String text) throws Exception {
+		try {
+			if (isElementVisible2(recipientDetailcity)) {
+				Actions action = new Actions(driver);
+				action.sendKeys(recipientDetailcity, text).build().perform();
+
+				// sendTextWithKeypad(text);
+				// enterTextInTextbox(IOShomePgaeObject.recipientDetailCity(), text);
+				ClickOnDoneButton();
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter City ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter City  ", e);
+		}
+	}
+
+	@Step("Enter Full Name")
+	public void EnterFullName(String text) throws Exception {
+		try {
+			enterTextInTextbox(recipientDetailAccountName, text);
+			ClickOnDoneButton();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Full Name ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Full Name ", e);
+		}
+	}
+	
+	@Step("Enter Account Number")
+	public void EnterAccountNumber(String text) throws Exception {
+		try {
+			enterTextInTextbox(recipientDetailAccountNumber, text);
+			ClickOnDoneButton();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Account Number ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Account Number ", e);
+		}
+	}
+	
+	@Step("Enter Address")
+	public void EnterAddress(String text) throws Exception {
+		try {
+
+			Actions action = new Actions(driver);
+			action.sendKeys(recipientDetailAddress, text).build().perform();
+
+			// sendTextWithKeypad(text);
+			// enterTextInTextbox(IOShomePgaeObject.recipientDetailAddress(), text);
+			ClickOnDoneButton();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Address ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Address ", e);
+		}
+	}
+	
+	@Step("Verify 'Enter Recipient Details' page header")
+	public void verifyEnterRecipientDetailsPageHeader(String expectedText) throws Exception {
+		try {
+			wait.fluentWaitForElement(recipientDetailTitle);
+			Asserts.assertEquals(getTexOfElement(recipientDetailTitle).trim().toLowerCase(), expectedText.toLowerCase(),expectedText + " text is not matching.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to Verify 'Overseas Transfer' page header  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to Verify 'Overseas Transfer' page header ", e);
+		}
+	}
+	
+	@Step("Enter Bank Code")
+	public void EnterBankCode(String text) throws Exception {
+		try {
+			enterTextInTextbox(bankCode, text);
+			ClickOnDoneButton();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Bank Code ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Bank Code ", e);
+		}
+	}
+	
+	
+	@Step("Click On Next Button")
+	public void ClickOnNEXTButton() throws Exception {
+		try {
+			clickOnElement(NEXTButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ", e);
+		}
+	}
+	
+	@Step("Select Currency Type")
+	public void SelectCurrencyType(String expectedCurrency) throws Exception {
+		try {
+			if (currencyList.size() > 0) {
+				int index = 0;
+				String currencyFromList = null;
+				for (int i = 0; i < currencyList.size(); i++) {
+					currencyFromList = currencyList.get(i).getText();
+					if (currencyFromList.equalsIgnoreCase(expectedCurrency)) {
+						index++;
+						clickOnElement(currencyList.get(i));
+						break;
+					}
+				}
+				if (index == 0)
+					Asserts.assertFail("Currency Type " + expectedCurrency + " Not found in the list");
+			} else
+				Asserts.assertFail(expectedCurrency + " not found in the list as list size is 0");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select Currency Type from list. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Currency Type from list ", e);
+		}
+	}
+
+	@Step("Select Country")
+	public void SelectCountry(String searchBoxData, String expectedCountry)
+			throws Exception {
+		try {
+			clickOnElement(searchBoxforLocation);
+			EnterTextThroughKeyboard(searchBoxData);
+
+			if (countryList.size() > 0) {
+				int index = 0;
+				String actualCountry = null;
+				for (int i = 0; i < countryList.size(); i++) {
+					actualCountry = countryList.get(i).getText();
+					if (actualCountry.equalsIgnoreCase(expectedCountry)) {
+						index++;
+						clickOnElement(countryList.get(i));
+						break;
+					}
+				}
+
+				if (index == 0)
+					Asserts.assertFail("Country " + expectedCountry + " No element found in the list.");
+			} else
+				Asserts.assertFail("Country " + expectedCountry + " not found in the list as list size is 0");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Country", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Country", e);
+		}
+	}
+
+	@Step("Enter Text Through Keyboard")
+	public void EnterTextThroughKeyboard(String textToEnter) throws Exception {
+		try {
+			String enterText = textToEnter.toLowerCase();
+			int length = enterText.length();
+			for (int i = 0; i < length; i++) {
+				String L = Character.toString(enterText.charAt(i));
+				String U = Character.toString(enterText.toUpperCase().charAt(i));
+				String lowerxpath = "//XCUIElementTypeKey[@name='" + L + "']";
+				String upperxpath = "//XCUIElementTypeKey[@name='" + U + "']";
+				List<RemoteWebElement> listLower = driver.findElements(By.xpath(lowerxpath));
+				List<RemoteWebElement> listupper = driver.findElements(By.xpath(upperxpath));
+				if (listLower.size() > 0)
+					clickOnElement((MobileElement) listLower.get(0));
+				else if (listupper.size() > 0)
+					clickOnElement((MobileElement) listupper.get(0));
+				else
+					Asserts.assertFail("no elemet is present on keyboard");
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Text Through Keyboard ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Text Through Keyboard ", e);
+		}
+	}
+
+	@Step("Click On 'ADD RECIPIENT NOW' button under overseas")
+	public void SelectAddRecipientNowButtonUnderOverseas() throws Exception {
+		try {
+			wait.waitForElementVisibility(checkDBSRemitRate);
+			
+			if (isElementVisible2(addOverseasRecipientButton)) 
+				clickOnElement(AddOverseasRecipientBtn);
+			else
+				clickOnElement(AddNowRecipientBtn);
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'ADD RECIPIENT NOW' button under overseas  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'ADD RECIPIENT NOW' button under overseas ", e);
+		}
+	}
 	
 	@Step("Select EOTT")
 	public void SelectEOTT() throws Exception {
