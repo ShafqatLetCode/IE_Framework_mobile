@@ -37,7 +37,7 @@ public class DBS_IOSObject {
 
 	@ElementDescription(value = "login Button on 1st page")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='LOG IN']")
-	private MobileElement logInButton_1;
+	private MobileElement logInButton_launchPage;
 
 	@ElementDescription(value = "login Button on 2nd page")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='LOGIN']")
@@ -73,8 +73,8 @@ public class DBS_IOSObject {
 		return userPinEditBox;
 	}
 
-	public MobileElement logInButton_1() {
-		return logInButton_1;
+	public MobileElement logInButton_launchPage() {
+		return logInButton_launchPage;
 	}
 
 	public MobileElement logInButton_2() {
@@ -756,34 +756,10 @@ public class DBS_IOSObject {
 	public MobileElement  recipientDetailTitle() {
 		return  recipientDetailTitle;
 	}
-	@ElementDescription(value = "Enter Recipient's Account no. editbox")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell)[1]")
-	private MobileElement recipientDetailAccountNumver;
+	
 
-	public MobileElement  recipientDetailAccountNumver() {
-		return  recipientDetailAccountNumver;
-	}
-	@ElementDescription(value = "Enter Recipient's Name editbox")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell)[2]")
-	private MobileElement recipientDetailAccountName;
-
-	public MobileElement  recipientDetailAccountName() {
-		return recipientDetailAccountName;
-	}
-	@ElementDescription(value = "Enter Recipient's Address editbox")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'ddress')]")
-	private MobileElement recipientDetailAddress;
-
-	public MobileElement  recipientDetailAddress() {
-		return recipientDetailAddress;
-	}
-	@ElementDescription(value = "Enter Recipient's city editbox")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='In The City Of']")
-	private MobileElement recipientDetailcity;
-
-	public MobileElement  recipientDetailCity() {
-		return recipientDetailcity;
-	}
+	
+	
 	@ElementDescription(value = "Review Recipient's Details title")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Review Recipient')]")
 	private MobileElement reviewRecipientDetailTitle;
@@ -1614,13 +1590,7 @@ public class DBS_IOSObject {
 	public MobileElement  backButtontransferDetailLabel() {
 		return  backButtontransferDetailLabel;
 	}
-	@ElementDescription(value = "close icon in oversea")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='close icon']")
-	private MobileElement closeIconInOversea;
-
-	public MobileElement  closeIconInOversea() {
-		return  closeIconInOversea;
-	}
+	
 	@ElementDescription(value = "Overseas Transfer header")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Overseas Transfer']")
 	private MobileElement overseaTransferTitle;
@@ -1908,20 +1878,8 @@ public class DBS_IOSObject {
 	public MobileElement  digitokeRegisterAlertMsg() {
 		return  digitokeRegisterAlertMsg;
 	}
-	@ElementDescription(value = "Iwealth management alert")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Welcome to digibank for Wealth Management']")
-	private MobileElement managementAlertMsg;
-
-	public MobileElement  managementAlertMsg() {
-		return  managementAlertMsg;
-	}
-	@ElementDescription(value = "Iwealth swipeButton")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeImage[@name='TravelMode_Close']")
-	private MobileElement swipeButton2;
-
-	public MobileElement  swipeButton2() {
-		return  swipeButton2;
-	}
+	
+	
 	@ElementDescription(value = "confirm email")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Confirm your email address']")
 	private MobileElement confirmEmail;
@@ -2291,4 +2249,9 @@ public class DBS_IOSObject {
 	public MobileElement Authenticating() {
 		return Authenticating;
 	}
+	
+	
+	
+	
+	
 }

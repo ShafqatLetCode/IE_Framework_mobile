@@ -422,23 +422,24 @@ public class GestureUtils {
 		}
 
 	}
-	public void scrollUPtoObjectIos(String attribute, String value, MobileElement element) throws Exception {
+	
+	
+	public Boolean scrollUPtoObjectIos(String attribute, String value, MobileElement element) throws Exception {
 		try {
 			HashMap<String,Object>ScrollObject=new HashMap<>();
 			ScrollObject.put("direction", "down");
-			ScrollObject.put(attribute, value);
-			
+			ScrollObject.put("name", value);
 			driver.executeScript("mobile:scroll",ScrollObject);
+            Thread.sleep(1000);
+            return true;
+//			if(element !=null)
+//				Asserts.assertTrue(element.isDisplayed(), "Element not found");
 
-			if(element !=null)
-				Asserts.assertTrue(element.isDisplayed(), "Element not found");
-
-		} catch (HandleException e) {	
-			throw new HandleException ("SCROLL_EXCEPTION", "Failed to scroll to the element ::",e);	
-		}catch (Exception e) {		
-			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to scroll to the element  ",e);
+		} catch (Exception e) {	
+			return true;
 		}
 	}
+	
 	
 	public void scrollUPIos() throws Exception {
 		try {

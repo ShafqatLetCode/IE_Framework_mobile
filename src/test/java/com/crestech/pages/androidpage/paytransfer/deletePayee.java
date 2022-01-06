@@ -48,9 +48,9 @@ public class deletePayee extends CommonAppiumTest{
 		}
 	}
 	
-	@ElementDescription(value = "Local Recipient options list, Credit Card Options list")
+	@ElementDescription(value = "Payee List")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_expandable_item_head_title')]")
-	private List<MobileElement> AllTabOptionsList;
+	private List<MobileElement> payeeList;
 	
 	@ElementDescription(value = "Payee Added Expandable Icon List")
 	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/tv_expandable_item_selected')]")
@@ -106,14 +106,14 @@ public class deletePayee extends CommonAppiumTest{
 			int count = 0;
 			int deletePayee = 0;
 
-			if (AllTabOptionsList.size() > 0) {
+			if (payeeList.size() > 0) {
 				while (count == 0 && deletePayee == 0) {
-					int length = AllTabOptionsList.size();
+					int length = payeeList.size();
 					String actualDeleteRecipient = null;
 
 					if (length < 4) {
 						for (int i = 0; i < length; i++) {
-							actualDeleteRecipient = AllTabOptionsList.get(i).getText();
+							actualDeleteRecipient = payeeList.get(i).getText();
 							if (actualDeleteRecipient.equals(expectedDeleteRecipient)) {
 								ClickOnDeletePayeeToIcon(i);
 								verifyPageHeader(CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),
@@ -138,7 +138,7 @@ public class deletePayee extends CommonAppiumTest{
 							break;
 					} else {
 						for (int i = 0; i < length; i++) {
-							actualDeleteRecipient = AllTabOptionsList.get(i).getText();
+							actualDeleteRecipient = payeeList.get(i).getText();
 							if (actualDeleteRecipient.equals(expectedDeleteRecipient)) {
 								ClickOnDeletePayeeToIcon(i);
 								verifyPageHeader(CommonTestData.RECIPIENT_DETAILS_PAGEHEADER.getEnumValue(),

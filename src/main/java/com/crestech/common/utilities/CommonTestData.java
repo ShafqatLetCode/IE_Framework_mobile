@@ -33,6 +33,7 @@ public enum CommonTestData {
 	
 	//Payee-Add-Remittance **Android**
 	COUNTRY_AUS("Australia"),
+	COUNTRY_AUS_SEARCH("AUS"),
 	CURRENCY_AUS("AUD"),
 	BANK_BCD_CODE("610104"),
 	ACCOUNT_NO("900132012904"),
@@ -42,7 +43,6 @@ public enum CommonTestData {
 	
 	//Payee-Add-Remittance **IOS**
 	ADDRESS_SHORT("Cherry"),
-	COUNTRY_AUS_SEARCH("AUS"),
 	
 	//FundTransfer NonFast/Fast
 	FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK("INDIAN OVERSEAS BANK 582177606001"),
@@ -225,7 +225,6 @@ public enum CommonTestData {
 	
 
     //Remittance Corridor
-	OVERSEAS_ICON("Overseas"),
     SOURCE_ACCOUNT_NAME_CORRIDOR("DBS SAVINGS PLUS"),
   //SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH("DBS Multiplier Account"),
     SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH("DBS SAVINGS PLUS"),
@@ -287,7 +286,6 @@ public enum CommonTestData {
 	MOTION_FITNESS_MESSAGE("“DBS digibank” Would Like to Access Your Motion & Fitness Activity"),
 	
 	// ScreenName-OneAppPostLogin
-	LOGOUT_ISO("logout"), 
 	SGD_CURRENCY_LABEL("SGD"), 
 	LOGOT_PAYLAH_IOS("Log Out"), 
 	DONE_2FA_IOS("Done"),
@@ -303,7 +301,7 @@ public enum CommonTestData {
 	ALL_SECTION("ALL"),
 	LOCAL_RECIPIENT_FROMLIST("Local Recipients"),
 	DBS_CURRENT_ACCOUNT_TEXT("DBS CURRENT ACCOUNT"),
-	SELECT_SOURCE_FUND("Select Fund Source"),
+	//SELECT_SOURCE_FUND("Select Fund Source"),
 	PRIMARY_SOURCE_ALERT_TITLE("Primary source of fund"),
 	REVIEW_TRANSFER_LABEL("Review Transfer"),
 	TRANSFER_NOW_BUTTON("TRANSFER NOW"),

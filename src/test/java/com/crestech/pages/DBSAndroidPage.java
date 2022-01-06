@@ -136,9 +136,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			homepage.handlingFingerPrintAlert(CommonTestData.FINGERPRINT_MESSAGE.getEnumValue());
 			homepage.handleRecordingAlert(CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue());
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Prerequisite script ", e);
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Pre-Requisite Script ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Exceute Prerequisite script ", e);
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Exceute Pre-Requisite Script ", e);
 		}
 	}
 
@@ -205,7 +205,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			homepage.ClickOnPayAndTransferBtn();
 			enterpasscode.EnterPasscodeAndDone();
-			paytransfer.ClickOnOverseasModule(CommonTestData.OVERSEAS_ICON.getEnumValue());
+			paytransfer.ClickOnOverseasModule();
 			overseasmodule.verifyOverseasTransferPageHeader(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue());
 			overseasmodule.SelectOverseaPayee(CommonTestData.PAYEE_NAME_CORRIDOR.getEnumValue());
 			
@@ -460,7 +460,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			homepage.ClickOnPayAndTransferBtn();
 			enterpasscode.EnterPasscodeAndDone();
-			paytransfer.ClickOnOverseasModule(CommonTestData.OVERSEAS_ICON.getEnumValue());
+			paytransfer.ClickOnOverseasModule();
 			overseasmodule.verifyOverseasTransferPageHeader(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue());
 			deletepayee.DeletePayee(ExpectedRecipientName);
 			overseasmodule.ClickOnOverseasScreenClosingButton();
@@ -566,7 +566,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			homepage.ClickOnPayAndTransferBtn();
 			enterpasscode.EnterPasscodeAndDone();
-			paytransfer.ClickOnOverseasModule(CommonTestData.OVERSEAS_ICON.getEnumValue());
+			paytransfer.ClickOnOverseasModule();
 			overseasmodule.verifyOverseasTransferPageHeader(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue());
 			overseasmodule.SelectAddRecipientNowButtonUnderOverseas();
 			overseasmodule.SelectCountry(CommonTestData.COUNTRY_AUS.getEnumValue());
