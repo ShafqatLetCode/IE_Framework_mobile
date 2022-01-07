@@ -123,6 +123,16 @@ public class localModule extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='SGD'])[2]")
 	private MobileElement sgdText;
 	
+	
+	@ElementDescription(value = "Review Transfer")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Transfer']")
+	private MobileElement reviewTransfer;
+	
+	@ElementDescription(value = "Amount field")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='FT_Amount_Field']")
+	private MobileElement amountField;
+	
+	
 	// If User has multiple accounts then select fund source account
 	@Step("'Select Fund Source Account' If User has multiple accounts.")
 	public void SelectFundSourceAccount(String expectedSourceAccount) throws Exception {
@@ -487,5 +497,33 @@ public class localModule extends CommonAppiumTest{
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button ", e);
 		}
 	}
+	
+
+	@Step("Verify 'Review Transfer' page header")
+	public void verifyReviewTransferPageHeader(String expectedText) throws Exception {
+		try {
+			wait.fluentWaitForElement(reviewTransfer);
+			Asserts.assertEquals(getTexOfElement(reviewTransfer).trim().toLowerCase(), expectedText.toLowerCase(),expectedText + " Header Title is not found");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Review Transfer' page header ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Review Transfer' page header ", e);
+		}
+	}
+	
+	@Step("Verify 'SGD Currency Field' and Enter Amount '11'")
+	public void enterAmountAndVerifySgdCurrency(String Amount) throws Exception {
+		try {
+			enterTextInTextbox(amountField, Amount);
+			clickOnDoneButton();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to verify SGD Currency field and enter amount", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify SGD Currency field and enter amount  ", e);
+		}
+	}
+
+
+
 
 }

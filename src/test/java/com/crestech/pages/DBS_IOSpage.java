@@ -1244,15 +1244,26 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 	
 	@Step("Verifies FundTransfer Other DBS/POSB")
-	public void FundTransferOtherBank() throws Exception {
+	public void FundTransferDBSPOSB(String appname) throws Exception {
 		try {
 			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.SelectAllTAB();
 			paytransfer.ClickOnLocalRecipient();
 			paytransfer.SelectToAccountFromLocalRecipient(CommonTestData.LOCAL_RECIPIENT_LIST_SELECTED_ACCOUNTNAME.getEnumValue());
-			local.SelectFundSourceAccount(CommonTestData.SOURCE_ACCOUNT_NAME.getEnumValue());
-            enterAmountAndVerifySgdCurrency("11");
+			
+			String ExpectedFromBankName = null;
+			if (appname.equals("DBS")) {
+				ExpectedFromBankName = CommonTestData.SOURCE_ACCOUNT_NAME.getEnumValue();
+				local.SelectFundSourceAccount(ExpectedFromBankName);
+			} else if (appname.equals("iWEALTH")) {
+				ExpectedFromBankName = CommonTestData.SOURCE_ACCOUNT_NAME_iWEALTH.getEnumValue();
+				local.SelectFundSourceAccount(ExpectedFromBankName);
+			}
+			
+            local.enterAmountAndVerifySgdCurrency(CommonTestData.AMOUNT_FUNDTRANSFER.getEnumValue());
+            local.ClickOnNEXTButton();
+            local.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER_LABEL.getEnumValue());
             verifyReviewTransferAndClickTransferNowButton();
             verifyTransferredAndReferenceNumberField();
            // BackToHomeFromFundTransfer();
@@ -1263,6 +1274,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to verify fund transfer other DBS_POSB  ",e);
 		}
 	}
+
+
 	
 	@Step("click on Select Fund Source")
 	public void clickOnSelectFundSource2() throws Exception {
@@ -1277,22 +1290,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click on Select Fund Source  ",e);
 		}
 	}
-	@Step("Verify 'SGD Currency Field' andIOShomePgaeObject Enter Amount '11'")
-	public void enterAmountAndVerifySgdCurrency(String Amount) throws Exception {
-		try {
-			verifyTextOnScreen(CommonTestData.SGD_CURRENCY_LABEL.getEnumValue(), IOShomePgaeObject.sgdText());
-			enterTextInTextbox(IOShomePgaeObject.amountField(), Amount);
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			ClickOnDoneButton();
-			overseasmodule.ClickOnNEXTButton();
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify SGD Currency field and enter amount",e);
-		}
-		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify SGD Currency field and enter amount  ",e);
-		}
-
-	}
+	
 	@Step(" Verifying page header 'Review Transfer' And Click on 'TRANSFER NOW' Button")
 	public void verifyReviewTransferAndClickTransferNowButton() throws Exception {
 		try {
