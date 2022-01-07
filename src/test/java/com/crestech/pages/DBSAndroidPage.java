@@ -1194,6 +1194,21 @@ public class DBSAndroidPage extends CommonAppiumTest {
             paynow.handlingTransferToThailandWithPromptPayAlert(CommonTestData.PROMPT_PAY_MESSAGE.getEnumValue());
             paynow.SelectPayNowToNRIC_FIN();
             paynow.EnterNRIC_FIN_Number();
+            paynow.ClickOnNextButton();
+            paynow.EnterAmount(CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+            paynow.EnterCommentForRecipientInEditField(CommonTestData.PAYNOW_NRIC_FIN.getEnumValue());
+            paynow.ClickOnNextButton();
+            paynow.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue());
+            paynow.ClickOnTransferNowButton();
+            paynow.VerifiesTransferSubmittedMsg(CommonTestData.TRANSFERRED.getEnumValue());
+            paynow.VerifiesTransferredAmount();
+            paynow.VerifyBackButton();
+            paynow.VerifyShareTransferDetailsButton();
+            paynow.VerifyLogOutButton();
+            
+            //Leave Page On home Page For next case run.
+            paynow.ClickOnBackButton();
+            paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify Pay Now NRIC ", e);
 		} catch (Exception e) {
@@ -1209,6 +1224,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			paytransfer.ClickOnPayNowModule();
 			paynow.handlingTransferToThailandWithPromptPayAlert(CommonTestData.PROMPT_PAY_MESSAGE.getEnumValue());
 			paynow.SelectPayNowToUEN();
+			paynow.EnterUEN_Number();
+			pressKey(driver, Keys.ENTER); 
+			paynow.VerifiesEntityNameTitleVisibility();
+			paynow.ClickOnNextButton();
+			paynow.ClickOnNextButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify Pay Now UEN ", e);
 		} catch (Exception e) {

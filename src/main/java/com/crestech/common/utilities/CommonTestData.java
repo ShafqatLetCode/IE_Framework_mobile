@@ -95,6 +95,14 @@ public enum CommonTestData {
 	//PayNow NRIC
 	PROMPT_PAY_MESSAGE("Transfer to Thailand with PromptPay"),
 	NRIC_FIN_NUMBER("S0058001E"),
+	PAYNOW_NRIC_FIN("Pay Now NRIC"),
+	
+	//PayNow UEN
+	UEN_NUMBER("251286562CM04"),
+	PAYNOW_UEN_COMMENT("Pay Now UEN"),
+	UEN_REFERENCE_NUMBER("1234"),
+	
+	
 	
 	//UpdateContact Details
 	UPDATE_CONTACT_DETAILS_PAGEHEADER("Update Contact Details"),

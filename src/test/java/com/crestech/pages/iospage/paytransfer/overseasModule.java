@@ -128,16 +128,12 @@ public class overseasModule extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pay & Transfer']")
 	private MobileElement searchBoxInPayAndTransfer;
 	
-	@ElementDescription(value = "Add Overseas Recipient Button")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Add overseas recipient'])[2]")
-	private MobileElement addOverseasRecipientButton;
-	
 	@ElementDescription(value = "Add oversea recipient when no recpient added")
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeButton)[5]")
 	private MobileElement AddNowRecipientBtn;
 
 	@ElementDescription(value = "Add oversea recipient when  recpient added")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Add overseas recipient']/preceding-sibling::XCUIElementTypeButton")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Add overseas recipient']")
 	private MobileElement AddOverseasRecipientBtn;
 	
 	@ElementDescription(value = "'check DBSRemit Rate")
@@ -195,6 +191,14 @@ public class overseasModule extends CommonAppiumTest{
 	@ElementDescription(value = "You've added a recipient title")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'added a recipient')]")
 	private MobileElement addedRecipientTitle;
+	
+	@ElementDescription(value = "Enter Recipient's city editbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='In The City Of']/parent::XCUIElementTypeTextView")
+	private MobileElement recipientDetailcityEditBox;
+	
+	@ElementDescription(value = "Enter Recipient's Address editBox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'ddress')]/parent::XCUIElementTypeTextView")
+	private MobileElement recipientDetailAddressEditBox;
 	
 	@ElementDescription(value = "'Make A Transfer' Button After adding Payee")
 	@FindBy(name = "MAKE A TRANSFER")
@@ -267,10 +271,12 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Enter City")
 	public void EnterCity(String text) throws Exception {
 		try {
+			
 			if (isElementVisible2(recipientDetailcity)) {
-				Actions action = new Actions(driver);
-				action.sendKeys(recipientDetailcity, text).build().perform();
-
+//				Actions action = new Actions(driver);
+				clickOnElement(recipientDetailcity);
+//				action.sendKeys(recipientDetailcity, text).build().perform();
+				enterTextInTextbox(recipientDetailcityEditBox, text);
 				// sendTextWithKeypad(text);
 				// enterTextInTextbox(IOShomePgaeObject.recipientDetailCity(), text);
 				ClickOnDoneButton();
@@ -309,10 +315,10 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Enter Address")
 	public void EnterAddress(String text) throws Exception {
 		try {
-
-			Actions action = new Actions(driver);
-			action.sendKeys(recipientDetailAddress, text).build().perform();
-
+            clickOnElement(recipientDetailAddress);
+			//Actions action = new Actions(driver);
+			//action.sendKeys(recipientDetailAddress, text).build().perform();
+            enterTextInTextbox(recipientDetailAddressEditBox, text);
 			// sendTextWithKeypad(text);
 			// enterTextInTextbox(IOShomePgaeObject.recipientDetailAddress(), text);
 			ClickOnDoneButton();
@@ -447,7 +453,7 @@ public class overseasModule extends CommonAppiumTest{
 		try {
 			wait.waitForElementVisibility(checkDBSRemitRate);
 			
-			if (isElementVisible2(addOverseasRecipientButton)) 
+			if (isElementVisible2(AddOverseasRecipientBtn)) 
 				clickOnElement(AddOverseasRecipientBtn);
 			else
 				clickOnElement(AddNowRecipientBtn);
@@ -467,12 +473,13 @@ public class overseasModule extends CommonAppiumTest{
 			pressKey(driver, Keys.ENTER);
 
 			MobileElement ExpectedEottEle = (MobileElement) driver.findElement(By.name(CommonTestData.EOTTREMITTANCE_NAME.getEnumValue()));
-			if (isElementVisible2(ExpectedEottEle))
+		  
+			if (wait.waitForElementToBeClickable2(ExpectedEottEle))
 				clickOnElement(ExpectedEottEle);
 			else
 				Asserts.assertFail("EOTT " + CommonTestData.EOTTREMITTANCE_NAME.getEnumValue() + " Not Found corresponding to this user.");
 		
-		   ClickOnDoneButton();
+		  
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select EOTT  ", e);
 		} catch (Exception e) {
@@ -820,8 +827,8 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Select Overseas Payee.")
 	public void SelectOverseaPayee(String valueSelectedFromList) throws Exception {
 		try {
-			// wait.waitForElementVisibility(IOShomePgaeObject.checkDBSRemitRate());
-			// verifyTextOnScreen(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue().toLowerCase(),IOShomePgaeObject.overseaTransferTitle());
+		    wait.waitForElementVisibility(checkDBSRemitRate);
+			
 			if (commonList.size() > 0) {
 				int index = 0;
 				String OverseaRecipientList = null;

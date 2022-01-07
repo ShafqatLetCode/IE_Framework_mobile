@@ -192,9 +192,9 @@ public class homePage extends CommonAppiumTest{
 	public void locationSwipPopup(String app_Name) throws Exception {
 		try {
 			if(app_Name.equalsIgnoreCase("DBS") && isElementVisible2(goToLocationSettingButton)) { 
-				Dimension windowSize1 = driver.manage().window().getSize();
-				int y =(int)((windowSize1.getHeight()));
-				int x =(int)((windowSize1.getWidth())/2);
+//				Dimension windowSize1 = driver.manage().window().getSize();
+//				int y =(int)((windowSize1.getHeight()));
+//				int x =(int)((windowSize1.getWidth())/2);
 				int x2 = getXCoordinateOfElement(goToLocationSettingButton);
 				int y2 = getYCoordinateOfElement(goToLocationSettingButton);
 				int x1 = getXCoordinateOfElement(swipeButton);

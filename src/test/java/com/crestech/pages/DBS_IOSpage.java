@@ -1042,9 +1042,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verify Payee Add Remittance.")
 	public void PayeeAddRemittance() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
-			enterpasscode.EnterPasscodeAndDone();
-			paytransfer.ClickOnOverseasModule();
+			//paytransfer.ClickOnPayAndTransferButton();
+			//enterpasscode.EnterPasscodeAndDone();
+			//paytransfer.ClickOnOverseasModule();
 			overseasmodule.SelectAddRecipientNowButtonUnderOverseas();
 			overseasmodule.SelectCountry(CommonTestData.COUNTRY_AUS_SEARCH.getEnumValue(), CommonTestData.COUNTRY_AUS.getEnumValue());
 			overseasmodule.SelectCurrencyType(CommonTestData.CURRENCY_AUS.getEnumValue());
@@ -1082,8 +1082,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			deletepayee.DeletePayeeForRemittence(CommonTestData.FULL_NAME.getEnumValue());
 			
 			// Leave On Home Page to this test case for next run.
-			overseasmodule.ClickOnCloseButtonInOversea();
-			paytransfer.ClickOnHomeButton();
+			//overseasmodule.ClickOnCloseButtonInOversea();
+			//paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee to DBS/POSB ", e);
 		} catch (Exception e) {

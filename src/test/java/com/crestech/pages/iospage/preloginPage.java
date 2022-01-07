@@ -78,9 +78,9 @@ public class preloginPage extends CommonAppiumTest{
 	@Step("Clicked on Login button")
 	public void clickOnLoginButton() throws Exception {
 		try { 
-			if (isElementVisible2(logInButton_OnPreloginPage))
+			if (wait.waitForElementToBeClickable2(logInButton_OnPreloginPage))
 				clickOnElement(logInButton_OnPreloginPage);
-			else if (isElementVisible2(logInButton_launchPage))
+			else if (wait.waitForElementToBeClickable2(logInButton_launchPage))
 				ClickOnLoginButtonOnLaunchPage();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);

@@ -81,9 +81,8 @@ public class deletePayee extends CommonAppiumTest{
 				int ExpectedTotalPayeeSize = payeeList.size();
 				int ExpectedTotalPayee = IiconList.size();
 				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
-
 					String actualPayee = payeeList.get(i).getText();
-					if (actualPayee.contains(ExpectedPayee)) {
+					if (actualPayee.equals(ExpectedPayee)) {
 						int index = i / 2;
 						ClickOnDeletePayeeToIcon(index);
 						ClickOnMoreOptionBtn();
@@ -118,9 +117,13 @@ public class deletePayee extends CommonAppiumTest{
 				int ExpectedTotalPayee = IiconList.size();
 				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
 						String actualPayee = payeeList.get(i).getText();
-						if(actualPayee.contains(ExpectedPayee) ) {
-							int index= ((i/2)-1)/2;
-							ClickOnDeletePayeeToIcon(index);
+						System.out.println(i+ "actualPayee:: "+actualPayee);
+						if(actualPayee.equals(ExpectedPayee) ) {
+							System.out.println("i:: "+i);
+							int index1 = (i-1)/4;
+							System.out.println("index1:: "+index1);
+						
+							ClickOnDeletePayeeToIcon(index1);
 							ClickOnMoreOptionBtn();
 							ClickOnDeletePayeeBtn();
 							ClickOnYesBtn();
