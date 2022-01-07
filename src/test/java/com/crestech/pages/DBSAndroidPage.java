@@ -1244,6 +1244,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			paytransfer.ClickOnPayNowModule();
 			paynow.handlingTransferToThailandWithPromptPayAlert(CommonTestData.PROMPT_PAY_MESSAGE.getEnumValue());
 			paynow.SelectPayNowToVPA();
+			paynow.EnterVPA_Number();
+			paynow.ClickOnNextButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify Pay Now VPA ", e);
 		} catch (Exception e) {

@@ -734,13 +734,16 @@ public class overseasModule extends CommonAppiumTest{
 	public void pressEnterKeyAfterEnteringAmount(String Amount) throws Exception {
 		try {
 			clickOnElement(amountFieldInOversea);
-			enterTextInTextbox(amountFieldInOversea, Amount); 
+			enterTextInTextbox(amountFieldInOversea, Amount);
 			ClickOnDoneButton();
-			Asserts.assertTrue(isElementVisible2(exchangeRate), "Exchange Rate is not visible");
+			if (isElementVisible2(exchangeRate))
+				Asserts.assertTrue(isElementVisible2(exchangeRate), "Exchange Rate is not visible");
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Pressing Enter Key After Entering Amount ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Pressing Enter Key After Entering Amount ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Pressing Enter Key After Entering Amount ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Pressing Enter Key After Entering Amount ", e);
 		}
 	}
 	

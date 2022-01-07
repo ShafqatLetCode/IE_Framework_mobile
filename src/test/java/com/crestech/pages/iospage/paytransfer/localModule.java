@@ -15,6 +15,7 @@ import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.qameta.allure.Step;
@@ -101,6 +102,85 @@ public class localModule extends CommonAppiumTest{
 	@ElementDescription(value = "'Recipient's Account No.' text dispalying After adding Payee.")
 	@FindBy(name = "Recipient's Account No.")
 	private MobileElement RecipientAccountNo;
+	
+	@ElementDescription(value = "Primary source of fund")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Primary source of fund']")
+	private MobileElement primarysourceOfFund;
+	
+	@ElementDescription(value = "OK Button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
+	private MobileElement OKButton;
+	
+	@ElementDescription(value = "Select Fund Source list")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell/XCUIElementTypeStaticText")
+	private List<MobileElement> selectfundSourceList;
+	
+	@ElementDescription(value = "Select Fund Source")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Select Fund Source']")
+	private MobileElement selectfundSource;
+	
+	@ElementDescription(value = "SGD field")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='SGD'])[2]")
+	private MobileElement sgdText;
+	
+	// If User has multiple accounts then select fund source account
+	@Step("'Select Fund Source Account' If User has multiple accounts.")
+	public void SelectFundSourceAccount(String expectedSourceAccount) throws Exception {
+		try {
+			wait.fluentWaitForElement(sgdText);
+		
+			if (isElementVisible2(selectfundSource)) {
+				clickOnElement(selectfundSource);
+				int selectedAccount = 0;
+				String AccountNameList = null;
+				for (int i = 0; i < selectfundSourceList.size(); i++) {
+					AccountNameList = selectfundSourceList.get(i).getText();
+					if (AccountNameList.equalsIgnoreCase(expectedSourceAccount)) {
+						selectedAccount++;
+						clickOnElement(selectfundSourceList.get(i));
+						break;
+					}
+				}
+				if (selectedAccount == 0)
+					Asserts.assertFail("Select Fund Source " + expectedSourceAccount
+							+ " not found in the list to initiate the fund transfer");
+
+				handlingOfPrimarySourceOfFundPopup();
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select Fund Source' and Select Account ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select Fund Source' and Select Account ", e);
+		}
+
+	}
+	
+	@Step("Handle 'Primary Source Of Fund' Popup.")
+	public void handlingOfPrimarySourceOfFundPopup() throws Exception {
+		try {
+			if(isElementVisible2(primarysourceOfFund)) {
+				Asserts.assertEquals(getTexOfElement(primarysourceOfFund), CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(), "Message Not matching");
+				ClickOnOKButton();
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle 'Primary Source Of Fund' Popup. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Handle 'Primary Source Of Fund' Popup.  ", e);
+		}
+	}
+	
+	@Step("Click On OK Button.")
+	public void ClickOnOKButton() throws Exception {
+		try {
+			clickOnElement(OKButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button   ", e);
+		}
+	}
 	
 	@Step("Verify Account Number")
 	public void VerifyAccountNumber(String AccountNumber) throws Exception {

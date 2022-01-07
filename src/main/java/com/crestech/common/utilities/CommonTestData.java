@@ -102,7 +102,8 @@ public enum CommonTestData {
 	PAYNOW_UEN_COMMENT("Pay Now UEN"),
 	UEN_REFERENCE_NUMBER("1234"),
 	
-	
+	//PayNow VPA
+	VPA_NUMBER("+6588877705#GRAB"),
 	
 	//UpdateContact Details
 	UPDATE_CONTACT_DETAILS_PAGEHEADER("Update Contact Details"),
@@ -211,7 +212,6 @@ public enum CommonTestData {
     LOCAL_RECIPIENT_LIST_SELECTED_ACCOUNTNAME("DBS CURRENT 001-992414-6"),
     AMOUNT_FUNDTRANSFER("11"),
     TRANSFER_DBS_POSB("Transfer to DBS/POSB"),
-    TEMP_LIMIT_INCREASE_SEARCH("Temporary"),
     
 	//Relanching alert message
 	RELAUNCH_MESSAGE("Your application's security profile has been updated. Please re-launch the application to continue."),
@@ -260,6 +260,7 @@ public enum CommonTestData {
 	CREDITCARD_LIMITINCREASE_AMOUNT("100"),
 	CREDITCARD_LIMITINCREASE_PURPOSE("wedding"),
 	TEMP_LIMIT_INCREASE("Temporary Credit Limit Increase"),
+	TEMP_LIMIT_INCREASE_SEARCH("Temporary"),
 	TEMP_LIMIT_INCREASE_TITLE("Temporary Limit Increase"),
 	REVIEW_APPLICATION_CREDITLIMIT_TITLE("Review Application"),
 	CALENDER_HEADER("Pick Date"),

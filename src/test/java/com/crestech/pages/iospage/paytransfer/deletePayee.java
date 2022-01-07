@@ -74,6 +74,10 @@ public class deletePayee extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Delete Payee']")
 	private MobileElement DeletePayeeButton;
 	
+	@ElementDescription(value = "'check DBSRemit Rate")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Check DBS Remit rates']")
+	private MobileElement checkDBSRemitRate;
+	
 	@Step("Delete Payee.")
 	public void DeletePayee(String ExpectedPayee) throws Exception {
 		try {
@@ -119,17 +123,15 @@ public class deletePayee extends CommonAppiumTest{
 						String actualPayee = payeeList.get(i).getText();
 						System.out.println(i+ "actualPayee:: "+actualPayee);
 						if(actualPayee.equals(ExpectedPayee) ) {
-							System.out.println("i:: "+i);
-							int index1 = (i-1)/4;
-							System.out.println("index1:: "+index1);
-						
-							ClickOnDeletePayeeToIcon(index1);
+							int index=1+i;
+							ClickOnDeletePayeeToIcon_forPayeeRemittance(index);
 							ClickOnMoreOptionBtn();
 							ClickOnDeletePayeeBtn();
 							ClickOnYesBtn();
 
 							//HandlingErrorPopupInDeletePayee();
 							ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedPayee);
+							wait.waitForElementVisibility(checkDBSRemitRate);
 							VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayee);
 							break;
 							}
@@ -222,6 +224,21 @@ public class deletePayee extends CommonAppiumTest{
 	public void ClickOnDeletePayeeToIcon(int index) throws Exception {
 		try {
 			clickOnElement(IiconList.get(index));
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Icon(i)  ", e);
+
+		} catch (Exception e) {
+
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Icon(i)  ", e);
+		}
+	}
+	
+	@Step("Click On i Icon from the list.")
+	public void ClickOnDeletePayeeToIcon_forPayeeRemittance(int index) throws Exception {
+		try {
+			String iconXpath = "(//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText)[" + index + "]/following-sibling::XCUIElementTypeButton";
+			MobileElement icon = (MobileElement) driver.findElement(By.xpath(iconXpath));
+			clickOnElement(icon);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Icon(i)  ", e);
 

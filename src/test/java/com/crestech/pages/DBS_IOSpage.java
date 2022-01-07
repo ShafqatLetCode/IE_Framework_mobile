@@ -27,6 +27,9 @@ import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 import com.crestech.pageobjects.DBS_IOSObject;
 import com.crestech.pages.iospage.ratingPage;
+import com.crestech.pages.iospage.more.More;
+import com.crestech.pages.iospage.more.temporaryCreditLimitIncrease;
+import com.crestech.pages.iospage.more.transactionHistory;
 import com.crestech.pages.iospage.loginPage;
 import com.crestech.pages.iospage.preloginPage;
 import com.crestech.pages.iospage.launchPage;
@@ -65,7 +68,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
     localModule local = null;
     topUpPaylah topupPaylah = null;
     billModule bill = null;
-
+    More more = null;
+    transactionHistory transactionhistory = null;
+    temporaryCreditLimitIncrease temporary = null;
 	public DBS_IOSpage(AppiumDriver<RemoteWebElement> driver) throws Exception {
 		super(driver);
 		gestUtils = new GestureUtils(driver);
@@ -85,6 +90,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		local = new localModule(driver);
 		topupPaylah = new topUpPaylah(driver);
 		bill = new billModule(driver);
+		temporary = new temporaryCreditLimitIncrease(driver);
+		more = new More(driver);
+		transactionhistory = new transactionHistory(driver);
 		// PageFactory.initElements(new AppiumFieldDecorator(driver,
 		// Duration.ofSeconds(5)), IOShomePgaeObject);
 	}
@@ -347,10 +355,12 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Pre - requisite script")
 	public void preRequisiteScript(String userName, String password, String app_Name, String serverName) throws Exception {
 		try {
-			wait.ImplicitlyWait(10);
-			launchpage.atmLocationAlert();
-			launchpage.sendNotificationAlert();
+			//wait.ImplicitlyWait(10);
+			//launchpage.atmLocationAlert();
+			//launchpage.sendNotificationAlert();
+			wait.ImplicitlyWait(75);
 			launchpage.localNetworkAlert();
+			wait.ImplicitlyWait(10);
 			launchpage.ClickOnPreloginButton();
 			preloginpage.selectUATserver(serverName); 
 			preloginpage.clickOnLoginButton();
@@ -398,54 +408,32 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Verify Logout the application  ",e);
 		}
 	}
+	
+	
+		@ElementDescription(value = "secure icon")
+		@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='More']")
+		private MobileElement searchIcon;
 
-	@Step("Enter the text in search and select the corresponding value in the dropdown")
-	public void sendDataInCommonSearchBoxAndSelectFromDropDown(String searchBoxData, String valueSelectedFromList)
-			throws Exception {
-		try {
-			TakeScreenshot(IOShomePgaeObject.searchIcon());
-			clickOnElementOnEnable(IOShomePgaeObject.searchIcon());
-			if (isElementEnable(IOShomePgaeObject.searchBox()))
-				enterTextInTextbox(IOShomePgaeObject.searchBox(), searchBoxData);
-			
-			List<RemoteWebElement> ElementCell = driver.findElementsByXPath("//XCUIElementTypeCell");
-			if(ElementCell.size() > 0) {
-			int sizeList = ElementCell.size();
-			int index = 0;
-			for (int i = 1; i <= sizeList; i++) {
-
-				String xpath = "//XCUIElementTypeCell" + "[" + String.valueOf(i) + "]/XCUIElementTypeStaticText";
-				String Text = driver.findElementByXPath(xpath).getText();
-				System.out.println(Text);
-				if (Text.equalsIgnoreCase(valueSelectedFromList)) {
-					index++;
-					clickOnElement((MobileElement) driver.findElementByXPath(xpath));
-					break;
-
-				}
-			}
-			Asserts.assertTrue(index > 0, "No "+valueSelectedFromList +"element found in the search list");
-			}
-			else	
-				Asserts.assertFail(valueSelectedFromList + " not found in the list as list size is 0");
-			
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Data From Dropdown.  ",e);			
+		public MobileElement searchIcon() {
+			return searchIcon;
 		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Data From Dropdown.  ",e);
+
+		@ElementDescription(value = "secure box")
+		@iOSXCUITFindBy(xpath = "//XCUIElementTypeSearchField[contains(@name,'Search')]")
+		private MobileElement searchBox;
+
+		public MobileElement searchBox() {
+			return searchBox;
 		}
-	}
+
 	
 	
 	@Step("Enter the text in search and select the corresponding value in the dropdown")
-	public void sendDataInCommonSearchBoxAndSelectFromDropDown1(String searchBoxData, String valueSelectedFromList, String valueSelectedFromList2)
-			throws Exception {
+	public void sendDataInCommonSearchBoxAndSelectFromDropDown1(String searchBoxData, String valueSelectedFromList, String valueSelectedFromList2) throws Exception {
 		try {
-			TakeScreenshot(IOShomePgaeObject.searchIcon());
-			clickOnElementOnEnable(IOShomePgaeObject.searchIcon());
-			if (isElementEnable(IOShomePgaeObject.searchBox()))
-				enterTextInTextbox(IOShomePgaeObject.searchBox(), searchBoxData);
+			
+			clickOnElementOnEnable(searchIcon);
+	        enterTextInTextbox(searchBox, searchBoxData);
 			
 			List<RemoteWebElement> ElementCell = driver.findElementsByXPath("//XCUIElementTypeCell");
 			if(ElementCell.size() > 0) {
@@ -489,19 +477,6 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 		} catch (Exception e) {
 			throw new Exception(getExceptionMessage(e));
-		}
-	}
-
-	@Step("Verifying button label and clicking on 'More' button ")
-	public void ClickOnMoreButton() throws Exception {
-		try {
-			TakeScreenshot(IOShomePgaeObject.moreButton());
-			androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.moreButton(),
-					CommonTestData.MORE_LABEL.getEnumValue(), IOShomePgaeObject.moreButton());
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'More' button  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'More' button ", e);
 		}
 	}
 
@@ -696,7 +671,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verify topup Paylah.")
 	public void TopupPaylah() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.clickOnTopUpModule();
 			topupPaylah.ClickOnPaylah();
@@ -716,11 +691,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Change local fund transfer limit verification")
 	public void ChangeLocalFundsTransferLimit() throws Exception {
 		try {
-			ClickOnMoreButton();
+			homepage.ClickOnMoreButton();
 			enterpasscode.EnterPasscodeAndDone();
-			sendDataInCommonSearchBoxAndSelectFromDropDown(
+			SelectModuleAfterSearch(
 					CommonTestData.LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS.getEnumValue(),
-					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue());
+					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),searchIcon,searchBox);
 			verifyLocalTransferLimitTitle();
 			toOtherBanksVerifyClick();
 			enterpasscode.EnterPasscodeAndDone();
@@ -731,9 +706,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			enterpasscode.EnterPasscode();
 			verifyLocalTransferlimitChangedHeader(CommonTestData.LOCAL_LIMIT_INCREASE_SUCCESS_TITLE_IOS.getEnumValue());
 			ClickOnBackToMoreButton();
-			sendDataInCommonSearchBoxAndSelectFromDropDown(
+			SelectModuleAfterSearch(
 					CommonTestData.LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS.getEnumValue(),
-					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue());
+					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),searchIcon,searchBox);
 			verifyLocalTransferLimitTitle();
 			toOtherBanksVerifyClick();
 			verifyDisplayAmountLocalTransferLimitChange(amountSlected);
@@ -802,7 +777,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifies Add payee DBSorPOSB.")
 	public void VerifyAddPayeeDBSorPOSB() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			local.clickOnAddLocalRecipientBtn();
 			local.verifyLocalTransferPayNowPageHeader();
@@ -834,7 +809,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Delete Payee to DBS/POSB.")
 	public void DeletePayee_ToDBSPOSB() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.clickOnLocalButton();
 			deletepayee.DeletePayee(CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue());
@@ -865,7 +840,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifies the Payee Add Local OtherBank and verifies 'YOU HAVE ADDED RECIPIENT MSG' .")
 	public void PayeeAddLocalOtherBank() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.clickOnLocalButton();
 			local.clickOnAddLocalRecipientBtn();
@@ -897,7 +872,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Delete Payee to Local To Other Bank.")
 	public void DeletePayee_LocalToOtherBank() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.clickOnLocalButton();
 			deletepayee.DeletePayee(CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue());
@@ -1042,7 +1017,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verify Payee Add Remittance.")
 	public void PayeeAddRemittance() throws Exception {
 		try {
-			//paytransfer.ClickOnPayAndTransferButton();
+			//homepage.ClickOnPayAndTransferButton();
 			//enterpasscode.EnterPasscodeAndDone();
 			//paytransfer.ClickOnOverseasModule();
 			overseasmodule.SelectAddRecipientNowButtonUnderOverseas();
@@ -1076,7 +1051,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Delete Payee to Remittence")
 	public void DeletePayee_ToRemittence() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.ClickOnOverseasModule();
 			deletepayee.DeletePayeeForRemittence(CommonTestData.FULL_NAME.getEnumValue());
@@ -1161,7 +1136,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verify Fund Transfer Pay Credit Card.")
 	public void FundsTransfer_PayCreditCard() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.SelectAllTAB();
 			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_CREDITCARD_TO_ACCOUNTNUMBER_WITHBANK
@@ -1232,17 +1207,34 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		}
 	}
 	@Step("Verify Transaction History")
-	public void transactionHistoryVerify() throws Exception {
+	public void verifyTransactionHistory(String appName) throws Exception {
 		try {
-			ClickOnMoreButton();
+			homepage.ClickOnMoreButton();
+			enterpasscode.EnterPasscodeAndDone(); 
+			more.ClickOnTransactionHistory();
 			enterpasscode.EnterPasscodeAndDone();
-			ClickOnTransactionHistory();
-			SelectTimeAndAccountTypeForStatement(CommonTestData.ACCOUNT_NAME.getEnumValue(),CommonTestData.CURRENCY_NAME.getEnumValue());
+			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue()); 
+			transactionhistory.SelectThreeMonths();
+			
+			if (appName.equals("DBS"))
+				transactionhistory
+						.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME.getEnumValue(),CommonTestData.CURRENCY_NAME.getEnumValue());
+			else if (appName.equals("iWEALTH"))
+				transactionhistory
+						.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue(),CommonTestData.CURRENCY_NAME.getEnumValue());
+			
+			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue()); 
 			gestUtils.scrollUPIos();
-			//gestUtils.scrollUPtoObjectIos("name", "SHOW", null);
-			ClickOnShowButtonAndVerifyHeader(CommonTestData.STATEMENT_TITLE.getEnumValue());
-			ValadateTransactionHistoryListInThreeMonth();
-			//BackToHomeFromTransactionHistory();
+			transactionhistory.ClickOnShowButton();
+			enterpasscode.EnterPasscode();
+			
+			if (appName.equals("DBS"))
+				transactionhistory.AccountNameToCheckTransactionHistory(CommonTestData.STATEMENT_TITLE.getEnumValue());
+			else if (appName.equals("iWEALTH"))
+				transactionhistory.AccountNameToCheckTransactionHistory(CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue());
+			
+			transactionhistory.ValadateTransactionHistoryListInThreeMonth();
+			transactionhistory.BackToHomeFromTransactionHistory();
 		}catch (HandleException e) {	
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify transaction history ",e);
 		}
@@ -1250,159 +1242,16 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to verify transaction history ",e);
 		}
 	}
-	@Step("Click on 'Transaction History' Button and then Verifying page header 'Transaction History'")
-	public void ClickOnTransactionHistory() throws Exception {
-		try {
-			ButtonLabelVerifyClick(IOShomePgaeObject.transactionHistoryBtnLabel(), CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
-			enterpasscode.EnterPasscodeAndDone();
-			verifyTextOnScreen(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(), IOShomePgaeObject.transactionHistoryBtnLabel());
-				
-			
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click transaction history and verify page header  ",e);
-		}
-		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click transaction history and verify page header  ",e);
-		}
-
-	}
-	@Step("Select'3 Months Transaction History' And 'From Account' from 'Deposit Account' section")
-	public void SelectTimeAndAccountTypeForStatement(String AccountName, String currencyInAccount) throws Exception {
-		try {
-			    
-			    ButtonVerifyClick(IOShomePgaeObject.threeMonthOption());
-			    ButtonVerifyClick(IOShomePgaeObject.depositeOption());
-			    selectAccountTypeInTransactionHistory(AccountName, currencyInAccount);
-			
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select '3 Months Transaction History' And 'From Account' from 'Deposit Account' section ",e);
-		}
-		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",  " Failed to select '3 Months Transaction History' And 'From Account' from 'Deposit Account' section ",e);
-		}
-	}
-	@Step("Click on 'Account type' From List under Local fund Limit page'")
-	public void selectAccountTypeInTransactionHistory(String AccountToBeSelected,String currencyInAccount) throws Exception {
-		try {
-			List<MobileElement> Elementlist = null;
-			int index = 0;
-			if(IOShomePgaeObject.accountListinTransectionHistory().size() >0) {
-			TakeScreenshot(IOShomePgaeObject.accountListinTransectionHistory().get(0));
-			Elementlist = IOShomePgaeObject.accountListinTransectionHistory();	
-			int l = Elementlist.size();
-			
-			String accountFromList = null;
-			for (int i = 0; i < l; i++) {
-				accountFromList = Elementlist.get(i).getText();
-				if (accountFromList.contains(AccountToBeSelected)) {
-					index++;
-					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-					clickOnElement(Elementlist.get(i));
-					break;
-				}
-			}
-			Asserts.assertTrue(index > 0, "No " + AccountToBeSelected + " found in the list of corresponding value");
-			}
-			else
-			{
-				Asserts.assertFail("No Account type list is found");
-			}
-			
-			Thread.sleep(2000);
-			String xpath = "//XCUIElementTypeStaticText[@name='Select Currency']";
-			List<RemoteWebElement> currencyTitle = driver.findElements(By.xpath(xpath));
-			if (currencyTitle.size() > 0) {
-			        List<MobileElement> Elementlist1 = null;
-					TakeScreenshot(IOShomePgaeObject.currencyListinTransectionHistory().get(0));
-					Elementlist1 = IOShomePgaeObject.currencyListinTransectionHistory();	
-					int l1 = Elementlist1.size();
-					int index1 = 0;
-					String currencyFromList = null;
-					for (int i = 0; i < l1; i++) {
-						currencyFromList = Elementlist1.get(i).getText();
-						if (currencyFromList.contains(currencyInAccount)) {
-							index1++;
-							com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-							clickOnElement(Elementlist.get(i));
-							break;
-						}
-					}
-					Asserts.assertTrue(index > 0, "No " + currencyInAccount + " found in the list of corresponding value");
-   
-			}
-			
-			verifyTextOnScreen(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(), IOShomePgaeObject.transactionHistoryBtnLabel());
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to 'Account type' ",e);		
-		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to 'Account type' ",e);
-		}
-	}
-	@Step("Click on 'Show' Button and then Verifying From Account.")
-	public void ClickOnShowButtonAndVerifyHeader(String ExpectedAccountName) throws Exception {
-		try {
-			clickOnShouButton();
-			enterpasscode.EnterPasscode();
-			String actual=IOShomePgaeObject.transactionHistoryfinalheaderTitle().getText();
-			if(actual.toLowerCase().contains(ExpectedAccountName.toLowerCase())) {
-				String[] arrOfStr = ExpectedAccountName.split(" ");
-			}
-			else
-				verifyTextOnScreen(ExpectedAccountName, IOShomePgaeObject.transactionHistoryfinalheaderTitle());
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click show button and verify amount  ",e);
-		}
-		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click show button and verify amount",e);
-		}
-	}
-	@Step("click and Verifies Show button")
-	public void clickOnShouButton() throws Exception {
-		try {
-			ButtonLabelVerifyClick(IOShomePgaeObject.showButton(), CommonTestData.SHOW_BUTTON.getEnumValue());
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click and Verifies Show button  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click and Verifies Show button ", e);
-		}
-	}
-	@Step("Validating From Account Transaction History List.")
-	public void ValadateTransactionHistoryListInThreeMonth() throws Exception {
-		try {
-			List<MobileElement> Elementlist = IOShomePgaeObject.accountListinTransectionHistory();
-			int l = Elementlist.size();
-			Asserts.assertTrue(l > 0, "No Transaction History is Display");
-			TakeScreenshot(null);
-		}  catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify from account transaction history list  ",e);
-		}
-		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify from account transaction history list ",e);
-		}
-	}
-
-	@Step("Back to Home page from Transaction History statement")
-	public void BackToHomeFromTransactionHistory() throws Exception {
-		try {
-			ButtonVerifyClick(IOShomePgaeObject.closeButton());
-			verifyTextOnScreen(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue(), IOShomePgaeObject.transactionHistoryBtnLabel());
-			ButtonVerifyClick(IOShomePgaeObject.closeButton());
-			ButtonVerifyClick(IOShomePgaeObject.homeButton());
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-
-		} catch (Exception e) {
-			e.printStackTrace(); throw e;
-		}
-	}
+	
 	@Step("Verifies FundTransfer Other DBS/POSB")
 	public void FundTransferOtherBank() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
-			clickAndVerifyOnAllTabAndselectFromTheList(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue());
-			clickingOnAccountTypeInLocalRecipient(CommonTestData.LOCAL_RECIPIENT_LIST_SELECTED_ACCOUNTNAME.getEnumValue());
-			selectFundSourceAndSelectAccount(CommonTestData.SOURCE_ACCOUNT_NAME.getEnumValue());
+			paytransfer.SelectAllTAB();
+			paytransfer.ClickOnLocalRecipient();
+			paytransfer.SelectToAccountFromLocalRecipient(CommonTestData.LOCAL_RECIPIENT_LIST_SELECTED_ACCOUNTNAME.getEnumValue());
+			local.SelectFundSourceAccount(CommonTestData.SOURCE_ACCOUNT_NAME.getEnumValue());
             enterAmountAndVerifySgdCurrency("11");
             verifyReviewTransferAndClickTransferNowButton();
             verifyTransferredAndReferenceNumberField();
@@ -1414,86 +1263,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to verify fund transfer other DBS_POSB  ",e);
 		}
 	}
-	@Step("Click on 'All Tab' section And select option form the list")
-	public void clickAndVerifyOnAllTabAndselectFromTheList(String TabValue) throws Exception {
-		try {
-			ButtonLabelVerifyClick(IOShomePgaeObject.allTab(), CommonTestData.ALL_SECTION.getEnumValue());
-			int index=0;
-			gestUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(1), IOShomePgaeObject.AllTab());
-			if(IOShomePgaeObject.allTabList().size() >0) {
-		    TakeScreenshot(IOShomePgaeObject.allTabList().get(0));
-			//int l= IOShomePgaeObject.allTabList().size();
-			for (int i = 0; i < IOShomePgaeObject.allTabList().size(); i++) {
-				String tabText = IOShomePgaeObject.allTabList().get(i).getText(); 
-				if (tabText.contains(TabValue)) {
-					clickOnElement(IOShomePgaeObject.allTabList().get(i));
-					index++;
-					break;
-				}
-			}
-			Asserts.assertTrue(index>0, "No " +TabValue+" not found in the list");
-			}
-			else
-			{
-				Asserts.assertFail("No List found in the 'All Tab' section");
-			}
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to  select option form the list",e);		
-		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select option form the list ",e);
-		}
-
-	}
 	
-	@Step("Click on 'Select Fund Source' and Select Account")
-	public void selectFundSourceAndSelectAccount(String SelectedAccountName) throws Exception {
-		try {
-			fieldText(IOShomePgaeObject.sgdText());
-			// TakeScreenshot(IOShomePgaeObject.sgdText());
-			String xpath = "//XCUIElementTypeStaticText[@name='Select Fund Source']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0) {
-				clickOnSelectFundSource2();
-				int index = 0;
-				if (IOShomePgaeObject.selectfundSourceList().size() > 0) {
-					TakeScreenshot(IOShomePgaeObject.selectfundSourceList().get(0));
-					List<MobileElement> AccountName = IOShomePgaeObject.selectfundSourceList();
-
-					int l = AccountName.size();
-
-					String AccountNameList = null;
-					for (int i = 0; i < l; i++) {
-						AccountNameList = AccountName.get(i).getText();
-						if (AccountNameList.equalsIgnoreCase(SelectedAccountName)) {
-							index++;
-							clickOnElement(AccountName.get(i));
-							break;
-						}
-					}
-					Asserts.assertTrue(index > 0,
-							"No" + SelectedAccountName + " not found in the list to initiate the fund transfer");
-				} else {
-					Asserts.assertFail("No Account found in the list");
-				}
-				String xpath1 = "//XCUIElementTypeStaticText[@name='Primary source of fund']";
-				List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
-				if (list1.size() > 0) {
-//				androidAlert.AlertHandlingWithButtonMessage(IOShomePgaeObject.okButton(),CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(),
-//						IOShomePgaeObject.primarysourceOfFund());
-					overseasmodule.handlingOfPrimarySourceOfFundPopup();
-
-				}
-			}
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
-					" Failed to Select Fund Source' and Select Account ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
-					" Failed to Select Fund Source' and Select Account ", e);
-		}
-
-	}
 	@Step("click on Select Fund Source")
 	public void clickOnSelectFundSource2() throws Exception {
 		try {
@@ -1591,7 +1361,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifies Remittance Corridor")
 	public void VerifyRemittanceCorridor(Object appName) throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.ClickOnOverseasModule();
 			overseasmodule.SelectOverseaPayee(CommonTestData.PAYEE_NAME_CORRIDOR.getEnumValue());
@@ -1833,7 +1603,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifies Remittance eOTT")
 	public void VerifyRemittanceEOTT(String appName) throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.SelectAllTAB();
 			overseasmodule.SelectEOTT();
@@ -1862,17 +1632,17 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		@Step("Verify CreditCard Temperary Limit Increase")
 		public void CreditCardTempLimitIncrease() throws Exception {
 			try {
-				ClickOnMoreButton();
+				homepage.ClickOnMoreButton();
 				enterpasscode.EnterPasscodeAndDone();
-				sendDataInCommonSearchBoxAndSelectFromDropDown(CommonTestData.TEMP_LIMIT_INCREASE_SEARCH.getEnumValue(), CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue());
+				more.SelectTemporaryCreditLimitIncreaseModule();
 				enterpasscode.EnterPasscodeAndDone();
-				verifyTextOnScreen(CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), IOShomePgaeObject.temporaryLimitIncreaseHeader());
-				setAmountDurationPurposeForLimitIncrease("100", "wedding");
-				gestUtils.scrollUPtoObjectIos("name", "NEXT", null );
-				overseasmodule.ClickOnNEXTButton();
-				//ClickOnNextButton();
-				verifyTextOnScreen(CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue(),IOShomePgaeObject.reviewApplicationHeader());
-				 
+				temporary.verifyTempLimitIncreasePageHeader(CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue());
+				temporary.EnterAmount(CommonTestData.CREDITCARD_LIMITINCREASE_AMOUNT.getEnumValue()); 
+				temporary.verifyTempLimitIncreasePageHeader(CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue());
+				temporary.SelectPurpose(CommonTestData.CREDITCARD_LIMITINCREASE_PURPOSE.getEnumValue());
+				temporary.SetDuration();
+				temporary.ClickOnNEXTButton();
+				temporary.verifyReviewApplicationPageHeader(CommonTestData.REVIEW_APPLICATION_CREDITLIMIT_TITLE.getEnumValue());
 			} catch (HandleException e) {	
 				obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Credit Card Temp Limit Increase ",e);
 			}
@@ -1880,52 +1650,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Credit Card Temp Limit Increase ",e);
 			} 
 		}
-		@Step("Enter amount , duration and purposed for creditLimit Increase")
-		public void setAmountDurationPurposeForLimitIncrease(String Amount, String purpos) throws Exception {
-			try {
-				if (isElementEnable(IOShomePgaeObject.additionalCreditLimit())) {
-					enterTextInTextbox(IOShomePgaeObject.additionalCreditLimit(), Amount);
-				    ClickOnDoneButton();
-				}
-				verifyTextOnScreen(CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), IOShomePgaeObject.temporaryLimitIncreaseHeader());
-				ButtonVerifyClick( IOShomePgaeObject.purposeCreditLimit());
-				verifyTextOnScreen(CommonTestData.PURPOSE_HEADER_IOS.getEnumValue(), IOShomePgaeObject.selectPurpose());
-				if(IOShomePgaeObject.commonList().size() >0) {
-				List<MobileElement> Elementlist = IOShomePgaeObject.commonList();
-				int l = Elementlist.size();
-				int index = 0;
-				String purposedFromList = null;
-				for (int i = 0; i < l; i++) {
-					purposedFromList = Elementlist.get(i).getText();
-					if (purposedFromList.equalsIgnoreCase(purpos)) {
-						index++;
-						clickOnElement(Elementlist.get(i));
-						break;
-					}
-				}
-				Asserts.assertTrue(index>0, "Overseas Payee " +purpos+" not found in the list");
-				}
-				else
-				{
-					Asserts.assertFail("No Purposed list is Found");
-				}
-				verifyTextOnScreen(CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), IOShomePgaeObject.temporaryLimitIncreaseHeader());
-				ButtonVerifyClick( IOShomePgaeObject.durationCreditLimit());
-				verifyTextOnScreen(CommonTestData.CALENDER_HEADER.getEnumValue(), IOShomePgaeObject.calenderTemporaryLimitIncreaseHeader());
-				ButtonVerifyClick( IOShomePgaeObject.calenderDateOctEleven());
-				ButtonVerifyClick( IOShomePgaeObject.confirmButton());
-				verifyTextOnScreen(CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue(), IOShomePgaeObject.temporaryLimitIncreaseHeader());
-				
-			} catch (HandleException e) {	
-				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Set Amount Duration Purpose For Limit Increase  ",e);
-			}
-			catch (Exception e) {		
-				obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Set Amount Duration Purpose For Limit Increase ",e);
-			}
-		}
-
-
-
+		
+		
+	
 
 
 //			Thread.sleep(3000);
@@ -1937,107 +1664,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 //					clickOnElement(IOShomePgaeObject.okButton());
 //			}
 		
-	
-	@Step("Click on Account after selecting 'Local Recipients' and verify pageHeader")
-	public void clickingOnAccountTypeInLocalRecipient(String valueSelectedFromList) throws Exception {
-		try {
-			int o = 0;
-			for (int i = 0; i < IOShomePgaeObject.allTabList().size(); i++) {
-				String tabText = IOShomePgaeObject.allTabList().get(i).getText();
-				o++;
-				if (tabText.equalsIgnoreCase(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
-					
-					break;
-				}
-			}
-			gestUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(o), IOShomePgaeObject.AllTab());
-			 Dimension windowSize = driver.manage().window().getSize();
-				System.out.println("getSessionId :"+driver.getSessionId());
-				
-				int h = windowSize.getHeight();
-				int y1 = (int) (h * 0.2);
-				int y2 = (int) (h - y1);
-				int x = (int) ((windowSize.getWidth()) / 2);
-				
-				String s1 = driver.getPageSource();
-				int count = 0;
-				int index = 0;
 
-				while (count == 0 && index == 0) {
-					if (IOShomePgaeObject.localRecipientsList().size() > 0) {
-						//TakeScreenshot(IOShomePgaeObject.localRecipientsList().get(0));
-						List<MobileElement> Elementlist = IOShomePgaeObject.localRecipientsList();
-						//List<MobileElement> ElementlistClickable = DBSappObject.ListElementToClickable();
-						int length = Elementlist.size();
-						String LocalRecipientList = null;
-						if (length < 5) {
-							for (int i = 0; i < length; i++) {
-								LocalRecipientList = Elementlist.get(i).getText();
-								if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList)) {
-									index++;
-									
-									clickOnElement(Elementlist.get(i));
-									break;
-								}
-							}
-							// Exception Handling without scrolling case and no expected element found in
-							// the list then index ==0
-							if (index == 0 && count == 0)
-								Asserts.assertFail("Local Recipient " + valueSelectedFromList
-										+ " not found in the list to initiate the fund transfer");
-							else
-								break;
-						} else
-
-							// Code will work :: When Need to scroll
-							for (int i = 0; i < length; i++) {
-								LocalRecipientList = Elementlist.get(i).getText();
-								if (LocalRecipientList.equalsIgnoreCase(valueSelectedFromList) && isElementVisible2(Elementlist.get(i))) {
-									index++;
-									clickOnElement(Elementlist.get(i));
-									break;
-								}
-							}
-						if (index == 0) {
-							touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
-									.moveTo(element(IOShomePgaeObject.AllTab())).release().perform();
-
-							String s2 = driver.getPageSource();
-							if (s1.equals(s2) != true)
-								s1 = s2;
-							else
-								count = 1;
-						} else
-							break;
-
-						// Exception Handling in scrolling case and no expected element found in the
-						// list then index ==0, count ==1
-						if (count == 1 && index == 0)
-							Asserts.assertFail("Local Recipient " + valueSelectedFromList
-									+ " not found in the list to initiate the fund transfer");
-
-					} else
-						Asserts.assertFail("No receipient Found in the Local recipient list");
-				}
-
-				Thread.sleep(3000);
-			String xpath1 = "//XCUIElementTypeStaticText[@name='Primary source of fund']";
-			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
-			if (list1.size() > 0) {
-				overseasmodule.handlingOfPrimarySourceOfFundPopup();
-//				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-//				if (isElementVisible(IOShomePgaeObject.primarysourceOfFund()))
-//					clickOnElement(IOShomePgaeObject.okButton());
-			}
-				//verifyPageHeader(CommonTestData.TRANSFER_DBS_POSB.getEnumValue(), DBSappObject.PageHeader());
-				//TakeScreenshot(DBSappObject.PageHeader());
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select account from local recipient and verify header  ",e);
-		}
-		catch (Exception e) {		
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select account from local recipient and verify header  ",e);
-		}
-	}
 	
 
 //			gestUtils.DragAndDropElementToElement(IOShomePgaeObject.allTabList().get(o), IOShomePgaeObject.AllTab());
@@ -2073,7 +1700,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifies the Payee Add Bill Payment and after completion payment verifies the transfering amount.")
 	public void PayeeAddBillPayment() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.ClickOnBillModule();
 			bill.ClickOnAddBillingOrganisation();
@@ -2144,7 +1771,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Delete Payee to Bill Payment.")
 	public void DeletePayee_ToBillPayment() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.ClickOnBillModule();
 			deletepayee.DeletePayee(CommonTestData.PAYEEADD_BILLPAYMENT_ACCOUNTNAME.getEnumValue());
@@ -2165,7 +1792,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verify Fund Transfer For Own Account.")
 	public void VerifyFundTransfer_OwnAccount() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.SelectAllTAB();
 			SelectOWNAccountAndAnyAccountOption(CommonTestData.FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER.getEnumValue());
@@ -2333,7 +1960,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verify Fund Transfer Bill Payment.")
 	public void FundsTransfer_BillPayment() throws Exception {
 		try {
-			paytransfer.ClickOnPayAndTransferButton();
+			homepage.ClickOnPayAndTransferButton();
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.SelectAllTAB();
 			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_BillPayment_TO_ACCOUNTNUMBER_WITHBANK
@@ -2362,7 +1989,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifies the Applying Debit Card and Verify the completion page details.")
 	public void ApplyDebitCard() throws Exception {
 		try {
-			ClickOnMoreButton();
+			homepage.ClickOnMoreButton();
 			enterpasscode.EnterPasscodeAndDone();
 			SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN();
 			FillingDetailsToApplyingDebitCard();
@@ -2462,7 +2089,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Select Debit Card Option After Clicking on Cards Section and then 2FA Authentication Done.")
 	public void SelectDebitCardOptionFromCardsSectionAndAuthenticationOfSecurePIN() throws Exception {
 		try {
-			sendDataInCommonSearchBoxAndSelectFromDropDown("Cards", "Cards");
+			SelectModuleAfterSearch("Cards", "Cards",searchIcon,searchBox);
 			//gestUtils.scrollUPtoObjectIos("name", "Cards", null);
 
 //	  if (isElementVisible(IOShomePgaeObject.CardsButton()))
@@ -2601,7 +2228,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verifies the Open Account.")
 	public void OpenAccount() throws Exception {
 		try {
-			ClickOnMoreButton();
+			homepage.ClickOnMoreButton();
 			enterpasscode.EnterPasscodeAndDone();
 			ClickOnDepositAccountsAnd2FAAuthenticationDone();
 			SelectOpenAccountOptionAndVerifyAccountBenifitsPageHeader();
@@ -2680,10 +2307,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Click On Deposit Accounts Module And 2FA Authentication Done And Verifies the Open Account Page Header.")
 	public void ClickOnDepositAccountsAnd2FAAuthenticationDone() throws Exception {
 		try {
-			//gestUtils.scrollUPtoObject("text", "Deposit Accounts", IOShomePgaeObject.DepositAccountsModule());
-			//TakeScreenshot(IOShomePgaeObject.DepositAccountsModule()); 
-			//clickOnElement(IOShomePgaeObject.DepositAccountsModule());
-			sendDataInCommonSearchBoxAndSelectFromDropDown("Deposit", "Deposit Accounts");
+			SelectModuleAfterSearch("Deposit", "Deposit Accounts",searchIcon,searchBox);
 			enterpasscode.EnterPasscodeAndDone();
 			Asserts.assertTrue(isElementVisible(IOShomePgaeObject.OpenAccountPageHeader()),
 					CommonTestData.OPEN_ACCOUNT.getEnumValue() + " Page Header not displaying.");
@@ -2867,7 +2491,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				String ExpectedUserAccountNumber = GetUserAccountNumber();
 				ClickOnToolBarBackIcon();
 
-				ClickOnMoreButton();
+				homepage.ClickOnMoreButton();
 				enterpasscode.EnterPasscodeAndDone();
 				SelectPeekBalanceModule();
 				enterpasscode.EnterPasscodeAndDone();
@@ -2971,7 +2595,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Select Peek Balance Module After Search.")
 	public void SelectPeekBalanceModule() throws Exception {
 		try {
-			sendDataInCommonSearchBoxAndSelectFromDropDown("Peek", CommonTestData.PEEK_BALANCE.getEnumValue());
+			SelectModuleAfterSearch("Peek", CommonTestData.PEEK_BALANCE.getEnumValue(),searchIcon,searchBox);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Peek balance Module. ",
 					e);
@@ -3141,7 +2765,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Update Personal Details")
 	public void UpdatePersonalDetails(String appName) throws Exception {
 		try {
-			ClickOnMoreButton();
+			homepage.ClickOnMoreButton();
 			enterpasscode.EnterPasscodeAndDone();
 			SelectUpdateContactDetails();
 			verifyUpdateContactDetailsPageHeader(CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue());

@@ -8,6 +8,7 @@ import static java.time.Duration.ofSeconds;
 import java.time.Duration;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -50,10 +51,6 @@ public class payAndTransfer extends CommonAppiumTest{
 			throw e;
 		}
 	}
-	
-	@ElementDescription(value = "pay and transfer button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Pay & Transfer']")
-	private MobileElement payAndTransferButton;
 	
 	@ElementDescription(value = " Overseas button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Overseas']")
@@ -98,6 +95,116 @@ public class payAndTransfer extends CommonAppiumTest{
 	@ElementDescription(value = "Local Recipients list")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText")
 	private List<MobileElement> localRecipientsList;
+	
+	
+	@Step("Select 'To Account' from local Recipient list.")
+	public void SelectToAccountFromLocalRecipient(String expectedLocalRecipient) throws Exception {
+		try {
+			int o = 0;
+			for (int i = 0; i < allTabList.size(); i++) {
+				String tabText = allTabList.get(i).getText();
+				o++;
+				if (tabText.equalsIgnoreCase(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
+					break;
+				}
+			}
+			gestUtils.DragAndDropElementToElement(allTabList.get(o), allTab);
+			Dimension windowSize = driver.manage().window().getSize();
+			System.out.println("getSessionId :" + driver.getSessionId());
+
+			int h = windowSize.getHeight();
+			int y1 = (int) (h * 0.2);
+			int y2 = (int) (h - y1);
+			int x = (int) ((windowSize.getWidth()) / 2);
+
+			String s1 = driver.getPageSource();
+			int count = 0;
+			int index = 0;
+
+			while (count == 0 && index == 0) {
+				if (localRecipientsList.size() > 0) {
+					int length = localRecipientsList.size();
+					String LocalRecipientList = null;
+					if (length < 5) {
+						for (int i = 0; i < length; i++) {
+							LocalRecipientList = localRecipientsList.get(i).getText();
+							if (LocalRecipientList.equalsIgnoreCase(expectedLocalRecipient)) {
+								index++;
+								clickOnElement(localRecipientsList.get(i));
+								break;
+							}
+						}
+						// Exception Handling without scrolling case and no expected element found in
+						// the list then index ==0
+						if (index == 0 && count == 0)
+							Asserts.assertFail("Local Recipient " + expectedLocalRecipient
+									+ " not found in the list to initiate the fund transfer");
+						else
+							break;
+					} else
+
+						// Code will work :: When Need to scroll
+						for (int i = 0; i < length; i++) {
+							LocalRecipientList = localRecipientsList.get(i).getText();
+							if (LocalRecipientList.equalsIgnoreCase(expectedLocalRecipient)
+									&& isElementVisible2(localRecipientsList.get(i))) {
+								index++;
+								clickOnElement(localRecipientsList.get(i));
+								break;
+							}
+						}
+					if (index == 0) {
+						touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
+								.moveTo(element(allTab)).release().perform();
+
+						String s2 = driver.getPageSource();
+						if (s1.equals(s2) != true)
+							s1 = s2;
+						else
+							count = 1;
+					} else
+						break;
+
+					// Exception Handling in scrolling case and no expected element found in the
+					// list then index ==0, count ==1
+					if (count == 1 && index == 0)
+						Asserts.assertFail("Local Recipient " + expectedLocalRecipient
+								+ " not found in the list to initiate the fund transfer");
+
+				} else
+					Asserts.assertFail("No receipient Found in the Local Recipient list");
+			}
+
+			handlingOfPrimarySourceOfFundPopup();
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select 'To Account' from local Recipient list  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select 'To Account' from local Recipient list  ", e);
+		}
+	}
+	
+	@Step("Click On Local Recipient Option under All Tab.")
+	public void ClickOnLocalRecipient() throws Exception {
+		try {
+			gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
+			for (int i = 0; i < allTabList.size(); i++) {
+				String tabText = allTabList.get(i).getText();
+				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
+					clickOnElement(allTabList.get(i));
+					break;
+				}
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On Local Recipient Option under All Tab. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On Local Recipient Option under All Tab ", e);
+		}
+	}
 	
 	@Step("Select 'To Account' from 'Billing organisation' list")
 	public void SelectToAccountFromBillingOrganisationList(String valueSelectedFromList) throws Exception {
@@ -290,19 +397,6 @@ public class payAndTransfer extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Overseas Module ", e);
 		}
 	}
-	
-	@Step("Click On 'Pay & Transfer' Button.")
-	public void ClickOnPayAndTransferButton() throws Exception {
-		try {
-			wait.waitForElementToBeClickable(payAndTransferButton);
-			clickOnElement(payAndTransferButton);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On pay and transfer Button  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On pay and transfer Button ", e);
-		}
-	}
-	
-	
+
 
 }

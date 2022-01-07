@@ -66,6 +66,10 @@ public class payNow extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/textinput_placeholder')]")
 	private MobileElement EditField;
 	
+	@ElementDescription(value = "VPA Number Field")
+	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,':id/textInputEditText')]")
+	private MobileElement VPANumber_Field;
+	
 	@ElementDescription(value = "NEXT Button")
 	//@AndroidFindBy(xpath = "//android.widget.Button[@content-desc='NEXT']")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='NEXT']")
@@ -288,6 +292,18 @@ public class payNow extends CommonAppiumTest{
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter UEN Number ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter UEN Number ", e);
+		}
+	}
+	
+	@Step("Enter VPA Number ")
+	public void EnterVPA_Number() throws Exception {
+		try {
+			enterTextInTextbox(VPANumber_Field, CommonTestData.VPA_NUMBER.getEnumValue());
+			hideKeyboard();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter VPA Number ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter VPA Number ", e);
 		}
 	}
 	
