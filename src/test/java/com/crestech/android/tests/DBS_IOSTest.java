@@ -314,7 +314,8 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
 			DBSPgaeObject1.LogInApplication(userName, password);
-			DBSPgaeObject1.FundTransferOtherBank();
+			DBSPgaeObject1.FundTransferDBSPOSB(app_Name);
+
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode() + "--> " + e.getMessage() );
