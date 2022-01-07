@@ -74,6 +74,45 @@ public class deletePayee extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Delete Payee']")
 	private MobileElement DeletePayeeButton;
 	
+	@ElementDescription(value = "'check DBSRemit Rate")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Check DBS Remit rates']")
+	private MobileElement checkDBSRemitRate;
+	
+	@Step("Delete Payee.")
+	public void DeletePayee(String ExpectedPayee) throws Exception {
+		try {
+			if (payeeList.size() > 0) {
+				int ExpectedTotalPayeeSize = payeeList.size();
+				int ExpectedTotalPayee = IiconList.size();
+				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
+					String actualPayee = payeeList.get(i).getText();
+					if (actualPayee.equals(ExpectedPayee)) {
+						int index = i / 2;
+						ClickOnDeletePayeeToIcon(index);
+						ClickOnMoreOptionBtn();
+						ClickOnDeletePayeeBtn();
+						ClickOnYesBtn();
+						// HandlingErrorPopupInDeletePayee();
+						ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedPayee);
+						VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayee);
+						break;
+					}
+				}
+
+			} else {
+				Dimension windowSize1 = driver.manage().window().getSize();
+				int y = (int) ((windowSize1.getHeight()) - 10);
+				int x = (int) ((windowSize1.getWidth()) / 2);
+				gesture.swipeCoordinatetoCoordinate(x, 20, x, y);
+			}
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee ", e);
+		}
+	}
+	
 	@Step("Delete Payee.")
 	public void DeletePayeeForRemittence(String ExpectedPayee) throws Exception {
 		try {
@@ -82,17 +121,19 @@ public class deletePayee extends CommonAppiumTest{
 				int ExpectedTotalPayee = IiconList.size();
 				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
 						String actualPayee = payeeList.get(i).getText();
-						if(actualPayee.contains(ExpectedPayee) ) {
-							int index= ((i/2)-1)/2;
-							ClickOnDeletePayeeToIcon(index);
+						System.out.println(i+ "actualPayee:: "+actualPayee);
+						if(actualPayee.equals(ExpectedPayee) ) {
+							int index=1+i;
+							ClickOnDeletePayeeToIcon_forPayeeRemittance(index);
 							ClickOnMoreOptionBtn();
 							ClickOnDeletePayeeBtn();
 							ClickOnYesBtn();
 
 							//HandlingErrorPopupInDeletePayee();
 							ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedPayee);
-								VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayee);
-								break;
+							wait.waitForElementVisibility(checkDBSRemitRate);
+							VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayee);
+							break;
 							}
 					}
 			}
@@ -183,6 +224,21 @@ public class deletePayee extends CommonAppiumTest{
 	public void ClickOnDeletePayeeToIcon(int index) throws Exception {
 		try {
 			clickOnElement(IiconList.get(index));
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Icon(i)  ", e);
+
+		} catch (Exception e) {
+
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Icon(i)  ", e);
+		}
+	}
+	
+	@Step("Click On i Icon from the list.")
+	public void ClickOnDeletePayeeToIcon_forPayeeRemittance(int index) throws Exception {
+		try {
+			String iconXpath = "(//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText)[" + index + "]/following-sibling::XCUIElementTypeButton";
+			MobileElement icon = (MobileElement) driver.findElement(By.xpath(iconXpath));
+			clickOnElement(icon);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Icon(i)  ", e);
 

@@ -65,6 +65,10 @@ public class payAndTransfer extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.FrameLayout[@content-desc='Home']")
 	private MobileElement homeButton;
 	
+	@ElementDescription(value = "Pay Now Module")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='PayNow']")
+	private MobileElement payNowModule;
+
 	@ElementDescription(value = "Top up button")
 	@AndroidFindBy(xpath = "(//android.widget.LinearLayout[contains(@resource-id,'id/cvActionItem')])[8]")
 	private MobileElement topUpButton;
@@ -571,5 +575,18 @@ public class payAndTransfer extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Home Button  ", e);
 		}
 	}
+	
+	@Step("Click On Pay Now Module.")
+	public void ClickOnPayNowModule() throws Exception {
+		try {
+			wait.waitForElementToBeClickable(payNowModule);
+			clickOnElement(payNowModule);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On pay Now Module ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On pay Now Module  ", e);
+		}
+	}
+	
 
 }

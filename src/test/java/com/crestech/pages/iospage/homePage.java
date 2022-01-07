@@ -146,6 +146,39 @@ public class homePage extends CommonAppiumTest{
 	@ElementDescription(value = "'digibank' textfield")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='DBS digibank']")
 	private MobileElement digibankTextwealth;
+	
+	@ElementDescription(value = "pay and transfer button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Pay & Transfer']")
+	private MobileElement payAndTransferButton;
+	
+	@ElementDescription(value = "More button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='More']")
+	private MobileElement moreButton;
+
+	
+	@Step("Click on More Button.")
+	public void ClickOnMoreButton() throws Exception {
+		try {
+		    wait.waitForElementToBeClickable(moreButton); 
+			clickOnElement(moreButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'More' button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'More' button ", e);
+		}
+	}
+	
+	@Step("Click On 'Pay & Transfer' Button.")
+	public void ClickOnPayAndTransferButton() throws Exception {
+		try {
+			wait.waitForElementToBeClickable(payAndTransferButton);
+			clickOnElement(payAndTransferButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On pay and transfer Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On pay and transfer Button ", e);
+		}
+	}
 
 	@Step("Verify 'Welcome to DigiBank' Messages on dashboard Page.")
 	public void VerifyWelcomeMessagesOnDashboardPage(String welcome, String DigiBank, String DBSDigibank,
@@ -192,9 +225,9 @@ public class homePage extends CommonAppiumTest{
 	public void locationSwipPopup(String app_Name) throws Exception {
 		try {
 			if(app_Name.equalsIgnoreCase("DBS") && isElementVisible2(goToLocationSettingButton)) { 
-				Dimension windowSize1 = driver.manage().window().getSize();
-				int y =(int)((windowSize1.getHeight()));
-				int x =(int)((windowSize1.getWidth())/2);
+//				Dimension windowSize1 = driver.manage().window().getSize();
+//				int y =(int)((windowSize1.getHeight()));
+//				int x =(int)((windowSize1.getWidth())/2);
 				int x2 = getXCoordinateOfElement(goToLocationSettingButton);
 				int y2 = getYCoordinateOfElement(goToLocationSettingButton);
 				int x1 = getXCoordinateOfElement(swipeButton);

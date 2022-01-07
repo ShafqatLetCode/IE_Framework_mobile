@@ -68,26 +68,6 @@ public class DBSAndroidTest extends UserBaseTest {
 	}
 	
 	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 13, enabled = true, description = "Logout-ONEAPP-9392", dependsOnMethods={"PreRequisiteScript"})
-	@Description(value = "Execution of this testcase:: Verify the Logout functionality for Applications.")
-	@Author(name = "Shafqat Ali")
-	public void Logout_ONEAPP(String userName, String password , String app_Name) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage1=dbspage;
-			dbspage1.LogInApplication(userName, password);
-			dbspage1.VerifyLogout(CommonTestData.RATE_MESSAGE.getEnumValue());
-		} catch (HandleException e) {
-			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-		}
-		catch (Exception e) {
-			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail( "Unable to execute Log Out "+e.getMessage());
-		}
-	}
-	
-	@Parameters({ "userName", "password", "app_Name" })
 	@Test(priority = 3, enabled = true, description = "Remittance-Corridor-ONEAPP-13407", dependsOnMethods={"PreRequisiteScript"})
 	@Description(value = "Execution of this testcase:: Verifies the Remittance Corridor")
 	@Author(name = "Divya Devi")
@@ -291,28 +271,27 @@ public class DBSAndroidTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute Change Local Funds Transfer Limit "+e.getMessage());
 		}
 	}
-
+	
 	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 25, enabled = true, description = "PeekBalance-MCA-ONEAPP-13982", dependsOnMethods={"PreRequisiteScript"})
-	@Description(value = "Execution of this testcase:: Verifies the Peek Balance.")
-	@Author(name = "Divya Devi")
-	public void PeekBalance_MCA(String userName, String password , String app_Name) throws Exception {
+	@Test(priority = 13, enabled = true, description = "Logout-ONEAPP-9392", dependsOnMethods={"PreRequisiteScript"})
+	@Description(value = "Execution of this testcase:: Verify the Logout functionality for Applications.")
+	@Author(name = "Shafqat Ali")
+	public void Logout_ONEAPP(String userName, String password , String app_Name) throws Exception {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage1 = dbspage;
+			dbspage1=dbspage;
 			dbspage1.LogInApplication(userName, password);
-			dbspage1.VerifyPeekBalance(app_Name);
-		}  catch (HandleException e) {
+			dbspage1.VerifyLogout(CommonTestData.RATE_MESSAGE.getEnumValue());
+		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
 		}
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail( "Unable to execute Peek Balance "+e.getMessage());
+			Asserts.assertFail( "Unable to execute Log Out "+e.getMessage());
 		}
 	}
 
-	
 	@Parameters({ "userName", "password", "app_Name" })
 	@Test(priority = 14, enabled = true, description = "FundsTransfer-OwnAccount-ONEAPP-16730", dependsOnMethods={"PreRequisiteScript"})
 	@Description(value = "Execution of this testcase:: Verifies the Fund Transfer Own Account.")
@@ -534,6 +513,87 @@ public class DBSAndroidTest extends UserBaseTest {
 		catch (Exception e) {
 			dbspage1.verifyDigibankAlert();
 			Asserts.assertFail( "Unable to execute Fund Transfer Bill Payment "+e.getMessage());
+		}
+	}
+	
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 25, enabled = true, description = "PayNow-NRIC-ONEAPP-13966", dependsOnMethods={"PreRequisiteScript"})
+	@Description(value = "Execution of this testcase:: Verifies the Pay Now NRIC.")
+	@Author(name = "Divya Devi")
+	public void PayNow_NRIC_ONEAPP(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1 = dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.PayNowNRIC();
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Pay Now NRIC ONEAPP "+e.getMessage());
+		}
+	}
+	
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 26, enabled = true, description = "PayNow-UEN-ONEAPP-13969", dependsOnMethods={"PreRequisiteScript"})
+	@Description(value = "Execution of this testcase:: Verifies the Pay Now UEN.")
+	@Author(name = "Divya Devi")
+	public void PayNow_UEN_ONEAPP(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1 = dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.PayNowUEN();
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Pay Now UEN ONEAPP "+e.getMessage());
+		}
+	}
+	
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 27, enabled = true, description = "PayNow-VPA-ONEAPP-13991", dependsOnMethods={"PreRequisiteScript"})
+	@Description(value = "Execution of this testcase:: Verifies the Pay Now VPA.")
+	@Author(name = "Divya Devi")
+	public void PayNow_VPA_ONEAPP(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1 = dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.PayNowVPA();
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Pay Now VPA ONEAPP "+e.getMessage());
+		}
+	}
+	
+
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 28, enabled = true, description = "PeekBalance-MCA-ONEAPP-13982", dependsOnMethods={"PreRequisiteScript"})
+	@Description(value = "Execution of this testcase:: Verifies the Peek Balance.")
+	@Author(name = "Divya Devi")
+	public void PeekBalance_MCA(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1 = dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.VerifyPeekBalance(app_Name);
+		}  catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Peek Balance "+e.getMessage());
 		}
 	}
 	

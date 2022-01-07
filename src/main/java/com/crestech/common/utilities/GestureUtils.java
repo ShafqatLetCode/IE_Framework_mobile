@@ -10,8 +10,6 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
@@ -93,7 +91,6 @@ public class GestureUtils {
 	}
 	public void longPressOnMobileElementSpecficLocation(MobileElement Element, int dur, int x, int y) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(Element);
 			touch.longPress(longPressOptions().withElement(element(Element)).withPosition(point(x, y))
 					.withDuration(ofSeconds(dur))).release().perform();
 		} catch (Exception e) {
@@ -270,7 +267,7 @@ public class GestureUtils {
 
 	public void tapAtSpecificPosionOnMobileElement(MobileElement Element, int x, int y) throws Exception {
 		try {
-			wait.waitForElementToBeClickable(Element);
+		
 			touch.tap(tapOptions().withElement(element(Element)).withPosition(point(x, y))).perform();
 		} catch (Exception e) {
 			throw e;
@@ -349,8 +346,7 @@ public class GestureUtils {
 
 	public void swipeElementtoElement(MobileElement Element1, MobileElement Element2) throws Exception {
 		try {
-			wait.waitForElementVisibility(Element1);
-			wait.waitForElementVisibility(Element2);
+			
 			touch.longPress(longPressOptions().withElement(element(Element1)).withDuration(ofSeconds(2)))
 					.moveTo(element(Element2)).release().perform();
 		} catch (Exception e) {		
@@ -360,7 +356,7 @@ public class GestureUtils {
 
 	public void swipeElementtoCoordinate(MobileElement Element, int x, int y) throws Exception {
 		try {
-			wait.waitForElementVisibility(Element);
+		
 			touch.longPress(longPressOptions().withElement(element(Element)).withDuration(ofSeconds(2)))
 					.moveTo(point(x, y)).release().perform();
 		} catch (Exception e) {		
@@ -370,7 +366,7 @@ public class GestureUtils {
 
 	public void swipeCoordinatetoElement(MobileElement Element, int x, int y) throws Exception {
 		try {
-			wait.waitForElementVisibility(Element);
+			
 			touch.longPress(longPressOptions().withPosition(point(x, y)).withDuration(ofSeconds(2)))
 					.moveTo(element(Element)).release().perform();
 
@@ -381,10 +377,8 @@ public class GestureUtils {
 
 	public void swipeCoordinatetoCoordinate(int x1, int y1, int x2, int y2) throws Exception {
 		try {
-			
 			touch.longPress(longPressOptions().withPosition(point(x1, y1)).withDuration(ofSeconds(2)))
-					.moveTo(point(x1, y1)).release().perform();
-		
+					.moveTo(point(x2, y2)).release().perform();
 		}catch (Exception e) {		
 			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ",e);
 		}
@@ -710,7 +704,7 @@ public class GestureUtils {
 
 			String s1 = driver.getPageSource();
 			int count = 0;
-			WaitUtils wait = new WaitUtils(driver);
+			
 			
 			while ((driver.getPageSource().contains(str) != true) && count == 0) {
 				touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))

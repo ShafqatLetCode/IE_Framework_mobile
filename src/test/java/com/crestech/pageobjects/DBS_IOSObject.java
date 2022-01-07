@@ -216,29 +216,10 @@ public class DBS_IOSObject {
 		return payAndTransferButton;
 	}
 
-	@ElementDescription(value = "More button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='More']")
-	private MobileElement moreButton;
+	
 
-	public MobileElement moreButton() {
-		return moreButton;
-	}
+	
 
-	@ElementDescription(value = "topup button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Top Up']")
-	private MobileElement topUpButton;
-
-	public MobileElement topUpButton() {
-		return topUpButton;
-	}
-
-	@ElementDescription(value = "paylah button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='TopUp_Option_Paylah!_Label']")
-	private MobileElement payLahButton;
-
-	public MobileElement payLahButton() {
-		return payLahButton;
-	}
 
 	@ElementDescription(value = "Top Up PayLah! label")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Top Up PayLah!']")
@@ -288,20 +269,7 @@ public class DBS_IOSObject {
 		return reviewToUpLabel;
 	}
 
-	@ElementDescription(value = "TopUp Now label")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='TOP UP NOW']")
-	private MobileElement topupNowlabel;
-
-	public MobileElement topupNowButtonlabel() {
-		return topupNowlabel;
-	}
-	@ElementDescription(value = "TopUp Now button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='TopUp_Paylah_TOP UP NOW_Button']")
-	private MobileElement topupNowButton;
-
-	public MobileElement topupNowButton() {
-		return topupNowButton;
-	}
+	
 
 	@ElementDescription(value = "TopUp Done Label")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Top-up Done']")
@@ -380,21 +348,21 @@ public class DBS_IOSObject {
 	}
 
 	// search handling
-	@ElementDescription(value = "secure icon")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='More']")
-	private MobileElement searchIcon;
+		@ElementDescription(value = "secure icon")
+		@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='More']")
+		private MobileElement searchIcon;
 
-	public MobileElement searchIcon() {// XCUIElementTypeStaticText[@name='More']
-		return searchIcon;
-	}
+		public MobileElement searchIcon() {// XCUIElementTypeStaticText[@name='More']
+			return searchIcon;
+		}
 
-	@ElementDescription(value = "secure box")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeSearchField[contains(@name,'Search')]")
-	private MobileElement searchBox;
+		@ElementDescription(value = "secure box")
+		@iOSXCUITFindBy(xpath = "//XCUIElementTypeSearchField[contains(@name,'Search')]")
+		private MobileElement searchBox;
 
-	public MobileElement searchBox() {
-		return searchBox;
-	}
+		public MobileElement searchBox() {
+			return searchBox;
+		}
 
 	@ElementDescription(value = "search Text Element list")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell[1]/XCUIElementTypeStaticText")
@@ -460,9 +428,7 @@ public class DBS_IOSObject {
 		return changeLimitNowButton;
 	}
 	
-	@ElementDescription(value = "Local button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Local']")
-	private MobileElement LocalButton;
+	
 
 	@ElementDescription(value = "Add Local Recipient button")
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Add Local Recipient'])[1]")
@@ -472,13 +438,8 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='ADD RECIPIENT NOW']")
 	private MobileElement AddRecipientNowButton;
 	
-	@ElementDescription(value = "Local Transfer & Pay Now Page Header")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Local Transfer & PayNow']")
-	private MobileElement LocalTransferPayNowPageHeader;
 	
-	@ElementDescription(value = "Select Bank Account")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Bank Account']")
-	private MobileElement SelectBankAccount;
+	
 	
 	@ElementDescription(value = "'Enter Recipient's Details' Page Header")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Enter Recipient's Details']")
@@ -663,13 +624,7 @@ public class DBS_IOSObject {
 		return EnterRecipientDetailsPageHeader;
 	}
 	
-	public MobileElement SelectBankAccount() {
-		return SelectBankAccount;
-	}
 	
-	public MobileElement LocalTransferPayNowPageHeader() {
-		return LocalTransferPayNowPageHeader;
-	}
 	
 	public MobileElement AddRecipientNowButton() {
 		return AddRecipientNowButton;
@@ -679,9 +634,7 @@ public class DBS_IOSObject {
 		return AddLocalRecipientButton;
 	}
 	
-	public MobileElement LocalButton() {
-		return LocalButton;
-	}
+	
 
 	@ElementDescription(value = " 'backToMoreButton' button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='BACK TO MORE']")
@@ -809,29 +762,7 @@ public class DBS_IOSObject {
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='source_account_name']")
 	private MobileElement SelectFundSourcePage;
 	
-	@ElementDescription(value = "'Select Fund Source' Add Button.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='Select billing organisation']")
-	private MobileElement SelectBillingOrganisation;
 	
-	@ElementDescription(value = "'Search for a billing organisation' Edit Field.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeSearchField[@name='Search for a billing organisation']")
-	private MobileElement SearchForBillingOrganisationField;
-	
-	@ElementDescription(value = "'Enter reference no.' Edit Field.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='Enter reference no.']")
-	private MobileElement EnterReferenceNoEditField;
-	
-	public MobileElement  EnterReferenceNoEditField() {
-		return  EnterReferenceNoEditField;
-	}
-	
-	public MobileElement  SearchForBillingOrganisationField() {
-		return  SearchForBillingOrganisationField;
-	}
-	
-	public MobileElement  SelectBillingOrganisation() {
-		return  SelectBillingOrganisation;
-	}
 	
 	public MobileElement  SelectFundSourcePage() {
 		return  SelectFundSourcePage;
@@ -964,9 +895,7 @@ public class DBS_IOSObject {
 	private MobileElement BillsButton;
 
 	
-	@ElementDescription(value = "'Payee Bill Payment Details List'.")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell//XCUIElementTypeStaticText")
-	private List<MobileElement> PayeeBillPaymentDetailsList;
+	
 	
 	@ElementDescription(value = "'MAKE A PAYMENT' Button.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='MAKE A PAYMENT']")
@@ -1262,62 +1191,14 @@ public class DBS_IOSObject {
 		return  ReviewApplicationPageHeader;
 	}
 	////transection history label
-	@ElementDescription(value = "Transaction History label and button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Transaction History']")
-	private MobileElement transactionHistoryBtnLabel;
+	
+	
+	
+	
+	
+	
+	
 
-	public MobileElement  transactionHistoryBtnLabel() {
-		return  transactionHistoryBtnLabel;
-	}
-	@ElementDescription(value = "3 month option")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='3 Months']")
-	private MobileElement threeMonthOption;
-
-	public MobileElement  threeMonthOption() {
-		return  threeMonthOption;
-	}
-	@ElementDescription(value = "show button")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeButton[@name='SHOW'])[1]")
-	private MobileElement showButton;
-
-	public MobileElement  showButton() {
-		return  showButton;
-	}
-	@ElementDescription(value = "deposite option")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='fe'])[1]")
-	private MobileElement depositeOption;
-
-	public MobileElement  depositeOption() {
-		return  depositeOption;
-	}
-	@ElementDescription(value = "Account list in transaction history")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell/XCUIElementTypeStaticText[1]")
-	private List<MobileElement> accountListinTransectionHistory;
-
-	public List<MobileElement> accountListinTransectionHistory() {
-		return accountListinTransectionHistory;
-	}
-	@ElementDescription(value = "select currency title")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Select Currency']")
-	private MobileElement selectCurrencyTitle;
-
-	public MobileElement  selectCurrencyTitle() {
-		return  selectCurrencyTitle;
-	}
-	@ElementDescription(value = "currency list in transaction history")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell/XCUIElementTypeStaticText")
-	private List<MobileElement> currencyListinTransectionHistory;
-
-	public List<MobileElement> currencyListinTransectionHistory() {
-		return currencyListinTransectionHistory;
-	}
-	@ElementDescription(value = "Transaction History final title")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[1])[2]")
-	private MobileElement transactionHistoryfinalheaderTitle;
-
-	public MobileElement  transactionHistoryfinalheaderTitle() {
-		return  transactionHistoryfinalheaderTitle;
-	}
 	@ElementDescription(value = "transaction history list")
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[2])[2]")
 	private List<MobileElement> transectionHistoryList;
@@ -1613,55 +1494,14 @@ public class DBS_IOSObject {
 		return  searchBoxInPayAndTransfer;
 	}
 	//////
-	@ElementDescription(value = "Temporary Limit Increase header")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Temporary Limit Increase']")
-	private MobileElement temporaryLimitIncreaseHeader;
+	
+	
 
-	public MobileElement  temporaryLimitIncreaseHeader() {
-		return  temporaryLimitIncreaseHeader;
-	}
-	@ElementDescription(value = "Additional credit limit")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Some placeholder'])[1]/following-sibling::XCUIElementTypeTextField[1]")
-	private MobileElement additionalCreditLimit;
+	
+	
 
-	public MobileElement  additionalCreditLimit() {
-		return  additionalCreditLimit;
-	}
-	@ElementDescription(value = "duration credit limit")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Some placeholder'])[2]/following-sibling::XCUIElementTypeTextField[1]")
-	private MobileElement durationCreditLimit;
 
-	public MobileElement  durationCreditLimit() {
-		return  durationCreditLimit;
-	}
-	@ElementDescription(value = "purpose credit limit")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Some placeholder'])[3]/following-sibling::XCUIElementTypeTextField[1]")
-	private MobileElement purposeCreditLimit;
-
-	public MobileElement  purposeCreditLimit() {
-		return  purposeCreditLimit;
-	}
-	@ElementDescription(value = "Calender Temporary Limit Increase header")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pick Date']")
-	private MobileElement calenderTemporaryLimitIncreaseHeader;
-
-	public MobileElement  calenderTemporaryLimitIncreaseHeader() {
-		return  calenderTemporaryLimitIncreaseHeader;
-	}
-	@ElementDescription(value = "Calender date 11 oct")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='calendarDayCell.TextLabel_11_selected']")
-	private MobileElement calenderDateOctEleven;
-
-	public MobileElement  calenderDateOctEleven() {
-		return  calenderDateOctEleven;
-	}
-	@ElementDescription(value = "confirm button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Confirm']")
-	private MobileElement confirmButton;
-
-	public MobileElement  confirmButton() {
-		return  confirmButton;
-	}
+	
 	@ElementDescription(value = "confirm button 2")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='CONFIRM']")
 	private MobileElement confirmButton2;
@@ -1675,13 +1515,6 @@ public class DBS_IOSObject {
 
 	public MobileElement  reviewApplicationHeader() {
 		return  reviewApplicationHeader;
-	}
-	@ElementDescription(value = "Select a Purpose")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Select a Purpose']")
-	private MobileElement selectPurpose;
-
-	public MobileElement  selectPurpose() {
-		return  selectPurpose;
 	}
 
 	public MobileElement TitleField() { 
@@ -1726,9 +1559,6 @@ public class DBS_IOSObject {
 		return  PayToBillerPageHeader;
 	}
 	
-	public List<MobileElement> PayeeBillPaymentDetailsList() { 
-		return  PayeeBillPaymentDetailsList;
-	}
 	
 	public MobileElement BillsButton() {
 		return  BillsButton;

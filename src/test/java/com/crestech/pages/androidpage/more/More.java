@@ -202,10 +202,10 @@ public class More extends CommonAppiumTest{
 			} else
 				Asserts.assertFail(expectedModule + " not found in the list as list size is 0");
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Select 'Temporary Credit Limit Increase' Module ",
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select 'Temporary Credit Limit Increase' Module ",
 					e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Select 'Temporary Credit Limit Increase' Module ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select 'Temporary Credit Limit Increase' Module ", e);
 		}
 	}
 	

@@ -492,15 +492,44 @@ public class CommonAppiumTest extends CommandPrompt {
 					return element;
 				} else
 					Asserts.assertFail(elementTextToBeVerified + " not found in the list as list size is 0");
-			//} catch (HandleException e) {
-				//obj_handleexception.throwHandleException("ELEMENTNOTINLIST_EXCEPTION"," Failed to get Element :: " + elementTextToBeVerified , e);
+		
 			} catch (Exception e) {
-				//obj_handleexception.throwException("ELEMENTNOTINLIST_EXCEPTION", " Failed to get Element :: " + elementTextToBeVerified, e);
 			throw e;
 			}
 			return element;
 		}
 	
-	
+		public void SelectModuleAfterSearch(String searchBoxData, String expectedModule, MobileElement searchIcon, MobileElement searchBox) throws Exception {
+			try {
+				clickOnElement(searchIcon);
+				enterTextInTextbox(searchBox, searchBoxData);
+
+				List<RemoteWebElement> ElementCell = driver.findElementsByXPath("//XCUIElementTypeCell");
+				if (ElementCell.size() > 0) {
+					int sizeList = ElementCell.size();
+					int index = 0;
+					for (int i = 1; i <= sizeList; i++) {
+
+						String xpath = "//XCUIElementTypeCell" + "[" + String.valueOf(i) + "]/XCUIElementTypeStaticText";
+						String Text = driver.findElementByXPath(xpath).getText();
+						System.out.println(Text);
+						if (Text.equalsIgnoreCase(expectedModule)) {
+							index++;
+							clickOnElement((MobileElement) driver.findElementByXPath(xpath));
+							break;
+						}
+					}
+						if (index == 0)
+							Asserts.assertFail(expectedModule + " No element found in the list");
+				} else
+					Asserts.assertFail(expectedModule + " not found in the list as list size is 0");
+			} catch (HandleException e) {
+				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+						" Failed to Select Module After Search ", e);
+			} catch (Exception e) {
+				obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+						" Failed to Select Module After Search ", e);
+			}
+		}
 
 }

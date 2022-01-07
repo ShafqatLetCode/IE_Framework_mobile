@@ -522,9 +522,7 @@ public class localModule extends CommonAppiumTest{
 	@Step("Click On Add Local Recipient Button.")
 	public void clickOnAddLocalRecipientBtn() throws Exception {
 		try {
-			String xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0)
+			if (isElementVisible2(AddRecipientNowBtn)) 
 				clickOnElement(AddRecipientNowBtn);
 			else
 				clickOnElement(AddLocalRecipient);
