@@ -1,11 +1,14 @@
 package com.crestech.pages.iospage.more;
 
 import java.time.Duration;
+import java.util.List;
+
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
+import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
@@ -50,6 +53,75 @@ public class More extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Transaction History']")
 	private MobileElement transactionHistoryBtnLabel;
 
+	@ElementDescription(value = "'HOME' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Home']")
+	private MobileElement HOMEButton;
+	
+	@ElementDescription(value = "Logout button on paylah")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='LOG OUT']")
+	private MobileElement logoutpeekbalance;
+	
+	@Step("Select Update Contact Details After Search.")
+	public void SelectUpdateContactDetails(String valueSelectedFromList, String searchBoxData, String valueSelectedFromList2) throws Exception {
+		try {
+			clickOnElementOnEnable(searchIcon);
+	        enterTextInTextbox(searchBox, searchBoxData); 
+			
+			List<RemoteWebElement> ElementCell = driver.findElementsByXPath("//XCUIElementTypeCell");
+			if(ElementCell.size() > 0) {
+			int sizeList = ElementCell.size();
+			int index = 0;
+			for (int i = 1; i <= sizeList; i++) {
+
+				String xpath = "//XCUIElementTypeCell" + "[" + String.valueOf(i) + "]/XCUIElementTypeStaticText";
+				String Text = driver.findElementByXPath(xpath).getText();
+				System.out.println(Text);
+				if (Text.equalsIgnoreCase(valueSelectedFromList)) {
+					index++;
+					clickOnElement((MobileElement) driver.findElementByXPath(xpath));
+					break;
+				}else if (Text.equalsIgnoreCase(valueSelectedFromList2)) {  
+					index++;
+					clickOnElement((MobileElement) driver.findElementByXPath(xpath)); 
+					break;
+				} 
+			}
+			Asserts.assertTrue(index > 0, "No "+valueSelectedFromList +"element found in the search list");
+			}
+			else 
+				Asserts.assertFail(valueSelectedFromList + " not found in the list as list size is 0");
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select 'Update Contact Details' Module. ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select 'Update Contact Details' Module.  ", e);
+		}
+	}
+	
+	@Step("Select Peek Balance Module After Search.")
+	public void SelectPeekBalanceModule() throws Exception {
+		try {
+			SelectModuleAfterSearch("Peek", CommonTestData.PEEK_BALANCE.getEnumValue(),searchIcon,searchBox);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Peek balance Module. ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Peek balance Module.  ", e);
+		}
+	}
+
+	@Step("Application Logout")
+	public void clickOnLogoutButton() throws Exception {
+		try {
+			clickOnElement(logoutpeekbalance);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Log out Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On log out Button ", e);
+		}
+	}
+
 	
 	@Step("Click on 'Transaction History' Button")
 	public void ClickOnTransactionHistory() throws Exception {
@@ -71,6 +143,56 @@ public class More extends CommonAppiumTest{
 					e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select 'Temporary Credit Limit Increase' Module ", e);
+		}
+	}
+	
+	@Step("Select 'Cards' Module")
+	public void SelectCardsModule() throws Exception {
+		try {
+			SelectModuleAfterSearch("Cards", "Cards",searchIcon,searchBox);
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select 'Cards' Module ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select 'Cards' Module ", e);
+		}
+	}
+	
+	@Step("Click on 'Home' Button.")
+	public void ClickOnHomeButton() throws Exception {
+		try {
+			clickOnElement(HOMEButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button ", e);
+		}
+	}
+	
+	@Step("Select 'Local Transfer Limit' Module")
+	public void SelectLocalTransferLimitModule()throws Exception {
+		try {
+			SelectModuleAfterSearch(
+					CommonTestData.LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS.getEnumValue(),
+					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),searchIcon,searchBox);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Select 'Temporary Credit Limit Increase' Module ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Select 'Temporary Credit Limit Increase' Module ", e);
+		}
+	}
+	
+	@Step("Click On Deposit Accounts Module.")
+	public void ClickOnDepositAccountModule() throws Exception {
+		try {
+			SelectModuleAfterSearch("Deposit", "Deposit Accounts",searchIcon,searchBox);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On Deposit Accounts Module. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deposit Accounts Module. ",
+					e);
 		}
 	}
 	

@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
+import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 import com.crestech.pages.androidpage.launchPage;
@@ -63,6 +64,41 @@ public class preloginPage extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='LOG IN']")
 	private MobileElement logInButton_launchPage;
 	
+	@ElementDescription(value = "Tap and hold to PEEK BALANCE")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Tap and hold to PEEK BALANCE']")
+	private MobileElement peekBalance;
+	
+	
+	@Step("Verify Visibility of Peek Balance on Login Page.")
+	public void VerifyPeekBalanceEnabilityOnLogInPage(String peekBalanceSubtitle) throws Exception {
+		try {
+			Thread.sleep(20000); 
+			String peekbalance  = getTexOfElement(peekBalance);
+			System.out.println("peekbalance:: " +peekbalance);
+			wait.waitForElementVisibility(peekBalance);
+			Asserts.assertEquals(getTexOfElement(peekBalance).toLowerCase(), peekBalanceSubtitle.toLowerCase(),
+					peekBalanceSubtitle + " Text is not matching.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify visibility of Peek Balance On Login page. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify visibility of Peek Balance On Login page. ", e);
+		}
+	}
+	
+	@Step("Tap And Hold to Peek Balance On the Login Page.")
+	public void TapAndHoldPeekBalance() throws Exception {
+		try {
+			gestUtils.longPressOnAndroidElement(peekBalance);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Tap And Hold On Peek Balance. ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Tap And Hold On Peek Balance. ", e);
+		}
+	}
+	
 	@Step("Click On Login Button On Launch Page")
 	public void ClickOnLoginButtonOnLaunchPage() throws Exception {
 		try {
@@ -86,6 +122,17 @@ public class preloginPage extends CommonAppiumTest{
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
+		}
+	}
+	
+	@Step("Click On LogIn Button.")
+	public void ClickOnLoginButtonAfterEnablePeekBalance() throws Exception {
+		try {
+			clickOnElement(logInButton_OnPreloginPage);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On LogIn Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On LogIn Button  ", e);
 		}
 	}
 	

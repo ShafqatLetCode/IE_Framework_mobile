@@ -333,9 +333,7 @@ public class creditCard extends CommonAppiumTest{
 	@Step("'Select Fund Source Account' If User has multiple accounts.")
 	public void SelectFundSourceAccount(String expectedSourceAccount) throws Exception {
 		try {
-			String xpath = "//android.widget.TextView[@text='Select Fund Source']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0) {
+			if (isElementVisible2(SelectFundSourceText)) { 
 				clickOnElement(SelectFundSourceText);
 
 				int selectedAccount = 0;

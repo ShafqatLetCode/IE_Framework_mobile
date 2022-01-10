@@ -3,6 +3,7 @@ package com.crestech.pages.iospage;
 import java.time.Duration;
 
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.crestech.annotation.values.ElementDescription;
@@ -43,6 +44,33 @@ public class loginPage extends CommonAppiumTest{
 	@ElementDescription(value = "User Pin EditBox")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeSecureTextField[@value='PIN']")
 	private MobileElement userPinEditBox;
+	
+	@ElementDescription(value = "Not you?")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Not you?']")
+	private MobileElement NotYouLink;
+	
+	@ElementDescription(value = "Deregister your profile?")
+	@FindBy(name = "Deregister your profile?")
+	private MobileElement DeregisteryourprofileAlert;
+	
+	@ElementDescription(value = "Not you?")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Deregister']")
+	private MobileElement PeekbalanceDeregisterButton;
+
+	@Step("Click On Deregister Button.")
+	public void ClickOnDeregisterButtonInDigiAlertPopup(String peekBalanceDeregisterMsg) throws Exception {
+		try {
+			if (isElementVisible2(DeregisteryourprofileAlert))
+				clickOnElement(PeekbalanceDeregisterButton);
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deregister Button ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deregister Button  ", e);
+		}
+	}
+	
 	
 	@Step("Click on Login button")
 	public void clickOnLoginButton() throws Exception {
@@ -87,6 +115,18 @@ public class loginPage extends CommonAppiumTest{
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Password ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Password ", e);
+		}
+	}
+	
+	@Step("Click On Not You Link Button.")
+	public void ClickOnNOTYouLink() throws Exception {
+		try {
+			if(isElementVisible2(NotYouLink))
+				clickOnElement(NotYouLink);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button  ", e);
 		}
 	}
 	

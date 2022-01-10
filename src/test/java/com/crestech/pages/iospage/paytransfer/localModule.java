@@ -132,6 +132,50 @@ public class localModule extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='FT_Amount_Field']")
 	private MobileElement amountField;
 	
+	@ElementDescription(value = "TRANSFER NOW button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='TRANSFER NOW']")
+	private MobileElement transferNowButton;
+	
+	@ElementDescription(value = "Transferred title")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Transferred'])[1]")
+	private MobileElement transferredTitle;
+	
+	@ElementDescription(value = " expand button 2")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='arrowDown']")
+	private MobileElement expandButton;
+	
+	@ElementDescription(value = "Reference No.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Reference No.']")
+	private MobileElement referenceNo;
+
+	@Step("Verify 'Transferred' Message And Generated Reference Number")
+	public void verifyTransferredAndReferenceNumberField() throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(transferredTitle).trim().toLowerCase(), CommonTestData.TRANSFER_TITLE.getEnumValue().toLowerCase(),CommonTestData.TRANSFER_TITLE.getEnumValue()+ " text is not matching.");
+			clickOnElement(expandButton);
+			gestUtils.scrollUPtoObjectIos("name", "Reference No.", null);
+			Asserts.assertEquals(getTexOfElement(referenceNo).trim().toLowerCase(), CommonTestData.REFERENCE_NUMBER.getEnumValue().toLowerCase(),CommonTestData.REFERENCE_NUMBER.getEnumValue()+ " text is not matching.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify page header and generated reference number ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify page header and generated reference number   ", e);
+		}
+	}
+
+	@Step(" Click on 'TRANSFER NOW' Button")
+	public void ClickTransferNowButton() throws Exception {
+		try {
+			clickOnElement(transferNowButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click on 'TRANSFER NOW' Button", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click on 'TRANSFER NOW' Button ", e);
+		}
+	}
 	
 	// If User has multiple accounts then select fund source account
 	@Step("'Select Fund Source Account' If User has multiple accounts.")
@@ -164,7 +208,6 @@ public class localModule extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
 					" Failed to Select Fund Source' and Select Account ", e);
 		}
-
 	}
 	
 	@Step("Handle 'Primary Source Of Fund' Popup.")

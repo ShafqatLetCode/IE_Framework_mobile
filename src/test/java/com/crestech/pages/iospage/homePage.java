@@ -3,14 +3,12 @@ package com.crestech.pages.iospage;
 import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.AndroidAlert;
 import com.crestech.common.utilities.Asserts;
-import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 import io.appium.java_client.AppiumDriver;
@@ -154,7 +152,10 @@ public class homePage extends CommonAppiumTest{
 	@ElementDescription(value = "More button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='More']")
 	private MobileElement moreButton;
-
+	
+	public MobileElement accountNameHomepage() { 
+		return accountNameHomepage;
+	}
 	
 	@Step("Click on More Button.")
 	public void ClickOnMoreButton() throws Exception {
@@ -166,6 +167,47 @@ public class homePage extends CommonAppiumTest{
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'More' button ", e);
 		}
+	}
+	
+	@Step("Get And Click On Deposite Account Name From Dashboard.")
+	public String getAndClickOnDepositeAccountNameFromDashboard() throws Exception {
+		try {
+			String DepositeAccountNameOnDashboard = accountNameHomepage.getText();
+			clickOnElement(accountNameHomepage);
+			return DepositeAccountNameOnDashboard;
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to get And Click On Deposite Account Name From Dashboard ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to get And Click On Deposite Account Name From Dashboard ", e);
+		}
+		return null;
+	}
+	
+	@Step("Click On Toolbar Back Icon.")
+	public void ClickOnToolBarBackIcon() throws Exception {
+		try {
+				String xpath = "//XCUIElementTypeButton[1]";
+				MobileElement back = (MobileElement) driver.findElement(By.xpath(xpath));
+				clickOnElement(back);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Toolbar Back Icon ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Toolbar Back Icon ", e);
+		}
+	}
+	
+	@Step("Get User Account Number")
+	public String GetUserAccountNumber() throws Exception {
+		try {
+			String getAccountNumber = driver.findElementByXPath("//XCUIElementTypeStaticText[2]").getText();
+			return getAccountNumber;
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Get User Account Number ", e);
+		}
+		return null;
 	}
 	
 	@Step("Click On 'Pay & Transfer' Button.")
