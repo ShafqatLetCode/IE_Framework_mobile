@@ -7,6 +7,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.Asserts;
@@ -14,6 +17,7 @@ import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -108,7 +112,7 @@ public class localModule extends CommonAppiumTest{
 	private MobileElement primarysourceOfFund;
 	
 	@ElementDescription(value = "OK Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
+	@AndroidFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
 	private MobileElement OKButton;
 	
 	@ElementDescription(value = "Select Fund Source list")
@@ -119,11 +123,6 @@ public class localModule extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Select Fund Source']")
 	private MobileElement selectfundSource;
 	
-	@ElementDescription(value = "SGD field")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='SGD'])[2]")
-	private MobileElement sgdText;
-	
-	
 	@ElementDescription(value = "Review Transfer")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Transfer']")
 	private MobileElement reviewTransfer;
@@ -132,13 +131,59 @@ public class localModule extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='FT_Amount_Field']")
 	private MobileElement amountField;
 	
+	@ElementDescription(value = "TRANSFER NOW button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='TRANSFER NOW']")
+	private MobileElement transferNowButton;
+	
+	@ElementDescription(value = "Transferred title")
+	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Transferred'])[1]")
+	private MobileElement transferredTitle;
+	
+	@ElementDescription(value = " expand button 2")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='arrowDown']")
+	private MobileElement expandButton;
+	
+	@ElementDescription(value = "Reference No.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Reference No.']")
+	private MobileElement referenceNo;
+
+	@Step("Verify 'Transferred' Message And Generated Reference Number")
+	public void verifyTransferredAndReferenceNumberField() throws Exception {
+		try {
+			Asserts.assertEquals(getTexOfElement(transferredTitle).trim().toLowerCase(), CommonTestData.TRANSFER_TITLE.getEnumValue().toLowerCase(),CommonTestData.TRANSFER_TITLE.getEnumValue()+ " text is not matching.");
+			clickOnElement(expandButton);
+			gestUtils.scrollUPtoObjectIos("name", "Reference No.", null);
+			Asserts.assertEquals(getTexOfElement(referenceNo).trim().toLowerCase(), CommonTestData.REFERENCE_NUMBER.getEnumValue().toLowerCase(),CommonTestData.REFERENCE_NUMBER.getEnumValue()+ " text is not matching.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify page header and generated reference number ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to verify page header and generated reference number   ", e);
+		}
+	}
+
+	@Step(" Click on 'TRANSFER NOW' Button")
+	public void ClickTransferNowButton() throws Exception {
+		try {
+			clickOnElement(transferNowButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click on 'TRANSFER NOW' Button", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click on 'TRANSFER NOW' Button ", e);
+		}
+	}
 	
 	// If User has multiple accounts then select fund source account
 	@Step("'Select Fund Source Account' If User has multiple accounts.")
 	public void SelectFundSourceAccount(String expectedSourceAccount) throws Exception {
 		try {
-			wait.fluentWaitForElement(sgdText);
-		
+			WebDriverWait wait = new WebDriverWait(driver, 60); 
+			wait.until(ExpectedConditions.or(
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 1")),
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 0"))));
 			if (isElementVisible2(selectfundSource)) {
 				clickOnElement(selectfundSource);
 				int selectedAccount = 0;
@@ -164,7 +209,6 @@ public class localModule extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
 					" Failed to Select Fund Source' and Select Account ", e);
 		}
-
 	}
 	
 	@Step("Handle 'Primary Source Of Fund' Popup.")

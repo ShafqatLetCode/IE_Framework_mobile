@@ -2,11 +2,8 @@ package com.crestech.pages.androidpage.more;
 
 import java.time.Duration;
 import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
-
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.Asserts;
@@ -14,7 +11,6 @@ import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 import com.crestech.pages.androidpage.enterPasscode;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -113,6 +109,7 @@ public class localTransferLimit extends CommonAppiumTest{
 		}
 	}
 
+	@Step("Handling Set Current Limit")
 	public String handlingSetCurrentLimit(String AmountToBeselected) throws Exception {
 		try {
 			String currentText = getTexOfElement(currentLimitTextButton);

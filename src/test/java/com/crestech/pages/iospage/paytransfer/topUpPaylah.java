@@ -3,6 +3,8 @@ package com.crestech.pages.iospage.paytransfer;
 import java.time.Duration;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
@@ -10,6 +12,7 @@ import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
@@ -45,10 +48,6 @@ public class topUpPaylah extends CommonAppiumTest{
 	@ElementDescription(value = "Done button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Done']")
 	private MobileElement doneButton;
-	
-	@ElementDescription(value = "SGD currency")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='SGD']")
-	private MobileElement sgdCurrency;
 	
 	@ElementDescription(value = "Amount Editbox")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@name='TopUp_Paylah_Amount_Field']")
@@ -119,7 +118,11 @@ public class topUpPaylah extends CommonAppiumTest{
 	@Step("Enter currency")
 	public void EnterCurrency(String text) throws HandleException {
 		try {
-			wait.fluentWaitForElement(sgdCurrency);
+			WebDriverWait wait = new WebDriverWait(driver, 60); 
+			wait.until(ExpectedConditions.or(
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 1")),
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 0"))));
+			
 			enterTextInTextbox(amountEditBox, text);
 			if(isElementVisible2(doneButton))
 				clickOnElement(doneButton);

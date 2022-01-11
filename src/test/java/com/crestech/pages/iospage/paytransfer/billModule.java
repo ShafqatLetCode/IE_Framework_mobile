@@ -116,6 +116,10 @@ public class billModule extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Pay to Biller']")
 	private MobileElement PayToBillerPageHeader;
 	
+	@ElementDescription(value = "'Pay To Biller' Page Header.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Pay to Biller']")
+	private MobileElement PayToBillerPageHeader2;
+	
 	@ElementDescription(value = "Log Out Button After adding Payee")
 	@FindBy(name = "Log Out")
 	private MobileElement LogoutBtn;
@@ -187,11 +191,16 @@ public class billModule extends CommonAppiumTest{
 		}
 	}
 	
+	
 	@Step("Verify 'Pay To Biller' Page Header")
 	public void VerifyPayToBillerPageHeader() throws Exception {
 		try {
-				wait.fluentWaitForElement(PayToBillerPageHeader);
+			Thread.sleep(3000);
+			if(isElementVisible2(PayToBillerPageHeader))
 				Asserts.assertTrue(isElementVisible(PayToBillerPageHeader),
+						CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Page Header not displaying.");
+			else if(isElementVisible2(PayToBillerPageHeader2))
+				Asserts.assertTrue(isElementVisible(PayToBillerPageHeader2),
 						CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue() + " Page Header not displaying.");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Verify 'Pay To Biller' Page Header ", e);

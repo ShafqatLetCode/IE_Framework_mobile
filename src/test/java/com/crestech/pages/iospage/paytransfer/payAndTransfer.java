@@ -85,7 +85,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	private List<MobileElement> allTabList;
 	
 	@ElementDescription(value = "OK Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
+	@AndroidFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
 	private MobileElement OKButton;
 	
 	@ElementDescription(value = "Primary source of fund")
@@ -96,6 +96,87 @@ public class payAndTransfer extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText")
 	private List<MobileElement> localRecipientsList;
 	
+	
+	@Step("Select 'To Account' From Your DBS POSB Account list.")
+	public void SelectToAccountFromYourDBSPOSBAccountlist(String ToOwnAccount) throws Exception {
+		try {
+			wait.waitForElementVisibility(SelectOwnAccount);
+			clickOnElement(SelectOwnAccount);
+
+			gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
+			 Dimension windowSize = driver.manage().window().getSize();
+				
+				int h = windowSize.getHeight();
+				int y1 = (int) (h * 0.2);
+				int y2 = (int) (h - y1);
+				int x = (int) ((windowSize.getWidth()) / 2);
+				
+				String s1 = driver.getPageSource();
+				int count = 0;
+				int index = 0;
+
+				while (count == 0 && index == 0) {
+					if (localRecipientsList.size() > 0) {
+						int length = localRecipientsList.size();
+						String LocalRecipientList = null;
+						if (length < 5) {
+							for (int i = 0; i < length; i++) {
+								LocalRecipientList = localRecipientsList.get(i).getText();
+								if (LocalRecipientList.equalsIgnoreCase(ToOwnAccount)) {
+									index++;
+									clickOnElement(localRecipientsList.get(i));
+									break;
+								}
+							}
+							// Exception Handling without scrolling case and no expected element found in
+							// the list then index ==0
+							if (index == 0 && count == 0)
+								Asserts.assertFail("Local Recipient " + ToOwnAccount
+										+ " not found in the list to initiate the fund transfer");
+							else
+								break;
+						} else
+
+							// Code will work :: When Need to scroll
+							for (int i = 0; i < length; i++) {
+								LocalRecipientList = localRecipientsList.get(i).getText();
+								if (LocalRecipientList.equalsIgnoreCase(ToOwnAccount) && isElementVisible2(localRecipientsList.get(i))) {
+									index++;
+									clickOnElement(localRecipientsList.get(i));
+									break;
+								}
+							}
+						if (index == 0) {
+							touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
+									.moveTo(element(allTab)).release().perform();
+
+							String s2 = driver.getPageSource();
+							if (s1.equals(s2) != true)
+								s1 = s2;
+							else
+								count = 1;
+						} else
+							break;
+
+						// Exception Handling in scrolling case and no expected element found in the
+						// list then index ==0, count ==1
+						if (count == 1 && index == 0)
+							Asserts.assertFail("Local Recipient " + ToOwnAccount
+									+ " not found in the list to initiate the fund transfer");
+
+					} else
+						Asserts.assertFail("No receipient Found in the Local recipient list");
+				}
+
+				handlingOfPrimarySourceOfFundPopup();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select To Account From Your DBS POSB Account list ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select To Account From Your DBS POSB Account list ", e);
+		}
+	}
 	
 	@Step("Select 'To Account' from local Recipient list.")
 	public void SelectToAccountFromLocalRecipient(String expectedLocalRecipient) throws Exception {
@@ -110,7 +191,6 @@ public class payAndTransfer extends CommonAppiumTest{
 			}
 			gestUtils.DragAndDropElementToElement(allTabList.get(o), allTab);
 			Dimension windowSize = driver.manage().window().getSize();
-			System.out.println("getSessionId :" + driver.getSessionId());
 
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
@@ -385,6 +465,30 @@ public class payAndTransfer extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab   ",e);
 		}
 	}
+	
+	@Step("Click on 'Credit Card' Option under All Tab")
+	public void ClickOnCreditCard() throws Exception {
+		try {
+			int o = 0;
+			for (int i = 0; i < allTabList.size(); i++) {
+				String tabText = allTabList.get(i).getText();
+				o++;
+				if (tabText.contains(CommonTestData.CREDIT_CARDS_TAB.getEnumValue())) {
+					clickOnElement(allTabList.get(i));
+					break;
+				}
+			}
+
+			gestUtils.DragAndDropElementToElement(allTabList.get(o), allTab);
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click on 'Credit Card' Option under All Tab ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click on 'Credit Card' Option under All Tab ", e);
+		}
+	}
 
 	@Step("Click On Overseas Module")
 	public void ClickOnOverseasModule() throws Exception {
@@ -398,5 +502,84 @@ public class payAndTransfer extends CommonAppiumTest{
 		}
 	}
 
+	
+	@Step("Select 'To Account' From Credit Card List")
+	public void SelectToAccountFromCreditCardList(String valueSelectedFromList) throws Exception {
+		try {
+			 Dimension windowSize = driver.manage().window().getSize();
+				
+				int h = windowSize.getHeight();
+				int y1 = (int) (h * 0.2);
+				int y2 = (int) (h - y1);
+				int x = (int) ((windowSize.getWidth()) / 2);
+				
+				String s1 = driver.getPageSource();
+				int count = 0;
+				int index = 0;
+
+				while (count == 0 && index == 0) {
+					if (localRecipientsList.size() > 0) {
+						int length = localRecipientsList.size();
+						String LocalRecipientList = null;
+						if (length < 5) {
+							for (int i = 0; i < length; i++) {
+								LocalRecipientList = localRecipientsList.get(i).getText();
+								if (LocalRecipientList.contains(valueSelectedFromList)) {
+									index++;
+									clickOnElement(localRecipientsList.get(i));
+									break;
+								}
+							}
+							// Exception Handling without scrolling case and no expected element found in
+							// the list then index ==0
+							if (index == 0 && count == 0)
+								Asserts.assertFail("Local Recipient " + valueSelectedFromList
+										+ " not found in the list to initiate the fund transfer");
+							else
+								break;
+						} else
+
+							// Code will work :: When Need to scroll
+							for (int i = 0; i < length; i++) {
+								LocalRecipientList = localRecipientsList.get(i).getText();
+								if (LocalRecipientList.contains(valueSelectedFromList) && isElementVisible2(localRecipientsList.get(i))) {
+									index++;
+									clickOnElement(localRecipientsList.get(i));
+									break;
+								}
+							}
+						if (index == 0) {
+							touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
+									.moveTo(element(allTab)).release().perform();
+
+							String s2 = driver.getPageSource();
+							if (s1.equals(s2) != true)
+								s1 = s2;
+							else
+								count = 1;
+						} else
+							break;
+
+						// Exception Handling in scrolling case and no expected element found in the
+						// list then index ==0, count ==1
+						if (count == 1 && index == 0)
+							Asserts.assertFail("card Recipient " + valueSelectedFromList
+									+ " not found in the list to initiate the fund transfer");
+
+					} else
+						Asserts.assertFail("No receipient Found in the Cards recipient list");
+				}
+
+			
+				handlingOfPrimarySourceOfFundPopup();
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select 'To Account' From Credit Card List ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select 'To Account' From Credit Card List ", e);
+		}
+	}
 
 }
