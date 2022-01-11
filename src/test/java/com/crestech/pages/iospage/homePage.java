@@ -69,6 +69,10 @@ public class homePage extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='logout']")
 	private MobileElement logOutButton;
 	
+	@ElementDescription(value = "logout Button iWealth")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='logout text']")
+	private MobileElement logOutButtoniWealth;
+	
 	@ElementDescription(value = "fingureprint alert message")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Set Up')]")
 	private MobileElement fingerpringAlertMessage;
@@ -382,9 +386,12 @@ public class homePage extends CommonAppiumTest{
 	}
 	
 	@Step("Click On logout Button")
-	public void ClickOnLogOutButton() throws Exception {
+	public void ClickOnLogOutButton(String app_Name) throws Exception {
 		try {
-			clickOnElement(logOutButton);
+			if(app_Name.equalsIgnoreCase("DBS"))
+				clickOnElement(logOutButton);
+			else if(app_Name.equalsIgnoreCase("iWEALTH"))
+				clickOnElement(logOutButtoniWealth);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On logout Button  ", e);
 		} catch (Exception e) {
@@ -393,13 +400,23 @@ public class homePage extends CommonAppiumTest{
 	}
 	
 	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
-	public void verifyAccountTypeNameCurrencyAmount(String AccountType, String AccountName, String currency)
+	public void verifyAccountTypeNameCurrencyAmount(String AccountType, String AccountName, String currency,String app_Name)
 			throws Exception {
 		try {
+			if(app_Name.equalsIgnoreCase("DBS"))
+			{
 			int x=getXCoordinateOfElement(welcomeToText);
 			int y=getYCoordinateOfElement(welcomeToText);
 			gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+150);
 			
+			}
+			else if(app_Name.equalsIgnoreCase("iWEALTH"))
+			{
+				int x=getXCoordinateOfElement(welcomeToTextIwealth);
+				int y=getYCoordinateOfElement(welcomeToTextIwealth);
+				gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+150);
+				
+			}
 			VerifyAccountType(AccountType);
 			VerifyAccountName(AccountName);
 			VerifyCurrency(currency);

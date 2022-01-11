@@ -71,6 +71,10 @@ public class creditCard extends CommonAppiumTest {
 	@ElementDescription(value = "Reference No.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Reference No.']")
 	private MobileElement referenceNo;
+	
+	@ElementDescription(value = "'TRANSFER NOW' Button.")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='TRANSFER NOW']")
+	private MobileElement TRANSFERNOWButton;
 
 	@ElementDescription(value = "Primary source of fund")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Primary source of fund']")
@@ -316,6 +320,17 @@ public class creditCard extends CommonAppiumTest {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify reference number ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify reference number ", e);
+		}
+	}
+	
+	@Step("Click On Transfer Now Button.")
+	public void ClickOnTransferNowButton() throws Exception {
+		try {
+			clickOnElement(TRANSFERNOWButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Transfer Now Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Transfer Now Button ", e);
 		}
 	}
 }

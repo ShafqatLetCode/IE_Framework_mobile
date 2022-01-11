@@ -75,7 +75,6 @@ public class More extends CommonAppiumTest{
 
 				String xpath = "//XCUIElementTypeCell" + "[" + String.valueOf(i) + "]/XCUIElementTypeStaticText";
 				String Text = driver.findElementByXPath(xpath).getText();
-				System.out.println(Text);
 				if (Text.equalsIgnoreCase(valueSelectedFromList)) {
 					index++;
 					clickOnElement((MobileElement) driver.findElementByXPath(xpath));
@@ -86,7 +85,8 @@ public class More extends CommonAppiumTest{
 					break;
 				} 
 			}
-			Asserts.assertTrue(index > 0, "No "+valueSelectedFromList +"element found in the search list");
+			if(index == 0)
+			Asserts.assertFail("No "+valueSelectedFromList +"element found in the search list");
 			}
 			else 
 				Asserts.assertFail(valueSelectedFromList + " not found in the list as list size is 0");
@@ -102,7 +102,7 @@ public class More extends CommonAppiumTest{
 	@Step("Select Peek Balance Module After Search.")
 	public void SelectPeekBalanceModule() throws Exception {
 		try {
-			SelectModuleAfterSearch("Peek", CommonTestData.PEEK_BALANCE.getEnumValue(),searchIcon,searchBox);
+			SelectModuleAfterSearch("Peek", CommonTestData.PEEK_BALANCE.getEnumValue());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Peek balance Module. ",
 					e);
@@ -137,7 +137,7 @@ public class More extends CommonAppiumTest{
 	@Step("Select 'Temporary Credit Limit Increase' Module")
 	public void SelectTemporaryCreditLimitIncreaseModule() throws Exception {
 		try {
-			SelectModuleAfterSearch(CommonTestData.TEMP_LIMIT_INCREASE_SEARCH.getEnumValue(), CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue(),searchIcon,searchBox);
+			SelectModuleAfterSearch(CommonTestData.TEMP_LIMIT_INCREASE_SEARCH.getEnumValue(), CommonTestData.TEMP_LIMIT_INCREASE.getEnumValue());
 		}catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select 'Temporary Credit Limit Increase' Module ",
 					e);
@@ -149,7 +149,7 @@ public class More extends CommonAppiumTest{
 	@Step("Select 'Cards' Module")
 	public void SelectCardsModule() throws Exception {
 		try {
-			SelectModuleAfterSearch("Cards", "Cards",searchIcon,searchBox);
+			SelectModuleAfterSearch("Cards", "Cards");
 		}catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select 'Cards' Module ",
 					e);
@@ -174,7 +174,7 @@ public class More extends CommonAppiumTest{
 		try {
 			SelectModuleAfterSearch(
 					CommonTestData.LOCAL_TRANSFER_LIMIT_SEARCHBOX_IOS.getEnumValue(),
-					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue(),searchIcon,searchBox);
+					CommonTestData.LOCAL_TRANSFER_LIMIT_LABEL.getEnumValue());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Select 'Temporary Credit Limit Increase' Module ",
 					e);
@@ -186,13 +186,47 @@ public class More extends CommonAppiumTest{
 	@Step("Click On Deposit Accounts Module.")
 	public void ClickOnDepositAccountModule() throws Exception {
 		try {
-			SelectModuleAfterSearch("Deposit", "Deposit Accounts",searchIcon,searchBox);
+			SelectModuleAfterSearch("Deposit", "Deposit Accounts");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Click On Deposit Accounts Module. ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deposit Accounts Module. ",
 					e);
+		}
+	}
+	
+	public void SelectModuleAfterSearch(String searchBoxData, String expectedModule) throws Exception {
+		try {
+			clickOnElementOnEnable(searchIcon);
+			wait.waitForElementVisibility(searchBox);
+			enterTextInTextbox(searchBox, searchBoxData); 
+
+			List<RemoteWebElement> ElementCell = driver.findElementsByXPath("//XCUIElementTypeCell");
+			if (ElementCell.size() > 0) {
+				int sizeList = ElementCell.size();
+				int index = 0;
+				for (int i = 1; i <= sizeList; i++) {
+
+					String xpath = "//XCUIElementTypeCell" + "[" + String.valueOf(i) + "]/XCUIElementTypeStaticText";
+					String Text = driver.findElementByXPath(xpath).getText();
+					System.out.println(Text);
+					if (Text.equalsIgnoreCase(expectedModule)) {
+						index++;
+						clickOnElement((MobileElement) driver.findElementByXPath(xpath));
+						break;
+					}
+				}
+					if (index == 0)
+						Asserts.assertFail(expectedModule + " No element found in the list");
+			} else
+				Asserts.assertFail(expectedModule + " not found in the list as list size is 0");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select Module After Search ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Select Module After Search ", e);
 		}
 	}
 	

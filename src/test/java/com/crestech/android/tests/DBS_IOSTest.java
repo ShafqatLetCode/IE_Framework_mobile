@@ -47,7 +47,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
 			DBSPgaeObject1.LogInApplication(userName, password);
-			DBSPgaeObject1.VerifyAccountDetailsCasaOnHomePage();
+			DBSPgaeObject1.VerifyAccountDetailsCasaOnHomePage(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
@@ -345,9 +345,9 @@ public class DBS_IOSTest extends UserBaseTest {
 	}
 
 	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 19, enabled = true, description = "Verifies Credit Card Temperory Limit Increase", dependsOnMethods = {
+	@Test(priority = 19, enabled = true, description = "CreditCardTempLimitIncrease-ONEAPP-16669", dependsOnMethods = {
 			"PreRequisiteScript" })
-	@Description(value = "Execution of this testcase:: CreditCardTempLimitIncrease-ONEAPP-16669")
+	@Description(value = "Execution of this testcase:: Verifies Credit Card Temperory Limit Increase")
 	@Author(name = "shafqat")
 	public void CreditCardTempLimitIncrease(String userName, String password, String app_Name) throws Exception {
 		try {
@@ -434,7 +434,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
 			DBSPgaeObject1.LogInApplication(userName, password);
-			DBSPgaeObject1.VerifyPeekBalance();
+			DBSPgaeObject1.VerifyPeekBalance(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());

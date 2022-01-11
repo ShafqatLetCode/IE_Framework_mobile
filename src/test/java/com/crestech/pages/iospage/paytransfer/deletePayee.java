@@ -86,6 +86,8 @@ public class deletePayee extends CommonAppiumTest{
 				int ExpectedTotalPayee = IiconList.size();
 				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
 					String actualPayee = payeeList.get(i).getText();
+					if (!isElementVisible2(payeeList.get(i)))
+						gesture.scrollUPtoObjectIos("name", ExpectedPayee, null);
 					if (actualPayee.equals(ExpectedPayee)) {
 						int index = i / 2;
 						ClickOnDeletePayeeToIcon(index);
@@ -98,57 +100,44 @@ public class deletePayee extends CommonAppiumTest{
 						break;
 					}
 				}
-
-			} else {
-				Dimension windowSize1 = driver.manage().window().getSize();
-				int y = (int) ((windowSize1.getHeight()) - 10);
-				int x = (int) ((windowSize1.getWidth()) / 2);
-				gesture.swipeCoordinatetoCoordinate(x, 20, x, y);
 			}
-
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee ", e);
 		}
 	}
-	
+
 	@Step("Delete Payee.")
 	public void DeletePayeeForRemittence(String ExpectedPayee) throws Exception {
 		try {
-			if(payeeList.size() > 0) {
+			if (payeeList.size() > 0) {
 				int ExpectedTotalPayeeSize = payeeList.size();
 				int ExpectedTotalPayee = IiconList.size();
 				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
-						String actualPayee = payeeList.get(i).getText();
-						System.out.println(i+ "actualPayee:: "+actualPayee);
-						if(actualPayee.equals(ExpectedPayee) ) {
-							int index=1+i;
-							ClickOnDeletePayeeToIcon_forPayeeRemittance(index);
-							ClickOnMoreOptionBtn();
-							ClickOnDeletePayeeBtn();
-							ClickOnYesBtn();
+					String actualPayee = payeeList.get(i).getText();
+					if (!isElementVisible2(payeeList.get(i)))
+						gesture.scrollUPtoObjectIos("name", ExpectedPayee, null);
 
-							//HandlingErrorPopupInDeletePayee();
-							ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedPayee);
-							wait.waitForElementVisibility(checkDBSRemitRate);
-							VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayee);
-							break;
-							}
+					if (actualPayee.equals(ExpectedPayee)) {
+						int index = 1 + i;
+						ClickOnDeletePayeeToIcon_forPayeeRemittance(index);
+						ClickOnMoreOptionBtn();
+						ClickOnDeletePayeeBtn();
+						ClickOnYesBtn();
+
+						// HandlingErrorPopupInDeletePayee();
+						ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedPayee);
+						wait.waitForElementVisibility(checkDBSRemitRate);
+						VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayee);
+						break;
 					}
+				}
 			}
-					else {
-						Dimension windowSize1 = driver.manage().window().getSize();
-						int y =(int)((windowSize1.getHeight())-10);
-						int x =(int)((windowSize1.getWidth())/2);
-						gesture.swipeCoordinatetoCoordinate(x,20,x,y);
-					}
-			
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee ",e);		
-		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee ",e);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Delete Payee ", e);
 		}
 	}
 	

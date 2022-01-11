@@ -85,7 +85,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	private List<MobileElement> allTabList;
 	
 	@ElementDescription(value = "OK Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
+	@AndroidFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
 	private MobileElement OKButton;
 	
 	@ElementDescription(value = "Primary source of fund")

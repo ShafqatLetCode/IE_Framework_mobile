@@ -151,7 +151,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		try {
 			homepage.VerifyWelcomeMessagesOnDashboardPage(CommonTestData.WELCOME.getEnumValue(),
 					CommonTestData.DIGIBANK.getEnumValue(), CommonTestData.DBS_DIGIBANK.getEnumValue(), app_Name);
-			homepage.ClickOnLogOutButton();
+			homepage.ClickOnLogOutButton(app_Name);
 			ratingpage.verifyTapOnTheStarsToRate(CommonTestData.RATE_MESSAGE.getEnumValue());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Verify Logout the application  ",
@@ -385,6 +385,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			creditcard.VerifyImmediateText(CommonTestData.IMMEDIATE_TEXT.getEnumValue());
 			creditcard.ClickOnNEXTButton();
 			creditcard.verifyReviewPaymentPageHeader();
+			creditcard.ClickOnTransferNowButton();
 			creditcard.VerifyDetailsAfterSubmitPayment();
 			creditcard.VerifySomeDetailsAfterCreditCardFundTransfer();
 
@@ -474,17 +475,21 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 
 	@Step("verify Account Details On Home Page")
-	public void VerifyAccountDetailsCasaOnHomePage() throws Exception {
+	public void VerifyAccountDetailsCasaOnHomePage(String app_Name) throws Exception {
 		try {
-			homepage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue(),
-					CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(), CommonTestData.CURRENCY.getEnumValue());
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
-					" Failed to Verify the account detail on dashboard page  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("TESTCASE_EXCEPTION",
-					" Failed to Verify the account detail on dashboard page  ", e);
+			if(app_Name.equalsIgnoreCase("DBS"))
+				homepage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue(),
+					CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(), CommonTestData.CURRENCY.getEnumValue(), app_Name);
+			else if(app_Name.equalsIgnoreCase("iWEALTH"))
+				homepage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE_IWEALTH.getEnumValue(),
+						CommonTestData.ACCOUNT_NAME_HOME_IWEALTH.getEnumValue(), CommonTestData.CURRENCY.getEnumValue(), app_Name);
 		}
+			catch (HandleException e) {	
+				obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Verify the account detail on dashboard page  ",e);			
+			}
+			catch (Exception e) {			
+				obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Verify the account detail on dashboard page  ",e);
+			}
 	}
 
 	@Step("Verifies Remittance Corridor")
@@ -681,6 +686,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			bill.VerifyImmediateText(CommonTestData.IMMEDIATE_TEXT.getEnumValue());
 			bill.ClickOnNEXTButton();
 			bill.VerifyReviewPaymentPageHeader();
+			bill.ClickOnTransferNowButton();
 			bill.VerifyDetailsAfterSubmitPayment();
 
 			// Leave On Home Page to this test case for next run.
@@ -759,11 +765,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 
 	@Step("Verify Peek Balance.")
-	public void VerifyPeekBalance() throws Exception {
+	public void VerifyPeekBalance(String appName) throws Exception {
 		try {
-			homepage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue(),
-					CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(), CommonTestData.CURRENCY.getEnumValue());
-
+			
+			VerifyAccountDetailsCasaOnHomePage(appName); 
+	
 			if (isElementVisible2(homepage.accountNameHomepage())) {
 				String DepositeAccountNameOnDashboard = homepage.getAndClickOnDepositeAccountNameFromDashboard();
 				enterpasscode.EnterPasscodeAndDone();

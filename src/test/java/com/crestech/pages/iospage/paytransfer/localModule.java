@@ -7,6 +7,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.Asserts;
@@ -14,6 +17,7 @@ import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -108,7 +112,7 @@ public class localModule extends CommonAppiumTest{
 	private MobileElement primarysourceOfFund;
 	
 	@ElementDescription(value = "OK Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
+	@AndroidFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
 	private MobileElement OKButton;
 	
 	@ElementDescription(value = "Select Fund Source list")
@@ -118,11 +122,6 @@ public class localModule extends CommonAppiumTest{
 	@ElementDescription(value = "Select Fund Source")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Select Fund Source']")
 	private MobileElement selectfundSource;
-	
-	@ElementDescription(value = "SGD field")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='SGD'])[2]")
-	private MobileElement sgdText;
-	
 	
 	@ElementDescription(value = "Review Transfer")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Transfer']")
@@ -181,8 +180,10 @@ public class localModule extends CommonAppiumTest{
 	@Step("'Select Fund Source Account' If User has multiple accounts.")
 	public void SelectFundSourceAccount(String expectedSourceAccount) throws Exception {
 		try {
-			wait.fluentWaitForElement(sgdText);
-		
+			WebDriverWait wait = new WebDriverWait(driver, 60); 
+			wait.until(ExpectedConditions.or(
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 1")),
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 0"))));
 			if (isElementVisible2(selectfundSource)) {
 				clickOnElement(selectfundSource);
 				int selectedAccount = 0;
