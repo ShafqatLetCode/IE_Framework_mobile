@@ -432,7 +432,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 						.AccountNameToCheckTransactionHistory(CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue());
 
 			transactionhistory.ValadateTransactionHistoryListInThreeMonth();
-			transactionhistory.BackToHomeFromTransactionHistory();
+			//transactionhistory.BackToHomeFromTransactionHistory();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify transaction history ", e);
 		} catch (Exception e) {
@@ -453,10 +453,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			String ExpectedFromBankName = null;
 			if (appname.equals("DBS")) {
 				ExpectedFromBankName = CommonTestData.SOURCE_ACCOUNT_NAME.getEnumValue();
-				local.SelectFundSourceAccount(ExpectedFromBankName);
+				local.SelectFundSourceAccount(ExpectedFromBankName,appname);
 			} else if (appname.equals("iWEALTH")) {
 				ExpectedFromBankName = CommonTestData.SOURCE_ACCOUNT_NAME_iWEALTH.getEnumValue();
-				local.SelectFundSourceAccount(ExpectedFromBankName);
+				local.SelectFundSourceAccount(ExpectedFromBankName,appname);
 			}
 
 			local.enterAmountAndVerifySgdCurrency(CommonTestData.AMOUNT_FUNDTRANSFER.getEnumValue());
@@ -649,7 +649,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.SelectAllTAB();
 			paytransfer.SelectToAccountFromYourDBSPOSBAccountlist(
-					CommonTestData.FUNDTRANSFER_TO_OWN_ACCOUNT_NUMBER.getEnumValue());
+					CommonTestData.FUNDTRANSFER_TO_OWN_ACCOUNT_NAME.getEnumValue());
 			ownAccount.verifyTransferToYourAccountPageHeader();
 			String ExpectedFromAccountName = CommonTestData.FUNDTRANSFER_FROM_OWN_ACCOUNT_NAME.getEnumValue();
 			ownAccount.SelectFundSourceAccount(ExpectedFromAccountName);
@@ -781,8 +781,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				enterpasscode.EnterPasscodeAndDone();
 				more.SelectPeekBalanceModule();
 				enterpasscode.EnterPasscodeAndDone();
-				peekbalance
-						.handleConfirmationMessage(CommonTestData.EXISTING_PEEKBALANCE_ENABLE_MESSAGE.getEnumValue());
+				peekbalance.handleConfirmationMessage();
 				peekbalance.EnablePeekBalanceToggle();
 				peekbalance.SelectAccountToEnablePeekBalance(CommonTestData.USER_ACCOUNT_NAME.getEnumValue());
 
@@ -840,7 +839,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			updateContactdetails.ClickOnNextButton();
 			gestUtils.scrollUPtoObjectIos("name", "CONFIRM", null);
 			updateContactdetails.ClickOnNextButton();
-			enterpasscode.EnterPasscodeAndDone();
+			enterpasscode.EnterPasscode();
 			updateContactdetails.verifySuccessfullyUpdatedMessage(appName);
 
 			// Verify Final Result after go through on Personal Details Page.
@@ -906,9 +905,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				alertMessage = this.driver.switchTo().alert().getText();
 				Asserts.assertFail(alertMessage);
 
-			} else
+			} else {
+				wait.ImplicitlyWait(10);
 				verifyWaitForPageLoad();
-
+			}
 		} catch (Exception e) {
 			obj_handleexception.throwException("DIGIBANK_ALERT",
 					" Failed to proceed because of DIGI BANK ALERT " + alertMessage, e);

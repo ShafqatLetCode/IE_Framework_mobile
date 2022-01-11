@@ -137,6 +137,10 @@ public class homePage extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Welcome to digibank for Wealth Management']")
 	private MobileElement managementAlertMsg;
 	
+	@ElementDescription(value = "GET STARTED Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='GET STARTED']")
+	private MobileElement GET_STARTED_Button;
+	
 	@ElementDescription(value = "'Welcome to' textfield")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Welcome to']")
 	private MobileElement welcomeToTextIwealth;
@@ -259,7 +263,9 @@ public class homePage extends CommonAppiumTest{
 				int x1 = getXCoordinateOfElement(swipeButton);
 				int y1 = getYCoordinateOfElement(swipeButton);
 				gestUtils.swipeCoordinatetoCoordinate(x1, y1, x2, y2);
-			}
+			} else if(app_Name.equalsIgnoreCase("iWEALTH") && isElementVisible2(GET_STARTED_Button)) 
+				clickOnElement(GET_STARTED_Button); 
+			
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handling of 'Welcome to digibank for Wealth Management' message  ", e);
 		} catch (Exception e) {

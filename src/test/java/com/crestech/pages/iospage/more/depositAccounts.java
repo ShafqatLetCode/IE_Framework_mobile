@@ -249,11 +249,11 @@ public class depositAccounts extends CommonAppiumTest{
 			int index = 0;
 			String accountFromList = null;
 			if (elementList.size() > 0) {
-				for (int i = 0; i <= elementList.size(); i++) {
+				for (int i = 0; i < elementList.size(); i++) {
 					accountFromList = elementList.get(i).getText();
 					if (accountFromList.contains(elementToBeSelected)) {
-						index++;
 						clickOnElement(elementList.get(i));
+						index++;
 						break;
 					}
 				}
@@ -264,10 +264,10 @@ public class depositAccounts extends CommonAppiumTest{
 				Asserts.assertFail(
 						"The " + ElementName + " " + elementToBeSelected + " not found in the list as list size is 0");
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("ELEMENTNOTINLIST_EXCEPTION",
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to select the " + ElementName + " " + elementToBeSelected + " from the list", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("ELEMENTNOTINLIST_EXCEPTION",
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
 					" Failed to select the " + ElementName + " " + elementToBeSelected + " from the list ", e);
 		}
 	}

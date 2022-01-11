@@ -61,16 +61,20 @@ public class peekBalance extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeSwitch[@name='Peek Balance']")
 	private MobileElement PeekBalanceToggle;
 	
+//	@ElementDescription(value = "Account For Peek Balance Dropdown")
+//	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell[2]/XCUIElementTypeTextField")
+//	private MobileElement AccountForPeekBalanceDropdown;
+	
 	@ElementDescription(value = "Account For Peek Balance Dropdown")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeCell[2]/XCUIElementTypeTextField")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='See your account balance and last three transactions without logging in. Learn more']/preceding-sibling::XCUIElementTypeCell[1]")
 	private MobileElement AccountForPeekBalanceDropdown;
 	
 	@ElementDescription(value = "Existing Personalization will be removed, Do you want to proceed?")
-	@FindBy(name = "Existing Personalization will be removed, Do you want to proceed?")
+	@FindBy(name = "Existing Personalisation will be removed. Do you want to proceed?")
 	private MobileElement persoanliseMessage;
 	
 	@Step("Handle Confirmation Message")
-	public void handleConfirmationMessage(String message) throws Exception{
+	public void handleConfirmationMessage() throws Exception{
 		try {
 			if (isElementVisible2(persoanliseMessage)) 
 				clickOnElement(alertOkButton);

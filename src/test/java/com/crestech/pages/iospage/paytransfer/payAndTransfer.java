@@ -122,7 +122,7 @@ public class payAndTransfer extends CommonAppiumTest{
 						if (length < 5) {
 							for (int i = 0; i < length; i++) {
 								LocalRecipientList = localRecipientsList.get(i).getText();
-								if (LocalRecipientList.equalsIgnoreCase(ToOwnAccount)) {
+								if (LocalRecipientList.contains(ToOwnAccount)) {
 									index++;
 									clickOnElement(localRecipientsList.get(i));
 									break;
@@ -131,8 +131,8 @@ public class payAndTransfer extends CommonAppiumTest{
 							// Exception Handling without scrolling case and no expected element found in
 							// the list then index ==0
 							if (index == 0 && count == 0)
-								Asserts.assertFail("Local Recipient " + ToOwnAccount
-										+ " not found in the list to initiate the fund transfer");
+								Asserts.assertFail("Your DBS/POSB Accounts ' " + ToOwnAccount
+										+ " ' not found in the list to initiate the fund transfer");
 							else
 								break;
 						} else
@@ -140,7 +140,7 @@ public class payAndTransfer extends CommonAppiumTest{
 							// Code will work :: When Need to scroll
 							for (int i = 0; i < length; i++) {
 								LocalRecipientList = localRecipientsList.get(i).getText();
-								if (LocalRecipientList.equalsIgnoreCase(ToOwnAccount) && isElementVisible2(localRecipientsList.get(i))) {
+								if (LocalRecipientList.contains(ToOwnAccount) && isElementVisible2(localRecipientsList.get(i))) {
 									index++;
 									clickOnElement(localRecipientsList.get(i));
 									break;
@@ -161,8 +161,8 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Exception Handling in scrolling case and no expected element found in the
 						// list then index ==0, count ==1
 						if (count == 1 && index == 0)
-							Asserts.assertFail("Local Recipient " + ToOwnAccount
-									+ " not found in the list to initiate the fund transfer");
+							Asserts.assertFail("Your DBS/POSB Accounts ' " + ToOwnAccount
+									+ " ' not found in the list to initiate the fund transfer");
 
 					} else
 						Asserts.assertFail("No receipient Found in the Local recipient list");
@@ -185,7 +185,7 @@ public class payAndTransfer extends CommonAppiumTest{
 			for (int i = 0; i < allTabList.size(); i++) {
 				String tabText = allTabList.get(i).getText();
 				o++;
-				if (tabText.equalsIgnoreCase(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
+				if (tabText.equalsIgnoreCase(CommonTestData.CREDIT_CARDS.getEnumValue())) {
 					break;
 				}
 			}
@@ -533,8 +533,8 @@ public class payAndTransfer extends CommonAppiumTest{
 							// Exception Handling without scrolling case and no expected element found in
 							// the list then index ==0
 							if (index == 0 && count == 0)
-								Asserts.assertFail("Local Recipient " + valueSelectedFromList
-										+ " not found in the list to initiate the fund transfer");
+								Asserts.assertFail("Credit Cards ' " + valueSelectedFromList
+										+ " ' not found in the list to initiate the fund transfer");
 							else
 								break;
 						} else
@@ -563,8 +563,8 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Exception Handling in scrolling case and no expected element found in the
 						// list then index ==0, count ==1
 						if (count == 1 && index == 0)
-							Asserts.assertFail("card Recipient " + valueSelectedFromList
-									+ " not found in the list to initiate the fund transfer");
+								Asserts.assertFail("Credit Cards ' " + valueSelectedFromList
+										+ " ' not found in the list to initiate the fund transfer");
 
 					} else
 						Asserts.assertFail("No receipient Found in the Cards recipient list");

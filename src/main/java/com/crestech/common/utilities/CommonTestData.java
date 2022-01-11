@@ -8,9 +8,10 @@ public enum CommonTestData {
 	CURRENCY("SGD"),
 	ACCOUNT_SECTION("ACCOUNTS"),
 	
-	ACCOUNT_TYPE_IWEALTH("CPFIA/SRS Account"),
-	ACCOUNT_NAME_HOME_IWEALTH("SRS Account"),
-	
+//	ACCOUNT_TYPE_IWEALTH("CPFIA/SRS Account"),
+//	ACCOUNT_NAME_HOME_IWEALTH("SRS Account"),
+	ACCOUNT_TYPE_IWEALTH("Deposits"),
+	ACCOUNT_NAME_HOME_IWEALTH("DBS SAVINGS PLUS"),
 	
 	//Payee Add Local To Other Bank
 	LOCAL_RECIPIENT_NAME("Payee OtherBank"),
@@ -135,7 +136,7 @@ public enum CommonTestData {
 	PEEK_BALANCE_SUBTITLE("PEEK BALANCE"),
 	PEEK_BALANCE_SUBTITLE_IOS("Tap and hold to PEEK BALANCE"),
 	PEEK_BALANCE_DEREGISTER_MESSAGE("You will no longer enjoy benefits"),
-	EXISTING_PEEKBALANCE_ENABLE_MESSAGE("Existing Personalization will be removed, Do you want to proceed?"),
+	EXISTING_PEEKBALANCE_ENABLE_MESSAGE("Existing Personalisation will be removed. Do you want to proceed?"),
 	
 	//Page Headers in Application
 	RECIPIENT_DETAILS_PAGEHEADER("Recipient's Details"),
@@ -286,7 +287,8 @@ public enum CommonTestData {
 	//STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
 	SHOW_BUTTON("SHOW"),
 	ACCOUNT_NAME("DBS SAVINGS PLUS"),
-	ACCOUNT_NAME_IWEALTH("DBS Multiplier Account"),
+	//ACCOUNT_NAME_IWEALTH("DBS Multiplier Account"),
+	ACCOUNT_NAME_IWEALTH("DBS SAVINGS PLUS"),
 	STATEMENT_TITLE("DBS SAVINGS PLUS"),
 	
 	
@@ -311,6 +313,7 @@ public enum CommonTestData {
 	TRANSFER_TO_OTHERBANK_LABEL("Transfer to Other Banks"),
 	ALL_SECTION("ALL"),
 	LOCAL_RECIPIENT_FROMLIST("Local Recipients"),
+	CREDIT_CARDS("Credit Cards"),
 	DBS_CURRENT_ACCOUNT_TEXT("DBS CURRENT ACCOUNT"),
 	//SELECT_SOURCE_FUND("Select Fund Source"),
 	PRIMARY_SOURCE_ALERT_TITLE("Primary source of fund"),

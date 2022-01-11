@@ -16,6 +16,7 @@ import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
@@ -448,13 +449,31 @@ public class overseasModule extends CommonAppiumTest{
 		}
 	}
 
+//	@Step("Click On 'ADD RECIPIENT NOW' button under overseas")
+//	public void SelectAddRecipientNowButtonUnderOverseas() throws Exception {
+//		try {
+//			wait.waitForElementVisibility(checkDBSRemitRate);
+//			
+//			if (isElementVisible2(AddOverseasRecipientBtn)) 
+//				clickOnElement(AddOverseasRecipientBtn);
+//			else
+//				clickOnElement(AddNowRecipientBtn);
+//
+//		} catch (HandleException e) {
+//			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'ADD RECIPIENT NOW' button under overseas  ", e);
+//		} catch (Exception e) {
+//			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'ADD RECIPIENT NOW' button under overseas ", e);
+//		}
+//	}
+//	
+	
 	@Step("Click On 'ADD RECIPIENT NOW' button under overseas")
 	public void SelectAddRecipientNowButtonUnderOverseas() throws Exception {
 		try {
 			wait.waitForElementVisibility(checkDBSRemitRate);
-			
-			if (isElementVisible2(AddOverseasRecipientBtn)) 
-				clickOnElement(AddOverseasRecipientBtn);
+			String selector="type == 'XCUIElementTypeStaticText' AND name == 'Add overseas recipient'  AND visible== 1 AND enabled=1 ";
+			if (driver.findElement(MobileBy.iOSNsPredicateString(selector)).isDisplayed()) 
+					driver.findElement(MobileBy.iOSNsPredicateString(selector)).click();
 			else
 				clickOnElement(AddNowRecipientBtn);
 
