@@ -199,8 +199,8 @@ public class More extends CommonAppiumTest{
 	public void SelectModuleAfterSearch(String searchBoxData, String expectedModule) throws Exception {
 		try {
 			clickOnElementOnEnable(searchIcon);
-			wait.waitForElementVisibility(searchBox);
-			enterTextInTextbox(searchBox, searchBoxData); 
+			if (isElementEnable(searchBox))
+				enterTextInTextbox(searchBox, searchBoxData);
 
 			List<RemoteWebElement> ElementCell = driver.findElementsByXPath("//XCUIElementTypeCell");
 			if (ElementCell.size() > 0) {
