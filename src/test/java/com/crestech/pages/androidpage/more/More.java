@@ -97,7 +97,7 @@ public class More extends CommonAppiumTest{
 	@Step("Click On Deposit Accounts Module.")
 	public void ClickOnDepositAccountModule() throws Exception {
 		try {
-			gestUtils.scrollUPtoObject("text", "Deposit Accounts", DepositAccountsModule);
+			gestUtils.scrollUPtoObject("text", "Deposit Accounts", null);
 			clickOnElement(DepositAccountsModule);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -151,8 +151,9 @@ public class More extends CommonAppiumTest{
 	@Step("Select 'Local Transfer Limit' Module")
 	public void SelectLocalTransferLimitModule(String expectedModule)throws Exception {
 		try {
-			clickOnElement(searchIcon);
-			enterTextInTextbox(searchBox, expectedModule);
+			clickOnElementOnEnable(searchIcon);
+			if (isElementEnable(searchBox))
+				enterTextInTextbox(searchBox, expectedModule);
 
 			if (searchTextElement.size() > 0) {
 				int l = searchTextElement.size();
@@ -223,7 +224,7 @@ public class More extends CommonAppiumTest{
 	@Step("Click On Cards Module")
 	public void ClickOnCardsModule() throws Exception {
 		try {
-			gestUtils.scrollUPtoObject("text", "Cards", CardsButton);
+			gestUtils.scrollUPtoObject("text", "Cards", null);
 			clickOnElement(CardsButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Cards Module ", e);

@@ -151,7 +151,7 @@ public enum CommonTestData {
 	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
 	POSB_APP_PACKAGE("com.dbs.sit1.posbmbanking"),
 	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
-	DBS_APP_APK("DBS_Android.apk"),
+	DBS_APP_APK("dbs_android_UAT_7_10_003_532.apk"),
 	POSB_APP_APK("POSB_Android.apk"),
 	iWEALTH_APP_APK("iwealthandroidUAT_10Nov.apk"),
 	

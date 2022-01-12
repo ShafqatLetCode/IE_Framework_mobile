@@ -273,9 +273,13 @@ public class deletePayee extends CommonAppiumTest{
 	@Step("Click On 'More Options' Button.")
 	public void ClickOnMoreOptionBtn() throws Exception {
 		try {
-			wait.fluentWaitForElement(MoreOptionBtn);
-			wait.waitForElementToBeClickable(MoreOptionBtn); 
-			clickOnElement(MoreOptionBtn);
+//			wait.fluentWaitForElement(MoreOptionBtn);
+//			wait.waitForElementToBeClickable(MoreOptionBtn); 
+			try {
+				clickOnElement(MoreOptionBtn);
+			} catch (HandleException e) {
+				clickOnElement(MoreOptionBtn);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Click On More Options Button  ", e);

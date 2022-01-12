@@ -176,6 +176,10 @@ public class homePage extends CommonAppiumTest {
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/status_message')]")
 	private MobileElement digitalTokenSetUpMessage;
 	
+	public MobileElement WelcomeToText() {
+		return WelcomeToText;
+	}
+
 	@Step("Verify Deposit Account Type On Dashboard Page")
 	public void VerifyDepositAccountTypeOnDashboardPage() throws Exception {
 		try {

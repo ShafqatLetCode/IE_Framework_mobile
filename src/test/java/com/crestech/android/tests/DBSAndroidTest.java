@@ -9,6 +9,7 @@ import com.crestech.base.UserBaseTest;
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.HandleException;
+import com.crestech.listeners.RetryAnalyzer;
 import com.crestech.listeners.TestListener;
 import com.crestech.pages.DBSAndroidPage;
 import io.qameta.allure.Description;
@@ -29,7 +30,7 @@ public class DBSAndroidTest extends UserBaseTest {
 	/******************Start Test Script For DBS App************************************/
 	
 	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 1, enabled = true, description = "Pre-requisite Script")
+	@Test(priority = 1, enabled = true, description = "Pre-requisite Script", retryAnalyzer = RetryAnalyzer.class)
 	@Description(value = "Execution of this testcase:: Handling Quit button and UAT server selection ")
 	@Author(name = "Shafqat Ali")
 	public void PreRequisiteScript(String userName, String password , String app_Name) throws Exception {
