@@ -9,6 +9,7 @@ import com.crestech.base.UserBaseTest;
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.HandleException;
+import com.crestech.listeners.RetryAnalyzer;
 import com.crestech.listeners.TestListener;
 import com.crestech.pages.DBS_IOSpage;
 import io.qameta.allure.Description;
@@ -20,7 +21,7 @@ public class DBS_IOSTest extends UserBaseTest {
 	DBS_IOSpage DBSPgaeObject1 = null;
 
 	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 1, enabled = true, description = "Pre-requisite Script")
+	@Test(priority = 1, enabled = true, description = "Pre-requisite Script", retryAnalyzer = RetryAnalyzer.class)
 	@Description(value = "Execution of this testcase:: Handling Quit button and UAT server selection ")
 	@Author(name = "Shafqat Ali")
 	public void PreRequisiteScript(String userName, String password, String app_Name) throws Exception {
@@ -189,7 +190,7 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
 			DBSPgaeObject1.LogInApplication(userName, password);
-			DBSPgaeObject1.ApplyDebitCard();
+			DBSPgaeObject1.ApplyDebitCard(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());

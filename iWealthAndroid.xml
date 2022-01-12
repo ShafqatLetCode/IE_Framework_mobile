@@ -10,7 +10,7 @@
 	</listeners>
 	<test name="Test to be run">
 		<classes>
-			<!-- <class name="com.crestech.listeners.RetryAnalyzer" /> -->
+			 <class name="com.crestech.listeners.RetryAnalyzer" /> 
 			 <class name="com.crestech.android.tests.DBSAndroidTest" /> 
 		</classes>
 	</test> <!-- Test -->

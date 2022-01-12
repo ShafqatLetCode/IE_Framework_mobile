@@ -150,6 +150,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			wait.ImplicitlyWait(45);
 			preloginpage.ClickOnLoginButton(); 
 			loginpage.EnterCredentialsAndLogin(userName, password); 
+			wait.fluentWaitForElement(homepage.WelcomeToText());
 			wait.ImplicitlyWait(15);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application ", e);

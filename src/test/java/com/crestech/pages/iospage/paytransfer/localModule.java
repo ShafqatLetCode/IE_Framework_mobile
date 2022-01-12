@@ -112,7 +112,7 @@ public class localModule extends CommonAppiumTest{
 	private MobileElement primarysourceOfFund;
 	
 	@ElementDescription(value = "OK Button")
-	@AndroidFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
+	@AndroidFindBy(xpath = "//XCUIElementTypeButton[@name='OK']")
 	private MobileElement OKButton;
 	
 	@ElementDescription(value = "Select Fund Source list")
@@ -122,6 +122,10 @@ public class localModule extends CommonAppiumTest{
 	@ElementDescription(value = "Select Fund Source")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Select Fund Source']")
 	private MobileElement selectfundSource;
+	
+	@ElementDescription(value = "Select Fund Source")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@value='Select fund source']")
+	private MobileElement selectfundSource_iwealth;
 	
 	@ElementDescription(value = "Review Transfer")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Transfer']")
@@ -178,16 +182,34 @@ public class localModule extends CommonAppiumTest{
 	
 	// If User has multiple accounts then select fund source account
 	@Step("'Select Fund Source Account' If User has multiple accounts.")
-	public void SelectFundSourceAccount(String expectedSourceAccount) throws Exception {
+	public void SelectFundSourceAccount(String expectedSourceAccount, String appName) throws Exception {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 60); 
 			wait.until(ExpectedConditions.or(
 				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 1")),
 				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 0"))));
-			if (isElementVisible2(selectfundSource)) {
+		
+			int selectedAccount = 0;
+			String AccountNameList = null;
+			if (appName.equals("DBS") && isElementVisible2(selectfundSource)) {
 				clickOnElement(selectfundSource);
-				int selectedAccount = 0;
-				String AccountNameList = null;
+				
+				for (int i = 0; i < selectfundSourceList.size(); i++) {
+					AccountNameList = selectfundSourceList.get(i).getText();
+					if (AccountNameList.equalsIgnoreCase(expectedSourceAccount)) {
+						selectedAccount++;
+						clickOnElement(selectfundSourceList.get(i));
+						break;
+					}
+				}
+				if (selectedAccount == 0)
+					Asserts.assertFail("Select Fund Source " + expectedSourceAccount
+							+ " not found in the list to initiate the fund transfer");
+
+				handlingOfPrimarySourceOfFundPopup();
+			} else if (appName.equals("iWEALTH") && isElementVisible2(selectfundSource_iwealth)) {
+				clickOnElement(selectfundSource_iwealth);
+				
 				for (int i = 0; i < selectfundSourceList.size(); i++) {
 					AccountNameList = selectfundSourceList.get(i).getText();
 					if (AccountNameList.equalsIgnoreCase(expectedSourceAccount)) {

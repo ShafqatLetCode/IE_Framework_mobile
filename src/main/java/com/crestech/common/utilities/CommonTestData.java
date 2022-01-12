@@ -8,13 +8,14 @@ public enum CommonTestData {
 	CURRENCY("SGD"),
 	ACCOUNT_SECTION("ACCOUNTS"),
 	
-	ACCOUNT_TYPE_IWEALTH("CPFIA/SRS Account"),
-	ACCOUNT_NAME_HOME_IWEALTH("SRS Account"),
-	
+//	ACCOUNT_TYPE_IWEALTH("CPFIA/SRS Account"),
+//	ACCOUNT_NAME_HOME_IWEALTH("SRS Account"),
+	ACCOUNT_TYPE_IWEALTH("Deposits"),
+	ACCOUNT_NAME_HOME_IWEALTH("DBS SAVINGS PLUS"),
 	
 	//Payee Add Local To Other Bank
-	LOCAL_RECIPIENT_NAME("Payee OtherBank"),
-	LOCAL_RECIPIENT_ACCOUNT_NUMBER("12322354"),
+	LOCAL_RECIPIENT_NAME("Payee OthersBank"),
+	LOCAL_RECIPIENT_ACCOUNT_NUMBER("12322564"),
 	LOCAL_RECIPIENT_BANK_NAME("BANK OF INDIA"),
 	YOU_HAVE_ADDED_RECIPIENT_MSG("You’ve added a recipient"),
 	YOU_HAVE_ADDED_RECIPIENT_MSG2("You've added a recipient"),
@@ -24,6 +25,7 @@ public enum CommonTestData {
 	PAYEEADD_DBSPOSB_RECIPIENT_NAME("Payee DBSPOSB"),
 	PAYEEADD_DBSPOSB_BANK_NAME("DBS/POSB"),
 	PAYEEADD_DBSPOSB_ACCOUNT_NUMBER("0289488348"),
+	
 	
 	//Payee Add to BillPayment
 //	PAYEEADD_BILLPAYMENT_ACCOUNTNAME("DBS CASHLINE"),
@@ -36,8 +38,8 @@ public enum CommonTestData {
 	COUNTRY_AUS_SEARCH("AUS"),
 	CURRENCY_AUS("AUD"),
 	BANK_BCD_CODE("610104"),
-	ACCOUNT_NO("900132012904"),
-	FULL_NAME("AUTOAUS4"),
+	ACCOUNT_NO("900132015906"),
+	FULL_NAME("Divya"),
 	ADDRESS("Cherry Blossom Flower Drive 90 Canbera 123334"),
 	CITY("Canbera"),
 	
@@ -62,7 +64,6 @@ public enum CommonTestData {
 	
 	
 	//FundTransfer Credit Card
-	//FUNDTRANSFER_CREDITCARD_TO_ACCOUNTNUMBER_WITHBANK("5520-3800-5003-5787 POSB STATEMENT SAVINGS"),
 	FUNDTRANSFER_CREDITCARD_TO_ACCOUNTNUMBER_WITHBANK("5520-3800-5003-5787"),
 	CREDIT_CARDS_TAB("Credit Cards"),
 	CREDIT_CARD_PAGEHEADER("Transfer to DBS/POSB Card"),
@@ -122,6 +123,7 @@ public enum CommonTestData {
 	SUCCESSFULLY_UPDATED_MESSAGE("Successfully updated"),
 	REQUESTS_SUBMITTED_MESSAGE("Requests submitted"),
 	SUCCESSFULLY_SUBMITTED_MESSAGE("Successfully Submitted"),
+	
 	//PeekBalance
 	TOTAL_BALANCE_TITLE("Total Balance"),
 	BALANCE_CONTRIBUTION_LIMIT("Balance Contribution Limit"),
@@ -135,7 +137,7 @@ public enum CommonTestData {
 	PEEK_BALANCE_SUBTITLE("PEEK BALANCE"),
 	PEEK_BALANCE_SUBTITLE_IOS("Tap and hold to PEEK BALANCE"),
 	PEEK_BALANCE_DEREGISTER_MESSAGE("You will no longer enjoy benefits"),
-	EXISTING_PEEKBALANCE_ENABLE_MESSAGE("Existing Personalization will be removed, Do you want to proceed?"),
+	EXISTING_PEEKBALANCE_ENABLE_MESSAGE("Existing Personalisation will be removed. Do you want to proceed?"),
 	
 	//Page Headers in Application
 	RECIPIENT_DETAILS_PAGEHEADER("Recipient's Details"),
@@ -149,7 +151,7 @@ public enum CommonTestData {
 	DBS_APP_PACKAGE("com.dbs.sit1.dbsmbanking"),
 	POSB_APP_PACKAGE("com.dbs.sit1.posbmbanking"),
 	IWEALTH_APP_PACKAGE("com.dbs.sg.uat.dbsiwealth"),
-	DBS_APP_APK("DBS_Android.apk"),
+	DBS_APP_APK("dbs_android_UAT_7_10_003_532.apk"),
 	POSB_APP_APK("POSB_Android.apk"),
 	iWEALTH_APP_APK("iwealthandroidUAT_10Nov.apk"),
 	
@@ -286,7 +288,8 @@ public enum CommonTestData {
 	//STATEMENT_TITLE("POSB STATEMENT SAVINGS"),
 	SHOW_BUTTON("SHOW"),
 	ACCOUNT_NAME("DBS SAVINGS PLUS"),
-	ACCOUNT_NAME_IWEALTH("DBS Multiplier Account"),
+	//ACCOUNT_NAME_IWEALTH("DBS Multiplier Account"),
+	ACCOUNT_NAME_IWEALTH("DBS SAVINGS PLUS"),
 	STATEMENT_TITLE("DBS SAVINGS PLUS"),
 	
 	
@@ -311,6 +314,7 @@ public enum CommonTestData {
 	TRANSFER_TO_OTHERBANK_LABEL("Transfer to Other Banks"),
 	ALL_SECTION("ALL"),
 	LOCAL_RECIPIENT_FROMLIST("Local Recipients"),
+	CREDIT_CARDS("Your DBS/POSB Accounts"),
 	DBS_CURRENT_ACCOUNT_TEXT("DBS CURRENT ACCOUNT"),
 	//SELECT_SOURCE_FUND("Select Fund Source"),
 	PRIMARY_SOURCE_ALERT_TITLE("Primary source of fund"),

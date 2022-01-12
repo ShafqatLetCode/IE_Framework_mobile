@@ -88,6 +88,10 @@ public class payAndTransfer extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
 	private MobileElement OKButton;
 	
+	@ElementDescription(value = "OK Button")
+	@AndroidFindBy(xpath = "//XCUIElementTypeButton[@name='OK']")
+	private MobileElement OKButton1;
+	
 	@ElementDescription(value = "Primary source of fund")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Primary source of fund']")
 	private MobileElement primarysourceOfFund;
@@ -122,7 +126,7 @@ public class payAndTransfer extends CommonAppiumTest{
 						if (length < 5) {
 							for (int i = 0; i < length; i++) {
 								LocalRecipientList = localRecipientsList.get(i).getText();
-								if (LocalRecipientList.equalsIgnoreCase(ToOwnAccount)) {
+								if (LocalRecipientList.contains(ToOwnAccount)) {
 									index++;
 									clickOnElement(localRecipientsList.get(i));
 									break;
@@ -131,8 +135,8 @@ public class payAndTransfer extends CommonAppiumTest{
 							// Exception Handling without scrolling case and no expected element found in
 							// the list then index ==0
 							if (index == 0 && count == 0)
-								Asserts.assertFail("Local Recipient " + ToOwnAccount
-										+ " not found in the list to initiate the fund transfer");
+								Asserts.assertFail("Your DBS/POSB Accounts ' " + ToOwnAccount
+										+ " ' not found in the list to initiate the fund transfer");
 							else
 								break;
 						} else
@@ -140,7 +144,7 @@ public class payAndTransfer extends CommonAppiumTest{
 							// Code will work :: When Need to scroll
 							for (int i = 0; i < length; i++) {
 								LocalRecipientList = localRecipientsList.get(i).getText();
-								if (LocalRecipientList.equalsIgnoreCase(ToOwnAccount) && isElementVisible2(localRecipientsList.get(i))) {
+								if (LocalRecipientList.contains(ToOwnAccount) && isElementVisible2(localRecipientsList.get(i))) {
 									index++;
 									clickOnElement(localRecipientsList.get(i));
 									break;
@@ -161,8 +165,8 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Exception Handling in scrolling case and no expected element found in the
 						// list then index ==0, count ==1
 						if (count == 1 && index == 0)
-							Asserts.assertFail("Local Recipient " + ToOwnAccount
-									+ " not found in the list to initiate the fund transfer");
+							Asserts.assertFail("Your DBS/POSB Accounts ' " + ToOwnAccount
+									+ " ' not found in the list to initiate the fund transfer");
 
 					} else
 						Asserts.assertFail("No receipient Found in the Local recipient list");
@@ -185,7 +189,7 @@ public class payAndTransfer extends CommonAppiumTest{
 			for (int i = 0; i < allTabList.size(); i++) {
 				String tabText = allTabList.get(i).getText();
 				o++;
-				if (tabText.equalsIgnoreCase(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
+				if (tabText.equalsIgnoreCase(CommonTestData.CREDIT_CARDS.getEnumValue())) {
 					break;
 				}
 			}
@@ -269,7 +273,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Click On Local Recipient Option under All Tab.")
 	public void ClickOnLocalRecipient() throws Exception {
 		try {
-			gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
+			//gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
 			for (int i = 0; i < allTabList.size(); i++) {
 				String tabText = allTabList.get(i).getText();
 				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
@@ -381,9 +385,14 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Handle 'Primary Source Of Fund' Popup.")
 	public void handlingOfPrimarySourceOfFundPopup() throws Exception {
 		try {
-			if(isElementVisible2(primarysourceOfFund)) {
-				Asserts.assertEquals(getTexOfElement(primarysourceOfFund), CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(), "Message Not matching");
-				ClickOnOKButton();
+			if (isElementVisible2(primarysourceOfFund)) {
+				Asserts.assertEquals(getTexOfElement(primarysourceOfFund),
+						CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(), "Message Not matching");
+	
+				if (isElementVisible2(OKButton))
+					ClickOnOKButton();
+				else
+					clickOnElement(OKButton1);
 			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle 'Primary Source Of Fund' Popup. ", e);
@@ -533,8 +542,8 @@ public class payAndTransfer extends CommonAppiumTest{
 							// Exception Handling without scrolling case and no expected element found in
 							// the list then index ==0
 							if (index == 0 && count == 0)
-								Asserts.assertFail("Local Recipient " + valueSelectedFromList
-										+ " not found in the list to initiate the fund transfer");
+								Asserts.assertFail("Credit Cards ' " + valueSelectedFromList
+										+ " ' not found in the list to initiate the fund transfer");
 							else
 								break;
 						} else
@@ -563,8 +572,8 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Exception Handling in scrolling case and no expected element found in the
 						// list then index ==0, count ==1
 						if (count == 1 && index == 0)
-							Asserts.assertFail("card Recipient " + valueSelectedFromList
-									+ " not found in the list to initiate the fund transfer");
+								Asserts.assertFail("Credit Cards ' " + valueSelectedFromList
+										+ " ' not found in the list to initiate the fund transfer");
 
 					} else
 						Asserts.assertFail("No receipient Found in the Cards recipient list");

@@ -497,6 +497,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Click On Local Recipient Option under All Tab.")
 	public void ClickOnLocalRecipient() throws Exception {
 		try {
+			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(1), AllTab);
 			int o = 0;
 			for (int i = 0; i < AllTabOptionsList.size(); i++) {
 				String tabText = AllTabOptionsList.get(i).getText();

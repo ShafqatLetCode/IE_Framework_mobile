@@ -62,7 +62,7 @@ public class More extends CommonAppiumTest{
 	private MobileElement logoutpeekbalance;
 	
 	@Step("Select Update Contact Details After Search.")
-	public void SelectUpdateContactDetails(String valueSelectedFromList, String searchBoxData, String valueSelectedFromList2) throws Exception {
+	public void SelectUpdateContactDetails(String searchBoxData, String valueSelectedFromList,String valueSelectedFromList2) throws Exception {
 		try {
 			clickOnElementOnEnable(searchIcon);
 	        enterTextInTextbox(searchBox, searchBoxData); 

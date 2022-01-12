@@ -18,6 +18,7 @@ import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
@@ -288,6 +289,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Verify Marketing Message Notes")
 	public void verifyMarketingMessageNotes(String marketingMessageNotes) throws Exception {
 		try {
+			gestUtils.scrollUPtoObjectIos("name", "I would like the bank to:", null);
 			Asserts.assertEquals(getTexOfElement(MarketingMessageNotes).toLowerCase(), marketingMessageNotes.toLowerCase(),
 					marketingMessageNotes + " Text is not matching");
 		} catch (HandleException e) {
@@ -356,7 +358,12 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Verify Email Notes")
 	public void verifyEmailNotes(String emailNotes) throws Exception {
 		try {
-			Asserts.assertEquals(getTexOfElement(EmailNotes).toLowerCase(), emailNotes.toLowerCase(), emailNotes + " Text is not matching");
+			String selector = "type == 'XCUIElementTypeStaticText' AND name == 'This email address provided will only be used for your iBanking/mobile banking transactions, eStatement(s) and marketing communication (if any)'";
+			String actualText = driver.findElement(MobileBy.iOSNsPredicateString(selector)).getText();
+			Asserts.assertEquals(actualText.toLowerCase(), emailNotes.toLowerCase(),
+					emailNotes + " Text is not matching");
+			// Asserts.assertEquals(getTexOfElement(EmailNotes).toLowerCase(),
+			// emailNotes.toLowerCase(), emailNotes + " Text is not matching");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify Email Notes ", e);
 		} catch (Exception e) {
