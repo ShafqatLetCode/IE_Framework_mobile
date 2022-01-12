@@ -88,6 +88,10 @@ public class payAndTransfer extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
 	private MobileElement OKButton;
 	
+	@ElementDescription(value = "OK Button")
+	@AndroidFindBy(xpath = "//XCUIElementTypeButton[@name='OK']")
+	private MobileElement OKButton1;
+	
 	@ElementDescription(value = "Primary source of fund")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Primary source of fund']")
 	private MobileElement primarysourceOfFund;
@@ -269,7 +273,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Click On Local Recipient Option under All Tab.")
 	public void ClickOnLocalRecipient() throws Exception {
 		try {
-			gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
+			//gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
 			for (int i = 0; i < allTabList.size(); i++) {
 				String tabText = allTabList.get(i).getText();
 				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
@@ -381,9 +385,14 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Handle 'Primary Source Of Fund' Popup.")
 	public void handlingOfPrimarySourceOfFundPopup() throws Exception {
 		try {
-			if(isElementVisible2(primarysourceOfFund)) {
-				Asserts.assertEquals(getTexOfElement(primarysourceOfFund), CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(), "Message Not matching");
-				ClickOnOKButton();
+			if (isElementVisible2(primarysourceOfFund)) {
+				Asserts.assertEquals(getTexOfElement(primarysourceOfFund),
+						CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(), "Message Not matching");
+	
+				if (isElementVisible2(OKButton))
+					ClickOnOKButton();
+				else
+					clickOnElement(OKButton1);
 			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle 'Primary Source Of Fund' Popup. ", e);

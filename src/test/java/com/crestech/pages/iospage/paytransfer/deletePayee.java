@@ -94,7 +94,7 @@ public class deletePayee extends CommonAppiumTest{
 						ClickOnMoreOptionBtn();
 						ClickOnDeletePayeeBtn();
 						ClickOnYesBtn();
-						// HandlingErrorPopupInDeletePayee();
+						HandlingErrorPopupInDeletePayee();
 						ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(ExpectedPayee);
 						VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayee);
 						break;

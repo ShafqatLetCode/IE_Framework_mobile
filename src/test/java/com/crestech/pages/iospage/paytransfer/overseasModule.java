@@ -472,7 +472,7 @@ public class overseasModule extends CommonAppiumTest{
 		try {
 			wait.waitForElementVisibility(checkDBSRemitRate);
 			String selector="type == 'XCUIElementTypeStaticText' AND name == 'Add overseas recipient'  AND visible== 1 AND enabled=1 ";
-			if (driver.findElement(MobileBy.iOSNsPredicateString(selector)).isDisplayed()) 
+			if (isElementVisible2((MobileElement) driver.findElement(MobileBy.iOSNsPredicateString(selector)))) 
 					driver.findElement(MobileBy.iOSNsPredicateString(selector)).click();
 			else
 				clickOnElement(AddNowRecipientBtn);

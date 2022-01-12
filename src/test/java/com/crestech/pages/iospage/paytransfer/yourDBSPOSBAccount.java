@@ -59,7 +59,7 @@ public class yourDBSPOSBAccount extends CommonAppiumTest {
 	private MobileElement primarysourceOfFund;
 
 	@ElementDescription(value = "OK Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
+	@AndroidFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
 	private MobileElement OKButton;
 	
 	@ElementDescription(value = "Logout button on paylah")

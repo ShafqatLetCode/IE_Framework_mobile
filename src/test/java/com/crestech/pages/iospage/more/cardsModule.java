@@ -16,6 +16,7 @@ import com.crestech.common.utilities.HandleException;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.qameta.allure.Step;
@@ -58,6 +59,10 @@ public class cardsModule extends CommonAppiumTest{
 	@ElementDescription(value = "'Account to be linked to the card' Dropdown.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Account to be linked to the card']/XCUIElementTypeOther")
 	private MobileElement AccountToBeLinkedToTheCardField;
+	
+	@ElementDescription(value = "Existing ATM Card number to be replaced")
+	@AndroidFindBy(xpath = "//XCUIElementTypeOther[@name='Existing ATM Card number to be replaced']/XCUIElementTypeOther")
+	private MobileElement ExistingATMCardnumbertobereplaced;
 	
 	@ElementDescription(value = "'Title' Dropdown.")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Title']/XCUIElementTypeOther")
@@ -352,7 +357,7 @@ public class cardsModule extends CommonAppiumTest{
 			int index = 0;
 			String accountFromList = null;
 			if (elementList.size() > 0) {
-				for (int i = 0; i <= elementList.size(); i++) {
+				for (int i = 0; i < elementList.size(); i++) {
 					accountFromList = elementList.get(i).getText();
 					if (accountFromList.contains(elementToBeSelected)) {
 						index++;
@@ -540,10 +545,16 @@ public class cardsModule extends CommonAppiumTest{
 	}
 	
 	@Step("Filling Details To Applying Debit Card.")
-	public void FillingDetailsToApplyingDebitCard() throws Exception {
+	public void FillingDetailsToApplyingDebitCard(String appName) throws Exception {
 		try {
-			ClickOnAccountToBeLinkedToTheCardField();
-			SelectAccountLinkedWithDebitCard(CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
+			if (appName.equals("DBS")) {
+				ClickOnAccountToBeLinkedToTheCardField();
+				SelectAccountLinkedWithDebitCard(CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
+			}
+			else if (appName.equals("iWEALTH")) {
+				ClickOnExistingATMCardNumberToBeReplacedField();
+				SelectAccountLinkedWithDebitCard(CommonTestData.EXISTING_ATM_CARD_NUMBER_TOBE_REPLACED.getEnumValue());
+			}
 			
 	     	ClickOnTitleField();
 		    SelectTitle(CommonTestData.TITLE.getEnumValue());
@@ -610,6 +621,21 @@ public class cardsModule extends CommonAppiumTest{
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
+		}
+	}
+	
+	@Step("Click On 'Existing ATM Card number to be replaced' Field")
+	public void ClickOnExistingATMCardNumberToBeReplacedField() throws Exception {
+		try {
+			if(isElementVisible2(ExistingATMCardnumbertobereplaced))
+			clickOnElement(ExistingATMCardnumbertobereplaced); 
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On 'Existing ATM Card number to be replaced'Field ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On 'Existing ATM Card number to be replaced' Field ", e);
 		}
 	}
 

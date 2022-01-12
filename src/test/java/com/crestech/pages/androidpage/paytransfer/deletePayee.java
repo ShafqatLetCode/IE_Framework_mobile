@@ -125,7 +125,7 @@ public class deletePayee extends CommonAppiumTest{
 									ClickOnMoreOptionBtn();
 									ClickOnDeletePayeeBtn();
 									ClickOnYesBtn();
-									// HandlingErrorPopupInDeletePayee(i);
+									HandlingErrorPopupInDeletePayee(i);
 									ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(expectedDeleteRecipient);
 									deletePayee++;
 									// VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayeeSize);
@@ -191,7 +191,7 @@ public class deletePayee extends CommonAppiumTest{
 				// we are trying to sort it out now. Sorry for the inconvenience.
 				// Do check back later.) coming. So this Thread.sleep(); added here.
 
-				Thread.sleep(4000);
+				Thread.sleep(5000);
 				String ErrorissueXpath = "//android.widget.TextView[@resource-id='android:id/message']";
 				List<RemoteWebElement> list = driver.findElements(By.xpath(ErrorissueXpath));
 				if (list.size() > 0) {

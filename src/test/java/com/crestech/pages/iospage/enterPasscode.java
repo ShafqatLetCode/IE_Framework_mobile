@@ -52,7 +52,7 @@ public class enterPasscode extends CommonAppiumTest{
 	@Step("Enter Passcode(123456) for Secure Pin Authentication.")
 	public void EnterPasscodeAndDone() throws Exception {
 		try {
-			wait.ImplicitlyWait(30);
+			Thread.sleep(10000); 
 			if (isElementVisible2(PasscodeField)) {
 				enterTextInTextbox(secureBox, CommonTestData.OTP.getEnumValue());
 				if (isElementVisible2(doneButton)) 
@@ -70,13 +70,14 @@ public class enterPasscode extends CommonAppiumTest{
 	@Step("Enter Passcode(123456) for Secure Pin Authentication.")
 	public void EnterPasscode() throws Exception {
 		try {
+			wait.ImplicitlyWait(30);
 			if (isElementVisible2(PasscodeField)) {
 				clickOnElement(secureBox);
 				for (int i = 1; i <= 6; i++) {
 					String bxpath = "//XCUIElementTypeButton[@name=" + i + "]";
 					MobileElement button = (MobileElement) driver.findElement(By.xpath(bxpath));
 					clickOnElement(button);
-					Thread.sleep(2000);
+					Thread.sleep(3000);
 				}
 			}
 		} catch (HandleException e) {	

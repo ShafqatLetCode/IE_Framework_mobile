@@ -289,6 +289,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Verify Marketing Message Notes")
 	public void verifyMarketingMessageNotes(String marketingMessageNotes) throws Exception {
 		try {
+			gestUtils.scrollUPtoObjectIos("name", "I would like the bank to:", null);
 			Asserts.assertEquals(getTexOfElement(MarketingMessageNotes).toLowerCase(), marketingMessageNotes.toLowerCase(),
 					marketingMessageNotes + " Text is not matching");
 		} catch (HandleException e) {

@@ -702,7 +702,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 
 	@Step("Verifies the Applying Debit Card and Verify the completion page details.")
-	public void ApplyDebitCard() throws Exception {
+	public void ApplyDebitCard(String appName) throws Exception {
 		try {
 			homepage.ClickOnMoreButton();
 			enterpasscode.EnterPasscodeAndDone();
@@ -710,7 +710,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			cards.SelectDebitCard();
 			enterpasscode.EnterPasscodeAndDone();
 			cards.selectDebitCardType(CommonTestData.DEBIT_CARD_NAME.getEnumValue());
-			cards.FillingDetailsToApplyingDebitCard();
+			cards.FillingDetailsToApplyingDebitCard(appName);
 			cards.ClickOnSendMeDBSPrmotionViaMailCheckbox();
 			cards.ClickOnNEXTButton();
 			cards.verifyReviewApplicationPageHeader();
@@ -775,20 +775,20 @@ public class DBS_IOSpage extends CommonAppiumTest {
 				enterpasscode.EnterPasscodeAndDone();
 				enterpasscode.EnterPasscodeAndDone();
 				String ExpectedUserAccountNumber = homepage.GetUserAccountNumber();
-				homepage.ClickOnToolBarBackIcon();
-
+				//homepage.ClickOnToolBarBackIcon();
+                more.ClickOnHomeButton();
 				homepage.ClickOnMoreButton();
-				enterpasscode.EnterPasscodeAndDone();
+		    	enterpasscode.EnterPasscodeAndDone();
 				more.SelectPeekBalanceModule();
 				enterpasscode.EnterPasscodeAndDone();
 				peekbalance.handleConfirmationMessage();
 				peekbalance.EnablePeekBalanceToggle();
 				peekbalance.SelectAccountToEnablePeekBalance(CommonTestData.USER_ACCOUNT_NAME.getEnumValue());
 
-				String SelectedAccountNameWithAccountNumber = DepositeAccountNameOnDashboard + " "
-						+ ExpectedUserAccountNumber;
-				peekbalance.verifySelectedAccountForPeekBalance(CommonTestData.ACCOUNT_FOR_PEEK_BALANCE.getEnumValue(),
-						SelectedAccountNameWithAccountNumber);
+//				String SelectedAccountNameWithAccountNumber = DepositeAccountNameOnDashboard + " "
+//						+ ExpectedUserAccountNumber;
+//				peekbalance.verifySelectedAccountForPeekBalance(CommonTestData.ACCOUNT_FOR_PEEK_BALANCE.getEnumValue(),
+//						SelectedAccountNameWithAccountNumber);
 
 				peekbalance.ClickOnSaveButton();
 				peekbalance.ClickOnOkButtonInPersonalizeYourDevicePopup();
