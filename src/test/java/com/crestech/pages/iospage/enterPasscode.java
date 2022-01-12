@@ -75,8 +75,12 @@ public class enterPasscode extends CommonAppiumTest{
 				clickOnElement(secureBox);
 				for (int i = 1; i <= 6; i++) {
 					String bxpath = "//XCUIElementTypeButton[@name=" + i + "]";
-					MobileElement button = (MobileElement) driver.findElement(By.xpath(bxpath));
-					clickOnElement(button);
+					if (isElementVisible2((MobileElement) driver.findElement(By.xpath(bxpath))))
+						clickOnElement((MobileElement) driver.findElement(By.xpath(bxpath)));
+					else {
+						MobileElement button1 = (MobileElement) driver.findElement(By.name(String.valueOf(i)));
+						clickOnElement(button1);
+					}
 					Thread.sleep(3000);
 				}
 			}
