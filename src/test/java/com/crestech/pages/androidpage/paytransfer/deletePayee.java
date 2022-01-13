@@ -107,6 +107,7 @@ public class deletePayee extends CommonAppiumTest{
 			int deletePayee = 0;
 
 			if (payeeList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				while (count == 0 && deletePayee == 0) {
 					int length = payeeList.size();
 					String actualDeleteRecipient = null;

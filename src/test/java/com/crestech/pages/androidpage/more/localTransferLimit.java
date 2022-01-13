@@ -169,6 +169,7 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("click On 'set current Limit' ")
 	public void verifyClickSetCurrentLimit() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(currentLimitTextButton);
 			verifyPageHeader(CommonTestData.SET_DAILY_LIMIT_TITLE.getEnumValue(),
 					PageHeaderList.get(4));
@@ -230,9 +231,11 @@ public class localTransferLimit extends CommonAppiumTest{
 		try {
 			if(isElementVisible2(nextButton)) {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+				 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);			
 			}else if(isElementVisible2(confirmButton)) {			
 					gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
+					 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					clickOnElement(confirmButton);
 			}
 		} catch (HandleException e) {
@@ -246,6 +249,7 @@ public class localTransferLimit extends CommonAppiumTest{
 	public void selectAccountTypeInLocalFundTransfer(String AccountToBeSelected) throws Exception {
 		try {
 			if (localTransferLimitAccountList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int l = localTransferLimitAccountList.size();
 				int index = 0;
 				String accountFromList = null;
@@ -299,6 +303,7 @@ public class localTransferLimit extends CommonAppiumTest{
 			enterTextInTextbox(searchBox, searchBoxData);
 
 			if (searchTextElement.size() > 0) {
+				 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				List<MobileElement> Elementlist = searchTextElement;
 				List<MobileElement> ElementlistClickable = searchClickableElement;
 				int l = Elementlist.size();
@@ -326,6 +331,7 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("Verifying and click 'BACK TO MORE' BUTTON ")
 	public void ClickOnBackToMoreButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElementOnEnable(backToMoreButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -341,6 +347,7 @@ public class localTransferLimit extends CommonAppiumTest{
 		try {
 			verifyPageHeader(CommonTestData.REVIEW_DAILY_LIMIT_TITLE.getEnumValue(),
 					PageHeaderList.get(4));
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(changeDailyLimitButton);
 			enterpasscode.EnterPasscodeAndDone();
 			Asserts.assertEquals(getTexOfElement(successTitleLabel),

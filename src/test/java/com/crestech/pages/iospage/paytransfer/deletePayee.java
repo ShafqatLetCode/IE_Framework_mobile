@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
@@ -15,6 +17,7 @@ import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -81,15 +84,25 @@ public class deletePayee extends CommonAppiumTest{
 	@Step("Delete Payee.")
 	public void DeletePayee(String ExpectedPayee) throws Exception {
 		try {
+			WebDriverWait wait = new WebDriverWait(driver, 60);
+			wait.until(ExpectedConditions.or(
+					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
+							"type == 'XCUIElementTypeStaticText' AND name == 'Local Transfer'  AND visible== 1")),
+					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
+							"type == 'XCUIElementTypeStaticText' AND name == 'Local Transfer'  AND visible== 0"))));
+			
 			if (payeeList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int ExpectedTotalPayeeSize = payeeList.size();
 				int ExpectedTotalPayee = IiconList.size();
 				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
 					String actualPayee = payeeList.get(i).getText();
-					if (!isElementVisible2(payeeList.get(i)))
+					if (!isElementVisible2(payeeList.get(i))) {
 						gesture.scrollUPtoObjectIos("name", ExpectedPayee, null);
+						com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+					}
 					if (actualPayee.equals(ExpectedPayee)) {
-						int index = i / 2;
+						int index = 1 + i;
 						ClickOnDeletePayeeToIcon(index);
 						ClickOnMoreOptionBtn();
 						ClickOnDeletePayeeBtn();
@@ -112,16 +125,18 @@ public class deletePayee extends CommonAppiumTest{
 	public void DeletePayeeForRemittence(String ExpectedPayee) throws Exception {
 		try {
 			if (payeeList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int ExpectedTotalPayeeSize = payeeList.size();
 				int ExpectedTotalPayee = IiconList.size();
 				for (int i = 0; i < ExpectedTotalPayeeSize; i++) {
 					String actualPayee = payeeList.get(i).getText();
-					if (!isElementVisible2(payeeList.get(i)))
+					if (!isElementVisible2(payeeList.get(i))) {
 						gesture.scrollUPtoObjectIos("name", ExpectedPayee, null);
-
+						com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+					}
 					if (actualPayee.equals(ExpectedPayee)) {
 						int index = 1 + i;
-						ClickOnDeletePayeeToIcon_forPayeeRemittance(index);
+						ClickOnDeletePayeeToIcon(index);
 						ClickOnMoreOptionBtn();
 						ClickOnDeletePayeeBtn();
 						ClickOnYesBtn();
@@ -166,8 +181,10 @@ public class deletePayee extends CommonAppiumTest{
 			MobileElement DeletePayeeMessageElement = (MobileElement) driver
 					.findElement(By.xpath(DeletePayeeMessageXPath));
 			
-			if (isElementVisible2(DeletePayeeMessageElement))
+			if (isElementVisible2(DeletePayeeMessageElement)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				ClickOnOKButton();
+			}
 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -191,14 +208,19 @@ public class deletePayee extends CommonAppiumTest{
 	public void HandlingErrorPopupInDeletePayee() throws Exception {
 		try {
 			for (int innerLoop = 0; innerLoop < 2; innerLoop++) {
+				// Sometimes this alert with message (You may be facing some delays and
+				// we are trying to sort it out now. Sorry for the inconvenience.
+				// Do check back later.) coming. So this Thread.sleep(); added here.
+
+				Thread.sleep(5000);
 				String ErrorissueXpath = "//XCUIElementTypeStaticText[@name='You may be facing some delays and we are trying to sort it out now. Sorry for the inconvenience. Do check back later.']";
 				List<RemoteWebElement> list = driver.findElements(By.xpath(ErrorissueXpath));
 				if (list.size() > 0) {
+					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					clickOnElement(alertOkButton);
 					ClickOnMoreOptionBtn();
 					ClickOnDeletePayeeBtn();
-					ClickOnYesBtn();
-				
+					ClickOnYesBtn(); 
 				}
 			}
 		} catch (HandleException e) {
@@ -210,7 +232,7 @@ public class deletePayee extends CommonAppiumTest{
 		}
 	}
 	@Step("Click On i Icon from the list.")
-	public void ClickOnDeletePayeeToIcon(int index) throws Exception {
+	public void ClickOnDeletePayeeToIcon1(int index) throws Exception {
 		try {
 			clickOnElement(IiconList.get(index));
 		} catch (HandleException e) {
@@ -223,7 +245,7 @@ public class deletePayee extends CommonAppiumTest{
 	}
 	
 	@Step("Click On i Icon from the list.")
-	public void ClickOnDeletePayeeToIcon_forPayeeRemittance(int index) throws Exception {
+	public void ClickOnDeletePayeeToIcon(int index) throws Exception {
 		try {
 			String iconXpath = "(//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText)[" + index + "]/following-sibling::XCUIElementTypeButton";
 			MobileElement icon = (MobileElement) driver.findElement(By.xpath(iconXpath));
@@ -242,6 +264,7 @@ public class deletePayee extends CommonAppiumTest{
 		try {
 			wait.fluentWaitForElement(MorePayeeDetailDots);
 			wait.waitForElementToBeClickable(MorePayeeDetailDots); 
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(MorePayeeDetailDots);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -253,6 +276,7 @@ public class deletePayee extends CommonAppiumTest{
 	@Step("Click On 'Delete payee' Button.")
 	public void ClickOnDeletePayeeBtn() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(DeletePayeeButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -265,8 +289,10 @@ public class deletePayee extends CommonAppiumTest{
 	@Step("Click On Yes Button after verifying 'Are you sure to delete payee' message.")
 	public void ClickOnYesBtn() throws Exception {
 		try {
-			if (isElementVisible(AreYouSureToDeleteThisPayeeMsg))
+			if (isElementVisible(AreYouSureToDeleteThisPayeeMsg)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(YesButton);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Yes Button  ", e);
 		} catch (Exception e) {

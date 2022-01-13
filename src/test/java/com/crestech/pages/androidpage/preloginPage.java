@@ -61,22 +61,22 @@ public class preloginPage extends CommonAppiumTest{
 	private MobileElement LogInButton;
 	
 	
-	
 	@Step("Click On LogIn Button.")
 	public void ClickOnLoginButton() throws Exception {
-		try {		
-			if(wait.waitForElementToBeClickable2(launchpage.loginButton()))
+		try {
+			if (wait.waitForElementToBeClickable2(launchpage.loginButton())) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(launchpage.loginButton());
-			else
-				if(wait.waitForElementToBeClickable2(LogInButton))
-			clickOnElement(LogInButton);
+			} else if (wait.waitForElementToBeClickable2(LogInButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				clickOnElement(LogInButton);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On LogIn Button ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On LogIn Button  ", e);
 		}
 	}
-
 	
 	@Step("Verify Visibility of Peek Balance on Login Page.")
 	public void VerifyPeekBalanceEnabilityOnLogInPage(String peekBalanceSubtitle) throws Exception {
@@ -127,6 +127,7 @@ public class preloginPage extends CommonAppiumTest{
 			gestUtils.scrollUPtoObject("text", serverName, null);
 			String serverNameXpath = "//android.widget.TextView[@text='" + serverName + "']";
 			MobileElement serverNameElement = (MobileElement) driver.findElement(By.xpath(serverNameXpath));
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(serverNameElement);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Server from list ", e);
@@ -149,6 +150,7 @@ public class preloginPage extends CommonAppiumTest{
 	@Step("Clicked on Change Server button")
 	public void ClickOnChangeServerButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(ChangeServerBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -163,6 +165,7 @@ public class preloginPage extends CommonAppiumTest{
 	public void ClickOnMoreModuleOnLoginPage() throws Exception {
 		try {
 			int count = 0;
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			do {
 				clickOnElement(MoreButton);
 				count++;

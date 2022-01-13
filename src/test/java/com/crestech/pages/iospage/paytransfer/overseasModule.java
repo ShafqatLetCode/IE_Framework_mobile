@@ -9,6 +9,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.Asserts;
@@ -261,6 +264,7 @@ public class overseasModule extends CommonAppiumTest{
 	public void ClickOnAddRecipientNowBtn() throws Exception {
 		try {
 			gestUtils.scrollUPtoObjectIos("name", "ADD RECIPIENT NOW", null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(ADDRecipientNowButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ", e);
@@ -274,12 +278,9 @@ public class overseasModule extends CommonAppiumTest{
 		try {
 			
 			if (isElementVisible2(recipientDetailcity)) {
-//				Actions action = new Actions(driver);
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(recipientDetailcity);
-//				action.sendKeys(recipientDetailcity, text).build().perform();
 				enterTextInTextbox(recipientDetailcityEditBox, text);
-				// sendTextWithKeypad(text);
-				// enterTextInTextbox(IOShomePgaeObject.recipientDetailCity(), text);
 				ClickOnDoneButton();
 			}
 		} catch (HandleException e) {
@@ -358,6 +359,7 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Click On Next Button")
 	public void ClickOnNEXTButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(NEXTButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ", e);
@@ -369,7 +371,15 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Select Currency Type")
 	public void SelectCurrencyType(String expectedCurrency) throws Exception {
 		try {
+			WebDriverWait wait = new WebDriverWait(driver, 60);
+			wait.until(ExpectedConditions.or(
+					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
+							"type == 'XCUIElementTypeStaticText' AND name == 'Select Currency'  AND visible== 1")),
+					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
+							"type == 'XCUIElementTypeStaticText' AND name == 'Select Currency'  AND visible== 0"))));
+
 			if (currencyList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int index = 0;
 				String currencyFromList = null;
 				for (int i = 0; i < currencyList.size(); i++) {
@@ -400,6 +410,7 @@ public class overseasModule extends CommonAppiumTest{
 			EnterTextThroughKeyboard(searchBoxData);
 
 			if (countryList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int index = 0;
 				String actualCountry = null;
 				for (int i = 0; i < countryList.size(); i++) {
@@ -471,16 +482,20 @@ public class overseasModule extends CommonAppiumTest{
 	public void SelectAddRecipientNowButtonUnderOverseas() throws Exception {
 		try {
 			wait.waitForElementVisibility(checkDBSRemitRate);
-			String selector="type == 'XCUIElementTypeStaticText' AND name == 'Add overseas recipient'  AND visible== 1 AND enabled=1 ";
-			if (isElementVisible2((MobileElement) driver.findElement(MobileBy.iOSNsPredicateString(selector)))) 
-					driver.findElement(MobileBy.iOSNsPredicateString(selector)).click();
-			else
+			String selector = "type == 'XCUIElementTypeStaticText' AND name == 'Add overseas recipient'  AND visible== 1 AND enabled=1 ";
+			if (isElementVisible2((MobileElement) driver.findElement(MobileBy.iOSNsPredicateString(selector)))) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				driver.findElement(MobileBy.iOSNsPredicateString(selector)).click();
+			} else {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(AddNowRecipientBtn);
-
+			}
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'ADD RECIPIENT NOW' button under overseas  ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On 'ADD RECIPIENT NOW' button under overseas  ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'ADD RECIPIENT NOW' button under overseas ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On 'ADD RECIPIENT NOW' button under overseas ", e);
 		}
 	}
 	
@@ -493,8 +508,10 @@ public class overseasModule extends CommonAppiumTest{
 
 			MobileElement ExpectedEottEle = (MobileElement) driver.findElement(By.name(CommonTestData.EOTTREMITTANCE_NAME.getEnumValue()));
 		  
-			if (wait.waitForElementToBeClickable2(ExpectedEottEle))
+			if (wait.waitForElementToBeClickable2(ExpectedEottEle)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(ExpectedEottEle);
+			}
 			else
 				Asserts.assertFail("EOTT " + CommonTestData.EOTTREMITTANCE_NAME.getEnumValue() + " Not Found corresponding to this user.");
 		
@@ -510,6 +527,7 @@ public class overseasModule extends CommonAppiumTest{
 	public void BackFromTestCase() throws Exception {
 		try {
 			ClickOnDBSRemittance_CompletionCrossButton();
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			ClickOnCloseIcon();
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Back From Test Case ",e);		
@@ -547,6 +565,7 @@ public class overseasModule extends CommonAppiumTest{
 	public void ClickOnShareTransferDetailsButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObjectIos("name", "SHARE TRANSFER DETAILS", null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(shareTransferDetailButton);	
 		}catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Share Transfer Details Button ", e);
@@ -595,6 +614,7 @@ public class overseasModule extends CommonAppiumTest{
 	public void ClickOnTransferNowButton() throws Exception {
 		try {
 			gesture.scrollUPtoObjectIos("name", "TRANSFER NOW", null);	
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(transferNowButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on transfer now Button ",
@@ -619,6 +639,7 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Click On Next Button")
 	public void ClickOnNextButton() throws Exception {
 		try {
+			    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
@@ -657,6 +678,7 @@ public class overseasModule extends CommonAppiumTest{
 			clickOnPurpose();
 			
 			if (commonList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int index = 0;
 				String ActualPurpose = null;
 				for (int i = 0; i < commonList.size(); i++) {
@@ -712,10 +734,11 @@ public class overseasModule extends CommonAppiumTest{
 	{
 		try {
 			clickOnAccountType();
+			
 			int index = 0;
 			if (commonList.size() > 0) {
 				int l = commonList.size();
-
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				String ActualAccountType = null;
 				for (int i = 0; i < l; i++) {
 					ActualAccountType = commonList.get(i).getText();
@@ -785,6 +808,7 @@ public class overseasModule extends CommonAppiumTest{
 		try {
 
 			if (isElementVisible2(selectfundSource)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnSelectFundSource();
 
 				int index = 0;
@@ -852,6 +876,7 @@ public class overseasModule extends CommonAppiumTest{
 		    wait.waitForElementVisibility(checkDBSRemitRate);
 			
 			if (commonList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int index = 0;
 				String OverseaRecipientList = null;
 				for (int i = 0; i < commonList.size(); i++) {

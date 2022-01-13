@@ -66,7 +66,7 @@ public class More extends CommonAppiumTest{
 		try {
 			clickOnElementOnEnable(searchIcon);
 	        enterTextInTextbox(searchBox, searchBoxData); 
-			
+	        com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			List<RemoteWebElement> ElementCell = driver.findElementsByXPath("//XCUIElementTypeCell");
 			if(ElementCell.size() > 0) {
 			int sizeList = ElementCell.size();
@@ -114,6 +114,7 @@ public class More extends CommonAppiumTest{
 	@Step("Application Logout")
 	public void clickOnLogoutButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(logoutpeekbalance);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Log out Button  ", e);
@@ -126,6 +127,7 @@ public class More extends CommonAppiumTest{
 	@Step("Click on 'Transaction History' Button")
 	public void ClickOnTransactionHistory() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(transactionHistoryBtnLabel);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to click transaction history ", e);
@@ -161,6 +163,7 @@ public class More extends CommonAppiumTest{
 	@Step("Click on 'Home' Button.")
 	public void ClickOnHomeButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(HOMEButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button  ", e);
@@ -199,18 +202,18 @@ public class More extends CommonAppiumTest{
 	public void SelectModuleAfterSearch(String searchBoxData, String expectedModule) throws Exception {
 		try {
 			clickOnElementOnEnable(searchIcon);
-			if (isElementEnable(searchBox))
+			if (isElementEnable(searchBox)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				enterTextInTextbox(searchBox, searchBoxData);
-
+			}
 			List<RemoteWebElement> ElementCell = driver.findElementsByXPath("//XCUIElementTypeCell");
 			if (ElementCell.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int sizeList = ElementCell.size();
 				int index = 0;
 				for (int i = 1; i <= sizeList; i++) {
-
 					String xpath = "//XCUIElementTypeCell" + "[" + String.valueOf(i) + "]/XCUIElementTypeStaticText";
 					String Text = driver.findElementByXPath(xpath).getText();
-					System.out.println(Text);
 					if (Text.equalsIgnoreCase(expectedModule)) {
 						index++;
 						clickOnElement((MobileElement) driver.findElementByXPath(xpath));

@@ -157,6 +157,7 @@ public class cardsModule extends CommonAppiumTest{
 	@Step("Click on Submit Button")
 	public void ClickOnSubmitButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(submitButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXEPTION", " Failed to Click On Submit Button  ", e);
@@ -184,6 +185,7 @@ public class cardsModule extends CommonAppiumTest{
 	public void ClickonApplyButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "APPLY NOW", ApplyNowButton);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(ApplyNowButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXEPTION", " Failed to Click On Apply Button  ", e);
@@ -209,6 +211,7 @@ public class cardsModule extends CommonAppiumTest{
 	@Step("Select Debit Card")
 	public void SelectDebitCard() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(SelectDebitCard);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Debit Card ", e);
@@ -222,6 +225,7 @@ public class cardsModule extends CommonAppiumTest{
 		try {
 			wait.waitForElementVisibility(DebitCardDetailsDropdownList.get(0));  
 			if (DebitCardDetailsDropdownList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int l = DebitCardDetailsDropdownList.size();
 				int index = 0;
 				String actualDebitCard = null;
@@ -466,10 +470,12 @@ public class cardsModule extends CommonAppiumTest{
 	public void FillingDetailsToApplyingDebitCard(String appName) throws Exception {
 		try {
 			if (appName.equals("DBS")) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				ClickOnAccountToBeLinkedToTheCardField();
 				SelectAccountLinkedWithDebitCard(CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
 			}
 			else if (appName.equals("iWEALTH")) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				ClickOnExistingATMCardNumberToBeReplacedField();
 				SelectAccountLinkedWithDebitCard(CommonTestData.EXISTING_ATM_CARD_NUMBER_TOBE_REPLACED.getEnumValue());
 			}
@@ -512,6 +518,7 @@ public class cardsModule extends CommonAppiumTest{
 			String ElementName) throws Exception {
 		try {
 			if (elementList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				List<MobileElement> Elementlist = elementList;
 				int l = Elementlist.size();
 				int index = 0;
@@ -547,9 +554,11 @@ public class cardsModule extends CommonAppiumTest{
 			List<RemoteWebElement> nextButtonList = driver.findElements(By.xpath(nextButtonXpath));
 			if (confirmButtonList.size() > 0) {
 				gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(confirmButton);
 			} else if (nextButtonList.size() > 0) {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);
 			}
 		} catch (HandleException e) {

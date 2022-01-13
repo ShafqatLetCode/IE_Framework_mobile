@@ -98,6 +98,7 @@ public class More extends CommonAppiumTest{
 	public void ClickOnDepositAccountModule() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "Deposit Accounts", null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(DepositAccountsModule);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -111,6 +112,7 @@ public class More extends CommonAppiumTest{
 	@Step("Click On logout Button")
 	public void ClickOnLogOutButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(logoutButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On logout Button  ", e);
@@ -122,9 +124,12 @@ public class More extends CommonAppiumTest{
 	@Step("Select Update Contact Details.")
 	public void SelectUpdateContactDetails() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(ContactSearchfield);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(EditTextSearchBox);
 			enterTextInTextbox(EditTextSearchBox,CommonTestData.UPDATE_CONTACT_DETAILS_PAGEHEADER.getEnumValue());
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(UpdateContactDetails);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to select update contact details. ", e);
@@ -139,6 +144,7 @@ public class More extends CommonAppiumTest{
 			clickOnElement(ContactSearchfield);
 			clickOnElement(EditTextSearchBox);
 			enterTextInTextbox(EditTextSearchBox, CommonTestData.PEEK_BALANCE.getEnumValue());
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(SelectPeekBalance);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Peek balance Module. ",
@@ -149,13 +155,15 @@ public class More extends CommonAppiumTest{
 	}
 	
 	@Step("Select 'Local Transfer Limit' Module")
-	public void SelectLocalTransferLimitModule(String expectedModule)throws Exception {
+	public void SelectLocalTransferLimitModule(String expectedModule) throws Exception {
 		try {
 			clickOnElementOnEnable(searchIcon);
-			if (isElementEnable(searchBox))
+			if (isElementEnable(searchBox)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				enterTextInTextbox(searchBox, expectedModule);
-
+			}
 			if (searchTextElement.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int l = searchTextElement.size();
 				int index = 0;
 				String actualModule = null;
@@ -167,18 +175,18 @@ public class More extends CommonAppiumTest{
 						break;
 					}
 				}
-				if(index==0)
-				Asserts.assertFail(expectedModule + " No element found in the list");
+				if (index == 0)
+					Asserts.assertFail(expectedModule + " No element found in the list");
 			} else
 				Asserts.assertFail(expectedModule + " not found in the list as list size is 0");
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Select 'Temporary Credit Limit Increase' Module ",
-					e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Select 'Temporary Credit Limit Increase' Module ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Select 'Temporary Credit Limit Increase' Module ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Select 'Temporary Credit Limit Increase' Module ", e);
 		}
 	}
-	
 	
 	@Step("Select 'Temporary Credit Limit Increase' Module")
 	public void SelectTemporaryCreditLimitIncreaseModule(String expectedModule)throws Exception {
@@ -187,6 +195,7 @@ public class More extends CommonAppiumTest{
 			enterTextInTextbox(searchBox, expectedModule);
 
 			if (searchTextElement.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int l = searchTextElement.size();
 				int index = 0;
 				String actualModule = null;
@@ -213,6 +222,7 @@ public class More extends CommonAppiumTest{
 	@Step("Click On Home Button.")
 	public void ClickOnHomeButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(homeButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Home Button  ", e);
@@ -225,6 +235,7 @@ public class More extends CommonAppiumTest{
 	public void ClickOnCardsModule() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "Cards", null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(CardsButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Cards Module ", e);
@@ -236,6 +247,7 @@ public class More extends CommonAppiumTest{
 	@Step("Click on 'Transaction History' Button")
 	public void ClickOnTransactionHistory() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(transactionHistoryButton); 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to click transaction history ", e);

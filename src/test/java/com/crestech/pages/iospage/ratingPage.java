@@ -47,8 +47,10 @@ public class ratingPage extends CommonAppiumTest{
 	@Step("Click on 'Close' Button.")
 	public void ClickOnCloseButton() throws Exception {
 		try {
-			if(isElementVisible2(closeButton))
+			if(isElementVisible2(closeButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(closeButton);
+		}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button  ",	e);
 		} catch (Exception e) {

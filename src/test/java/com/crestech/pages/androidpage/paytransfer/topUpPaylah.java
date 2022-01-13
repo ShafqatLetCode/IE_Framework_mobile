@@ -77,6 +77,7 @@ public class topUpPaylah extends CommonAppiumTest{
 	@Step("Click On Topup LogOutButton")
 	public void ClickOnTopupLogOutButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(logOutPaylahButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on LogOut Button  ", e);
@@ -88,6 +89,7 @@ public class topUpPaylah extends CommonAppiumTest{
 	@Step("click On TOP UP NOW Button and then Verify 'Top-up Done' field and Display Amount")
 	public void ClickOnTopUpNowButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(topUpNowButton);
 			
 			Asserts.assertEquals(getTexOfElement(topUpDoneLabel),
@@ -120,6 +122,7 @@ public class topUpPaylah extends CommonAppiumTest{
 	public void ClickOnNextButton() throws Exception {
 		try {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
@@ -141,6 +144,7 @@ public class topUpPaylah extends CommonAppiumTest{
 	@Step("Click On Paylah and then verify Top Up Paylah label")
 	public void ClickOnPaylah(String expectecText) throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(paylahLabel);
 			Asserts.assertEquals(getTexOfElement(topUpPaylahLabel),
 					CommonTestData.TOPUP_PAYLAH_LABEL.getEnumValue(), "'Top Up Paylah' Text is not found");

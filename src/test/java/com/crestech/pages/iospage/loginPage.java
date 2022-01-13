@@ -60,9 +60,10 @@ public class loginPage extends CommonAppiumTest{
 	@Step("Click On Deregister Button.")
 	public void ClickOnDeregisterButtonInDigiAlertPopup(String peekBalanceDeregisterMsg) throws Exception {
 		try {
-			if (isElementVisible2(DeregisteryourprofileAlert))
+			if (isElementVisible2(DeregisteryourprofileAlert)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(PeekbalanceDeregisterButton);
-
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Deregister Button ",
 					e);
@@ -75,6 +76,7 @@ public class loginPage extends CommonAppiumTest{
 	@Step("Click on Login button")
 	public void clickOnLoginButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(logInButton_OnLogInPage);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
@@ -121,8 +123,11 @@ public class loginPage extends CommonAppiumTest{
 	@Step("Click On Not You Link Button.")
 	public void ClickOnNOTYouLink() throws Exception {
 		try {
-			if(isElementVisible2(NotYouLink))
+			if(isElementVisible2(NotYouLink)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(NotYouLink);
+			}
+				
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button ", e);
 		} catch (Exception e) {

@@ -54,6 +54,7 @@ public class enterPasscode extends CommonAppiumTest{
 		try {
 			Thread.sleep(10000); 
 			if (isElementVisible2(PasscodeField)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				enterTextInTextbox(secureBox, CommonTestData.OTP.getEnumValue());
 				if (isElementVisible2(doneButton)) 
 					ClickOnDoneButton();
@@ -72,16 +73,16 @@ public class enterPasscode extends CommonAppiumTest{
 		try {
 			wait.ImplicitlyWait(30);
 			if (isElementVisible2(PasscodeField)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(secureBox);
 				for (int i = 1; i <= 6; i++) {
 					String bxpath = "//XCUIElementTypeButton[@name=" + i + "]";
-					if (isElementVisible2((MobileElement) driver.findElement(By.xpath(bxpath))))
-						clickOnElement((MobileElement) driver.findElement(By.xpath(bxpath)));
+					if(isElementVisible2((MobileElement) driver.findElement(By.name(String.valueOf(i)))))
+							clickOnElement((MobileElement) driver.findElement(By.name(String.valueOf(i))));
 					else {
-						MobileElement button1 = (MobileElement) driver.findElement(By.name(String.valueOf(i)));
-						clickOnElement(button1);
+						clickOnElement((MobileElement) driver.findElement(By.xpath(bxpath)));
 					}
-					Thread.sleep(3000);
+					Thread.sleep(2000);
 				}
 			}
 		} catch (HandleException e) {	
@@ -95,6 +96,7 @@ public class enterPasscode extends CommonAppiumTest{
 	@Step("Click On Done Button.")
 	public void ClickOnDoneButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(doneButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Done Button  ", e);

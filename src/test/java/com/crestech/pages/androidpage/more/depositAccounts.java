@@ -121,6 +121,7 @@ public class depositAccounts extends CommonAppiumTest{
 	@Step("Click On Open Account In 2/3 Step Button.")
 	public void ClickOnopenAccountInStepButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(StepOpenAccountButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -169,6 +170,7 @@ public class depositAccounts extends CommonAppiumTest{
 			String ElementName) throws Exception {
 		try {
 			if (elementList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				List<MobileElement> Elementlist = elementList;
 				int l = Elementlist.size();
 				int index = 0;
@@ -199,11 +201,10 @@ public class depositAccounts extends CommonAppiumTest{
 	public void ClickOnNextButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
-			String nextButtonXpath = "//android.widget.Button[@text='NEXT']";
-			List<RemoteWebElement> nextButtonlist = driver.findElements(By.xpath(nextButtonXpath));
-			if (nextButtonlist.size() > 0) 
+			if (isElementVisible2(nextButton)) {
+				    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					clickOnElement(nextButton);
-			
+			} 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Next Button. ", e);
 		} catch (Exception e) {
@@ -229,6 +230,7 @@ public class depositAccounts extends CommonAppiumTest{
 	public void ClickOnOpenAccountNowButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "OPEN ACCOUNT NOW", OpenAccountNowButton);
+			 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(OpenAccountNowButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -277,6 +279,7 @@ public class depositAccounts extends CommonAppiumTest{
 	public void ClickOnIAcknowledgeButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "I ACKNOWLEDGE", IACKNOWLEDGEButton);
+			 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(IACKNOWLEDGEButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",

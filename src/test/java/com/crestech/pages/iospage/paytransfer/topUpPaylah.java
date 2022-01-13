@@ -72,6 +72,7 @@ public class topUpPaylah extends CommonAppiumTest{
 	@Step("Click On Topup LogOutButton")
 	public void ClickOnTopupLogOutButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(logoutPaylah);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on LogOut Button  ", e);
@@ -83,6 +84,7 @@ public class topUpPaylah extends CommonAppiumTest{
 	@Step("Click On Top Up Now Button")
 	public void ClickOnTopUpNowButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(topupNowButton);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify click on TopUp Now Button  ",e);		
@@ -106,6 +108,7 @@ public class topUpPaylah extends CommonAppiumTest{
 	@Step("Click On Next Button")
 	public void ClickOnNextButton() throws Exception {
 		try {
+			    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
@@ -137,6 +140,7 @@ public class topUpPaylah extends CommonAppiumTest{
 	public void ClickOnPaylah() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(payLahButton);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(payLahButton);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Paylah ",e);		

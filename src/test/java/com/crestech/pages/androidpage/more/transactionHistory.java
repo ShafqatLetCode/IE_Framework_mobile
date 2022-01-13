@@ -77,6 +77,7 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Click On Back Button.")
 	public void ClickOnBackButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(backButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Button  ", e);
@@ -127,6 +128,7 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Click on 'Show' Button")
 	public void ClickOnShowButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(showButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click show button ", e);
@@ -138,6 +140,7 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Select '3 Months Transaction History' ")
 	public void SelectThreeMonths() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(threeMonthLabel);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("SCREENSHOT", " Failed to Select '3 Months Transaction History' ",	e);
@@ -149,6 +152,7 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Click On Deposit Account And Select From Account")
 	public void ClickOnDepositAccountAndSelectFromAccount(String AccountName) throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(DepositAccountButton);
 			selectFromAccountFromDepositeSection(AccountName);
 		} catch (HandleException e) {
@@ -163,6 +167,7 @@ public class transactionHistory extends CommonAppiumTest{
 		try {
 			wait.waitForElementVisibility(AccountNameListInTransactionHistory.get(0));
 			if (isElementVisible2(AccountNameListInTransactionHistory.get(0))) {  
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int l = AccountNameListInTransactionHistory.size();
 				int index = 0;
 				String accountFromList = null;

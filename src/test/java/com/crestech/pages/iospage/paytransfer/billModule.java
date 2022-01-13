@@ -212,6 +212,7 @@ public class billModule extends CommonAppiumTest{
 	@Step("Click On Make A Payment Button.")
 	public void ClickOnMakeAPayment() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(MakeAPaymentButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Make A Payment Button ", e);
@@ -223,8 +224,10 @@ public class billModule extends CommonAppiumTest{
 	@Step("Click on 'Close' Button.")
 	public void ClickOnCloseButton() throws Exception {
 		try {
-			if(isElementVisible2(closeButton))
+			if(isElementVisible2(closeButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(closeButton);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button  ",	e);
 		} catch (Exception e) {
@@ -235,6 +238,7 @@ public class billModule extends CommonAppiumTest{
 	@Step("Click On Next Button")
 	public void ClickOnNEXTButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(NEXTButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ", e);
@@ -267,6 +271,7 @@ public class billModule extends CommonAppiumTest{
 	@Step("Click On Transfer Now Button.")
 	public void ClickOnTransferNowButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(TRANSFERNOWButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Transfer Now Button ", e);
@@ -291,6 +296,7 @@ public class billModule extends CommonAppiumTest{
 	@Step("Click On 'ADD RECIPIENT NOW' button")
 	public void ClickOnAddRecipientNowBtn() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(ADDRecipientNowButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -356,6 +362,7 @@ public class billModule extends CommonAppiumTest{
 	@Step("Click On Next Button")
 	public void ClickOnNextButton() throws Exception {
 		try {
+			    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
@@ -422,11 +429,14 @@ public class billModule extends CommonAppiumTest{
 	@Step("Click On Add Billing Organisation.")
 	public void ClickOnAddBillingOrganisation() throws Exception {
 		try {
-			if(isElementVisible2(AddRecipientNowButton)) 
+			if(isElementVisible2(AddRecipientNowButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(AddRecipientNowButton);
-			 else 
+			}
+			 else {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(AddBillingOrganisation);
-			
+			 }
 			List<RemoteWebElement> recipientDetailsHeader = driver.findElements(By.name("Enter Recipient’s Details"));
 			Asserts.assertTrue(isElementVisible2((MobileElement) recipientDetailsHeader.get(recipientDetailsHeader.size()-1)),
 					" 'Enter Recipient’s Details' Page Header not displaying.");

@@ -94,9 +94,12 @@ public class temporaryCreditLimitIncrease extends CommonAppiumTest{
 	public void SetDuration() throws Exception {
 		try {
 			verifyTempLimitIncreasePageHeader(CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue());
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(durationCreditLimit);
 			Asserts.assertEquals(getTexOfElement(calenderTemporaryLimitIncreaseHeader).trim().toLowerCase(), CommonTestData.CALENDER_HEADER.getEnumValue().toLowerCase(),CommonTestData.CALENDER_HEADER.getEnumValue()+ " text is not found");
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(calenderDateOctEleven);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(confirmButton);
 			verifyTempLimitIncreasePageHeader(CommonTestData.TEMP_LIMIT_INCREASE_TITLE.getEnumValue());
 		} catch (HandleException e) {
@@ -118,6 +121,7 @@ public class temporaryCreditLimitIncrease extends CommonAppiumTest{
 					CommonTestData.PURPOSE_HEADER_IOS.getEnumValue().toLowerCase(), "text is not found");
 
 			if (PurposeList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int l = PurposeList.size();
 				int index = 0;
 				String purposedFromList = null;
@@ -180,6 +184,7 @@ public class temporaryCreditLimitIncrease extends CommonAppiumTest{
 	public void ClickOnNEXTButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObjectIos("name", "NEXT", null );
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(NEXTButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ", e);

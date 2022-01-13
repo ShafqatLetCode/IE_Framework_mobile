@@ -105,6 +105,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void SelectToAccountFromYourDBSPOSBAccountlist(String ToOwnAccount) throws Exception {
 		try {
 			wait.waitForElementVisibility(SelectOwnAccount);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(SelectOwnAccount);
 
 			gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
@@ -121,6 +122,7 @@ public class payAndTransfer extends CommonAppiumTest{
 
 				while (count == 0 && index == 0) {
 					if (localRecipientsList.size() > 0) {
+						com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 						int length = localRecipientsList.size();
 						String LocalRecipientList = null;
 						if (length < 5) {
@@ -185,15 +187,6 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Select 'To Account' from local Recipient list.")
 	public void SelectToAccountFromLocalRecipient(String expectedLocalRecipient) throws Exception {
 		try {
-			int o = 0;
-			for (int i = 0; i < allTabList.size(); i++) {
-				String tabText = allTabList.get(i).getText();
-				o++;
-				if (tabText.equalsIgnoreCase(CommonTestData.CREDIT_CARDS.getEnumValue())) {
-					break;
-				}
-			}
-			gestUtils.DragAndDropElementToElement(allTabList.get(o), allTab);
 			Dimension windowSize = driver.manage().window().getSize();
 
 			int h = windowSize.getHeight();
@@ -207,12 +200,13 @@ public class payAndTransfer extends CommonAppiumTest{
 
 			while (count == 0 && index == 0) {
 				if (localRecipientsList.size() > 0) {
+					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int length = localRecipientsList.size();
 					String LocalRecipientList = null;
 					if (length < 5) {
 						for (int i = 0; i < length; i++) {
 							LocalRecipientList = localRecipientsList.get(i).getText();
-							if (LocalRecipientList.equalsIgnoreCase(expectedLocalRecipient)) {
+							if (LocalRecipientList.equals(expectedLocalRecipient)) {
 								index++;
 								clickOnElement(localRecipientsList.get(i));
 								break;
@@ -230,7 +224,7 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Code will work :: When Need to scroll
 						for (int i = 0; i < length; i++) {
 							LocalRecipientList = localRecipientsList.get(i).getText();
-							if (LocalRecipientList.equalsIgnoreCase(expectedLocalRecipient)
+							if (LocalRecipientList.equals(expectedLocalRecipient)
 									&& isElementVisible2(localRecipientsList.get(i))) {
 								index++;
 								clickOnElement(localRecipientsList.get(i));
@@ -270,17 +264,54 @@ public class payAndTransfer extends CommonAppiumTest{
 		}
 	}
 	
+//	@Step("Click On Local Recipient Option under All Tab.")
+//	public void ClickOnLocalRecipient() throws Exception {
+//		try {
+//			//gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
+//			int o=0;
+//			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+//			for (int i = 0; i < allTabList.size(); i++) {
+//				String tabText = allTabList.get(i).getText();
+//				o++;
+//				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
+//					clickOnElement(allTabList.get(i));
+//					break;
+//				}
+//			}
+//			
+//			gestUtils.DragAndDropElementToElement(allTabList.get(o-1), allTab);
+//		} catch (HandleException e) {
+//			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+//					" Failed to Click On Local Recipient Option under All Tab. ", e);
+//		} catch (Exception e) {
+//			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+//					" Failed to Click On Local Recipient Option under All Tab ", e);
+//		}
+//	}
+	
 	@Step("Click On Local Recipient Option under All Tab.")
 	public void ClickOnLocalRecipient() throws Exception {
 		try {
-			//gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
-			for (int i = 0; i < allTabList.size(); i++) {
+			// gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
+			int l = allTabList.size();
+            int o=0;
+			for (int i = 0; i < l; i++) {
+
+				if (!isElementVisible2(allTabList.get(i))) {
+					Dimension windowSize1 = driver.manage().window().getSize();
+					int y = (int) ((windowSize1.getHeight()));
+					int x = (int) ((windowSize1.getWidth()) / 2);
+					gestUtils.swipeCoordinatetoCoordinate(x, y + 20, x, y + 80);
+				}
 				String tabText = allTabList.get(i).getText();
+				o++;
 				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
 					clickOnElement(allTabList.get(i));
 					break;
 				}
 			}
+			
+			gestUtils.DragAndDropElementToElement(allTabList.get(o), allTab);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Click On Local Recipient Option under All Tab. ", e);
@@ -295,7 +326,6 @@ public class payAndTransfer extends CommonAppiumTest{
 		try {
             MobileElement ele=(MobileElement) driver.findElementByName("Billing Organisations");
 			gestUtils.DragAndDropElementToElement(ele, allTab);
-
 			Dimension windowSize = driver.manage().window().getSize();
 			System.out.println("getSessionId :"+driver.getSessionId());
 			
@@ -310,6 +340,7 @@ public class payAndTransfer extends CommonAppiumTest{
 			
 			while (count == 0 && index == 0) {
 				if (localRecipientsList.size() > 0) {
+					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int length = localRecipientsList.size();
 					String BillingOrganisationlist = null;
 					if (length < 5) {
@@ -386,6 +417,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void handlingOfPrimarySourceOfFundPopup() throws Exception {
 		try {
 			if (isElementVisible2(primarysourceOfFund)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				Asserts.assertEquals(getTexOfElement(primarysourceOfFund),
 						CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(), "Message Not matching");
 	
@@ -406,6 +438,7 @@ public class payAndTransfer extends CommonAppiumTest{
 		try {
 			wait.waitForElementVisibility(SelectOwnAccount);
 			gestUtils.DragAndDropElementToElement(allTabList.get(4), allTab);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			driver.findElementByName("Billing Organisations").click();
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Billing Organisation ",e);		
@@ -419,6 +452,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void ClickOnBillModule() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(BillsButton);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(BillsButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on bill module.", e);
@@ -431,6 +465,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void clickOnTopUpModule() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(topUpButton);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(topUpButton);
 		}catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On TopUp Paylah Module  ", e);
@@ -442,6 +477,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Click on 'Home' Button.")
 	public void ClickOnHomeButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(HOMEButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button  ", e);
@@ -454,6 +490,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void clickOnLocalButton() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(LocalButton);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(LocalButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Button ", e);
@@ -466,6 +503,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void SelectAllTAB() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(allTab);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(allTab);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab  ",e);
@@ -479,6 +517,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void ClickOnCreditCard() throws Exception {
 		try {
 			int o = 0;
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			for (int i = 0; i < allTabList.size(); i++) {
 				String tabText = allTabList.get(i).getText();
 				o++;
@@ -503,6 +542,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void ClickOnOverseasModule() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(overseasButton);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(overseasButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Overseas Module  ", e);
@@ -528,6 +568,7 @@ public class payAndTransfer extends CommonAppiumTest{
 
 				while (count == 0 && index == 0) {
 					if (localRecipientsList.size() > 0) {
+						com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 						int length = localRecipientsList.size();
 						String LocalRecipientList = null;
 						if (length < 5) {

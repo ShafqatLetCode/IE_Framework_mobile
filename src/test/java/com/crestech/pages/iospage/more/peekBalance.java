@@ -74,22 +74,24 @@ public class peekBalance extends CommonAppiumTest{
 	private MobileElement persoanliseMessage;
 	
 	@Step("Handle Confirmation Message")
-	public void handleConfirmationMessage() throws Exception{
+	public void handleConfirmationMessage() throws Exception {
 		try {
-			if (isElementVisible2(persoanliseMessage)) 
+			if (isElementVisible2(persoanliseMessage)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(alertOkButton);
+			}
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
-					" Failed to Handle Confirmation Message ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Confirmation Message ",
+					e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
-					" Failed to Handle Confirmation Message ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Handle Confirmation Message ", e);
 		}
 	}
 	
 	@Step("Enable Peek balance Toggle.")
 	public void EnablePeekBalanceToggle() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(PeekBalanceToggle);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enable Peek balance Toggle. ",
@@ -105,6 +107,7 @@ public class peekBalance extends CommonAppiumTest{
 			clickOnElement(AccountForPeekBalanceDropdown);
 			String xpath = "//XCUIElementTypeStaticText[@name='" + ExpectedUserAccountName + "']";
 			MobileElement selectAccount = (MobileElement) driver.findElement(By.xpath(xpath));
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(selectAccount);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -133,6 +136,7 @@ public class peekBalance extends CommonAppiumTest{
 	@Step("Click On Save Button.")
 	public void ClickOnSaveButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(SaveBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Save Button ", e);
@@ -144,9 +148,10 @@ public class peekBalance extends CommonAppiumTest{
 	@Step("Click On Ok Button After Displaying Personalize Your Device Popup.")
 	public void ClickOnOkButtonInPersonalizeYourDevicePopup() throws Exception {
 		try {
-			if (isElementVisible2(PersonalizeYourDevicePopup))
+			if (isElementVisible2(PersonalizeYourDevicePopup)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(alertOkButton);
-
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Click On Ok Button After Displaying PersonalizeYourDevicePopup ", e);
@@ -159,6 +164,7 @@ public class peekBalance extends CommonAppiumTest{
 	@Step("Click On Back Button")
 	public void ClickOnBackButtonImageView() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(backButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on Back Button. ", e);

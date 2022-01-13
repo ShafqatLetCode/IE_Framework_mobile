@@ -188,6 +188,7 @@ public class payNow extends CommonAppiumTest{
 	@Step("Click On Back Button.")
 	public void ClickOnBackButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(backButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Button  ", e);
@@ -200,6 +201,7 @@ public class payNow extends CommonAppiumTest{
 	public void ClickOnTransferNowButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject(null, null, null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(TransferNowBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on transfer now Button ",
@@ -258,9 +260,9 @@ public class payNow extends CommonAppiumTest{
 	@Step("Click On Next Button.")
 	public void ClickOnNextButton() throws Exception {
 		try {
-			wait.fluentWaitForElement(nextButton);
 			if (wait.waitForElementToBeClickable2(nextButton)) {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);
 			}				  
 		} catch (HandleException e) {
@@ -310,6 +312,7 @@ public class payNow extends CommonAppiumTest{
 	@Step("Select 'Pay Now To NRIC/FIN' ")
 	public void SelectPayNowToNRIC_FIN() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(PayNowToNRIC_FIN);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select 'Pay Now To NRIC/FIN' ", e);
@@ -321,6 +324,7 @@ public class payNow extends CommonAppiumTest{
 	@Step("Select 'Pay Now To VPA' ")
 	public void SelectPayNowToVPA() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(PayNowToVPA);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select 'Pay Now To VPA' ", e);
@@ -332,6 +336,7 @@ public class payNow extends CommonAppiumTest{
 	@Step("Select 'Pay Now To UEN' ")
 	public void SelectPayNowToUEN() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(PayNowToUEN);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select 'Pay Now To UEN' ", e);
@@ -347,6 +352,7 @@ public class payNow extends CommonAppiumTest{
 			if(isElementVisible2(TransfertoThailandwithPromptPayTitle)) {
 				String actualMessage = getTexOfElement(TransfertoThailandwithPromptPayTitle);
 				Asserts.assertEquals(actualMessage, expectecMessage, "Transfer to Thailand with PromptPay Message Not matching");
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				ClickOnGotItButton();
 			}
 		} catch (HandleException e) {	

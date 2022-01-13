@@ -133,6 +133,7 @@ public class billModule extends CommonAppiumTest{
 	@Step("Click On Back Icon.")
 	public void ClickOnBackIcon() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(BackIcon);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Icon  ", e);
@@ -220,6 +221,7 @@ public class billModule extends CommonAppiumTest{
 	public void ClickOnAddRecipientNowBtn() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "ADD RECIPIENT NOW", AddRecipientNowBtn);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(AddRecipientNowBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Add Recipient Now Button  ", e);
@@ -367,6 +369,7 @@ public class billModule extends CommonAppiumTest{
 	@Step("Click On Pay Now Button.")
 	public void ClickOnPayNowButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(PayNowButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Pay Now Button ", e);
@@ -378,6 +381,7 @@ public class billModule extends CommonAppiumTest{
 	@Step("Click On Make A Payment Button.")
 	public void ClickOnMakeAPayment() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(MakeAPaymentButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Make A Payment Button ", e);
@@ -417,20 +421,21 @@ public class billModule extends CommonAppiumTest{
 	@Step("Click On Add Billing Organisation.")
 	public void ClickOnAddBillingOrganisation() throws Exception {
 		try {
-			String xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0)
+			if (isElementVisible2(AddRecipientNowBtn)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(AddRecipientNowBtn);
-			else
+			} else {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(AddBillingOrganisation);
-
+			}
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Add Billing Organisation Button ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On Add Billing Organisation Button ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Billing Organisation Button ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On Add Billing Organisation Button ", e);
 		}
 	}
-	
 
 	@Step("Enter Reference Number")
 	public void EnterReferenceNumber(String ReferenceNo) throws Exception {
@@ -477,6 +482,7 @@ public class billModule extends CommonAppiumTest{
 	public void ClickOnNextButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(nextButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);

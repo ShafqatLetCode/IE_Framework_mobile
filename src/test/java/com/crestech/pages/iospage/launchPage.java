@@ -60,8 +60,10 @@ public class launchPage extends CommonAppiumTest{
 	@Step("Click on Alert DBS digibank” would like to find and connect to devices on your local network.")
 	public void localNetworkAlert() throws Exception {
 		try {
-			if(isElementVisible2(localNetworkAlert)) 
+			if(isElementVisible2(localNetworkAlert)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				driver.findElementByName("OK").click();	
+			}
 		}  catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Alert ", e);
 		} catch (Exception e) {
@@ -101,6 +103,7 @@ public class launchPage extends CommonAppiumTest{
 			if(isElementVisible2(preLoginButton))
 			{
 			int count = 0;
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			do {
 				clickOnElement(preLoginButton);
 				count++;

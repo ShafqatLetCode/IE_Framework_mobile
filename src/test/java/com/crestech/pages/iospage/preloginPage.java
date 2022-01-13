@@ -115,9 +115,15 @@ public class preloginPage extends CommonAppiumTest{
 	public void clickOnLoginButton() throws Exception {
 		try { 
 			if (wait.waitForElementToBeClickable2(logInButton_OnPreloginPage))
+			{
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(logInButton_OnPreloginPage);
-			else if (wait.waitForElementToBeClickable2(logInButton_launchPage))
+			}
+			else if (wait.waitForElementToBeClickable2(logInButton_launchPage)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				ClickOnLoginButtonOnLaunchPage();
+			}
+				
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);
 		} catch (Exception e) {
@@ -128,6 +134,7 @@ public class preloginPage extends CommonAppiumTest{
 	@Step("Click On LogIn Button.")
 	public void ClickOnLoginButtonAfterEnablePeekBalance() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(logInButton_OnPreloginPage);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On LogIn Button ", e);
@@ -154,6 +161,7 @@ public class preloginPage extends CommonAppiumTest{
 	public void ClickOnMoreModuleOnLoginPage() throws Exception {
 		try {
 			int count = 0;
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			do {
 				clickOnElement(moreOnPreLogin);
 				count++;
@@ -169,6 +177,7 @@ public class preloginPage extends CommonAppiumTest{
 	@Step("Clicked on Change Server button")
 	public void ClickOnChangeServerButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(changeServerButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -193,6 +202,7 @@ public class preloginPage extends CommonAppiumTest{
 	public void selectServerFromList(String serverName) throws Exception {
 		try {
 			gestUtils.scrollUPtoObjectIos("name", serverName, null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			String serverNameXpath = "//XCUIElementTypeStaticText[@name='" + serverName + "']";
 			MobileElement serverNameElement = (MobileElement) driver.findElement(By.xpath(serverNameXpath));
 			clickOnElement(serverNameElement);

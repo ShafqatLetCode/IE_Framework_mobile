@@ -61,8 +61,8 @@ public class loginPage extends CommonAppiumTest{
 	@Step("Click On Not You Link Button.")
 	public void ClickOnNOTYouLink() throws Exception {
 		try {	
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(NotYouLink);
-			
 		} catch (HandleException e) {			
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Not You Button ", e);
 		} catch (Exception e) {
@@ -77,6 +77,7 @@ public class loginPage extends CommonAppiumTest{
 
 			if (peekBalanceDeregisterMsg.contains(PeekBalance_DeregisterAlertMsg))
 			{
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(PeekbalanceDeregisterButton);
 				wait.waitForElementVisibility(userIdEditText);
 			}
@@ -116,6 +117,7 @@ public class loginPage extends CommonAppiumTest{
 	public void clickOnLoginButton2() throws Exception {
 		try {
 			int count = 0;
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			do {
 				clickOnElement(loginButton);
 				Thread.sleep(5000);
