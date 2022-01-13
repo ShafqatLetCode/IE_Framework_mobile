@@ -264,13 +264,45 @@ public class payAndTransfer extends CommonAppiumTest{
 		}
 	}
 	
+//	@Step("Click On Local Recipient Option under All Tab.")
+//	public void ClickOnLocalRecipient() throws Exception {
+//		try {
+//			//gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
+//			int o=0;
+//			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+//			for (int i = 0; i < allTabList.size(); i++) {
+//				String tabText = allTabList.get(i).getText();
+//				o++;
+//				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
+//					clickOnElement(allTabList.get(i));
+//					break;
+//				}
+//			}
+//			
+//			gestUtils.DragAndDropElementToElement(allTabList.get(o-1), allTab);
+//		} catch (HandleException e) {
+//			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+//					" Failed to Click On Local Recipient Option under All Tab. ", e);
+//		} catch (Exception e) {
+//			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+//					" Failed to Click On Local Recipient Option under All Tab ", e);
+//		}
+//	}
+	
 	@Step("Click On Local Recipient Option under All Tab.")
 	public void ClickOnLocalRecipient() throws Exception {
 		try {
-			//gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
-			int o=0;
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			for (int i = 0; i < allTabList.size(); i++) {
+			// gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
+			int l = allTabList.size();
+            int o=0;
+			for (int i = 0; i < l; i++) {
+
+				if (!isElementVisible2(allTabList.get(i))) {
+					Dimension windowSize1 = driver.manage().window().getSize();
+					int y = (int) ((windowSize1.getHeight()));
+					int x = (int) ((windowSize1.getWidth()) / 2);
+					gestUtils.swipeCoordinatetoCoordinate(x, y + 20, x, y + 80);
+				}
 				String tabText = allTabList.get(i).getText();
 				o++;
 				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
@@ -279,7 +311,7 @@ public class payAndTransfer extends CommonAppiumTest{
 				}
 			}
 			
-			gestUtils.DragAndDropElementToElement(allTabList.get(o-1), allTab);
+			gestUtils.DragAndDropElementToElement(allTabList.get(o), allTab);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Click On Local Recipient Option under All Tab. ", e);
