@@ -152,6 +152,10 @@ public class homePage extends CommonAppiumTest {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Deposits']")
 	private MobileElement DepositsAccountType;
 	
+	@ElementDescription(value = "OK Button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
+	private MobileElement OKButton;
+	
 	@ElementDescription(value = "Next button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='NEXT']")
 	private MobileElement nextButton;
@@ -197,6 +201,18 @@ public class homePage extends CommonAppiumTest {
 		}
 	}
 	
+	@Step("Click On OK Button.")
+	public void ClickOnOKButton() throws Exception {
+		try {
+			if (isElementVisible2(OKButton))
+				clickOnElement(OKButton);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button   ", e);
+		}
+	}
+
 	@Step("Click On Toolbar Back Icon.")
 	public void ClickOnToolBarBackIcon() throws Exception {
 		try {

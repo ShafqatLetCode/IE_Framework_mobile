@@ -116,6 +116,7 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Click On Show Button")
 	public void ClickOnShowButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(showButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on Show button  ", e);
@@ -156,6 +157,7 @@ public class transactionHistory extends CommonAppiumTest{
 
 			int index = 0;
 			if (accountListinTransectionHistory.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				String accountFromList = null;
 				for (int i = 0; i < accountListinTransectionHistory.size(); i++) {
 					accountFromList = accountListinTransectionHistory.get(i).getText();
@@ -197,6 +199,7 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Select '3 Months Transaction History' ")
 	public void SelectThreeMonths() throws Exception {
 		try {
+			 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			 clickOnElement(threeMonthOption);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("SCREENSHOT", " Failed to Select '3 Months Transaction History' ",	e);

@@ -54,6 +54,7 @@ public class enterPasscode extends CommonAppiumTest{
 		try {
 			Thread.sleep(10000); 
 			if (isElementVisible2(PasscodeField)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				enterTextInTextbox(secureBox, CommonTestData.OTP.getEnumValue());
 				if (isElementVisible2(doneButton)) 
 					ClickOnDoneButton();
@@ -72,6 +73,7 @@ public class enterPasscode extends CommonAppiumTest{
 		try {
 			wait.ImplicitlyWait(30);
 			if (isElementVisible2(PasscodeField)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(secureBox);
 				for (int i = 1; i <= 6; i++) {
 					String bxpath = "//XCUIElementTypeButton[@name=" + i + "]";
@@ -95,6 +97,7 @@ public class enterPasscode extends CommonAppiumTest{
 	@Step("Click On Done Button.")
 	public void ClickOnDoneButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(doneButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Done Button  ", e);

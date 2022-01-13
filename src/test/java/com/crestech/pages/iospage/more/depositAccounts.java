@@ -159,6 +159,7 @@ public class depositAccounts extends CommonAppiumTest{
 	@Step("Click On Open Account In 2/3 Step Button.")
 	public void ClickOnopenAccountInStepButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(StepOpenAccountButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -208,6 +209,7 @@ public class depositAccounts extends CommonAppiumTest{
 	public void ClickOnNEXTButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObjectIos("name", "NEXT", null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(NEXTButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ", e);
@@ -249,6 +251,7 @@ public class depositAccounts extends CommonAppiumTest{
 			int index = 0;
 			String accountFromList = null;
 			if (elementList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				for (int i = 0; i < elementList.size(); i++) {
 					accountFromList = elementList.get(i).getText();
 					if (accountFromList.contains(elementToBeSelected)) {
@@ -298,6 +301,7 @@ public class depositAccounts extends CommonAppiumTest{
 	public void ClickOnOpenAccountNowButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObjectIos("name", "OPEN ACCOUNT NOW", null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(OpenAccountNowButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -312,6 +316,7 @@ public class depositAccounts extends CommonAppiumTest{
 	public void ClickOnIAcknowledgeButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObjectIos("name", "I ACKNOWLEDGE", null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(IACKNOWLEDGEButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -360,8 +365,10 @@ public class depositAccounts extends CommonAppiumTest{
 	@Step("Click on 'Close' Button.")
 	public void ClickOnCloseButton() throws Exception {
 		try {
-			if(isElementVisible2(closeButton))
+			if(isElementVisible2(closeButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(closeButton);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button  ",	e);
 		} catch (Exception e) {

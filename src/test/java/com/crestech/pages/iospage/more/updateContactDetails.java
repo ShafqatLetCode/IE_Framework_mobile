@@ -162,6 +162,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Click On Next Button")
 	public void ClickOnNextButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			List<RemoteWebElement> NEXT_Button = driver.findElements(By.name("NEXT"));
 			List<RemoteWebElement> nextBtn = driver.findElements(By.name("Next"));
 			List<RemoteWebElement> confirmBtn = driver.findElements(By.name("CONFIRM"));
@@ -182,6 +183,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Click On Back Button.")
 	public void ClickOnBackButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(BackBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Button  ", e);
@@ -206,8 +208,10 @@ public class updateContactDetails extends CommonAppiumTest{
 	public void ClickOnBackToMoreServicesButton(String appName) throws Exception {
 		try {
 			if (appName.equalsIgnoreCase("iWEALTH")) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(backToMoreButton);
 			} else if (appName.equalsIgnoreCase("DBS")) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(BackToMoreServicesButton);
 			}
 		}catch (HandleException e) {
@@ -504,6 +508,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Select Personal & Contact Details under Update Contact Details Page.")
 	public void SelectPersonalContactDetails() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(PersonalAndContactDetailsTab);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",

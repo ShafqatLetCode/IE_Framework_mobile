@@ -169,6 +169,7 @@ public class homePage extends CommonAppiumTest{
 	public void ClickOnMoreButton() throws Exception {
 		try {
 		    wait.waitForElementToBeClickable(moreButton); 
+		    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(moreButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'More' button  ", e);
@@ -222,6 +223,7 @@ public class homePage extends CommonAppiumTest{
 	public void ClickOnPayAndTransferButton() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(payAndTransferButton);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(payAndTransferButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On pay and transfer Button  ", e);
@@ -258,14 +260,16 @@ public class homePage extends CommonAppiumTest{
 	public void HandlingWelcomeToDigibankForWealthManagement(String app_Name) throws Exception {
 		try {
 			if (app_Name.equalsIgnoreCase("iWEALTH") && isElementVisible2(managementAlertMsg)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int x2 = getXCoordinateOfElement(managementAlertMsg);
 				int y2 = getYCoordinateOfElement(managementAlertMsg);
 				int x1 = getXCoordinateOfElement(swipeButton);
 				int y1 = getYCoordinateOfElement(swipeButton);
 				gestUtils.swipeCoordinatetoCoordinate(x1, y1, x2, y2);
-			} else if(app_Name.equalsIgnoreCase("iWEALTH") && isElementVisible2(GET_STARTED_Button)) 
+			} else if(app_Name.equalsIgnoreCase("iWEALTH") && isElementVisible2(GET_STARTED_Button)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(GET_STARTED_Button); 
-			
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handling of 'Welcome to digibank for Wealth Management' message  ", e);
 		} catch (Exception e) {
@@ -277,6 +281,7 @@ public class homePage extends CommonAppiumTest{
 	public void locationSwipPopup(String app_Name) throws Exception {
 		try {
 			if(app_Name.equalsIgnoreCase("DBS") && isElementVisible2(goToLocationSettingButton)) { 
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 //				Dimension windowSize1 = driver.manage().window().getSize();
 //				int y =(int)((windowSize1.getHeight()));
 //				int x =(int)((windowSize1.getWidth())/2);
@@ -298,8 +303,10 @@ public class homePage extends CommonAppiumTest{
 	public void handlingMotionAndFitnessAlert() throws Exception
 	{
 		try {
-			if(isElementVisible2(alertFitnessActivityTitle)) 
+			if(isElementVisible2(alertFitnessActivityTitle)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(OKButton);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handling MOTION AND FITNESS ALERT ", e);
 		} catch (Exception e) {
@@ -311,7 +318,10 @@ public class homePage extends CommonAppiumTest{
 	public void clickOnNextOnConfirmEmailDigiToken() throws Exception {
 		try {
 			if(isElementVisible2(confirmEmail)) 
+			{
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);	
+			}
 		}
 		catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Clicked on Next while Confirming Email digital token ", e);
@@ -324,6 +334,7 @@ public class homePage extends CommonAppiumTest{
 	public void digitalToken() throws Exception {
 		try {
 			if (isElementVisible2(setupTokenMessage)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(setupNowButton);
 				ClickOnContinueButton();
 				clickOnNextOnConfirmEmailDigiToken();
@@ -342,8 +353,10 @@ public class homePage extends CommonAppiumTest{
 	@Step("Click On Continue Button.")
 	public void ClickOnContinueButton()throws Exception{
 		try {
-			if(isElementVisible2(digitokeRegisterAlertMsg)) 
+			if(isElementVisible2(digitokeRegisterAlertMsg)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(continueButton);
+			}
 		}catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ",
 					e);
@@ -368,8 +381,10 @@ public class homePage extends CommonAppiumTest{
 	@Step("Handling Fingure Print Alert")
 	public void handlingFingurePrintAlert() throws Exception {
 		try {
-			if (isElementVisible2(fingerpringAlertMessage))
+			if (isElementVisible2(fingerpringAlertMessage)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(fingerpringAlertClosedButton);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Handling Fingure Print Alert  ", e);
@@ -381,8 +396,10 @@ public class homePage extends CommonAppiumTest{
 	@Step("Handling Recording Alert")
 	public void handlingRecordingAlert() throws Exception {
 		try {
-			if (isElementVisible2(recordingAlertClosedButton))
+			if (isElementVisible2(recordingAlertClosedButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(recordingAlertClosedButton);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handling Recording Alert  ",
 					e);
@@ -394,10 +411,14 @@ public class homePage extends CommonAppiumTest{
 	@Step("Click On logout Button")
 	public void ClickOnLogOutButton(String app_Name) throws Exception {
 		try {
-			if(app_Name.equalsIgnoreCase("DBS"))
+			if(app_Name.equalsIgnoreCase("DBS")) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(logOutButton);
-			else if(app_Name.equalsIgnoreCase("iWEALTH"))
+			}
+			else if(app_Name.equalsIgnoreCase("iWEALTH")) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(logOutButtoniWealth);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On logout Button  ", e);
 		} catch (Exception e) {
@@ -414,14 +435,14 @@ public class homePage extends CommonAppiumTest{
 			int x=getXCoordinateOfElement(welcomeToText);
 			int y=getYCoordinateOfElement(welcomeToText);
 			gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+150);
-			
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			}
 			else if(app_Name.equalsIgnoreCase("iWEALTH"))
 			{
 				int x=getXCoordinateOfElement(welcomeToTextIwealth);
 				int y=getYCoordinateOfElement(welcomeToTextIwealth);
 				gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+150);
-				
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			}
 			VerifyAccountType(AccountType);
 			VerifyAccountName(AccountName);

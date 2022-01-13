@@ -170,6 +170,7 @@ public class localModule extends CommonAppiumTest{
 	@Step(" Click on 'TRANSFER NOW' Button")
 	public void ClickTransferNowButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(transferNowButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -192,8 +193,9 @@ public class localModule extends CommonAppiumTest{
 			int selectedAccount = 0;
 			String AccountNameList = null;
 			if (appName.equals("DBS") && isElementVisible2(selectfundSource)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(selectfundSource);
-				
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				for (int i = 0; i < selectfundSourceList.size(); i++) {
 					AccountNameList = selectfundSourceList.get(i).getText();
 					if (AccountNameList.equalsIgnoreCase(expectedSourceAccount)) {
@@ -208,8 +210,9 @@ public class localModule extends CommonAppiumTest{
 
 				handlingOfPrimarySourceOfFundPopup();
 			} else if (appName.equals("iWEALTH") && isElementVisible2(selectfundSource_iwealth)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(selectfundSource_iwealth);
-				
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				for (int i = 0; i < selectfundSourceList.size(); i++) {
 					AccountNameList = selectfundSourceList.get(i).getText();
 					if (AccountNameList.equalsIgnoreCase(expectedSourceAccount)) {
@@ -238,6 +241,7 @@ public class localModule extends CommonAppiumTest{
 		try {
 			if(isElementVisible2(primarysourceOfFund)) {
 				Asserts.assertEquals(getTexOfElement(primarysourceOfFund), CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(), "Message Not matching");
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				ClickOnOKButton();
 			}
 		} catch (HandleException e) {
@@ -382,6 +386,7 @@ public class localModule extends CommonAppiumTest{
 	@Step("Click On 'ADD RECIPIENT NOW' button")
 	public void ClickOnAddRecipientNowBtn() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(ADDRecipientNowButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -395,6 +400,7 @@ public class localModule extends CommonAppiumTest{
 	@Step("Click On Next Button")
 	public void ClickOnNEXTButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(NEXTButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ", e);
@@ -419,6 +425,7 @@ public class localModule extends CommonAppiumTest{
 	@Step("Click On Next Button")
 	public void ClickOnNextButton() throws Exception {
 		try {
+			    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
@@ -514,6 +521,7 @@ public class localModule extends CommonAppiumTest{
 	public void SelectBankAccount() throws Exception {
 		try {
 			int count =0;
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			do {
 				clickOnElement(SelectBankAccount);
 				Thread.sleep(2000);
@@ -541,10 +549,13 @@ public class localModule extends CommonAppiumTest{
 	@Step("Click On Add Local Recipient Button.")
 	public void clickOnAddLocalRecipientBtn() throws Exception {
 		try {
-			if (isElementVisible2(AddRecipientNowButton))  
+			if (isElementVisible2(AddRecipientNowButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(AddRecipientNowButton);
-			 else 
+			} else {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(AddLocalRecipientButton);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Local Recipient Button ", e);
 		} catch (Exception e) {
@@ -555,8 +566,10 @@ public class localModule extends CommonAppiumTest{
 	@Step("Click on 'Close' Button.")
 	public void ClickOnCloseButton() throws Exception {
 		try {
-			if(isElementVisible2(closeButton))
+			if(isElementVisible2(closeButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(closeButton);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button  ",	e);
 		} catch (Exception e) {

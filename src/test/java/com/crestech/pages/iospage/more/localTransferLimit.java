@@ -80,6 +80,7 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("click on 'BACK TO MORE' BUTTON ")
 	public void ClickOnBackToMoreButton() throws Exception {
 		try {
+			    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(backToMoreButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click 'BACK TO MORE' BUTTON ", e);
@@ -102,6 +103,7 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("Verifying and click 'CHANGE DAILY LIMIT NOW' BUTTON ")
 	public void verifyClickChangeDailyLimitNowButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(changeLimitNowButton);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Verifying and click 'CHANGE DAILY LIMIT NOW' BUTTON  " ,e);	
@@ -127,6 +129,7 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("Click On Next Button")
 	public void ClickOnNextButton() throws Exception {
 		try {
+			    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
@@ -165,6 +168,7 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("Click on 'Account type' From List under Local fund Limit page'")
 	public void selectAccountTypeInLocalFundTransfer() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(toOtherBankButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Account Type ", e);
@@ -178,11 +182,11 @@ public class localTransferLimit extends CommonAppiumTest{
 		try {
 			String currentText = getTexOfElement(currentLimitTextButton);
 			String[] arrOfStr = currentText.split(" ");
-
 			ClickOnSetCurrentLimit();
 		
 			String selectedValue = null;
 			if (arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_0.getEnumValue())) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				selectedValue = selectAmountFromSetCurrentLimitList2(AmountToBeselected);
 			} else {
 				gestUtils.scrollDOWNtoObject("text", CommonTestData.SELECTED_LIMIT_0.getEnumValue(), null);
@@ -268,6 +272,7 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("Click On 'set current Limit' ")
 	public void ClickOnSetCurrentLimit() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(currentLimitTextButton);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Set Current Limit " ,e);	

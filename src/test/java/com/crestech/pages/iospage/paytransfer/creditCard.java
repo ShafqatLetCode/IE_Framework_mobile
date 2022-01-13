@@ -144,10 +144,12 @@ public class creditCard extends CommonAppiumTest {
 	@Step("Click on 'Close' Button.")
 	public void ClickOnCloseButton() throws Exception {
 		try {
-			if(isElementVisible2(closeButton))
+			if (isElementVisible2(closeButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(closeButton);
+			}
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button  ",	e);
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button  ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button ", e);
 		}
@@ -201,9 +203,11 @@ public class creditCard extends CommonAppiumTest {
 		try {
 			if (isElementVisible2(SelectFundSourcePage)) {
 				gestUtils.scrollDownIos();
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(SelectFundSourcePage);
 				int selectedAccount = 0;
 				String AccountNameList = null;
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				for (int i = 0; i < selectfundSourceList.size(); i++) {
 					AccountNameList = selectfundSourceList.get(i).getText();
 					if (AccountNameList.equalsIgnoreCase(expectedSourceAccount)) {
@@ -231,6 +235,7 @@ public class creditCard extends CommonAppiumTest {
 	public void handlingOfPrimarySourceOfFundPopup() throws Exception {
 		try {
 			if (isElementVisible2(primarysourceOfFund)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				Asserts.assertEquals(getTexOfElement(primarysourceOfFund),
 						CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(), "Message Not matching");
 				ClickOnOKButton();
@@ -258,6 +263,7 @@ public class creditCard extends CommonAppiumTest {
 	@Step("Click On Next Button")
 	public void ClickOnNEXTButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(NEXTButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ", e);
@@ -326,6 +332,7 @@ public class creditCard extends CommonAppiumTest {
 	@Step("Click On Transfer Now Button.")
 	public void ClickOnTransferNowButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(TRANSFERNOWButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Transfer Now Button ", e);

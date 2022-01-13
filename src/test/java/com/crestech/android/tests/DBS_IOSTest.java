@@ -161,7 +161,7 @@ public class DBS_IOSTest extends UserBaseTest {
 
 	@Parameters({ "userName", "password", "app_Name" })
 	@Test(priority = 7, enabled = true, description = "Payee-Add-Remittance-ONEAPP-13679", dependsOnMethods = {
-			"PreRequisiteScript" })
+			"PreRequisiteScript" } , retryAnalyzer = RetryAnalyzer.class)
 	@Description(value = "Execution of this testcase:: Verify the Add Remittance payee")
 	@Author(name = "Shafqat Ali")
 	public void Payee_Add_Remittance(String userName, String password, String app_Name) throws Exception {
@@ -315,7 +315,6 @@ public class DBS_IOSTest extends UserBaseTest {
 			DBSPgaeObject1 = DBSPgaeObject;
 			DBSPgaeObject1.LogInApplication(userName, password);
 			DBSPgaeObject1.FundTransferDBSPOSB(app_Name);
-
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode() + "--> " + e.getMessage() );

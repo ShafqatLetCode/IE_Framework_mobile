@@ -176,6 +176,7 @@ public class cardsModule extends CommonAppiumTest{
 	@Step("Click on 'Close' Button.")
 	public void ClickOnCloseButton() throws Exception {
 		try {
+			    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(closeButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Click on 'Close' Button  ",	e);
@@ -239,6 +240,7 @@ public class cardsModule extends CommonAppiumTest{
 	@Step("Click on Submit Button")
 	public void ClickOnSubmitButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(submitButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXEPTION", " Failed to Click On Submit Button  ", e);
@@ -251,6 +253,7 @@ public class cardsModule extends CommonAppiumTest{
 	public void ClickOnNextButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObjectIos("name", "NEXT", null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(nextButton);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ",e);		
@@ -265,6 +268,7 @@ public class cardsModule extends CommonAppiumTest{
 		try {
 			wait.fluentWaitForElement(DebitCardDetailsDropdownList.get(0));
 			if (isElementVisible2(DebitCardDetailsDropdownList.get(0))) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int index = 0;
 				String actualDebitCard = null;
 				for (int i = 0; i < DebitCardDetailsDropdownList.size(); i++) {
@@ -291,6 +295,7 @@ public class cardsModule extends CommonAppiumTest{
 	@Step("Select Debit Card")
 	public void SelectDebitCard() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(SelectDebitCard);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Debit Card ", e);
@@ -357,6 +362,7 @@ public class cardsModule extends CommonAppiumTest{
 			int index = 0;
 			String accountFromList = null;
 			if (elementList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				for (int i = 0; i < elementList.size(); i++) {
 					accountFromList = elementList.get(i).getText();
 					if (accountFromList.contains(elementToBeSelected)) {
@@ -548,10 +554,12 @@ public class cardsModule extends CommonAppiumTest{
 	public void FillingDetailsToApplyingDebitCard(String appName) throws Exception {
 		try {
 			if (appName.equals("DBS")) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				ClickOnAccountToBeLinkedToTheCardField();
 				SelectAccountLinkedWithDebitCard(CommonTestData.ACCOUNT_LINKED_WITH_DEBIT_CARD.getEnumValue());
 			}
 			else if (appName.equals("iWEALTH")) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				ClickOnExistingATMCardNumberToBeReplacedField();
 				SelectAccountLinkedWithDebitCard(CommonTestData.EXISTING_ATM_CARD_NUMBER_TOBE_REPLACED.getEnumValue());
 			}
@@ -591,6 +599,7 @@ public class cardsModule extends CommonAppiumTest{
 	public void ClickOnSendMeDBSPrmotionViaMailCheckbox() throws Exception {
 		try {
 			gestUtils.scrollUPtoObjectIos("text", "NEXT", null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(SendMeDBSPrmotionViaMail); 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -604,6 +613,7 @@ public class cardsModule extends CommonAppiumTest{
 	@Step("Click On Next Button")
 	public void ClickOnNEXTButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(NEXTButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ", e);

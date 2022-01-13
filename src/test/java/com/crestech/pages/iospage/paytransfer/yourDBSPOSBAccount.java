@@ -102,6 +102,7 @@ public class yourDBSPOSBAccount extends CommonAppiumTest {
 	@Step("Click on Transfer Now Button.")
 	public void ClickOnTransferNowBtn() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(TRANSFERNOWButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to CLick on transfer now Button ",
@@ -152,6 +153,7 @@ public class yourDBSPOSBAccount extends CommonAppiumTest {
 	@Step("Click On Next Button")
 	public void ClickOnNEXTButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(NEXTButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on next button ", e);
@@ -163,6 +165,7 @@ public class yourDBSPOSBAccount extends CommonAppiumTest {
 	@Step("Click On 'Back To Home' Button")
 	public void ClickOnBackToHomeButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(BackToHomeButton); 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on 'Back To Home' button ", e);
@@ -206,9 +209,11 @@ public class yourDBSPOSBAccount extends CommonAppiumTest {
 		try {
 			if (isElementVisible2(SelectFundSourcePage)) {
 				gestUtils.scrollDownIos();
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(SelectFundSourcePage);
 				int selectedAccount = 0;
 				String AccountNameList = null;
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				for (int i = 0; i < selectfundSourceList.size(); i++) {
 					AccountNameList = selectfundSourceList.get(i).getText();
 					if (AccountNameList.equalsIgnoreCase(expectedSourceAccount)) {
@@ -238,6 +243,7 @@ public class yourDBSPOSBAccount extends CommonAppiumTest {
 			if (isElementVisible2(primarysourceOfFund)) {
 				Asserts.assertEquals(getTexOfElement(primarysourceOfFund),
 						CommonTestData.PRIMARY_SOURCE_ALERT_TITLE.getEnumValue(), "Message Not matching");
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				ClickOnOKButton();
 			}
 		} catch (HandleException e) {
