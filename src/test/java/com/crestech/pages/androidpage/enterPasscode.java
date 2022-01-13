@@ -47,6 +47,7 @@ public class enterPasscode extends CommonAppiumTest{
 	public void EnterPasscodeAndDone() throws Exception {
 		try {
 			if (isElementVisible2(PasscodeField)) { 
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				enterTextInTextbox(PasscodeField, CommonTestData.OTP.getEnumValue());
 				if (isElementVisible2(DoneButton)) 
 					ClickOnDoneButton();
@@ -61,6 +62,7 @@ public class enterPasscode extends CommonAppiumTest{
 	@Step("Click On Done Button.")
 	public void ClickOnDoneButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(DoneButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Done Button  ", e);

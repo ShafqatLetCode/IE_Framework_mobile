@@ -283,6 +283,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Select Personal & Contact Details under Update Contact Details Page.")
 	public void SelectPersonalContactDetails() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(PersonalAndContactDetailsTab);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -381,6 +382,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	public void ClickOnConfirmButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject(null, null, null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			if(isElementVisible2(confirmButton)) 
 			clickOnElement(confirmButton);
 		} catch (HandleException e) {
@@ -395,9 +397,11 @@ public class updateContactDetails extends CommonAppiumTest{
 		try {
 			if(isElementVisible2(nextButton)) {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);			
 			}else if(isElementVisible2(confirmButton)) {			
 					gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
+					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					clickOnElement(confirmButton);
 			}
 		} catch (HandleException e) {
@@ -410,6 +414,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Click On Back Button.")
 	public void ClickOnBackButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(backButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Button  ", e);
@@ -473,6 +478,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Click On 'Back to More Services' Button.")
 	public void ClickOnBackToMoreServicesBtn() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(BACKTOMoreServicesBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click on Back toMore button  ",e);

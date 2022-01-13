@@ -78,6 +78,7 @@ public class launchPage extends CommonAppiumTest{
 			wait.ImplicitlyWait(70);
 			
 			if (isElementVisible2(quitBtn)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				driver.closeApp();
 				relaunchingDBS();
 				wait.fluentWaitForElement(loginButton); 
@@ -142,6 +143,7 @@ public class launchPage extends CommonAppiumTest{
 		try {
 			if(wait.waitForElementToBeClickable2(PreLoginBtn))
 			{
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			int count = 0;
 			do {
 				clickOnElement(PreLoginBtn);
@@ -160,6 +162,7 @@ public class launchPage extends CommonAppiumTest{
 		try {
 			if(wait.waitForElementToBeClickable2(loginButton))
 			{
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			int count = 0;
 			do {
 				clickOnElement(loginButton);
@@ -168,6 +171,7 @@ public class launchPage extends CommonAppiumTest{
 			}
 			else if (wait.waitForElementToBeClickable2(LogInButton_preloginpage))
 			{
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(LogInButton_preloginpage);
 			}
 		} catch (HandleException e) {

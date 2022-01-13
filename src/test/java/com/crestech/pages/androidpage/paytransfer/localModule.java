@@ -115,6 +115,10 @@ public class localModule extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Select Fund Source']")
 	private MobileElement SelectFundSourceText;
 	
+	@ElementDescription(value = "Primary source of fund Popup")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Primary source of fund']")
+	private MobileElement PrimarySourceOfFundPopup;
+	
 	@ElementDescription(value = "Select Local Recipient To Account")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_src_acc_name')]")
 	private List<MobileElement> sourceAccountList;
@@ -203,6 +207,7 @@ public class localModule extends CommonAppiumTest{
 	public void clickOnLogOutButton() throws Exception {
 		try {
 			gestUtils.scrollDOWNtoObject("text", "Log Out",logOutPaylahButton);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(logOutPaylahButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On 'Log Out' Button ", e);
@@ -255,6 +260,7 @@ public class localModule extends CommonAppiumTest{
 	public void ClickOnTransferNowBtn() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject(null, null, null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(TransferNowBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to CLick on transfer now Button ",
@@ -397,6 +403,7 @@ public class localModule extends CommonAppiumTest{
 	public void DisableToTransferViaFastToggle() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject(null, null, TransferViaFastTransferToggle);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(TransferViaFastTransferToggle);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", "Failed to click on fast toggle to disable it", e);
@@ -434,6 +441,7 @@ public class localModule extends CommonAppiumTest{
 	@Step("Click On OK Button.")
 	public void ClickOnOKButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(OKButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button  ", e);
@@ -445,9 +453,7 @@ public class localModule extends CommonAppiumTest{
 	@Step("Handle Of 'Primary Source Of Fund' Popup.")
 	public void HandlingOfPrimarySourceOfFundPopup() throws Exception {
 		try {
-			String xpath1 = "//android.widget.TextView[@text='Primary source of fund']";
-			List<RemoteWebElement> primarySourceOfFundPopup = driver.findElements(By.xpath(xpath1));
-			if (primarySourceOfFundPopup.size() > 0)
+			if (isElementVisible2(PrimarySourceOfFundPopup)) 
 				ClickOnOKButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Of 'Primary Source Of Fund' Popup  ", e);
@@ -460,11 +466,10 @@ public class localModule extends CommonAppiumTest{
 	@Step("'Select Fund Source Account' If User has multiple accounts.")
 	public void SelectFundSourceAccount(String expectedSourceAccount) throws Exception {
 		try {
-			String xpath = "//android.widget.TextView[@text='Select Fund Source']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0) {
+			if (isElementVisible2(SelectFundSourceText)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(SelectFundSourceText);
-				
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int selectedAccount = 0;
 				for (int i = 0; i < sourceAccountList.size(); i++) {
 					String actualSourceAccount = sourceAccountList.get(i).getText();
@@ -522,22 +527,26 @@ public class localModule extends CommonAppiumTest{
 	@Step("Click On Add Local Recipient Button.")
 	public void clickOnAddLocalRecipientBtn() throws Exception {
 		try {
-			if (isElementVisible2(AddRecipientNowBtn)) 
+			if (isElementVisible2(AddRecipientNowBtn)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(AddRecipientNowBtn);
-			else
+			} else {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(AddLocalRecipient);
-
+			}
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Local Recipient Button ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On Add Local Recipient Button ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Local Recipient Button ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On Add Local Recipient Button ", e);
 		}
 	}
-	
 	
 	@Step("Click On Next Button.")
 	public void ClickOnNextButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(NextButton);
 			wait.waitForElementVisibility(AddRecipientNowBtn);
 		} catch (HandleException e) {
@@ -551,6 +560,7 @@ public class localModule extends CommonAppiumTest{
 	public void ClickOnNextButtonToInitiateFundTransfer() throws Exception {
 		try {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
@@ -562,6 +572,7 @@ public class localModule extends CommonAppiumTest{
 	@Step("Select Bank Account.")
 	public void SelectBankAccount() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(SelectBankAccount);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Bank Account ", e);
@@ -669,6 +680,7 @@ public class localModule extends CommonAppiumTest{
 	public void ClickOnAddRecipientNowBtn() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "ADD RECIPIENT NOW", AddRecipientNowBtn);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(AddRecipientNowBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Add Recipient Now Button  ", e);
@@ -800,6 +812,7 @@ public class localModule extends CommonAppiumTest{
 	@Step("Click On Back Icon.")
 	public void ClickOnBackIcon() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(BackIcon);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Icon  ", e);
@@ -837,9 +850,11 @@ public class localModule extends CommonAppiumTest{
 	@Step("Select Future Date Through Calendar and verifies the selected 'future date'.")
 	public void SelectFutureDate() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(TransferDateTextElement);
 
 			if(isElementEnable(StaticDate)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(StaticDate);
 				ClickOnOKButton();
 				String ActualSelectedDate = getTexOfElement(TransferDateTextElement);
@@ -847,42 +862,25 @@ public class localModule extends CommonAppiumTest{
 			}else {
 				Calendar calendar = Calendar.getInstance();
 				Date today = calendar.getTime();
-	
 				calendar.add(Calendar.DAY_OF_YEAR, 1);
 				Date tomorrow = calendar.getTime();
-	
 				DateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-	
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				String todayAsString = dateFormat.format(today);
 				String tomorrowAsString = dateFormat.format(tomorrow);
 				String ExpectedDate = tomorrowAsString.replaceAll("-", " ");
-				System.out.println(todayAsString);
-				System.out.println(tomorrowAsString);
-				System.out.println(ExpectedDate);
 				String[] sDate = tomorrowAsString.split("-");
-				System.out.println(sDate[0]);
-				
 				String[] todayDate = todayAsString.split("-");
-				System.out.println(todayDate[0]);
-				
 				String newDate = sDate[0];
 				
 				if(todayDate[0].equals("30") || todayDate[0].equals("31") || todayDate[0].equals("28") || todayDate[0].equals("29")) {
 					calendar.add(Calendar.DAY_OF_YEAR, 14);
 					Date DateAfterFourteenDays = calendar.getTime();
-		
 					DateFormat newDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-		
 					String DateAfterFourteenDaysInFormat = newDateFormat.format(DateAfterFourteenDays);
-					System.out.println("DateAfterFourteenDaysInFormat:: "+DateAfterFourteenDaysInFormat);
 				    ExpectedDate = DateAfterFourteenDaysInFormat.replaceAll("-", " ");
-					System.out.println("ExpectedDate:: "+ExpectedDate);
-					
 					String[] sDate1 = DateAfterFourteenDaysInFormat.split("-");
-					System.out.println("new Selected Date:: "+sDate1[0]);
 					newDate = sDate1[0]; 
-					System.out.println("newDate:: "+ newDate);
-					
 					clickOnElement(SelectNextMonth); 
 				}
 				
@@ -896,8 +894,6 @@ public class localModule extends CommonAppiumTest{
 				ClickOnOKButton();
 				
 				String ActualSelectedDate = getTexOfElement(TransferDateTextElement);
-				System.out.println("ActualSelectedDate:: "+ActualSelectedDate);
-				System.out.println("ExpectedDate:: "+ExpectedDate);
 				Asserts.assertEquals(ActualSelectedDate, ExpectedDate, "Selected Date is not Matching");
 			}
 			

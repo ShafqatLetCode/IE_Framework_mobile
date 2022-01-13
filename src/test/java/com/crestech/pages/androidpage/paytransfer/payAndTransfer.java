@@ -101,6 +101,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void ClickOnBillsModule() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(BillsButton); 
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(BillsButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Bill Module ", e);
@@ -113,6 +114,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void ClickOnBillingOrganisation() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", CommonTestData.BILLING_ORGANISATIONS_TAB.getEnumValue(), null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			int o = 0;
 			for (int i = 0; i < AllTabOptionsList.size(); i++) {
 				String tabText = AllTabOptionsList.get(i).getText();
@@ -136,6 +138,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void ClickOnCreditCard() throws Exception {
 		try {
 			int o = 0;
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			for (int i = 0; i < AllTabOptionsList.size(); i++) {
 				String tabText = AllTabOptionsList.get(i).getText();
 				o++;
@@ -159,6 +162,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void ClickOnYourDBSPOSBAccounts() throws Exception {
 		try {
 			int o = 0;
+			 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			for (int i = 0; i < AllTabOptionsList.size(); i++) {
 				String tabText = AllTabOptionsList.get(i).getText();
 				o++;
@@ -191,6 +195,7 @@ public class payAndTransfer extends CommonAppiumTest{
 
 			while (count == 0 && index == 0) {
 				if (SubTitleTextList.size() > 0) {
+					 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int length = SubTitleTextList.size();
 					String actualToOWNAccount = null;
 					if (length < 2) {
@@ -266,6 +271,7 @@ public class payAndTransfer extends CommonAppiumTest{
 
 			while (count == 0 && index == 0) {
 				if (SubTitleTextList.size() > 0) {
+					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int length = SubTitleTextList.size();
 					String actualToCreditCardAccount = null;
 					if (length < 2) {
@@ -341,6 +347,7 @@ public class payAndTransfer extends CommonAppiumTest{
 			int index = 0;
 			while (count == 0 && index == 0) {
 				if (SubTitleTextList.size() > 0) {
+					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int length = SubTitleTextList.size();
 					String BillingOrganisationlist = null;
 					if (length < 2) {
@@ -412,6 +419,7 @@ public class payAndTransfer extends CommonAppiumTest{
 			
 			while (count == 0 && index == 0) {
 				if (SubTitleTextList.size() > 0) {
+					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int length = SubTitleTextList.size();
 					String actualLocalRecipient = null;
 					if (length < 2) {
@@ -498,6 +506,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void ClickOnLocalRecipient() throws Exception {
 		try {
 			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(1), AllTab);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			int o = 0;
 			for (int i = 0; i < AllTabOptionsList.size(); i++) {
 				String tabText = AllTabOptionsList.get(i).getText();
@@ -521,6 +530,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void ClickOnTopupPaylahModule() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(topUpButton); 
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(topUpButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On TopUp Paylah Module  ", e);
@@ -533,6 +543,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void ClickOnLocalModule() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(LocalButton);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(LocalButton); 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Local Module  ", e);
@@ -545,6 +556,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void ClickOnOverseasModule() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(Btnlist.get(3)); 
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(Btnlist.get(3));
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Overseas Button  ",
@@ -558,6 +570,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void SelectAllTAB() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(AllTab);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(AllTab); 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select All Tab  ", e);
@@ -569,6 +582,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Click On Home Button.")
 	public void ClickOnHomeButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(homeButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Home Button  ", e);
@@ -581,6 +595,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void ClickOnPayNowModule() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(payNowModule);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(payNowModule);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On pay Now Module ", e);

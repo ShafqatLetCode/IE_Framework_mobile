@@ -140,9 +140,10 @@ public class temporaryCreditLimitIncrease extends CommonAppiumTest{
 	public void ClickOnNextButton() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
-			if(isElementVisible2(nextButton))
+			if(isElementVisible2(nextButton)) {
+				    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					clickOnElement(nextButton);
-			
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Next Button. ", e);
 		} catch (Exception e) {
@@ -170,6 +171,7 @@ public class temporaryCreditLimitIncrease extends CommonAppiumTest{
 			clickOnElement(purposeOption);
 			
 			if (PurposeList.size() > 0) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int l = PurposeList.size();
 				int index = 0;
 				String purposedFromList = null;
@@ -197,10 +199,13 @@ public class temporaryCreditLimitIncrease extends CommonAppiumTest{
 	public void SetDuration() throws Exception {
 		try {
 			clickOnElement(durationOption);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(selectDateOctEleven);
 			clickOnElement(OKButton);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(durationOption);
 			clickOnElement(selectDateOctEleven);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(OKButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",

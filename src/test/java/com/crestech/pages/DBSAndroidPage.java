@@ -185,11 +185,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			
 			homepage.ClickOnLogOutButton();
 			
-			//String xpath = "//android.widget.ImageView[@content-desc='CLOSE']";
-			//List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			//if (list.size() > 0) {
-			//if(isElementVisible2(null))
-				if(homepage.ClickOnCloseButton())		
+			if(homepage.ClickOnCloseButton())		
 					homepage.ClickOnLogOutButton();
 			
 			

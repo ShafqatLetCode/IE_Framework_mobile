@@ -96,6 +96,10 @@ public class yourDBSPOSBAccount extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
 	private MobileElement OKButton;
 	
+	@ElementDescription(value = "Primary source of fund Popup")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Primary source of fund']")
+	private MobileElement PrimarySourceOfFund_Popup;
+	
 	@ElementDescription(value = "Page Header")
 	@AndroidFindBy(xpath = "//android.widget.RelativeLayout//android.widget.TextView[contains(@resource-id,':id/text')]")
 	private MobileElement PageHeader;
@@ -104,6 +108,7 @@ public class yourDBSPOSBAccount extends CommonAppiumTest{
 	public void ClickOnNextButton() throws Exception {
 		try {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
@@ -116,11 +121,10 @@ public class yourDBSPOSBAccount extends CommonAppiumTest{
 		@Step("'Select Fund Source Account' If User has multiple accounts.")
 		public void SelectFundSourceAccount(String expectedSourceAccount) throws Exception {
 			try {
-				String xpath = "//android.widget.TextView[@text='Select Fund Source']";
-				List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-				if (list.size() > 0) {
+				if (isElementVisible2(SelectFundSourceText)) {
+					 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					clickOnElement(SelectFundSourceText);
-					
+					 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int selectedAccount = 0;
 					for (int i = 0; i < sourceAccountList.size(); i++) {
 						String actualSourceAccount = sourceAccountList.get(i).getText();
@@ -129,7 +133,7 @@ public class yourDBSPOSBAccount extends CommonAppiumTest{
 							clickOnElement(sourceAccountList.get(i));
 							break;
 						}
-					}
+					} 
 
 					if (selectedAccount == 0)
 						Asserts.assertFail("Select Fund Source " + expectedSourceAccount
@@ -147,9 +151,7 @@ public class yourDBSPOSBAccount extends CommonAppiumTest{
 		@Step("Handle Of 'Primary Source Of Fund' Popup.")
 		public void HandlingOfPrimarySourceOfFundPopup() throws Exception {
 			try {
-				String xpath1 = "//android.widget.TextView[@text='Primary source of fund']";
-				List<RemoteWebElement> primarySourceOfFundPopup = driver.findElements(By.xpath(xpath1));
-				if (primarySourceOfFundPopup.size() > 0)
+				if (isElementVisible2(PrimarySourceOfFund_Popup)) 
 					ClickOnOKButton();
 			} catch (HandleException e) {
 				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Of 'Primary Source Of Fund' Popup  ", e);
@@ -162,6 +164,7 @@ public class yourDBSPOSBAccount extends CommonAppiumTest{
 		@Step("Click On OK Button.")
 		public void ClickOnOKButton() throws Exception {
 			try {
+				 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(OKButton);
 			} catch (HandleException e) {
 				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button  ", e);
@@ -212,6 +215,7 @@ public class yourDBSPOSBAccount extends CommonAppiumTest{
 	@Step("Click 'BACK TO Home' BUTTON ")
 	public void ClickOnBackToHomeButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(BACKToHOME);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click 'BACK TO Home' BUTTON ",
@@ -238,6 +242,7 @@ public class yourDBSPOSBAccount extends CommonAppiumTest{
 	public void ClickOnTransferNowBtn() throws Exception {
 		try {
 			gestUtils.scrollUPtoObject(null, null, null);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(TransferNowBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to CLick on transfer now Button ",

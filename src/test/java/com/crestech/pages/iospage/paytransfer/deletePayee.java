@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
@@ -15,6 +17,7 @@ import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -81,6 +84,13 @@ public class deletePayee extends CommonAppiumTest{
 	@Step("Delete Payee.")
 	public void DeletePayee(String ExpectedPayee) throws Exception {
 		try {
+			WebDriverWait wait = new WebDriverWait(driver, 60);
+			wait.until(ExpectedConditions.or(
+					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
+							"type == 'XCUIElementTypeStaticText' AND name == 'Local Transfer'  AND visible== 1")),
+					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
+							"type == 'XCUIElementTypeStaticText' AND name == 'Local Transfer'  AND visible== 0"))));
+			
 			if (payeeList.size() > 0) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int ExpectedTotalPayeeSize = payeeList.size();
@@ -92,7 +102,7 @@ public class deletePayee extends CommonAppiumTest{
 						com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					}
 					if (actualPayee.equals(ExpectedPayee)) {
-						int index = i / 2;
+						int index = 1 + i;
 						ClickOnDeletePayeeToIcon(index);
 						ClickOnMoreOptionBtn();
 						ClickOnDeletePayeeBtn();
@@ -126,7 +136,7 @@ public class deletePayee extends CommonAppiumTest{
 					}
 					if (actualPayee.equals(ExpectedPayee)) {
 						int index = 1 + i;
-						ClickOnDeletePayeeToIcon_forPayeeRemittance(index);
+						ClickOnDeletePayeeToIcon(index);
 						ClickOnMoreOptionBtn();
 						ClickOnDeletePayeeBtn();
 						ClickOnYesBtn();
@@ -222,7 +232,7 @@ public class deletePayee extends CommonAppiumTest{
 		}
 	}
 	@Step("Click On i Icon from the list.")
-	public void ClickOnDeletePayeeToIcon(int index) throws Exception {
+	public void ClickOnDeletePayeeToIcon1(int index) throws Exception {
 		try {
 			clickOnElement(IiconList.get(index));
 		} catch (HandleException e) {
@@ -235,7 +245,7 @@ public class deletePayee extends CommonAppiumTest{
 	}
 	
 	@Step("Click On i Icon from the list.")
-	public void ClickOnDeletePayeeToIcon_forPayeeRemittance(int index) throws Exception {
+	public void ClickOnDeletePayeeToIcon(int index) throws Exception {
 		try {
 			String iconXpath = "(//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText)[" + index + "]/following-sibling::XCUIElementTypeButton";
 			MobileElement icon = (MobileElement) driver.findElement(By.xpath(iconXpath));

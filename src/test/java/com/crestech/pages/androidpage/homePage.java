@@ -230,6 +230,7 @@ public class homePage extends CommonAppiumTest {
 	public void ClickOnMoreButton() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(MoreBtn); 
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(MoreBtn);
             ClickOnCloseButton();
 		} catch (HandleException e) {
@@ -243,6 +244,7 @@ public class homePage extends CommonAppiumTest {
 	public void ClickOnPayAndTransferBtn() throws Exception {
 		try {
 			wait.waitForElementToBeClickable(PayAndTransferBtn); 
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(PayAndTransferBtn);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Pay and Transfer Button  ", e);
@@ -299,6 +301,7 @@ public class homePage extends CommonAppiumTest {
 	@Step("Click On Done Button.")
 	public void ClickOnDoneButton()throws Exception{
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(doneButton); 
 		}catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Done Button ",
@@ -309,13 +312,14 @@ public class homePage extends CommonAppiumTest {
 	}
 	
 	@Step("Click On Continue Button.")
-	public void ClickOnContinueButton()throws Exception{
+	public void ClickOnContinueButton() throws Exception {
 		try {
-		if (isElementVisible2(continueButton)) 
-			clickOnElement(continueButton); 
-		}catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ",
-					e);
+			if (isElementVisible2(continueButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				clickOnElement(continueButton);
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ", e);
 		}
@@ -326,12 +330,9 @@ public class homePage extends CommonAppiumTest {
 		try {			
 			if(isElementVisible2(nextButton)) {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);
 			}
-//			}else if(isElementVisible2(confirmButton)) {			
-//					gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
-//					clickOnElement(confirmButton);
-//			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
 		} catch (Exception e) {
@@ -342,6 +343,7 @@ public class homePage extends CommonAppiumTest {
 	@Step("Click on 'SET UP NOW' button ")
 	public void ClickOnSetUpNowButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(setUpNowButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Set Up Now Button ",
@@ -359,6 +361,7 @@ public class homePage extends CommonAppiumTest {
 	public void EnterEmailOrSMSOTP(String OTP, String expectecMessage) throws Exception {
 		try {
 			wait.waitForElementToBeClickable(emailSmsOtpEditBox);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			String actualMessage = getTexOfElement(emailSmsOtpMessage);
 			if (actualMessage.equalsIgnoreCase(expectecMessage))
 				enterTextInTextbox(emailSmsOtpEditBox, OTP);
@@ -372,8 +375,10 @@ public class homePage extends CommonAppiumTest {
 	@Step("Handling Error Alert.")
 	public void handlingErrorAlert() throws Exception {
 		try {
-			if(isElementVisible2(errorAlertOKButton))
+			if (isElementVisible2(errorAlertOKButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(errorAlertOKButton);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Error Alert ", e);
 		} catch (Exception e) {
@@ -384,9 +389,10 @@ public class homePage extends CommonAppiumTest {
 	@Step("Handling Of 'Get Started' Popup.")
 	public void handlingGetStartedPopup(String appName) throws Exception {
 		try {
-			if(isElementVisible2(getstartedBtn))
-		//	if(appName.equalsIgnoreCase("iWEALTH"))
-				clickOnElement(getstartedBtn);	
+			if (isElementVisible2(getstartedBtn)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				clickOnElement(getstartedBtn);
+			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Handle Of 'Get Started' Popup ", e);
@@ -401,8 +407,7 @@ public class homePage extends CommonAppiumTest {
 	{
 		try {
 			if(isElementVisible2(headerFingerprintMessage)) {
-				//String actualMessage = getTexOfElement(headerFingerprintMessage);
-				//Asserts.assertEquals(actualMessage, expectecMessage, "Finger Print Message Not matching");
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(CloseButton);
 			}
 		} catch (HandleException e) {	
@@ -418,8 +423,7 @@ public class homePage extends CommonAppiumTest {
 	{
 		try {
 			if(isElementVisible2(headerRecordingMessage)) {
-				//String actualMessage = getTexOfElement(headerRecordingMessage);
-				//Asserts.assertEquals(actualMessage, expectecMessage, "Recording alert Message Not matching");
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(CloseButton);
 			}
 		} catch (HandleException e) {
@@ -537,6 +541,7 @@ public class homePage extends CommonAppiumTest {
 	@Step("Click On logout Button")
 	public void ClickOnLogOutButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(logoutButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On logout Button  ", e);
@@ -545,16 +550,14 @@ public class homePage extends CommonAppiumTest {
 		}
 	}
 	
-	
 	@Step("Click On Close Button.")
 	public boolean ClickOnCloseButton() throws Exception {
 		try {
-			if(isElementVisible2(CloseButton)) 
-			{
-			clickOnElement(CloseButton);
-			return true;
-			}
-			else
+			if (isElementVisible2(CloseButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				clickOnElement(CloseButton);
+				return true;
+			} else
 				return false;
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button  ", e);
@@ -568,6 +571,7 @@ public class homePage extends CommonAppiumTest {
 	public String getAndClickOnDepositeAccountNameFromDashboard() throws Exception {
 		try {
 			String DepositeAccountNameOnDashboard = DepositsAccountName.getText();
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(DepositsAccountName);
 			return DepositeAccountNameOnDashboard;
 		} catch (HandleException e) {
@@ -625,6 +629,7 @@ public class homePage extends CommonAppiumTest {
 	@Step("Get Available Balance")
 	public String getAvailableBalance(String AvailableBalanceTitle) throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			Asserts.assertEquals(getTexOfElement(AccountTitleList.get(0)), AvailableBalanceTitle,
 					AvailableBalanceTitle + " Text is not matching.");
 			String ExpectedAvailableBalanceValue = AccountValueList.get(0).getText();

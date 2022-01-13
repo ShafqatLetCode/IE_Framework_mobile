@@ -57,6 +57,10 @@ public class creditCard extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
 	private MobileElement OKButton;
 	
+	@ElementDescription(value = "Primary source of fund Popup")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Primary source of fund']")
+	private MobileElement PrimarySourceOfFundPopup;
+	
 	@ElementDescription(value = "Transfer Date Text Element")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_transfer_date')]")
 	private MobileElement TransferDateTextElement;
@@ -134,6 +138,7 @@ public class creditCard extends CommonAppiumTest{
 	@Step("Click On Back Icon.")
 	public void ClickOnBackIcon() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(BackIcon);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Back Icon  ", e);
@@ -157,6 +162,7 @@ public class creditCard extends CommonAppiumTest{
 	@Step("Click On Pay Now Button.")
 	public void ClickOnPayNowButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(PayNowButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Pay Now Button ", e);
@@ -308,6 +314,7 @@ public class creditCard extends CommonAppiumTest{
 	public void ClickOnNextButton() throws Exception {
 		try {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(nextButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
@@ -334,8 +341,9 @@ public class creditCard extends CommonAppiumTest{
 	public void SelectFundSourceAccount(String expectedSourceAccount) throws Exception {
 		try {
 			if (isElementVisible2(SelectFundSourceText)) { 
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(SelectFundSourceText);
-
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int selectedAccount = 0;
 				for (int i = 0; i < sourceAccountList.size(); i++) {
 					String actualSourceAccount = sourceAccountList.get(i).getText();
@@ -363,9 +371,7 @@ public class creditCard extends CommonAppiumTest{
 	@Step("Handle Of 'Primary Source Of Fund' Popup.")
 	public void HandlingOfPrimarySourceOfFundPopup() throws Exception {
 		try {
-			String xpath1 = "//android.widget.TextView[@text='Primary source of fund']";
-			List<RemoteWebElement> primarySourceOfFundPopup = driver.findElements(By.xpath(xpath1));
-			if (primarySourceOfFundPopup.size() > 0)
+			if (isElementVisible2(PrimarySourceOfFundPopup)) 
 				ClickOnOKButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -379,6 +385,7 @@ public class creditCard extends CommonAppiumTest{
 	@Step("Click On OK Button.")
 	public void ClickOnOKButton() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(OKButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button  ", e);

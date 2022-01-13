@@ -9,6 +9,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.Asserts;
@@ -368,6 +371,13 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Select Currency Type")
 	public void SelectCurrencyType(String expectedCurrency) throws Exception {
 		try {
+			WebDriverWait wait = new WebDriverWait(driver, 60);
+			wait.until(ExpectedConditions.or(
+					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
+							"type == 'XCUIElementTypeStaticText' AND name == 'Select Currency'  AND visible== 1")),
+					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
+							"type == 'XCUIElementTypeStaticText' AND name == 'Select Currency'  AND visible== 0"))));
+
 			if (currencyList.size() > 0) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int index = 0;

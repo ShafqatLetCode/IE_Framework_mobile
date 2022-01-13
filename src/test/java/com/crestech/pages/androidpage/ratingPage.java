@@ -46,6 +46,7 @@ public class ratingPage extends CommonAppiumTest{
 	@Step("Click On Close Button To Closing Tap To Star Page after logout.")
 	public void ClickOnCloseBtnToClosingTapToStarPage() throws Exception {
 		try {
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(CloseBtnToClosingTapToStarPage);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Close Button ", e);
