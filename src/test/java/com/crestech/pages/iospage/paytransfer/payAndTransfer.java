@@ -264,31 +264,6 @@ public class payAndTransfer extends CommonAppiumTest{
 		}
 	}
 	
-//	@Step("Click On Local Recipient Option under All Tab.")
-//	public void ClickOnLocalRecipient() throws Exception {
-//		try {
-//			//gestUtils.DragAndDropElementToElement(allTabList.get(1), allTab);
-//			int o=0;
-//			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-//			for (int i = 0; i < allTabList.size(); i++) {
-//				String tabText = allTabList.get(i).getText();
-//				o++;
-//				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
-//					clickOnElement(allTabList.get(i));
-//					break;
-//				}
-//			}
-//			
-//			gestUtils.DragAndDropElementToElement(allTabList.get(o-1), allTab);
-//		} catch (HandleException e) {
-//			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
-//					" Failed to Click On Local Recipient Option under All Tab. ", e);
-//		} catch (Exception e) {
-//			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
-//					" Failed to Click On Local Recipient Option under All Tab ", e);
-//		}
-//	}
-	
 	@Step("Click On Local Recipient Option under All Tab.")
 	public void ClickOnLocalRecipient() throws Exception {
 		try {
@@ -302,7 +277,7 @@ public class payAndTransfer extends CommonAppiumTest{
 					Dimension windowSize1 = driver.manage().window().getSize();
 					int y = (int) ((windowSize1.getHeight()));
 					int x = (int) ((windowSize1.getWidth()) / 2);
-					gestUtils.swipeCoordinatetoCoordinate(x, y - 20, x, y - 120);
+					gestUtils.swipeCoordinatetoCoordinate(x, y - 40, x, y - 200);
 				}
 				String tabText = allTabList.get(i).getText();
 				o++;
@@ -312,7 +287,11 @@ public class payAndTransfer extends CommonAppiumTest{
 				}
 			}
 			
-			gestUtils.DragAndDropElementToElement(allTabList.get(o), allTab);
+			int x2 = getXCoordinateOfElement(allTab);
+			int y2 = getYCoordinateOfElement(allTab);
+			int x1 = getXCoordinateOfElement(allTabList.get(o));
+			int y1 = getYCoordinateOfElement(allTabList.get(o));
+			gestUtils.swipeCoordinatetoCoordinate(x1, y1, x2, y2);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Click On Local Recipient Option under All Tab. ", e);

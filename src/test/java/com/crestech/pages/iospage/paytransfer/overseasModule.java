@@ -380,8 +380,8 @@ public class overseasModule extends CommonAppiumTest{
 					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
 							"type == 'XCUIElementTypeStaticText' AND name == 'Select Currency'  AND visible== 1")),
 					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
-							"type == 'XCUIElementTypeStaticText' AND name == 'Select Currency'  AND visible== 0"))));
-
+							"type == 'XCUIElementTypeOther' AND name == 'Select Currency'  AND visible== 1"))));
+			
 			if (currencyList.size() > 0) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int index = 0;
