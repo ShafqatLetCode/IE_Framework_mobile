@@ -95,13 +95,11 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("Verify 'Local Transfer limit Changed' field")
 	public void verifyLocalTransferlimitChangedHeader(String expectedText) throws Exception {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 60); 
-			wait.until(ExpectedConditions.or(
-				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'Local Transfer Limit'  AND visible== 1")),
-				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeOther' AND name == 'Local Transfer Limit'  AND visible== 1"))));
-			//Asserts.assertEquals(getTexOfElement(localTransferLimitChangedTitle).trim().toLowerCase(), expectedText.toLowerCase(),expectedText+ " text is not matching.");
+			Asserts.assertEquals(getTexOfElement(localTransferLimitChangedTitle).trim().toLowerCase(), expectedText.toLowerCase(),expectedText+ " text is not matching.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify 'Local Transfer Limit Changed' page header ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'Local Transfer limit Changed' field ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'Local Transfer limit Changed' page header  ", e);
 		}
 	}
 
@@ -147,10 +145,12 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("Verifying 'Local Transfer Limit' page header")
 	public void verifyLocalTransferLimitPageHeader(String expectedText) throws Exception {
 		try {
-			wait.fluentWaitForElement(localTransferLimitLabel);
-			Asserts.assertEquals(getTexOfElement(localTransferLimitLabel).trim().toLowerCase(), expectedText.toLowerCase(),expectedText+  " text is not matching.");
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Local Transfer Limit' page header ", e);
+			WebDriverWait wait = new WebDriverWait(driver, 60); 
+			wait.until(ExpectedConditions.or(
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'Local Transfer Limit'  AND visible== 1")),
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeOther' AND name == 'Local Transfer Limit'  AND visible== 1"))));
+//			wait.fluentWaitForElement(localTransferLimitLabel);
+//			Asserts.assertEquals(getTexOfElement(localTransferLimitLabel).trim().toLowerCase(), expectedText.toLowerCase(),expectedText+  " text is not matching.");
 		} catch (Exception e) {
 			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Local Transfer Limit' page header ", e);
 		}
