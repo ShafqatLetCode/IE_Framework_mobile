@@ -298,10 +298,11 @@ public class payAndTransfer extends CommonAppiumTest{
 			for (int i = 0; i < l; i++) {
 
 				if (!isElementVisible2(allTabList.get(i))) {
+					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					Dimension windowSize1 = driver.manage().window().getSize();
 					int y = (int) ((windowSize1.getHeight()));
 					int x = (int) ((windowSize1.getWidth()) / 2);
-					gestUtils.swipeCoordinatetoCoordinate(x, y + 20, x, y + 80);
+					gestUtils.swipeCoordinatetoCoordinate(x, y - 20, x, y - 120);
 				}
 				String tabText = allTabList.get(i).getText();
 				o++;

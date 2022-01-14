@@ -6,6 +6,8 @@ import java.util.List;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
@@ -16,6 +18,7 @@ import com.crestech.common.utilities.HandleException;
 import com.crestech.pages.androidpage.more.More;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
@@ -211,12 +214,15 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Verifying 'Transaction History' page header")
 	public void verifyTransactionHistoryPageHeader(String expectedText) throws Exception {
 		try {
-			wait.fluentWaitForElement(transactionHistoryBtnLabel);
-			Asserts.assertEquals(getTexOfElement(transactionHistoryBtnLabel).trim().toLowerCase(), expectedText.toLowerCase(), "text is not found");
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Transaction History' page header ", e);
+			WebDriverWait wait = new WebDriverWait(driver, 60); 
+			wait.until(ExpectedConditions.or(
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'Transaction History'  AND visible== 1")),
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeOther' AND name == 'Transaction History'  AND visible== 1"))));
+//			wait.fluentWaitForElement(transactionHistoryBtnLabel);
+//			Asserts.assertEquals(getTexOfElement(transactionHistoryBtnLabel).trim().toLowerCase(), expectedText.toLowerCase(), "text is not found");
 		} catch (Exception e) {
 			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Transaction History' page header ", e);
 		}
 	}
+	
 }

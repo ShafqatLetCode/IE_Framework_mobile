@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -334,14 +335,17 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Verify 'Enter Recipient Details' page header")
 	public void verifyEnterRecipientDetailsPageHeader(String expectedText) throws Exception {
 		try {
-			wait.fluentWaitForElement(recipientDetailTitle);
-			Asserts.assertEquals(getTexOfElement(recipientDetailTitle).trim().toLowerCase(), expectedText.toLowerCase(),expectedText + " text is not matching.");
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to Verify 'Overseas Transfer' page header  ", e);
+			WebDriverWait wait = new WebDriverWait(driver, 60); 
+			wait.until(ExpectedConditions.or(
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name BEGINSWITH[c] 'Enter Recipient'  AND visible== 1")),
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeOther' AND name BEGINSWITH[c] 'Enter Recipient'  AND visible== 1"))));
+//			wait.fluentWaitForElement(recipientDetailTitle);
+//			Asserts.assertEquals(getTexOfElement(recipientDetailTitle).trim().toLowerCase(), expectedText.toLowerCase(),expectedText + " text is not matching.");
 		} catch (Exception e) {
 			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to Verify 'Overseas Transfer' page header ", e);
 		}
 	}
+
 	
 	@Step("Enter Bank Code")
 	public void EnterBankCode(String text) throws Exception {
@@ -877,9 +881,18 @@ public class overseasModule extends CommonAppiumTest{
 			
 			if (commonList.size() > 0) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				int l=commonList.size();
 				int index = 0;
 				String OverseaRecipientList = null;
-				for (int i = 0; i < commonList.size(); i++) {
+				for (int i = 0; i < l; i++) {
+					
+					if(!isElementVisible2(commonList.get(i)))
+					{
+						Dimension windowSize1 = driver.manage().window().getSize();
+						int y =(int)((windowSize1.getHeight()));
+						int x =(int)((windowSize1.getWidth())/2);
+							gestUtils.swipeCoordinatetoCoordinate(x, y-20, x, y-120);
+					}
 					OverseaRecipientList = commonList.get(i).getText();
 					if (OverseaRecipientList.contains(valueSelectedFromList)) {
 						index++;
@@ -901,3 +914,5 @@ public class overseasModule extends CommonAppiumTest{
 	}
 	
 }
+	
+
