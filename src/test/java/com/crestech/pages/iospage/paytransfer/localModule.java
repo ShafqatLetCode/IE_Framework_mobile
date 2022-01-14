@@ -536,11 +536,14 @@ public class localModule extends CommonAppiumTest{
 	@Step("Verify 'Local Transfer Pay Now' page header")
 	public void verifyLocalTransferPayNowPageHeader() throws Exception {
 		try {
-			wait.fluentWaitForElement(LocalTransferPayNowPageHeader);
-			Asserts.assertTrue(isElementVisible(LocalTransferPayNowPageHeader),
-					" 'Local Transfer & Pay Now' Page Header not displaying.");
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to Verify 'Local Transfer Pay Now' page header ", e);
+			WebDriverWait wait = new WebDriverWait(driver, 60); 
+			wait.until(ExpectedConditions.or(
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'Local Transfer & PayNow'  AND visible== 1")),
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeOther' AND name == 'Local Transfer & PayNow'  AND visible== 1"))));
+			
+//			wait.fluentWaitForElement(LocalTransferPayNowPageHeader);
+//			Asserts.assertTrue(isElementVisible(LocalTransferPayNowPageHeader),
+//					" 'Local Transfer & Pay Now' Page Header not displaying.");
 		} catch (Exception e) {
 			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to Verify 'Local Transfer Pay Now' page header ", e);
 		}

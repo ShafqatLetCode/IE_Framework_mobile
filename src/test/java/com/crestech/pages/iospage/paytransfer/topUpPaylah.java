@@ -97,9 +97,11 @@ public class topUpPaylah extends CommonAppiumTest{
 	@Step("Verify 'Top Up Paylah Label' field")
 	public void verifyTopUpReview(String expectedText) throws Exception {
 		try {
-			Asserts.assertEquals(getTexOfElement(reviewToUpLabel).trim().toLowerCase(), expectedText.toLowerCase(), expectedText+ " text is not matching.");
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FIELDVERIFICATION_EXCEPTION"," Failed to verify fileds:TopUp Label and Enter Amount  ", e);
+			WebDriverWait wait = new WebDriverWait(driver, 60); 
+			wait.until(ExpectedConditions.or(
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'Review Top-Up'  AND visible== 1")),
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeOther' AND name == 'Review Top-Up'  AND visible== 1"))));
+			//Asserts.assertEquals(getTexOfElement(reviewToUpLabel).trim().toLowerCase(), expectedText.toLowerCase(), expectedText+ " text is not matching.");
 		} catch (Exception e) {
 			obj_handleexception.throwException("FIELDVERIFICATION_EXCEPTION"," Failed to verify fileds:TopUp Label and Enter Amount  ", e);
 		}

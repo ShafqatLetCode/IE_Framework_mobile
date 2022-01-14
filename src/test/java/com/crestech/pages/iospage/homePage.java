@@ -441,7 +441,7 @@ public class homePage extends CommonAppiumTest{
 			{
 				int x=getXCoordinateOfElement(welcomeToTextIwealth);
 				int y=getYCoordinateOfElement(welcomeToTextIwealth);
-				gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+150);
+				gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+160);
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			}
 			VerifyAccountType(AccountType);
