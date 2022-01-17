@@ -186,7 +186,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		System.out.println("My Report Flushed Start.....");
 		try {
 			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
-				File src= new File(System.getProperty("user.dir") + "\\AllureReport");
+				File src= new File(System.getProperty("user.dir") + File.separator+ "AllureReport");
 				try {
 					FileUtils.deleteDirectory(src);
 				} catch (IOException e) {
@@ -197,14 +197,15 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			else {
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 				Date date = new Date();
-				File srcDir = new File(System.getProperty("user.dir") + "\\allure-results");
-				File destDir = new File(System.getProperty("user.dir") + "\\AllureReport\\Allure_"
-						+ dateFormat.format(date).replace(" ", "_").replace("-", "")+"\\allure-results");
+				File srcDir = new File(System.getProperty("user.dir") + File.separator+ "allure-results");
+				File destDir = new File(System.getProperty("user.dir") + File.separator+ "AllureReport" + File.separator+ "Allure_"
+						+ dateFormat.format(date).replace(" ", "_").replace("-", "") + File.separator+ "allure-results");
+				
 				try {
 					FileUtils.forceMkdir(destDir);
 					FileUtils.copyDirectory(srcDir, destDir);
-					Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"allure generate "+destDir+" -o "+System.getProperty("user.dir") + "\\AllureReport\\Allure_" + 
-							dateFormat.format(date).replace(" ", "_").replace("-", "")+"//allure-report");
+					Runtime.getRuntime().exec("cmd /c start cmd.exe /K \"allure generate "+destDir+" -o "+System.getProperty("user.dir") + File.separator+ "AllureReport"+ File.separator+"Allure_" + 
+							dateFormat.format(date).replace(" ", "_").replace("-", "")+ File.separator+"allure-report");
 					Runtime.getRuntime().exec("taskkill /f /im cmd.exe") ;
 				} catch (IOException e) {
 					e.printStackTrace();
