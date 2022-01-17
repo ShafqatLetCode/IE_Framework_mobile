@@ -97,7 +97,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		DesiredCapabilities androidCaps = androidNative(excelDataList, device, version, os, manafacturer, min_Ver, max_Ver, individual_ID);
 		
 		try {
-			this.driver = startingServerInstance(androidCaps, os);
+			this.driver = startingServerInstance(androidCaps, os, excelDataList);
 			//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 			ContextManager.setDriver(this.driver); 
 			waitut =new WaitUtils(this.driver);
@@ -389,7 +389,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 	 * @return Driver Instance
 	 * @throws Exception
 	 */
-	public AppiumDriver<RemoteWebElement> startingServerInstance(DesiredCapabilities androidCaps, String os)
+	public AppiumDriver<RemoteWebElement> startingServerInstance(DesiredCapabilities androidCaps, String os, List<String> s)
 			throws Exception {
 
 		if (os.equalsIgnoreCase("Android") || os.equalsIgnoreCase("Android_Chrome")) {
@@ -430,12 +430,16 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 			driver = new AndroidDriver<RemoteWebElement>(androidCaps);
 		} else if (os.equalsIgnoreCase("pCloudyAndroid") || os.equalsIgnoreCase("pCloudyAndroidChrome")) {
+//			driver = new AndroidDriver<RemoteWebElement>(
+//					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
 			driver = new AndroidDriver<RemoteWebElement>(
-					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
+					new URL(s.get(3) + "/appiumcloud/wd/hub"), androidCaps);
 		}
 		else {
+//			driver = new IOSDriver<RemoteWebElement>(
+//					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
 			driver = new IOSDriver<RemoteWebElement>(
-					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
+					new URL(s.get(3) + "/appiumcloud/wd/hub"), androidCaps);
 		}
 		return driver;
 	}
