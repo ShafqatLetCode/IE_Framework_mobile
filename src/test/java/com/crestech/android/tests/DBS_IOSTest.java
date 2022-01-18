@@ -28,7 +28,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.preRequisiteScript(userName, password, app_Name, CommonTestData.N4_SERVER.getEnumValue());
+			DBSPgaeObject1.preRequisiteScript(userName, password, app_Name, CommonTestData.N1_SERVER.getEnumValue());
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
@@ -47,7 +47,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.VerifyAccountDetailsCasaOnHomePage(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -66,7 +66,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.VerifyLogout(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -86,7 +86,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.VerifyRemittanceCorridor(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -106,7 +106,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.VerifyRemittanceEOTT(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -126,7 +126,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			// Delete Payee Code Start Before Adding Payee DBS/POSB
 			DBSPgaeObject1.DeletePayee_ToDBSPOSB();
 			DBSPgaeObject1.VerifyAddPayeeDBSorPOSB();
@@ -148,7 +148,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.TopupPaylah();
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -168,7 +168,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.DeletePayee_ToRemittence();
 			DBSPgaeObject1.PayeeAddRemittance();
 		} catch (HandleException e) {
@@ -189,7 +189,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.ApplyDebitCard(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -209,7 +209,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			// Delete Payee Code Start Before Adding Payee Local to Other Bank
 			DBSPgaeObject1.DeletePayee_LocalToOtherBank();
 			DBSPgaeObject1.PayeeAddLocalOtherBank();
@@ -231,7 +231,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			// Delete Payee Code Start Before Adding Payee to Bill Payment.
 			DBSPgaeObject1.DeletePayee_ToBillPayment();
 			DBSPgaeObject1.PayeeAddBillPayment();
@@ -253,7 +253,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.OpenAccount(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -273,7 +273,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.ChangeLocalFundsTransferLimit();
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -293,7 +293,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.VerifyFundTransfer_OwnAccount();
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -313,7 +313,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.FundTransferDBSPOSB(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -333,7 +333,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.verifyTransactionHistory(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -353,7 +353,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.CreditCardTempLimitIncrease();
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -373,7 +373,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.UpdatePersonalDetails(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -393,7 +393,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.FundsTransfer_PayCreditCard();
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -413,7 +413,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.FundsTransfer_BillPayment();
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
@@ -433,7 +433,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password);
+			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
 			DBSPgaeObject1.VerifyPeekBalance(app_Name);
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();

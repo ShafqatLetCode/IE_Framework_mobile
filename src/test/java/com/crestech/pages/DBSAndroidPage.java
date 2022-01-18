@@ -137,6 +137,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			homepage.handlingErrorAlert();
 			homepage.handlingFingerPrintAlert(CommonTestData.FINGERPRINT_MESSAGE.getEnumValue());
 			homepage.handleRecordingAlert(CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue());
+			wait.fluentWaitForElement(homepage.WelcomeToText());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Pre-Requisite Script ", e);
 		} catch (Exception e) {

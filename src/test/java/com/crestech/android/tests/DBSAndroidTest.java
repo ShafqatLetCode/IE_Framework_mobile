@@ -37,7 +37,7 @@ public class DBSAndroidTest extends UserBaseTest {
 		try {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1=dbspage;
-			dbspage1.preRequisiteScript(userName, password, app_Name , CommonTestData.N4_SERVER.getEnumValue());
+			dbspage1.preRequisiteScript(userName, password, app_Name , CommonTestData.N1_SERVER.getEnumValue());
 		} catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
