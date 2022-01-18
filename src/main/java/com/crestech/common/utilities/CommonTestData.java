@@ -158,6 +158,7 @@ public enum CommonTestData {
 	//Server Details
 	N4_SERVER("UAT N4"),
 	M2_SERVER("UAT M2"),
+	N1_SERVER("UAT N1"),
 	
 	//Log in Application
 	DBS_DIGIBANK("DBS digibank"),

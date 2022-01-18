@@ -124,6 +124,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			homepage.HandlingWelcomeToDigibankForWealthManagement(app_Name);
 			homepage.handlingFingurePrintAlert();
 			homepage.handlingRecordingAlert();
+			if (app_Name.equalsIgnoreCase("DBS"))
+				wait.waitForElementVisibility(homepage.welcomeToText());
+			else if (app_Name.equalsIgnoreCase("iWEALTH")) 
+				wait.waitForElementVisibility(homepage.welcomeToTextIwealth());
+			
 			wait.ImplicitlyWait(20);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute pre-Requisite Script ",
@@ -134,11 +139,16 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 
 	@Step("Log In the Application")
-	public void LogInApplication(String userName, String password) throws Exception {
+	public void LogInApplication(String userName, String password, String app_Name) throws Exception {
 		try {
 			preloginpage.clickOnLoginButton();
 			loginpage.EnterCredentialsAndLogin(userName, password);
 			homepage.handlingMotionAndFitnessAlert();
+			if (app_Name.equalsIgnoreCase("DBS"))
+				wait.waitForElementVisibility(homepage.welcomeToText());
+			else if (app_Name.equalsIgnoreCase("iWEALTH")) 
+				wait.waitForElementVisibility(homepage.welcomeToTextIwealth());
+			
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application ", e);
 		} catch (Exception e) {

@@ -65,6 +65,10 @@ public class homePage extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Welcome to ']")
 	private MobileElement welcomeToText;
 	
+	public MobileElement welcomeToText() { 
+		return welcomeToText;
+	}
+	
 	@ElementDescription(value = "logout Button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='logout']")
 	private MobileElement logOutButton;
@@ -144,6 +148,10 @@ public class homePage extends CommonAppiumTest{
 	@ElementDescription(value = "'Welcome to' textfield")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Welcome to']")
 	private MobileElement welcomeToTextIwealth;
+	
+	public MobileElement welcomeToTextIwealth() { 
+		return welcomeToTextIwealth;
+	}
 	
 	@ElementDescription(value = "'digibank' textfield")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='digibank']")
@@ -242,7 +250,7 @@ public class homePage extends CommonAppiumTest{
 				Asserts.assertEquals(getTexOfElement(digibankText).trim().toLowerCase(), DigiBank.toLowerCase(),
 						DigiBank + " text is not found");
 			}
-			if (app_Name.equalsIgnoreCase("iWEALTH")) {
+			else if (app_Name.equalsIgnoreCase("iWEALTH")) {
 				Asserts.assertEquals(getTexOfElement(welcomeToTextIwealth).trim().toLowerCase(), welcome.toLowerCase(),
 						welcome + " text is not found");
 				Asserts.assertEquals(getTexOfElement(digibankTextwealth).trim().toLowerCase(),
