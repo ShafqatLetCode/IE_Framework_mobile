@@ -307,6 +307,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Verify 'I would like the bank to:' Message.")
 	public void verifyIWouldLikeTheBankTomessage(String message) throws Exception {
 		try {
+			gestUtils.scrollUPtoObjectIos("name", "I would like the bank to:", null);
 			Asserts.assertEquals(getTexOfElement(UPPSectionLabel), message,
 					message + " Text is not matching");
 		} catch (HandleException e) {

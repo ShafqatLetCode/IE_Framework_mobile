@@ -12,6 +12,7 @@ import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
+import com.crestech.pages.androidpage.enterPasscode;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -23,6 +24,7 @@ public class overseasModule extends CommonAppiumTest{
 	public AppiumDriver<RemoteWebElement> driver = null;
 	HandleException obj_handleexception = null;
 	GestureUtils gestUtils = null;
+	enterPasscode enterpasscode = null;
 	
 	public overseasModule(AppiumDriver<RemoteWebElement> driver) throws Exception {
 		super(driver);
@@ -30,6 +32,7 @@ public class overseasModule extends CommonAppiumTest{
 			this.driver = driver;
 			obj_handleexception = new HandleException(null, null);
 		    gestUtils = new GestureUtils(driver);
+		    enterpasscode = new enterPasscode(driver);
 			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,6 +44,10 @@ public class overseasModule extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='ADD RECIPIENT NOW']")
 	private MobileElement AddRecipientNowBtn;
 	
+	@ElementDescription(value = "UPDATE Recipient Now Button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='UPDATE RECIPIENT NOW']")
+	private MobileElement UpdateRecipientNowBtn;
+
 	@ElementDescription(value = "Add Oversea Recipient")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Add Overseas Recipient']")
 	private MobileElement AddOverseasRecipient;
@@ -200,6 +207,69 @@ public class overseasModule extends CommonAppiumTest{
 	@ElementDescription(value = "Primary Source Of Fund Popup")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/tv_primary_account_bottom_sheet_title')]")
 	private MobileElement PrimarySourceOfFundPopup;
+	
+	@ElementDescription(value = "Update Now Button")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='UPDATE NOW']")
+	private MobileElement UpdateNowButton;
+	
+	@ElementDescription(value = "Navigate Up Button")
+	@AndroidFindBy(xpath = "//android.view.ViewGroup//android.widget.ImageButton")
+	private MobileElement NavigateUpButton;
+	//android.view.ViewGroup//android.widget.ImageButton[@content-desc="Navigate up"]
+	
+	
+	@Step("Click On 'Update Now' Button ")
+	public void ClickOnUpdateNowButton() throws Exception {
+		try {
+				clickOnElement(UpdateNowButton); 
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On 'Update Now' Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On 'Update Now' Button  ", e);
+		}
+	}
+	
+	@Step("Click On 'Navigate Up' Button ")
+	public void ClickOnNavigateUpButton() throws Exception {
+		try {
+			    wait.waitForElementToBeClickable(NavigateUpButton); 
+				clickOnElement(NavigateUpButton); 
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On 'Navigate Up' Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On 'Navigate Up' Button  ", e);
+		}
+	}
+	
+	@Step("Handle Update Overseas Recipient popup ")
+	public void HandleUpdateOverseasPayee() throws Exception {
+		try {
+			if (isElementVisible2(UpdateNowButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				ClickOnUpdateNowButton();
+				gestUtils.scrollUPtoObject("text", "NEXT", null);
+				EnterAddress(CommonTestData.UPDATED_ADDRESS.getEnumValue());
+				EnterCity(CommonTestData.UPDATED_CITY.getEnumValue());
+				ClickOnNextButton();
+				verifyReviewRecipientDetailsPageHeader(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue());
+				ClickOnUpdateRecipientNowBtn();
+				enterpasscode.EnterPasscodeAndDone();
+				verifyRecipientHasBeenUpdatedMessage();
+				ClickOnNavigateUpButton();
+			} 
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Handle Update Overseas Recipient popup  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Handle Update Overseas Recipient popup ", e);
+		}
+	}
+	
 
 	@Step("Click On 'ADD RECIPIENT NOW' button under overseas")
 	public void SelectAddRecipientNowButtonUnderOverseas() throws Exception {
@@ -216,7 +286,7 @@ public class overseasModule extends CommonAppiumTest{
 					" Failed to Click On Add Recipient Now Button  ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
-					" Failed to Click On On Add Recipient Now Button  ", e);
+					" Failed to Click On Add Recipient Now Button  ", e);
 		}
 	}
 	
@@ -230,6 +300,19 @@ public class overseasModule extends CommonAppiumTest{
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ",e);
+		}
+	}
+	
+	@Step("clicking On 'Update RECIPIENT NOW' button")
+	public void ClickOnUpdateRecipientNowBtn() throws Exception {
+		try {
+			gestUtils.scrollUPtoObject("text", "UPDATE RECIPIENT NOW", UpdateRecipientNowBtn);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			clickOnElement(UpdateRecipientNowBtn);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Update Recipient Now Button  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Update Recipient Now Button  ",e);
 		}
 	}
 	
@@ -354,6 +437,28 @@ public class overseasModule extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select EOTT  ", e);
 		}
 	}
+	
+	@Step("Select EOTT Without Searching")
+	public void SelectEOTTWithoutSearching() throws Exception {
+		try {
+			String ExpectedEottName = CommonTestData.EOTTREMITTANCE_NAME.getEnumValue();
+			
+			String xpath = "//android.widget.TextView[@text='" + ExpectedEottName + "']";
+			MobileElement ExpectedEottEle = (MobileElement) driver.findElement(By.xpath(xpath));
+			if (isElementVisible2(ExpectedEottEle)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				clickOnElement(ExpectedEottEle);
+			} else
+				Asserts.assertFail("EOTT " + ExpectedEottName + " Not Found corresponding to this user.");
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select EOTT Without Searching ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to select EOTT Without Searching ", e);
+		}
+	}
+	
+	
+	
 	
 	@Step("Verifying 'Overseas Transfer' page header")
 	public void VerifyOverseasTransferHeader(String expectedText) throws Exception {
@@ -711,6 +816,23 @@ public class overseasModule extends CommonAppiumTest{
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'You've added a recipient' Message ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'You've added a recipient' Message ", e);
+		}
+	}
+	
+	@Step("Verify Recipient has been updated Messages")
+	public void verifyRecipientHasBeenUpdatedMessage() throws Exception {
+		try {
+			wait.fluentWaitForElement(SuccessMsgElement);
+			if (getTexOfElement(SuccessMsgElement).toLowerCase()
+					.equalsIgnoreCase(CommonTestData.RECIPIENT_HAS_BEEN_UPDATED_MSG.getEnumValue()))
+				Asserts.assertEquals(getTexOfElement(SuccessMsgElement).toLowerCase(),
+						CommonTestData.RECIPIENT_HAS_BEEN_UPDATED_MSG.getEnumValue().toLowerCase(),
+						"'Recipient Has Been Updated' Text is not matching");
+		
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'Recipient has been updated' Message ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'Recipient has been updated' Message ", e);
 		}
 	}
 	

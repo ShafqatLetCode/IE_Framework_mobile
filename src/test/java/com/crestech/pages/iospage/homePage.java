@@ -342,8 +342,7 @@ public class homePage extends CommonAppiumTest{
 	public void digitalToken() throws Exception {
 		try {
 			if (isElementVisible2(setupTokenMessage)) {
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(setupNowButton);
+				ClickOnSetUpNowButton();
 				ClickOnContinueButton();
 				clickOnNextOnConfirmEmailDigiToken();
 				enterpasscode.EnterPasscodeAndDone();
@@ -355,6 +354,21 @@ public class homePage extends CommonAppiumTest{
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to digital Token Setup ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to digital Token Setup ", e);
+		}
+	}
+	
+	@Step("Click On SetupNow Button.")
+	public void ClickOnSetUpNowButton()throws Exception{
+		try {
+			if(isElementVisible2(setupNowButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				clickOnElement(setupNowButton);
+			}
+		}catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ", e);
 		}
 	}
 	
