@@ -185,12 +185,8 @@ public class homePage extends CommonAppiumTest {
 	private MobileElement DoyouknowhowtospotafakelinkMessage;
 	
 	@ElementDescription(value = "I've read the above carefully.")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='I've read the above carefully.']")
+	@AndroidFindBy(xpath = "//android.view.View//android.widget.CheckBox")
 	private MobileElement Checkbox;
-	
-	@ElementDescription(value = "I've read the above carefully.")
-	@AndroidFindBy(xpath = "//android.widget.CheckBox[@text='I've read the above carefully.']")
-	private MobileElement Checkbox1;
 	
 	@ElementDescription(value = "OK, got it Button.")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK, got it']")
@@ -362,13 +358,8 @@ public class homePage extends CommonAppiumTest {
 	@Step("Click On Checkbox.")
 	public void ClickOnCheckbox() throws Exception {
 		try {
-			if (wait.waitForElementToBeClickable2(Checkbox)) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(Checkbox);
-			} else if (wait.waitForElementToBeClickable2(Checkbox1)) {
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(Checkbox1);
-			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Checkbox Button ", e);
 		} catch (Exception e) {
