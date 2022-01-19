@@ -105,9 +105,7 @@ public class peekBalance extends CommonAppiumTest{
 		try {
 			if (isElementVisible2(ErrorMessgeElement)) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				if (getTexOfElement(ErrorMessgeElement)
-						.equals(CommonTestData.EXISTING_PEEKBALANCE_ENABLE_MESSAGE.getEnumValue()))
-					ClickOnOKButton(); 
+				ClickOnOKButton(); 
 			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
