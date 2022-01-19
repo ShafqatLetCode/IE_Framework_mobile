@@ -262,14 +262,13 @@ public class updateContactDetails extends CommonAppiumTest{
 			verifyChangeButtonUnderPersonalParticularSection(CommonTestData.CHANGE_BUTTON.getEnumValue());
 			verifyMarketingMessageTitle(CommonTestData.MARKETING_MESSAGE_TITLES.getEnumValue());
 			
+			gestUtils.scrollUPtoObject("text", CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue(), null);
+			verifyMarketingMessageNotes(CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue());
+
 			if (appName.equalsIgnoreCase("DBS"))
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
 			else if (appName.equalsIgnoreCase("iWEALTH"))
 				gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
-			
-			verifyMarketingMessageNotes(CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue());
-
-			
 
 			verifyIWouldLikeTheBankTomessage(CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue());
 		} catch (HandleException e) {

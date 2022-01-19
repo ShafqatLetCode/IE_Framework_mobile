@@ -137,7 +137,9 @@ public enum CommonTestData {
 	PEEK_BALANCE_SUBTITLE("PEEK BALANCE"),
 	PEEK_BALANCE_SUBTITLE_IOS("Tap and hold to PEEK BALANCE"),
 	PEEK_BALANCE_DEREGISTER_MESSAGE("You will no longer enjoy benefits"),
-	EXISTING_PEEKBALANCE_ENABLE_MESSAGE("Existing Personalisation will be removed. Do you want to proceed?"),
+	//EXISTING_PEEKBALANCE_ENABLE_MESSAGE("Existing Personalisation will be removed. Do you want to proceed?"),
+	EXISTING_PEEKBALANCE_ENABLE_MESSAGE("Confirmation Existing Personalization will be removed, Do you want to proceed?"),
+	
 	
 	//Page Headers in Application
 	RECIPIENT_DETAILS_PAGEHEADER("Recipient's Details"),
@@ -244,6 +246,9 @@ public enum CommonTestData {
 	CORRIDOR_AMOUNT("34"),
 	PAYEE_NAME_CORRIDOR("ad rec new ajay"),
 	OVERSEA_HEADER("Overseas Transfer"),
+	RECIPIENT_HAS_BEEN_UPDATED_MSG("Recipient has been updated"),
+	UPDATED_ADDRESS("Opp. Bus Stand, 372, Poottai Road Sankarapuram, Sankarapuram"),
+	UPDATED_CITY("Sankarapuram"),
 	
 	//Remittance EOTT
 	eOTT_AMOUNT("11.65"),

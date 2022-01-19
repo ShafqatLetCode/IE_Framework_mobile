@@ -180,6 +180,23 @@ public class homePage extends CommonAppiumTest {
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/status_message')]")
 	private MobileElement digitalTokenSetUpMessage;
 	
+	@ElementDescription(value = "Do you know how to spot a fake link?")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Do you know how to spot a fake link?']")
+	private MobileElement DoyouknowhowtospotafakelinkMessage;
+	
+	@ElementDescription(value = "I've read the above carefully.")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='I've read the above carefully.']")
+	private MobileElement Checkbox;
+	
+	@ElementDescription(value = "I've read the above carefully.")
+	@AndroidFindBy(xpath = "//android.widget.CheckBox[@text='I've read the above carefully.']")
+	private MobileElement Checkbox1;
+	
+	@ElementDescription(value = "OK, got it Button.")
+	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK, got it']")
+	private MobileElement OK_GOTIT_BUTTON;
+	
+	
 	public MobileElement WelcomeToText() {
 		return WelcomeToText;
 	}
@@ -285,6 +302,23 @@ public class homePage extends CommonAppiumTest {
 		}
 	}
 	
+	@Step("handle Fake Link Message Screen")
+	public void handleFakeLinkMessageScreen() throws Exception {
+		try {
+			if (isElementVisible2(DoyouknowhowtospotafakelinkMessage)) { 
+				gestUtils.scrollUPtoObject(null, null, null); 
+				wait.waitForElementVisibility(OK_GOTIT_BUTTON); 
+				ClickOnCheckbox();
+				ClickOnOkGotItButton();
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to handle Fake Link Message Screen ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to handle Fake Link Message Screen ", e);
+		}
+	}
+	
 	@Step("verify Digital Token Message After SetUp.")
 	public void verifyDigitalTokenMessageAfterSetUp(String expectecMessage)throws Exception{
 		try {
@@ -322,6 +356,35 @@ public class homePage extends CommonAppiumTest {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ", e);
+		}
+	}
+	
+	@Step("Click On Checkbox.")
+	public void ClickOnCheckbox() throws Exception {
+		try {
+			if (wait.waitForElementToBeClickable2(Checkbox)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				clickOnElement(Checkbox);
+			} else if (wait.waitForElementToBeClickable2(Checkbox1)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				clickOnElement(Checkbox1);
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Checkbox Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Checkbox Button ", e);
+		}
+	}
+	
+	@Step("Click On Ok,Got It Button.")
+	public void ClickOnOkGotItButton() throws Exception {
+		try {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				clickOnElement(OK_GOTIT_BUTTON);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Click On Ok,Got It Button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Click On Ok,Got It Button ", e);
 		}
 	}
 

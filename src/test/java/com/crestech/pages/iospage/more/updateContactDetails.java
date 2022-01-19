@@ -294,6 +294,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	public void verifyMarketingMessageNotes(String marketingMessageNotes) throws Exception {
 		try {
 			gestUtils.scrollUPtoObjectIos("name", "I would like the bank to:", null);
+			wait.waitForElementVisibility(MarketingMessageNotes); 
 			Asserts.assertEquals(getTexOfElement(MarketingMessageNotes).toLowerCase(), marketingMessageNotes.toLowerCase(),
 					marketingMessageNotes + " Text is not matching");
 		} catch (HandleException e) {
@@ -307,6 +308,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Verify 'I would like the bank to:' Message.")
 	public void verifyIWouldLikeTheBankTomessage(String message) throws Exception {
 		try {
+			gestUtils.scrollUPtoObjectIos("name", "I would like the bank to:", null);
 			Asserts.assertEquals(getTexOfElement(UPPSectionLabel), message,
 					message + " Text is not matching");
 		} catch (HandleException e) {

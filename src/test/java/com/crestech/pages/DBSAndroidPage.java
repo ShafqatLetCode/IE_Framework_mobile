@@ -132,6 +132,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			preloginpage.SelectUATServer(serverName);
 			launchpage.clickOnLoginButton();
 			loginpage.EnterCredentialsAndLogin(userName, password); 
+			homepage.handleFakeLinkMessageScreen();
 			homepage.digitalTokenSetUp();
 			homepage.handlingGetStartedPopup(appName);
 			homepage.handlingErrorAlert();
@@ -209,6 +210,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			overseasmodule.verifyOverseasTransferPageHeader(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue());
 			overseasmodule.SelectOverseaPayee(CommonTestData.PAYEE_NAME_CORRIDOR.getEnumValue());
 			
+			overseasmodule.HandleUpdateOverseasPayee();
+			overseasmodule.SelectOverseaPayee(CommonTestData.PAYEE_NAME_CORRIDOR.getEnumValue());
+			
+			
 			if (appName.equals("DBS"))
 				overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue());
 			else if (appName.equals("iWEALTH"))
@@ -239,6 +244,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterpasscode.EnterPasscodeAndDone();
 			paytransfer.SelectAllTAB();
 			overseasmodule.SelectEOTT();
+			overseasmodule.HandleUpdateOverseasPayee();
+			overseasmodule.SelectEOTTWithoutSearching();
+			
 			if (appName.equals("DBS"))
 				overseasmodule.SelectSourceOfFund(CommonTestData.SOURCE_ACCOUNT_NAME_CORRIDOR.getEnumValue());
 			else if (appName.equals("iWEALTH"))

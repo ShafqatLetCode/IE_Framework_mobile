@@ -151,7 +151,7 @@ public class deletePayee extends CommonAppiumTest{
 									ClickOnMoreOptionBtn();
 									ClickOnDeletePayeeBtn();
 									ClickOnYesBtn();
-									// HandlingErrorPopupInDeletePayee(i);
+									HandlingErrorPopupInDeletePayee(i);
 									ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(expectedDeleteRecipient);
 									deletePayee++;
 									// VerifyPayeeSizeAfterDeletePayee(ExpectedTotalPayeeSize);
@@ -193,9 +193,7 @@ public class deletePayee extends CommonAppiumTest{
 				// Do check back later.) coming. So this Thread.sleep(); added here.
 
 				Thread.sleep(5000);
-				String ErrorissueXpath = "//android.widget.TextView[@resource-id='android:id/message']";
-				List<RemoteWebElement> list = driver.findElements(By.xpath(ErrorissueXpath));
-				if (list.size() > 0) {
+				if (isElementVisible2(ErrorMessgeElement)) {
 					if (getTexOfElement(ErrorMessgeElement).contains("You may be facing some delays")) {
 						ClickOnOKButton();
 						ClickOnDeletePayeeToIcon(index);
