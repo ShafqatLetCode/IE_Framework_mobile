@@ -165,6 +165,10 @@ public class homePage extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Pay & Transfer']")
 	private MobileElement payAndTransferButton;
 	
+	@ElementDescription(value = "Accounts")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Accounts']")
+	private MobileElement AccountsButton;
+	
 	@ElementDescription(value = "More button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='More']")
 	private MobileElement moreButton;
@@ -375,9 +379,10 @@ public class homePage extends CommonAppiumTest{
 	@Step("Click On Continue Button.")
 	public void ClickOnContinueButton()throws Exception{
 		try {
+			wait.waitForElementToBeClickable(continueButton);
 			if(isElementVisible2(digitokeRegisterAlertMsg)) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(continueButton);
+				clickOnElement(continueButton); 
 			}
 		}catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ",
@@ -456,6 +461,7 @@ public class homePage extends CommonAppiumTest{
 			{
 			int x=getXCoordinateOfElement(welcomeToText);
 			int y=getYCoordinateOfElement(welcomeToText);
+			SelectAccountsSection();
 			gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+150);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			}
@@ -463,9 +469,11 @@ public class homePage extends CommonAppiumTest{
 			{
 				int x=getXCoordinateOfElement(welcomeToTextIwealth);
 				int y=getYCoordinateOfElement(welcomeToTextIwealth);
+				SelectAccountsSection();
 				gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+160);
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			}
+			
 			VerifyAccountType(AccountType);
 			VerifyAccountName(AccountName);
 			VerifyCurrency(currency);
@@ -476,6 +484,18 @@ public class homePage extends CommonAppiumTest{
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
 		}
 	}
+	
+	@Step("Select Accounts Section")
+	public void SelectAccountsSection() throws Exception {
+		try {
+				clickOnElement(accountSectionHomePage);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Accounts Section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Accounts Section ", e);
+		}
+	}
+	
 	
 	@Step("Verify Account Type")
 	public void VerifyAccountType(String AccountType) throws Exception {

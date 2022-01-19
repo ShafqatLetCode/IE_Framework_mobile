@@ -202,6 +202,7 @@ public class More extends CommonAppiumTest{
 	public void SelectModuleAfterSearch(String searchBoxData, String expectedModule) throws Exception {
 		try {
 			clickOnElementOnEnable(searchIcon);
+			wait.waitForElementVisibility(searchBox); 
 			if (isElementEnable(searchBox)) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				enterTextInTextbox(searchBox, searchBoxData);

@@ -362,13 +362,11 @@ public class homePage extends CommonAppiumTest {
 	@Step("Click On Checkbox.")
 	public void ClickOnCheckbox() throws Exception {
 		try {
-			if (isElementVisible2(Checkbox)) {
+			if (wait.waitForElementToBeClickable2(Checkbox)) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				wait.waitForElementToBeClickable(Checkbox);
 				clickOnElement(Checkbox);
-			} else {
+			} else if (wait.waitForElementToBeClickable2(Checkbox1)) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				wait.waitForElementToBeClickable(Checkbox1);
 				clickOnElement(Checkbox1);
 			}
 		} catch (HandleException e) {
