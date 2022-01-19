@@ -246,7 +246,7 @@ public class overseasModule extends CommonAppiumTest{
 	}
 	
 	@Step("Handle Update Overseas Recipient popup ")
-	public void HandleUpdateOverseasPayee() throws Exception {
+	public void HandleUpdateOverseasPayee(String testCaseName) throws Exception {
 		try {
 			if (isElementVisible2(UpdateNowButton)) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
@@ -260,6 +260,10 @@ public class overseasModule extends CommonAppiumTest{
 				enterpasscode.EnterPasscodeAndDone();
 				verifyRecipientHasBeenUpdatedMessage();
 				ClickOnNavigateUpButton();
+				if (testCaseName.equals("CORRIDOR"))
+					SelectOverseaPayee(CommonTestData.PAYEE_NAME_CORRIDOR.getEnumValue());
+				else if (testCaseName.equals("EOTT"))
+					SelectEOTTWithoutSearching();
 			} 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
