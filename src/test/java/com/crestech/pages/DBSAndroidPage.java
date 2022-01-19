@@ -130,15 +130,15 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		try {
 			launchpage.handlingQuitButton();
 			preloginpage.SelectUATServer(serverName);
-			launchpage.clickOnLoginButton();
-			loginpage.EnterCredentialsAndLogin(userName, password); 
-			homepage.handleFakeLinkMessageScreen();
-			homepage.digitalTokenSetUp();
-			homepage.handlingGetStartedPopup(appName);
-			homepage.handlingErrorAlert();
-			homepage.handlingFingerPrintAlert(CommonTestData.FINGERPRINT_MESSAGE.getEnumValue());
-			homepage.handleRecordingAlert(CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue());
-			wait.fluentWaitForElement(homepage.WelcomeToText());
+//			launchpage.clickOnLoginButton();
+//			loginpage.EnterCredentialsAndLogin(userName, password); 
+//			homepage.handleFakeLinkMessageScreen();
+//			homepage.digitalTokenSetUp();
+//			homepage.handlingGetStartedPopup(appName);
+//			homepage.handlingErrorAlert();
+//			homepage.handlingFingerPrintAlert(CommonTestData.FINGERPRINT_MESSAGE.getEnumValue());
+//			homepage.handleRecordingAlert(CommonTestData.RECORDERSECTION_MESSAGE.getEnumValue());
+//			wait.fluentWaitForElement(homepage.WelcomeToText());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Pre-Requisite Script ", e);
 		} catch (Exception e) {

@@ -346,6 +346,11 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		    //capabilities.setCapability("autoDissmissAlerts", "true");
 		    capabilities.setCapability("locationServicesAuthorized", "true");
 		    
+		    
+//		    capabilities.setCapability("project", "DBSAutomation");
+//			capabilities.setCapability("build", "DBSBuild1");
+//			capabilities.setCapability("name", method.getName());//method.getName()
+//			capabilities.setCapability("tag", "Pr_Testing");
 //			capabilities.setCapability("pCloudy_DeviceManafacturer", manafacturer);
 //			capabilities.setCapability("pCloudy_MinVersion",min_Ver); 
 //			capabilities.setCapability("pCloudy_MaxVersion",max_Ver); 
@@ -440,6 +445,8 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 //					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
 			driver = new IOSDriver<RemoteWebElement>(
 					new URL(s.get(3) + "/appiumcloud/wd/hub"), androidCaps);
+//			driver = new IOSDriver<RemoteWebElement>(
+//					new URL(s.get(3) + "/progressive/wd/hub"), androidCaps);
 		}
 		return driver;
 	}
