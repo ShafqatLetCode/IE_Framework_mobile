@@ -185,6 +185,7 @@ public class deletePayee extends CommonAppiumTest{
 		}
 	}
 
+	@Step("Handling Error Popup In Delete Payee")
 	public void HandlingErrorPopupInDeletePayee(int index) throws Exception {
 		try {
 			for (int innerLoop = 0; innerLoop < 2; innerLoop++) {
@@ -202,6 +203,7 @@ public class deletePayee extends CommonAppiumTest{
 						ClickOnMoreOptionBtn();
 						ClickOnDeletePayeeBtn();
 						ClickOnYesBtn();
+						Thread.sleep(5000);
 					}
 				}
 			}

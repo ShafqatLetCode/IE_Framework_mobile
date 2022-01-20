@@ -119,16 +119,27 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 	@BeforeSuite(alwaysRun = true)
 	public void beforeSuite() throws Exception {
-		logger.info("Inside before suite");
-		if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
-			ContextManager.startReport();
-		} else {
-			try {
-				File fileClean = new File(System.getProperty("user.dir") + "/allure-results");
-				FileUtils.deleteDirectory(fileClean);
-			} catch (Exception e) {
-				System.out.println("Dir doesno exist");
+//		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+//	        public void run() {
+//	        	logger.info("In the middle of a shutdown");
+//	            flushReport();
+//	        }
+//	        }));
+		try {
+			logger.info("Inside before suite");
+			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Extent")) {
+				ContextManager.startReport();
+			} else {
+				try {
+					File fileClean = new File(System.getProperty("user.dir") + "/allure-results");
+					FileUtils.deleteDirectory(fileClean);
+				} catch (Exception e) {
+					System.out.println("Dir doesno exist");
+				}
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
