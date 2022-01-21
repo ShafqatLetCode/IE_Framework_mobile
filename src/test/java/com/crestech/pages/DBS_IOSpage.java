@@ -105,9 +105,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void preRequisiteScript(String userName, String password, String app_Name, String serverName)
 			throws Exception {
 		try {
-			// wait.ImplicitlyWait(10);
-			// launchpage.atmLocationAlert();
-			// launchpage.sendNotificationAlert();
+			 wait.ImplicitlyWait(10);
+			 launchpage.atmLocationAlert();
+			 launchpage.sendNotificationAlert();
 			wait.ImplicitlyWait(75);
 			launchpage.localNetworkAlert();
 			wait.ImplicitlyWait(10);
