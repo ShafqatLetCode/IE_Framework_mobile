@@ -81,6 +81,7 @@ public class preloginPage extends CommonAppiumTest{
 	@Step("Verify Visibility of Peek Balance on Login Page.")
 	public void VerifyPeekBalanceEnabilityOnLogInPage(String peekBalanceSubtitle) throws Exception {
 		try {
+			Thread.sleep(10000); 
 			wait.waitForElementVisibility(PeekBalanceSubtitle);
 			Asserts.assertEquals(getTexOfElement(PeekBalanceSubtitle), peekBalanceSubtitle,
 					peekBalanceSubtitle + " Text is not matching.");
