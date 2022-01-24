@@ -384,7 +384,7 @@ public class GestureUtils {
 		}
 	}
 
-	public void scrollUPtoObject(String attribute, String value, MobileElement element) throws Exception {
+	public boolean scrollUPtoObject(String attribute, String value, MobileElement element) throws Exception {
 		try {
 			Dimension windowSize = driver.manage().window().getSize();
 			//System.out.println("getSessionId :"+driver.getSessionId());
@@ -408,13 +408,11 @@ public class GestureUtils {
 			}
 			if(element !=null)
 				Asserts.assertTrue(element.isDisplayed(), "Element not found");
-
-		} catch (HandleException e) {	
-			throw new HandleException ("SCROLL_EXCEPTION", "Failed to scroll to the element ::",e);	
-		}catch (Exception e) {		
-			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to scroll to the element  ",e);
+			
+			return true;
+		} catch (Exception e) {	
+			return true;
 		}
-
 	}
 	
 	
@@ -463,7 +461,7 @@ public class GestureUtils {
 	}
 	
 	
-	public void scrollDOWNtoObject(String attribute, String value, MobileElement element) throws Exception {
+	public boolean scrollDOWNtoObject(String attribute, String value, MobileElement element) throws Exception {
 		try {
 			Dimension windowSize = driver.manage().window().getSize();
 			int h = windowSize.getHeight();
@@ -487,11 +485,10 @@ public class GestureUtils {
 
 			if(element !=null)
 				Asserts.assertTrue(element.isDisplayed(), "Element not found");
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("SCROLL_EXCEPTION", " Failed to perform scroll ",e);
-		}
-		catch (Exception e) {		
-			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to perform scroll  ",e);
+			
+			return true;
+		} catch (Exception e) {	
+			return true;
 		}
 	}
 

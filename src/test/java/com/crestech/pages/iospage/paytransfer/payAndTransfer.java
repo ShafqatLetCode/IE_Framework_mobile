@@ -84,13 +84,12 @@ public class payAndTransfer extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeTable/XCUIElementTypeOther/XCUIElementTypeStaticText")
 	private List<MobileElement> allTabList;
 	
-	@ElementDescription(value = "OK Button")
-	@AndroidFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
-	private MobileElement OKButton;
-	
-	@ElementDescription(value = "OK Button")
-	@AndroidFindBy(xpath = "//XCUIElementTypeButton[@name='OK']")
-	private MobileElement OKButton1;
+	@ElementDescription(value = "Ok Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='OK']")
+ 	private MobileElement OKButton;
+    @iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='OK']")
+ 	private MobileElement OKButton1;
+
 	
 	@ElementDescription(value = "Primary source of fund")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Primary source of fund']")

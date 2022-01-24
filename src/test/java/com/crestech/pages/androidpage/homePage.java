@@ -52,10 +52,6 @@ public class homePage extends CommonAppiumTest {
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/tv_currency_label')]")
 	private MobileElement currencyHomePage;
 	
-	@ElementDescription(value = "Account Name Home page")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/text_src_acc_name')]")
-	private MobileElement accountNameHomePage;
-	
 	@ElementDescription(value = "Deposite Home page")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'Deposits')]")
 	private MobileElement depositeHomePage;
@@ -494,10 +490,10 @@ public class homePage extends CommonAppiumTest {
 		try {
 			clickOnElement(accountSectionHomePage);
 			gestUtils.scrollDOWNtoObject("text", "Deposits", null);
-			Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
 			
-			if (isElementVisible2(accountNameHomePage)) {
-				Asserts.assertEquals(getTexOfElement(accountNameHomePage), AccountName,
+			if(isElementVisible2(DepositsAccountName)) {
+				Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
+				Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
 						AccountName + " is not present");
 			} else
 				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
@@ -544,20 +540,21 @@ public class homePage extends CommonAppiumTest {
 	}
 	
 	@Step("Verify 'Account Name' on dashboard Page.")
-	public void verifyAccountName(String AccountName) throws Exception{
+	public void verifyAccountName(String AccountName) throws Exception {
 		try {
-			if(isElementVisible2(accountNameHomePage)) 
-			Asserts.assertEquals(getTexOfElement(accountNameHomePage), AccountName,AccountName + " is not present");
+			if (isElementVisible2(DepositsAccountName))
+				Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
+						AccountName + " is not present");
 			else
-				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
-			
-			
+				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page.");
+
 			gestUtils.scrollUPtoObject("text", "SGD", null);
-		}catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Name' on dashboard Page ",
-					e);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNTIONAL_EXCEPTION",
+					" Failed to Verify 'Account Name' on dashboard Page ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Name' on dashboard Page ", e);
+			obj_handleexception.throwException("FUNTIONAL_EXCEPTION",
+					" Failed to Verify 'Account Name' on dashboard Page ", e);
 		}
 	}
 	

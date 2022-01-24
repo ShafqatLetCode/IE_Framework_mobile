@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
+import com.crestech.common.utilities.AndroidAlert;
 import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.GestureUtils;
@@ -30,7 +31,7 @@ public class transactionHistory extends CommonAppiumTest{
 	HandleException obj_handleexception = null;
 	GestureUtils gestUtils = null;
 	More more = null;
-	
+	AndroidAlert androidAlert=null;
 	
 	public transactionHistory(AppiumDriver<RemoteWebElement> driver) throws Exception {
 		super(driver);
@@ -39,6 +40,7 @@ public class transactionHistory extends CommonAppiumTest{
 			obj_handleexception = new HandleException(null, null);
 			gestUtils = new GestureUtils(driver);
 			more = new More(driver);
+			androidAlert=new AndroidAlert(driver);
 			PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,6 +106,9 @@ public class transactionHistory extends CommonAppiumTest{
 			String actual = transactionHistoryfinalheaderTitle.getText();
 			if (actual.toLowerCase().contains(ExpectedAccountName.toLowerCase())) {
 				String[] arrOfStr = ExpectedAccountName.split(" ");
+			} else if (androidAlert.isAlertPresent()) {
+				String alertMessage = this.driver.switchTo().alert().getText();
+				Asserts.assertFail(alertMessage);
 			} else
 				Asserts.assertEquals(getTexOfElement(transactionHistoryfinalheaderTitle).trim().toLowerCase(),
 						ExpectedAccountName.toLowerCase(), ExpectedAccountName + " text is not found");

@@ -18,6 +18,8 @@ import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.base.UserBaseTest;
 import com.crestech.config.ContextManager;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.AllureLifecycle;
 import io.qameta.allure.Attachment;
 
 public class TestListener extends UserBaseTest implements ITestListener {
@@ -30,6 +32,19 @@ public class TestListener extends UserBaseTest implements ITestListener {
 	
 	private static String getTestMethodName(ITestResult iTestResult) {
 		return iTestResult.getMethod().getConstructorOrMethod().getName();
+	}
+	
+	private static String getTeststatus(ITestResult iTestResult) {
+		 switch (iTestResult.getStatus()) {
+	        case ITestResult.SUCCESS:
+	            return "Passed";
+	        case ITestResult.FAILURE:
+	            return "Failed";
+	        case ITestResult.SKIP:
+	            return "Skipped";
+	        default:
+	            return "Unknown";	
+		 }
 	}
 	
 //	private static String getDeviceName(ITestContext iTestContext) {
@@ -113,7 +128,8 @@ public class TestListener extends UserBaseTest implements ITestListener {
 		// Extent reports log operation for passed tests.
 		// ExtentTestManager.getTest().log(LogStatus.PASS, "Test passed");
 		WebDriver driver = ContextManager.getDriver();
-
+		 AllureLifecycle lifecycle = Allure.getLifecycle();
+		 lifecycle.updateTestCase(testResult -> testResult.setDescription(getTeststatus(iTestResult)));
 		// Allure ScreenShotRobot and SaveTestLog
 		if (driver instanceof WebDriver) {
 			System.out.println("Screenshot captured for test case:" + getTestMethodName(iTestResult));
@@ -129,6 +145,8 @@ public class TestListener extends UserBaseTest implements ITestListener {
 		Object testClass = iTestResult.getInstance();
 		RemoteWebDriver driver = ContextManager.getDriver();
 
+		 AllureLifecycle lifecycle = Allure.getLifecycle();
+		 lifecycle.updateTestCase(testResult -> testResult.setDescription(iTestResult.getThrowable().getLocalizedMessage()));
 		// Allure ScreenShotRobot and SaveTestLog
 		if (driver instanceof WebDriver) {
 			System.out.println("Screenshot captured for test case:" + getTestMethodName(iTestResult));
@@ -146,6 +164,8 @@ public class TestListener extends UserBaseTest implements ITestListener {
 		// Extent reports log operation for skipped tests.
 		// ExtentTestManager.getTest().log(LogStatus.SKIP,
 		// getTestMethodName(iTestResult) + " Test Skipped");
+		 AllureLifecycle lifecycle = Allure.getLifecycle();
+		 lifecycle.updateTestCase(testResult -> testResult.setDescription(getTeststatus(iTestResult))); 
 	}
 
 	@Override

@@ -470,6 +470,8 @@ public class payAndTransfer extends CommonAppiumTest{
 				} else
 					Asserts.assertFail("No receipient Found in the Local Recipient list");
 			}
+			
+			
 			HandlingOfPrimarySourceOfFundPopup();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Select 'To Account' from local Recipient list  ", e);
@@ -492,8 +494,10 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Handle Of 'Primary Source Of Fund' Popup.")
 	public void HandlingOfPrimarySourceOfFundPopup() throws Exception {
 		try {
+			wait.ImplicitlyWait(30);
 			if (isElementVisible2(PrimarySourceOfFundPopup))
 				ClickOnOKButton();
+			wait.ImplicitlyWait(10);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Of 'Primary Source Of Fund' Popup  ", e);
 		} catch (Exception e) {

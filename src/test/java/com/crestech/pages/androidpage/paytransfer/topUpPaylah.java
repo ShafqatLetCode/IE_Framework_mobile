@@ -92,6 +92,7 @@ public class topUpPaylah extends CommonAppiumTest{
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(topUpNowButton);
 			
+			wait.fluentWaitForElement(topUpDoneLabel); 
 			Asserts.assertEquals(getTexOfElement(topUpDoneLabel),
 					CommonTestData.TOPUP_UP_DONE_LABEL.getEnumValue(), "'Top-up Done' Text is not found");
 			Asserts.assertEquals(getTexOfElement(displayAmount),
@@ -144,6 +145,7 @@ public class topUpPaylah extends CommonAppiumTest{
 	@Step("Click On Paylah and then verify Top Up Paylah label")
 	public void ClickOnPaylah(String expectecText) throws Exception {
 		try {
+			wait.waitForElementToBeClickable(paylahLabel); 
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(paylahLabel);
 			Asserts.assertEquals(getTexOfElement(topUpPaylahLabel),

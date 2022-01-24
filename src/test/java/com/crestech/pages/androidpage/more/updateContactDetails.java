@@ -340,8 +340,6 @@ public class updateContactDetails extends CommonAppiumTest{
 			for (int i = 0; i < ContactDetailsTitlesList.size() && j < 5; i++) {
 				String actualTitles = getTexOfElement(ContactDetailsTitlesList.get(i));
 				if (actualTitles.equalsIgnoreCase(ExpectedTitles[j])) {
-					Asserts.assertEquals(getTexOfElement(ContactDetailsTitlesList.get(i)),ExpectedTitles[j],
-							ExpectedTitles[i] + " Titles is not matching in Personal Perticulars Section.");
 					clickOnElement(ContactDetailsTitlesList.get(i));
 					j++;
 					i = 0;
