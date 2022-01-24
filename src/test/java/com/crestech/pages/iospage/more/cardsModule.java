@@ -280,9 +280,9 @@ public class cardsModule extends CommonAppiumTest{
 					}
 				}
 				if (index == 0)
-					Asserts.assertFail("Debit Card Type " + expectedDebitCard + " Not found in the list.");
+					Asserts.assertFail("Data Issue: Debit Card Type " + expectedDebitCard + " Not found in the list.");
 			} else
-				Asserts.assertFail(expectedDebitCard + " not found in the list as list size is 0");
+				Asserts.assertFail("Data Issue: '"+expectedDebitCard + "' not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("ELEMENTNOTINLIST_EXCEPTION",
 					" Failed to Select Debit card type:: " + expectedDebitCard, e);
@@ -373,10 +373,10 @@ public class cardsModule extends CommonAppiumTest{
 				}
 
 				if (index == 0)
-					Asserts.assertFail("The " + ElementName + " " + elementToBeSelected + " Not found in the list.");
+					Asserts.assertFail("Data Issue: " + ElementName + " " + elementToBeSelected + " Not found in the list.");
 			} else
 				Asserts.assertFail(
-						"The " + ElementName + " " + elementToBeSelected + " not found in the list as list size is 0");
+						"Data Issue: " + ElementName + " " + elementToBeSelected + " not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("ELEMENTNOTINLIST_EXCEPTION",
 					" Failed to select the " + ElementName + " " + elementToBeSelected + " from the list", e);

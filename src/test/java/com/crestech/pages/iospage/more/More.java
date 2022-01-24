@@ -226,9 +226,9 @@ public class More extends CommonAppiumTest{
 					}
 				}
 					if (index == 0)
-						Asserts.assertFail(expectedModule + " No element found in the list");
+						Asserts.assertFail("Data Issue: "+expectedModule + " No element found in the list");
 			} else
-				Asserts.assertFail(expectedModule + " not found in the list as list size is 0");
+				Asserts.assertFail("Data Issue: "+expectedModule + " not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Select Module After Search ", e);

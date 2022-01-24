@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
+
+import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.AndroidAlert;
 import com.crestech.common.utilities.Asserts;
@@ -42,6 +44,8 @@ import com.crestech.pages.androidpage.paytransfer.payNow;
 import com.crestech.pages.androidpage.paytransfer.topUpPaylah;
 import com.crestech.pages.androidpage.paytransfer.yourDBSPOSBAccount;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.qameta.allure.Step;
 
@@ -1130,6 +1134,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					e);
 		}
 	}
+	
+	@ElementDescription(value = "Error Messge Element")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/message']")
+	private MobileElement ErrorMessgeElement;
+	
+	@ElementDescription(value = "DigibankAlertHeaderElement")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='digibank Alert']")
+	private MobileElement DigibankAlertHeaderElement;
 
 	public void verifyDigibankAlert() throws Exception {
 		String alertMessage = null;
@@ -1139,7 +1151,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				System.out.println("Alert title :: " + this.driver.switchTo().alert().getText());
 
 				alertMessage = this.driver.switchTo().alert().getText();
-				Asserts.assertFail(alertMessage);
+				if(alertMessage != "" || alertMessage != null)
+					Asserts.assertFail(alertMessage);
+				else if(isElementVisible2(DigibankAlertHeaderElement)) {
+					System.out.println("Alert title :: " + ErrorMessgeElement.getText());
+
+					alertMessage = DigibankAlertHeaderElement.getText()
+							+ ": "
+							+ ErrorMessgeElement.getText();
+					
+				    Asserts.assertFail(alertMessage);
+				}
 			}
 			else if(isElementVisible2(launchpage.quitBtn())) {
 				Asserts.assertFail("Application CRASH ISSUE");

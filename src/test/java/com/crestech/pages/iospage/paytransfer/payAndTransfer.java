@@ -136,7 +136,7 @@ public class payAndTransfer extends CommonAppiumTest{
 							// Exception Handling without scrolling case and no expected element found in
 							// the list then index ==0
 							if (index == 0 && count == 0)
-								Asserts.assertFail("Your DBS/POSB Accounts ' " + ToOwnAccount
+								Asserts.assertFail("Data Issue: Your DBS/POSB Accounts ' " + ToOwnAccount
 										+ " ' not found in the list to initiate the fund transfer");
 							else
 								break;
@@ -166,11 +166,11 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Exception Handling in scrolling case and no expected element found in the
 						// list then index ==0, count ==1
 						if (count == 1 && index == 0)
-							Asserts.assertFail("Your DBS/POSB Accounts ' " + ToOwnAccount
+							Asserts.assertFail("Data Issue: Your DBS/POSB Accounts ' " + ToOwnAccount
 									+ " ' not found in the list to initiate the fund transfer");
 
 					} else
-						Asserts.assertFail("No receipient Found in the Local recipient list");
+						Asserts.assertFail("Data Issue: No receipient Found in the Local recipient list");
 				}
 
 				handlingOfPrimarySourceOfFundPopup();
@@ -214,7 +214,7 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Exception Handling without scrolling case and no expected element found in
 						// the list then index ==0
 						if (index == 0 && count == 0)
-							Asserts.assertFail("Local Recipient " + expectedLocalRecipient
+							Asserts.assertFail("Data Issue: Local Recipient " + expectedLocalRecipient
 									+ " not found in the list to initiate the fund transfer");
 						else
 							break;
@@ -245,11 +245,11 @@ public class payAndTransfer extends CommonAppiumTest{
 					// Exception Handling in scrolling case and no expected element found in the
 					// list then index ==0, count ==1
 					if (count == 1 && index == 0)
-						Asserts.assertFail("Local Recipient " + expectedLocalRecipient
+						Asserts.assertFail("Data Issue: Local Recipient " + expectedLocalRecipient
 								+ " not found in the list to initiate the fund transfer");
 
 				} else
-					Asserts.assertFail("No receipient Found in the Local Recipient list");
+					Asserts.assertFail("Data Issue: No receipient Found in the Local Recipient list");
 			}
 
 			handlingOfPrimarySourceOfFundPopup();
@@ -334,7 +334,7 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Exception Handling without scrolling case and no expected element found in
 						// the list then index ==0
 						if (index == 0 && count == 0)
-							Asserts.assertFail("Billing Organisations " + valueSelectedFromList
+							Asserts.assertFail("Data Issue: Billing Organisations " + valueSelectedFromList
 									+ " not found in the list to initiate the fund transfer");
 						else
 							break;
@@ -364,11 +364,11 @@ public class payAndTransfer extends CommonAppiumTest{
 					// Exception Handling in scrolling case and no expected element found in the
 					// list then index ==0, count ==1
 					if (count == 1 && index == 0)
-						Asserts.assertFail("Billing Organisations " + valueSelectedFromList
+						Asserts.assertFail("Data Issue: Billing Organisations " + valueSelectedFromList
 								+ " not found in the list to initiate the fund transfer");
 
 				} else
-					Asserts.assertFail("No receipient Found in the Billing Organisations list");
+					Asserts.assertFail("Data Issue: No receipient Found in the Billing Organisations list");
 			}
 
 		
@@ -562,7 +562,7 @@ public class payAndTransfer extends CommonAppiumTest{
 							// Exception Handling without scrolling case and no expected element found in
 							// the list then index ==0
 							if (index == 0 && count == 0)
-								Asserts.assertFail("Credit Cards ' " + valueSelectedFromList
+								Asserts.assertFail("Data Issue: Credit Cards ' " + valueSelectedFromList
 										+ " ' not found in the list to initiate the fund transfer");
 							else
 								break;
@@ -592,11 +592,11 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Exception Handling in scrolling case and no expected element found in the
 						// list then index ==0, count ==1
 						if (count == 1 && index == 0)
-								Asserts.assertFail("Credit Cards ' " + valueSelectedFromList
+								Asserts.assertFail("Data Issue: Credit Cards ' " + valueSelectedFromList
 										+ " ' not found in the list to initiate the fund transfer");
 
 					} else
-						Asserts.assertFail("No receipient Found in the Cards recipient list");
+						Asserts.assertFail("Data Issue: No receipient Found in the Cards recipient list");
 				}
 
 			

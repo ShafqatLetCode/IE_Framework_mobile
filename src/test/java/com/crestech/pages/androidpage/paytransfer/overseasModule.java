@@ -350,9 +350,9 @@ public class overseasModule extends CommonAppiumTest{
 					}
 				}
 				if(index==0)
-				Asserts.assertFail("Overseas Payee " + valueSelectedFromList + " not found in the list to initiate the fund transfer");
+				Asserts.assertFail("Data Issue: Overseas Payee ' " + valueSelectedFromList + "' not found in the list to initiate the fund transfer");
 			} else 
-				Asserts.assertFail("No Receipient found in the Oversea Payee list");
+				Asserts.assertFail("Data Issue: No receipient found in the Overseas Payee list");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Overseas Payee ", e);
 		} catch (Exception e) {
@@ -382,7 +382,7 @@ public class overseasModule extends CommonAppiumTest{
 				}
 				
 				if(index==0)
-					Asserts.assertFail("Select Fund Source ' " + SelectedAccountName + " ' not found in the list to initiate the fund transfer");
+					Asserts.assertFail("Data Issue: Select Fund Source ' " + SelectedAccountName + " ' not found in the list to initiate the fund transfer");
 			
 				if (isElementVisible2(SelectCurrency))
 					clickOnElement(SelectCurrency);
@@ -434,7 +434,7 @@ public class overseasModule extends CommonAppiumTest{
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(ExpectedEottEle);
 			} else
-				Asserts.assertFail("EOTT " + ExpectedEottName + " Not Found corresponding to this user.");
+				Asserts.assertFail("Data Issue: EOTT " + ExpectedEottName + " Not Found corresponding to this user.");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to select EOTT  ", e);
 		} catch (Exception e) {
@@ -537,10 +537,10 @@ public class overseasModule extends CommonAppiumTest{
 				}
 
 				if (index == 0)
-					Asserts.assertFail("Account Type " + expectedAccountType + " Not found in the list.");
+					Asserts.assertFail("Data Issue: Account Type " + expectedAccountType + " Not found in the list.");
 				wait.fluentWaitForElement(PageHeader.get(0));
 			} else
-				Asserts.assertFail("Account type " + expectedAccountType + " Not found in the list as list size is 0");
+				Asserts.assertFail("Data Issue: Account type " + expectedAccountType + " Not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Account Type ", e);
 		} catch (Exception e) {
@@ -567,10 +567,10 @@ public class overseasModule extends CommonAppiumTest{
 					}
 				}
 				if(index ==0)
-				Asserts.assertFail("Purpose " + expectedPurpose + " Not found in the list.");
+				Asserts.assertFail("Data Issue: Purpose " + expectedPurpose + " Not found in the list.");
 				wait.fluentWaitForElement(PageHeader.get(0));
 			} else
-				Asserts.assertFail("Purpose " + expectedPurpose + " not found in the list as list size is 0");
+				Asserts.assertFail("Data Issue: Purpose " + expectedPurpose + " not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Purpose ", e);
 		} catch (Exception e) {
@@ -678,9 +678,9 @@ public class overseasModule extends CommonAppiumTest{
 					}
 				}
                  if(index==0)
-				Asserts.assertFail("Country " + expectedCountry + " No element found in the list.");
+				Asserts.assertFail("Data Issue: Country " + expectedCountry + " No element found in the list.");
 			} else
-				Asserts.assertFail("Country " + expectedCountry + " not found in the list as list size is 0");
+				Asserts.assertFail("Data Issue: Country " + expectedCountry + " not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Country ", e);
 		} catch (Exception e) {
@@ -705,9 +705,9 @@ public class overseasModule extends CommonAppiumTest{
 					}
 				}
 				if (index == 0)
-					Asserts.assertFail("Currency Type " + expectedCurrency + " Not found in the list");
+					Asserts.assertFail("Data Issue: Currency Type " + expectedCurrency + " Not found in the list");
 			} else
-				Asserts.assertFail(expectedCurrency + " not found in the list as list size is 0");
+				Asserts.assertFail("Data Issue: Currency Type "+ expectedCurrency + " not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Select Currency Type from list. ", e);
 		} catch (Exception e) {

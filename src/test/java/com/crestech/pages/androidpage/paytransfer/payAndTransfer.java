@@ -210,8 +210,8 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Exception Handling without scrolling case and no expected element found in
 						// the list then index ==0
 						if (index == 0 && count == 0)
-							Asserts.assertFail("Your DBS/POSB Accounts " + expectedToOwnAccount
-									+ " not found in the list to initiate the fund transfer");
+							Asserts.assertFail("Data Issue: Your DBS/POSB Accounts '" + expectedToOwnAccount
+									+ "' not found in the list to initiate the fund transfer");
 						else
 							break;
 					} else
@@ -240,11 +240,11 @@ public class payAndTransfer extends CommonAppiumTest{
 					// Exception Handling in scrolling case and no expected element found in the
 					// list then index ==0, count ==1
 					if (count == 1 && index == 0)
-						Asserts.assertFail("Your DBS/POSB Accounts " + expectedToOwnAccount
-								+ " not found in the list to initiate the fund transfer");
+						Asserts.assertFail("Data Issue: Your DBS/POSB Accounts '" + expectedToOwnAccount
+								+ "' not found in the list to initiate the fund transfer");
 
 				} else
-					Asserts.assertFail("No receipient found in the Your DBS/POSB Own Account List.");
+					Asserts.assertFail("Data Issue: No receipient found in the Your DBS/POSB Own Account List.");
 			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -286,8 +286,8 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Exception Handling without scrolling case and no expected element found in
 						// the list then index ==0
 						if (index == 0 && count == 0)
-							Asserts.assertFail("Credit Cards " + expectedToCreditCardAccount
-									+ " not found in the list to initiate the fund transfer.");
+							Asserts.assertFail("Data Issue: Credit Cards '" + expectedToCreditCardAccount
+									+ "' not found in the list to initiate the fund transfer.");
 						else
 							break;
 					} else
@@ -316,11 +316,11 @@ public class payAndTransfer extends CommonAppiumTest{
 					// Exception Handling in scrolling case and no expected element found in the
 					// list then index ==0, count ==1
 					if (count == 1 && index == 0)
-						Asserts.assertFail("Credit Cards " + expectedToCreditCardAccount
-								+ " not found in the list to initiate the fund transfer.");
+						Asserts.assertFail("Data Issue: Credit Cards '" + expectedToCreditCardAccount
+								+ "' not found in the list to initiate the fund transfer.");
 
 				} else
-					Asserts.assertFail("No receipient found in the Credit Cards list");
+					Asserts.assertFail("Data Issue: No receipient found in the Credit Cards list");
 			}
 
 		} catch (HandleException e) {
@@ -362,7 +362,7 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Exception Handling without scrolling case and no expected element found in
 						// the list then index ==0
 						if (index == 0 && count == 0)
-							Asserts.assertFail("Billing Organisation " + valueSelectedFromList + " not found in the list to initiate the fund transfer.");
+							Asserts.assertFail("Data Issue: Billing Organisation '" + valueSelectedFromList + "' not found in the list to initiate the fund transfer.");
 						else
 							break;
 					} else
@@ -391,9 +391,9 @@ public class payAndTransfer extends CommonAppiumTest{
 					// Exception Handling in scrolling case and no expected element found in the
 					// list then index ==0, count ==1
 					if (count == 1 && index == 0)
-						Asserts.assertFail("Billing Organisation " + valueSelectedFromList + " not found in the list to initiate the fund transfer.");
+						Asserts.assertFail("Data Issue: Billing Organisation '" + valueSelectedFromList + "' not found in the list to initiate the fund transfer.");
 				} else
-					Asserts.assertFail("No receipient found in the Billing Organisation list");
+					Asserts.assertFail("Data Issue: No receipient found in the Billing Organisation list");
 			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to select 'to account' from billing organisation list ", e);
@@ -434,8 +434,8 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Exception Handling without scrolling case and no expected element found in
 						// the list then index ==0
 						if (index == 0 && count == 0)
-							Asserts.assertFail("Local Recipient " + expectedLocalRecipient
-									+ " not found in the list to initiate the fund transfer");
+							Asserts.assertFail("Data Issue: Local Recipient '" + expectedLocalRecipient
+									+ "' not found in the list to initiate the fund transfer");
 						else
 							break;
 					} else
@@ -464,11 +464,11 @@ public class payAndTransfer extends CommonAppiumTest{
 					// Exception Handling in scrolling case and no expected element found in the
 					// list then index ==0, count ==1
 					if (count == 1 && index == 0)
-						Asserts.assertFail("Local Recipient " + expectedLocalRecipient
-								+ " not found in the list to initiate the fund transfer");
+						Asserts.assertFail("Data Issue: Local Recipient '" + expectedLocalRecipient
+								+ "' not found in the list to initiate the fund transfer");
 
 				} else
-					Asserts.assertFail("No receipient Found in the Local Recipient list");
+					Asserts.assertFail("Data Issue: No receipient Found in the Local Recipient list");
 			}
 			
 			

@@ -185,9 +185,9 @@ public class temporaryCreditLimitIncrease extends CommonAppiumTest{
 				}
 			
 			if(index==0)
-				Asserts.assertFail("Purpose "+purpose+" Not Found in the list.");
+				Asserts.assertFail("Data Issue: Purpose "+purpose+" Not Found in the list.");
 		} else
-			Asserts.assertFail("Purpose " + purpose + " not found in the list as list size is 0");
+			Asserts.assertFail("Data Issue: Purpose " + purpose + " not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Purpose ", e);
 		} catch (Exception e) {

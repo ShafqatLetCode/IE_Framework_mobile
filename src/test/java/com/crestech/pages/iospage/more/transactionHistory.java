@@ -177,7 +177,7 @@ public class transactionHistory extends CommonAppiumTest{
 				}
 				if (index == 0)
 					Asserts.assertFail(
-							"'From Account '" + AccountToBeSelected + " not found in the Deposite Section List.");
+							"Data Issue: From Account '" + AccountToBeSelected + " not found in the Deposite Section List.");
 			}
 			
 		
@@ -194,7 +194,7 @@ public class transactionHistory extends CommonAppiumTest{
 					}
 					
 					if (index1 == 0)
-						Asserts.assertFail("Currency:: " + currencyInAccount + " not found in the Deposite Section List.");
+						Asserts.assertFail("Data Issue: Currency:: " + currencyInAccount + " not found in the Deposite Section List.");
 			}
 		
 		} catch (HandleException e) {

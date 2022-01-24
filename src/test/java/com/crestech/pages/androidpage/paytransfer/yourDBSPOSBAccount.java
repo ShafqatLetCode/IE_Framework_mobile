@@ -136,7 +136,7 @@ public class yourDBSPOSBAccount extends CommonAppiumTest{
 					} 
 
 					if (selectedAccount == 0)
-						Asserts.assertFail("Select Fund Source " + expectedSourceAccount
+						Asserts.assertFail("Data Issue: Select Fund Source " + expectedSourceAccount
 								+ " not found in the list to initiate the fund transfer");
 
 					HandlingOfPrimarySourceOfFundPopup();
