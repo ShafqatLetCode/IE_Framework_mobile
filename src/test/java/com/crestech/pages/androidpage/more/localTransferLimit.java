@@ -262,10 +262,10 @@ public class localTransferLimit extends CommonAppiumTest{
 					}
 				}
                 if(index == 0)
-				Asserts.assertFail("No " + AccountToBeSelected + " found in the list of corresponding value");
+				Asserts.assertFail("Data Issue: No '" + AccountToBeSelected + "' found in the list of corresponding value");
 
 			} else 
-				Asserts.assertFail(AccountToBeSelected + " not found in the list as list size is 0");
+				Asserts.assertFail("Data Issue: '"+ AccountToBeSelected + "' not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Account Type ", e);
 		} catch (Exception e) {
@@ -317,9 +317,10 @@ public class localTransferLimit extends CommonAppiumTest{
 						break;
 					}
 				}
-				Asserts.assertTrue(index > 0, "No element found in the list of corresponding value");
+				if(index==0)
+				Asserts.assertFail("Data Issue: No element found in the list of corresponding value");
 			} else
-				Asserts.assertFail(valueSelectedFromList + " not found in the list as list size is 0");
+				Asserts.assertFail("Data Issue: '" + valueSelectedFromList + "' not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Data From Dropdown.  ",
 					e);

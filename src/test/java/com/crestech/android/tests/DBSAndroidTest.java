@@ -357,7 +357,7 @@ public class DBSAndroidTest extends UserBaseTest {
 //			Asserts.assertFail( "Unable to execute Fund Transfer Own Account "+e.getMessage());
 //		}
 //	}
-
+//
 //	@Epic("Pay & Transfer")
 //	@Feature(value =  "Select All Tab:: Local Recipient") 
 //	@Story("Verifies the Fund Transfer Other Bank Non Fast Future Transfer Date.")

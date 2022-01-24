@@ -112,7 +112,7 @@ public class DBS_IOSTest extends UserBaseTest {
 //			Asserts.assertFail("Unable to execute Remittance EOTT " + e.getMessage());
 //		}
 //	}
-//
+
 //	@Epic("Pay & Transfer")
 //	@Feature(value =  "Local") 
 //	@Story("Verifies the Payee add DSB or POSB")
@@ -371,7 +371,7 @@ public class DBS_IOSTest extends UserBaseTest {
 //			Asserts.assertFail("Unable to execute Peek Balance " + e.getMessage());
 //		}
 //	}
-//	
+	
 //	@Epic("Pay & Transfer")
 //	@Feature(value =  "Select All Tab:: Local Recipient") 
 //	@Story("Verifies the Fund Transfer Other Bank Non Immediate Transfer Date.")

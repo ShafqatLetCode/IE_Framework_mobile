@@ -282,7 +282,7 @@ public class localModule extends CommonAppiumTest {
 					}
 				}
 				if (selectedAccount == 0)
-					Asserts.assertFail("Select Fund Source " + expectedSourceAccount
+					Asserts.assertFail("Data Issue: Select Fund Source " + expectedSourceAccount
 							+ " not found in the list to initiate the fund transfer");
 
 				handlingOfPrimarySourceOfFundPopup();
@@ -299,7 +299,7 @@ public class localModule extends CommonAppiumTest {
 					}
 				}
 				if (selectedAccount == 0)
-					Asserts.assertFail("Select Fund Source " + expectedSourceAccount
+					Asserts.assertFail("Data Issue: Select Fund Source " + expectedSourceAccount
 							+ " not found in the list to initiate the fund transfer");
 
 				handlingOfPrimarySourceOfFundPopup();

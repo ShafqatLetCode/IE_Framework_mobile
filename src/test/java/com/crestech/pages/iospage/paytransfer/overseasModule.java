@@ -427,9 +427,9 @@ public class overseasModule extends CommonAppiumTest{
 				}
 
 				if (index == 0)
-					Asserts.assertFail("Country " + expectedCountry + " No element found in the list.");
+					Asserts.assertFail("Data Issue: Country " + expectedCountry + " No element found in the list.");
 			} else
-				Asserts.assertFail("Country " + expectedCountry + " not found in the list as list size is 0");
+				Asserts.assertFail("Data Issue: Country " + expectedCountry + " not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Country", e);
 		} catch (Exception e) {
@@ -517,7 +517,7 @@ public class overseasModule extends CommonAppiumTest{
 				clickOnElement(ExpectedEottEle);
 			}
 			else
-				Asserts.assertFail("EOTT " + CommonTestData.EOTTREMITTANCE_NAME.getEnumValue() + " Not Found corresponding to this user.");
+				Asserts.assertFail("Data Issue: EOTT " + CommonTestData.EOTTREMITTANCE_NAME.getEnumValue() + " Not Found corresponding to this user.");
 		
 		  
 		} catch (HandleException e) {
@@ -695,12 +695,12 @@ public class overseasModule extends CommonAppiumTest{
 				}
 
 				if (index == 0)
-					Asserts.assertFail("Purpose " + ExpectedPurpose + " Not found in the list.");
+					Asserts.assertFail("Data Issue: Purpose " + ExpectedPurpose + " Not found in the list.");
 				
 				    wait.fluentWaitForElement(transferOverseaTitle);
 
 			} else
-				Asserts.assertFail("Purpose " + ExpectedPurpose + " not found in the list as list size is 0");
+				Asserts.assertFail("Data Issue: Purpose " + ExpectedPurpose + " not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Purpose ", e);
 		} catch (Exception e) {
@@ -753,11 +753,11 @@ public class overseasModule extends CommonAppiumTest{
 					}
 				}
 				if (index == 0)
-					Asserts.assertFail("Account Type " + ExpectedAccountType + " Not found in the list.");
+					Asserts.assertFail("Data Issue: Account Type " + ExpectedAccountType + " Not found in the list.");
 				
 				wait.fluentWaitForElement(transferOverseaTitle);
 			} else
-				Asserts.assertFail("Account type " + ExpectedAccountType + " Not found in the list as list size is 0");
+				Asserts.assertFail("Data Issue: Account type " + ExpectedAccountType + " Not found in the list as list size is 0");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Account Type ", e);
 		} catch (Exception e) {
@@ -826,7 +826,7 @@ public class overseasModule extends CommonAppiumTest{
 					}
 				}
 				if (index == 0)
-					Asserts.assertFail("Select Fund Source " + SelectedAccountName
+					Asserts.assertFail("Data Issue: Select Fund Source " + SelectedAccountName
 							+ " not found in the list to initiate the fund transfer");
 
 			}
