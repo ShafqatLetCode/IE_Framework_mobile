@@ -58,6 +58,7 @@ public class ratingPage extends CommonAppiumTest{
 	@Step("verify 'Tap On The Stars To Rate' Message")
 	public void verifyTapOnTheStarsToRate(String Ratingmsg) throws Exception {
 		try {
+			wait.fluentWaitForElement(postLogoutAlertMessage); 
 			Asserts.assertEquals(getTexOfElement(postLogoutAlertMessage), Ratingmsg, 
 					"'Tap on the stars to rate' Text is not matching.");
 		} catch (HandleException e) {

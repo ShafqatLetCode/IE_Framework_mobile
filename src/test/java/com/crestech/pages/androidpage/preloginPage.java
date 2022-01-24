@@ -81,10 +81,11 @@ public class preloginPage extends CommonAppiumTest{
 	@Step("Verify Visibility of Peek Balance on Login Page.")
 	public void VerifyPeekBalanceEnabilityOnLogInPage(String peekBalanceSubtitle) throws Exception {
 		try {
-			Thread.sleep(10000); 
-			wait.waitForElementVisibility(PeekBalanceSubtitle);
+			wait.ImplicitlyWait(30);
+			wait.fluentWaitForElement(PeekBalanceSubtitle);
 			Asserts.assertEquals(getTexOfElement(PeekBalanceSubtitle), peekBalanceSubtitle,
 					peekBalanceSubtitle + " Text is not matching.");
+			wait.ImplicitlyWait(20);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Verify visibility of Peek Balance On Login page. ", e);

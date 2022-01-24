@@ -14,6 +14,7 @@ import com.crestech.common.utilities.HandleException;
 import com.crestech.pages.androidpage.launchPage;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
@@ -68,15 +69,14 @@ public class preloginPage extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Tap and hold to PEEK BALANCE']")
 	private MobileElement peekBalance;
 	
-	
 	@Step("Verify Visibility of Peek Balance on Login Page.")
 	public void VerifyPeekBalanceEnabilityOnLogInPage(String peekBalanceSubtitle) throws Exception {
 		try {
 			Thread.sleep(20000); 
-			String peekbalance  = getTexOfElement(peekBalance);
-			System.out.println("peekbalance:: " +peekbalance);
-			wait.waitForElementVisibility(peekBalance);
-			Asserts.assertEquals(getTexOfElement(peekBalance).toLowerCase(), peekBalanceSubtitle.toLowerCase(),
+			String selector = "type == 'XCUIElementTypeStaticText' AND name == 'Tap and hold to PEEK BALANCE";
+			String peekbalance = driver.findElement(MobileBy.iOSNsPredicateString(selector)).getText();
+			
+			Asserts.assertEquals(peekbalance.toLowerCase(), peekBalanceSubtitle.toLowerCase(),
 					peekBalanceSubtitle + " Text is not matching.");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",

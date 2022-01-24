@@ -1,6 +1,8 @@
 package com.crestech.pages;
 
 import java.util.logging.Logger;
+
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import com.crestech.annotation.values.ElementDescription;
@@ -105,9 +107,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	public void preRequisiteScript(String userName, String password, String app_Name, String serverName)
 			throws Exception {
 		try {
-			 wait.ImplicitlyWait(10);
-			 launchpage.atmLocationAlert();
-			 launchpage.sendNotificationAlert();
+			wait.ImplicitlyWait(10);
+			launchpage.atmLocationAlert();
+			launchpage.sendNotificationAlert();
 			wait.ImplicitlyWait(75);
 			launchpage.localNetworkAlert();
 			wait.ImplicitlyWait(10);
@@ -126,9 +128,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			homepage.handlingRecordingAlert();
 			if (app_Name.equalsIgnoreCase("DBS"))
 				wait.waitForElementVisibility(homepage.welcomeToText());
-			else if (app_Name.equalsIgnoreCase("iWEALTH")) 
+			else if (app_Name.equalsIgnoreCase("iWEALTH"))
 				wait.waitForElementVisibility(homepage.welcomeToTextIwealth());
-			
+
 			wait.ImplicitlyWait(20);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute pre-Requisite Script ",
@@ -146,9 +148,9 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			homepage.handlingMotionAndFitnessAlert();
 			if (app_Name.equalsIgnoreCase("DBS"))
 				wait.waitForElementVisibility(homepage.welcomeToText());
-			else if (app_Name.equalsIgnoreCase("iWEALTH")) 
+			else if (app_Name.equalsIgnoreCase("iWEALTH"))
 				wait.waitForElementVisibility(homepage.welcomeToTextIwealth());
-			
+
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application ", e);
 		} catch (Exception e) {
@@ -442,7 +444,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 						.AccountNameToCheckTransactionHistory(CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue());
 
 			transactionhistory.ValadateTransactionHistoryListInThreeMonth();
-			//transactionhistory.BackToHomeFromTransactionHistory();
+			// transactionhistory.BackToHomeFromTransactionHistory();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify transaction history ", e);
 		} catch (Exception e) {
@@ -463,10 +465,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			String ExpectedFromBankName = null;
 			if (appname.equals("DBS")) {
 				ExpectedFromBankName = CommonTestData.SOURCE_ACCOUNT_NAME.getEnumValue();
-				local.SelectFundSourceAccount(ExpectedFromBankName,appname);
+				local.SelectFundSourceAccount(ExpectedFromBankName, appname);
 			} else if (appname.equals("iWEALTH")) {
 				ExpectedFromBankName = CommonTestData.SOURCE_ACCOUNT_NAME_iWEALTH.getEnumValue();
-				local.SelectFundSourceAccount(ExpectedFromBankName,appname);
+				local.SelectFundSourceAccount(ExpectedFromBankName, appname);
 			}
 
 			local.enterAmountAndVerifySgdCurrency(CommonTestData.AMOUNT_FUNDTRANSFER.getEnumValue());
@@ -474,7 +476,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			local.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER_LABEL.getEnumValue());
 			local.ClickTransferNowButton();
 			local.verifyTransferredAndReferenceNumberField();
-			
+
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
 					" Failed to verify fund transfer other DBS_POSB  ", e);
@@ -487,19 +489,21 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("verify Account Details On Home Page")
 	public void VerifyAccountDetailsCasaOnHomePage(String app_Name) throws Exception {
 		try {
-			if(app_Name.equalsIgnoreCase("DBS"))
+			if (app_Name.equalsIgnoreCase("DBS"))
 				homepage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue(),
-					CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(), CommonTestData.CURRENCY.getEnumValue(), app_Name);
-			else if(app_Name.equalsIgnoreCase("iWEALTH"))
+						CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(), CommonTestData.CURRENCY.getEnumValue(),
+						app_Name);
+			else if (app_Name.equalsIgnoreCase("iWEALTH"))
 				homepage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE_IWEALTH.getEnumValue(),
-						CommonTestData.ACCOUNT_NAME_HOME_IWEALTH.getEnumValue(), CommonTestData.CURRENCY.getEnumValue(), app_Name);
+						CommonTestData.ACCOUNT_NAME_HOME_IWEALTH.getEnumValue(), CommonTestData.CURRENCY.getEnumValue(),
+						app_Name);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
+					" Failed to Verify the account detail on dashboard page  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION",
+					" Failed to Verify the account detail on dashboard page  ", e);
 		}
-			catch (HandleException e) {	
-				obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Verify the account detail on dashboard page  ",e);			
-			}
-			catch (Exception e) {			
-				obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Verify the account detail on dashboard page  ",e);
-			}
 	}
 
 	@Step("Verifies Remittance Corridor")
@@ -777,18 +781,18 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	@Step("Verify Peek Balance.")
 	public void VerifyPeekBalance(String appName) throws Exception {
 		try {
-			
-			VerifyAccountDetailsCasaOnHomePage(appName); 
-	
+
+			VerifyAccountDetailsCasaOnHomePage(appName);
+
 			if (isElementVisible2(homepage.accountNameHomepage())) {
 				String DepositeAccountNameOnDashboard = homepage.getAndClickOnDepositeAccountNameFromDashboard();
 				enterpasscode.EnterPasscodeAndDone();
 				enterpasscode.EnterPasscodeAndDone();
 				String ExpectedUserAccountNumber = homepage.GetUserAccountNumber();
-				//homepage.ClickOnToolBarBackIcon();
-                more.ClickOnHomeButton();
+				// homepage.ClickOnToolBarBackIcon();
+				more.ClickOnHomeButton();
 				homepage.ClickOnMoreButton();
-		    	enterpasscode.EnterPasscodeAndDone();
+				enterpasscode.EnterPasscodeAndDone();
 				more.SelectPeekBalanceModule();
 				enterpasscode.EnterPasscodeAndDone();
 				peekbalance.handleConfirmationMessage();
@@ -924,24 +928,23 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					" Failed to proceed because of DIGI BANK ALERT " + alertMessage, e);
 		}
 	}
-	
+
 	@ElementDescription(value = "'activityIndicator")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='customLoadingView_activityIndicator']")
 	private MobileElement activityIndicator;
-	
+
 	@ElementDescription(value = "'animationView")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='animationView']")
 	private MobileElement animationView;
-	
+
 	@ElementDescription(value = "'Authenticating")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Authenticating']")
 	private MobileElement Authenticating;
-	
+
 	public void verifyWaitForPageLoad() throws Exception {
 		String alertMessage = null;
 		try {
-			if (isElementVisible2(activityIndicator)
-					|| isElementVisible2(animationView)
+			if (isElementVisible2(activityIndicator) || isElementVisible2(animationView)
 					|| isElementVisible2(Authenticating)) {
 				System.out.println("Wait Duration Limit exceeded :: Application Unable to load Page");
 
@@ -951,6 +954,300 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		} catch (Exception e) {
 			obj_handleexception.throwException("Application Not Responding",
 					" Failed to proceed because Application Unable to load Page " + alertMessage, e);
+		}
+	}
+
+	@Step("Verify Fund Transfer For Other Bank Non Fast transfer.")
+	public void FundsTransfer_OtherBank_NonFAST(String appname) throws Exception {
+		try {
+			homepage.ClickOnPayAndTransferButton();
+			enterpasscode.EnterPasscodeAndDone();
+			paytransfer.SelectAllTAB();
+			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK
+					.getEnumValue();
+			paytransfer.ClickOnLocalRecipient();
+			paytransfer.SelectToAccountFromLocalRecipient(ExpectedToBankNameWithAccountNo);
+			local.verifyTransferToOtherBankPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue());
+			local.DisableToTransferViaFastToggle();
+			// local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
+			// Add Scroll to select fund source on the top of the page after disabling the
+			// fast toggle.
+			gestUtils.scrollDOWNtoObject(null, null, null);
+			String ExpectedFromBankName = null;
+			if (appname.equals("DBS")) {
+				ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME.getEnumValue();
+				local.SelectFundSourceAccount(ExpectedFromBankName, appname);
+			} else if (appname.equals("iWEALTH")) {
+				ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME_iWEALTH.getEnumValue();
+				local.SelectFundSourceAccount(ExpectedFromBankName, appname);
+			}
+			local.VerifyImmediateText(CommonTestData.IMMEDIATE_TEXT.getEnumValue());
+			local.EnterAmount(CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+			gestUtils.scrollUPtoObjectIos("name", "NEXT", null);
+			// local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
+
+			local.ClickOnNextButtonToInitiateFundTransfer();
+			local.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue());
+			local.VerifyNonFastServiceOnReviewPage();
+
+			local.ClickOnTransferNowBtn();
+			local.VerifiesTransferSubmittedMessage(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
+
+			String ExpectedToRecipientName = CommonTestData.FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME.getEnumValue();
+			local.VerifyElementsOnTransferSubmittedPage(ExpectedFromBankName, ExpectedToBankNameWithAccountNo,
+					ExpectedToRecipientName);
+
+			local.ClickOnExpandbutton();
+			local.ClickOnBackIcon();
+
+			// verify Transaction History After Fund Transfer
+			homepage.ClickOnMoreButton();
+			enterpasscode.EnterPasscodeAndDone();
+			more.ClickOnTransactionHistory();
+			enterpasscode.EnterPasscodeAndDone();
+			transactionhistory
+					.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
+			transactionhistory.SelectThreeMonths();
+			if (appname.equals("DBS"))
+				transactionhistory.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME.getEnumValue(),
+						CommonTestData.CURRENCY_NAME.getEnumValue());
+			else if (appname.equals("iWEALTH"))
+				transactionhistory.ClickOnDepositAccountAndSelectFromAccount(
+						CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue(),
+						CommonTestData.CURRENCY_NAME.getEnumValue());
+			transactionhistory
+					.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
+			gestUtils.scrollUPIos();
+			transactionhistory.ClickOnShowButton();
+			enterpasscode.EnterPasscodeAndDone();
+			if (appname.equals("DBS"))
+				transactionhistory.AccountNameToCheckTransactionHistory(CommonTestData.ACCOUNT_NAME.getEnumValue());
+			else if (appname.equals("iWEALTH"))
+				transactionhistory
+						.AccountNameToCheckTransactionHistory(CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue());
+			transactionhistory.ValadateTransactionHistoryListInThreeMonth();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
+					" Failed to verify fund transfer other bank NON-FAST  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION",
+					"Failed to verify fund transfer other bank NON-FAST   ", e);
+		}
+	}
+
+	@Step("Verify Fund Transfer For Other Bank Non Fast transfer when future date selected.")
+	public void FundsTransfer_OtherBank_NonFAST_FUTURE(String appname) throws Exception {
+		try {
+			homepage.ClickOnPayAndTransferButton();
+			enterpasscode.EnterPasscodeAndDone();
+			paytransfer.SelectAllTAB();
+			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK
+					.getEnumValue();
+			paytransfer.ClickOnLocalRecipient();
+			paytransfer.SelectToAccountFromLocalRecipient(ExpectedToBankNameWithAccountNo);
+			local.verifyTransferToOtherBankPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue());
+			local.DisableToTransferViaFastToggle();
+			// local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
+			// Add Scroll to select fund source on the top of the page after disabling the
+			// fast toggle.
+			gestUtils.scrollDOWNtoObject(null, null, null);
+			String ExpectedFromBankName = null;
+			if (appname.equals("DBS")) {
+				ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME.getEnumValue();
+				local.SelectFundSourceAccount(ExpectedFromBankName, appname);
+			} else if (appname.equals("iWEALTH")) {
+				ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME_iWEALTH.getEnumValue();
+				local.SelectFundSourceAccount(ExpectedFromBankName, appname);
+			}
+			local.SelectFutureDate();
+			local.EnterAmount(CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+			gestUtils.scrollUPtoObject("text", "NEXT", null);
+			// local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
+			local.ClickOnNextButtonToInitiateFundTransfer();
+			local.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue());
+			local.VerifyNonFastServiceOnReviewPage();
+			local.ClickOnTransferNowBtn();
+			local.VerifiesTransferSubmittedMessage(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
+
+			String ExpectedToRecipientName = CommonTestData.FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME.getEnumValue();
+			local.VerifyElementsOnTransferSubmittedPage(ExpectedFromBankName, ExpectedToBankNameWithAccountNo,
+					ExpectedToRecipientName);
+			local.ClickOnExpandbutton();
+			local.ClickOnBackIcon();
+
+			// verify Transaction History After Fund Transfer
+			homepage.ClickOnMoreButton();
+			enterpasscode.EnterPasscodeAndDone();
+			more.ClickOnTransactionHistory();
+			enterpasscode.EnterPasscodeAndDone();
+			transactionhistory
+					.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
+			transactionhistory.SelectThreeMonths();
+			if (appname.equals("DBS"))
+				transactionhistory.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME.getEnumValue(),
+						CommonTestData.CURRENCY_NAME.getEnumValue());
+			else if (appname.equals("iWEALTH"))
+				transactionhistory.ClickOnDepositAccountAndSelectFromAccount(
+						CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue(),
+						CommonTestData.CURRENCY_NAME.getEnumValue());
+			transactionhistory
+					.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
+			gestUtils.scrollUPIos();
+			transactionhistory.ClickOnShowButton();
+			enterpasscode.EnterPasscodeAndDone();
+			if (appname.equals("DBS"))
+				transactionhistory.AccountNameToCheckTransactionHistory(CommonTestData.ACCOUNT_NAME.getEnumValue());
+			else if (appname.equals("iWEALTH"))
+				transactionhistory
+						.AccountNameToCheckTransactionHistory(CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue());
+			transactionhistory.ValadateTransactionHistoryListInThreeMonth();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
+					" Failed to verify fund transfer other bank NON-FAST FUTURE  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION",
+					"Failed to verify fund transfer other bank NON-FAST FUTURE   ", e);
+		}
+	}
+
+	@Step("Verify Fund Transfer For Other Bank Fast transfer.")
+	public void FundsTransfer_OtherBank_FAST(String appname) throws Exception {
+		try {
+			homepage.ClickOnPayAndTransferButton();
+			enterpasscode.EnterPasscodeAndDone();
+			paytransfer.SelectAllTAB();
+			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK
+					.getEnumValue();
+			paytransfer.ClickOnLocalRecipient();
+			paytransfer.SelectToAccountFromLocalRecipient(ExpectedToBankNameWithAccountNo);
+			local.verifyTransferToOtherBankPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue());
+			String ExpectedFromBankName = null;
+			if (appname.equals("DBS")) {
+				ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME.getEnumValue();
+				local.SelectFundSourceAccount(ExpectedFromBankName, appname);
+			} else if (appname.equals("iWEALTH")) {
+				ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME_iWEALTH.getEnumValue();
+				local.SelectFundSourceAccount(ExpectedFromBankName, appname);
+			}
+			local.VerifyImmediateText(CommonTestData.IMMEDIATE_TEXT.getEnumValue());
+			local.EnterAmount(CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+			// local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_FAST_TRANSFER.getEnumValue());
+			pressKey(driver, Keys.ENTER);
+			local.ClickOnNextButtonToInitiateFundTransfer();
+			local.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue());
+			local.VerifyFastServiceInReview();
+			local.ClickOnTransferNowBtn();
+			local.VerifiesTransferSubmittedMessage(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
+			String ExpectedToRecipientName = CommonTestData.FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME.getEnumValue();
+			local.VerifyElementsOnTransferSubmittedPage(ExpectedFromBankName, ExpectedToBankNameWithAccountNo,
+					ExpectedToRecipientName);
+			local.ClickOnExpandbutton();
+			local.ClickOnBackIcon();
+//			
+//			//verify Transaction History After Fund Transfer
+			homepage.ClickOnMoreButton();
+			enterpasscode.EnterPasscodeAndDone();
+			more.ClickOnTransactionHistory();
+			enterpasscode.EnterPasscodeAndDone();
+			transactionhistory
+					.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
+			transactionhistory.SelectThreeMonths();
+			if (appname.equals("DBS"))
+				transactionhistory.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME.getEnumValue(),
+						CommonTestData.CURRENCY_NAME.getEnumValue());
+			else if (appname.equals("iWEALTH"))
+				transactionhistory.ClickOnDepositAccountAndSelectFromAccount(
+						CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue(),
+						CommonTestData.CURRENCY_NAME.getEnumValue());
+			transactionhistory
+					.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
+			gestUtils.scrollUPIos();
+			transactionhistory.ClickOnShowButton();
+			enterpasscode.EnterPasscodeAndDone();
+			if (appname.equals("DBS"))
+				transactionhistory.AccountNameToCheckTransactionHistory(CommonTestData.ACCOUNT_NAME.getEnumValue());
+			else if (appname.equals("iWEALTH"))
+				transactionhistory
+						.AccountNameToCheckTransactionHistory(CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue());
+			transactionhistory.ValadateTransactionHistoryListInThreeMonth();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
+					" Failed to verify fund transfer other bank FAST  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION",
+					"Failed to verify fund transfer other bank FAST   ", e);
+		}
+	}
+
+	@Step("Verify Fund Transfer For Other Bank Fast transfer when future date selected.")
+	public void FundsTransfer_OtherBank_FASTFuture(String appname) throws Exception {
+		try {
+			homepage.ClickOnPayAndTransferButton();
+			enterpasscode.EnterPasscodeAndDone();
+			paytransfer.SelectAllTAB();
+			String ExpectedToBankNameWithAccountNo = CommonTestData.FUNDTRANSFER_NONFAST_TO_ACCOUNTNUMBER_WITHBANK
+					.getEnumValue();
+			paytransfer.ClickOnLocalRecipient();
+			paytransfer.SelectToAccountFromLocalRecipient(ExpectedToBankNameWithAccountNo);
+			local.verifyTransferToOtherBankPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue());
+
+			String ExpectedFromBankName = null;
+			if (appname.equals("DBS")) {
+				ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME.getEnumValue();
+				local.SelectFundSourceAccount(ExpectedFromBankName, appname);
+			} else if (appname.equals("iWEALTH")) {
+				ExpectedFromBankName = CommonTestData.FUNDTRANSFER_NONFAST_FROM_ACCOUNT_NAME_iWEALTH.getEnumValue();
+				local.SelectFundSourceAccount(ExpectedFromBankName, appname);
+			}
+
+			local.SelectFutureDate();
+			local.EnterAmount(CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
+			// local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_FAST_TRANSFER.getEnumValue());
+			// pressKey(driver, Keys.ENTER);
+			local.ClickOnNextButtonToInitiateFundTransfer();
+			local.verifyReviewTransferPageHeader(CommonTestData.REVIEW_TRANSFER.getEnumValue());
+			local.VerifyFastServiceInReview();
+			local.ClickOnTransferNowBtn();
+			local.VerifiesTransferSubmittedMessage(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
+
+			String ExpectedToRecipientName = CommonTestData.FUNDTRANSFER_NONFAST_TO_RECIPIENT_NAME.getEnumValue();
+			local.VerifyElementsOnTransferSubmittedPage(ExpectedFromBankName, ExpectedToBankNameWithAccountNo,
+					ExpectedToRecipientName);
+			local.ClickOnExpandbutton();
+			local.ClickOnBackIcon();
+
+//			//verify Transaction History After Fund Transfer
+			homepage.ClickOnMoreButton();
+			enterpasscode.EnterPasscodeAndDone();
+			more.ClickOnTransactionHistory();
+			enterpasscode.EnterPasscodeAndDone();
+			transactionhistory
+					.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
+			transactionhistory.SelectThreeMonths();
+			if (appname.equals("DBS"))
+				transactionhistory.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME.getEnumValue(),
+						CommonTestData.CURRENCY_NAME.getEnumValue());
+			else if (appname.equals("iWEALTH"))
+				transactionhistory.ClickOnDepositAccountAndSelectFromAccount(
+						CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue(),
+						CommonTestData.CURRENCY_NAME.getEnumValue());
+			transactionhistory
+					.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
+			gestUtils.scrollUPIos();
+			transactionhistory.ClickOnShowButton();
+			enterpasscode.EnterPasscodeAndDone();
+			if (appname.equals("DBS"))
+				transactionhistory.AccountNameToCheckTransactionHistory(CommonTestData.ACCOUNT_NAME.getEnumValue());
+			else if (appname.equals("iWEALTH"))
+				transactionhistory
+						.AccountNameToCheckTransactionHistory(CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue());
+			transactionhistory.ValadateTransactionHistoryListInThreeMonth();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
+					" Failed to verify fund transfer other bank FAST FUTURE  ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION",
+					"Failed to verify fund transfer other bank FAST FUTURE   ", e);
 		}
 	}
 

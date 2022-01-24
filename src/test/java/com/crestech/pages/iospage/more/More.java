@@ -163,8 +163,12 @@ public class More extends CommonAppiumTest{
 	@Step("Click on 'Home' Button.")
 	public void ClickOnHomeButton() throws Exception {
 		try {
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			clickOnElement(HOMEButton);
+			if(isElementVisible2(HOMEButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				clickOnElement(HOMEButton);
+			}
+			else
+				Asserts.assertFail("Home button is not visible on Screen");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'Home' Button  ", e);
 		} catch (Exception e) {
