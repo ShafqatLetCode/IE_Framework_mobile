@@ -929,23 +929,11 @@ public class DBS_IOSpage extends CommonAppiumTest {
 		}
 	}
 
-	@ElementDescription(value = "'activityIndicator")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='customLoadingView_activityIndicator']")
-	private MobileElement activityIndicator;
-
-	@ElementDescription(value = "'animationView")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='animationView']")
-	private MobileElement animationView;
-
-	@ElementDescription(value = "'Authenticating")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Authenticating']")
-	private MobileElement Authenticating;
-
 	public void verifyWaitForPageLoad() throws Exception {
 		String alertMessage = null;
 		try {
-			if (isElementVisible2(activityIndicator) || isElementVisible2(animationView)
-					|| isElementVisible2(Authenticating)) {
+			if (isElementVisible2(launchpage.activityIndicator()) || isElementVisible2(launchpage.animationView())
+					|| isElementVisible2(launchpage.Authenticating())) {
 				System.out.println("Wait Duration Limit exceeded :: Application Unable to load Page");
 
 				alertMessage = "Wait Duration Limit exceeded :: Application Unable to load Page";

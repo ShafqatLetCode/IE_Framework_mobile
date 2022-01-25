@@ -56,6 +56,31 @@ public class launchPage extends CommonAppiumTest{
 	@ElementDescription(value = "localNetworkAlert")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeAlert[@name='“DBS digibank” would like to find and connect to devices on your local network.']")
 	private MobileElement localNetworkAlert;
+	
+	@ElementDescription(value = "'activityIndicator")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='customLoadingView_activityIndicator']")
+	private MobileElement activityIndicator;
+
+	@ElementDescription(value = "'animationView")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='animationView']")
+	private MobileElement animationView;
+
+	@ElementDescription(value = "'Authenticating")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Authenticating']")
+	private MobileElement Authenticating;
+	
+	
+	public MobileElement Authenticating() { 
+		return Authenticating;
+	}
+	
+	public MobileElement animationView() { 
+		return animationView;
+	}
+	
+	public MobileElement activityIndicator() { 
+		return activityIndicator;
+	}
 
 	@Step("Click on Alert DBS digibank” would like to find and connect to devices on your local network.")
 	public void localNetworkAlert() throws Exception {

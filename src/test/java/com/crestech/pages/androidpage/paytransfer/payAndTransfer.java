@@ -556,12 +556,14 @@ public class payAndTransfer extends CommonAppiumTest{
 		}
 	}
 	
-	@Step("Verifying Overseas Module and click")
+	@Step("Click On Overseas Module")
 	public void ClickOnOverseasModule() throws Exception {
 		try {
+			wait.ImplicitlyWait(30); 
 			wait.waitForElementToBeClickable(Btnlist.get(3)); 
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(Btnlist.get(3));
+			wait.ImplicitlyWait(20);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Overseas Button  ",
 					e);

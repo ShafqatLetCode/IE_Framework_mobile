@@ -28,10 +28,10 @@ public enum CommonTestData {
 	
 	
 	//Payee Add to BillPayment
-//	PAYEEADD_BILLPAYMENT_ACCOUNTNAME("DBS CASHLINE"),
-//	PAYEEADD_BILLPAYMENT_REFERENCENUMBER("0824867822"),
-	PAYEEADD_BILLPAYMENT_ACCOUNTNAME("CATHOLIC FOUNDATION"),
-	PAYEEADD_BILLPAYMENT_REFERENCENUMBER("34545434"),
+	PAYEEADD_BILLPAYMENT_ACCOUNTNAME("DBS CASHLINE"),
+	PAYEEADD_BILLPAYMENT_REFERENCENUMBER("0824867822"),
+//	PAYEEADD_BILLPAYMENT_ACCOUNTNAME("CATHOLIC FOUNDATION"),
+//	PAYEEADD_BILLPAYMENT_REFERENCENUMBER("34545434"),
 	
 	//Payee-Add-Remittance **Android**
 	COUNTRY_AUS("Australia"),
@@ -241,14 +241,18 @@ public enum CommonTestData {
 
     //Remittance Corridor
     SOURCE_ACCOUNT_NAME_CORRIDOR("DBS SAVINGS PLUS"),
-  //SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH("DBS Multiplier Account"),
     SOURCE_ACCOUNT_NAME_CORRIDOR_IWEALTH("DBS SAVINGS PLUS"),
 	CORRIDOR_AMOUNT("34"),
-	PAYEE_NAME_CORRIDOR("ad rec new ajay"),
+	PAYEE_NAME_CORRIDOR("testmalaysia"),
 	OVERSEA_HEADER("Overseas Transfer"),
 	RECIPIENT_HAS_BEEN_UPDATED_MSG("Recipient has been updated"),
-	UPDATED_ADDRESS("Opp. Bus Stand, 372, Poottai Road Sankarapuram, Sankarapuram"),
-	UPDATED_CITY("Sankarapuram"),
+	UPDATED_ADDRESS("32nd Floor, Menara Bank Islam, No. 22, Jalan Perak 50450 Kuala Lumpur"),
+	UPDATED_CITY("Kuala Lumpur"),
+//	UPDATED_ADDRESS("Opp. Bus Stand, 372, Poottai Road Sankarapuram, Sankarapuram"),
+//	UPDATED_CITY("Sankarapuram"),
+//  PAYEE_NAME_CORRIDOR("ad rec new ajay"),
+	
+	
 	
 	//Remittance EOTT
 	eOTT_AMOUNT("11.65"),
@@ -256,12 +260,14 @@ public enum CommonTestData {
 	REVIEW_TRANSFER("Review Transfer"),
 	REFERENCE_NUMBER_TEXT("Reference No."),
 	OVERSEAS_TRANSFER_TEXT("OVERSEAS TRANSFER"),
-	EOTTREMITTANCE_NAME("ad rec new ajay"),// BHDeott
 	PURPOSE_OF_TRANSFER_TEXT("Family support (Workers' remittances)"),
 	REVIEW_RECIPIENT_DETAILS("Review Recipient's Details"),
 	EOTT_ACCOUNT_TYPE("Savings"),
-	PURPOSE("Personal Gifts"),
 	MOBILE_NUMBER("9999999990"),
+	EOTTREMITTANCE_NAME("testmalaysia"),
+	PURPOSE("Gifts to individuals"),
+	//PURPOSE("Personal Gifts"),
+	//EOTTREMITTANCE_NAME("ad rec new ajay"),// BHDeott
 	
 	
 	//Credit card Limit Increase

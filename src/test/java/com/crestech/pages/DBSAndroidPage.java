@@ -1134,37 +1134,34 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					e);
 		}
 	}
-	
-	@ElementDescription(value = "Error Messge Element")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/message']")
-	private MobileElement ErrorMessgeElement;
-	
-	@ElementDescription(value = "DigibankAlertHeaderElement")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='digibank Alert']")
-	private MobileElement DigibankAlertHeaderElement;
 
 	public void verifyDigibankAlert() throws Exception {
 		String alertMessage = null;
 		try {
-			Thread.sleep(1000);			
+			wait.ImplicitlyWait(30); 		
 			if (androidAlert.isAlertPresent()) {
 				System.out.println("Alert title :: " + this.driver.switchTo().alert().getText());
 
 				alertMessage = this.driver.switchTo().alert().getText();
-				if(alertMessage != "" || alertMessage != null)
+				if(!alertMessage.equals(""))
 					Asserts.assertFail(alertMessage);
-				else if(isElementVisible2(DigibankAlertHeaderElement)) {
-					System.out.println("Alert title :: " + ErrorMessgeElement.getText());
+				else if (isElementVisible2(launchpage.ErrorMessgeElement())){
+					
+					System.out.println("Alert title :: " + launchpage.DigibankAlertHeaderElement().getText());
 
-					alertMessage = DigibankAlertHeaderElement.getText()
+					alertMessage = launchpage.DigibankAlertHeaderElement().getText()
 							+ ": "
-							+ ErrorMessgeElement.getText();
+							+ launchpage.ErrorMessgeElement().getText();
 					
 				    Asserts.assertFail(alertMessage);
 				}
 			}
 			else if(isElementVisible2(launchpage.quitBtn())) {
 				Asserts.assertFail("Application CRASH ISSUE");
+			}else if(isElementVisible2(launchpage.Authenticating_Bar()) || isElementVisible2(launchpage.progress_bar())||isElementVisible2(launchpage.progress_bar_imageview())) {
+				System.out.println("Wait Duration Limit exceeded :: Application Unable to load Page");
+				alertMessage = "Wait Duration Limit exceeded :: Application Unable to load Page";
+				Asserts.assertFail(alertMessage);
 			}
 		} catch (Exception e) {
 			obj_handleexception.throwException("DIGIBANK_ALERT",

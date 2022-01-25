@@ -16,7 +16,7 @@
   {
     "name": "Data Issue",
     "matchedStatuses": ["failed"],
-    "messageRegex": ".*Data Issue:*" 
+    "messageRegex": ".*Data Issue.*" 
   },
   {
     "name": "Test defects",
