@@ -97,6 +97,14 @@ public class overseasModule extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='NEXT']")
 	private MobileElement nextButton;
 	
+	@ElementDescription(value = "Review Recipient's Details title")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[contains(@name,'Review Recipient')]")
+	private MobileElement reviewRecipientDetailTitle1;
+	
+	@ElementDescription(value = "Next Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='NEXT']")
+	private MobileElement nextButton1;
+	
 	@ElementDescription(value = "Review Transfer")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Transfer']")
 	private MobileElement reviewTransfer;
@@ -252,8 +260,14 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Verify 'Review Recipient Details' page header")
 	public void verifyReviewRecipientDetailsPageHeader(String expectedText) throws Exception {
 		try {
-			wait.fluentWaitForElement(reviewRecipientDetailTitle);
-			Asserts.assertEquals(getTexOfElement(reviewRecipientDetailTitle).trim().toLowerCase(), expectedText.toLowerCase(),expectedText+ " text is not matching.");
+			WebDriverWait wait = new WebDriverWait(driver, 60); 
+			wait.until(ExpectedConditions.or(
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name BEGINSWITH[c] 'Review Recipient'  AND visible== 1")),
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeOther' AND name BEGINSWITH[c] 'Review Recipient'  AND visible== 1"))));
+			if(isElementVisible2(reviewRecipientDetailTitle))
+				Asserts.assertEquals(getTexOfElement(reviewRecipientDetailTitle).trim().toLowerCase(), expectedText.toLowerCase(),expectedText+ " text is not matching.");
+			else
+				Asserts.assertEquals(getTexOfElement(reviewRecipientDetailTitle1).trim().toLowerCase(), expectedText.toLowerCase(),expectedText+ " text is not matching.");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to Verify 'Review Recipient Details' page header ", e);
 		} catch (Exception e) {
@@ -319,11 +333,7 @@ public class overseasModule extends CommonAppiumTest{
 	public void EnterAddress(String text) throws Exception {
 		try {
             clickOnElement(recipientDetailAddress);
-			//Actions action = new Actions(driver);
-			//action.sendKeys(recipientDetailAddress, text).build().perform();
             enterTextInTextbox(recipientDetailAddressEditBox, text);
-			// sendTextWithKeypad(text);
-			// enterTextInTextbox(IOShomePgaeObject.recipientDetailAddress(), text);
 			ClickOnDoneButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Address ", e);
@@ -339,8 +349,6 @@ public class overseasModule extends CommonAppiumTest{
 			wait.until(ExpectedConditions.or(
 				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name BEGINSWITH[c] 'Enter Recipient'  AND visible== 1")),
 				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeOther' AND name BEGINSWITH[c] 'Enter Recipient'  AND visible== 1"))));
-//			wait.fluentWaitForElement(recipientDetailTitle);
-//			Asserts.assertEquals(getTexOfElement(recipientDetailTitle).trim().toLowerCase(), expectedText.toLowerCase(),expectedText + " text is not matching.");
 		} catch (Exception e) {
 			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to Verify 'Overseas Transfer' page header ", e);
 		}
@@ -463,29 +471,14 @@ public class overseasModule extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Enter Text Through Keyboard ", e);
 		}
 	}
-
-//	@Step("Click On 'ADD RECIPIENT NOW' button under overseas")
-//	public void SelectAddRecipientNowButtonUnderOverseas() throws Exception {
-//		try {
-//			wait.waitForElementVisibility(checkDBSRemitRate);
-//			
-//			if (isElementVisible2(AddOverseasRecipientBtn)) 
-//				clickOnElement(AddOverseasRecipientBtn);
-//			else
-//				clickOnElement(AddNowRecipientBtn);
-//
-//		} catch (HandleException e) {
-//			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'ADD RECIPIENT NOW' button under overseas  ", e);
-//		} catch (Exception e) {
-//			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On 'ADD RECIPIENT NOW' button under overseas ", e);
-//		}
-//	}
-//	
 	
 	@Step("Click On 'ADD RECIPIENT NOW' button under overseas")
 	public void SelectAddRecipientNowButtonUnderOverseas() throws Exception {
 		try {
-			wait.waitForElementVisibility(checkDBSRemitRate);
+			WebDriverWait wait = new WebDriverWait(driver, 60);
+			wait.until(ExpectedConditions.or(
+							    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'Check DBS Remit rates'  AND visible== 1")),
+							    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'Check DBS Remit rates'  AND visible== 0")),ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == '//XCUIElementTypeOther' AND name == 'Check DBS Remit rates'  AND visible== 1"))));
 			String selector = "type == 'XCUIElementTypeStaticText' AND name == 'Add overseas recipient'  AND visible== 1 AND enabled=1 ";
 			if (isElementVisible2((MobileElement) driver.findElement(MobileBy.iOSNsPredicateString(selector)))) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
@@ -644,7 +637,10 @@ public class overseasModule extends CommonAppiumTest{
 	public void ClickOnNextButton() throws Exception {
 		try {
 			    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(nextButton);
+			    if(isElementVisible2(nextButton))
+			    	clickOnElement(nextButton);
+			    else
+			    	clickOnElement(nextButton1);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
 		}
@@ -780,6 +776,7 @@ public class overseasModule extends CommonAppiumTest{
 	public void pressEnterKeyAfterEnteringAmount(String Amount) throws Exception {
 		try {
 			clickOnElement(amountFieldInOversea);
+			amountFieldInOversea.clear();
 			enterTextInTextbox(amountFieldInOversea, Amount);
 			ClickOnDoneButton();
 			if (isElementVisible2(exchangeRate))

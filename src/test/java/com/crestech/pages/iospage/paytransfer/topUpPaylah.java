@@ -69,6 +69,10 @@ public class topUpPaylah extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Log Out']")
 	private MobileElement logoutPaylah;
 	
+	@ElementDescription(value = "Next Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='TopUp_Paylah_NEXT_Button']")
+	private MobileElement nextButton1;
+	
 	@Step("Click On Topup LogOutButton")
 	public void ClickOnTopupLogOutButton() throws Exception {
 		try {
@@ -111,7 +115,10 @@ public class topUpPaylah extends CommonAppiumTest{
 	public void ClickOnNextButton() throws Exception {
 		try {
 			    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(nextButton);
+			    if(isElementVisible2(nextButton))
+			    	clickOnElement(nextButton);
+			    else
+			    	clickOnElement(nextButton1);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
 		}
@@ -126,7 +133,8 @@ public class topUpPaylah extends CommonAppiumTest{
 			WebDriverWait wait = new WebDriverWait(driver, 60); 
 			wait.until(ExpectedConditions.or(
 				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 1")),
-				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 0"))));
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 0")),
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeOther' AND name == 'SGD'  AND visible== 1"))));
 			
 			enterTextInTextbox(amountEditBox, text);
 			if(isElementVisible2(doneButton))
@@ -137,7 +145,7 @@ public class topUpPaylah extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to enter currency  ", e);
 		}
 	}
-
+	
 	@Step("Click On Paylah")
 	public void ClickOnPaylah() throws Exception {
 		try {

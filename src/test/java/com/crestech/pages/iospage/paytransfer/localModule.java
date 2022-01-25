@@ -54,6 +54,10 @@ public class localModule extends CommonAppiumTest {
 	@ElementDescription(value = "Add Recipient Now button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='ADD RECIPIENT NOW']")
 	private MobileElement AddRecipientNowButton;
+	
+	@ElementDescription(value = "Review Transfer")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Review Transfer']")
+	private MobileElement reviewTransfer1;
 
 	@ElementDescription(value = "Add Local Recipient button")
 	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeStaticText[@name='Add Local Recipient'])[1]")
@@ -673,18 +677,25 @@ public class localModule extends CommonAppiumTest {
 	@Step("Verify 'Review Transfer' page header")
 	public void verifyReviewTransferPageHeader(String expectedText) throws Exception {
 		try {
-			wait.fluentWaitForElement(reviewTransfer);
-			Asserts.assertEquals(getTexOfElement(reviewTransfer).trim().toLowerCase(), expectedText.toLowerCase(),
-					expectedText + " Header Title is not found");
+			WebDriverWait wait = new WebDriverWait(driver, 60);
+			wait.until(ExpectedConditions.or(
+					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
+							"type == 'XCUIElementTypeStaticText' AND name == 'Review Transfer'  AND visible== 1")),
+					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
+							"type == 'XCUIElementTypeOther' AND name == 'Review Transfer'  AND visible== 1"))));
+			
+			if(isElementVisible2(reviewTransfer))
+				Asserts.assertEquals(getTexOfElement(reviewTransfer).trim().toLowerCase(), expectedText.toLowerCase(),expectedText + " Header Title is not found");
+			else
+				Asserts.assertEquals(getTexOfElement(reviewTransfer1).trim().toLowerCase(), expectedText.toLowerCase(),expectedText + " Header Title is not found");
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION",
-					" Failed to verify 'Review Transfer' page header ", e);
+			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Review Transfer' page header ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION",
-					" Failed to verify 'Review Transfer' page header ", e);
+			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Review Transfer' page header ", e);
 		}
 	}
-
+	
+	
 	@Step("Verify 'SGD Currency Field' and Enter Amount '11'")
 	public void enterAmountAndVerifySgdCurrency(String Amount) throws Exception {
 		try {
