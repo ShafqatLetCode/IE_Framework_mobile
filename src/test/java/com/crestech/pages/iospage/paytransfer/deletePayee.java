@@ -93,7 +93,9 @@ public class deletePayee extends CommonAppiumTest{
 					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
 							"type == 'XCUIElementTypeStaticText' AND name == 'Bills'  AND visible== 1")),
 					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
-							"type == 'XCUIElementTypeStaticText' AND name == 'Bills'  AND visible== 0"))));
+							"type == 'XCUIElementTypeStaticText' AND name == 'Bills'  AND visible== 0")),ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
+									"type == 'XCUIElementTypeOther' AND name == 'Local Transfer'  AND visible== 1")),ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(
+											"type == 'XCUIElementTypeOther' AND name == 'Bills'  AND visible== 1"))));
 			
 			if (payeeList.size() > 0) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);

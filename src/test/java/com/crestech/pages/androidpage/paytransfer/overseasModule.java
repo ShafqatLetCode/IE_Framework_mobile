@@ -338,6 +338,7 @@ public class overseasModule extends CommonAppiumTest{
 		try {
 			if (overseaRecipientList.size() > 0) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				gestUtils.scrollUPtoObject("text", valueSelectedFromList, null);
 				int l = overseaRecipientList.size();
 				int index = 0;
 				String OverseaRecipientList = null;
@@ -350,9 +351,9 @@ public class overseasModule extends CommonAppiumTest{
 					}
 				}
 				if(index==0)
-				Asserts.assertFail("Data Issue: Overseas Payee ' " + valueSelectedFromList + "' not found in the list to initiate the fund transfer");
+				Asserts.assertFail("Overseas Payee " + valueSelectedFromList + " not found in the list to initiate the fund transfer");
 			} else 
-				Asserts.assertFail("Data Issue: No receipient found in the Overseas Payee list");
+				Asserts.assertFail("No Receipient found in the Oversea Payee list");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Selecting Overseas Payee ", e);
 		} catch (Exception e) {
@@ -481,6 +482,7 @@ public class overseasModule extends CommonAppiumTest{
 	public void pressEnterKeyAfterEnteringAmount(String Amt) throws Exception {
 		try {
 			clickOnElement(AmountTextFields.get(0));
+			AmountTextFields.get(0).clear();
 			enterTextInTextbox(AmountTextFields.get(0), Amt);
 			pressKey(driver, Keys.ENTER);
 			wait.waitForElementVisibility(ExchangeRateText);
@@ -718,6 +720,7 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Click On Next Button.")
 	public void ClickOnNextButton() throws Exception {
 		try {
+			gestUtils.scrollUPtoObject(null, null, null);
 			wait.fluentWaitForElement(nextButton);
 			if (wait.waitForElementToBeClickable2(nextButton)) {
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);

@@ -63,9 +63,17 @@ public class localTransferLimit extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='NEXT']")
 	private MobileElement nextButton;
 	
+	@ElementDescription(value = "Next Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='localTransfer_dailyLimitView_nextButton']")
+	private MobileElement nextButton1;
+	
 	@ElementDescription(value = "'Review daily limit' label title")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Review Daily Limit']")
 	private MobileElement reviewDailyLimitTitle;
+	
+	@ElementDescription(value = "'Review daily limit' label title")
+	@iOSXCUITFindBy(xpath = "////XCUIElementTypeOther[@name='Review Daily Limit']")
+	private MobileElement reviewDailyLimitTitle1;
 	
 	@ElementDescription(value = "'change daily limit now' button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='localTransfer_dailyLimitConfirmationView_changeDailyLimitButton']")
@@ -119,8 +127,13 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("Verifying page header 'Review Daily Limit'")
 	public void verifyReviewDailyLimitTitle() throws Exception {
 		try {
-			Asserts.assertEquals(getTexOfElement(reviewDailyLimitTitle).trim().toLowerCase(), CommonTestData.REVIEW_DAILY_LIMIT_TITLE.getEnumValue().toLowerCase(),
-					CommonTestData.REVIEW_DAILY_LIMIT_TITLE.getEnumValue() + " text is not found");
+			if(isElementVisible2(reviewDailyLimitTitle))
+				{Asserts.assertEquals(getTexOfElement(reviewDailyLimitTitle).trim().toLowerCase(), CommonTestData.REVIEW_DAILY_LIMIT_TITLE.getEnumValue().toLowerCase(),
+					CommonTestData.REVIEW_DAILY_LIMIT_TITLE.getEnumValue() + " text is not found");}
+			else {
+				Asserts.assertEquals(getTexOfElement(reviewDailyLimitTitle1).trim().toLowerCase(), CommonTestData.REVIEW_DAILY_LIMIT_TITLE.getEnumValue().toLowerCase(),
+						CommonTestData.REVIEW_DAILY_LIMIT_TITLE.getEnumValue() + " text is not found");
+			}
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Verifying page header 'Review Daily Limit' " ,e);	
 		}
@@ -133,7 +146,10 @@ public class localTransferLimit extends CommonAppiumTest{
 	public void ClickOnNextButton() throws Exception {
 		try {
 			    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(nextButton);
+			    if(isElementVisible2(nextButton))
+			    	clickOnElement(nextButton);
+			    else
+			    	clickOnElement(nextButton1);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button ",e);		
 		}

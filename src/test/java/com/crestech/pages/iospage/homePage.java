@@ -65,6 +65,10 @@ public class homePage extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Welcome to ']")
 	private MobileElement welcomeToText;
 	
+	@ElementDescription(value = "Account section on HomePage")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='Accounts']")
+	private MobileElement accountSectionHomePage1;
+	
 	public MobileElement welcomeToText() { 
 		return welcomeToText;
 	}
@@ -461,17 +465,35 @@ public class homePage extends CommonAppiumTest{
 			{
 			int x=getXCoordinateOfElement(welcomeToText);
 			int y=getYCoordinateOfElement(welcomeToText);
-			SelectAccountsSection();
+			if(isElementVisible2(accountSectionHomePage)) 
+			{
+			SelectAccountsSection(accountSectionHomePage);
 			gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+150);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			}
+			else {
+				SelectAccountsSection(accountSectionHomePage1);
+			gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage1, x, y+150);
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			}
+			}
 			else if(app_Name.equalsIgnoreCase("iWEALTH"))
 			{
+				
 				int x=getXCoordinateOfElement(welcomeToTextIwealth);
 				int y=getYCoordinateOfElement(welcomeToTextIwealth);
-				SelectAccountsSection();
+				if(isElementVisible2(accountSectionHomePage)) 
+				{
+				SelectAccountsSection(accountSectionHomePage);
 				gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+160);
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				}
+				else {
+					SelectAccountsSection(accountSectionHomePage1);
+					gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage1, x, y+160);
+					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+					
+				}
 			}
 			
 			VerifyAccountType(AccountType);
@@ -496,6 +518,16 @@ public class homePage extends CommonAppiumTest{
 		}
 	}
 	
+	@Step("Select Accounts Section")
+	public void SelectAccountsSection(MobileElement Element) throws Exception {
+		try {
+				clickOnElement(Element);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Accounts Section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Accounts Section ", e);
+		}
+	}
 	
 	@Step("Verify Account Type")
 	public void VerifyAccountType(String AccountType) throws Exception {

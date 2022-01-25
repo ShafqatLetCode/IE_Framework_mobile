@@ -115,17 +115,16 @@ public class payAndTransfer extends CommonAppiumTest{
 		try {
 			gestUtils.scrollUPtoObject("text", CommonTestData.BILLING_ORGANISATIONS_TAB.getEnumValue(), null);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			int o = 0;
-			for (int i = 0; i < AllTabOptionsList.size(); i++) {
+			int i = 0;
+			for (i = 0; i < AllTabOptionsList.size(); i++) {
 				String tabText = AllTabOptionsList.get(i).getText();
-				o++;
 				if (tabText.contains(CommonTestData.BILLING_ORGANISATIONS_TAB.getEnumValue())) {
 					clickOnElement(AllTabOptionsList.get(i));
 					break;
 				}
 			}
 
-			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(o), AllTab);
+			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(i), AllTab);
 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click on 'Billing Organisation' Option under All Tab", e);
@@ -137,18 +136,17 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Click on 'Credit Card' Option under All Tab")
 	public void ClickOnCreditCard() throws Exception {
 		try {
-			int o = 0;
+			int i = 0;
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			for (int i = 0; i < AllTabOptionsList.size(); i++) {
+			for (i = 0; i < AllTabOptionsList.size(); i++) {
 				String tabText = AllTabOptionsList.get(i).getText();
-				o++;
 				if (tabText.contains(CommonTestData.CREDIT_CARDS_TAB.getEnumValue())) {
 					clickOnElement(AllTabOptionsList.get(i));
 					break;
 				}
 			}
 
-			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(o), AllTab);
+			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(i), AllTab);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Click on 'Credit Card' Option under All Tab ", e);
@@ -161,17 +159,16 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Click On 'Your DBS/POSB Accounts' option under All Tab .")
 	public void ClickOnYourDBSPOSBAccounts() throws Exception {
 		try {
-			int o = 0;
-			 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			for (int i = 0; i < AllTabOptionsList.size(); i++) {
+			int i = 0;
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			for (i = 0; i < AllTabOptionsList.size(); i++) {
 				String tabText = AllTabOptionsList.get(i).getText();
-				o++;
 				if (tabText.contains(CommonTestData.YOUR_DBSPOSB_ACCOUNTS.getEnumValue())) {
 					clickOnElement(AllTabOptionsList.get(i));
 					break;
 				}
 			}
-			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(o), AllTab);
+			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(i), AllTab);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Click On 'Your DBS/POSB Accounts' option under All Tab ", e);
@@ -201,7 +198,7 @@ public class payAndTransfer extends CommonAppiumTest{
 					if (length < 2) {
 						for (int i = 0; i < length; i++) {
 							actualToOWNAccount = AllTabOptionsList.get(i).getText();
-							if (actualToOWNAccount.equalsIgnoreCase(expectedToOwnAccount)) {
+							if (actualToOWNAccount.contains(expectedToOwnAccount)) {
 								index++;
 								clickOnElement(ListElementToClickable.get(i));
 								break;
@@ -219,7 +216,7 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Code will work :: When Need to scroll
 						for (int i = 0; i < length; i++) {
 							actualToOWNAccount = AllTabOptionsList.get(i).getText();
-							if (actualToOWNAccount.equalsIgnoreCase(expectedToOwnAccount)) {
+							if (actualToOWNAccount.contains(expectedToOwnAccount)) {
 								index++;
 								clickOnElement(ListElementToClickable.get(i));
 								break;
@@ -279,7 +276,7 @@ public class payAndTransfer extends CommonAppiumTest{
 							actualToCreditCardAccount = SubTitleTextList.get(i).getText();
 							if (actualToCreditCardAccount.contains(expectedToCreditCardAccount)) {
 								index++;
-								clickOnElement(ListElementToClickable.get(i));
+								clickOnElement(SubTitleTextList.get(i));
 								break;
 							}
 						}
@@ -297,7 +294,7 @@ public class payAndTransfer extends CommonAppiumTest{
 							actualToCreditCardAccount = SubTitleTextList.get(i).getText();
 							if (actualToCreditCardAccount.contains(expectedToCreditCardAccount)) {
 								index++;
-								clickOnElement(ListElementToClickable.get(i));
+								clickOnElement(SubTitleTextList.get(i));
 								break;
 							}
 						}
@@ -355,7 +352,7 @@ public class payAndTransfer extends CommonAppiumTest{
 							BillingOrganisationlist = SubTitleTextList.get(i).getText();
 							if (BillingOrganisationlist.contains(valueSelectedFromList)) {
 								index++;
-								clickOnElement(ListElementToClickable.get(i));
+								clickOnElement(SubTitleTextList.get(i));
 								break;
 							}
 						}
@@ -372,7 +369,7 @@ public class payAndTransfer extends CommonAppiumTest{
 							BillingOrganisationlist = SubTitleTextList.get(i).getText();
 							if (BillingOrganisationlist.contains(valueSelectedFromList)) {
 								index++;
-								clickOnElement(ListElementToClickable.get(i));
+								clickOnElement(SubTitleTextList.get(i));
 								break;
 							}
 						}
@@ -425,9 +422,9 @@ public class payAndTransfer extends CommonAppiumTest{
 					if (length < 2) {
 						for (int i = 0; i < length; i++) {
 							actualLocalRecipient = SubTitleTextList.get(i).getText();
-							if (actualLocalRecipient.equalsIgnoreCase(expectedLocalRecipient)) {
+							if (actualLocalRecipient.contains(expectedLocalRecipient)) {
 								index++;
-								clickOnElement(ListElementToClickable.get(i));
+								clickOnElement(SubTitleTextList.get(i));
 								break;
 							}
 						}
@@ -443,9 +440,10 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Code will work :: When Need to scroll
 						for (int i = 0; i < length; i++) {
 							actualLocalRecipient = SubTitleTextList.get(i).getText();
-							if (actualLocalRecipient.equalsIgnoreCase(expectedLocalRecipient)) {
+							if (actualLocalRecipient.contains(expectedLocalRecipient)) {
 								index++;
-								clickOnElement(ListElementToClickable.get(i));
+								//clickOnElement(ListElementToClickable.get(i));
+								clickOnElement(SubTitleTextList.get(i));
 								break;
 							}
 						}
@@ -511,17 +509,16 @@ public class payAndTransfer extends CommonAppiumTest{
 		try {
 			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(1), AllTab);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			int o = 0;
-			for (int i = 0; i < AllTabOptionsList.size(); i++) {
+			int i=0;
+			for (i = 0; i < AllTabOptionsList.size(); i++) {
 				String tabText = AllTabOptionsList.get(i).getText();
-				o++;
 				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
 					clickOnElement(AllTabOptionsList.get(i));
 					break;
 				}
 			}
 
-			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(o), AllTab);
+			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(i), AllTab);
 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Local Recipient Option under All Tab. ", e);
