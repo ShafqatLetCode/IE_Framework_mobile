@@ -1145,7 +1145,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				alertMessage = this.driver.switchTo().alert().getText();
 				if(!alertMessage.equals(""))
 					Asserts.assertFail(alertMessage);
-				else if (isElementVisible2(launchpage.ErrorMessgeElement())){
+				else if (isElementVisible2(launchpage.DigibankAlertHeaderElement())){
 					
 					System.out.println("Alert title :: " + launchpage.DigibankAlertHeaderElement().getText());
 

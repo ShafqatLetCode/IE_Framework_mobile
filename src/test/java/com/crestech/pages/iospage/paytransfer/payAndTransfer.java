@@ -205,7 +205,7 @@ public class payAndTransfer extends CommonAppiumTest{
 					if (length < 5) {
 						for (int i = 0; i < length; i++) {
 							LocalRecipientList = localRecipientsList.get(i).getText();
-							if (LocalRecipientList.equals(expectedLocalRecipient)) {
+							if (LocalRecipientList.contains(expectedLocalRecipient)) {
 								index++;
 								clickOnElement(localRecipientsList.get(i));
 								break;
@@ -223,7 +223,7 @@ public class payAndTransfer extends CommonAppiumTest{
 						// Code will work :: When Need to scroll
 						for (int i = 0; i < length; i++) {
 							LocalRecipientList = localRecipientsList.get(i).getText();
-							if (LocalRecipientList.equals(expectedLocalRecipient)
+							if (LocalRecipientList.contains(expectedLocalRecipient)
 									&& isElementVisible2(localRecipientsList.get(i))) {
 								index++;
 								clickOnElement(localRecipientsList.get(i));
@@ -495,18 +495,17 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Click on 'Credit Card' Option under All Tab")
 	public void ClickOnCreditCard() throws Exception {
 		try {
-			int o = 0;
+			int i = 0;
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			for (int i = 0; i < allTabList.size(); i++) {
+			for ( i = 0; i < allTabList.size(); i++) {
 				String tabText = allTabList.get(i).getText();
-				o++;
 				if (tabText.contains(CommonTestData.CREDIT_CARDS_TAB.getEnumValue())) {
 					clickOnElement(allTabList.get(i));
 					break;
 				}
 			}
 
-			gestUtils.DragAndDropElementToElement(allTabList.get(o), allTab);
+			gestUtils.DragAndDropElementToElement(allTabList.get(i), allTab);
 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",

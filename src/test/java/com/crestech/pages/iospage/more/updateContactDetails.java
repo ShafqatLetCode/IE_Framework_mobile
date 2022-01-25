@@ -143,6 +143,10 @@ public class updateContactDetails extends CommonAppiumTest{
 	@FindBy(name = "//XCUIElementTypeStaticText[@name='Personal & Contact Details']")
 	private MobileElement PersonalAndContactDetails;
 	
+	@ElementDescription(value = "Update Contact Details")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='Update Contact Details']")
+	private MobileElement UpdateContactDetails1;
+	
 	@ElementDescription(value = "back button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='back']")
 	private MobileElement backButton;
@@ -195,8 +199,10 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Verify 'Update Contact Details' page header")
 	public void verifyUpdateContactDetailsPageHeader(String expectedText) throws Exception {
 		try {
-			Asserts.assertEquals(getTexOfElement(UpdateContactDetails).toLowerCase() ,expectedText.toLowerCase(),
-					expectedText + " Page Header not displaying.");
+			if(isElementVisible2(UpdateContactDetails))
+				Asserts.assertEquals(getTexOfElement(UpdateContactDetails).toLowerCase() ,expectedText.toLowerCase(),expectedText + " Page Header not displaying.");
+			else
+				Asserts.assertEquals(getTexOfElement(UpdateContactDetails1).toLowerCase() ,expectedText.toLowerCase(),expectedText + " Page Header not displaying.");
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Update Contact Details' page header ", e);
 		} catch (Exception e) {

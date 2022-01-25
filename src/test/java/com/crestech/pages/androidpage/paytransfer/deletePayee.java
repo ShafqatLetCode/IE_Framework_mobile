@@ -77,7 +77,7 @@ public class deletePayee extends CommonAppiumTest{
 	private MobileElement AreYouSureToDeleteThisPayeeMessage;
 	
 	@ElementDescription(value = "RECIPIENTS")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='RECIPIENTS']")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc='Recipients']/android.widget.TextView")
 	private MobileElement RECIPIENTS_TAB;
 	
 	@ElementDescription(value = "OK Button")

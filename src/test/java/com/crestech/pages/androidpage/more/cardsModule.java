@@ -223,13 +223,13 @@ public class cardsModule extends CommonAppiumTest{
 	@Step("Select Debit card Type")
 	public void selectDebitCardType(String expectedDebitCard) throws Exception {
 		try {
-			wait.waitForElementVisibility(DebitCardDetailsDropdownList.get(0));  
+			wait.fluentWaitForElement(DebitCardDetailsDropdownList.get(0));  
 			if (DebitCardDetailsDropdownList.size() > 0) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				int l = DebitCardDetailsDropdownList.size();
 				int index = 0;
 				String actualDebitCard = null;
-				for (int i = 0; i <= l; i++) {
+				for (int i = 0; i < l; i++) {
 					actualDebitCard = DebitCardDetailsDropdownList.get(i).getText();
 					if (actualDebitCard.contains(expectedDebitCard)) {
 						index++;
