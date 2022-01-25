@@ -73,7 +73,7 @@ public class preloginPage extends CommonAppiumTest{
 	public void VerifyPeekBalanceEnabilityOnLogInPage(String peekBalanceSubtitle) throws Exception {
 		try {
 			Thread.sleep(20000); 
-			String selector = "type == 'XCUIElementTypeStaticText' AND name == 'Tap and hold to PEEK BALANCE";
+			String selector = "type == 'XCUIElementTypeStaticText' AND name == 'Tap and hold to PEEK BALANCE'";
 			String peekbalance = driver.findElement(MobileBy.iOSNsPredicateString(selector)).getText();
 			
 			Asserts.assertEquals(peekbalance.toLowerCase(), peekBalanceSubtitle.toLowerCase(),

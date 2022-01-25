@@ -294,7 +294,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	public void verifyMarketingMessageNotes(String marketingMessageNotes) throws Exception {
 		try {
 			gestUtils.scrollUPtoObjectIos("name", "I would like the bank to:", null);
-			String selector = "type == 'XCUIElementTypeStaticText' AND name == 'Please indicate your preference if you would like to opt in or out of receiving DBS/POSB marketing materials and information relating to services and/or products offered or distributed by DBS/POSB and/or its services and product providers.";
+			String selector = "type == 'XCUIElementTypeStaticText' AND name == 'Please indicate your preference if you would like to opt in or out of receiving DBS/POSB marketing materials and information relating to services and/or products offered or distributed by DBS/POSB and/or its services and product providers.'";
 			String actualText = driver.findElement(MobileBy.iOSNsPredicateString(selector)).getText();
 			Asserts.assertEquals(actualText.toLowerCase(), marketingMessageNotes.toLowerCase(),
 					marketingMessageNotes + " Text is not matching");

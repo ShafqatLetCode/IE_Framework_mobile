@@ -64,6 +64,46 @@ public class launchPage extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Log In']")
 	private MobileElement LogInButton_preloginpage;
 	
+	@ElementDescription(value = "Error Messge Element")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/message']")
+	private MobileElement ErrorMessgeElement;
+	
+	@ElementDescription(value = "DigibankAlertHeaderElement")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/alertTitle']")
+	private MobileElement DigibankAlertHeaderElement;
+	
+	@ElementDescription(value = "Progress Bar")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/progress_bar_message')]")
+	private MobileElement progress_bar;
+	
+	@ElementDescription(value = "Progress Bar")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/progress_bar')]")
+	private MobileElement progress_bar_imageview;
+	
+	@ElementDescription(value = "Authenticating Bar")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Authenticating...']")
+	private MobileElement Authenticating_Bar;
+	
+	public MobileElement Authenticating_Bar() { 
+		return Authenticating_Bar;
+	}
+	
+	public MobileElement progress_bar_imageview() { 
+		return progress_bar_imageview;
+	}
+	
+	public MobileElement progress_bar() { 
+		return progress_bar;
+	}
+	
+	public MobileElement DigibankAlertHeaderElement() { 
+		return DigibankAlertHeaderElement;
+	}
+	
+	public MobileElement ErrorMessgeElement() { 
+		return ErrorMessgeElement;
+	}
+	
 	public MobileElement quitBtn() { 
 		return quitBtn;
 	}
