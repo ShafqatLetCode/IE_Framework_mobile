@@ -588,7 +588,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			overseasmodule.EnterFullName(CommonTestData.FULL_NAME.getEnumValue());
 			gestUtils.scrollUPtoObject("text", "NEXT", null);
 			overseasmodule.EnterAddress(CommonTestData.ADDRESS.getEnumValue());
+			gestUtils.scrollUPtoObject("text", "NEXT", null);
 			overseasmodule.EnterCity(CommonTestData.CITY.getEnumValue());
+			gestUtils.scrollUPtoObject("text", "NEXT", null);
 			overseasmodule.ClickOnNextButton();
 			overseasmodule.verifyReviewRecipientDetailsPageHeader(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue());
 			overseasmodule.ClickOnAddRecipientNowBtn();

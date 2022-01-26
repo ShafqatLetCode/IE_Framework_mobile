@@ -514,10 +514,12 @@ public class payAndTransfer extends CommonAppiumTest{
 				String tabText = AllTabOptionsList.get(i).getText();
 				if (tabText.contains(CommonTestData.LOCAL_RECIPIENT_FROMLIST.getEnumValue())) {
 					clickOnElement(AllTabOptionsList.get(i));
+					Thread.sleep(2000); 
 					break;
 				}
 			}
-
+			
+			System.out.println("i: "+i);
 			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(i), AllTab);
 
 		} catch (HandleException e) {
