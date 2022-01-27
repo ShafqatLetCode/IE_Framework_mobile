@@ -150,7 +150,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			preloginpage.ClickOnLoginButton(); 
 			loginpage.EnterCredentialsAndLogin(userName, password); 
 			wait.fluentWaitForElement(homepage.WelcomeToText());
-			wait.ImplicitlyWait(15);
+			wait.ImplicitlyWait(10);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application ", e);
 		} catch (Exception e) {
@@ -1137,7 +1137,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void verifyDigibankAlert() throws Exception {
 		String alertMessage = null;
 		try {
-			Thread.sleep(2000);
+			wait.ImplicitlyWait(5);
 			if (isElementVisible2(launchpage.AlertTitle()))
 				alertMessage = launchpage.AlertTitle().getText() + ": " + launchpage.AlertBodyMessage().getText();
 			else if (isElementVisible2(launchpage.DigitalTokenUnderMaintenanceMessageHeader()))
@@ -1156,6 +1156,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			
 			System.out.println("alertMessage :: " + alertMessage);
 			Asserts.assertFail(alertMessage);
+			
+			wait.ImplicitlyWait(10);
 		} catch (Exception e) {
 			obj_handleexception.throwException("DIGIBANK_ALERT",
 					" Failed to proceed because of DIGI BANK ALERT " + alertMessage, e);
