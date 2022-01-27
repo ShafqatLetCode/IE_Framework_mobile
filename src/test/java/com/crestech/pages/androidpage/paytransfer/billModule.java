@@ -250,13 +250,21 @@ public class billModule extends CommonAppiumTest{
 	@Step("Verify 'Pay To Biller' Page Header")
 	public void VerifyPayToBillerPageHeader() throws Exception {
 		try {
-				wait.fluentWaitForElement(PageHeader);
-				Asserts.assertEquals(getTexOfElement(PageHeader).toLowerCase(), CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue().toLowerCase(), 
+			MobileElement element = null;
+			element = getElement(PageHeaderList, CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue());
+			if (element != null) {
+				wait.fluentWaitForElement(element);
+				Asserts.assertEquals(getTexOfElement(element).toLowerCase(),
+						CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue().toLowerCase(),
 						"'Header Title' is not Matching");
+			}
+
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Verify 'Pay To Biller' Page Header ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Verify 'Pay To Biller' Page Header ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION"," Failed to Verify 'Pay To Biller' Page Header ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify 'Pay To Biller' Page Header ",
+					e);
 		}
 	}
 	
