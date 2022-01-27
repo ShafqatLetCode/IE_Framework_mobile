@@ -84,7 +84,7 @@ public class enterPasscode extends CommonAppiumTest{
 					Thread.sleep(2000);
 				}
 			}
-			wait.ImplicitlyWait(10);
+			wait.ImplicitlyWait(15);
 		} catch (HandleException e) {	
 			obj_handleexception.throwHandleException("ENTER_PASSCODE_EXCEPTION", " Failed to enter passcode  ",e);		
 		}

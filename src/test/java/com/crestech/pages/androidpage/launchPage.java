@@ -153,7 +153,7 @@ public class launchPage extends CommonAppiumTest{
 				relaunchingDBS();
 				wait.fluentWaitForElement(loginButton); 
 			}
-			wait.ImplicitlyWait(10);
+			wait.ImplicitlyWait(15);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Quit Button ", e);
 		} catch (Exception e) {
