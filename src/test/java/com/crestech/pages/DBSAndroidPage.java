@@ -1,16 +1,11 @@
 package com.crestech.pages;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
-
-import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.AndroidAlert;
 import com.crestech.common.utilities.Asserts;
@@ -44,8 +39,6 @@ import com.crestech.pages.androidpage.paytransfer.payNow;
 import com.crestech.pages.androidpage.paytransfer.topUpPaylah;
 import com.crestech.pages.androidpage.paytransfer.yourDBSPOSBAccount;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.qameta.allure.Step;
 
@@ -502,6 +495,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void VerifyPeekBalance(String appName) throws Exception {
 		try {
 			homepage.VerifyDepositAccountTypeOnDashboardPage();
+			
+		    if(isElementVisible2(homepage.depositeAccountDropdown())) 
+				clickOnElement(homepage.depositeAccountDropdown());
+			
 			if (isElementVisible2(homepage.DepositsAccountName())) { 
 				String DepositeAccountNameOnDashboard = homepage.getAndClickOnDepositeAccountNameFromDashboard();
 				enterpasscode.EnterPasscodeAndDone();
@@ -1140,31 +1137,25 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	public void verifyDigibankAlert() throws Exception {
 		String alertMessage = null;
 		try {
-			wait.ImplicitlyWait(30); 		
-			if (androidAlert.isAlertPresent()) {
-				System.out.println("Alert title :: " + this.driver.switchTo().alert().getText());
-
+			Thread.sleep(2000);
+			if (isElementVisible2(launchpage.AlertTitle()))
+				alertMessage = launchpage.AlertTitle().getText() + ": " + launchpage.AlertBodyMessage().getText();
+			else if (isElementVisible2(launchpage.DigitalTokenUnderMaintenanceMessageHeader()))
+				alertMessage = launchpage.DigitalTokenUnderMaintenanceMessageHeader().getText() + ": "
+						+ launchpage.DigitalTokenUnderMaintenanceMessage().getText();
+			else if (isElementVisible2(launchpage.DigibankAlertHeaderElement()) && isElementVisible2(launchpage.ErrorMessgeElement()))
+				alertMessage = launchpage.DigibankAlertHeaderElement().getText() + ": "
+						+ launchpage.ErrorMessgeElement().getText();
+			else if (androidAlert.isAlertPresent())
 				alertMessage = this.driver.switchTo().alert().getText();
-				if(!alertMessage.equals(""))
-					Asserts.assertFail(alertMessage);
-				else if (isElementVisible2(launchpage.DigibankAlertHeaderElement())){
-					
-					System.out.println("Alert title :: " + launchpage.DigibankAlertHeaderElement().getText());
-
-					alertMessage = launchpage.DigibankAlertHeaderElement().getText()
-							+ ": "
-							+ launchpage.ErrorMessgeElement().getText();
-					
-				    Asserts.assertFail(alertMessage);
-				}
-			}
-			else if(isElementVisible2(launchpage.quitBtn())) {
-				Asserts.assertFail("Application CRASH ISSUE");
-			}else if(isElementVisible2(launchpage.Authenticating_Bar()) || isElementVisible2(launchpage.progress_bar())||isElementVisible2(launchpage.progress_bar_imageview())) {
-				System.out.println("Wait Duration Limit exceeded :: Application Unable to load Page");
+			else if (isElementVisible2(launchpage.quitBtn()))
+				alertMessage = "Application Crash Issue";
+			else if (isElementVisible2(launchpage.Authenticating_Bar()) || isElementVisible2(launchpage.progress_bar())
+					|| isElementVisible2(launchpage.progress_bar_imageview()))
 				alertMessage = "Wait Duration Limit exceeded :: Application Unable to load Page";
-				Asserts.assertFail(alertMessage);
-			}
+			
+			System.out.println("alertMessage :: " + alertMessage);
+			Asserts.assertFail(alertMessage);
 		} catch (Exception e) {
 			obj_handleexception.throwException("DIGIBANK_ALERT",
 					" Failed to proceed because of DIGI BANK ALERT " + alertMessage, e);

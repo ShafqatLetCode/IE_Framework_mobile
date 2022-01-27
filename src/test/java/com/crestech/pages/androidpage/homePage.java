@@ -2,7 +2,6 @@ package com.crestech.pages.androidpage;
 
 import java.time.Duration;
 import java.util.List;
-import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.annotation.values.ElementDescription;
@@ -55,6 +54,10 @@ public class homePage extends CommonAppiumTest {
 	@ElementDescription(value = "Deposite Home page")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'Deposits')]")
 	private MobileElement depositeHomePage;
+	
+	@ElementDescription(value = "depositeAccountDropdown")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.dbs.sit1.dbsmbanking:id/iv_collapse']")
+	private MobileElement depositeAccountDropdown;
 	
 	@ElementDescription(value = "Deposite Home page")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'CPFIA/SRS Account')]")
@@ -188,6 +191,10 @@ public class homePage extends CommonAppiumTest {
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK, got it']")
 	private MobileElement OK_GOTIT_BUTTON;
 	
+	
+	public MobileElement depositeAccountDropdown() {
+		return depositeAccountDropdown;
+	}
 	
 	public MobileElement WelcomeToText() {
 		return WelcomeToText;
@@ -489,13 +496,19 @@ public class homePage extends CommonAppiumTest {
 			throws Exception {
 		try {
 			clickOnElement(accountSectionHomePage);
-			gestUtils.scrollDOWNtoObject("text", "Deposits", null);
+			gestUtils.scrollUPtoObject("text", "Deposits", null);
 			
 			if(isElementVisible2(DepositsAccountName)) {
 				Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
 				Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
 						AccountName + " is not present");
-			} else
+			} else if(isElementVisible2(depositeAccountDropdown)) {
+				clickOnElement(depositeAccountDropdown);
+				Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
+			    Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
+					AccountName + " is not present");
+			}
+			else
 				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
 			
 			gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
@@ -545,8 +558,12 @@ public class homePage extends CommonAppiumTest {
 			if (isElementVisible2(DepositsAccountName))
 				Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
 						AccountName + " is not present");
-			else
-				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page.");
+			else if(isElementVisible2(depositeAccountDropdown)) {
+				clickOnElement(depositeAccountDropdown);
+			    Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
+					AccountName + " is not present");
+			}else
+				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
 
 			gestUtils.scrollUPtoObject("text", "SGD", null);
 		} catch (HandleException e) {
@@ -561,8 +578,12 @@ public class homePage extends CommonAppiumTest {
 	@Step("Verify 'Account Type' on dashboard Page.")
 	public void verifyAccountType(String AccountType) throws Exception{
 		try {
-			gestUtils.scrollDOWNtoObject("text", "CPFIA/SRS Account", null);
-			Asserts.assertEquals(getTexOfElement(SRSACCOUNT), AccountType, AccountType + " is not present");
+			gestUtils.scrollUPtoObject("text", "CPFIA/SRS Account", null);
+			if (isElementVisible2(SRSACCOUNT))
+				Asserts.assertEquals(getTexOfElement(SRSACCOUNT), AccountType, AccountType + " is not present");
+			else
+				Asserts.assertFail("Account Type not displaying on dashboard page.");
+		
 		}catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Type' on dashboard Page ",
 					e);
