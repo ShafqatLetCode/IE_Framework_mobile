@@ -89,6 +89,10 @@ public class billModule extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/text')]")
 	private List<MobileElement> PageHeaderList;
 	
+	@ElementDescription(value = "Page Header")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Pay to Biller']")
+	private MobileElement PageHeader1;
+	
 	@ElementDescription(value = "Success Tick Image View")
 	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/imgView_ic_success_tick')]")
 	private MobileElement SuccessTickImageView;
@@ -170,6 +174,7 @@ public class billModule extends CommonAppiumTest{
 	public void VerifyDetailsAfterSubmitPayment() throws Exception {
 		try {
 			MobileElement element = null;
+		    wait.fluentWaitForElement(PageHeaderList.get(0)); 
 			element = getElement(PageHeaderList,CommonTestData.PAYMENT_SUBMITTED.getEnumValue());
 			if (element != null)
 				verifyPaymentSubmittedMessage(CommonTestData.PAYMENT_SUBMITTED.getEnumValue(), element);
@@ -251,6 +256,7 @@ public class billModule extends CommonAppiumTest{
 	public void VerifyPayToBillerPageHeader() throws Exception {
 		try {
 			MobileElement element = null;
+			//wait.fluentWaitForElement(PageHeader1); 
 			element = getElement(PageHeaderList, CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue());
 			if (element != null) {
 				wait.fluentWaitForElement(element);

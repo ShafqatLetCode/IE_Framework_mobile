@@ -1138,7 +1138,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 		String alertMessage = null;
 		try {
 			wait.ImplicitlyWait(5);
-			if (isElementVisible2(launchpage.AlertTitle()))
+			
+			if (isElementVisible2(launchpage.Authenticating_Bar()) || isElementVisible2(launchpage.progress_bar())
+					|| isElementVisible2(launchpage.progress_bar_imageview()))
+				alertMessage = "Wait Duration Limit exceeded :: Application Unable to load Page";
+			else if (isElementVisible2(launchpage.AlertTitle()))
 				alertMessage = launchpage.AlertTitle().getText() + ": " + launchpage.AlertBodyMessage().getText();
 			else if (isElementVisible2(launchpage.DigitalTokenUnderMaintenanceMessageHeader()))
 				alertMessage = launchpage.DigitalTokenUnderMaintenanceMessageHeader().getText() + ": "
@@ -1150,12 +1154,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				alertMessage = this.driver.switchTo().alert().getText();
 			else if (isElementVisible2(launchpage.quitBtn()))
 				alertMessage = "Application Crash Issue";
-			else if (isElementVisible2(launchpage.Authenticating_Bar()) || isElementVisible2(launchpage.progress_bar())
-					|| isElementVisible2(launchpage.progress_bar_imageview()))
-				alertMessage = "Wait Duration Limit exceeded :: Application Unable to load Page";
 			
-			System.out.println("alertMessage :: " + alertMessage);
-			Asserts.assertFail(alertMessage);
+			if (alertMessage != null) {
+				System.out.println("alertMessage :: " + alertMessage);
+				Asserts.assertFail(alertMessage);
+			}
 			
 			wait.ImplicitlyWait(10);
 		} catch (Exception e) {
