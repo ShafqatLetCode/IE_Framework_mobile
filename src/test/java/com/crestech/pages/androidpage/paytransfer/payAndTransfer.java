@@ -15,7 +15,6 @@ import com.crestech.common.utilities.Asserts;
 import com.crestech.common.utilities.CommonTestData;
 import com.crestech.common.utilities.GestureUtils;
 import com.crestech.common.utilities.HandleException;
-import com.crestech.common.utilities.WaitUtils;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -120,6 +119,7 @@ public class payAndTransfer extends CommonAppiumTest{
 				String tabText = AllTabOptionsList.get(i).getText();
 				if (tabText.contains(CommonTestData.BILLING_ORGANISATIONS_TAB.getEnumValue())) {
 					clickOnElement(AllTabOptionsList.get(i));
+					Thread.sleep(2000);
 					break;
 				}
 			}
@@ -142,6 +142,7 @@ public class payAndTransfer extends CommonAppiumTest{
 				String tabText = AllTabOptionsList.get(i).getText();
 				if (tabText.contains(CommonTestData.CREDIT_CARDS_TAB.getEnumValue())) {
 					clickOnElement(AllTabOptionsList.get(i));
+					Thread.sleep(2000);
 					break;
 				}
 			}
@@ -165,6 +166,7 @@ public class payAndTransfer extends CommonAppiumTest{
 				String tabText = AllTabOptionsList.get(i).getText();
 				if (tabText.contains(CommonTestData.YOUR_DBSPOSB_ACCOUNTS.getEnumValue())) {
 					clickOnElement(AllTabOptionsList.get(i));
+					Thread.sleep(2000);
 					break;
 				}
 			}
@@ -189,10 +191,10 @@ public class payAndTransfer extends CommonAppiumTest{
 			String s1 = driver.getPageSource();
 			int count = 0;
 			int index = 0;
-
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			while (count == 0 && index == 0) {
 				if (SubTitleTextList.size() > 0) {
-					 com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+					 //com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int length = SubTitleTextList.size();
 					String actualToOWNAccount = null;
 					if (length < 2) {
@@ -265,10 +267,10 @@ public class payAndTransfer extends CommonAppiumTest{
 			String s1 = driver.getPageSource();
 			int count = 0;
 			int index = 0;
-
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			while (count == 0 && index == 0) {
 				if (SubTitleTextList.size() > 0) {
-					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+					//com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int length = SubTitleTextList.size();
 					String actualToCreditCardAccount = null;
 					if (length < 2) {
@@ -342,9 +344,10 @@ public class payAndTransfer extends CommonAppiumTest{
 			String s1 = driver.getPageSource();
 			int count = 0;
 			int index = 0;
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			while (count == 0 && index == 0) {
 				if (SubTitleTextList.size() > 0) {
-					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+					//com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int length = SubTitleTextList.size();
 					String BillingOrganisationlist = null;
 					if (length < 2) {
@@ -413,10 +416,9 @@ public class payAndTransfer extends CommonAppiumTest{
 			int count = 0;
 			int index = 0;
 			
-			
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			while (count == 0 && index == 0) {
 				if (SubTitleTextList.size() > 0) {
-					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int length = SubTitleTextList.size();
 					String actualLocalRecipient = null;
 					if (length < 2) {
@@ -492,10 +494,8 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Handle Of 'Primary Source Of Fund' Popup.")
 	public void HandlingOfPrimarySourceOfFundPopup() throws Exception {
 		try {
-			wait.ImplicitlyWait(30);
 			if (isElementVisible2(PrimarySourceOfFundPopup))
 				ClickOnOKButton();
-			wait.ImplicitlyWait(10);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Of 'Primary Source Of Fund' Popup  ", e);
 		} catch (Exception e) {
@@ -518,10 +518,7 @@ public class payAndTransfer extends CommonAppiumTest{
 					break;
 				}
 			}
-			
-			System.out.println("i: "+i);
 			gestUtils.DragAndDropElementToElement(AllTabOptionsList.get(i), AllTab);
-
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Local Recipient Option under All Tab. ", e);
 		} catch (Exception e) {
@@ -558,11 +555,9 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Click On Overseas Module")
 	public void ClickOnOverseasModule() throws Exception {
 		try {
-			wait.ImplicitlyWait(30); 
 			wait.waitForElementToBeClickable(Btnlist.get(3)); 
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(Btnlist.get(3));
-			wait.ImplicitlyWait(20);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Overseas Button  ",
 					e);

@@ -538,7 +538,7 @@ public class homePage extends CommonAppiumTest{
 				Asserts.assertEquals(getTexOfElement(depositeHomepage).trim().toLowerCase(), AccountType.toLowerCase(),
 						AccountType + "text is not found");
 			else
-				Asserts.assertFail(AccountType + " is not displaying on home page.");
+				Asserts.assertFail(AccountType + " Not Found on the Dashboard Page."); 
 
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Account Type ", e);
@@ -554,7 +554,7 @@ public class homePage extends CommonAppiumTest{
 				Asserts.assertEquals(getTexOfElement(accountNameHomepage).trim().toLowerCase(),
 						AccountName.toLowerCase(), AccountName + "text is not found");
 			else
-				Asserts.assertFail(AccountName + " not displaying on home page.");
+				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
 
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Account Type ", e);

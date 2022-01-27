@@ -9,6 +9,11 @@
     "messageRegex": ".*digibank Alert.*" 
   },
   {
+    "name": "Infrastructure problems",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*Digital token under maintenance.*" 
+  },
+  {
     "name": "Application CRASH ISSUE",
     "matchedStatuses": ["failed"],
     "messageRegex": ".*Application CRASH ISSUE.*" 

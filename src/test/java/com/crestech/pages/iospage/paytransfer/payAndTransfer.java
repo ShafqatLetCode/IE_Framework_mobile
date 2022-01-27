@@ -118,10 +118,10 @@ public class payAndTransfer extends CommonAppiumTest{
 				String s1 = driver.getPageSource();
 				int count = 0;
 				int index = 0;
-
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				while (count == 0 && index == 0) {
 					if (localRecipientsList.size() > 0) {
-						com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+						//com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 						int length = localRecipientsList.size();
 						String LocalRecipientList = null;
 						if (length < 5) {
@@ -196,10 +196,10 @@ public class payAndTransfer extends CommonAppiumTest{
 			String s1 = driver.getPageSource();
 			int count = 0;
 			int index = 0;
-
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			while (count == 0 && index == 0) {
 				if (localRecipientsList.size() > 0) {
-					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+					//com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int length = localRecipientsList.size();
 					String LocalRecipientList = null;
 					if (length < 5) {
@@ -316,10 +316,10 @@ public class payAndTransfer extends CommonAppiumTest{
 			String s1 = driver.getPageSource();
 			int count = 0;
 			int index = 0;
-			
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			while (count == 0 && index == 0) {
 				if (localRecipientsList.size() > 0) {
-					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+					//com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 					int length = localRecipientsList.size();
 					String BillingOrganisationlist = null;
 					if (length < 5) {
@@ -543,10 +543,10 @@ public class payAndTransfer extends CommonAppiumTest{
 				String s1 = driver.getPageSource();
 				int count = 0;
 				int index = 0;
-
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				while (count == 0 && index == 0) {
 					if (localRecipientsList.size() > 0) {
-						com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+						//com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 						int length = localRecipientsList.size();
 						String LocalRecipientList = null;
 						if (length < 5) {

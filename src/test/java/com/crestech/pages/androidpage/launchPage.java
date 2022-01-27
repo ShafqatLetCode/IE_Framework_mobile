@@ -69,9 +69,17 @@ public class launchPage extends CommonAppiumTest{
 	private MobileElement ErrorMessgeElement;
 	
 	@ElementDescription(value = "DigibankAlertHeaderElement")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/alertTitle']")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='digibank Alert']")
 	private MobileElement DigibankAlertHeaderElement;
 	
+	@ElementDescription(value = "DigitalTokenUnderMaintenanceMessage")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/login_kill_switch_error_message')]")
+	private MobileElement DigitalTokenUnderMaintenanceMessage;
+	
+	@ElementDescription(value = "DigitalTokenUnderMaintenanceMessageHeader")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Digital token under maintenance']")
+	private MobileElement DigitalTokenUnderMaintenanceMessageHeader;
+
 	@ElementDescription(value = "Progress Bar")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/progress_bar_message')]")
 	private MobileElement progress_bar;
@@ -84,6 +92,28 @@ public class launchPage extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Authenticating...']")
 	private MobileElement Authenticating_Bar;
 	
+	@ElementDescription(value = "AlertTitle")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_alert_server_title')]")
+	private MobileElement AlertTitle;
+	
+	@ElementDescription(value = "AlertBodyMessage")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_alert_body')]")
+	private MobileElement AlertBodyMessage;
+	
+	public MobileElement AlertTitle(){
+		return AlertTitle;
+	}
+	public MobileElement AlertBodyMessage(){
+		return AlertBodyMessage;
+	}
+	
+	
+	public MobileElement DigitalTokenUnderMaintenanceMessage(){
+		return DigitalTokenUnderMaintenanceMessage;
+	}
+	public MobileElement DigitalTokenUnderMaintenanceMessageHeader(){
+		return DigitalTokenUnderMaintenanceMessageHeader;
+	}
 	public MobileElement Authenticating_Bar() { 
 		return Authenticating_Bar;
 	}

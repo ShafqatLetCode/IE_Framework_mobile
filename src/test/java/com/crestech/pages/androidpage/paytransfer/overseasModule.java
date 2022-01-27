@@ -753,6 +753,7 @@ public class overseasModule extends CommonAppiumTest{
 			if (isElementVisible2(CityField)) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				enterTextInTextbox(CityField, text);
+				Thread.sleep(2000);
 			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter City ", e);
@@ -787,6 +788,7 @@ public class overseasModule extends CommonAppiumTest{
 	public void EnterAddress(String text) throws Exception {
 		try {
 		    enterTextInTextbox(AddressField, text);
+		    Thread.sleep(2000); 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter Address ", e);
 		} catch (Exception e) {
