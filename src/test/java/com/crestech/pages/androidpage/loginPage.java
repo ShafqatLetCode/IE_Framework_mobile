@@ -135,7 +135,7 @@ public class loginPage extends CommonAppiumTest{
 		try {
 			enterUserName(userName);
 			enterPassword(password);
-			driver.navigate().back();
+		//	driver.navigate().back();
 			clickOnLoginButton2();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Login Button ", e);

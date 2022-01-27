@@ -108,7 +108,7 @@ public class peekBalance extends CommonAppiumTest{
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				ClickOnOKButton(); 
 			}
-			wait.ImplicitlyWait(10);
+			wait.ImplicitlyWait(15);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Handle Confirmation Message ", e);

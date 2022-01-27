@@ -150,7 +150,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			preloginpage.ClickOnLoginButton(); 
 			loginpage.EnterCredentialsAndLogin(userName, password); 
 			wait.fluentWaitForElement(homepage.WelcomeToText());
-			wait.ImplicitlyWait(10);
+			wait.ImplicitlyWait(15);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Exceute Log In Application ", e);
 		} catch (Exception e) {
@@ -283,8 +283,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
 
 			// Leaving on Home Page After adding payee to DBS/POSB for next run.
-			local.ClickOnBackIcon();
-			paytransfer.ClickOnHomeButton();
+			//local.ClickOnBackIcon();
+			//paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Add payee DBSorPOSB  ",	e);
 		} catch (Exception e) {
@@ -348,8 +348,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			bills.VerifyDetailsAfterSubmitPayment();
 			
 			// Leaving On Home Page for Next case Run.
-			bills.ClickOnBackIcon();
-			paytransfer.ClickOnHomeButton();
+		//	bills.ClickOnBackIcon();
+		//	paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
 					" Failed to Execute Payee Add To Bill Payment ", e);
@@ -412,8 +412,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					ExpectedAccountNumber);
 
 			// Leaving on Home Page After adding payee Local To Other Bank for next run.
-			local.ClickOnBackIcon();
-			paytransfer.ClickOnHomeButton();
+			//local.ClickOnBackIcon();
+			//paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Payee Add Local Other Bank ",	e);
 		} catch (Exception e) {
@@ -465,7 +465,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			paytransfer.ClickOnOverseasModule();
 			overseasmodule.verifyOverseasTransferPageHeader(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue());
 			deletepayee.DeletePayee(ExpectedRecipientName);
-			overseasmodule.ClickOnOverseasScreenClosingButton();
+			//overseasmodule.ClickOnOverseasScreenClosingButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("DELETEPAYEE_EXCEPTION", " Failed to Execute Delete Payee Remittance ", e);
 		} catch (Exception e) {
@@ -570,9 +570,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	@Step("Verify Payee Add Remittance.")
 	public void VerifyPayeeAddRemittance() throws Exception {
 		try {
-			homepage.ClickOnPayAndTransferBtn();
-			enterpasscode.EnterPasscodeAndDone();
-			paytransfer.ClickOnOverseasModule();
+//			homepage.ClickOnPayAndTransferBtn();
+//			enterpasscode.EnterPasscodeAndDone();
+//			paytransfer.ClickOnOverseasModule();
 			overseasmodule.verifyOverseasTransferPageHeader(CommonTestData.OVERSEAS_TRANSFER_PAGEHEADER.getEnumValue());
 			overseasmodule.SelectAddRecipientNowButtonUnderOverseas();
 			overseasmodule.SelectCountry(CommonTestData.COUNTRY_AUS.getEnumValue());
@@ -1032,9 +1032,9 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			update.VerifyLastUpdatedDateOfCheckboxes();
 
 			// Leave On Home Page for next case run.
-			update.ClickOnBackButton();
-			update.ClickOnBackButton();
-			more.ClickOnHomeButton();
+		//	update.ClickOnBackButton();
+			//update.ClickOnBackButton();
+		//	more.ClickOnHomeButton();
 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to update personal details  ", e);
@@ -1093,8 +1093,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 					ExpectedToAccountNumber, ExpectedToCreditCardName);
 
 			// Leaving On Home Page for Next case Run.
-			creditcard.ClickOnBackIcon();
-			paytransfer.ClickOnHomeButton();
+			//creditcard.ClickOnBackIcon();
+			//paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to fund transfer pay credit card  ",
 					e);
@@ -1122,8 +1122,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			bills.VerifyDetailsAfterSubmitPayment();
 
 			// Leaving On Home Page for Next case Run.
-			bills.ClickOnBackIcon();
-			paytransfer.ClickOnHomeButton();
+		//	bills.ClickOnBackIcon();
+			//paytransfer.ClickOnHomeButton();
 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
@@ -1160,7 +1160,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				Asserts.assertFail(alertMessage);
 			}
 			
-			wait.ImplicitlyWait(10);
+			wait.ImplicitlyWait(15);
 		} catch (Exception e) {
 			obj_handleexception.throwException("DIGIBANK_ALERT",
 					" Failed to proceed because of DIGI BANK ALERT " + alertMessage, e);
@@ -1227,8 +1227,8 @@ public class DBSAndroidPage extends CommonAppiumTest {
             paynow.VerifyLogOutButton();
             
             //Leave Page On home Page For next case run.
-            paynow.ClickOnBackButton();
-            paytransfer.ClickOnHomeButton();
+          //  paynow.ClickOnBackButton();
+          //  paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify Pay Now NRIC ", e);
 		} catch (Exception e) {
