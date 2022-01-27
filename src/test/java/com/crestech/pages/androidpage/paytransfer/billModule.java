@@ -279,7 +279,6 @@ public class billModule extends CommonAppiumTest{
 				String accountFromList = null;
 				for (int i = 0; i < l; i++) {
 					accountFromList = elementList.get(i).getText();
-					System.out.println(accountFromList + " : " + i);
 					if (accountFromList.contains(elementTextToBeVerified)) {
 						element = elementList.get(i);
 						break;
