@@ -388,6 +388,7 @@ public class cardsModule extends CommonAppiumTest{
 	@Step("Click On 'Economic Status' Field")
 	public void ClickOnEconomicStatusField() throws Exception {
 		try {
+			gestUtils.scrollUPtoObject("text", "Annual Income", AnnualIncomeField);
 			clickOnElement(EconomicStatusField);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
@@ -401,7 +402,6 @@ public class cardsModule extends CommonAppiumTest{
 	@Step("Click On 'Annual Income' Field")
 	public void ClickOnAnnualIncomeField() throws Exception {
 		try {
-			gestUtils.scrollUPtoObject("text", "Annual Income", AnnualIncomeField);
 			clickOnElement(AnnualIncomeField);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",

@@ -52,28 +52,28 @@ public class DBSAndroidTest extends UserBaseTest {
 		}
 	}
 	
-//	@Epic("Log In")
-//	@Feature(value =  "Home Page" ) 
-//	@Story("Verify the account detail on dashboard page.")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 2, enabled = true, description = "AccountDetails-CASA-ONEAPP-14400", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Shafqat Ali")
-//	public void AccountDetails_CASA(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1=dbspage;
-//			dbspage1.LogInApplication(userName, password);
-//			dbspage1.verifyAccountDetailsOnHomePage(app_Name);
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Account Details CASA "+e.getMessage());
-//		}
-//	}
-//	
+	@Epic("Log In")
+	@Feature(value =  "Home Page" ) 
+	@Story("Verify the account detail on dashboard page.")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 2, enabled = true, description = "AccountDetails-CASA-ONEAPP-14400", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Shafqat Ali")
+	public void AccountDetails_CASA(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1=dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.verifyAccountDetailsOnHomePage(app_Name,true);
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Account Details CASA "+e.getMessage());
+		}
+	}
+	
 	@Epic("Pay & Transfer")
 	@Feature(value =  "Overseas") 
 	@Story("Verifies the Remittance Corridor")
@@ -630,27 +630,27 @@ public class DBSAndroidTest extends UserBaseTest {
 ////		}
 ////	}
 	
-//	@Epic("More")
-//	@Feature(value =  "Peek Balance") 
-//	@Story("Verifies the Peek Balance.")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 28, enabled = true, description = "PeekBalance-MCA-ONEAPP-13982", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Divya Devi")
-//	public void VerifyPeekBalance_MCA(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1 = dbspage;
-//			dbspage1.LogInApplication(userName, password);
-//			dbspage1.VerifyPeekBalance(app_Name);
-//		}  catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Peek Balance "+e.getMessage());
-//		}
-//	}
+	@Epic("More")
+	@Feature(value =  "Peek Balance") 
+	@Story("Verifies the Peek Balance.")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 28, enabled = true, description = "PeekBalance-MCA-ONEAPP-13982", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Divya Devi")
+	public void VerifyPeekBalance_MCA(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1 = dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.VerifyPeekBalance(app_Name,true);
+		}  catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Peek Balance "+e.getMessage());
+		}
+	}
 	
 	/******************End Test Script For DBS App************************************/
 }
