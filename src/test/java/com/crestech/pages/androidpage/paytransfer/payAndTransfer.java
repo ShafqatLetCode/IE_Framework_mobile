@@ -202,7 +202,7 @@ public class payAndTransfer extends CommonAppiumTest{
 							actualToOWNAccount = AllTabOptionsList.get(i).getText();
 							if (actualToOWNAccount.contains(expectedToOwnAccount)) {
 								index++;
-								clickOnElement(ListElementToClickable.get(i));
+								clickOnElement(AllTabOptionsList.get(i));
 								break;
 							}
 						}
@@ -220,7 +220,7 @@ public class payAndTransfer extends CommonAppiumTest{
 							actualToOWNAccount = AllTabOptionsList.get(i).getText();
 							if (actualToOWNAccount.contains(expectedToOwnAccount)) {
 								index++;
-								clickOnElement(ListElementToClickable.get(i));
+								clickOnElement(AllTabOptionsList.get(i));
 								break;
 							}
 						}

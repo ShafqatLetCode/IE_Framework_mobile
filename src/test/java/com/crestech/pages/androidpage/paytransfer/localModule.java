@@ -400,8 +400,11 @@ public class localModule extends CommonAppiumTest{
 	}
 	
 	@Step("Click on 'TransferViaFast Toggle' to disable fast service.")
-	public void DisableToTransferViaFastToggle() throws Exception {
+	public void DisableToTransferViaFastToggle(String appName) throws Exception {
 		try {
+			if(appName.equals("iWEALTH"))
+			hideKeyboard();
+			
 			gestUtils.scrollUPtoObject(null, null, TransferViaFastTransferToggle);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(TransferViaFastTransferToggle);

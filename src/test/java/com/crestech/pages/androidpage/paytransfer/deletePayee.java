@@ -80,6 +80,10 @@ public class deletePayee extends CommonAppiumTest{
 	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc='Recipients']/android.widget.TextView")
 	private MobileElement RECIPIENTS_TAB;
 	
+	@ElementDescription(value = "RECIPIENTS")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc='RECIPIENTS']/android.widget.TextView")
+	private MobileElement RECIPIENTS_Bills;
+	
 	@ElementDescription(value = "OK Button")
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
 	private MobileElement OKButton;
@@ -162,8 +166,13 @@ public class deletePayee extends CommonAppiumTest{
 						}
 
 						if (deletePayee == 0) {
+							if(isElementVisible2(RECIPIENTS_Bills)) 
 							touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
-									.moveTo(element(RECIPIENTS_TAB)).release().perform();
+									.moveTo(element(RECIPIENTS_Bills)).release().perform();
+							else 
+								touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
+								.moveTo(element(RECIPIENTS_TAB)).release().perform();
+							
 							Thread.sleep(2000);
 							String s2 = driver.getPageSource();
 							if (s1.equals(s2) != true)
@@ -274,13 +283,14 @@ public class deletePayee extends CommonAppiumTest{
 	@Step("Click On 'More Options' Button.")
 	public void ClickOnMoreOptionBtn() throws Exception {
 		try {
-//			wait.fluentWaitForElement(MoreOptionBtn);
-//			wait.waitForElementToBeClickable(MoreOptionBtn); 
-			try {
+			wait.fluentWaitForElement(MoreOptionBtn);
+			wait.waitForElementToBeClickable(MoreOptionBtn); 
+		//	try {
+				
 				clickOnElement(MoreOptionBtn);
-			} catch (HandleException e) {
-				clickOnElement(MoreOptionBtn);
-			}
+//			} catch (HandleException e) {
+//				clickOnElement(MoreOptionBtn);
+//			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Click On More Options Button  ", e);

@@ -119,6 +119,10 @@ public class homePage extends CommonAppiumTest {
 	@AndroidFindBy(xpath = "//android.widget.FrameLayout[@content-desc='Pay & Transfer']")
 	private MobileElement PayAndTransferBtn;
 	
+	@ElementDescription(value = "ALL TAB")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc='ALL']/android.widget.TextView")
+	private MobileElement AllTab;
+	
 	@ElementDescription(value = "More Button")
 	@AndroidFindBy(xpath = "//android.widget.FrameLayout[@content-desc='More']")
 	private MobileElement MoreBtn;
@@ -262,6 +266,7 @@ public class homePage extends CommonAppiumTest {
 			wait.waitForElementToBeClickable(PayAndTransferBtn); 
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(PayAndTransferBtn);
+			wait.fluentWaitForElement(AllTab);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Pay and Transfer Button  ", e);
 		} catch (Exception e) {

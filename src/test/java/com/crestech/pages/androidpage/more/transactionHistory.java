@@ -152,8 +152,9 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Click On Deposit Account And Select From Account")
 	public void ClickOnDepositAccountAndSelectFromAccount(String AccountName) throws Exception {
 		try {
+			wait.waitForElementToBeClickable(DepositAccountButton);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			clickOnElement(DepositAccountButton);
+			clickOnElement(DepositAccountButton); 
 			selectFromAccountFromDepositeSection(AccountName);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Deposit Account And Select From Account ", e);
