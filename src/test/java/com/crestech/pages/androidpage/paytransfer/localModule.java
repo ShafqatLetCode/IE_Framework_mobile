@@ -220,6 +220,7 @@ public class localModule extends CommonAppiumTest{
 	public void ClickOnExpandbutton() throws Exception {
 		try {
 			clickOnElement(FooterExpandableBtn);
+			Thread.sleep(1000);
 			gestUtils.scrollUPtoObject("text", "Reference No.", ReferenceNumberText);
 			
 			Asserts.assertEquals(getTexOfElement(ReferenceNumberText),

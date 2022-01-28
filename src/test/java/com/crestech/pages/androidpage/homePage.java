@@ -275,8 +275,8 @@ public class homePage extends CommonAppiumTest {
 		try {
 			wait.waitForElementToBeClickable(PayAndTransferBtn); 
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			clickOnElement(PayAndTransferBtn);
-			wait.fluentWaitForElement(AllTab);
+			clickOnElement(PayAndTransferBtn);	
+			//wait.fluentWaitForElement(AllTab);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Pay and Transfer Button  ", e);
 		} catch (Exception e) {
