@@ -257,7 +257,9 @@ public class billModule extends CommonAppiumTest{
 		try {
 			Thread.sleep(2000); 
 			MobileElement element = null;
-			wait.fluentWaitForElement(PageHeaderList.get(0)); 
+			//wait.fluentWaitForElement(PageHeaderList.get(0)); 
+			wait.fluentWaitForElement(AmountEditableField);
+			//wait.waitForElementVisibility(AmountEditableField);
 			element = getElement(PageHeaderList, CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue());
 			if (element != null) {
 				Asserts.assertEquals(getTexOfElement(element).toLowerCase(),
