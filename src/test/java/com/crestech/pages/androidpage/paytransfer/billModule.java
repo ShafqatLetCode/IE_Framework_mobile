@@ -256,10 +256,9 @@ public class billModule extends CommonAppiumTest{
 	public void VerifyPayToBillerPageHeader() throws Exception {
 		try {
 			MobileElement element = null;
-			//wait.fluentWaitForElement(PageHeader1); 
+			wait.fluentWaitForElement(PageHeaderList.get(0)); 
 			element = getElement(PageHeaderList, CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue());
 			if (element != null) {
-				wait.fluentWaitForElement(element);
 				Asserts.assertEquals(getTexOfElement(element).toLowerCase(),
 						CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue().toLowerCase(),
 						"'Header Title' is not Matching");

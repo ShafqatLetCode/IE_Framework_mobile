@@ -729,7 +729,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			paytransfer.ClickOnLocalRecipient();
 			paytransfer.SelectToAccountFromLocalRecipient(ExpectedToBankNameWithAccountNo);
 			local.verifyTransferToOtherBankPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue());
-			local.DisableToTransferViaFastToggle();
+			local.DisableToTransferViaFastToggle(appname);
 			//local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
 			// Add Scroll to select fund source on the top of the page after disabling the
 			// fast toggle.
@@ -854,7 +854,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			paytransfer.ClickOnLocalRecipient();
 			paytransfer.SelectToAccountFromLocalRecipient(ExpectedToBankNameWithAccountNo);
 			local.verifyTransferToOtherBankPageHeader(CommonTestData.TRANSFER_TO_OTHERBANK_LABEL_LABEL.getEnumValue());
-			local.DisableToTransferViaFastToggle();
+			local.DisableToTransferViaFastToggle(appname);
 			//local.EnterCommentForRecipientInEditField(CommonTestData.COMMENT_NONFAST_TRANSFER.getEnumValue());
 			// Add Scroll to select fund source on the top of the page after disabling the
 			// fast toggle.

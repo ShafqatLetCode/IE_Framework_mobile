@@ -14,6 +14,11 @@
     "messageRegex": ".*Digital token under maintenance.*" 
   },
   {
+    "name": "Application Load Issue",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*Wait Duration Limit exceeded.*" 
+  },
+  {
     "name": "Application CRASH ISSUE",
     "matchedStatuses": ["failed"],
     "messageRegex": ".*Application CRASH ISSUE.*" 
