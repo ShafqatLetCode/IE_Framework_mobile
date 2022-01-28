@@ -255,6 +255,7 @@ public class billModule extends CommonAppiumTest{
 	@Step("Verify 'Pay To Biller' Page Header")
 	public void VerifyPayToBillerPageHeader() throws Exception {
 		try {
+			Thread.sleep(2000); 
 			MobileElement element = null;
 			wait.fluentWaitForElement(PageHeaderList.get(0)); 
 			element = getElement(PageHeaderList, CommonTestData.PAY_TO_BILLER_PAGE_HEADER.getEnumValue());

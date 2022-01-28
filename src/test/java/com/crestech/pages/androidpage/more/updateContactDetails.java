@@ -264,13 +264,11 @@ public class updateContactDetails extends CommonAppiumTest{
 			
 			gestUtils.scrollUPtoObject("text", CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue(), null);
 			verifyMarketingMessageNotes(CommonTestData.MARKETING_MESSAGE_NOTES.getEnumValue());
-
+			verifyIWouldLikeTheBankTomessage(CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue());
 			if (appName.equalsIgnoreCase("DBS"))
 				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
 			else if (appName.equalsIgnoreCase("iWEALTH"))
 				gestUtils.scrollUPtoObject("text", "CONFIRM", confirmButton);
-
-			verifyIWouldLikeTheBankTomessage(CommonTestData.IWOULD_LIKE_THEBANK_TO_MESSAGE.getEnumValue());
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Verify Personal Details Page  ", e);
