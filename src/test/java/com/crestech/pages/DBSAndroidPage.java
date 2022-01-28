@@ -159,16 +159,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("verify Account Details On Home Page")
-	public void verifyAccountDetailsOnHomePage(String appName) throws Exception {
+	public void verifyAccountDetailsOnHomePage(String appName,boolean isSingleAccountHolder) throws Exception {
 		try {
 			if(appName.equals("DBS")) 
 				homepage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue(),
-						CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(), CommonTestData.CURRENCY.getEnumValue());
+						CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(), CommonTestData.CURRENCY.getEnumValue(),isSingleAccountHolder);
 			else if(appName.equals("iWEALTH")) 
 				homepage.verifyAccountTypeNameCurrencyAmount_iWEAlLTH(CommonTestData.ACCOUNT_TYPE_IWEALTH.getEnumValue(),
-						CommonTestData.ACCOUNT_NAME_HOME_IWEALTH.getEnumValue(), CommonTestData.CURRENCY.getEnumValue());
-			
-				
+						CommonTestData.ACCOUNT_NAME_HOME_IWEALTH.getEnumValue(), CommonTestData.CURRENCY.getEnumValue(),isSingleAccountHolder);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to verify Account Details On Home Page ", e);
 		} catch (Exception e) {
@@ -492,13 +490,13 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Verify Peek Balance.")
-	public void VerifyPeekBalance(String appName) throws Exception {
+	public void VerifyPeekBalance(String appName,boolean isSingleAccountHolder) throws Exception {
 		try {
 			homepage.VerifyDepositAccountTypeOnDashboardPage();
 			
-		    if(isElementVisible2(homepage.depositeAccountDropdown())) 
-				clickOnElement(homepage.depositeAccountDropdown());
-			
+			  if(!isSingleAccountHolder) 
+				clickOnElement(homepage.depositeAccountDropdown1());
+		    
 			if (isElementVisible2(homepage.DepositsAccountName())) { 
 				String DepositeAccountNameOnDashboard = homepage.getAndClickOnDepositeAccountNameFromDashboard();
 				enterpasscode.EnterPasscodeAndDone();

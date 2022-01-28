@@ -2,6 +2,8 @@ package com.crestech.pages.androidpage;
 
 import java.time.Duration;
 import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.annotation.values.ElementDescription;
@@ -66,6 +68,10 @@ public class homePage extends CommonAppiumTest {
 	@ElementDescription(value = "Account section Home page")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'ACCOUNTS')]")
 	private MobileElement accountSectionHomePage;
+	
+	@ElementDescription(value = "depositeAccountDropdown")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'Deposits')]/following-sibling::android.widget.ImageView[@resource-id='com.dbs.sit1.dbsmbanking:id/iv_collapse']")
+	private MobileElement depositeAccountDropdown1;
 	
     @ElementDescription(value = "Alert Recording Message")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/title')]")
@@ -198,6 +204,10 @@ public class homePage extends CommonAppiumTest {
 	
 	public MobileElement depositeAccountDropdown() {
 		return depositeAccountDropdown;
+	}
+	
+	public MobileElement depositeAccountDropdown1() {
+		return depositeAccountDropdown1;
 	}
 	
 	public MobileElement WelcomeToText() {
@@ -496,28 +506,66 @@ public class homePage extends CommonAppiumTest {
 		}
 	}
 	
+//	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
+//	public void verifyAccountTypeNameCurrencyAmount(String AccountType, String AccountName, String currency)
+//			throws Exception {
+//		try {
+//			clickOnElement(accountSectionHomePage);
+//			gestUtils.scrollUPtoObject("text", "Deposits", null);
+//			
+//			if(isElementVisible2(DepositsAccountName)) {
+//				Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
+//				Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
+//						AccountName + " is not present");
+//			} else if(isElementVisible2(depositeAccountDropdown)) {
+//				clickOnElement(depositeAccountDropdown);
+//				Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
+//			    Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
+//					AccountName + " is not present");
+//			}
+//			else
+//				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
+//			
+//			gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
+//			Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
+//		} catch (HandleException e) {
+//			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
+//					e);
+//		} catch (Exception e) {
+//			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
+//		}
+//	}
+	
 	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
-	public void verifyAccountTypeNameCurrencyAmount(String AccountType, String AccountName, String currency)
+	public void verifyAccountTypeNameCurrencyAmount(String AccountType, String AccountName, String currency, boolean isSingleAccountHolder)
 			throws Exception {
 		try {
 			clickOnElement(accountSectionHomePage);
 			gestUtils.scrollUPtoObject("text", "Deposits", null);
+			if(isElementVisible2(depositeHomePage)) 
+				Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
+			else
+				Asserts.assertFail(AccountType + " Not Found on the Dashboard Page."); 
 			
-			if(isElementVisible2(DepositsAccountName)) {
-				Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
-				Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
+			String xpath="//android.widget.TextView[@text='"+AccountName+"']";
+			if(!isSingleAccountHolder) 
+				clickOnElement(depositeAccountDropdown1);
+				
+			gestUtils.scrollUPtoObject("text", AccountName, null);
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			if (list.size() > 0)
+				Asserts.assertEquals(getTexOfElement((MobileElement)list.get(0)), AccountName,
 						AccountName + " is not present");
-			} else if(isElementVisible2(depositeAccountDropdown)) {
-				clickOnElement(depositeAccountDropdown);
-				Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
-			    Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
-					AccountName + " is not present");
-			}
+			
 			else
 				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
 			
-			gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
-			Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
+			gestUtils.scrollUPtoObject("text", "SGD", null);
+			
+			if(isElementVisible2(currencyHomePage))
+				Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
+			else
+				Asserts.assertFail(currency + " Not Found on the Dashboard Page."); 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
 					e);
@@ -526,20 +574,58 @@ public class homePage extends CommonAppiumTest {
 		}
 	}
 	
+//	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
+//	public void verifyAccountTypeNameCurrencyAmount_iWEAlLTH(String AccountType, String AccountName, String currency)
+//			throws Exception {
+//		try {
+//			clickOnElement(accountSectionHomePage);
+//			verifyAccountType(AccountType);
+//			verifyAccountName(AccountName);
+//			verifyCurrency(currency);
+//		} catch (HandleException e) {
+//			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
+//					e);
+//		} catch (Exception e) {
+//			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
+//		}
+//	}
+	
 	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
-	public void verifyAccountTypeNameCurrencyAmount_iWEAlLTH(String AccountType, String AccountName, String currency)
+	public void verifyAccountTypeNameCurrencyAmount_iWEAlLTH(String AccountType, String AccountName, String currency, boolean isSingleAccountHolder)
 			throws Exception {
 		try {
-			clickOnElement(accountSectionHomePage);
-			verifyAccountType(AccountType);
-			verifyAccountName(AccountName);
-			verifyCurrency(currency);
+				clickOnElement(accountSectionHomePage);
+				gestUtils.scrollUPtoObject("text", "CPFIA/SRS Account", null);
+				if(isElementVisible2(depositeHomePage)) 
+					Asserts.assertEquals(getTexOfElement(SRSACCOUNT), AccountType,AccountType + " is not present");
+				else
+					Asserts.assertFail(AccountType + " Not Found on the Dashboard Page."); 
+				
+				String xpath="//android.widget.TextView[@text='"+AccountName+"']";
+				if(!isSingleAccountHolder) 
+					clickOnElement(depositeAccountDropdown1);
+					
+				gestUtils.scrollUPtoObject("text", AccountName, null);
+				List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+				if (list.size() > 0)
+					Asserts.assertEquals(getTexOfElement((MobileElement)list.get(0)), AccountName,
+							AccountName + " is not present");
+				else
+					Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
+				
+				gestUtils.scrollUPtoObject("text", "SGD", null);
+				
+				if(isElementVisible2(currencyHomePage)) 
+					Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
+				else
+					Asserts.assertFail(currency + " Not Found on the Dashboard Page."); 
+			
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
 					e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
-		}
+	}
 	}
 	
 	@Step("Verify 'Currency' on dashboard Page.")
