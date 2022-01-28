@@ -542,18 +542,20 @@ public class homePage extends CommonAppiumTest {
 		try {
 			clickOnElement(accountSectionHomePage);
 			gestUtils.scrollUPtoObject("text", "Deposits", null);
-			if(isElementVisible2(depositeHomePage)) 
-				Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
+			String xpath="//android.widget.TextView[@text='"+AccountType+"']";
+			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+			if (list.size() > 0)
+				Asserts.assertEquals(getTexOfElement((MobileElement) list.get(0)) , AccountType,AccountType + " is not present");
 			else
 				Asserts.assertFail(AccountType + " Not Found on the Dashboard Page."); 
 			
-			String xpath="//android.widget.TextView[@text='"+AccountName+"']";
+			String xpath1="//android.widget.TextView[@text='"+AccountName+"']";
 			if(!isSingleAccountHolder) 
 				clickOnElement(depositeAccountDropdown1);
 				
 			gestUtils.scrollUPtoObject("text", AccountName, null);
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0)
+			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
+			if (list1.size() > 0)
 				Asserts.assertEquals(getTexOfElement((MobileElement)list.get(0)), AccountName,
 						AccountName + " is not present");
 			
@@ -595,19 +597,21 @@ public class homePage extends CommonAppiumTest {
 			throws Exception {
 		try {
 				clickOnElement(accountSectionHomePage);
-				gestUtils.scrollUPtoObject("text", "CPFIA/SRS Account", null);
-				if(isElementVisible2(depositeHomePage)) 
-					Asserts.assertEquals(getTexOfElement(SRSACCOUNT), AccountType,AccountType + " is not present");
+				gestUtils.scrollUPtoObject("text", AccountType, null);
+				String xpath="//android.widget.TextView[@text='"+AccountType+"']";
+				List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+				if (list.size() > 0)
+					Asserts.assertEquals(getTexOfElement((MobileElement) list.get(0)) , AccountType,AccountType + " is not present");
 				else
 					Asserts.assertFail(AccountType + " Not Found on the Dashboard Page."); 
 				
-				String xpath="//android.widget.TextView[@text='"+AccountName+"']";
+				String xpath1="//android.widget.TextView[@text='"+AccountName+"']";
 				if(!isSingleAccountHolder) 
 					clickOnElement(depositeAccountDropdown1);
 					
 				gestUtils.scrollUPtoObject("text", AccountName, null);
-				List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-				if (list.size() > 0)
+				List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
+				if (list1.size() > 0)
 					Asserts.assertEquals(getTexOfElement((MobileElement)list.get(0)), AccountName,
 							AccountName + " is not present");
 				else

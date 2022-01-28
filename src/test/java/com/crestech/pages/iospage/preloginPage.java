@@ -69,15 +69,28 @@ public class preloginPage extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Tap and hold to PEEK BALANCE']")
 	private MobileElement peekBalance;
 	
+	@ElementDescription(value = "Tap and hold to PEEK BALANCE")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeImage[@name='peekBal_rightIcon']/preceding-sibling::XCUIElementTypeStaticText")
+	private MobileElement peekBalance1;
+	
 	@Step("Verify Visibility of Peek Balance on Login Page.")
 	public void VerifyPeekBalanceEnabilityOnLogInPage(String peekBalanceSubtitle) throws Exception {
 		try {
 			Thread.sleep(20000); 
 			String selector = "type == 'XCUIElementTypeStaticText' AND name == 'Tap and hold to PEEK BALANCE'";
-			String peekbalance = driver.findElement(MobileBy.iOSNsPredicateString(selector)).getText();
 			
-			Asserts.assertEquals(peekbalance.toLowerCase(), peekBalanceSubtitle.toLowerCase(),
+			if(isElementVisible2(peekBalance1)) {
+				System.out.println(getTexOfElement(peekBalance1));
+				Asserts.assertEquals(getTexOfElement(peekBalance1).toLowerCase(), peekBalanceSubtitle.toLowerCase(),
+						peekBalanceSubtitle + " Text is not matching.");
+			}
+			else {
+				String peekbalance = driver.findElement(MobileBy.iOSNsPredicateString(selector)).getText();
+				System.out.println(peekbalance);
+				Asserts.assertEquals(peekbalance.toLowerCase(), peekBalanceSubtitle.toLowerCase(),
 					peekBalanceSubtitle + " Text is not matching.");
+				
+				}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Verify visibility of Peek Balance On Login page. ", e);
@@ -90,7 +103,7 @@ public class preloginPage extends CommonAppiumTest{
 	@Step("Tap And Hold to Peek Balance On the Login Page.")
 	public void TapAndHoldPeekBalance() throws Exception {
 		try {
-			gestUtils.longPressOnAndroidElement(peekBalance);
+			gestUtils.longPressOnAndroidElement(peekBalance1);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Tap And Hold On Peek Balance. ", e);

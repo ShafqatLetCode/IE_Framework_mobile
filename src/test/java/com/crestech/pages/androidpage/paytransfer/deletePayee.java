@@ -63,7 +63,25 @@ public class deletePayee extends CommonAppiumTest{
 	@ElementDescription(value = "More Option Button.")
 	@AndroidFindBy(xpath = "//android.widget.ImageView[@content-desc='More options']")
 	private MobileElement MoreOptionBtn;
-
+	
+	@ElementDescription(value = "More Option Button.")
+	@AndroidFindBy(xpath = "//androidx.appcompat.widget.LinearLayoutCompat//android.widget.ImageView‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‎‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‏‎‏‎‎‎‏‏‎‏‏‏‎‏‏‎‏‎‏‎‎‎‎‎‎‏‎‎‎‏‏‏")
+	private MobileElement MoreOptionBtn2;
+	
+	@ElementDescription(value = "More Option Button.")
+	@AndroidFindBy(xpath = "//androidx.appcompat.widget.LinearLayoutCompat//android.widget.ImageView[@content-desc='‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‎‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‏‎‏‎‎‎‏‏‎‏‏‏‎‏‏‎‏‎‏‎‎‎‎‎‎‏‎‎‎‏‏‏‎‏‏‏‏‎‎‎‏‎‎‎More options‎‏‎‎‏‎']")
+	private MobileElement MoreOptionBtn1;
+	
+	@ElementDescription(value = "More Option Button.")
+	@AndroidFindBy(xpath = "//androidx.appcompat.widget.LinearLayoutCompat//android.widget.ImageView[contains(@content-desc,'‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‎‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‏‎‏‎‎‎‏‏‎‏‏‏‎‏‏‎‏‎‏‎‎‎‎‎‎‏‎‎‎‏‏‏‎‏‏‏‏‎‎‎‏‎‎‎More')]")
+	private MobileElement MoreOptionBtn3;
+	
+	@ElementDescription(value = "More Option Button.")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@content-desc,'‎‏‎‎‎‎‎‏‎‏‏‏‎‎‎‎‎‏‎‎‏‎‎‎‎‏‏‏‏‏‎‏‏‏‏‏‏‏‏‎‏‏‎‏‏‏‏‎‏‎‎‎‏‏‎‏‏‏‎‏‏‎‏‎‏‎‎‎‎‎‎‏‎‎‎‏‏‏‎‏‏‏‏‎‎‎‏‎‎‎More')]")
+	private MobileElement MoreOptionBtn4;
+	
+	
+	//android.view.ViewGroup
 	@ElementDescription(value = "Delete Payee Button.")
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Delete Payee']")
 	private MobileElement DeletePayeeBtn;
@@ -286,8 +304,9 @@ public class deletePayee extends CommonAppiumTest{
 			wait.fluentWaitForElement(MoreOptionBtn);
 			wait.waitForElementToBeClickable(MoreOptionBtn); 
 		//	try {
-				
+				Thread.sleep(10000);
 				clickOnElement(MoreOptionBtn);
+				
 //			} catch (HandleException e) {
 //				clickOnElement(MoreOptionBtn);
 //			}

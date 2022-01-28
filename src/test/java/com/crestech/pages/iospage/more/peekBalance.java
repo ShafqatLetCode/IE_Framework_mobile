@@ -105,10 +105,12 @@ public class peekBalance extends CommonAppiumTest{
 	public void SelectAccountToEnablePeekBalance(String ExpectedUserAccountName) throws Exception {
 		try {
 			clickOnElement(AccountForPeekBalanceDropdown);
+			Thread.sleep(2000);
 			String xpath = "//XCUIElementTypeStaticText[@name='" + ExpectedUserAccountName + "']";
 			MobileElement selectAccount = (MobileElement) driver.findElement(By.xpath(xpath));
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(selectAccount);
+			
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Select Account To Enable Peek Balance ", e);

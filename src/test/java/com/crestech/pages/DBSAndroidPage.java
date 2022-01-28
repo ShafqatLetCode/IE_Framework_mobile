@@ -1,8 +1,11 @@
 package com.crestech.pages;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -39,6 +42,7 @@ import com.crestech.pages.androidpage.paytransfer.payNow;
 import com.crestech.pages.androidpage.paytransfer.topUpPaylah;
 import com.crestech.pages.androidpage.paytransfer.yourDBSPOSBAccount;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.qameta.allure.Step;
 
@@ -490,13 +494,19 @@ public class DBSAndroidPage extends CommonAppiumTest {
 	}
 
 	@Step("Verify Peek Balance.")
-	public void VerifyPeekBalance(String appName,boolean isSingleAccountHolder) throws Exception {
+	public void VerifyPeekBalance(String appName,boolean isSingleAccountHolder, String AccountName) throws Exception {
 		try {
 			homepage.VerifyDepositAccountTypeOnDashboardPage();
 			
-			  if(!isSingleAccountHolder) 
+			if (!isSingleAccountHolder) {
 				clickOnElement(homepage.depositeAccountDropdown1());
-		    
+				gestUtils.scrollUPtoObject("text", AccountName, null);
+				String xpath1="//android.widget.TextView[@text='"+AccountName+"']";
+				List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1)); 
+				if (list1.size() > 0)
+					list1.get(0).click();
+			}
+			
 			if (isElementVisible2(homepage.DepositsAccountName())) { 
 				String DepositeAccountNameOnDashboard = homepage.getAndClickOnDepositeAccountNameFromDashboard();
 				enterpasscode.EnterPasscodeAndDone();

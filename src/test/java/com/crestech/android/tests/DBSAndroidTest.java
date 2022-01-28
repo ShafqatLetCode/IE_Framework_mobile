@@ -641,7 +641,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
 			dbspage1 = dbspage;
 			dbspage1.LogInApplication(userName, password);
-			dbspage1.VerifyPeekBalance(app_Name,true);
+			dbspage1.VerifyPeekBalance(app_Name,true,CommonTestData.USER_ACCOUNT_NAME.getEnumValue());
 		}  catch (HandleException e) {
 			dbspage1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
