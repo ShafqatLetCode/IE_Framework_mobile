@@ -63,7 +63,7 @@ public class preloginPage extends CommonAppiumTest{
 	
 	@Step("Click On LogIn Button.")
 	public void ClickOnLoginButton() throws Exception {
-		try {
+		try {		
 			if (wait.waitForElementToBeClickable2(launchpage.loginButton())) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(launchpage.loginButton());
@@ -98,6 +98,7 @@ public class preloginPage extends CommonAppiumTest{
 	public void TapAndHoldPeekBalance() throws Exception {
 		try {
 			gestUtils.longPressOnAndroidElement(PeekBalanceSubtitle);
+			Thread.sleep(1000);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Tap And Hold On Peek Balance. ", e);

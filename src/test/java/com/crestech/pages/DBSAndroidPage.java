@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Keyboard;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.appium.utils.CommonAppiumTest;
@@ -593,8 +594,11 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			overseasmodule.EnterFullName(CommonTestData.FULL_NAME.getEnumValue());
 			gestUtils.scrollUPtoObject("text", "NEXT", null);
 			overseasmodule.EnterAddress(CommonTestData.ADDRESS.getEnumValue());
+			pressKey(driver, Keys.ENTER);
 			gestUtils.scrollUPtoObject("text", "NEXT", null);
 			overseasmodule.EnterCity(CommonTestData.CITY.getEnumValue());
+			pressKey(driver, Keys.ENTER);
+			driver.hideKeyboard();
 			gestUtils.scrollUPtoObject("text", "NEXT", null);
 			overseasmodule.ClickOnNextButton();
 			overseasmodule.verifyReviewRecipientDetailsPageHeader(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue());

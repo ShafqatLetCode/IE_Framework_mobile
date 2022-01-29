@@ -177,6 +177,14 @@ public class homePage extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='More']")
 	private MobileElement moreButton;
 	
+	@ElementDescription(value = "Pop up message Home page")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Learn how we can build a better world together, for all of us.']")
+	private MobileElement popUpMessageHomepage;
+		
+	@ElementDescription(value = "Pop up message Home page close button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='X']")
+	private MobileElement popUpMessageCloseHomepage;
+
 	public MobileElement accountNameHomepage() { 
 		return accountNameHomepage;
 	}
@@ -457,55 +465,55 @@ public class homePage extends CommonAppiumTest{
 		}
 	}
 	
-	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
-	public void verifyAccountTypeNameCurrencyAmount(String AccountType, String AccountName, String currency,String app_Name)
-			throws Exception {
-		try {
-			if(app_Name.equalsIgnoreCase("DBS"))
-			{
-			int x=getXCoordinateOfElement(welcomeToText);
-			int y=getYCoordinateOfElement(welcomeToText);
-			if(isElementVisible2(accountSectionHomePage)) 
-			{
-			SelectAccountsSection(accountSectionHomePage);
-			gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+150);
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			}
-			else {
-				SelectAccountsSection(accountSectionHomePage1);
-			gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage1, x, y+150);
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			}
-			}
-			else if(app_Name.equalsIgnoreCase("iWEALTH"))
-			{
-				
-				int x=getXCoordinateOfElement(welcomeToTextIwealth);
-				int y=getYCoordinateOfElement(welcomeToTextIwealth);
-				if(isElementVisible2(accountSectionHomePage)) 
-				{
-				SelectAccountsSection(accountSectionHomePage);
-				gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+160);
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				}
-				else {
-					SelectAccountsSection(accountSectionHomePage1);
-					gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage1, x, y+160);
-					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-					
-				}
-			}
-			
-			VerifyAccountType(AccountType);
-			VerifyAccountName(AccountName);
-			VerifyCurrency(currency);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
-		}
-	}
+//	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
+//	public void verifyAccountTypeNameCurrencyAmount(String AccountType, String AccountName, String currency,String app_Name)
+//			throws Exception {
+//		try {
+//			if(app_Name.equalsIgnoreCase("DBS"))
+//			{
+//			int x=getXCoordinateOfElement(welcomeToText);
+//			int y=getYCoordinateOfElement(welcomeToText);
+//			if(isElementVisible2(accountSectionHomePage)) 
+//			{
+//			SelectAccountsSection(accountSectionHomePage);
+//			gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+150);
+//			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+//			}
+//			else {
+//				SelectAccountsSection(accountSectionHomePage1);
+//			gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage1, x, y+150);
+//			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+//			}
+//			}
+//			else if(app_Name.equalsIgnoreCase("iWEALTH"))
+//			{
+//				
+//				int x=getXCoordinateOfElement(welcomeToTextIwealth);
+//				int y=getYCoordinateOfElement(welcomeToTextIwealth);
+//				if(isElementVisible2(accountSectionHomePage)) 
+//				{
+//				SelectAccountsSection(accountSectionHomePage);
+//				gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage, x, y+160);
+//				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+//				}
+//				else {
+//					SelectAccountsSection(accountSectionHomePage1);
+//					gestUtils.DragAndDropElementToCoordinate(accountSectionHomePage1, x, y+160);
+//					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+//					
+//				}
+//			}
+//			
+//			VerifyAccountType(AccountType);
+//			VerifyAccountName(AccountName);
+//			VerifyCurrency(currency);
+//		} catch (HandleException e) {
+//			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
+//					e);
+//		} catch (Exception e) {
+//			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
+//		}
+//	}
 	
 	@Step("Select Accounts Section")
 	public void SelectAccountsSection() throws Exception {
@@ -528,17 +536,126 @@ public class homePage extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select Accounts Section ", e);
 		}
 	}
+//	
+//	@Step("Verify Account Type")
+//	public void VerifyAccountType(String AccountType) throws Exception {
+//		try {
+//			String xpath = "//XCUIElementTypeStaticText[@name='" + AccountType + "']";
+//			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+//			if (list.size() > 0)
+//				Asserts.assertEquals(getTexOfElement(depositeHomepage).trim().toLowerCase(), AccountType.toLowerCase(),
+//						AccountType + "text is not found");
+//			else
+//				Asserts.assertFail(AccountType + " Not Found on the Dashboard Page."); 
+//
+//		} catch (Exception e) {
+//			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Account Type ", e);
+//		}
+//	}
+
+//	@Step("Verify Account Name")
+//	public void VerifyAccountName(String AccountName) throws Exception {
+//		try {
+//			String xpath = "//XCUIElementTypeStaticText[@name='" + AccountName + "']";
+//			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
+//			if (list.size() > 0)
+//				Asserts.assertEquals(getTexOfElement(accountNameHomepage).trim().toLowerCase(),
+//						AccountName.toLowerCase(), AccountName + "text is not found");
+//			else
+//				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
+//
+//		} catch (Exception e) {
+//			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Account Type ", e);
+//		}
+//	}
 	
+//	@Step("Verify currency")
+//	public void VerifyCurrency(String currency) throws Exception {
+//		try {
+//			String fag = sgdHomepage.getText();
+//			String[] arrOfStr = fag.split(" ");
+//			Asserts.assertEquals(arrOfStr[0], currency, currency + " is not present");
+//		} catch (HandleException e) {
+//			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verify currency", e);
+//		} catch (Exception e) {
+//			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify currency ", e);
+//		}
+//	}
+	
+	
+
+	@Step("Handling HomePage Alert")
+		public void handlingHomePagePopup() throws Exception {
+			try {
+				if (isElementVisible2(popUpMessageHomepage)) {
+					com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+					clickOnElement(popUpMessageCloseHomepage);
+				}
+			} catch (HandleException e) {
+				obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handling Recording Alert  ",
+						e);
+			} catch (Exception e) {
+				obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Handling Recording Alert ", e);
+			}
+		}
+	
+	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
+	public void verifyAccountTypeNameCurrencyAmount(String AccountType, String AccountName, String currency,String app_Name,boolean isSingleAccountHolder )
+			throws Exception {
+		try {
+			MobileElement flag=null;
+			handlingHomePagePopup();
+			if(isElementVisible2(accountSectionHomePage)) 
+			{
+			SelectAccountsSection(accountSectionHomePage);
+			flag=accountSectionHomePage;
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			}
+			else 
+			{
+			SelectAccountsSection(accountSectionHomePage1);
+			flag=accountSectionHomePage1;
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			}
+			if(app_Name.equalsIgnoreCase("DBS"))
+			{
+			int x=getXCoordinateOfElement(welcomeToText);
+        	int y=getYCoordinateOfElement(welcomeToText);
+	        gestUtils.DragAndDropElementToCoordinate(flag, x, y+150);
+			}
+			else if(app_Name.equalsIgnoreCase("iWEALTH"))
+			{
+	        int x=getXCoordinateOfElement(welcomeToTextIwealth);
+			int y=getYCoordinateOfElement(welcomeToTextIwealth);
+            gestUtils.DragAndDropElementToCoordinate(flag, x, y+160);
+	        }
+			VerifyAccountType(AccountType,isSingleAccountHolder);
+			VerifyAccountName(AccountName);
+			VerifyCurrency(currency);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
+					e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
+		}
+	}
+
+
 	@Step("Verify Account Type")
-	public void VerifyAccountType(String AccountType) throws Exception {
+	public void VerifyAccountType(String AccountType, boolean isSingleAccountHolder) throws Exception {
 		try {
 			String xpath = "//XCUIElementTypeStaticText[@name='" + AccountType + "']";
+			gestUtils.scrollUPtoObjectIos("name", AccountType, null);
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0)
-				Asserts.assertEquals(getTexOfElement(depositeHomepage).trim().toLowerCase(), AccountType.toLowerCase(),
+				Asserts.assertEquals(getTexOfElement((MobileElement)list.get(0)).trim().toLowerCase(), AccountType.toLowerCase(),
 						AccountType + "text is not found");
 			else
 				Asserts.assertFail(AccountType + " Not Found on the Dashboard Page."); 
+			
+			if(!isSingleAccountHolder)
+				gestUtils.longPressOnAndroidElement((MobileElement)list.get(0));
+				//clickOnElement((MobileElement)list.get(0));
 
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Account Type ", e);
@@ -548,10 +665,12 @@ public class homePage extends CommonAppiumTest{
 	@Step("Verify Account Name")
 	public void VerifyAccountName(String AccountName) throws Exception {
 		try {
+			gestUtils.scrollUPtoObjectIos("name", AccountName, null);
+			
 			String xpath = "//XCUIElementTypeStaticText[@name='" + AccountName + "']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0)
-				Asserts.assertEquals(getTexOfElement(accountNameHomepage).trim().toLowerCase(),
+				Asserts.assertEquals(getTexOfElement((MobileElement)list.get(0)).trim().toLowerCase(),
 						AccountName.toLowerCase(), AccountName + "text is not found");
 			else
 				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
@@ -560,11 +679,12 @@ public class homePage extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify Account Type ", e);
 		}
 	}
-	
+
 	@Step("Verify currency")
 	public void VerifyCurrency(String currency) throws Exception {
 		try {
 			String fag = sgdHomepage.getText();
+			gestUtils.scrollUPtoObjectIos("name", fag, null);
 			String[] arrOfStr = fag.split(" ");
 			Asserts.assertEquals(arrOfStr[0], currency, currency + " is not present");
 		} catch (HandleException e) {
@@ -573,5 +693,8 @@ public class homePage extends CommonAppiumTest{
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verify currency ", e);
 		}
 	}
+
+
+
 
 }
