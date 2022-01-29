@@ -541,7 +541,7 @@ public class homePage extends CommonAppiumTest {
 			throws Exception {
 		try {
 			clickOnElement(accountSectionHomePage);
-			gestUtils.scrollUPtoObject("text", "Deposits", null);
+			gestUtils.scrollUPtoObject("text", AccountType, null);
 			String xpath="//android.widget.TextView[@text='"+AccountType+"']";
 			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
 			if (list.size() > 0)
@@ -556,7 +556,7 @@ public class homePage extends CommonAppiumTest {
 			gestUtils.scrollUPtoObject("text", AccountName, null);
 			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
 			if (list1.size() > 0)
-				Asserts.assertEquals(getTexOfElement((MobileElement)list.get(0)), AccountName,
+				Asserts.assertEquals(getTexOfElement((MobileElement)list1.get(0)), AccountName,
 						AccountName + " is not present");
 			
 			else
@@ -575,6 +575,8 @@ public class homePage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
 		}
 	}
+
+
 	
 //	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
 //	public void verifyAccountTypeNameCurrencyAmount_iWEAlLTH(String AccountType, String AccountName, String currency)
@@ -612,7 +614,7 @@ public class homePage extends CommonAppiumTest {
 				gestUtils.scrollUPtoObject("text", AccountName, null);
 				List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
 				if (list1.size() > 0)
-					Asserts.assertEquals(getTexOfElement((MobileElement)list.get(0)), AccountName,
+					Asserts.assertEquals(getTexOfElement((MobileElement)list1.get(0)), AccountName,
 							AccountName + " is not present");
 				else
 					Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
@@ -631,6 +633,8 @@ public class homePage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
 	}
 	}
+
+
 	
 	@Step("Verify 'Currency' on dashboard Page.")
 	public void verifyCurrency(String currency) throws Exception{

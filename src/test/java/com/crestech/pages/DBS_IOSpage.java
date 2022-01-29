@@ -487,16 +487,16 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 
 	@Step("verify Account Details On Home Page")
-	public void VerifyAccountDetailsCasaOnHomePage(String app_Name) throws Exception {
+	public void VerifyAccountDetailsCasaOnHomePage(String app_Name , boolean isSingleAccountHolder) throws Exception {
 		try {
 			if (app_Name.equalsIgnoreCase("DBS"))
 				homepage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE.getEnumValue(),
 						CommonTestData.ACCOUNT_NAME_HOME.getEnumValue(), CommonTestData.CURRENCY.getEnumValue(),
-						app_Name);
+						app_Name, isSingleAccountHolder );
 			else if (app_Name.equalsIgnoreCase("iWEALTH"))
 				homepage.verifyAccountTypeNameCurrencyAmount(CommonTestData.ACCOUNT_TYPE_IWEALTH.getEnumValue(),
 						CommonTestData.ACCOUNT_NAME_HOME_IWEALTH.getEnumValue(), CommonTestData.CURRENCY.getEnumValue(),
-						app_Name);
+						app_Name,isSingleAccountHolder );
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
 					" Failed to Verify the account detail on dashboard page  ", e);
@@ -505,6 +505,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					" Failed to Verify the account detail on dashboard page  ", e);
 		}
 	}
+
+
 
 	@Step("Verifies Remittance Corridor")
 	public void VerifyRemittanceCorridor(Object appName) throws Exception {
@@ -779,10 +781,10 @@ public class DBS_IOSpage extends CommonAppiumTest {
 	}
 
 	@Step("Verify Peek Balance.")
-	public void VerifyPeekBalance(String appName) throws Exception {
+	public void VerifyPeekBalance(String appName,boolean isSingleAccountHolder) throws Exception {
 		try {
 
-			VerifyAccountDetailsCasaOnHomePage(appName);
+			VerifyAccountDetailsCasaOnHomePage(appName,isSingleAccountHolder);
 
 			if (isElementVisible2(homepage.accountNameHomepage())) {
 				String DepositeAccountNameOnDashboard = homepage.getAndClickOnDepositeAccountNameFromDashboard();
