@@ -92,6 +92,7 @@ public class loginPage extends CommonAppiumTest{
 	@Step("Enter User name")
 	public void enterUserName(String text) throws Exception {
 		try {
+			WaitForElementForNExtPage(userIdEditText);
 			enterTextInTextbox(userIdEditText, text);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enter User name ", e);

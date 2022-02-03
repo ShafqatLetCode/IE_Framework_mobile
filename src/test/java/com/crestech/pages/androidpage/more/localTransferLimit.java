@@ -96,6 +96,7 @@ public class localTransferLimit extends CommonAppiumTest{
 	@Step("Verify Amount display After Limit get Changed")
 	public void verifyDisplayAmountLocalTransferLimitChange(String expectedText) throws Exception {
 		try {
+			WaitForElementForNExtPage(currentLimitTextButton);
 			String currentText = getTexOfElement(currentLimitTextButton);
 			String[] arrOfStr = currentText.split(" ");
 			String acutalText = arrOfStr[1];
