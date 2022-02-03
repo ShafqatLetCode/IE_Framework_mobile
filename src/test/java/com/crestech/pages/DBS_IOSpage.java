@@ -915,7 +915,20 @@ public class DBS_IOSpage extends CommonAppiumTest {
 								"//XCUIElementTypeStaticText[@name='You seem to be offline']/following-sibling::XCUIElementTypeStaticText")
 								.getText();
 				Asserts.assertFail(alertMessage);
-			} else if (androidAlert.isAlertPresent()) {
+			}else if (androidAlert.isDigitalTokenMainAlertPresent()) {
+				System.out.println("Alert title :: " + this.driver.findElementByXPath(
+						"//XCUIElementTypeStaticText[@name='Digital token under maintenance']/following-sibling::XCUIElementTypeStaticText")
+						.getText());
+
+				alertMessage = this.driver
+						.findElementByXPath("//XCUIElementTypeStaticText[@name='Digital token under maintenance']").getText()
+						+ ": "
+						+ this.driver.findElementByXPath(
+								"//XCUIElementTypeStaticText[@name='Digital token under maintenance']/following-sibling::XCUIElementTypeStaticText")
+								.getText();
+				Asserts.assertFail(alertMessage);
+			} 
+			else if (androidAlert.isAlertPresent()) {
 				System.out.println("Alert title :: " + this.driver.switchTo().alert().getText());
 
 				alertMessage = this.driver.switchTo().alert().getText();

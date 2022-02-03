@@ -105,9 +105,9 @@ public class peekBalance extends CommonAppiumTest{
 	public void SelectAccountToEnablePeekBalance(String ExpectedUserAccountName) throws Exception {
 		try {
 			clickOnElement(AccountForPeekBalanceDropdown);
-			Thread.sleep(2000);
+			Thread.sleep(20000);
 			String xpath = "//XCUIElementTypeStaticText[@name='" + ExpectedUserAccountName + "']";
-			MobileElement selectAccount = (MobileElement) driver.findElement(By.xpath(xpath));
+			MobileElement selectAccount = (MobileElement)driver.findElement(By.xpath(xpath)) ;
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(selectAccount);
 			

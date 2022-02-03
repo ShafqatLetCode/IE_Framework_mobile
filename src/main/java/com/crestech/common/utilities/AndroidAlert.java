@@ -314,5 +314,14 @@ public class AndroidAlert{
 			return false;
 		} 
 	}
+	public boolean isDigitalTokenMainAlertPresent() {
+		try {
+			this.driver.findElementByXPath("//XCUIElementTypeStaticText[@name='Digital token under maintenance']");
+			return true;
+		} 
+		catch (Exception Ex) {
+			return false;
+		} 
+	}
 
 }

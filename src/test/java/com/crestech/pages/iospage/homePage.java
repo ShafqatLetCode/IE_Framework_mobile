@@ -357,6 +357,7 @@ public class homePage extends CommonAppiumTest{
 	@Step("Digital Token Set Up")
 	public void digitalToken() throws Exception {
 		try {
+			wait.ImplicitlyWait(45);
 			if (isElementVisible2(setupTokenMessage)) {
 				ClickOnSetUpNowButton();
 				ClickOnContinueButton();
@@ -364,8 +365,9 @@ public class homePage extends CommonAppiumTest{
 				enterpasscode.EnterPasscodeAndDone();
 				enterpasscode.EnterPasscodeAndDone();
 				ClickOnDoneButton();
+				
 			}
-
+			wait.ImplicitlyWait(10);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to digital Token Setup ", e);
 		} catch (Exception e) {

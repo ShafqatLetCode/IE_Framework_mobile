@@ -21,7 +21,7 @@
   {
     "name": "Application CRASH ISSUE",
     "matchedStatuses": ["failed"],
-    "messageRegex": ".*Application CRASH ISSUE.*" 
+    "messageRegex": ".*Application Crash Issue.*" 
   },
   {
     "name": "Data Issue",

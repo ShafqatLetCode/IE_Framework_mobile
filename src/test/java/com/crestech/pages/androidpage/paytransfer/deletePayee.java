@@ -301,8 +301,9 @@ public class deletePayee extends CommonAppiumTest{
 	@Step("Click On 'More Options' Button.")
 	public void ClickOnMoreOptionBtn() throws Exception {
 		try {
-			wait.fluentWaitForElement(MoreOptionBtn);
-			wait.waitForElementToBeClickable(MoreOptionBtn); 
+		//	wait.fluentWaitForElement(MoreOptionBtn);
+			//wait.waitForElementToBeClickable(MoreOptionBtn); 
+			WaitForElementForNExtPage(MoreOptionBtn);
 		//	try {
 				Thread.sleep(10000);
 				clickOnElement(MoreOptionBtn);
@@ -333,7 +334,8 @@ public class deletePayee extends CommonAppiumTest{
 	@Step("Verifying page header")
 	public void verifyPageHeader(String expectedText, MobileElement ele) throws Exception {
 		try {
-			wait.fluentWaitForElement(ele);
+			//wait.fluentWaitForElement(ele);
+			WaitForElementForNExtPage(ele);
 			Asserts.assertEquals(getTexOfElement(ele).toLowerCase(), expectedText.toLowerCase(),
 					"'Header Title' is not Matching");
 		} catch (HandleException e) {

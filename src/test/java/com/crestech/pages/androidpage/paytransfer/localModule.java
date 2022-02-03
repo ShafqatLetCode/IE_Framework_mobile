@@ -10,6 +10,8 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Wait;
+
 import com.crestech.annotation.values.ElementDescription;
 import com.crestech.appium.utils.CommonAppiumTest;
 import com.crestech.common.utilities.Asserts;
@@ -536,6 +538,7 @@ public class localModule extends CommonAppiumTest{
 				clickOnElement(AddRecipientNowBtn);
 			} else {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				wait.waitForElementToBeClickable(AddLocalRecipient);
 				clickOnElement(AddLocalRecipient);
 			}
 		} catch (HandleException e) {
