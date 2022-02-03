@@ -104,7 +104,7 @@ public class peekBalance extends CommonAppiumTest{
 	public void handleConfirmationMessage() throws Exception{
 		try {
 			wait.ImplicitlyWait(30);
-			if (isElementVisible2(ErrorMessgeElement)) {
+			if (isElementVisible2(ErrorMessgeElement) && getTexOfElement(ErrorMessgeElement).contains("Existing Personalization will be removed")) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				ClickOnOKButton(); 
 			}

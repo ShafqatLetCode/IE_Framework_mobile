@@ -594,12 +594,14 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			overseasmodule.EnterFullName(CommonTestData.FULL_NAME.getEnumValue());
 			gestUtils.scrollUPtoObject("text", "NEXT", null);
 			overseasmodule.EnterAddress(CommonTestData.ADDRESS.getEnumValue());
+			//backButton();
 			pressKey(driver, Keys.ENTER);
-			gestUtils.scrollUPtoObject("text", "NEXT", null);
+			//gestUtils.scrollUPtoObject("text", "NEXT", null);
 			overseasmodule.EnterCity(CommonTestData.CITY.getEnumValue());
 			pressKey(driver, Keys.ENTER);
-			driver.hideKeyboard();
-			gestUtils.scrollUPtoObject("text", "NEXT", null);
+			//backButton();
+		  //driver.hideKeyboard();
+			//gestUtils.scrollUPtoObject("text", "NEXT", null);
 			overseasmodule.ClickOnNextButton();
 			overseasmodule.verifyReviewRecipientDetailsPageHeader(CommonTestData.REVIEW_RECIPIENT_LABEL.getEnumValue());
 			overseasmodule.ClickOnAddRecipientNowBtn();

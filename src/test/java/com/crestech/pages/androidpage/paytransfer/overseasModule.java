@@ -751,6 +751,7 @@ public class overseasModule extends CommonAppiumTest{
 	public void EnterCity(String text) throws Exception {
 		try {
 			if (isElementVisible2(CityField)) {
+				clickOnElement(CityField);
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				enterTextInTextbox(CityField, text);
 				Thread.sleep(2000);

@@ -140,8 +140,10 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Select '3 Months Transaction History' ")
 	public void SelectThreeMonths() throws Exception {
 		try {
+			gestUtils.scrollUPtoObject("text", "3 Months",null);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(threeMonthLabel);
+			gestUtils.scrollDOWNtoObject(null, null,null);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("SCREENSHOT", " Failed to Select '3 Months Transaction History' ",	e);
 		} catch (Exception e) {

@@ -490,13 +490,25 @@ public class CommonAppiumTest extends CommandPrompt {
 						}
 					}
 					return element;
-				} else
-					Asserts.assertFail(elementTextToBeVerified + " not found in the list as list size is 0");
-		
+				}
+
 			} catch (Exception e) {
 			throw e;
 			}
 			return element;
 		}
-
+		public void WaitForElementForNExtPage(MobileElement element) throws Exception {
+			try {
+				int i=0;
+				while(i<5) {
+				    boolean flag = isElementVisible2(element);
+				    if(flag)
+				        break;
+				    i++;
+				}
+			} catch (Exception e) {
+				//e.printStackTrace();
+				throw e;
+			}
+		}
 }
