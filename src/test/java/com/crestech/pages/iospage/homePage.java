@@ -393,7 +393,7 @@ public class homePage extends CommonAppiumTest{
 	@Step("Click On Continue Button.")
 	public void ClickOnContinueButton()throws Exception{
 		try {
-			wait.waitForElementToBeClickable(continueButton);
+			
 			if(isElementVisible2(digitokeRegisterAlertMsg)) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(continueButton); 

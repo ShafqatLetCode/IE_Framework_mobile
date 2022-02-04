@@ -13,6 +13,16 @@
     "matchedStatuses": ["broken", "failed"],
     "messageRegex": ".*Digital token under maintenance.*" 
   },
+   {
+    "name": "Infrastructure problems",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*Deposits Not Found on.*" 
+  },
+   {
+    "name": "Infrastructure problems",
+    "matchedStatuses": ["broken", "failed"],
+    "messageRegex": ".*Account Name not showing.*" 
+  },
   {
     "name": "Application Load Issue",
     "matchedStatuses": ["broken", "failed"],

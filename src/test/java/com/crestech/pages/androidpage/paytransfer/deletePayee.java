@@ -113,6 +113,10 @@ public class deletePayee extends CommonAppiumTest{
 	@ElementDescription(value = "Back Btn Image View")
 	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/back_btn')]")
 	private MobileElement BackBtnImageView;
+	
+	@ElementDescription(value = "More Option Button.")
+	@AndroidFindBy(xpath = "//androidx.appcompat.widget.LinearLayoutCompat")
+	private List<MobileElement> MoreOptionBtn5;
 
 	
 
@@ -298,23 +302,40 @@ public class deletePayee extends CommonAppiumTest{
 		}
 	}
 
+//	@Step("Click On 'More Options' Button.")
+//	public void ClickOnMoreOptionBtn() throws Exception {
+//		try {
+//		//	wait.fluentWaitForElement(MoreOptionBtn);
+//			//wait.waitForElementToBeClickable(MoreOptionBtn); 
+//			WaitForElementForNExtPage(MoreOptionBtn);
+//		//	try {
+//				Thread.sleep(10000);
+//				clickOnElement(MoreOptionBtn);
+//				
+////			} catch (HandleException e) {
+////				clickOnElement(MoreOptionBtn);
+////			}
+//		} catch (HandleException e) {
+//			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+//					" Failed to Click On More Options Button  ", e);
+//		} catch (Exception e) {
+//			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Options Button  ", e);
+//		}
+//	}
 	@Step("Click On 'More Options' Button.")
 	public void ClickOnMoreOptionBtn() throws Exception {
 		try {
-		//	wait.fluentWaitForElement(MoreOptionBtn);
-			//wait.waitForElementToBeClickable(MoreOptionBtn); 
-			WaitForElementForNExtPage(MoreOptionBtn);
-		//	try {
-				Thread.sleep(10000);
+			
+			if(isElementVisible(MoreOptionBtn))
 				clickOnElement(MoreOptionBtn);
+			else
+				clickOnElement(MoreOptionBtn5.get(0));
 				
-//			} catch (HandleException e) {
-//				clickOnElement(MoreOptionBtn);
-//			}
+
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to Click On More Options Button  ", e);
-		} catch (Exception e) {
+		}catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Options Button  ", e);
 		}
 	}

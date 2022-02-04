@@ -878,8 +878,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			updateContactdetails.VerifyLastUpdatedDateOfMailMeCheckbox();
 
 			// Leave On Home Page for next case run.
-			updateContactdetails.ClickOnBackButton();
-			more.ClickOnHomeButton();
+			//updateContactdetails.ClickOnBackButton();
+			//more.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to update personal details  ", e);
 		} catch (Exception e) {

@@ -166,6 +166,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Click On Next Button")
 	public void ClickOnNextButton() throws Exception {
 		try {
+			gestUtils.scrollUPIos();
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			List<RemoteWebElement> NEXT_Button = driver.findElements(By.name("NEXT"));
 			List<RemoteWebElement> nextBtn = driver.findElements(By.name("Next"));

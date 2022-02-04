@@ -433,17 +433,18 @@ public class GestureUtils {
 	}
 	
 	
-	public void scrollUPIos() throws Exception {
+	public boolean scrollUPIos() throws Exception {
 		try {
 			HashMap<String, Object> ScrollObject = new HashMap<>();
 			ScrollObject.put("direction", "down");
 			
 
 			driver.executeScript("mobile:scroll", ScrollObject);
-
+            return true;
 
 		} catch (Exception e) {
-			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to perform scroll  ", e);
+			return true;
+			//obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to perform scroll  ", e);
 		}
 	}
 
