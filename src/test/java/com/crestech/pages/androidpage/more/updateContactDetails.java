@@ -362,9 +362,10 @@ public class updateContactDetails extends CommonAppiumTest{
 			String ExpectedLastUpdatedDateValue = "Last updated on " + ExpectedDate;
 
 			for (int i = 0; i < ContactDetailsValuesList.size(); i++) {
-				Asserts.assertEquals(getTexOfElement(ContactDetailsValuesList.get(i)),
-						ExpectedLastUpdatedDateValue,
-						ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
+				if(!ContactDetailsValuesList.get(i).getText().equals("-") || !ContactDetailsValuesList.get(i).getText().contains("@") )
+					Asserts.assertEquals(getTexOfElement(ContactDetailsValuesList.get(i)),
+							ExpectedLastUpdatedDateValue,
+							ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
 			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to verify last update on checkbox ", e);

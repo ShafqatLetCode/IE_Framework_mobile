@@ -538,7 +538,8 @@ public class localModule extends CommonAppiumTest{
 				clickOnElement(AddRecipientNowBtn);
 			} else {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				wait.waitForElementToBeClickable(AddLocalRecipient);
+				//wait.waitForElementToBeClickable(AddLocalRecipient);
+				WaitForElementForNExtPage(AddLocalRecipient);
 				clickOnElement(AddLocalRecipient);
 			}
 		} catch (HandleException e) {
@@ -591,6 +592,7 @@ public class localModule extends CommonAppiumTest{
 	@Step("Verify 'Enter Recipient Details' page header")
 	public void verifyEnterRecipientDetailsPageHeader(String expectedText) throws Exception {
 		try {
+			WaitForElementForNExtPage(PageHeader);
 			wait.fluentWaitForElement(PageHeader);
 			Asserts.assertEquals(getTexOfElement(PageHeader).toLowerCase(), expectedText.toLowerCase(),
 					"'Header Title' is not Matching");

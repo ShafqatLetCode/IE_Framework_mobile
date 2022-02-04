@@ -82,6 +82,7 @@ public class preloginPage extends CommonAppiumTest{
 	public void VerifyPeekBalanceEnabilityOnLogInPage(String peekBalanceSubtitle) throws Exception {
 		try {
 			Thread.sleep(4000); 
+			WaitForElementForNExtPage(PeekBalanceSubtitle);
 			wait.fluentWaitForElement(PeekBalanceSubtitle);
 			Asserts.assertEquals(getTexOfElement(PeekBalanceSubtitle), peekBalanceSubtitle,
 					peekBalanceSubtitle + " Text is not matching.");

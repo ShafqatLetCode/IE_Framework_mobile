@@ -92,6 +92,7 @@ public class peekBalance extends CommonAppiumTest{
 	public void EnablePeekBalanceToggle() throws Exception {
 		try {
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			wait.waitForElementToBeClickable(PeekBalanceToggle);
 			clickOnElement(PeekBalanceToggle);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Enable Peek balance Toggle. ",

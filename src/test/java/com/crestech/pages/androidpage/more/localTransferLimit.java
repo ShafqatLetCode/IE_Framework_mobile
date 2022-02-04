@@ -2,6 +2,8 @@ package com.crestech.pages.androidpage.more;
 
 import java.time.Duration;
 import java.util.List;
+
+import org.apache.xpath.axes.WalkingIteratorSorted;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.crestech.annotation.values.ElementDescription;
@@ -97,6 +99,7 @@ public class localTransferLimit extends CommonAppiumTest{
 	public void verifyDisplayAmountLocalTransferLimitChange(String expectedText) throws Exception {
 		try {
 			WaitForElementForNExtPage(currentLimitTextButton);
+			wait.waitForElementToBeClickable(currentLimitTextButton);
 			String currentText = getTexOfElement(currentLimitTextButton);
 			String[] arrOfStr = currentText.split(" ");
 			String acutalText = arrOfStr[1];

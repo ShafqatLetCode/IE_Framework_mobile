@@ -529,6 +529,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Click On Topup Paylah Module")
 	public void ClickOnTopupPaylahModule() throws Exception {
 		try {
+			WaitForElementForNExtPage(topUpButton);
 			wait.waitForElementToBeClickable(topUpButton); 
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(topUpButton);

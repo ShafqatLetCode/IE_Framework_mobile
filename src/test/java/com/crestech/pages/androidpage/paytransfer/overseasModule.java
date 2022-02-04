@@ -737,6 +737,7 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Verify 'Review Recipient Details' page header")
 	public void verifyReviewRecipientDetailsPageHeader(String expectedText) throws Exception {
 		try {
+			WaitForElementForNExtPage(ReviewRecipientDetails);
 			wait.fluentWaitForElement(ReviewRecipientDetails);
 			Asserts.assertEquals(getTexOfElement(ReviewRecipientDetails).toLowerCase(), expectedText.toLowerCase(),
 					"'Header Title' is not Matching");

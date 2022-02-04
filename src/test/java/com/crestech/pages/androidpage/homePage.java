@@ -273,6 +273,7 @@ public class homePage extends CommonAppiumTest {
 	@Step("Click On Pay & Transfer Button.")
 	public void ClickOnPayAndTransferBtn() throws Exception {
 		try {
+			WaitForElementForNExtPage(PayAndTransferBtn);
 			wait.waitForElementToBeClickable(PayAndTransferBtn); 
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(PayAndTransferBtn);	
@@ -287,11 +288,11 @@ public class homePage extends CommonAppiumTest {
 	@Step("Digital Token Set Up")
 	public void digitalTokenSetUp() throws Exception {
 		try {
+			WaitForElementForNExtPage(digitalTokenSetUpMessage);
 			if (isElementVisible2(digitalTokenSetUpMessage)) { 
 				ClickOnSetUpNowButton();
 				ClickOnContinueButton();
 				ClickOnNextButton();
-				
 				EnterEmailOrSMSOTP(CommonTestData.OTP.getEnumValue(),
 						CommonTestData.EMAIL_OTP_MESSAGE.getEnumValue());
 				EnterEmailOrSMSOTP(CommonTestData.OTP.getEnumValue(),
