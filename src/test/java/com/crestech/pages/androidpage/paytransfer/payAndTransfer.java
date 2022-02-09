@@ -406,7 +406,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	public void SelectToAccountFromLocalRecipient(String expectedLocalRecipient) throws Exception {
 		try {
 			Dimension windowSize = driver.manage().window().getSize();
-
+            Thread.sleep(1000);
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
 			int y2 = (int) (h - y1);
