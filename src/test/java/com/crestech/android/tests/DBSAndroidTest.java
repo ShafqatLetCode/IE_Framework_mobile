@@ -52,117 +52,117 @@ public class DBSAndroidTest extends UserBaseTest {
 		}
 	}
 	
-//	@Epic("Log In")
-//	@Feature(value =  "Home Page" ) 
-//	@Story("Verify the account detail on dashboard page.")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 2, enabled = true, description = "AccountDetails-CASA-ONEAPP-14400", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Shafqat Ali")
-//	public void AccountDetails_CASA(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1=dbspage;
-//			dbspage1.LogInApplication(userName, password);
-//			dbspage1.verifyAccountDetailsOnHomePage(app_Name,true);
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Account Details CASA "+e.getMessage());
-//		}
-//	}
-//	
-//	@Epic("Pay & Transfer")
-//	@Feature(value =  "Overseas") 
-//	@Story("Verifies the Remittance Corridor")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 3, enabled = true, description = "Remittance-Corridor-ONEAPP-13407", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Divya Devi")
-//	public void Remittance_Corridor(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1=dbspage;
-//			dbspage1.LogInApplication(userName, password);
-//			dbspage1.VerifyRemittanceCorridor(app_Name);
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Remittance Corridor "+e.getMessage());
-//		}
-//	}
-//
-//	@Epic("Pay & Transfer")
-//	@Feature(value =  "Overseas") 
-//	@Story("Verifies the Remittance EOTT")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 4, enabled = true, description = "Remittance-eOTT-ONEAPP-14008", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Divya Devi")
-//	public void VerifyRemittance_eOTT(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1=dbspage;
-//			dbspage1.LogInApplication(userName, password);
-//			dbspage1.VerifyRemittanceEOTT(app_Name);
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Remittance EOTT "+e.getMessage());
-//		}
-//	}
+	@Epic("Log In")
+	@Feature(value =  "Home Page" ) 
+	@Story("Verify the account detail on dashboard page.")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 2, enabled = true, description = "AccountDetails-CASA-ONEAPP-14400", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Shafqat Ali")
+	public void AccountDetails_CASA(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1=dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.verifyAccountDetailsOnHomePage(app_Name,true);
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Account Details CASA "+e.getMessage());
+		}
+	}
+	
+	@Epic("Pay & Transfer")
+	@Feature(value =  "Overseas") 
+	@Story("Verifies the Remittance Corridor")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 3, enabled = true, description = "Remittance-Corridor-ONEAPP-13407", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Divya Devi")
+	public void Remittance_Corridor(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1=dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.VerifyRemittanceCorridor(app_Name);
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Remittance Corridor "+e.getMessage());
+		}
+	}
 
-//	@Epic("Pay & Transfer")
-//	@Feature(value =  "Local") 
-//	@Story("Verifies the Payee add DSB or POSB")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 5, enabled = true, description = "Payee-Add-DBSorPOSB-ONEAPP-14675", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Divya Devi")
-//	public void Payee_Add_ToOwnAccount(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1=dbspage;
-//			dbspage1.LogInApplication(userName, password);
-//			dbspage1.DeletePayeeDBSPOSB(CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue());
-//			dbspage1.VerifyAddPayeeDBSorPOSB();
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Payee Add To DBS/POSB "+e.getMessage());
-//		}
-//	}
+	@Epic("Pay & Transfer")
+	@Feature(value =  "Overseas") 
+	@Story("Verifies the Remittance EOTT")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 4, enabled = true, description = "Remittance-eOTT-ONEAPP-14008", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Divya Devi")
+	public void VerifyRemittance_eOTT(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1=dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.VerifyRemittanceEOTT(app_Name);
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Remittance EOTT "+e.getMessage());
+		}
+	}
 
-//	@Epic("Pay & Transfer")
-//	@Feature(value =  "TopUp") 
-//	@Story("Verify the Topup Paylah")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 6, enabled = true, description = "TopUp-PayLah-ONEAPP-13915", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Shafqat Ali")
-//	public void Topup_Paylah(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1=dbspage;
-//			dbspage1.LogInApplication(userName, password);
-//			dbspage1.VerifyTopupPaylah();
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute TopUp Paylah "+e.getMessage());
-//		}
-//	}
-//	
+	@Epic("Pay & Transfer")
+	@Feature(value =  "Local") 
+	@Story("Verifies the Payee add DSB or POSB")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 5, enabled = true, description = "Payee-Add-DBSorPOSB-ONEAPP-14675", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Divya Devi")
+	public void Payee_Add_ToOwnAccount(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1=dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.DeletePayeeDBSPOSB(CommonTestData.PAYEEADD_DBSPOSB_RECIPIENT_NAME.getEnumValue());
+			dbspage1.VerifyAddPayeeDBSorPOSB();
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Payee Add To DBS/POSB "+e.getMessage());
+		}
+	}
+
+	@Epic("Pay & Transfer")
+	@Feature(value =  "TopUp") 
+	@Story("Verify the Topup Paylah")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 6, enabled = true, description = "TopUp-PayLah-ONEAPP-13915", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Shafqat Ali")
+	public void Topup_Paylah(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1=dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.VerifyTopupPaylah();
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute TopUp Paylah "+e.getMessage());
+		}
+	}
+	
 //	@Epic("Pay & Transfer")
 //	@Feature(value =  "Overseas") 
 //	@Story("Verify the Add Remittance payee")
