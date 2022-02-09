@@ -73,7 +73,7 @@ public class DBSAndroidTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute Account Details CASA "+e.getMessage());
 		}
 	}
-	
+//	
 //	@Epic("Pay & Transfer")
 //	@Feature(value =  "Overseas") 
 //	@Story("Verifies the Remittance Corridor")
@@ -163,28 +163,28 @@ public class DBSAndroidTest extends UserBaseTest {
 		}
 	}
 	
-//	@Epic("Pay & Transfer")
-//	@Feature(value =  "Overseas") 
-//	@Story("Verify the Add Remittance payee")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 7, enabled = true, description = "Payee-Add-Remittance-ONEAPP-13679", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Shafqat Ali")
-//	public void Payee_Add_Remittance(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1 = dbspage;
-//			dbspage1.LogInApplication(userName, password);
-//			dbspage1.DeletePayeeRemittance(CommonTestData.FULL_NAME.getEnumValue());
-//			dbspage1.VerifyPayeeAddRemittance();
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Payee Add To Remittance "+e.getMessage());
-//		}
-//	}
+	@Epic("Pay & Transfer")
+	@Feature(value =  "Overseas") 
+	@Story("Verify the Add Remittance payee")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 7, enabled = true, description = "Payee-Add-Remittance-ONEAPP-13679", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Shafqat Ali")
+	public void Payee_Add_Remittance(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1 = dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.DeletePayeeRemittance(CommonTestData.FULL_NAME.getEnumValue());
+			dbspage1.VerifyPayeeAddRemittance();
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Payee Add To Remittance "+e.getMessage());
+		}
+	}
 
 //	@Epic("More")
 //	@Feature(value =  "Cards") 
@@ -208,28 +208,28 @@ public class DBSAndroidTest extends UserBaseTest {
 //		}
 //	}
 
-//	@Epic("Pay & Transfer")
-//	@Feature(value =  "Local") 
-//	@Story("Verifies the Payee Add Local Other Bank")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 9, enabled = true, description = "Payee-Add-Local-OtherBank-ONEAPP-15677", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Divya Devi")
-//	public void Payee_Add_Local_OtherBank(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1 = dbspage;
-//			dbspage1.LogInApplication(userName, password);
-//			dbspage1.DeletePayeeLocalToOtherBank(CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue());
-//			dbspage1.PayeeAddLocalOtherBank();
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Payee Add Local OtherBank "+e.getMessage());
-//		}
-//	}
+	@Epic("Pay & Transfer")
+	@Feature(value =  "Local") 
+	@Story("Verifies the Payee Add Local Other Bank")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 9, enabled = true, description = "Payee-Add-Local-OtherBank-ONEAPP-15677", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Divya Devi")
+	public void Payee_Add_Local_OtherBank(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1 = dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.DeletePayeeLocalToOtherBank(CommonTestData.LOCAL_RECIPIENT_NAME.getEnumValue());
+			dbspage1.PayeeAddLocalOtherBank();
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Payee Add Local OtherBank "+e.getMessage());
+		}
+	}
 
 //	@Epic("Pay & Transfer")
 //	@Feature(value =  "Bills") 
@@ -276,49 +276,49 @@ public class DBSAndroidTest extends UserBaseTest {
 //		}
 //	}
 
-//	@Epic("More")
-//	@Feature(value =  "Local Transfer Limit") 
-//	@Story("Verifies the Change Limit for Transfers to Other Banks Accounts to Increase the Current limit.")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 12, enabled = true, description = "ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Shafqat Ali")
-//	public void ChangeLocalFundsTransferLimit(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1=dbspage;
-//			dbspage1.LogInApplication(userName, password);
-//			dbspage1.ChangeLocalFundsTransferLimit();
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Change Local Funds Transfer Limit "+e.getMessage());
-//		}
-//	}
+	@Epic("More")
+	@Feature(value =  "Local Transfer Limit") 
+	@Story("Verifies the Change Limit for Transfers to Other Banks Accounts to Increase the Current limit.")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 12, enabled = true, description = "ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Shafqat Ali")
+	public void ChangeLocalFundsTransferLimit(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1=dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.ChangeLocalFundsTransferLimit();
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Change Local Funds Transfer Limit "+e.getMessage());
+		}
+	}
 //	
-//	@Epic("Log In")
-//	@Feature(value =  "Home Page") 
-//	@Story("Verifies the Logout functionality for Applications.")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 13, enabled = true, description = "Logout-ONEAPP-9392", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Shafqat Ali")
-//	public void Logout_ONEAPP(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1=dbspage;
-//			dbspage1.LogInApplication(userName, password);
-//			dbspage1.VerifyLogout(CommonTestData.RATE_MESSAGE.getEnumValue());
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Log Out "+e.getMessage());
-//		}
-//	}
+	@Epic("Log In")
+	@Feature(value =  "Home Page") 
+	@Story("Verifies the Logout functionality for Applications.")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 13, enabled = true, description = "Logout-ONEAPP-9392", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Shafqat Ali")
+	public void Logout_ONEAPP(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1=dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.VerifyLogout(CommonTestData.RATE_MESSAGE.getEnumValue());
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Log Out "+e.getMessage());
+		}
+	}
 
 //	@Epic("Pay & Transfer")
 //	@Feature(value =  "Select All Tab : Your DBS/POSB Accounts") 
@@ -386,50 +386,50 @@ public class DBSAndroidTest extends UserBaseTest {
 //		}
 //	}
 	
-//	@Epic("Pay & Transfer")
-//	@Feature(value =  "Select All Tab:: Local Recipient") 
-//	@Story("Verifies the Fund Transfer Other DBS/POSB.")
-//	@Parameters({"userName", "password", "app_Name" })
-//	@Test(priority=17, enabled=true, description = "FundsTransfer-OtherPOSBDBS-ONEAPP-16723", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "shafqat")
-//	public void FundTransferOtherDBSPOSB(String userName,String password, String app_Name) throws Exception {
-//		try {
-//			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			 dbspage1 = dbspage;
-//			 dbspage1.LogInApplication(userName, password);
-//			 dbspage1.FundTransferDBSPOSB(app_Name);
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Fund Transfer Other DBS/POSB "+e.getMessage());
-//		}
-//	}
+	@Epic("Pay & Transfer")
+	@Feature(value =  "Select All Tab:: Local Recipient") 
+	@Story("Verifies the Fund Transfer Other DBS/POSB.")
+	@Parameters({"userName", "password", "app_Name" })
+	@Test(priority=17, enabled=true, description = "FundsTransfer-OtherPOSBDBS-ONEAPP-16723", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "shafqat")
+	public void FundTransferOtherDBSPOSB(String userName,String password, String app_Name) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage1 = dbspage;
+			 dbspage1.LogInApplication(userName, password);
+			 dbspage1.FundTransferDBSPOSB(app_Name);
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Fund Transfer Other DBS/POSB "+e.getMessage());
+		}
+	}
 //	
-//	@Epic("More")
-//	@Feature(value =  "Transaction History") 
-//	@Story("Verifies Transaction History")
-//	@Parameters({"userName", "password", "app_Name" })
-//	@Test(priority=18, enabled=true, description = "TransactionHistory-ONEAPP-14312", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "shafqat")
-//	public void TransactionHistory_DBS(String userName,String password, String app_Name) throws Exception {
-//		try {
-//			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			 dbspage1 = dbspage;
-//			 dbspage1.LogInApplication(userName, password);
-//			 dbspage1.verifyTransactionHistory(app_Name);
-//			 dbspage1.VerifyLogout(CommonTestData.RATE_MESSAGE.getEnumValue());
-//		} catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Transaction History "+e.getMessage());
-//		}
-//	}
+	@Epic("More")
+	@Feature(value =  "Transaction History") 
+	@Story("Verifies Transaction History")
+	@Parameters({"userName", "password", "app_Name" })
+	@Test(priority=18, enabled=true, description = "TransactionHistory-ONEAPP-14312", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "shafqat")
+	public void TransactionHistory_DBS(String userName,String password, String app_Name) throws Exception {
+		try {
+			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			 dbspage1 = dbspage;
+			 dbspage1.LogInApplication(userName, password);
+			 dbspage1.verifyTransactionHistory(app_Name);
+			 dbspage1.VerifyLogout(CommonTestData.RATE_MESSAGE.getEnumValue());
+		} catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Transaction History "+e.getMessage());
+		}
+	}
 	
 //	@Epic("More")
 //	@Feature(value =  "Temporary Credit Limit Increase") 
@@ -453,27 +453,27 @@ public class DBSAndroidTest extends UserBaseTest {
 //		}
 //	}
 
-//	@Epic("More")
-//	@Feature(value =  "Update Personal Particular") 
-//	@Story("Verifies the Update Personal Particular Details.")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 20, enabled = true, description = "UpdatePersonalParticular-ONEAPP-13921", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Divya Devi")
-//	public void UpdatePersonalParticular(String userName, String password , String app_Name) throws Exception {
-//			try {
-//				DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//				dbspage1 = dbspage;
-//				dbspage1.LogInApplication(userName, password);
-//				dbspage1.UpdatePersonalDetails(app_Name);
-//			} catch (HandleException e) {
-//				dbspage1.verifyDigibankAlert();
-//				Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//			}
-//			catch (Exception e) {
-//				dbspage1.verifyDigibankAlert();
-//				Asserts.assertFail( "Unable to execute update Personal Particular "+e.getMessage());
-//			}
-//	}
+	@Epic("More")
+	@Feature(value =  "Update Personal Particular") 
+	@Story("Verifies the Update Personal Particular Details.")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 20, enabled = true, description = "UpdatePersonalParticular-ONEAPP-13921", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Divya Devi")
+	public void UpdatePersonalParticular(String userName, String password , String app_Name) throws Exception {
+			try {
+				DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+				dbspage1 = dbspage;
+				dbspage1.LogInApplication(userName, password);
+				dbspage1.UpdatePersonalDetails(app_Name);
+			} catch (HandleException e) {
+				dbspage1.verifyDigibankAlert();
+				Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+			}
+			catch (Exception e) {
+				dbspage1.verifyDigibankAlert();
+				Asserts.assertFail( "Unable to execute update Personal Particular "+e.getMessage());
+			}
+	}
 	
 //	@Epic("Pay & Transfer")
 //	@Feature(value =  "Select All Tab:: Local Recipient") 
@@ -630,27 +630,27 @@ public class DBSAndroidTest extends UserBaseTest {
 ////		}
 ////	}
 	
-//	@Epic("More")
-//	@Feature(value =  "Peek Balance") 
-//	@Story("Verifies the Peek Balance.")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 28, enabled = true, description = "PeekBalance-MCA-ONEAPP-13982", dependsOnMethods={"PreRequisiteScript"})
-//	@Author(name = "Divya Devi")
-//	public void VerifyPeekBalance_MCA(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-//			dbspage1 = dbspage;
-//			dbspage1.LogInApplication(userName, password);
-//			dbspage1.VerifyPeekBalance(app_Name,true,CommonTestData.USER_ACCOUNT_NAME.getEnumValue());
-//		}  catch (HandleException e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyDigibankAlert();
-//			Asserts.assertFail( "Unable to execute Peek Balance "+e.getMessage());
-//		}
-//	}
+	@Epic("More")
+	@Feature(value =  "Peek Balance") 
+	@Story("Verifies the Peek Balance.")
+	@Parameters({ "userName", "password", "app_Name" })
+	@Test(priority = 28, enabled = true, description = "PeekBalance-MCA-ONEAPP-13982", dependsOnMethods={"PreRequisiteScript"})
+	@Author(name = "Divya Devi")
+	public void VerifyPeekBalance_MCA(String userName, String password , String app_Name) throws Exception {
+		try {
+			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+			dbspage1 = dbspage;
+			dbspage1.LogInApplication(userName, password);
+			dbspage1.VerifyPeekBalance(app_Name,true,CommonTestData.USER_ACCOUNT_NAME.getEnumValue());
+		}  catch (HandleException e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+		}
+		catch (Exception e) {
+			dbspage1.verifyDigibankAlert();
+			Asserts.assertFail( "Unable to execute Peek Balance "+e.getMessage());
+		}
+	}
 	
 	/******************End Test Script For DBS App************************************/
 }
