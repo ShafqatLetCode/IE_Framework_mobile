@@ -362,7 +362,7 @@ public class updateContactDetails extends CommonAppiumTest{
 			String ExpectedLastUpdatedDateValue = "Last updated on " + ExpectedDate;
 
 			for (int i = 0; i < ContactDetailsValuesList.size(); i++) {
-				if(!ContactDetailsValuesList.get(i).getText().equals("-") || !ContactDetailsValuesList.get(i).getText().contains("@") )
+				if(ContactDetailsValuesList.get(i).getText().contains("Last updated on"))
 					Asserts.assertEquals(getTexOfElement(ContactDetailsValuesList.get(i)),
 							ExpectedLastUpdatedDateValue,
 							ExpectedLastUpdatedDateValue + " Dates is not matching after Updating Personal Details.");
