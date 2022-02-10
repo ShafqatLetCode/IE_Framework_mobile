@@ -791,7 +791,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterpasscode.EnterPasscodeAndDone();
 			transactionhistory.AccountNameToCheckTransactionHistory(ExpectedFromBankName);
 			transactionhistory.VerifyTransactionHistoryDataForThreeMonths();
-			transactionhistory.BackToHomeFromTransactionHistory();
+		//	transactionhistory.BackToHomeFromTransactionHistory();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION"," Failed to verify fund transfer other bank NON-FAST FUTURE  ", e);
 		} catch (Exception e) {

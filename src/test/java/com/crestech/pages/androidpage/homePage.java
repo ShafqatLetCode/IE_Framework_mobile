@@ -497,7 +497,8 @@ public class homePage extends CommonAppiumTest {
 		try {
 			if(isElementVisible2(headerRecordingMessage)) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(CloseButton);
+				ClickOnCloseButton();
+				ClickOnCloseButton();
 			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Recording Alert ",

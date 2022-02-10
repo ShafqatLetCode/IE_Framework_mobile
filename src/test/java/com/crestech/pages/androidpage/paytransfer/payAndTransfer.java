@@ -570,6 +570,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Select All TAB.")
 	public void SelectAllTAB() throws Exception {
 		try {
+			WaitForElementForNExtPage(AllTab); 
 			wait.waitForElementToBeClickable(AllTab);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(AllTab); 

@@ -131,7 +131,7 @@ public class deletePayee extends CommonAppiumTest{
 			String s1 = driver.getPageSource();
 			int count = 0;
 			int deletePayee = 0;
-
+            Thread.sleep(2000);
 			if (payeeList.size() > 0) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				while (count == 0 && deletePayee == 0) {
@@ -293,6 +293,7 @@ public class deletePayee extends CommonAppiumTest{
 	public void ClickOnDeletePayeeToIcon(int index) throws Exception {
 		try {
 			clickOnElement(PayeeAddedExpandableIconList.get(index));
+			Thread.sleep(2000); 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Icon(i)  ", e);
 
