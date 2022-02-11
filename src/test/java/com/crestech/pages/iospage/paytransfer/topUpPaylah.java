@@ -134,7 +134,8 @@ public class topUpPaylah extends CommonAppiumTest{
 			wait.until(ExpectedConditions.or(
 				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 1")),
 				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'SGD'  AND visible== 0")),
-				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeOther' AND name == 'SGD'  AND visible== 1"))));
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeOther' AND name == 'SGD'  AND visible== 1")),
+				    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeButton' AND name == 'TopUp_Paylah_Currency_Label'  AND visible== 1"))));
 			
 			enterTextInTextbox(amountEditBox, text);
 			if(isElementVisible2(doneButton))
