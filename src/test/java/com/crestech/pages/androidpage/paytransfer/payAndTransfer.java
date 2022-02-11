@@ -543,6 +543,7 @@ public class payAndTransfer extends CommonAppiumTest{
 	@Step("Click On Local Module.")
 	public void ClickOnLocalModule() throws Exception {
 		try {
+			Thread.sleep(20000); 
 			wait.waitForElementToBeClickable(LocalButton);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(LocalButton); 

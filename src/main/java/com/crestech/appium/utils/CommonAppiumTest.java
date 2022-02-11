@@ -499,6 +499,7 @@ public class CommonAppiumTest extends CommandPrompt {
 		}
 		public void WaitForElementForNExtPage(MobileElement element) throws Exception {
 			try {
+				Thread.sleep(20000); 
 				int i=0;
 				while(i<5) {
 				    boolean flag = isElementVisible2(element);
