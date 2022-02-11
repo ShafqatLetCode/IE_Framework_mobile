@@ -154,6 +154,7 @@ public class transactionHistory extends CommonAppiumTest{
 	@Step("Click On Deposit Account And Select From Account")
 	public void ClickOnDepositAccountAndSelectFromAccount(String AccountName) throws Exception {
 		try {
+			WaitForElementForNExtPage(DepositAccountButton);
 			wait.waitForElementToBeClickable(DepositAccountButton);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(DepositAccountButton); 

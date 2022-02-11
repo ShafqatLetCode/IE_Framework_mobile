@@ -128,6 +128,7 @@ public class preloginPage extends CommonAppiumTest{
 	public void selectServerFromList(String serverName) throws Exception {
 		try {
 			gestUtils.scrollUPtoObject("text", serverName, null);
+			Thread.sleep(20000); 
 			String serverNameXpath = "//android.widget.TextView[@text='" + serverName + "']";
 			MobileElement serverNameElement = (MobileElement) driver.findElement(By.xpath(serverNameXpath));
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
