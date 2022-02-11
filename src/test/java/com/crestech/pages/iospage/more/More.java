@@ -115,6 +115,7 @@ public class More extends CommonAppiumTest{
 	public void clickOnLogoutButton() throws Exception {
 		try {
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			WaitForElementForNExtPage(logoutpeekbalance); 
 			clickOnElement(logoutpeekbalance);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Log out Button  ", e);

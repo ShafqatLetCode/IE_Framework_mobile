@@ -194,8 +194,12 @@ public class overseasModule extends CommonAppiumTest{
 	private MobileElement recipientDetailcity;
 	
 	@ElementDescription(value = "'Add Recipient Now' Button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='ADD RECIPIENT NOW']")//
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='ADD RECIPIENT NOW']")
 	private MobileElement ADDRecipientNowButton;
+	
+	@ElementDescription(value = "'Add Recipient Now' Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='ADD RECIPIENT NOW']")
+	private MobileElement ADDRecipientNowButton1;
 	
 	@ElementDescription(value = "Review Recipient's Details title")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Review Recipient')]")
@@ -280,11 +284,16 @@ public class overseasModule extends CommonAppiumTest{
 		try {
 			gestUtils.scrollUPtoObjectIos("name", "ADD RECIPIENT NOW", null);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			clickOnElement(ADDRecipientNowButton);
+			if (isElementVisible2(ADDRecipientNowButton))
+				clickOnElement(ADDRecipientNowButton);
+			else
+				clickOnElement(ADDRecipientNowButton1);
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Click On Add Recipient Now Button  ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ",e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Add Recipient Now Button  ",
+					e);
 		}
 	}
 	

@@ -181,7 +181,8 @@ public class deletePayee extends CommonAppiumTest{
 	@Step("Click On OK Button after verifying 'Payee Name deleted' message.")
 	public void ClickOnOkButtonAfterVerifyingPayeeDeletedMsg(String ExpectedPayee) throws Exception {
 		try {
-			wait.waitForElementVisibility(OKButton); 
+			WaitForElementForNExtPage(OKButton);
+			//wait.waitForElementVisibility(OKButton);  
 			String message = ExpectedPayee + " Deleted";
 			String DeletePayeeMessageXPath = "//XCUIElementTypeStaticText[@name='" + message + "']";
 			MobileElement DeletePayeeMessageElement = (MobileElement) driver
@@ -204,13 +205,18 @@ public class deletePayee extends CommonAppiumTest{
 	@Step("Click On OK Button.")
 	public void ClickOnOKButton() throws Exception {
 		try {
-			clickOnElement(OKButton);
+			if (isElementVisible2(OKButton))
+				clickOnElement(OKButton);
+			else
+				clickOnElement(alertOkButton);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button  ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button   ", e);
 		}
 	}
+	
+	
 	public void HandlingErrorPopupInDeletePayee() throws Exception {
 		try {
 			for (int innerLoop = 0; innerLoop < 2; innerLoop++) {

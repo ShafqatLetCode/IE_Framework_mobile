@@ -111,21 +111,41 @@ public class updateContactDetails extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[contains(@name,'Call')]")
 	private MobileElement CAllMeCheckbox;
 	
+	@ElementDescription(value = "CAllMeCheckbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Call')]")
+	private MobileElement CAllMeCheckbox1;
+	
 	@ElementDescription(value = "SMS MeCheckbox")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[contains(@name,'SMS')]")
 	private MobileElement SMSMeCheckbox;
+	
+	@ElementDescription(value = "SMS MeCheckbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'SMS')]")
+	private MobileElement SMSMeCheckbox1;
 	
 	@ElementDescription(value = "EMAIL MeCheckbox")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[contains(@name,'Email')]")
 	private MobileElement EMAILMeCheckbox;
 	
+	@ElementDescription(value = "EMAIL MeCheckbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Email')]")
+	private MobileElement EMAILMeCheckbox1;
+	
 	@ElementDescription(value = "Fax MeCheckbox")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[contains(@name,'Fax')]")
 	private MobileElement FAxMeCheckbox;
 	
+	@ElementDescription(value = "Fax MeCheckbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Fax')]")
+	private MobileElement FAxMeCheckbox1;
+	
 	@ElementDescription(value = "MAIL MeCheckbox")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[contains(@name,'Mail')]")
 	private MobileElement MAILMeCheckbox;
+	
+	@ElementDescription(value = "MAIL MeCheckbox")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'Mail')]")
+	private MobileElement MAILMeCheckbox1;
 	
 	@ElementDescription(value = "Update Contact Details")
 	@FindBy(name = "Update Contact Details")
@@ -673,7 +693,10 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Select Call me Checkbox.")
 	public void ClickOnCallMeCheckbox() throws Exception {
 		try {
+			if(isElementVisible2(CAllMeCheckbox))
 				clickOnElement(CAllMeCheckbox);
+			else
+				clickOnElement(CAllMeCheckbox1);
 			} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select Call me Checkbox ", e);
 		} catch (Exception e) {
@@ -684,7 +707,10 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Select SMS me Checkbox.")
 	public void ClickOnSMSMeCheckbox() throws Exception {
 		try {
+			if(isElementVisible2(SMSMeCheckbox))
 				clickOnElement(SMSMeCheckbox);
+			else
+				clickOnElement(SMSMeCheckbox1);
 			} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select SMS me Checkbox ", e);
 		} catch (Exception e) {
@@ -695,7 +721,10 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Select EMAIL me Checkbox.")
 	public void ClickOnEMAILMeCheckbox() throws Exception {
 		try {
-				clickOnElement(EMAILMeCheckbox);
+				if(isElementVisible2(EMAILMeCheckbox))
+					clickOnElement(EMAILMeCheckbox);
+				else
+					clickOnElement(EMAILMeCheckbox1);
 			} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select EMAIL me Checkbox ", e);
 		} catch (Exception e) {
@@ -706,7 +735,10 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Select MAIL me Checkbox.")
 	public void ClickOnMAILMeCheckbox() throws Exception {
 		try {
-				clickOnElement(MAILMeCheckbox);
+				if(isElementVisible2(MAILMeCheckbox))
+					clickOnElement(MAILMeCheckbox);
+				else
+					clickOnElement(MAILMeCheckbox1);
 			} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select MAIL me Checkbox ", e);
 		} catch (Exception e) {
@@ -717,7 +749,10 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Select FAX me Checkbox.")
 	public void ClickOnFAXMeCheckbox() throws Exception {
 		try {
-				clickOnElement(FAxMeCheckbox);
+				if(isElementVisible2(FAxMeCheckbox))
+					clickOnElement(FAxMeCheckbox);
+				else
+					clickOnElement(FAxMeCheckbox1);
 			} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Select FAX me Checkbox ", e);
 		} catch (Exception e) {

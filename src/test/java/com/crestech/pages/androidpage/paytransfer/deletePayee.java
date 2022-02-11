@@ -293,7 +293,7 @@ public class deletePayee extends CommonAppiumTest{
 	public void ClickOnDeletePayeeToIcon(int index) throws Exception {
 		try {
 			clickOnElement(PayeeAddedExpandableIconList.get(index));
-			Thread.sleep(2000); 
+			Thread.sleep(20000); 
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Icon(i)  ", e);
 
@@ -303,26 +303,6 @@ public class deletePayee extends CommonAppiumTest{
 		}
 	}
 
-//	@Step("Click On 'More Options' Button.")
-//	public void ClickOnMoreOptionBtn() throws Exception {
-//		try {
-//		//	wait.fluentWaitForElement(MoreOptionBtn);
-//			//wait.waitForElementToBeClickable(MoreOptionBtn); 
-//			WaitForElementForNExtPage(MoreOptionBtn);
-//		//	try {
-//				Thread.sleep(10000);
-//				clickOnElement(MoreOptionBtn);
-//				
-////			} catch (HandleException e) {
-////				clickOnElement(MoreOptionBtn);
-////			}
-//		} catch (HandleException e) {
-//			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
-//					" Failed to Click On More Options Button  ", e);
-//		} catch (Exception e) {
-//			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Options Button  ", e);
-//		}
-//	}
 	@Step("Click On 'More Options' Button.")
 	public void ClickOnMoreOptionBtn() throws Exception {
 		try {

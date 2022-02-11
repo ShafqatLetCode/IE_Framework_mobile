@@ -86,15 +86,25 @@ public class localTransferLimit extends CommonAppiumTest{
 	@ElementDescription(value = " 'backToMoreButton' button")
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='BACK TO MORE']")
 	private MobileElement backToMoreButton;
-
-
+	
+	@ElementDescription(value = " 'backToMoreButton' button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='localTransfer_dailyLimitCompletionView_secondaryButton']")
+	private MobileElement backToMoreButton1;
+	
+	
 	@Step("click on 'BACK TO MORE' BUTTON ")
 	public void ClickOnBackToMoreButton() throws Exception {
 		try {
-			    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			if (isElementVisible2(backToMoreButton)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(backToMoreButton);
+			} else if (isElementVisible2(backToMoreButton1)) {
+				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				clickOnElement(backToMoreButton1);
+			}
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click 'BACK TO MORE' BUTTON ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click 'BACK TO MORE' BUTTON ",
+					e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click 'BACK TO MORE' BUTTON ", e);
 		}
