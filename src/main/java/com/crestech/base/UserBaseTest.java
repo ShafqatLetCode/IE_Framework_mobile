@@ -361,7 +361,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		    //capabilities.setCapability("autoAcceptAlerts", "true"); 
 		    //capabilities.setCapability("autoDissmissAlerts", "true");
 		    capabilities.setCapability("locationServicesAuthorized", "true");
-		    
+		    capabilities.setCapability("clearSystemFiles", true);
 		    
 //		    capabilities.setCapability("project", "DBSAutomation");
 //			capabilities.setCapability("build", "DBSBuild1");
