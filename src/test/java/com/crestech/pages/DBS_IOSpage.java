@@ -871,6 +871,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			enterpasscode.EnterPasscodeAndDone();
 			updateContactdetails.verifyPersonalContactDetailsPageHeader();
 			updateContactdetails.VerifyPersonalDetailsPage(appName);
+			gestUtils.scrollUPIos();
 			updateContactdetails.VerifyLastUpdatedDateOfCallMeCheckbox();
 			updateContactdetails.VerifyLastUpdatedDateOfSMSMeCheckbox();
 			updateContactdetails.VerifyLastUpdatedDateOfEmailMeCheckbox();
