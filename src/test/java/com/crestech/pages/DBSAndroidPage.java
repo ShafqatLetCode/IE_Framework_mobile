@@ -515,16 +515,17 @@ public class DBSAndroidPage extends CommonAppiumTest {
 				enterpasscode.EnterPasscodeAndDone();
 				String ExpectedAvailableBalanceValue =null;
 				String ExpectedTotalBalanceValue = null;
+
 				if(appName.equals("DBS")) {
-					ExpectedAvailableBalanceValue = homepage.getAvailableBalance(
-							CommonTestData.AVAILABLE_BALANCE_TITLE.getEnumValue());
-					 ExpectedTotalBalanceValue = homepage.getTotalBalance(CommonTestData.TOTAL_BALANCE_TITLE.getEnumValue());
-				}
+								ExpectedAvailableBalanceValue = homepage.getAvailableBalance(
+										CommonTestData.AVAILABLE_BALANCE_TITLE.getEnumValue());
+								 ExpectedTotalBalanceValue = homepage.getTotalBalance(CommonTestData.TOTAL_BALANCE_TITLE.getEnumValue());
+							}
 				else if(appName.equals("iWEALTH")) {
-					ExpectedAvailableBalanceValue = homepage.getAvailableBalance(
-							CommonTestData.TOTAL_CONTRIBUTION_TO_DATE.getEnumValue());
-			        ExpectedTotalBalanceValue = homepage.getTotalBalance(CommonTestData.BALANCE_CONTRIBUTION_LIMIT.getEnumValue());
-				}
+								ExpectedAvailableBalanceValue = homepage.getAvailableBalance(
+										CommonTestData.AVAILABLE_BALANCE_TITLE.getEnumValue());
+						        ExpectedTotalBalanceValue = homepage.getTotalBalance(CommonTestData.TOTAL_BALANCE_TITLE.getEnumValue());
+							}
 					 
 				String ExpectedUserAccountName = homepage.GetUserAccountName(DepositeAccountNameOnDashboard);
 				String ExpectedUserAccountNumber = homepage.GetUserAccountNumber();

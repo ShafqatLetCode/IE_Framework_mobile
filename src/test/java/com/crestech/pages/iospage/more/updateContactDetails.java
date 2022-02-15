@@ -678,6 +678,7 @@ public class updateContactDetails extends CommonAppiumTest{
 	@Step("Select Checkboxes. ")
 	public void ClickOnCheckboxes() throws Exception {
 		try {
+			    gestUtils.scrollUPIos();
 			    ClickOnCallMeCheckbox();
 			    ClickOnSMSMeCheckbox();
 			    ClickOnEMAILMeCheckbox();
