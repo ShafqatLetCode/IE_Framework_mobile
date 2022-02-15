@@ -358,12 +358,14 @@ public class homePage extends CommonAppiumTest{
 	public void digitalToken() throws Exception {
 		try {
 			wait.ImplicitlyWait(45);
+			Thread.sleep(10000);
 			if (isElementVisible2(setupTokenMessage)) {
 				ClickOnSetUpNowButton();
 				ClickOnContinueButton();
 				clickOnNextOnConfirmEmailDigiToken();
 				enterpasscode.EnterPasscodeAndDone();
 				enterpasscode.EnterPasscodeAndDone();
+				Thread.sleep(10000);
 				ClickOnDoneButton();
 				
 			}
