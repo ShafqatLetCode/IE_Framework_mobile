@@ -217,6 +217,7 @@ public class homePage extends CommonAppiumTest {
 	@Step("Verify Deposit Account Type On Dashboard Page")
 	public void VerifyDepositAccountTypeOnDashboardPage() throws Exception {
 		try {
+			gestUtils.scrollUPtoObject("text", "Deposits", DepositsAccountType);
 			if (isElementVisible2(DepositsAccountType)) {
 				gestUtils.scrollUPtoObject("text", "Deposits", DepositsAccountType);
 				Asserts.assertTrue(isElementVisible(DepositsAccountType),
@@ -786,10 +787,12 @@ public class homePage extends CommonAppiumTest {
 	@Step("Get Total Balance")
 	public String getTotalBalance(String TotalBalanceTitle) throws Exception {
 		try {
-			Asserts.assertEquals(getTexOfElement(AccountTitleList.get(1)), TotalBalanceTitle,
-					TotalBalanceTitle + " Text is not matching.");
-
-			String ExpectedTotalBalanceValue = AccountValueList.get(1).getText();
+//			Asserts.assertEquals(getTexOfElement(AccountTitleList.get(1)), TotalBalanceTitle,
+//					TotalBalanceTitle + " Text is not matching.");
+//
+//			String ExpectedTotalBalanceValue = AccountValueList.get(1).getText();
+			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+			String ExpectedTotalBalanceValue=returnElementFromList(AccountTitleList, TotalBalanceTitle).getText();
 			return ExpectedTotalBalanceValue;
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to get Total Balance ", e);
@@ -803,9 +806,10 @@ public class homePage extends CommonAppiumTest {
 	public String getAvailableBalance(String AvailableBalanceTitle) throws Exception {
 		try {
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			Asserts.assertEquals(getTexOfElement(AccountTitleList.get(0)), AvailableBalanceTitle,
-					AvailableBalanceTitle + " Text is not matching.");
-			String ExpectedAvailableBalanceValue = AccountValueList.get(0).getText();
+			String ExpectedAvailableBalanceValue=returnElementFromList(AccountTitleList, AvailableBalanceTitle).getText();
+			//Asserts.assertEquals(getTexOfElement(AccountTitleList.get(0)), AvailableBalanceTitle,
+			//		AvailableBalanceTitle + " Text is not matching.");
+			//String ExpectedAvailableBalanceValue = AccountValueList.get(0).getText();
 			return ExpectedAvailableBalanceValue;
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to get Available Balance ", e);

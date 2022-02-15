@@ -284,7 +284,7 @@ public class DBS_IOSTest extends UserBaseTest {
 	@Feature(value =  "Local Transfer Limit") 
 	@Story("Verifies the Change Limit for Transfers to Other Banks Accounts to Increase the Current limit.")
 	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 12, enabled = true, description = " ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847", dependsOnMethods = {
+	@Test(priority = 12, enabled = true, description = "ChangeLocalFundsTransferLimit-Increase-ONEAPP-7847", dependsOnMethods = {
 			"PreRequisiteScript" })
 	// @Description(value = "Execution of this testcase:: Successful Change Limit for Transfers to Other Banks Accounts to Increase the Current limit ")
 	@Author(name = "Shafqat Ali")
