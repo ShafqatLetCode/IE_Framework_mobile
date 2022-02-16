@@ -214,7 +214,7 @@ public class localTransferLimit extends CommonAppiumTest{
 			String currentText = getTexOfElement(currentLimitTextButton);
 			String[] arrOfStr = currentText.split(" ");
 			ClickOnSetCurrentLimit();
-		
+			Thread.sleep(10000);
 			String selectedValue = null;
 			if (arrOfStr[1].equalsIgnoreCase(CommonTestData.SELECTED_LIMIT_0.getEnumValue())) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);

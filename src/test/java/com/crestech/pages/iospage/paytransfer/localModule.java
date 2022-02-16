@@ -677,6 +677,7 @@ public class localModule extends CommonAppiumTest {
 	@Step("Verify 'Review Transfer' page header")
 	public void verifyReviewTransferPageHeader(String expectedText) throws Exception {
 		try {
+			Thread.sleep(10000);
 			WebDriverWait wait = new WebDriverWait(driver, 60);
 			wait.until(ExpectedConditions.or(
 					ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString(

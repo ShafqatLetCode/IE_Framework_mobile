@@ -165,6 +165,7 @@ public class deletePayee extends CommonAppiumTest{
 	@Step("Verify Payee Size After Delete Payee.")
 	public void VerifyPayeeSizeAfterDeletePayee(int ExpectedTotalPayee) throws Exception {
 		try {
+			Thread.sleep(10000);
 			int ActualTotalPayeeSize = IiconList.size();
 			int ExpectedTotalSizeAfterDeletingPayee = ExpectedTotalPayee - 1;
 			Asserts.assertEquals(String.valueOf(ActualTotalPayeeSize) ,String.valueOf(ExpectedTotalSizeAfterDeletingPayee),
