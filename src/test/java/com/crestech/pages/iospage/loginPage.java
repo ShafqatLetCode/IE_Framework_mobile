@@ -88,6 +88,7 @@ public class loginPage extends CommonAppiumTest{
 	@Step("LogIn Application")
 	public void EnterCredentialsAndLogin(String userName, String password) throws Exception {
 		try {
+			Thread.sleep(10000);
 			enterUserName(userName);
 			enterPassword(password);
 			clickOnLoginButton();

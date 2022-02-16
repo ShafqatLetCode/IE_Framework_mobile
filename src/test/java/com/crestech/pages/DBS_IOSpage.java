@@ -146,6 +146,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			preloginpage.clickOnLoginButton();
 			loginpage.EnterCredentialsAndLogin(userName, password);
 			homepage.handlingMotionAndFitnessAlert();
+			Thread.sleep(10000);
 			if (app_Name.equalsIgnoreCase("DBS"))
 				wait.waitForElementVisibility(homepage.welcomeToText());
 			else if (app_Name.equalsIgnoreCase("iWEALTH"))

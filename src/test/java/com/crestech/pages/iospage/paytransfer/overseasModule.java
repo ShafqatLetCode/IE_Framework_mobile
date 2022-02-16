@@ -484,6 +484,7 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Click On 'ADD RECIPIENT NOW' button under overseas")
 	public void SelectAddRecipientNowButtonUnderOverseas() throws Exception {
 		try {
+			Thread.sleep(10000);
 			WebDriverWait wait = new WebDriverWait(driver, 60);
 			wait.until(ExpectedConditions.or(
 							    ExpectedConditions.presenceOfElementLocated(MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeStaticText' AND name == 'Check DBS Remit rates'  AND visible== 1")),
