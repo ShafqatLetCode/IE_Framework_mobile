@@ -151,6 +151,7 @@ public class peekBalance extends CommonAppiumTest{
 	@Step("Click On Ok Button After Displaying Personalize Your Device Popup.")
 	public void ClickOnOkButtonInPersonalizeYourDevicePopup() throws Exception {
 		try {
+			Thread.sleep(10000);
 			if (isElementVisible2(PersonalizeYourDevicePopup)) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 				clickOnElement(alertOkButton);
