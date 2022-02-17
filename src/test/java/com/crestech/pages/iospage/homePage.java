@@ -360,6 +360,7 @@ public class homePage extends CommonAppiumTest{
 			wait.ImplicitlyWait(45);
 			Thread.sleep(10000);
 			if (isElementVisible2(setupTokenMessage)) {
+				gestUtils.scrollUPIos();
 				ClickOnSetUpNowButton();
 				ClickOnContinueButton();
 				clickOnNextOnConfirmEmailDigiToken();
