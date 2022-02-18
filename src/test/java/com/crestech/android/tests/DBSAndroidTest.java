@@ -254,27 +254,27 @@ public class DBSAndroidTest extends UserBaseTest {
 		}
 	}
 	
-	@Epic("More")
-	@Feature(value =  "Deposit Account") 
-	@Story("Verifies the Open Account")
-	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 11, enabled = true, description = "OpenAccount-ONEAPP-14028" , dependsOnMethods={"PreRequisiteScript"})
-	@Author(name = "Divya Devi")
-	public void OpenAccount(String userName, String password , String app_Name) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage1=dbspage;
-			dbspage1.LogInApplication(userName, password);
-			dbspage1.OpenAccount(app_Name);
-		} catch (HandleException e) {
-			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-		}
-		catch (Exception e) {
-			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail( "Unable to execute Open Account "+e.getMessage());
-		}
-	}
+//	@Epic("More")
+//	@Feature(value =  "Deposit Account") 
+//	@Story("Verifies the Open Account")
+//	@Parameters({ "userName", "password", "app_Name" })
+//	@Test(priority = 11, enabled = true, description = "OpenAccount-ONEAPP-14028" , dependsOnMethods={"PreRequisiteScript"})
+//	@Author(name = "Divya Devi")
+//	public void OpenAccount(String userName, String password , String app_Name) throws Exception {
+//		try {
+//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+//			dbspage1=dbspage;
+//			dbspage1.LogInApplication(userName, password);
+//			dbspage1.OpenAccount(app_Name);
+//		} catch (HandleException e) {
+//			dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+//		}
+//		catch (Exception e) {
+//			dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail( "Unable to execute Open Account "+e.getMessage());
+//		}
+//	}
 
 //	@Epic("More")
 //	@Feature(value =  "Local Transfer Limit") 
@@ -431,27 +431,27 @@ public class DBSAndroidTest extends UserBaseTest {
 //		}
 //	}
 //	
-	@Epic("More")
-	@Feature(value =  "Temporary Credit Limit Increase") 
-	@Story("Verifies Credit Card Temperory Limit Increase")
-	@Parameters({"userName", "password","app_Name" })
-	@Test(priority=19, enabled=true, description = "CreditCardTempLimitIncrease-ONEAPP-16669", dependsOnMethods={"PreRequisiteScript"})
-	@Author(name = "shafqat")
-	public void CreditCardTempLimitIncrease(String userName,String password, String app_Name) throws Exception {
-		try {
-			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			 dbspage1 = dbspage;
-			 dbspage1.LogInApplication(userName, password);
-			 dbspage1.CreditCardTempLimitIncrease();
-		} catch (HandleException e) {
-			 dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-		}
-		catch (Exception e) {
-			 dbspage1.verifyDigibankAlert();
-			Asserts.assertFail( "Unable to execute Credit Card Temp Limit Increase "+e.getMessage());
-		}
-	}
+//	@Epic("More")
+//	@Feature(value =  "Temporary Credit Limit Increase") 
+//	@Story("Verifies Credit Card Temperory Limit Increase")
+//	@Parameters({"userName", "password","app_Name" })
+//	@Test(priority=19, enabled=true, description = "CreditCardTempLimitIncrease-ONEAPP-16669", dependsOnMethods={"PreRequisiteScript"})
+//	@Author(name = "shafqat")
+//	public void CreditCardTempLimitIncrease(String userName,String password, String app_Name) throws Exception {
+//		try {
+//			 DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+//			 dbspage1 = dbspage;
+//			 dbspage1.LogInApplication(userName, password);
+//			 dbspage1.CreditCardTempLimitIncrease();
+//		} catch (HandleException e) {
+//			 dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+//		}
+//		catch (Exception e) {
+//			 dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail( "Unable to execute Credit Card Temp Limit Increase "+e.getMessage());
+//		}
+//	}
 
 //	@Epic("More")
 //	@Feature(value =  "Update Personal Particular") 
@@ -475,50 +475,50 @@ public class DBSAndroidTest extends UserBaseTest {
 //			}
 //	}
 	
-	@Epic("Pay & Transfer")
-	@Feature(value =  "Select All Tab:: Local Recipient") 
-	@Story("Verifies the Fund Transfer Other Bank Other Bank Fast Future Transfer Date.")
-	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 21, enabled = true, description = "FundsTransfer-OtherBank-FAST-FUTURE-THANOS-5245", dependsOnMethods={"PreRequisiteScript"})
-	@Author(name = "Divya Devi")
-	public void FundsTransfer_OtherBank_FAST_FUTURE(String userName, String password , String app_Name) throws Exception {
-		try {
-			
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage1 = dbspage;
-			dbspage1.LogInApplication(userName, password);
-			dbspage1.FundsTransfer_OtherBank_FASTFuture(app_Name);
-		} catch (HandleException e) {
-			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-		}
-		catch (Exception e) {
-			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail( "Unable to execute Fund Transfer Other bank Fast Future "+e.getMessage());
-		}
-	}
-	
-	@Epic("Pay & Transfer")
-	@Feature(value =  "Select All Tab:: Local Recipient") 
-	@Story("Verifies the Fund Transfer Other Bank Immediate Transfer Date.")
-	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 22, enabled = true, description = "FundsTransfer-OtherBank-FAST-ONEAPP-16725", dependsOnMethods={"PreRequisiteScript"})
-	@Author(name = "Divya Devi")
-	public void FundsTransfer_OtherBank_FAST_ONEAPP(String userName, String password , String app_Name) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage1 = dbspage;
-			dbspage1.LogInApplication(userName, password);
-			dbspage1.FundsTransfer_OtherBank_FAST(app_Name);
-		} catch (HandleException e) {
-	            dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-		}
-		catch (Exception e) {
-			 dbspage1.verifyDigibankAlert();
-			Asserts.assertFail( "Unable to execute Fund Transfer Other bank Fast One App "+e.getMessage());
-		}
-	}
+//	@Epic("Pay & Transfer")
+//	@Feature(value =  "Select All Tab:: Local Recipient") 
+//	@Story("Verifies the Fund Transfer Other Bank Other Bank Fast Future Transfer Date.")
+//	@Parameters({ "userName", "password", "app_Name" })
+//	@Test(priority = 21, enabled = true, description = "FundsTransfer-OtherBank-FAST-FUTURE-THANOS-5245", dependsOnMethods={"PreRequisiteScript"})
+//	@Author(name = "Divya Devi")
+//	public void FundsTransfer_OtherBank_FAST_FUTURE(String userName, String password , String app_Name) throws Exception {
+//		try {
+//			
+//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+//			dbspage1 = dbspage;
+//			dbspage1.LogInApplication(userName, password);
+//			dbspage1.FundsTransfer_OtherBank_FASTFuture(app_Name);
+//		} catch (HandleException e) {
+//			dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+//		}
+//		catch (Exception e) {
+//			dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail( "Unable to execute Fund Transfer Other bank Fast Future "+e.getMessage());
+//		}
+//	}
+//	
+//	@Epic("Pay & Transfer")
+//	@Feature(value =  "Select All Tab:: Local Recipient") 
+//	@Story("Verifies the Fund Transfer Other Bank Immediate Transfer Date.")
+//	@Parameters({ "userName", "password", "app_Name" })
+//	@Test(priority = 22, enabled = true, description = "FundsTransfer-OtherBank-FAST-ONEAPP-16725", dependsOnMethods={"PreRequisiteScript"})
+//	@Author(name = "Divya Devi")
+//	public void FundsTransfer_OtherBank_FAST_ONEAPP(String userName, String password , String app_Name) throws Exception {
+//		try {
+//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+//			dbspage1 = dbspage;
+//			dbspage1.LogInApplication(userName, password);
+//			dbspage1.FundsTransfer_OtherBank_FAST(app_Name);
+//		} catch (HandleException e) {
+//	            dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+//		}
+//		catch (Exception e) {
+//			 dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail( "Unable to execute Fund Transfer Other bank Fast One App "+e.getMessage());
+//		}
+//	}
 	
 	@Epic("Pay & Transfer")
 	@Feature(value =  "Select All Tab:: Credit Cards") 
@@ -564,71 +564,71 @@ public class DBSAndroidTest extends UserBaseTest {
 		}
 	}
 	
-	@Epic("Pay & Transfer")
-	@Feature(value =  "Pay Now") 
-	@Story("Verifies the Pay Now NRIC.")
-	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 25, enabled = true, description = "PayNow-NRIC-ONEAPP-13966", dependsOnMethods={"PreRequisiteScript"})
-	@Author(name = "Divya Devi")
-	public void PayNow_NRIC_ONEAPP(String userName, String password , String app_Name) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage1 = dbspage;
-			dbspage1.LogInApplication(userName, password);
-			dbspage1.PayNowNRIC();
-		} catch (HandleException e) {
-			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-		}
-		catch (Exception e) {
-			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail( "Unable to execute Pay Now NRIC ONEAPP "+e.getMessage());
-		}
-	}
-	
-	@Epic("Pay & Transfer")
-	@Feature(value =  "Pay Now") 
-	@Story("Verifies the Pay Now UEN.")
-	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 26, enabled = true, description = "PayNow-UEN-ONEAPP-13969", dependsOnMethods={"PreRequisiteScript"})
-	@Author(name = "Divya Devi")
-	public void PayNow_UEN_ONEAPP(String userName, String password , String app_Name) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage1 = dbspage;
-			dbspage1.LogInApplication(userName, password);
-			dbspage1.PayNowUEN();
-		} catch (HandleException e) {
-			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-		}
-		catch (Exception e) {
-			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail( "Unable to execute Pay Now UEN ONEAPP "+e.getMessage());
-		}
-	}
-	
-	@Epic("Pay & Transfer")
-	@Feature(value =  "Pay Now") 
-	@Story("Verifies the Pay Now VPA.")
-	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 27, enabled = true, description = "PayNow-VPA-ONEAPP-13991", dependsOnMethods={"PreRequisiteScript"})
-	@Author(name = "Divya Devi")
-	public void PayNow_VPA_ONEAPP(String userName, String password , String app_Name) throws Exception {
-		try {
-			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
-			dbspage1 = dbspage;
-			dbspage1.LogInApplication(userName, password);
-			dbspage1.PayNowVPA();
-		} catch (HandleException e) {
-			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-		}
-		catch (Exception e) {
-			dbspage1.verifyDigibankAlert();
-			Asserts.assertFail( "Unable to execute Pay Now VPA ONEAPP "+e.getMessage());
-		}
-	}
+//	@Epic("Pay & Transfer")
+//	@Feature(value =  "Pay Now") 
+//	@Story("Verifies the Pay Now NRIC.")
+//	@Parameters({ "userName", "password", "app_Name" })
+//	@Test(priority = 25, enabled = true, description = "PayNow-NRIC-ONEAPP-13966", dependsOnMethods={"PreRequisiteScript"})
+//	@Author(name = "Divya Devi")
+//	public void PayNow_NRIC_ONEAPP(String userName, String password , String app_Name) throws Exception {
+//		try {
+//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+//			dbspage1 = dbspage;
+//			dbspage1.LogInApplication(userName, password);
+//			dbspage1.PayNowNRIC();
+//		} catch (HandleException e) {
+//			dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+//		}
+//		catch (Exception e) {
+//			dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail( "Unable to execute Pay Now NRIC ONEAPP "+e.getMessage());
+//		}
+//	}
+//	
+//	@Epic("Pay & Transfer")
+//	@Feature(value =  "Pay Now") 
+//	@Story("Verifies the Pay Now UEN.")
+//	@Parameters({ "userName", "password", "app_Name" })
+//	@Test(priority = 26, enabled = true, description = "PayNow-UEN-ONEAPP-13969", dependsOnMethods={"PreRequisiteScript"})
+//	@Author(name = "Divya Devi")
+//	public void PayNow_UEN_ONEAPP(String userName, String password , String app_Name) throws Exception {
+//		try {
+//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+//			dbspage1 = dbspage;
+//			dbspage1.LogInApplication(userName, password);
+//			dbspage1.PayNowUEN();
+//		} catch (HandleException e) {
+//			dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+//		}
+//		catch (Exception e) {
+//			dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail( "Unable to execute Pay Now UEN ONEAPP "+e.getMessage());
+//		}
+//	}
+//	
+//	@Epic("Pay & Transfer")
+//	@Feature(value =  "Pay Now") 
+//	@Story("Verifies the Pay Now VPA.")
+//	@Parameters({ "userName", "password", "app_Name" })
+//	@Test(priority = 27, enabled = true, description = "PayNow-VPA-ONEAPP-13991", dependsOnMethods={"PreRequisiteScript"})
+//	@Author(name = "Divya Devi")
+//	public void PayNow_VPA_ONEAPP(String userName, String password , String app_Name) throws Exception {
+//		try {
+//			DBSAndroidPage dbspage = new DBSAndroidPage(driver);
+//			dbspage1 = dbspage;
+//			dbspage1.LogInApplication(userName, password);
+//			dbspage1.PayNowVPA();
+//		} catch (HandleException e) {
+//			dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+//		}
+//		catch (Exception e) {
+//			dbspage1.verifyDigibankAlert();
+//			Asserts.assertFail( "Unable to execute Pay Now VPA ONEAPP "+e.getMessage());
+//		}
+//	}
 	
 //	@Epic("More")
 //	@Feature(value =  "Peek Balance") 

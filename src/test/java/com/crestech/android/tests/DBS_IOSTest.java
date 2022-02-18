@@ -257,28 +257,28 @@ public class DBS_IOSTest extends UserBaseTest {
 		}
 	}
 
-	@Epic("More")
-	@Feature(value =  "Deposit Account") 
-	@Story("Verifies the Open Account")
-	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 11, enabled = true, description = "OpenAccount-ONEAPP-14028", dependsOnMethods = {
-			"PreRequisiteScript" })
-	// @Description(value = "Execution of this testcase:: Verifies the Open Account.")
-	@Author(name = "Divya Devi")
-	public void OpenAccount(String userName, String password, String app_Name) throws Exception {
-		try {
-			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
-			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
-			DBSPgaeObject1.OpenAccount(app_Name);
-		} catch (HandleException e) {
-			DBSPgaeObject1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
-		} catch (Exception e) {
-			DBSPgaeObject1.verifyDigibankAlert();
-			Asserts.assertFail("Unable to execute Open Account " + e.getMessage());
-		}
-	}
+//	@Epic("More")
+//	@Feature(value =  "Deposit Account") 
+//	@Story("Verifies the Open Account")
+//	@Parameters({ "userName", "password", "app_Name" })
+//	@Test(priority = 11, enabled = true, description = "OpenAccount-ONEAPP-14028", dependsOnMethods = {
+//			"PreRequisiteScript" })
+//	// @Description(value = "Execution of this testcase:: Verifies the Open Account.")
+//	@Author(name = "Divya Devi")
+//	public void OpenAccount(String userName, String password, String app_Name) throws Exception {
+//		try {
+//			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+//			DBSPgaeObject1 = DBSPgaeObject;
+//			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
+//			DBSPgaeObject1.OpenAccount(app_Name);
+//		} catch (HandleException e) {
+//			DBSPgaeObject1.verifyDigibankAlert();
+//			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
+//		} catch (Exception e) {
+//			DBSPgaeObject1.verifyDigibankAlert();
+//			Asserts.assertFail("Unable to execute Open Account " + e.getMessage());
+//		}
+//	}
 
 //	@Epic("More")
 //	@Feature(value =  "Local Transfer Limit") 
@@ -440,28 +440,28 @@ public class DBS_IOSTest extends UserBaseTest {
 //		}
 //	}
 
-	@Epic("More")
-	@Feature(value =  "Temporary Credit Limit Increase") 
-	@Story("Verifies Credit Card Temperory Limit Increase")
-	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 19, enabled = true, description = "CreditCardTempLimitIncrease-ONEAPP-16669", dependsOnMethods = {
-			"PreRequisiteScript" })
-	// @Description(value = "Execution of this testcase:: Verifies Credit Card Temperory Limit Increase")
-	@Author(name = "shafqat")
-	public void CreditCardTempLimitIncrease(String userName, String password, String app_Name) throws Exception {
-		try {
-			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
-			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
-			DBSPgaeObject1.CreditCardTempLimitIncrease();
-		} catch (HandleException e) {
-			DBSPgaeObject1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
-		} catch (Exception e) {
-			DBSPgaeObject1.verifyDigibankAlert();
-			Asserts.assertFail("Unable to execute Credit Card Temp Limit Increase " + e.getMessage());
-		}
-	}
+//	@Epic("More")
+//	@Feature(value =  "Temporary Credit Limit Increase") 
+//	@Story("Verifies Credit Card Temperory Limit Increase")
+//	@Parameters({ "userName", "password", "app_Name" })
+//	@Test(priority = 19, enabled = true, description = "CreditCardTempLimitIncrease-ONEAPP-16669", dependsOnMethods = {
+//			"PreRequisiteScript" })
+//	// @Description(value = "Execution of this testcase:: Verifies Credit Card Temperory Limit Increase")
+//	@Author(name = "shafqat")
+//	public void CreditCardTempLimitIncrease(String userName, String password, String app_Name) throws Exception {
+//		try {
+//			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+//			DBSPgaeObject1 = DBSPgaeObject;
+//			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
+//			DBSPgaeObject1.CreditCardTempLimitIncrease();
+//		} catch (HandleException e) {
+//			DBSPgaeObject1.verifyDigibankAlert();
+//			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
+//		} catch (Exception e) {
+//			DBSPgaeObject1.verifyDigibankAlert();
+//			Asserts.assertFail("Unable to execute Credit Card Temp Limit Increase " + e.getMessage());
+//		}
+//	}
 
 //	@Epic("More")
 //	@Feature(value =  "Update Personal Particular") 
@@ -486,51 +486,51 @@ public class DBS_IOSTest extends UserBaseTest {
 //		}
 //	}
 	
-	@Epic("Pay & Transfer")
-	@Feature(value =  "Select All Tab:: Local Recipient") 
-	@Story("Verifies the Fund Transfer Other Bank Other Bank Fast Future Transfer Date.")
-	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 21, enabled = true, description = "FundsTransfer-OtherBank-FAST-FUTURE-THANOS-5245", dependsOnMethods = {
-			"PreRequisiteScript" })
-	// @Description(value = "Execution of this testcase:: Verifies the Fund Transfer Other Bank Non Immediate Transfer Date.")
-	@Author(name = "Shubham Gupta")
-	public void FundsTransfer_OtherBank_FAST_FUTURE(String userName, String password, String app_Name) throws Exception {
-		try {
-			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
-			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
-			DBSPgaeObject1.FundsTransfer_OtherBank_FASTFuture(app_Name);
-		} catch (HandleException e) {
-			DBSPgaeObject1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
-		} catch (Exception e) {
-			DBSPgaeObject1.verifyDigibankAlert();
-			Asserts.assertFail("Unable to execute Peek Balance " + e.getMessage());
-		}
-	}
-	
-	@Epic("Pay & Transfer")
-	@Feature(value =  "Select All Tab:: Local Recipient") 
-	@Story("Verifies the Fund Transfer Other Bank Immediate Transfer Date.")
-	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 22, enabled = true, description = "FundsTransfer-OtherBank-FAST-ONEAPP-16725", dependsOnMethods = {
-			"PreRequisiteScript" })
-	// @Description(value = "Execution of this testcase:: Verifies the Fund Transfer Other Bank Non Immediate Transfer Date.")
-	@Author(name = "Shubham Gupta")
-	public void FundsTransfer_OtherBank_FAST_ONEAPP(String userName, String password, String app_Name) throws Exception {
-		try {
-			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
-			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
-			DBSPgaeObject1.FundsTransfer_OtherBank_FAST(app_Name);
-		} catch (HandleException e) {
-			DBSPgaeObject1.verifyDigibankAlert();
-			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
-		} catch (Exception e) {
-			DBSPgaeObject1.verifyDigibankAlert();
-			Asserts.assertFail("Unable to execute Peek Balance " + e.getMessage());
-		}
-	}
+//	@Epic("Pay & Transfer")
+//	@Feature(value =  "Select All Tab:: Local Recipient") 
+//	@Story("Verifies the Fund Transfer Other Bank Other Bank Fast Future Transfer Date.")
+//	@Parameters({ "userName", "password", "app_Name" })
+//	@Test(priority = 21, enabled = true, description = "FundsTransfer-OtherBank-FAST-FUTURE-THANOS-5245", dependsOnMethods = {
+//			"PreRequisiteScript" })
+//	// @Description(value = "Execution of this testcase:: Verifies the Fund Transfer Other Bank Non Immediate Transfer Date.")
+//	@Author(name = "Shubham Gupta")
+//	public void FundsTransfer_OtherBank_FAST_FUTURE(String userName, String password, String app_Name) throws Exception {
+//		try {
+//			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+//			DBSPgaeObject1 = DBSPgaeObject;
+//			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
+//			DBSPgaeObject1.FundsTransfer_OtherBank_FASTFuture(app_Name);
+//		} catch (HandleException e) {
+//			DBSPgaeObject1.verifyDigibankAlert();
+//			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
+//		} catch (Exception e) {
+//			DBSPgaeObject1.verifyDigibankAlert();
+//			Asserts.assertFail("Unable to execute Peek Balance " + e.getMessage());
+//		}
+//	}
+//	
+//	@Epic("Pay & Transfer")
+//	@Feature(value =  "Select All Tab:: Local Recipient") 
+//	@Story("Verifies the Fund Transfer Other Bank Immediate Transfer Date.")
+//	@Parameters({ "userName", "password", "app_Name" })
+//	@Test(priority = 22, enabled = true, description = "FundsTransfer-OtherBank-FAST-ONEAPP-16725", dependsOnMethods = {
+//			"PreRequisiteScript" })
+//	// @Description(value = "Execution of this testcase:: Verifies the Fund Transfer Other Bank Non Immediate Transfer Date.")
+//	@Author(name = "Shubham Gupta")
+//	public void FundsTransfer_OtherBank_FAST_ONEAPP(String userName, String password, String app_Name) throws Exception {
+//		try {
+//			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
+//			DBSPgaeObject1 = DBSPgaeObject;
+//			DBSPgaeObject1.LogInApplication(userName, password,app_Name);
+//			DBSPgaeObject1.FundsTransfer_OtherBank_FAST(app_Name);
+//		} catch (HandleException e) {
+//			DBSPgaeObject1.verifyDigibankAlert();
+//			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
+//		} catch (Exception e) {
+//			DBSPgaeObject1.verifyDigibankAlert();
+//			Asserts.assertFail("Unable to execute Peek Balance " + e.getMessage());
+//		}
+//	}
 
 	@Epic("Pay & Transfer")
 	@Feature(value =  "Select All Tab:: Credit Cards") 
