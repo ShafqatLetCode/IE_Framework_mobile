@@ -217,7 +217,7 @@ public class homePage extends CommonAppiumTest {
 	@Step("Verify Deposit Account Type On Dashboard Page")
 	public void VerifyDepositAccountTypeOnDashboardPage() throws Exception {
 		try {
-			gestUtils.scrollUPtoObject("text", "Deposits", DepositsAccountType);
+			gestUtils.scrollUPtoObject("text", "Deposits", null);
 			if (isElementVisible2(DepositsAccountType)) {
 				gestUtils.scrollUPtoObject("text", "Deposits", DepositsAccountType);
 				Asserts.assertTrue(isElementVisible(DepositsAccountType),
