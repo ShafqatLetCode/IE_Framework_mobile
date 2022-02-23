@@ -73,6 +73,10 @@ public class transactionHistory extends CommonAppiumTest{
 	@ElementDescription(value = "Account name to checking transaction history.")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_accountName')]")
 	private MobileElement AccountNameToCheckTransactionHistory;
+	
+	@ElementDescription(value = "Currency Associated with account")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.dbs.sit1.dbsmbanking:id/sf_country']")
+	private MobileElement currencyInAccount;
 
 	@Step("Click On Back Button.")
 	public void ClickOnBackButton() throws Exception {
@@ -152,13 +156,14 @@ public class transactionHistory extends CommonAppiumTest{
 	}
 
 	@Step("Click On Deposit Account And Select From Account")
-	public void ClickOnDepositAccountAndSelectFromAccount(String AccountName) throws Exception {
+	public void ClickOnDepositAccountAndSelectFromAccount(String AccountName, String currency) throws Exception {
 		try {
 			WaitForElementForNExtPage(DepositAccountButton);
 			wait.waitForElementToBeClickable(DepositAccountButton);
 			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			clickOnElement(DepositAccountButton); 
 			selectFromAccountFromDepositeSection(AccountName);
+			ClickOnCurrency(currency);
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Deposit Account And Select From Account ", e);
 		} catch (Exception e) {
@@ -206,6 +211,17 @@ public class transactionHistory extends CommonAppiumTest{
 			obj_handleexception.throwException("VERIFYHEADER_EXCEPTION", " Failed to verify 'Transaction History' page header ", e);
 		}
 	}
-	
+	@Step("Click on currency under Multiplier Account")
+	public void ClickOnCurrency(String currency) throws Exception {
+		try {
+			wait.fluentWaitForElement(TransactionHistoryHeaderDBS);
+			if(getTexOfElement(TransactionHistoryHeaderDBS).equalsIgnoreCase("Select Currency"))
+				clickOnElement(currencyInAccount);
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to click show button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to click show button ", e);
+		}
+	}
 
 }
