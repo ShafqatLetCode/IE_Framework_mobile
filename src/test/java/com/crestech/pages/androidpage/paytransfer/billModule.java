@@ -173,6 +173,7 @@ public class billModule extends CommonAppiumTest{
 	@Step("Verify Details After Submit Payment")
 	public void VerifyDetailsAfterSubmitPayment() throws Exception {
 		try {
+			Thread.sleep(20000);
 			MobileElement element = null;
 		    wait.fluentWaitForElement(PageHeaderList.get(0)); 
 			element = getElement(PageHeaderList,CommonTestData.PAYMENT_SUBMITTED.getEnumValue());

@@ -786,7 +786,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterpasscode.EnterPasscodeAndDone();
 			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			transactionhistory.SelectThreeMonths();
-			transactionhistory.ClickOnDepositAccountAndSelectFromAccount(ExpectedFromBankName);
+			transactionhistory.ClickOnDepositAccountAndSelectFromAccount(ExpectedFromBankName,CommonTestData.TRANSCETION_HISTORY_ACCOUNT_CURRENCY.getEnumValue());
 			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			transactionhistory.ClickOnShowButton();
 			enterpasscode.EnterPasscodeAndDone();
@@ -846,7 +846,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterpasscode.EnterPasscodeAndDone();
 			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			transactionhistory.SelectThreeMonths();
-			transactionhistory.ClickOnDepositAccountAndSelectFromAccount(ExpectedFromBankName);
+			transactionhistory.ClickOnDepositAccountAndSelectFromAccount(ExpectedFromBankName,CommonTestData.TRANSCETION_HISTORY_ACCOUNT_CURRENCY.getEnumValue());
 			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			transactionhistory.ClickOnShowButton();
 			enterpasscode.EnterPasscodeAndDone();
@@ -909,7 +909,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterpasscode.EnterPasscodeAndDone();
 			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			transactionhistory.SelectThreeMonths();
-			transactionhistory.ClickOnDepositAccountAndSelectFromAccount(ExpectedFromBankName);
+			transactionhistory.ClickOnDepositAccountAndSelectFromAccount(ExpectedFromBankName,CommonTestData.TRANSCETION_HISTORY_ACCOUNT_CURRENCY.getEnumValue());
 			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			transactionhistory.ClickOnShowButton();
 			enterpasscode.EnterPasscodeAndDone();
@@ -964,7 +964,7 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			enterpasscode.EnterPasscodeAndDone();
 			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			transactionhistory.SelectThreeMonths();
-			transactionhistory.ClickOnDepositAccountAndSelectFromAccount(ExpectedFromBankName);
+			transactionhistory.ClickOnDepositAccountAndSelectFromAccount(ExpectedFromBankName,CommonTestData.TRANSCETION_HISTORY_ACCOUNT_CURRENCY.getEnumValue());
 			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			transactionhistory.ClickOnShowButton();
 			enterpasscode.EnterPasscodeAndDone();
@@ -990,10 +990,10 @@ public class DBSAndroidPage extends CommonAppiumTest {
 			
 			if (appName.equals("DBS"))
 				transactionhistory
-						.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME.getEnumValue());
+						.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME.getEnumValue(),CommonTestData.TRANSCETION_HISTORY_ACCOUNT_CURRENCY.getEnumValue());
 			else if (appName.equals("iWEALTH"))
 				transactionhistory
-						.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue());
+						.ClickOnDepositAccountAndSelectFromAccount(CommonTestData.ACCOUNT_NAME_IWEALTH.getEnumValue(),CommonTestData.TRANSCETION_HISTORY_ACCOUNT_CURRENCY.getEnumValue());
 			
 			transactionhistory.verifyTransactionHistoryPageHeader(CommonTestData.TRANSCETION_HISTORY_LABEL.getEnumValue());
 			transactionhistory.ClickOnShowButton();
