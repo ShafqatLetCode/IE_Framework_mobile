@@ -988,7 +988,7 @@ public class localModule extends CommonAppiumTest {
 	public void ClickOnExpandbutton() throws Exception {
 		try {
 			clickOnElement(FooterExpandableBtn);
-			gestUtils.scrollUPtoObject("text", "Reference No.", ReferenceNumberText);
+			gestUtils.scrollUPIos();
 
 			Asserts.assertEquals(getTexOfElement(ReferenceNumberText), CommonTestData.REFERENCE_NUMBER.getEnumValue(),
 					"'Reference no Field' is not found");
