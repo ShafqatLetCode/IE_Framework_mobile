@@ -223,7 +223,14 @@ public class localModule extends CommonAppiumTest{
 		try {
 			clickOnElement(FooterExpandableBtn);
 			Thread.sleep(20000);
-			gestUtils.scrollUPtoObject(null, null, null);
+			int i=0;
+			while(i<5) {
+				gestUtils.scrollUPtoObject(null, null, null);
+			    boolean flag = isElementVisible2(ReferenceNumberText);
+			    if(flag)
+			        break;
+			    i++;
+                          }
 			
 			Asserts.assertEquals(getTexOfElement(ReferenceNumberText),
 					CommonTestData.REFERENCE_NUMBER.getEnumValue(), "'Reference no Field' is not found");
