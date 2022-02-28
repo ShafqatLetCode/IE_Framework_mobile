@@ -910,7 +910,8 @@ public class localModule extends CommonAppiumTest{
 				ClickOnOKButton();
 				
 				String ActualSelectedDate = getTexOfElement(TransferDateTextElement);
-				Asserts.assertEquals(ActualSelectedDate, ExpectedDate, "Selected Date is not Matching");
+				//Asserts.assertEquals(ActualSelectedDate, ExpectedDate, "Selected Date is not Matching");
+				Asserts.assertEquals(ActualSelectedDate.split(" ")[0], newDate, "Selected Date is not Matching");
 			}
 			
 		} catch (HandleException e) {
