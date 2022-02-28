@@ -33,7 +33,7 @@ public class DBS_IOSTest extends UserBaseTest {
 		try {
 			DBS_IOSpage DBSPgaeObject = new DBS_IOSpage(driver);
 			DBSPgaeObject1 = DBSPgaeObject;
-			DBSPgaeObject1.preRequisiteScript(userName, password, app_Name, CommonTestData.N1_SERVER.getEnumValue());
+			DBSPgaeObject1.preRequisiteScript(userName, password, app_Name, CommonTestData.N3_SERVER.getEnumValue());
 		} catch (HandleException e) {
 			DBSPgaeObject1.verifyDigibankAlert();
 			Asserts.assertFail(e.getCode() + "--> " + e.getMessage());
