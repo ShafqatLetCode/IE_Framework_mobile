@@ -888,7 +888,7 @@ public class localModule extends CommonAppiumTest {
 	public void VerifyElementsOnTransferSubmittedPage(String ExpectedFromBankName, String ExpectedToBankName,
 			String ExpectedToRecipientName) throws Exception {
 		try {
-			VerifyLogOutButton();
+			//VerifyLogOutButton();
 			VerifyMakeAnotherTransferButton();
 			// VerifyAmount(CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
 			// VerifyFromBankName(ExpectedFromBankName);

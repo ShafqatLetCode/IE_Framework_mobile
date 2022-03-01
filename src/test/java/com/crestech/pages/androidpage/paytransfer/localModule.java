@@ -142,7 +142,7 @@ public class localModule extends CommonAppiumTest{
 	private MobileElement SelectNextMonth;
 	
 	@ElementDescription(value = "Static date")
-	@AndroidFindBy(xpath = "//android.view.View[@text='20']")
+	@AndroidFindBy(xpath = "//android.view.View[@text='30']")
 	private MobileElement StaticDate;
 	
 	@ElementDescription(value = "Amount Field For Bill Org")
@@ -871,10 +871,11 @@ public class localModule extends CommonAppiumTest{
 
 			if(isElementEnable(StaticDate)) {
 				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
+				clickOnElement(SelectNextMonth);
 				clickOnElement(StaticDate);
 				ClickOnOKButton();
 				String ActualSelectedDate = getTexOfElement(TransferDateTextElement);
-				Asserts.assertEquals(ActualSelectedDate.split(" ")[0], "20", "Selected Date is not Matching");
+				Asserts.assertEquals(ActualSelectedDate.split(" ")[0], "30", "Selected Date is not Matching");
 			}else {
 				Calendar calendar = Calendar.getInstance();
 				Date today = calendar.getTime();

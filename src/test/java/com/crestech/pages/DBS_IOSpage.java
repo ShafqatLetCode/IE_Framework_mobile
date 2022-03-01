@@ -248,8 +248,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 					CommonTestData.PAYEEADD_DBSPOSB_ACCOUNT_NUMBER.getEnumValue());
 
 			// Leave On Home Page to this test case for next run.
-			local.ClickOnCloseButton();
-			paytransfer.ClickOnHomeButton();
+//			local.ClickOnCloseButton();
+//			paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Add payee DBSorPOSB  ",
 					e);
@@ -393,8 +393,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			paytransfer.SelectToAccountFromCreditCardList(ExpectedToBankNameWithAccountNo);
 			creditcard.verifyCreditCardPageHeader();
 			creditcard.EnterAmount(CommonTestData.AMOUNTTO_TRANSFERFUND.getEnumValue());
-			String ExpectedFromBankName = CommonTestData.FUNDTRANSFER_CREDITCARD_FROM_ACCOUNT_NAME.getEnumValue();
-			creditcard.SelectFundSourceAccount(ExpectedFromBankName);
+			//String ExpectedFromBankName = CommonTestData.FUNDTRANSFER_CREDITCARD_FROM_ACCOUNT_NAME.getEnumValue();
+			//creditcard.SelectFundSourceAccount(ExpectedFromBankName);
 			creditcard.VerifyImmediateText(CommonTestData.IMMEDIATE_TEXT.getEnumValue());
 			creditcard.ClickOnNEXTButton();
 			creditcard.verifyReviewPaymentPageHeader();
@@ -403,8 +403,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			creditcard.VerifySomeDetailsAfterCreditCardFundTransfer();
 
 			// Leaving On Home Page for Next case Run.
-			creditcard.ClickOnCloseButton();
-			paytransfer.ClickOnHomeButton();
+//			creditcard.ClickOnCloseButton();
+//			paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to fund transfer pay credit card  ",
 					e);
@@ -532,8 +532,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 
 			overseasmodule.ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
 			overseasmodule.ClickOnShareTransferDetailsButton();
-			overseasmodule.BackFromTestCase();
-			paytransfer.ClickOnHomeButton();
+			//overseasmodule.BackFromTestCase();
+			//paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Remittance Corridor  ",
 					e);
@@ -562,8 +562,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			overseasmodule.VerifiesTransferSubmittedMessage(CommonTestData.TRANSFER_SUBMITTED_MSG.getEnumValue());
 			overseasmodule.ClickOnImageExpandBtnAndVerifiesReferenceNumberText();
 			overseasmodule.ClickOnShareTransferDetailsButton();
-			overseasmodule.BackFromTestCase();
-			paytransfer.ClickOnHomeButton();
+		//	overseasmodule.BackFromTestCase();
+		//	paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Remittance EOTT  ", e);
 		} catch (Exception e) {
@@ -630,8 +630,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			bill.VerifyDetailsAfterSubmitPayment();
 
 			// Leave On Home Page to this test case for next run.
-			bill.ClickOnCloseButton();
-			paytransfer.ClickOnHomeButton();
+//			bill.ClickOnCloseButton();
+//			paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
 					" Failed to Execute Payee Add To Bill Payment ", e);
@@ -678,7 +678,7 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			ownAccount.VerifyAccountDetailsAfterFundTransferToOwnAccount();
 
 			// Leaving On Home page for next case run.
-			ownAccount.ClickOnBackToHomeButton();
+//			ownAccount.ClickOnBackToHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
 					" Failed to verify Fund transfer to own account  ", e);
@@ -707,8 +707,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			bill.VerifyDetailsAfterSubmitPayment();
 
 			// Leave On Home Page to this test case for next run.
-			bill.ClickOnCloseButton();
-			paytransfer.ClickOnHomeButton();
+//			bill.ClickOnCloseButton();
+//			paytransfer.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION",
 					" Failed to verify Fund transfer bill payment  ", e);
@@ -741,8 +741,8 @@ public class DBS_IOSpage extends CommonAppiumTest {
 			cards.verifyCloseButton();
 
 			// Leave On Home Page to this test case for next run.
-			cards.ClickOnCloseButton();
-			more.ClickOnHomeButton();
+//			cards.ClickOnCloseButton();
+//			more.ClickOnHomeButton();
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Apply Debit card  ", e);
 		} catch (Exception e) {
