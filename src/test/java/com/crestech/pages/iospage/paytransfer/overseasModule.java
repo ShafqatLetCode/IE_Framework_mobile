@@ -646,6 +646,7 @@ public class overseasModule extends CommonAppiumTest{
 	@Step("Click On Next Button")
 	public void ClickOnNextButton() throws Exception {
 		try {
+			    gestUtils.scrollUPIos();
 			    com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
 			    if(isElementVisible2(nextButton))
 			    	clickOnElement(nextButton);

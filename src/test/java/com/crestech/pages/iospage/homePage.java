@@ -356,9 +356,9 @@ public class homePage extends CommonAppiumTest{
 
 	@Step("Digital Token Set Up")
 	public void digitalToken() throws Exception {
-		try {
+		try {gestUtils.scrollUPIos();
 			wait.ImplicitlyWait(45);
-			Thread.sleep(10000);
+			Thread.sleep(20000);
 			if (isElementVisible2(setupTokenMessage)) {
 				gestUtils.scrollUPIos();
 				ClickOnSetUpNowButton();
@@ -367,6 +367,7 @@ public class homePage extends CommonAppiumTest{
 				enterpasscode.EnterPasscodeAndDone();
 				enterpasscode.EnterPasscodeAndDone();
 				Thread.sleep(10000);
+				gestUtils.scrollUPIos();
 				ClickOnDoneButton();
 				
 			}
