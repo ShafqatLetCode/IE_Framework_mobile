@@ -342,7 +342,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 		case "pCloudyIOS":
 			capabilities.setCapability("pCloudy_Username", s.get(12));
 			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
-			capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
+			//capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
 			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
 	        capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
 		    capabilities.setCapability("platformVersion", version);
