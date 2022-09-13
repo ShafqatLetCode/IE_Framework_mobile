@@ -1,4 +1,4 @@
-package com.crestech.common.utilities;
+package com.ie.common.utilities;
 
 import java.time.Duration;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 
-import com.crestech.annotation.values.ElementDescription;
+import com.ie.annotation.values.ElementDescription;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;

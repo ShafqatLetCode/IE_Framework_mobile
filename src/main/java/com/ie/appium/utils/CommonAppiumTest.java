@@ -1,4 +1,4 @@
-package com.crestech.appium.utils;
+package com.ie.appium.utils;
 
 import java.time.Duration;
 import java.util.List;
@@ -9,10 +9,11 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 
-import com.crestech.common.utilities.Asserts;
-import com.crestech.common.utilities.GestureUtils;
-import com.crestech.common.utilities.HandleException;
-import com.crestech.common.utilities.WaitUtils;
+import com.ie.common.utilities.Asserts;
+import com.ie.common.utilities.GestureUtils;
+import com.ie.common.utilities.HandleException;
+import com.ie.common.utilities.WaitUtils;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -512,4 +513,28 @@ public class CommonAppiumTest extends CommandPrompt {
 				throw e;
 			}
 		}
+		
+		@Step("Click on for {elemetName} on page {functionMessage}")
+		public void clickOn(MobileElement element, String elemetName, String functionMessage) throws Exception {
+			try {
+					com.ie.listeners.TestListener.saveScreenshotPNG(driver);
+					element.click();
+			}
+		 catch (Exception e) {			
+				obj_handleexception.throwException("CLICK_ELEMENT_EXCEPTION", " Failed to Click On "+elemetName+ "on "+functionMessage,e);
+			}
+		}
+		
+		@Step("Click on for {elemetName} on page {functionMessage}")
+		public void enterText(MobileElement element, String keysToSend, String elemetName, String functionMessage) throws Exception {
+			try {
+				com.ie.listeners.TestListener.saveScreenshotPNG(driver);
+				element.sendKeys(keysToSend);
+				com.ie.listeners.TestListener.saveScreenshotPNG(driver);
+			}
+			catch (Exception e) {			
+			obj_handleexception.throwException("CLICK_ELEMENT_EXCEPTION", " Failed to sendkey in "+elemetName+ "for "+functionMessage,e);
+		
+		}
+	}
 }

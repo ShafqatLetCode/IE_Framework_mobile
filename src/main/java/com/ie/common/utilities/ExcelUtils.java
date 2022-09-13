@@ -1,4 +1,4 @@
-package com.crestech.common.utilities;
+package com.ie.common.utilities;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,8 +21,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.testng.annotations.Listeners;
 
-import com.crestech.appium.utils.CommonAppiumTest;
-import com.crestech.listeners.TestListener;
+import com.ie.appium.utils.CommonAppiumTest;
+import com.ie.listeners.TestListener;
 
 import io.qameta.allure.Step;
 

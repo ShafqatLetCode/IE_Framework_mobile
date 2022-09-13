@@ -1,7 +1,7 @@
-package com.crestech.pageobjects;
+package com.ie.pageobjects;
 
 
-public class DBSAndroidObject {
+public class IEAndroidObject {
 
 	
 }

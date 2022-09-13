@@ -1,4 +1,4 @@
-package com.crestech.pages.androidpage;
+package com.ie.pages.androidpage;
 
 import java.time.Duration;
 import java.util.List;
@@ -6,21 +6,25 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
-import com.crestech.annotation.values.ElementDescription;
-import com.crestech.appium.utils.CommonAppiumTest;
-import com.crestech.common.utilities.AndroidAlert;
-import com.crestech.common.utilities.Asserts;
-import com.crestech.common.utilities.CommonTestData;
-import com.crestech.common.utilities.GestureUtils;
-import com.crestech.common.utilities.HandleException;
+
+import com.ie.annotation.values.ElementDescription;
+import com.ie.appium.utils.CommonAppiumTest;
+import com.ie.common.utilities.AndroidAlert;
+import com.ie.common.utilities.Asserts;
+import com.ie.common.utilities.CommonTestData;
+import com.ie.common.utilities.GestureUtils;
+import com.ie.common.utilities.HandleException;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSBy;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.qameta.allure.Step;
 
 /**
- * @author Divya
+ * @author Shafqat
  *
  */
 public class homePage extends CommonAppiumTest {
@@ -47,776 +51,255 @@ public class homePage extends CommonAppiumTest {
 		}
 	}
 	
-	
 	//objects
-	@ElementDescription(value = "currency Home page")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/tv_currency_label')]")
-	private MobileElement currencyHomePage;
+	@ElementDescription(value = "Update Alert")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Update Available']")
+	private MobileElement updateAlert;
 	
-	@ElementDescription(value = "Deposite Home page")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'Deposits')]")
-	private MobileElement depositeHomePage;
+	@ElementDescription(value = "Skip Button")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/skip')]")
+	private MobileElement skipButton;
 	
-	@ElementDescription(value = "depositeAccountDropdown")
-	@AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.dbs.sit1.dbsmbanking:id/iv_collapse']")
-	private MobileElement depositeAccountDropdown;
+	@ElementDescription(value = "Header Title")
+	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,'id/ivAppHeader')]")
+	private MobileElement headerTitle;
 	
-	@ElementDescription(value = "Deposite Home page")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'CPFIA/SRS Account')]")
-	private MobileElement SRSACCOUNT;
+	@ElementDescription(value = "Setting option")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text=\"Settings\"]/preceding-sibling::android.widget.ImageView")
+	private MobileElement settingOption;
 	
-	@ElementDescription(value = "Account section Home page")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'ACCOUNTS')]")
-	private MobileElement accountSectionHomePage;
+	@ElementDescription(value = "Epaper icon")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,\"E-Paper\")]/preceding-sibling::android.widget.ImageView | //android.widget.TextView[contains(@text,'E-Paper')]/preceding-sibling::android.widget.RelativeLayout")
+	private MobileElement Epaper;
 	
-	@ElementDescription(value = "depositeAccountDropdown")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@text,'Deposits')]/following-sibling::android.widget.ImageView[@resource-id='com.dbs.sit1.dbsmbanking:id/iv_collapse']")
-	private MobileElement depositeAccountDropdown1;
+	@ElementDescription(value = "Premium Tag")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,\"tvPremium\")]")
+	private MobileElement premiumTag;
 	
-    @ElementDescription(value = "Alert Recording Message")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/title')]")
-	private MobileElement headerRecordingMessage;
-    
-    @ElementDescription(value = "Alert Fingerprint Message")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/desc')]")
-	private MobileElement headerFingerprintMessage;
-    
-    @ElementDescription(value = "Email/SMS OTP Message")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/txtv_kht_regcode_header')]")
-	private MobileElement emailSmsOtpMessage;
-
-	@ElementDescription(value = "Email/SMS OTP Editbox")
-	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,'id/kht_otp_box')]")
-	private MobileElement emailSmsOtpEditBox;
+	@ElementDescription(value = "Premium Article Tag")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,\"tvPremium\")]/parent::android.widget.LinearLayout/parent::android.widget.RelativeLayout/preceding-sibling::android.widget.LinearLayout[contains(@resource-id,\"listItem\")]")
+	private MobileElement premiumArticleTag;
 	
-	@ElementDescription(value = "set up your digital token")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/status_message')]")
-	private MobileElement tokenSetupMessage;
-
-	@ElementDescription(value = "SET UP NOW Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='SET UP NOW']")
-	private MobileElement setUpNowButton;
+	@ElementDescription(value = "Article Title")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,\"title\")]")
+	private MobileElement articleTitle;
 	
-	@ElementDescription(value = "You've set up your digital token")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/digital_token_msg')]")
-	private MobileElement tokenGetSetupMessage;
+	@ElementDescription(value = "HomePage Container")
+	@AndroidFindBy(xpath = "//androidx.viewpager.widget.ViewPager/android.widget.RelativeLayout")
+	private MobileElement homepagePageContainer;
 	
-	@ElementDescription(value = "Done Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='DONE']")
-	private MobileElement doneButton;
+	@ElementDescription(value = "Article page Container")
+	@AndroidFindBy(xpath = "//androidx.viewpager.widget.ViewPager[contains(@resource-id,\"viewPager\")]")
+	private MobileElement articlepagePageContainer;
 	
-	@ElementDescription(value = "Welcome to")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/banner_text_1')]")
-	private MobileElement WelcomeToText;
-
-	@ElementDescription(value = "digbank")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/banner_text_2')]")
-	private MobileElement DigibankText;
+	@ElementDescription(value = "signup Button on Premium article")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,\"tvSignEvolok\")]")
+	private MobileElement signinButtonOnPremiumArticle;
 	
-	@ElementDescription(value = "Logout Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='LOG OUT']")
-	private MobileElement logoutButton;
-	
-	@ElementDescription(value = "Close Button")
-	@AndroidFindBy(xpath = "//android.widget.ImageView[@content-desc='CLOSE']")
-	private MobileElement CloseButton;
-	
-	@ElementDescription(value = "Pay & Transfer Button")
-	@AndroidFindBy(xpath = "//android.widget.FrameLayout[@content-desc='Pay & Transfer']")
-	private MobileElement PayAndTransferBtn;
-	
-	@ElementDescription(value = "ALL TAB")
-	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc='ALL']/android.widget.TextView")
-	private MobileElement AllTab;
-	
-	@ElementDescription(value = "More Button")
-	@AndroidFindBy(xpath = "//android.widget.FrameLayout[@content-desc='More']")
-	private MobileElement MoreBtn;
-	
-	@ElementDescription(value = "Deposits Account Name")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/text_src_acc_name')]")
-	private MobileElement DepositsAccountName;
-
-	@ElementDescription(value = "Deposits Account Type")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/value')]")
-	private List<MobileElement> AccountValueList;
-	
-	@ElementDescription(value = "Deposits Account Name")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/title')]")
-	private List<MobileElement> AccountTitleList;
-	
-	@ElementDescription(value = "User Account Name")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_account_name')]")
-	private MobileElement UserAccountName;
-	
-	@ElementDescription(value = "User Account Number")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,':id/tv_account_number')]")
-	private MobileElement UserAccountNumber;
-	
-	@ElementDescription(value = "Toolbar Back Icon")
-	@AndroidFindBy(xpath = "//android.widget.ImageView[contains(@resource-id,':id/toolbar_back_icon')]")
-	private MobileElement ToolbarBackIcon;
-	
-	@ElementDescription(value = "Deposits Account Type")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Deposits']")
-	private MobileElement DepositsAccountType;
-	
-	@ElementDescription(value = "OK Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
-	private MobileElement OKButton;
-	
-	@ElementDescription(value = "Next button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='NEXT']")
-	private MobileElement nextButton;
-	
-	@ElementDescription(value = "Confirm button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='CONFIRM']")
-	private MobileElement confirmButton;
-	
-	@ElementDescription(value = "Get started button")
-	@AndroidFindBy(xpath = "//android.widget.Button[contains(@resource-id,':id/btn_get_started')]")
-	private MobileElement getstartedBtn;
-	
-	@ElementDescription(value = "Handling error alert")
-	@AndroidFindBy(xpath = "//android.widget.Button[@resource-id='android:id/button1']")
-	private MobileElement errorAlertOKButton;
-	
-	@ElementDescription(value = "Continue Button")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='CONTINUE']")
-	private MobileElement continueButton;
-	
-	@ElementDescription(value = "Digital Token SetUp")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'id/status_message')]")
-	private MobileElement digitalTokenSetUpMessage;
-	
-	@ElementDescription(value = "Do you know how to spot a fake link?")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Do you know how to spot a fake link?']")
-	private MobileElement DoyouknowhowtospotafakelinkMessage;
-	
-	@ElementDescription(value = "I've read the above carefully.")
-	@AndroidFindBy(xpath = "//android.view.View//android.widget.CheckBox")
-	private MobileElement Checkbox;
-	
-	@ElementDescription(value = "OK, got it Button.")
-	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK, got it']")
-	private MobileElement OK_GOTIT_BUTTON;
+	@ElementDescription(value = "Register Button on Premium article")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,\"loginEvolok\")]")
+	private MobileElement registerButtonOnPremiumArticle;
 	
 	
-	public MobileElement depositeAccountDropdown() {
-		return depositeAccountDropdown;
-	}
-	
-	public MobileElement depositeAccountDropdown1() {
-		return depositeAccountDropdown1;
-	}
-	
-	public MobileElement WelcomeToText() {
-		return WelcomeToText;
-	}
-
-	@Step("Verify Deposit Account Type On Dashboard Page")
-	public void VerifyDepositAccountTypeOnDashboardPage() throws Exception {
+	@Step("Verify Home Page After Launch")
+	public void VerifyHomePage() throws Exception {
 		try {
-			gestUtils.scrollUPtoObject("text", "Deposits", null);
-			if (isElementVisible2(DepositsAccountType)) {
-				gestUtils.scrollUPtoObject("text", "Deposits", DepositsAccountType);
-				Asserts.assertTrue(isElementVisible(DepositsAccountType),
-						"Deposits Account Type is not displayed on home page after login.");
-			}
+			wait.waitForElement(headerTitle, 
+					5,
+					"Header Title",
+					"verifiying on HomePage"
+				);
+			
+			String getTitle=headerTitle.getAttribute("resource-id").toString().toLowerCase();
+			Assert.assertContains(getTitle,"indianexpress");
+			
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
-					" Failed to Verify Deposit Account Type On Dashboard Page ", e);
+					" Failed to Verify Home Page After Launch ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
-					" Failed to Verify Deposit Account Type On Dashboard Page ", e);
+					" Failed to Verify Home Page After Launch ", e);
 		}
 	}
 	
-	@Step("Click On OK Button.")
-	public void ClickOnOKButton() throws Exception {
+	@Step("Handling Update Alert if Present ")
+	public void updateAlert() throws Exception {
 		try {
-			if (isElementVisible2(OKButton))
-				clickOnElement(OKButton);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On OK Button   ", e);
-		}
-	}
-
-	@Step("Click On Toolbar Back Icon.")
-	public void ClickOnToolBarBackIcon() throws Exception {
-		try {
-			clickOnElement(ToolbarBackIcon);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Toolbar Back Icon ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Toolbar Back Icon ", e);
-		}
-	}
-
-
-	@Step("Click On More Button.")
-	public void ClickOnMoreButton() throws Exception {
-		try {
-			wait.waitForElementToBeClickable(MoreBtn); 
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			clickOnElement(MoreBtn);
-            ClickOnCloseButton();
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Button  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On More Button  ", e);
-		}
-	}
-	
-	@Step("Click On Pay & Transfer Button.")
-	public void ClickOnPayAndTransferBtn() throws Exception {
-		try {
-			WaitForElementForNExtPage(PayAndTransferBtn);
-			wait.waitForElementToBeClickable(PayAndTransferBtn); 
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			clickOnElement(PayAndTransferBtn);	
-			//wait.fluentWaitForElement(AllTab);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION"," Failed to Click On Pay and Transfer Button  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION"," Failed to Click On On Pay and Transfer Button  ", e);
-		}
-	}
-	
-	@Step("Digital Token Set Up")
-	public void digitalTokenSetUp() throws Exception {
-		try {
-			WaitForElementForNExtPage(digitalTokenSetUpMessage);
-			if (isElementVisible2(digitalTokenSetUpMessage)) { 
-				ClickOnSetUpNowButton();
-				ClickOnContinueButton();
-				ClickOnNextButton();
-				EnterEmailOrSMSOTP(CommonTestData.OTP.getEnumValue(),
-						CommonTestData.EMAIL_OTP_MESSAGE.getEnumValue());
-				EnterEmailOrSMSOTP(CommonTestData.OTP.getEnumValue(),
-						CommonTestData.SMS_OTP_MESSAGE.getEnumValue());
-
-                wait.waitForElementVisibility(tokenGetSetupMessage); 
-                
-				if(isElementVisible2(doneButton)) {
-					verifyDigitalTokenMessageAfterSetUp(CommonTestData.DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP.getEnumValue());
-					ClickOnDoneButton();
-				} else {
-					gestUtils.scrollUPtoObject(null, null, null);
-					verifyDigitalTokenMessageAfterSetUp(CommonTestData.DIGITAL_TOKEN_MESSAGE_AFTER_STEPUP.getEnumValue());
-					ClickOnDoneButton();
-				}
-			}
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to execute Digital Token Setup ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to execute Digital Token Setup ", e);
-		}
-	}
-	
-	@Step("handle Fake Link Message Screen")
-	public void handleFakeLinkMessageScreen() throws Exception {
-		try {
-			if (isElementVisible2(DoyouknowhowtospotafakelinkMessage)) { 
-				gestUtils.scrollUPtoObject(null, null, null); 
-				wait.waitForElementVisibility(OK_GOTIT_BUTTON); 
-				ClickOnCheckbox();
-				ClickOnOkGotItButton();
-			}
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to handle Fake Link Message Screen ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to handle Fake Link Message Screen ", e);
-		}
-	}
-	
-	@Step("verify Digital Token Message After SetUp.")
-	public void verifyDigitalTokenMessageAfterSetUp(String expectecMessage)throws Exception{
-		try {
-			String actualMessage = getTexOfElement(tokenGetSetupMessage);
-			Asserts.assertEquals(actualMessage, expectecMessage, "Message Not matching"); 
-		}catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify Digital Token Message After SetUp ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify Digital Token Message After SetUp ", e);
-		}
-	}
-	
-	@Step("Click On Done Button.")
-	public void ClickOnDoneButton()throws Exception{
-		try {
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			clickOnElement(doneButton); 
-		}catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Done Button ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Done Button ", e);
-		}
-	}
-	
-	@Step("Click On Continue Button.")
-	public void ClickOnContinueButton() throws Exception {
-		try {
-			if (isElementVisible2(continueButton)) {
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(continueButton);
-			}
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Continue Button ", e);
-		}
-	}
-	
-	@Step("Click On Checkbox.")
-	public void ClickOnCheckbox() throws Exception {
-		try {
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(Checkbox);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Checkbox Button ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Checkbox Button ", e);
-		}
-	}
-	
-	@Step("Click On Ok,Got It Button.")
-	public void ClickOnOkGotItButton() throws Exception {
-		try {
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(OK_GOTIT_BUTTON);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Click On Ok,Got It Button ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Click On Ok,Got It Button ", e);
-		}
-	}
-
-	@Step("Click On Next Button.")
-	public void ClickOnNextButton() throws Exception {
-		try {			
-			if(isElementVisible2(nextButton)) {
-				gestUtils.scrollUPtoObject("text", "NEXT", nextButton);
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(nextButton);
-			}
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Next Button  ", e);
-		}
-	}
-	
-	@Step("Click on 'SET UP NOW' button ")
-	public void ClickOnSetUpNowButton() throws Exception {
-		try {
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			clickOnElement(setUpNowButton);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Set Up Now Button ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Set Up Now Button ", e);
-		}
-	}
-
-	public MobileElement DepositsAccountName() { 
-		return DepositsAccountName;
-	}
-	
-	@Step("Enter OTP for Email/SMS Verification")
-	public void EnterEmailOrSMSOTP(String OTP, String expectecMessage) throws Exception {
-		try {
-			wait.waitForElementToBeClickable(emailSmsOtpEditBox);
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			String actualMessage = getTexOfElement(emailSmsOtpMessage);
-			if (actualMessage.equalsIgnoreCase(expectecMessage))
-				enterTextInTextbox(emailSmsOtpEditBox, OTP);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to enter Email/SMS OTP ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", "  Failed to enter Email/SMS OTP ", e);
-		}
-	}
-	
-	@Step("Handling Error Alert.")
-	public void handlingErrorAlert() throws Exception {
-		try {
-			if (isElementVisible2(errorAlertOKButton)) {
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(errorAlertOKButton);
-			}
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Error Alert ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Handle Error Alert ", e);
-		}
-	}
-
-	@Step("Handling Of 'Get Started' Popup.")
-	public void handlingGetStartedPopup(String appName) throws Exception {
-		try {
-			if (isElementVisible2(getstartedBtn)) {
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(getstartedBtn);
+			Thread.sleep(5000);
+			if (isElementVisible2(updateAlert))
+			{
+				wait.waitForElement(skipButton, 
+						5,
+						"Skip button",
+						"Handling Update Alert"
+					);
+			
+				clickOn(skipButton, 
+						"Skip button",
+						"Handling Update Alert"
+					);
 			}
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
-					" Failed to Handle Of 'Get Started' Popup ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Handle Of 'Get Started' Popup ", e);
-		}
-	}
-	
-	
-	@Step("Handling Finger Print Alert")
-	public void handlingFingerPrintAlert(String expectecMessage) throws Exception   
-	{
-		try {
-			if(isElementVisible2(headerFingerprintMessage)) {
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(CloseButton);
-			}
-		} catch (HandleException e) {	
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handling Finger Print Alert  ",e);		
-		}
-		catch (Exception e) {			
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Handling Finger Print Alert  ",e);
-		}
-	}
-	
-	@Step("Handle Recording Alert")
-	public void handleRecordingAlert(String expectecMessage) throws Exception
-	{
-		try {
-			if(isElementVisible2(headerRecordingMessage)) {
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				ClickOnCloseButton();
-				ClickOnCloseButton();
-			}
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Handle Recording Alert ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Handle Recording Alert  ", e);
-		}
-	}
-	
-//	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
-//	public void verifyAccountTypeNameCurrencyAmount(String AccountType, String AccountName, String currency)
-//			throws Exception {
-//		try {
-//			clickOnElement(accountSectionHomePage);
-//			gestUtils.scrollUPtoObject("text", "Deposits", null);
-//			
-//			if(isElementVisible2(DepositsAccountName)) {
-//				Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
-//				Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
-//						AccountName + " is not present");
-//			} else if(isElementVisible2(depositeAccountDropdown)) {
-//				clickOnElement(depositeAccountDropdown);
-//				Asserts.assertEquals(getTexOfElement(depositeHomePage), AccountType,AccountType + " is not present");
-//			    Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
-//					AccountName + " is not present");
-//			}
-//			else
-//				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
-//			
-//			gestUtils.scrollUPtoObject("text", "digiPortfolio", null);
-//			Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
-//		} catch (HandleException e) {
-//			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
-//					e);
-//		} catch (Exception e) {
-//			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
-//		}
-//	}
-	
-	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
-	public void verifyAccountTypeNameCurrencyAmount(String AccountType, String AccountName, String currency, boolean isSingleAccountHolder)
-			throws Exception {
-		try {
-			clickOnElement(accountSectionHomePage);
-			gestUtils.scrollUPtoObject("text", AccountType, null);
-			String xpath="//android.widget.TextView[@text='"+AccountType+"']";
-			List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-			if (list.size() > 0)
-				Asserts.assertEquals(getTexOfElement((MobileElement) list.get(0)) , AccountType,AccountType + " is not present");
-			else
-				Asserts.assertFail(AccountType + " Not Found on the Dashboard Page."); 
-			
-			String xpath1="//android.widget.TextView[@text='"+AccountName+"']";
-			if(!isSingleAccountHolder) 
-				clickOnElement(depositeAccountDropdown1);
-				
-			gestUtils.scrollUPtoObject("text", AccountName, null);
-			List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
-			if (list1.size() > 0)
-				Asserts.assertEquals(getTexOfElement((MobileElement)list1.get(0)), AccountName,
-						AccountName + " is not present");
-			
-			else
-				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
-			
-			gestUtils.scrollUPtoObject("text", "SGD", null);
-			
-			if(isElementVisible2(currencyHomePage))
-				Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
-			else
-				Asserts.assertFail(currency + " Not Found on the Dashboard Page."); 
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
-		}
-	}
-
-
-	
-//	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
-//	public void verifyAccountTypeNameCurrencyAmount_iWEAlLTH(String AccountType, String AccountName, String currency)
-//			throws Exception {
-//		try {
-//			clickOnElement(accountSectionHomePage);
-//			verifyAccountType(AccountType);
-//			verifyAccountName(AccountName);
-//			verifyCurrency(currency);
-//		} catch (HandleException e) {
-//			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
-//					e);
-//		} catch (Exception e) {
-//			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
-//		}
-//	}
-	
-	@Step("Verify Account Type , Account Name, Currency display and displayed Amount under Account Section")
-	public void verifyAccountTypeNameCurrencyAmount_iWEAlLTH(String AccountType, String AccountName, String currency, boolean isSingleAccountHolder)
-			throws Exception {
-		try {
-				clickOnElement(accountSectionHomePage);
-				gestUtils.scrollUPtoObject("text", AccountType, null);
-				String xpath="//android.widget.TextView[@text='"+AccountType+"']";
-				List<RemoteWebElement> list = driver.findElements(By.xpath(xpath));
-				if (list.size() > 0)
-					Asserts.assertEquals(getTexOfElement((MobileElement) list.get(0)) , AccountType,AccountType + " is not present");
-				else
-					Asserts.assertFail(AccountType + " Not Found on the Dashboard Page."); 
-				
-				String xpath1="//android.widget.TextView[@text='"+AccountName+"']";
-				if(!isSingleAccountHolder) 
-					clickOnElement(depositeAccountDropdown1);
-					
-				gestUtils.scrollUPtoObject("text", AccountName, null);
-				List<RemoteWebElement> list1 = driver.findElements(By.xpath(xpath1));
-				if (list1.size() > 0)
-					Asserts.assertEquals(getTexOfElement((MobileElement)list1.get(0)), AccountName,
-							AccountName + " is not present");
-				else
-					Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
-				
-				gestUtils.scrollUPtoObject("text", "SGD", null);
-				
-				if(isElementVisible2(currencyHomePage)) 
-					Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
-				else
-					Asserts.assertFail(currency + " Not Found on the Dashboard Page."); 
-			
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Execute Account Details CASA ", e);
-	}
-	}
-
-
-	
-	@Step("Verify 'Currency' on dashboard Page.")
-	public void verifyCurrency(String currency) throws Exception{
-		try {
-			if(isElementVisible2(currencyHomePage)) 
-			Asserts.assertEquals(getTexOfElement(currencyHomePage), currency,currency + " is not present");
-			else
-				Asserts.assertFail(currency + " Not Found on the Dashboard Page."); 
-		}catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Currency' on dashboard Page ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Currency' on dashboard Page ", e);
-		}
-	}
-	
-	@Step("Verify 'Account Name' on dashboard Page.")
-	public void verifyAccountName(String AccountName) throws Exception {
-		try {
-			if (isElementVisible2(DepositsAccountName))
-				Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
-						AccountName + " is not present");
-			else if(isElementVisible2(depositeAccountDropdown)) {
-				clickOnElement(depositeAccountDropdown);
-			    Asserts.assertEquals(getTexOfElement(DepositsAccountName), AccountName,
-					AccountName + " is not present");
-			}else
-				Asserts.assertFail(AccountName + " Not Found on the Dashboard Page."); 
-
-			gestUtils.scrollUPtoObject("text", "SGD", null);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNTIONAL_EXCEPTION",
-					" Failed to Verify 'Account Name' on dashboard Page ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNTIONAL_EXCEPTION",
-					" Failed to Verify 'Account Name' on dashboard Page ", e);
-		}
-	}
-	
-	@Step("Verify 'Account Type' on dashboard Page.")
-	public void verifyAccountType(String AccountType) throws Exception{
-		try {
-			gestUtils.scrollUPtoObject("text", "CPFIA/SRS Account", null);
-			if (isElementVisible2(SRSACCOUNT))
-				Asserts.assertEquals(getTexOfElement(SRSACCOUNT), AccountType, AccountType + " is not present");
-			else
-				Asserts.assertFail("Account Type not displaying on dashboard page.");
-		
-		}catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Type' on dashboard Page ",
-					e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNTIONAL_EXCEPTION", " Failed to Verify 'Account Type' on dashboard Page ", e);
-		}
-	}
-	
-	@Step("Verify 'Welcome to DigiBank' Messages on dashboard Page.")
-	public void VerifyWelcomeMessagesOnDashboardPage(String welcome, String DigiBank, String DBSDigibank)
-			throws Exception {
-		try {
-			Asserts.assertEquals(getTexOfElement(WelcomeToText).trim(), welcome, welcome + " text is not matching.");
-
-			if (DigibankText.getText().equalsIgnoreCase(DigiBank)) 
-				Asserts.assertEquals(getTexOfElement(DigibankText).trim(), DigiBank, DigiBank + " text is not matching.");
-			 else if (DigibankText.getText().equalsIgnoreCase(DBSDigibank)) 
-				Asserts.assertEquals(getTexOfElement(DigibankText).trim(), DBSDigibank, DBSDigibank + " text is not matching.");
-			
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to verify welcome messages ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to verify welcome messages ", e);
-		}
-	}
-	
-	@Step("Click On logout Button")
-	public void ClickOnLogOutButton() throws Exception {
-		try {
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			clickOnElement(logoutButton);
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On logout Button  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On logout Button  ", e);
-		}
-	}
-	
-	@Step("Click On Close Button.")
-	public boolean ClickOnCloseButton() throws Exception {
-		try {
-			if (isElementVisible2(CloseButton)) {
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				clickOnElement(CloseButton);
-				return true;
-			} else
-				return false;
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button  ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click on Close Button ", e);
-		}
-		return false;
-	}
-	
-	@Step("Get And Click On Deposite Account Name From Dashboard.")
-	public String getAndClickOnDepositeAccountNameFromDashboard() throws Exception {
-		try {
-			String DepositeAccountNameOnDashboard = DepositsAccountName.getText();
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			clickOnElement(DepositsAccountName);
-			return DepositeAccountNameOnDashboard;
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
-					" Failed to get And Click On Deposite Account Name From Dashboard ", e);
+					" Failed to Handle Alert ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
-					" Failed to get And Click On Deposite Account Name From Dashboard ", e);
+					" Failed to Handle Alert ", e);
 		}
-		return null;
 	}
 	
-	@Step("Get User Account Number")
-	public String GetUserAccountNumber() throws Exception {
+	@Step("Click on setting")
+	public void ClickOnSetting() throws Exception {
 		try {
-			String ExpectedUserAccountNumber = UserAccountNumber.getText();
-			return ExpectedUserAccountNumber;
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to get User Account Number ", e);
-		}
-		return null;
-	}
+			wait.waitForElement(settingOption, 
+					5,
+					"Setting option",
+					"verifiying on SettinOption"
+				);
+			
+			clickOn(settingOption, 
+					"Setting option",
+					"clicking from homepage"
+				);
 
-	@Step("Get User Account name")
-	public String GetUserAccountName(String DepositeAccountNameOnDashboard) throws Exception {
-		try {
-			String ExpectedUserAccountName = UserAccountName.getText();
-			Asserts.assertEquals(getTexOfElement(UserAccountName), DepositeAccountNameOnDashboard,
-					DepositeAccountNameOnDashboard + " Text is not matching.");
-			return ExpectedUserAccountName;
+			
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to get User Account Name ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on setting option ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to get User Account Name ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on setting option ", e);
 		}
-		return null;
 	}
-
-	@Step("Get Total Balance")
-	public String getTotalBalance(String TotalBalanceTitle) throws Exception {
+	
+	@Step("Click on Epaper")
+	public void ClickOnEpaper() throws Exception {
 		try {
-//			Asserts.assertEquals(getTexOfElement(AccountTitleList.get(1)), TotalBalanceTitle,
-//					TotalBalanceTitle + " Text is not matching.");
-//
-//			String ExpectedTotalBalanceValue = AccountValueList.get(1).getText();
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			String ExpectedTotalBalanceValue=returnElementFromList(AccountTitleList, TotalBalanceTitle).getText();
-			return ExpectedTotalBalanceValue;
-		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to get Total Balance ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to get Total Balance  ", e);
-		}
-		return null;
-	}
+			wait.waitForElement(Epaper, 
+					12,
+					"Epaper icon",
+					"verifiying on epaper"
+				);
+			
+			clickOn(Epaper, 
+					"Epaper option",
+					"clicking from homepage"
+				);
 
-	@Step("Get Available Balance")
-	public String getAvailableBalance(String AvailableBalanceTitle) throws Exception {
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Epaper Icon ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Epaper Icon ", e);
+		}
+	}
+	
+	@Step("Scroll to Premium article")
+	public void scrollToPremiumArticle() throws Exception {
 		try {
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			String ExpectedAvailableBalanceValue=returnElementFromList(AccountTitleList, AvailableBalanceTitle).getText();
-			//Asserts.assertEquals(getTexOfElement(AccountTitleList.get(0)), AvailableBalanceTitle,
-			//		AvailableBalanceTitle + " Text is not matching.");
-			//String ExpectedAvailableBalanceValue = AccountValueList.get(0).getText();
-			return ExpectedAvailableBalanceValue;
+			wait.waitForElement(homepagePageContainer, 
+					5,
+					"Page container",
+					"Home page"
+				);
+			
+			gesture.scrollDownto(
+					homepagePageContainer, 
+					premiumTag,
+					(float) 0.5,
+					"Premium tag",
+					"Home page");
+			
+			
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to get Available Balance ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Scroll to premium tag ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to get Available Balance  ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Scroll to premium tag  ", e);
 		}
-		return null;
 	}
+	
+	@Step("Click on Premium Article")
+	public void ClickOnPremiumArticle() throws Exception {
+		try {
+			wait.waitForElement(premiumArticleTag, 
+					5,
+					"Premium Article Tag",
+					"verifiying on Homepage"
+				);
+			
+			clickOn(premiumArticleTag, 
+					"Premium Article Tag",
+					"clicking from homepage"
+				);
 
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Premium Article ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Premium Article ", e);
+		}
+	}
+	
+	@Step("Scroll to register button on Premium article")
+	public void scrollToPremiumRegisterButton() throws Exception {
+		try {
+			wait.waitForElement(articlepagePageContainer, 
+					5,
+					"Page container",
+					"article page"
+				);
+			
+			gesture.scrollDownto(
+					articlepagePageContainer, 
+					registerButtonOnPremiumArticle,
+					(float) 0.5,
+					"registration button",
+					"premium article");
+			
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Scroll to register button on premium article ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Scroll to register button on premium article  ", e);
+		}
+	}
+	
+	@Step("Click on sign in on premium article")
+	public void ClickOnSignInOnPremiumArticle() throws Exception {
+		try {
+			gesture.scrollDownto(
+					articlepagePageContainer, 
+					signinButtonOnPremiumArticle,
+					(float) 0.2,
+					"sign up button",
+					"premium article");
+			
+			wait.waitForElement(signinButtonOnPremiumArticle, 
+					5,
+					"sign in button",
+					"verifiying on On Premium Article"
+				);
+			
+			clickOn(signinButtonOnPremiumArticle, 
+					"signin Button",
+					"clicking from PremiumArticle"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on sign in on premium article ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on sign in on premium article ", e);
+		}
+	}
 }

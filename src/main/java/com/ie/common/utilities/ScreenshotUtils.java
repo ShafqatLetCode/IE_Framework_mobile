@@ -1,4 +1,4 @@
-package com.crestech.common.utilities;
+package com.ie.common.utilities;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
 
-import com.crestech.appium.utils.CommonAppiumTest;
+import com.ie.appium.utils.CommonAppiumTest;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;

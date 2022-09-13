@@ -1,4 +1,4 @@
-package com.crestech.common.utilities;
+package com.ie.common.utilities;
 
 import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.TapOptions.tapOptions;
@@ -6,56 +6,137 @@ import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
 import static io.appium.java_client.touch.offset.ElementOption.element;
 import static java.time.Duration.ofSeconds;
+
+import java.io.File;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Pause;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.MultiTouchAction;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidTouchAction;
+import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.offset.ElementOption;
 import io.appium.java_client.touch.offset.PointOption;
+import io.qameta.allure.Step;
 
 public class GestureUtils {
 
-	public  AppiumDriver<RemoteWebElement> driver;
-	public  WaitUtils wait = null;
-	public  TouchAction touch =null;
-	HandleException obj_handleexception=null;
+	public AppiumDriver<RemoteWebElement> driver;
+	public WaitUtils wait = null;
+	public TouchAction touch = null;
+	HandleException obj_handleexception = null;
+
 	public GestureUtils(AppiumDriver<RemoteWebElement> driver2) {
 		this.driver = driver2;
 		wait = new WaitUtils(this.driver);
 		touch = new TouchAction(this.driver);
-		obj_handleexception=new HandleException(null, null);
+		obj_handleexception = new HandleException(null, null);
 	}
-	//Working methods starts
+
+	// Working methods starts
 	public void DragAndDropElementToElement(MobileElement Element1, MobileElement Element2) throws Exception {
-		
+
 		try {
-			if(Element1.isDisplayed()&&Element2.isDisplayed())
+			if (Element1.isDisplayed() && Element2.isDisplayed())
 				touch.longPress(longPressOptions().withElement(element(Element1))).moveTo(element(Element2)).release()
-					.perform();
+						.perform();
 //			touch.longPress(longPressOptions().withElement(element(Element1)).withDuration(Duration.ofMillis(40))).moveTo(element(Element2)).release()
 //			.perform();
-		} 
-		catch (Exception e) {	
-			obj_handleexception.throwException("DRAGDROP_EXCEPTION", " Failed to perform drag and drop   ",e);
+			String selector = "type == 'XCUIElementTypeButton' AND value BEGINSWITH[c] 'bla' AND visible == 1";
+			driver.findElement(MobileBy.iOSNsPredicateString(selector));
+			
+			touch.longPress(longPressOptions().withElement(element(Element2)).withPosition(point(10, 10))
+					.withDuration(Duration.ofMillis(200))).moveTo(element(Element2)).perform().release();
+
+			touch.longPress(longPressOptions().withPosition(point(0, 0)).withDuration(Duration.ofMillis(200)))
+					.moveTo(point(0, 0)).release().perform();
+
+			touch.tap(tapOptions().withElement(element(Element2)).withPosition(point(0, 0)))
+					.waitAction(waitOptions(Duration.ofMillis(200))).release().perform();
+			touch.press(element(Element2).withCoordinates(0, 0)).waitAction(waitOptions(Duration.ofMillis(0)))
+					.moveTo(element(Element2)).release().perform();
+
+			Rectangle rect = Element2.getRect();
+			int x = rect.getHeight();
+
+			new MultiTouchAction(driver)
+					.add(touch.longPress(longPressOptions().withPosition(point(0, 11))).moveTo(point(0, 12)))
+					.add(touch.longPress(longPressOptions().withPosition(point(0, 11))).moveTo(point(0, 13)))
+					.perform();
+
+			TouchAction touch1 = touch.longPress(longPressOptions().withPosition(point(0, 0))).moveTo(point(20, 20));
+			TouchAction touch2 = touch.longPress(longPressOptions().withPosition(point(0, 0))).moveTo(point(20, 20));
+
+			new MultiTouchAction(driver).add(touch2).add(touch1).perform();
+
+			TakesScreenshot shot = (TakesScreenshot) driver;
+			File getScreenshot = shot.getScreenshotAs(OutputType.FILE);
+
+			Select drpCountry = new Select(Element2);
+			drpCountry.selectByIndex(x);
+			drpCountry.selectByValue(null);
+			drpCountry.selectByVisibleText(null);
+
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions.visibilityOf(Element2));
+
+			driver.switchTo().alert().accept();
+
+			/*
+			 * FluentWait<WebDriver> wait1 = new WebDriverWait(driver, 10)
+			 * .withTimeout(Duration.ofSeconds(10)) .pollingEvery(Duration.ofSeconds(3))
+			 * .until(xyx());
+			 */
+			
+			touch.press(PointOption.point(0, 0)).waitAction(waitOptions(Duration.ofMillis(300)))
+					.moveTo(PointOption.point(0, 0)).release().perform();
+
+			touch.press(element(Element1).withCoordinates(0, 0)).waitAction(waitOptions(Duration.ofMillis(300)))
+					.moveTo(element(Element1)).release().perform();
+			
+		} catch (Exception e) {
+			obj_handleexception.throwException("DRAGDROP_EXCEPTION", " Failed to perform drag and drop   ", e);
 		}
 	}
 	
-	/**Author Shafqat
+	public boolean xyx()
+	{
+		return true;
+	}
+
+	/**
+	 * Author Shafqat
+	 * 
 	 * @param Element
 	 * @param x
 	 * @param y
@@ -63,32 +144,37 @@ public class GestureUtils {
 	 */
 	public void DragAndDropElementToCoordinate(MobileElement Element, int x, int y) throws Exception {
 		try {
-			if(Element.isDisplayed())
-				touch.longPress(longPressOptions().withElement(element(Element))).moveTo(point(x, y)).release().perform();
+			if (Element.isDisplayed())
+				touch.longPress(longPressOptions().withElement(element(Element))).moveTo(point(x, y)).release()
+						.perform();
 		} catch (Exception e) {
 			throw e;
 		}
 	}
-	
+
 	public void longPressOnAndroidElement(WebElement ele) throws Exception {
 		try {
 			AndroidTouchAction touch = new AndroidTouchAction(driver);
-			touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(ele))).perform().release();
+			touch.longPress(LongPressOptions.longPressOptions().withElement(ElementOption.element(ele))).perform()
+					.release();
 		} catch (Exception e) {
 			throw e;
-		} 
+		}
 	}
+
 	public void longPressOnMiddleOfScreen(int durationInSecond) throws Exception {
 		try {
 			AndroidTouchAction touch = new AndroidTouchAction(driver);
 			Dimension windowSize1 = driver.manage().window().getSize();
-			int y =(int)((windowSize1.getHeight())/2);
-			int x =(int)((windowSize1.getWidth())/2);
-			touch.longPress(LongPressOptions.longPressOptions().withPosition(point(x, y)).withDuration(ofSeconds(durationInSecond))).perform();
+			int y = (int) ((windowSize1.getHeight()) / 2);
+			int x = (int) ((windowSize1.getWidth()) / 2);
+			touch.longPress(LongPressOptions.longPressOptions().withPosition(point(x, y))
+					.withDuration(ofSeconds(durationInSecond))).perform();
 		} catch (Exception e) {
 			throw e;
-		} 
+		}
 	}
+
 	public void longPressOnMobileElementSpecficLocation(MobileElement Element, int dur, int x, int y) throws Exception {
 		try {
 			touch.longPress(longPressOptions().withElement(element(Element)).withPosition(point(x, y))
@@ -97,7 +183,7 @@ public class GestureUtils {
 			throw e;
 		}
 	}
-	
+
 	public void tapAtSpecificPosition(int x, int y) throws Exception {
 		try {
 			touch.tap(tapOptions().withPosition(point(x, y))).perform();
@@ -123,15 +209,14 @@ public class GestureUtils {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param srcElement
 	 * @param destElement
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public void horizontalSwipeToElement(MobileElement srcElement, MobileElement destElement)
-			throws Exception {
+	public void horizontalSwipeToElement(MobileElement srcElement, MobileElement destElement) throws Exception {
 
 		try {
 			MobileElement firstElement = srcElement;
@@ -152,12 +237,12 @@ public class GestureUtils {
 		} catch (Exception e) {
 			throw e;
 		}
-	} 
+	}
 
 	/**
 	 * 
 	 * @author sneha aggarwal
-	 * @throws Exception 
+	 * @throws Exception
 	 * @implNote swipe up
 	 */
 	public void swipeFromUpToBottom() throws Exception {
@@ -177,7 +262,7 @@ public class GestureUtils {
 	/**
 	 * 
 	 * @author sneha aggarwal
-	 * @throws Exception 
+	 * @throws Exception
 	 * @implNote swipe down
 	 */
 	public void swipeFromBottomToUp() throws Exception {
@@ -196,10 +281,10 @@ public class GestureUtils {
 	/**
 	 * 
 	 * @author sneha aggarwal
-	 * @throws Exception 
+	 * @throws Exception
 	 * @implNote carousel images swipe
 	 */
-	public void swipeImages(WebElement ele) throws Exception { 
+	public void swipeImages(WebElement ele) throws Exception {
 		try {
 			String pageString = ele.getAttribute("value");
 			int length = pageString.length();
@@ -222,15 +307,14 @@ public class GestureUtils {
 	/**
 	 * 
 	 * @author sneha aggarwal
-	 * @throws Exception 
+	 * @throws Exception
 	 * @implNote Long press android
 	 */
-	
 
 	/**
 	 * 
 	 * @author sneha aggarwal
-	 * @throws Exception 
+	 * @throws Exception
 	 * @implNote Long press ios
 	 */
 	public void longPressIOS(WebElement ele) throws Exception {
@@ -267,7 +351,7 @@ public class GestureUtils {
 
 	public void tapAtSpecificPosionOnMobileElement(MobileElement Element, int x, int y) throws Exception {
 		try {
-		
+
 			touch.tap(tapOptions().withElement(element(Element)).withPosition(point(x, y))).perform();
 		} catch (Exception e) {
 			throw e;
@@ -326,7 +410,7 @@ public class GestureUtils {
 
 	public void longPressonSpecificLocation(int x, int y, int dur) throws Exception {
 		try {
-			
+
 			touch.longPress(longPressOptions().withPosition(point(x, y)).withDuration(ofSeconds(dur))).release()
 					.perform();
 		} catch (Exception e) {
@@ -336,7 +420,7 @@ public class GestureUtils {
 
 	public void MultipleTaponSpecificPositions(int x1, int y1, int x2, int y2) throws Exception {
 		try {
-			
+
 			new MultiTouchAction(driver).add(touch.tap(tapOptions().withPosition(point(x1, y1))))
 					.add(touch.tap(tapOptions().withPosition(point(x2, y2)))).perform();
 		} catch (Exception e) {
@@ -346,32 +430,32 @@ public class GestureUtils {
 
 	public void swipeElementtoElement(MobileElement Element1, MobileElement Element2) throws Exception {
 		try {
-			
+
 			touch.longPress(longPressOptions().withElement(element(Element1)).withDuration(ofSeconds(2)))
 					.moveTo(element(Element2)).release().perform();
-		} catch (Exception e) {		
-			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ",e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ", e);
 		}
 	}
 
 	public void swipeElementtoCoordinate(MobileElement Element, int x, int y) throws Exception {
 		try {
-		
+
 			touch.longPress(longPressOptions().withElement(element(Element)).withDuration(ofSeconds(2)))
 					.moveTo(point(x, y)).release().perform();
-		} catch (Exception e) {		
-			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ",e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ", e);
 		}
 	}
 
 	public void swipeCoordinatetoElement(MobileElement Element, int x, int y) throws Exception {
 		try {
-			
+
 			touch.longPress(longPressOptions().withPosition(point(x, y)).withDuration(ofSeconds(2)))
 					.moveTo(element(Element)).release().perform();
 
-		}catch (Exception e) {		
-			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ",e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ", e);
 		}
 	}
 
@@ -379,15 +463,15 @@ public class GestureUtils {
 		try {
 			touch.longPress(longPressOptions().withPosition(point(x1, y1)).withDuration(ofSeconds(2)))
 					.moveTo(point(x2, y2)).release().perform();
-		}catch (Exception e) {		
-			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ",e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to Swipe ", e);
 		}
 	}
 
 	public boolean scrollUPtoObject(String attribute, String value, MobileElement element) throws Exception {
 		try {
 			Dimension windowSize = driver.manage().window().getSize();
-			//System.out.println("getSessionId :"+driver.getSessionId());
+			// System.out.println("getSessionId :"+driver.getSessionId());
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
 			int y2 = (int) (h - y1);
@@ -396,7 +480,7 @@ public class GestureUtils {
 
 			String s1 = driver.getPageSource();
 			int count = 0;
-		
+
 			while ((driver.getPageSource().contains(str) != true) && count == 0) {
 				touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
 						.moveTo(point(x, y1)).release().perform();
@@ -406,45 +490,42 @@ public class GestureUtils {
 				} else
 					count = 1;
 			}
-			if(element !=null)
+			if (element != null)
 				Asserts.assertTrue(element.isDisplayed(), "Element not found");
-			
-			return true;
-		} catch (Exception e) {	
-			return true;
-		}
-	}
-	
-	
-	public Boolean scrollUPtoObjectIos(String attribute, String value, MobileElement element) throws Exception {
-		try {
-			HashMap<String,Object>ScrollObject=new HashMap<>();
-			ScrollObject.put("direction", "down");
-			ScrollObject.put("name", value);
-			driver.executeScript("mobile:scroll",ScrollObject);
-            Thread.sleep(1000);
-            return true;
-//			if(element !=null)
-//				Asserts.assertTrue(element.isDisplayed(), "Element not found");
 
-		} catch (Exception e) {	
+			return true;
+		} catch (Exception e) {
 			return true;
 		}
 	}
-	
-	
-	public boolean scrollUPIos() throws Exception {
+
+	public Boolean scrollUPtoObjectIos(String attribute, String value, MobileElement element) throws Exception {
 		try {
 			HashMap<String, Object> ScrollObject = new HashMap<>();
 			ScrollObject.put("direction", "down");
-			
-
+			ScrollObject.put("name", value);
 			driver.executeScript("mobile:scroll", ScrollObject);
-            return true;
+			Thread.sleep(1000);
+			return true;
+//			if(element !=null)
+//				Asserts.assertTrue(element.isDisplayed(), "Element not found");
 
 		} catch (Exception e) {
 			return true;
-			//obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to perform scroll  ", e);
+		}
+	}
+
+	public boolean scrollUPIos() throws Exception {
+		try {
+			// HashMap<String, Object> ScrollObject = new HashMap<>();
+			// ScrollObject.put("direction", "down");
+
+			// driver.executeScript("mobile:scroll", ScrollObject);
+			return true;
+		} catch (Exception e) {
+			return true;
+			// obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to perform
+			// scroll ", e);
 		}
 	}
 
@@ -452,7 +533,6 @@ public class GestureUtils {
 		try {
 			HashMap<String, Object> ScrollObject = new HashMap<>();
 			ScrollObject.put("direction", "up");
-			
 
 			driver.executeScript("mobile:scroll", ScrollObject);
 
@@ -460,8 +540,7 @@ public class GestureUtils {
 			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to perform scroll  ", e);
 		}
 	}
-	
-	
+
 	public boolean scrollDOWNtoObject(String attribute, String value, MobileElement element) throws Exception {
 		try {
 			Dimension windowSize = driver.manage().window().getSize();
@@ -473,7 +552,7 @@ public class GestureUtils {
 
 			String s1 = driver.getPageSource();
 			int count = 0;
-			
+
 			while ((driver.getPageSource().contains(str) != true) && count == 0) {
 				touch.longPress(longPressOptions().withPosition(point(x, y1)).withDuration(ofSeconds(2)))
 						.moveTo(point(x, y2)).release().perform();
@@ -484,11 +563,11 @@ public class GestureUtils {
 					count = 1;
 			}
 
-			if(element !=null)
+			if (element != null)
 				Asserts.assertTrue(element.isDisplayed(), "Element not found");
-			
+
 			return true;
-		} catch (Exception e) {	
+		} catch (Exception e) {
 			return true;
 		}
 	}
@@ -496,14 +575,14 @@ public class GestureUtils {
 	public boolean scrollUPwithinCoordinatetoObject(String attribute, String value, int leftabove_x1, int leftabove_y1,
 			int rightbelow_x2, int rightbelow_y2) throws Exception {
 		try {
-			
+
 			int y1 = (int) (leftabove_y1 * 0.05);
 			int y2 = (int) (rightbelow_y2 - y1);
 			int x = (int) (leftabove_x1 + ((rightbelow_x2) / 2));
 			String str = attribute + "=" + "\"" + value + "\"";
 			String s1 = driver.getPageSource();
 			int count = 0;
-			
+
 			while ((driver.getPageSource().contains(str) != true) && count == 0) {
 				touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
 						.moveTo(point(x, y1)).release().perform();
@@ -551,46 +630,44 @@ public class GestureUtils {
 		}
 	}
 
-	
-
-	
-
 	public void AllTypeSwipeOperation(String SwipeTypeDirection, int Percentage) throws Exception {
 		try {
 			Dimension windowSize = driver.manage().window().getSize();
 			int y = (int) ((windowSize.getHeight()) / 2);
 			int x = (int) ((windowSize.getWidth()) / 2);
-			int x1=0; int y1=0;
+			int x1 = 0;
+			int y1 = 0;
 			switch (SwipeTypeDirection) {
-	        case "DOWN":
-	        	 y1 = (int) (y + (y * 0.01 * Percentage));
+			case "DOWN":
+				y1 = (int) (y + (y * 0.01 * Percentage));
 				touch.press(PointOption.point(x, y)).waitAction(waitOptions(Duration.ofMillis(300)))
 						.moveTo(PointOption.point(x, y1)).release().perform();
-	            break;
-	        case "UP": 
-	        	 y1 = (int) (y - (y * 0.01 * Percentage));
+				break;
+			case "UP":
+				y1 = (int) (y - (y * 0.01 * Percentage));
 				touch.press(PointOption.point(x, y)).waitAction(waitOptions(Duration.ofMillis(300)))
 						.moveTo(PointOption.point(x, y1)).release().perform();
-	            break;
-	        case "LEFT": 
-	        	 x1 = (int) (x - (x * 0.01 * Percentage));
+				break;
+			case "LEFT":
+				x1 = (int) (x - (x * 0.01 * Percentage));
 				touch.press(PointOption.point(x, y)).waitAction(waitOptions(Duration.ofMillis(300)))
 						.moveTo(PointOption.point(x1, y)).release().perform();
-	            break;
-	        case "RIGHT": 
-	        	 x1 = (int) (x + (x * 0.01 * Percentage));
-	        	 touch.press(PointOption.point(x, y)).waitAction(waitOptions(Duration.ofMillis(300)))
+				break;
+			case "RIGHT":
+				x1 = (int) (x + (x * 0.01 * Percentage));
+				touch.press(PointOption.point(x, y)).waitAction(waitOptions(Duration.ofMillis(300)))
 						.moveTo(PointOption.point(x1, y)).release().perform();
-	            break;
-	        default:
-	            throw new IllegalArgumentException("GestureUtils:: AllTypeSwipeOperation(): '" + SwipeTypeDirection + "' NOT supported");
-	    }
+				break;
+			default:
+				throw new IllegalArgumentException(
+						"GestureUtils:: AllTypeSwipeOperation(): '" + SwipeTypeDirection + "' NOT supported");
+			}
 
 		} catch (Exception e) {
 			throw e;
 		}
 	}
-	
+
 	public void SwipeScreen(String dir) {
 		try {
 			Dimension windowSize = driver.manage().window().getSize();
@@ -612,7 +689,7 @@ public class GestureUtils {
 				y1 = y;
 			} else
 				throw new IllegalArgumentException("swipeScreen(): dir: '" + dir + "' NOT supported");
-		
+
 			touch.press(PointOption.point(x, y)).waitAction(waitOptions(Duration.ofMillis(300)))
 					.moveTo(PointOption.point(x1, y1)).release().perform();
 		} catch (Exception e) {
@@ -643,7 +720,7 @@ public class GestureUtils {
 				y1 = y;
 			} else
 				throw new IllegalArgumentException("swipeScreen(): dir: '" + dir + "' NOT supported");
-			
+
 			touch.press(PointOption.point(x, y)).waitAction(waitOptions(Duration.ofMillis(300)))
 					.moveTo(PointOption.point(x1, y1)).release().perform();
 		} catch (Exception e) {
@@ -684,16 +761,19 @@ public class GestureUtils {
 					.add(touch.longPress(longPressOptions().withPosition(point(x1, y))).moveTo(point(x11, y)))
 					.add(touch.longPress(longPressOptions().withPosition(point(x1, y))).moveTo(point(x22, y)))
 					.perform();
+
 		} catch (Exception e) {
 			throw e;
 		}
 	}
+
 	
-	public void scrollUPtoObjectBelowSpecificElement(String attribute, String value, MobileElement element,MobileElement specificPosition) throws Exception {
+	public void scrollUPtoObjectBelowSpecificElement(String attribute, String value, MobileElement element,
+			MobileElement specificPosition) throws Exception {
 		try {
 			Dimension windowSize = driver.manage().window().getSize();
-			//System.out.println("getSessionId :"+driver.getSessionId());
-			
+			// System.out.println("getSessionId :"+driver.getSessionId());
+
 			int h = windowSize.getHeight();
 			int y1 = (int) (h * 0.2);
 			int y2 = (int) (h - y1);
@@ -702,8 +782,7 @@ public class GestureUtils {
 
 			String s1 = driver.getPageSource();
 			int count = 0;
-			
-			
+
 			while ((driver.getPageSource().contains(str) != true) && count == 0) {
 				touch.longPress(longPressOptions().withPosition(point(x, y2)).withDuration(ofSeconds(2)))
 						.moveTo(element(specificPosition)).release().perform();
@@ -713,13 +792,88 @@ public class GestureUtils {
 				} else
 					count = 1;
 			}
-			if(element !=null)
+			if (element != null)
 				Asserts.assertTrue(element.isDisplayed(), "Element not found");
 
-		} catch (HandleException e) {	
-			throw new HandleException ("SCROLL_EXCEPTION", "Failed to scroll to the element ::",e);	
-		}catch (Exception e) {		
-			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to scroll to the element  ",e);
+		} catch (HandleException e) {
+			throw new HandleException("SCROLL_EXCEPTION", "Failed to scroll to the element ::", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("SCROLL_EXCEPTION", " Failed to scroll to the element  ", e);
 		}
 	}
+	
+	@Step("Scroll down to {elementName} on {pageName} with scroll speed {scroll}")
+	public boolean scrollDownto(MobileElement page, MobileElement element, float scrollSpeed, String elementName, String pageName) throws Exception {
+		try {
+			Dimension windowSize = page.getSize();
+			// System.out.println("getSessionId :"+driver.getSessionId());
+			int centreHight = windowSize.height/2;
+			int centreWidth = windowSize.width/2;
+			int h1 = (int) (centreHight - (windowSize.height * scrollSpeed));
+
+			int i=0;
+			while (i<10) {
+				
+				if(!isElementVisible2(element))
+				{
+					touch.longPress(longPressOptions().withPosition(point(centreWidth, centreHight)).withDuration(ofSeconds(1)))
+					.moveTo(point(centreWidth, h1)).release().perform();
+				}
+				else {
+					break;
+				}
+				i++;
+			}
+			if (i==10)
+				Asserts.assertFail( "Unable to Find the element "+elementName+ " on page"+pageName);
+
+			return true;
+		} catch (Exception e) {
+			return true;
+		}
+	}
+	
+	public boolean isElementVisible2(MobileElement element) throws Exception {
+		try {
+			//wait.waitForElementVisibility(element);
+			return element.isDisplayed();
+		} catch (Exception e) {
+			return false;
+//			System.out.println("Inside take ele visi catch" );
+//			throw new HandleException ("WAITELEMENTVISIBLE_EXCEPTION", "Element not visible on the screen ::",e);
+		
+		}
+	}
+	
+//	@Step("swiping right to left to find {elementName} on {pageName} with scroll speed {scroll}")
+//	public boolean swipeNavBar(MobileElement page, MobileElement element, float scrollSpeed, String elementName, String pageName) throws Exception {
+//		try {
+//			Dimension windowSize = page.getSize();
+//			// System.out.println("getSessionId :"+driver.getSessionId());
+//			int centreHight = windowSize.height/2;
+//			int centreWidth = windowSize.width/2;
+//			int w1 = (int) (centreWidth - (windowSize.width * scrollSpeed));
+//
+//			int i=0;
+//			while (i<10) {
+//				
+//				if(!isElementVisible2(element))
+//				{
+//					swipeCoordinatetoCoordinate(int x1, int y1, int x2, int y2);
+//				}
+//				else {
+//					break;
+//				}
+//				i++;
+//			}
+//			if (i==10)
+//				Asserts.assertFail( "Unable to Find the element "+elementName+ " on page"+pageName);
+//
+//			return true;
+//		} catch (Exception e) {
+//			return true;
+//		}
+//	}
+	
+	
 }

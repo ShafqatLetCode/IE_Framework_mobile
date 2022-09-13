@@ -1,4 +1,4 @@
-package com.crestech.listeners;
+package com.ie.listeners;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,9 +14,10 @@ import org.json.JSONObject;
 import org.testng.IAlterSuiteListener;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlTest;
-import com.crestech.appium.utils.CommonAppiumTest;
-import com.crestech.appium.utils.ConfigurationManager;
-import com.crestech.common.utilities.CreateJSON;
+
+import com.ie.appium.utils.CommonAppiumTest;
+import com.ie.appium.utils.ConfigurationManager;
+import com.ie.common.utilities.CreateJSON;
 
 public class AlterSuite implements IAlterSuiteListener {
 

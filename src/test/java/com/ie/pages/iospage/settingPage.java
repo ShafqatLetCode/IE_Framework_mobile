@@ -1,31 +1,32 @@
-package com.crestech.pages.iospage;
+package com.ie.pages.iospage;
 
 import java.time.Duration;
 
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.PageFactory;
 
-import com.crestech.annotation.values.ElementDescription;
-import com.crestech.appium.utils.CommonAppiumTest;
-import com.crestech.common.utilities.HandleException;
+import com.ie.annotation.values.ElementDescription;
+import com.ie.appium.utils.CommonAppiumTest;
+import com.ie.common.utilities.HandleException;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.qameta.allure.Step;
 
 /**
- * @author Divya
+ * @author Shafqat
  *
  */
-public class launchPage extends CommonAppiumTest{
+public class settingPage extends CommonAppiumTest{
 	
 	public AppiumDriver<RemoteWebElement> driver = null;
 	HandleException obj_handleexception = null;
 	
 	
-	public launchPage(AppiumDriver<RemoteWebElement> driver) throws Exception {
+	public settingPage(AppiumDriver<RemoteWebElement> driver) throws Exception {
 		super(driver);
 		try {
 			this.driver = driver;
@@ -37,107 +38,98 @@ public class launchPage extends CommonAppiumTest{
 		}
 	}
 
-	@ElementDescription(value = "Pre login button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='PRE LOGIN']")
-	private MobileElement preLoginButton;
+	@ElementDescription(value = "Login Link")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name=\"Click here to Login\"]")
+	private MobileElement loginLink;
 	
-	@ElementDescription(value = "More on Prelogin")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='More']")
-	private MobileElement moreOnPreLogin;
+	@ElementDescription(value = "profile Link")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name=\"My Profile\"]")
+	private MobileElement profile;
+	
+	@ElementDescription(value = "Logout Button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Logout\"]")
+	private MobileElement logout;
 
-	@ElementDescription(value = "DBS digibank” Would Like to Send You Notifications")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeAlert[@name='“DBS digibank” Would Like to Send You Notifications']")
-	private MobileElement sendNotificationAlert;
+	@ElementDescription(value = "Page Container")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeScrollView")
+	private MobileElement pageContainer;
 	
-	@ElementDescription(value = "Allow “DBS digibank” to use your location?")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeAlert[@name='Allow “DBS digibank” to use your location?']")
-	private MobileElement atmLocationAlert;
-	
-	@ElementDescription(value = "localNetworkAlert")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeAlert[@name='“DBS digibank” would like to find and connect to devices on your local network.']")
-	private MobileElement localNetworkAlert;
-	
-	@ElementDescription(value = "'activityIndicator")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='customLoadingView_activityIndicator']")
-	private MobileElement activityIndicator;
-
-	@ElementDescription(value = "'animationView")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeOther[@name='animationView']")
-	private MobileElement animationView;
-
-	@ElementDescription(value = "'Authenticating")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Authenticating']")
-	private MobileElement Authenticating;
-	
-	
-	public MobileElement Authenticating() { 
-		return Authenticating;
-	}
-	
-	public MobileElement animationView() { 
-		return animationView;
-	}
-	
-	public MobileElement activityIndicator() { 
-		return activityIndicator;
-	}
-
-	@Step("Click on Alert DBS digibank” would like to find and connect to devices on your local network.")
-	public void localNetworkAlert() throws Exception {
+	@Step("Click on Login")
+	public void ClickOnLogin() throws Exception {
 		try {
-			if(isElementVisible2(localNetworkAlert)) {
-				com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-				driver.findElementByName("OK").click();	
-			}
-		}  catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Alert ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Alert ", e);
-		}
-	}
-	
-	@Step("Clicked on Alert Allow “DBS digibank” to use your location?")
-	public void atmLocationAlert() throws Exception {
-		try {
-			if(isElementVisible2(atmLocationAlert))
-				driver.findElementByName("Allow While Using App").click();
+			wait.waitForElement(loginLink, 
+					5,
+					"Login Link",
+					"Login Page"
+				);
+			
+			clickOn(loginLink, 
+					"Setting option",
+					"clicking from homepage"
+				);
 
-		}  catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Alert ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Alert ", e);
-		}
-	}
-	
-	@Step("Clicked on Alert DBS digibank” Would Like to Send You Notifications")
-	public void sendNotificationAlert() throws Exception {
-		try {
-			if(isElementVisible2(sendNotificationAlert)) 
-				driver.findElementByName("Allow").click();
-				
-		}  catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Alert ", e);
-		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Alert ", e);
-		}
-	}
-	
-	@Step("Clicked on Pre-Login button")
-	public void ClickOnPreloginButton() throws Exception {
-		try {
-			if(isElementVisible2(preLoginButton))
-			{
-			int count = 0;
-			com.crestech.listeners.TestListener.saveScreenshotPNG(driver);
-			do {
-				clickOnElement(preLoginButton);
-				count++;
-			} while (!isElementVisible2(moreOnPreLogin) && count < 3);
-			}
+			
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Click On Prelogin Button ", e);
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Login Link ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Click On Prelogin Button ", e);
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Login Link ", e);
+		}
+	}
+	
+	@Step("Click on Profile link")
+	public void profileLink() throws Exception {
+		try {
+			wait.waitForElement(profile, 
+					5,
+					"Profile Link",
+					"Login Page"
+				);
+			
+			clickOn(profile, 
+					"profile option",
+					"clicking from Setting"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Login Link ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Login Link ", e);
+		}
+	}
+	
+	@Step("Click on Logout button")
+	public void ClickOnLogout() throws Exception {
+		try {
+			wait.waitForElement(profile, 
+					5,
+					"Profile Link",
+					"Login Page"
+				);
+			
+			gesture.scrollDownto(
+					pageContainer, 
+					logout,
+					(float) 0.5,
+					"Logout button",
+					"update Profile page");
+
+			clickOn(logout, 
+					"logout button",
+					"clicking from profile page"
+				);
+			
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Sign In ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Sign In ", e);
 		}
 	}
 }

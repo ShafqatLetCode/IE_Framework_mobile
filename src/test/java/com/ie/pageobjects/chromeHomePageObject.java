@@ -1,8 +1,8 @@
-package com.crestech.pageobjects;
+package com.ie.pageobjects;
 
 import org.openqa.selenium.support.FindBy;
 
-import com.crestech.annotation.values.ElementDescription;
+import com.ie.annotation.values.ElementDescription;
 
 import io.appium.java_client.MobileElement;
 

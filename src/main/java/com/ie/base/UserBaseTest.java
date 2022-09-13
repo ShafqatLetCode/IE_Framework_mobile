@@ -1,4 +1,4 @@
-package com.crestech.base;
+package com.ie.base;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -34,12 +34,13 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.crestech.appium.utils.ConfigurationManager;
-import com.crestech.common.utilities.CommonTestData;
-import com.crestech.common.utilities.ExcelUtils;
-import com.crestech.common.utilities.ScreenshotUtils;
-import com.crestech.common.utilities.WaitUtils;
-import com.crestech.config.ContextManager;
+import com.ie.appium.utils.ConfigurationManager;
+import com.ie.common.utilities.CommonTestData;
+import com.ie.common.utilities.ExcelUtils;
+import com.ie.common.utilities.ScreenshotUtils;
+import com.ie.common.utilities.WaitUtils;
+import com.ie.config.ContextManager;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -52,7 +53,7 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
 
 /**
- *  *  * @author Divya, Shafkat,Shubham  *  
+ *  *  * @author Shafqat*  
  */
 
 public class UserBaseTest extends TestListenerAdapter implements ITestListener {
@@ -102,7 +103,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			//	PageFactory.initElements(new AppiumFieldDecorator(driver, Duration.ofSeconds(5)), this);
 			ContextManager.setDriver(this.driver); 
 			waitut =new WaitUtils(this.driver);
-			waitut.ImplicitlyWait(30);
+			waitut.ImplicitlyWait(10);
 			
 			
 		} catch (Exception e) {
@@ -305,63 +306,70 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			}
 			break;
 
-		case "pCloudyAndroid":
+		case "lamdaTestAndroid":
 
 			//System.out.println(device_udid + "," + version);
-			capabilities.setCapability("pCloudy_Username", s.get(12));
-			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
-			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
-			capabilities.setCapability("newCommandTimeout", 600);
-			capabilities.setCapability("launchTimeout", 90000);
-			capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
-			capabilities.setCapability("platformVersion", version);
-			capabilities.setCapability("platformName", "Android");
-			capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
-			capabilities.setCapability("appPackage", s.get(2));
-			capabilities.setCapability("appActivity", s.get(1));
-			capabilities.setCapability("pCloudy_WildNet", "false");
-			capabilities.setCapability("autoGrantPermissions", "true");
-			capabilities.setCapability("pCloudy_EnableVideo", "true");
+//			capabilities.setCapability("pCloudy_Username", s.get(12));
+//			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
+//			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
+//			capabilities.setCapability("newCommandTimeout", 600);
+//			capabilities.setCapability("launchTimeout", 90000);
+//			capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
+//			capabilities.setCapability("platformVersion", version);
+//			capabilities.setCapability("platformName", "Android");
+//			capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
+//			capabilities.setCapability("appPackage", s.get(2));
+//			capabilities.setCapability("appActivity", s.get(1));
+//			capabilities.setCapability("pCloudy_WildNet", "false");
+//			capabilities.setCapability("autoGrantPermissions", "true");
+//			capabilities.setCapability("pCloudy_EnableVideo", "true");
 
+			capabilities.setCapability("platformName", "android");
+			capabilities.setCapability("deviceName", "Galaxy A12");
+			capabilities.setCapability("platformVersion", "10");
+			capabilities.setCapability("app", "lt://APP10160521021662636214780639");
+			capabilities.setCapability("isRealMobile", true);
 //			capabilities.setCapability("pCloudy_DeviceManafacturer", manafacturer);
 //			capabilities.setCapability("pCloudy_MinVersion",min_Ver); 
 //			capabilities.setCapability("pCloudy_MaxVersion",max_Ver); 
 //			capabilities.setCapability("pCloudy_Individual",individual_ID);
-			capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
+			//capabilities.setCapability(MobileCapabilityType.NO_RESET, true);
 
 			if (checkDeviceVersion(version)) {
-				capabilities.setCapability("automationName", "UiAutomator2");
-				capabilities.setCapability("uiautomator2ServerLaunchTimeout", 200000);
-				capabilities.setCapability("noSign", true);
+				/*
+				 * capabilities.setCapability("automationName", "UiAutomator2");
+				 * capabilities.setCapability("uiautomator2ServerLaunchTimeout", 200000);
+				 */
+				//capabilities.setCapability("noSign", true);
 			} else {
-				capabilities.setCapability("automationName", "UiAutomator1");
+				//capabilities.setCapability("automationName", "UiAutomator1");
 			}
 
 			break;
 
-		case "pCloudyIOS":
-			capabilities.setCapability("pCloudy_Username", s.get(12));
-			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
-			//capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
-			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
-	        capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
-		    capabilities.setCapability("platformVersion", version);
-			capabilities.setCapability("newCommandTimeout", 600);
-			capabilities.setCapability("launchTimeout", 90000);
-			capabilities.setCapability("bundleId", s.get(7));
-			capabilities.setCapability("automationName", s.get(4));
-			capabilities.setCapability("pCloudy_WildNet", "false");
-			capabilities.setCapability("platformName", "ios");
-			capabilities.setCapability("noReset", true);
-			capabilities.setCapability("fullReset", false);
-		    capabilities.setCapability("pCloudy_EnableVideo", "true");
-		    capabilities.setCapability("autoGrantPermissions", "true");
-		    capabilities.setCapability("acceptAlerts", true);
-		    capabilities.setCapability("idleTimeout",180);
-		    //capabilities.setCapability("autoAcceptAlerts", "true"); 
-		    //capabilities.setCapability("autoDissmissAlerts", "true");
-		    capabilities.setCapability("locationServicesAuthorized", "true");
-		    capabilities.setCapability("clearSystemFiles", true);
+		case "lamdaTestIOS":
+//			capabilities.setCapability("pCloudy_Username", s.get(12));
+//			capabilities.setCapability("pCloudy_ApiKey", s.get(13));
+//			//capabilities.setCapability("pCloudy_ApplicationName", s.get(14));
+//			capabilities.setCapability("pCloudy_DurationInMinutes", s.get(15));
+//	        capabilities.setCapability("pCloudy_DeviceFullName", device_udid);
+//		    capabilities.setCapability("platformVersion", version);
+//			capabilities.setCapability("newCommandTimeout", 600);
+//			capabilities.setCapability("launchTimeout", 90000);
+//			capabilities.setCapability("bundleId", s.get(7));
+//			capabilities.setCapability("automationName", s.get(4));
+//			capabilities.setCapability("pCloudy_WildNet", "false");
+//			capabilities.setCapability("platformName", "ios");
+//			capabilities.setCapability("noReset", true);
+//			capabilities.setCapability("fullReset", false);
+//		    capabilities.setCapability("pCloudy_EnableVideo", "true");
+//		    capabilities.setCapability("autoGrantPermissions", "true");
+//		    capabilities.setCapability("acceptAlerts", true);
+//		    capabilities.setCapability("idleTimeout",180);
+//		    //capabilities.setCapability("autoAcceptAlerts", "true"); 
+//		    //capabilities.setCapability("autoDissmissAlerts", "true");
+//		    capabilities.setCapability("locationServicesAuthorized", "true");
+//		    capabilities.setCapability("clearSystemFiles", true);
 		    
 //		    capabilities.setCapability("project", "DBSAutomation");
 //			capabilities.setCapability("build", "DBSBuild1");
@@ -371,6 +379,12 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 //			capabilities.setCapability("pCloudy_MinVersion",min_Ver); 
 //			capabilities.setCapability("pCloudy_MaxVersion",max_Ver); 
 //			capabilities.setCapability("pCloudy_Individual",individual_ID);
+			
+			capabilities.setCapability("platformName", "ios");
+			capabilities.setCapability("deviceName", "iPhone 13");
+			capabilities.setCapability("platformVersion", "15");
+			capabilities.setCapability("app", "lt://APP10160551841661845556047490");
+			capabilities.setCapability("isRealMobile", true);
 
 			break;
 
@@ -450,19 +464,33 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 
 
 			driver = new AndroidDriver<RemoteWebElement>(androidCaps);
-		} else if (os.equalsIgnoreCase("pCloudyAndroid") || os.equalsIgnoreCase("pCloudyAndroidChrome")) {
+		} else if (os.equalsIgnoreCase("lamdaTestAndroid") || os.equalsIgnoreCase("lamdaTestChrome")) {
 //			driver = new AndroidDriver<RemoteWebElement>(
 //					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
+			//String a=s.get(2)+":"+s.get(3) + "@hub.lambdatest.com/wd/hub";
+			String userName = "shafqat.ali"; //Enter your LT Username here
+		    String accessKey = "WE6p22HNh4mFYPqy9Fj1S8YqNDOhkPVOTx1qNbPAMmZ58sPqgI"; //Enter your LT AccessKey here
+		    String gridURL = "@mobile-hub.lambdatest.com/wd/hub";
+		    String hub = "https://" + userName + ":" + accessKey + gridURL;
+		    
 			driver = new AndroidDriver<RemoteWebElement>(
-					new URL(s.get(3) + "/appiumcloud/wd/hub"), androidCaps);
+					new URL(hub), androidCaps);
 		}
 		else {
 //			driver = new IOSDriver<RemoteWebElement>(
 //					new URL(prop.getProperty("pCloudy_Endpoint") + "/appiumcloud/wd/hub"), androidCaps);
-			driver = new IOSDriver<RemoteWebElement>(
-					new URL(s.get(3) + "/appiumcloud/wd/hub"), androidCaps);
+//			driver = new IOSDriver<RemoteWebElement>(
+//					new URL(s.get(3) + "/appiumcloud/wd/hub"), androidCaps);
 //			driver = new IOSDriver<RemoteWebElement>(
 //					new URL(s.get(3) + "/progressive/wd/hub"), androidCaps);
+			
+			String userName = "shafqat.ali"; //Enter your LT Username here
+		    String accessKey = "WE6p22HNh4mFYPqy9Fj1S8YqNDOhkPVOTx1qNbPAMmZ58sPqgI"; //Enter your LT AccessKey here
+		    String gridURL = "@mobile-hub.lambdatest.com/wd/hub";
+		    String hub = "https://" + userName + ":" + accessKey + gridURL;
+		    
+		    driver = new AndroidDriver<RemoteWebElement>(
+					new URL(hub), androidCaps);
 		}
 		return driver;
 	}

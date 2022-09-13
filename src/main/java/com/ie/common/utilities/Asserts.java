@@ -1,4 +1,4 @@
-package com.crestech.common.utilities;
+package com.ie.common.utilities;
 
 import java.io.IOException;
 
@@ -7,10 +7,11 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.crestech.base.UserBaseTest;
-import com.crestech.config.ContextManager;
+import com.ie.base.UserBaseTest;
+import com.ie.config.ContextManager;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 
 public class Asserts extends UserBaseTest {
 
@@ -116,6 +117,31 @@ public class Asserts extends UserBaseTest {
 					ContextManager.getExtentReportForPrecondition().log(Status.FAIL, message);
 				}
 				Assert.assertEquals(actual, expected, message);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); throw e;
+		}
+	}
+	
+	@Step("Assertion Actual {actual} is same as Expected {expected}")
+	public void assertContains(String actual, String expected) throws Exception {
+		try {
+			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
+				{
+					if(!actual.contains(expected.toLowerCase()))
+					{
+						Assert.fail("Expecting "+expected+" but found "+actual);
+					}
+				}
+				//Assert.assertEquals(actual, expected, message);
+			} else if (prop.getProperty("ReportType").trim().equalsIgnoreCase("extent")) {
+				if (actual.equals(expected)) {
+					//ContextManager.getExtentReportForPrecondition().log(Status.PASS, message);
+				} else {
+					//ContextManager.getExtentReportForPrecondition().log(Status.FAIL, message);
+				}
+				//Assert.assertEquals(actual, expected, message);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

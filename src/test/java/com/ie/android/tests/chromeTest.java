@@ -1,14 +1,16 @@
-package com.crestech.android.tests;
+package com.ie.android.tests;
 
 
 import java.util.logging.Logger;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import com.crestech.base.UserBaseTest;
-import com.crestech.common.utilities.WaitUtils;
-import com.crestech.listeners.TestListener;
-import com.crestech.pages.ChromeHomePage;
+
+import com.ie.base.UserBaseTest;
+import com.ie.common.utilities.WaitUtils;
+import com.ie.listeners.TestListener;
+import com.ie.pages.ChromeHomePage;
+
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;

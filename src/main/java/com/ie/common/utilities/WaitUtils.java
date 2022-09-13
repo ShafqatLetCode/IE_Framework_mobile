@@ -1,4 +1,4 @@
-package com.crestech.common.utilities;
+package com.ie.common.utilities;
 
 import java.util.concurrent.TimeUnit;
 import java.time.Duration;
@@ -12,9 +12,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import com.crestech.appium.utils.CommandPrompt;
+
+import com.ie.appium.utils.CommandPrompt;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.qameta.allure.Step;
 
 public class WaitUtils extends CommandPrompt {
 
@@ -205,5 +208,30 @@ public class WaitUtils extends CommandPrompt {
 		}
 	}
 	
+	@Step("Waiting for {elementDetail} on page {functionException}")
+	public void waitForElement(MobileElement element, int timeUnit, String elementDetail, String functionException) throws Exception  {
+		if(timeUnit==0) {
+			timeUnit=(int) WAIT_TIME;
+		}
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, timeUnit);
+			wait.until(ExpectedConditions.visibilityOf(element));
+		} 
+		catch (Exception e) {
+			Asserts.assertFail( "Unable to Find "+elementDetail+" on "+functionException+ "After waiting for "+timeUnit);
+		}
+	}
 	
+	@Step("Waiting for {elementDetail} on page {functionException}")
+	public void waitForNoElement(MobileElement element, int timeUnit, String elementDetail, String functionException) throws Exception {
+		try {
+			if(timeUnit==0) {
+				timeUnit=(int) WAIT_TIME;
+			}
+			WebDriverWait wait = new WebDriverWait(driver, timeUnit);
+			wait.until(ExpectedConditions.invisibilityOf(element));
+		} catch (Exception e) {
+			Asserts.assertFail( "Unable to Find "+elementDetail+" on "+functionException+ "After waiting for "+timeUnit);
+		}
+	}	
 }

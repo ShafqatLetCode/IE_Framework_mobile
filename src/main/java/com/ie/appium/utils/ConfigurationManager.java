@@ -1,4 +1,4 @@
-package com.crestech.appium.utils;
+package com.ie.appium.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.crestech.common.utilities;
+package com.ie.common.utilities;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,7 +7,8 @@ import java.util.List;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import com.crestech.appium.utils.CommonAppiumTest;
+
+import com.ie.appium.utils.CommonAppiumTest;
 
 public class CreateJSON {
 
