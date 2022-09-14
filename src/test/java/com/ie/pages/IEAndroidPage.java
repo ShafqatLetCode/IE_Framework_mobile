@@ -269,7 +269,7 @@ public class IEAndroidPage extends CommonAppiumTest {
 	}
 	
 	
-	@Step("Clicking on Sign in  on Premium Wall on Article")
+	@Step("back From Epaper And Validate SignIn")
 	public void backFromEpaperAndValidateSignIn(String userName, String password, String appName)
 			throws Exception {
 		try {

@@ -127,7 +127,7 @@ public class ePaperPage extends CommonAppiumTest{
 	public void verifyingEpaperNewsHeader() throws Exception {
 		try {
 			wait.waitForElement(newsLetterHeader, 
-					5,
+					12,
 					"news Letter Header",
 					"verifiying on News Header"
 				);
