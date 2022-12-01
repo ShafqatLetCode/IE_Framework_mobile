@@ -1,11 +1,11 @@
 
-#DBS Android
+#IE Android
 Please run below command in root directory
-`mvn clean test -Dsurefire.suiteXmlFiles=DBSAndroid.xml`
+`mvn clean test -Dsurefire.suiteXmlFiles=IE_Android.xml`
 
-#DBS IOS
+#IE IOS
 Please run below command in root directory
-`mvn clean test -Dsurefire.suiteXmlFiles=DBSIOS.xml`
+`mvn clean test -Dsurefire.suiteXmlFiles=IE_IOS.xml`
 
 #Local
 Please run below command in root directory
