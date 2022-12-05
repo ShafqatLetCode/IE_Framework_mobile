@@ -802,7 +802,7 @@ public class GestureUtils {
 		}
 	}
 	
-	@Step("Scroll down to {elementName} on {pageName} with scroll speed {scroll}")
+	@Step("Scroll down to {elementName} on {pageName} with scroll speed {scrollSpeed}")
 	public boolean scrollDownto(MobileElement page, MobileElement element, float scrollSpeed, String elementName, String pageName) throws Exception {
 		try {
 			Dimension windowSize = page.getSize();
@@ -827,6 +827,34 @@ public class GestureUtils {
 			if (i==10)
 				Asserts.assertFail( "Unable to Find the element "+elementName+ " on page"+pageName);
 
+			return true;
+		} catch (Exception e) {
+			return true;
+		}
+	}
+	
+	@Step("Scroll down to {elementName} on {pageName} with scroll speed {scrollSpeed}")
+	public boolean scrollDowntoCheckElementDoesntExist(MobileElement page, MobileElement element, float scrollSpeed, String elementName, String pageName) throws Exception {
+		try {
+			Dimension windowSize = page.getSize();
+			// System.out.println("getSessionId :"+driver.getSessionId());
+			int centreHight = windowSize.height/2;
+			int centreWidth = windowSize.width/2;
+			int h1 = (int) (centreHight - (windowSize.height * scrollSpeed));
+
+			int i=0;
+			while (i<15) {
+				
+				if(!isElementVisible2(element))
+				{
+					touch.longPress(longPressOptions().withPosition(point(centreWidth, centreHight)).withDuration(ofSeconds(1)))
+					.moveTo(point(centreWidth, h1)).release().perform();
+				}
+				else if(isElementVisible2(element)){
+					Asserts.assertFail( " Element exist on page "+elementName+ " on page "+pageName);
+				}
+				i++;
+			}
 			return true;
 		} catch (Exception e) {
 			return true;

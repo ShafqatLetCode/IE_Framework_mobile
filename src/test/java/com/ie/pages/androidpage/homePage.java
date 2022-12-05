@@ -73,7 +73,7 @@ public class homePage extends CommonAppiumTest {
 	private MobileElement Epaper;
 	
 	@ElementDescription(value = "Premium Tag")
-	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,\"tvPremium\")]")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,\"listItem\")]/following-sibling::android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.TextView[contains(@resource-id,\"tvPremium\")]")
 	private MobileElement premiumTag;
 	
 	@ElementDescription(value = "Premium Article Tag")
@@ -100,6 +100,13 @@ public class homePage extends CommonAppiumTest {
 	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,\"loginEvolok\")]")
 	private MobileElement registerButtonOnPremiumArticle;
 	
+	@ElementDescription(value = "Home buttom nav tab")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[contains(@resource-id,'home')]")
+	private MobileElement homeButtomNavTab;
+	
+	@ElementDescription(value = "Premium article wall")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'evolokTV2')]")
+	private MobileElement premiumArticleWall;
 	
 	@Step("Verify Home Page After Launch")
 	public void VerifyHomePage() throws Exception {
@@ -196,6 +203,30 @@ public class homePage extends CommonAppiumTest {
 		}
 	}
 	
+	@Step("Click on Bottom Nav")
+	public void ClickOnBottomNaHome() throws Exception {
+		try {
+			wait.waitForElement(homeButtomNavTab, 
+					12,
+					"Home bottom nav icon",
+					"verifiying on home tab"
+				);
+			
+			clickOn(homeButtomNavTab, 
+					"home Buttom NavTab option",
+					"clicking from homepage"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Home buttom nav Icon ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Home buttom nav Icon ", e);
+		}
+	}
+	
 	@Step("Scroll to Premium article")
 	public void scrollToPremiumArticle() throws Exception {
 		try {
@@ -246,6 +277,8 @@ public class homePage extends CommonAppiumTest {
 		}
 	}
 	
+	
+	
 	@Step("Scroll to register button on Premium article")
 	public void scrollToPremiumRegisterButton() throws Exception {
 		try {
@@ -261,6 +294,54 @@ public class homePage extends CommonAppiumTest {
 					(float) 0.5,
 					"registration button",
 					"premium article");
+			
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Scroll to register button on premium article ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Scroll to register button on premium article  ", e);
+		}
+	}
+	
+	@Step("Scroll to down to page to check Premium wall doesnt Exist")
+	public void scrollToCheckPremiumRegisterWallDoesntExist() throws Exception {
+		try {
+			wait.waitForElement(articlepagePageContainer, 
+					5,
+					"Page container",
+					"article page"
+				);
+			
+			gesture.scrollDowntoCheckElementDoesntExist(
+					articlepagePageContainer, 
+					registerButtonOnPremiumArticle,
+					(float) 0.5,
+					"registration button",
+					"premium article");
+			
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed As premium Wall found on premium article ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed As premium Wall found on premium article  ", e);
+		}
+	}
+	
+	@Step("Validating Premium Wall")
+	public void validatingPremiumArticleWall() throws Exception {
+		try {
+			wait.waitForElementBoolean(premiumArticleWall, 
+					5,
+					"premium article",
+					"article Detail page"
+				);
+			
+			String getTitle=premiumArticleWall.getText().toString().toLowerCase();
+			Assert.assertContains(getTitle,"You need a subscription to read on");
 			
 			
 		} catch (HandleException e) {

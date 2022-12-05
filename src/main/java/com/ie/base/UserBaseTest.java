@@ -327,7 +327,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("platformName", "android");
 			capabilities.setCapability("deviceName", "Galaxy A12");
 			capabilities.setCapability("platformVersion", "10");
-			capabilities.setCapability("app", "lt://APP10160521021662636214780639");
+			capabilities.setCapability("app", "lt://APP10160251171665129520566232");
 			capabilities.setCapability("isRealMobile", true);
 //			capabilities.setCapability("pCloudy_DeviceManafacturer", manafacturer);
 //			capabilities.setCapability("pCloudy_MinVersion",min_Ver); 

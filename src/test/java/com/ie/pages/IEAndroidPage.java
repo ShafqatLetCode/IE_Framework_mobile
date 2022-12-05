@@ -76,7 +76,7 @@ public class IEAndroidPage extends CommonAppiumTest {
 	public void loginApp(String userName, String password, String appName)
 			throws Exception {
 		try {
-			homepage.updateAlert();
+			
 			homepage.VerifyHomePage();
 			homepage.ClickOnSetting();
 			settingPage.ClickOnLogin();
@@ -84,7 +84,7 @@ public class IEAndroidPage extends CommonAppiumTest {
 			loginpage.ClickOnContinueButton();
 			loginpage.enterTextInPasswordField(password);
 			loginpage.ClickOnSignIn();
-			loginpage.LoginValidation(userName);
+			//loginpage.LoginValidation(userName);
 			
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Verify Login Validation ", e);
@@ -137,6 +137,39 @@ public class IEAndroidPage extends CommonAppiumTest {
 		}
 	}
 	
+	@Step("Handling Customise user journey if present")
+	public void SkippingCustomiseUserJourney()throws Exception {
+		try {
+			homepage.updateAlert();
+			if(preloginpage.isCustomiseJourneyPresent()) 
+			{
+				preloginpage.continueButton();
+				preloginpage.handlingSelectInterest();
+				loginpage.skippingLoginPage();
+			}
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " unable to handle customise user journey ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " unable to handle customise user journey ", e);
+		}
+	}
+	
+	@Step("PreLogin the App, select city and interest")
+	public void handleCustomiseUserJourney()throws Exception {
+		try {
+			preloginpage.selectCity("Mumbai");
+			preloginpage.continueButton();
+			preloginpage.selectInterest("Technology", "Videos", "Opinion");
+			preloginpage.continueButton();
+			loginpage.ClickOnSignInLink();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Verify Login Validation ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Verify Login Validation ", e);
+		}
+	}
+	
 	@Step("LogIn the App")
 	public void loginApp(String userName, String password)
 			throws Exception {
@@ -154,18 +187,43 @@ public class IEAndroidPage extends CommonAppiumTest {
 	}
 	
 	@Step("validation non subscription for epaper")
-	public void validateNonSubscriptionForEpaper()
+	public void validateNonSubscriptionForEpaper(boolean isBack)
 			throws Exception {
 		try {
 			homepage.ClickOnEpaper();
 			epaperpage.verifyingEpaperWall();
+			if(isBack)
+			{
+				driver.navigate().back();
+			}
 			
 		} catch (HandleException e) {
-			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Verify Non subscription ", e);
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Verify Epaper wall for Non subscription ", e);
 		} catch (Exception e) {
-			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Verify Non subscription ", e);
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Verify Epaper wall for Non subscription ", e);
 		}
 	}
+	
+	@Step("validation non subscription for epaper")
+	public void validateSubscriptionForEpaper(boolean isBack)
+			throws Exception {
+		try {
+			
+			homepage.ClickOnEpaper();
+			epaperpage.verifyingEpaperWallNotPresent();
+			epaperpage.verifyingEpaperNewsHeader();
+			if(isBack)
+			{
+			epaperpage.backButton();
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Verify Epaper wall not present ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Verify Epaper wall not present ", e);
+		}
+	}
+	
+	
 	
 	@Step("Logout From App")
 	public void logoutApp()
@@ -242,6 +300,7 @@ public class IEAndroidPage extends CommonAppiumTest {
 	public void validatePremiumTagAndClickOnAricle()
 			throws Exception {
 		try {
+			homepage.ClickOnBottomNaHome();
 			homepage.scrollToPremiumArticle();
 			homepage.ClickOnPremiumArticle();
 		} catch (HandleException e) {
@@ -250,6 +309,21 @@ public class IEAndroidPage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Verify premium tag and its article", e);
 		}
 	}
+	
+	@Step("Finding Premium tag and clicking on its article")
+	public void validatePremiumTag()
+			throws Exception {
+		try {
+			homepage.scrollToPremiumArticle();
+			homepage.ClickOnPremiumArticle();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Verify premium tag and its article", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Verify premium tag and its article", e);
+		}
+	}
+	
+	
 	
 	@Step("Clicking on Sign in  on Premium Wall on Article")
 	public void signInFromPremiumWall(String userName, String password, String appName)
@@ -265,6 +339,32 @@ public class IEAndroidPage extends CommonAppiumTest {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Verify on Sign in  on Premium Wall on Article", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Verify on Sign in  on Premium Wall on Article", e);
+		}
+	}
+	
+	@Step("Validating Premium wall for non subscriber user")
+	public void validatindPremiumWall()
+			throws Exception {
+		try {
+			homepage.scrollToPremiumRegisterButton();
+			homepage.validatingPremiumArticleWall();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Validating Premium Wall for non subscriber user", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Validating Premium Wall for non subscriber user", e);
+		}
+	}
+	
+	@Step("Validating Premium wall for subscriber user")
+	public void validatindPremiumWallDoesntExist()
+			throws Exception {
+		try {
+			homepage.scrollToCheckPremiumRegisterWallDoesntExist();
+			//homepage.validatingPremiumArticleWall();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Validating Premium Wall for subscriber user", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Validating Premium Wall for subscriber user", e);
 		}
 	}
 	

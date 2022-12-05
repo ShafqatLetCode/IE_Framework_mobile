@@ -148,6 +148,21 @@ public class Asserts extends UserBaseTest {
 			e.printStackTrace(); throw e;
 		}
 	}
+	
+	@Step("Assertion Actual Failed to message")
+	public void AssertTrue(boolean condition, String message) throws Exception {
+		try {
+			if (prop.getProperty("ReportType").trim().equalsIgnoreCase("Allure")) {
+				Assert.assertTrue(condition, message);
+			} else if (prop.getProperty("ReportType").trim().equalsIgnoreCase("extent")) {
+				log(condition, message, "assertTrue");
+				Assert.assertTrue(condition, message);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); throw e;
+		}
+	}
 
 	public static void log(boolean condition, String message, String assertCondition) {
 		switch (assertCondition) {

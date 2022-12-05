@@ -38,7 +38,18 @@ public class loginPage extends CommonAppiumTest{
 		}
 	}
 
-
+	@ElementDescription(value = "Progress Bar")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,\"progressBar\")]")
+	private MobileElement progressBar;
+	
+	@ElementDescription(value = "loginpageHeader")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text=\"Create your account\"]")
+	private MobileElement loginPageHeader;
+	
+	@ElementDescription(value = "loginpageHeader")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text=\"Skip\"]")
+	private MobileElement loginPageSkippedButton;
+	
 	@ElementDescription(value = "Email Edit Text")
 	@AndroidFindBy(xpath = "//android.widget.EditText[contains(@resource-id,\"enter_email\")]")
 	private MobileElement emailEditText;
@@ -188,7 +199,7 @@ public class loginPage extends CommonAppiumTest{
 				);
 			
 			String actual=validLoginId.getText().toString().toLowerCase();
-			Assert.assertContains(actual,validEmail);
+			Assert.assertContains(validEmail,actual);
 
 			
 		} catch (HandleException e) {
@@ -243,6 +254,46 @@ public class loginPage extends CommonAppiumTest{
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
 					" Failed to Validate login ", e);
+		}
+	}
+	
+	@Step("Skipping the login page")
+	public void skippingLoginPage() throws Exception {
+		try {
+			
+			boolean flag=wait.waitForElementBoolean(loginPageHeader, 
+					5,
+					"Login Header",
+					"Login page"
+				);
+			
+			if(flag) 
+			{
+				wait.waitForElement(loginPageSkippedButton, 
+						5,
+						"Login skip button",
+						"Login page"
+					);
+				
+				clickOn(loginPageSkippedButton, 
+						"Login skip button",
+						"Login page"
+					);
+			}
+			
+//			wait.waitForNoElement(progressBar, 
+//					5,
+//					"progress Bar",
+//					"Home Page"
+//				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to skip login ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to skip login ", e);
 		}
 	}
 	

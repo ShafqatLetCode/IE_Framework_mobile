@@ -45,6 +45,10 @@ public class preloginPage extends CommonAppiumTest{
 		}
 	}
 	
+	@ElementDescription(value = "Progress Bar")
+	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,\"progressBar\")]")
+	private MobileElement progressBar;
+
 	@ElementDescription(value = "city title")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,\"title_city\")]")
 	private MobileElement cityTitle;
@@ -85,6 +89,60 @@ public class preloginPage extends CommonAppiumTest{
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Select city  "+city, e);
 		}
+	}
+	
+	@Step("Handling city selection page")
+	public void handlingCity() throws Exception {
+		try {
+			
+			wait.waitForNoElement(progressBar, 
+					5,
+					"progress Bar",
+					"city selection page"
+				);
+			
+			wait.waitForElement(cityTitle, 
+					5,
+					"Select Title",
+					"city selection page"
+				);
+			
+			wait.waitForElement(continueButton, 
+					5,
+					"continue button",
+					"verifiying on continue button"
+				);
+			
+			clickOn(continueButton, 
+					"continue button",
+					"continue button fron select city"
+				);
+			
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to handle city selection page ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to handle city selection page  ", e);
+		}
+	}
+	
+	@Step("Handling city selection page")
+	public boolean isCustomiseJourneyPresent() throws Exception {
+		boolean flag = false;
+		try {
+
+			flag= wait.waitForElementBoolean(cityTitle, 
+					6,
+					"Select Title",
+					"city selection page"
+				);
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to handle city selection page ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to handle city selection page  ", e);
+		}
+		return flag;
 	}
 	
 	@Step("Click on continue button")
@@ -152,6 +210,39 @@ public class preloginPage extends CommonAppiumTest{
 		}
 	}
 	
-	
+	@Step("handling select interest page")
+	public void handlingSelectInterest() throws Exception {
+		try {
+			
+//			wait.waitForNoElement(progressBar, 
+//					5,
+//					"progress Bar",
+//					"city selection page"
+//				);
+			
+			wait.waitForElement(interestTitle, 
+					5,
+					"Interest Title",
+					"Interest selection page"
+				);
+			
+			wait.waitForElement(continueButton, 
+					5,
+					"continue button",
+					"verifiying on continue button"
+				);
+			
+			clickOn(continueButton, 
+					"continue button",
+					"continue button fron select city"
+				);
+	        
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to handle select interest page", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to hanlde select interest page " , e);
+		}
+	}
 	
 }

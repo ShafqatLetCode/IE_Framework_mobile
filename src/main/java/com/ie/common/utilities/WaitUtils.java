@@ -234,4 +234,19 @@ public class WaitUtils extends CommandPrompt {
 			Asserts.assertFail( "Unable to Find "+elementDetail+" on "+functionException+ "After waiting for "+timeUnit);
 		}
 	}	
+	
+	@Step("Waiting for {elementDetail} on page {functionException}")
+	public boolean waitForElementBoolean(MobileElement element, int timeUnit, String elementDetail, String functionException) throws Exception  {
+		if(timeUnit==0) {
+			timeUnit=(int) WAIT_TIME;
+		}
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, timeUnit);
+			wait.until(ExpectedConditions.visibilityOf(element));
+			return true;
+		} 
+		catch (Exception e) {
+			return false;
+		}
+	}
 }

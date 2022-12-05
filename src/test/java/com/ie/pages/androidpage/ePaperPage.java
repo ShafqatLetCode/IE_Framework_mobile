@@ -81,6 +81,25 @@ public class ePaperPage extends CommonAppiumTest{
 		}
 	}
 	
+	@Step("Verifying pay wall on not epaper")
+	public void verifyingEpaperWallNotPresent() throws Exception {
+		try {
+			boolean value=wait.waitForElementBoolean(paywallText, 
+					5,
+					"Paywall Text",
+					"verifiying on Epaper"
+				);
+			
+			
+			Assert.AssertTrue(!value,"verifying E-paper should not present");
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verifying pay wall on not epaper ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verifying pay wall on not epaper  ", e);
+		}
+	}
+	
 	@Step("Verifying pay wall on epaper")
 	public void verifyingEpaperWalltitle() throws Exception {
 		try {
