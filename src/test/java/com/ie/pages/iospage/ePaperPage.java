@@ -64,7 +64,7 @@ public class ePaperPage extends CommonAppiumTest{
 	
 	
 	@ElementDescription(value = "paywall text")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,\"Today's ePaper\")]")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,\"Today's ePaper\")] | //XCUIElementTypeStaticText[@name=\"Today's ePaper\"]")
 	private MobileElement newsLetterHeader;
 	
 	
@@ -146,6 +146,25 @@ public class ePaperPage extends CommonAppiumTest{
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
 					" Failed to Click on epaper login ", e);
+		}
+	}
+	
+	@Step("Verifying pay wall on not epaper")
+	public void verifyingEpaperWallNotPresent() throws Exception {
+		try {
+			boolean value=wait.waitForElementBoolean(paywallText, 
+					5,
+					"Paywall Text",
+					"verifiying on Epaper"
+				);
+			
+			
+			Assert.AssertTrue(!value,"verifying E-paper should not present");
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to Verifying pay wall on not epaper ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to Verifying pay wall on not epaper  ", e);
 		}
 	}
 	

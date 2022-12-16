@@ -65,18 +65,36 @@ public class IE_IOSpage extends CommonAppiumTest {
 			homepage.VerifyHomePage();
 			homepage.ClickOnSetting();
 			settingPage.ClickOnLogin();
-			loginpage.enterTextInEmailField("demo12345@mailinator.com");
+			loginpage.enterTextInEmailField(userName);
 			loginpage.clickOnDoneButton();
 			loginpage.ClickOnContinueButton();
-			loginpage.enterTextInPasswordField("87654321");
+			loginpage.enterTextInPasswordField(password);
 			loginpage.clickOnDoneButton();
 			loginpage.ClickOnSignIn();
-			loginpage.LoginValidation("demo12345@mailinator.com");
+			//loginpage.LoginValidation("demo12345@mailinator.com");
 			
 		} catch (HandleException e) {
 			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Verify Header ", e);
 		} catch (Exception e) {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Verify Header ", e);
+		}
+	}
+	
+	@Step("Handling Customise user journey if present")
+	public void SkippingCustomiseUserJourney()throws Exception {
+		try {
+			homepage.updateAlert();
+			if(preloginpage.isCustomiseJourneyPresent()) 
+			{
+				preloginpage.continueButton();
+				preloginpage.handlingSelectInterest();
+				loginpage.skippingLoginPage();
+			}
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " unable to handle customise user journey ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " unable to handle customise user journey ", e);
 		}
 	}
 
@@ -181,6 +199,85 @@ public class IE_IOSpage extends CommonAppiumTest {
 			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Verify  subscription header", e);
 		}
 	}
+	
+	@Step("validation non subscription for epaper")
+	public void validateNonSubscriptionForEpaper(boolean isBack)
+			throws Exception {
+		try {
+			homepage.ClickOnEpaper();
+			epaperpage.verifyingEpaperWall();
+			if(isBack)
+			{
+				driver.navigate().back();
+			}
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Verify Epaper wall for Non subscription ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Verify Epaper wall for Non subscription ", e);
+		}
+	}
+	
+	@Step("Finding Premium tag and clicking on its article")
+	public void validatePremiumTagAndClickOnAricle()
+			throws Exception {
+		try {
+			homepage.ClickOnBottomNaHome();
+			homepage.scrollToPremiumArticle();
+			homepage.ClickOnPremiumArticle();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Verify premium tag and its article", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Verify premium tag and its article", e);
+		}
+	}
+	
+	@Step("Validating Premium wall for non subscriber user")
+	public void validatindPremiumWall()
+			throws Exception {
+		try {
+			homepage.scrollToPremiumRegisterButton();
+			homepage.validatingPremiumArticleWall();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Validating Premium Wall for non subscriber user", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Validating Premium Wall for non subscriber user", e);
+		}
+	}
+	
+	@Step("validation non subscription for epaper")
+	public void validateSubscriptionForEpaper(boolean isBack)
+			throws Exception {
+		try {
+			
+			homepage.ClickOnEpaper();
+			epaperpage.verifyingEpaperWallNotPresent();
+			epaperpage.verifyingEpaperNewsHeader();
+			if(isBack)
+			{
+			epaperpage.backButton();
+			}
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Verify Epaper wall not present ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Verify Epaper wall not present ", e);
+		}
+	}
+	
+	@Step("Validating Premium wall for subscriber user")
+	public void validatindPremiumWallDoesntExist()
+			throws Exception {
+		try {
+			homepage.scrollToCheckPremiumRegisterWallDoesntExist();
+			//homepage.validatingPremiumArticleWall();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Validating Premium Wall for subscriber user", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Validating Premium Wall for subscriber user", e);
+		}
+	}
+	
+	
 
 //	public void verifyDigibankAlert() throws Exception {
 //		String alertMessage = null;

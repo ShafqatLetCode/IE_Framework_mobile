@@ -1,6 +1,11 @@
 package com.ie.android.tests;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.logging.Logger;
+
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -15,6 +20,8 @@ import com.ie.listeners.TestListener;
 import com.ie.pages.IEAndroidPage;
 import com.ie.pages.IE_IOSpage;
 
+import emailer.CommonMailer;
+import html.CommonAlertHtml;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -24,10 +31,13 @@ public class IE_AndroidTest extends UserBaseTest {
 	
 	Asserts Assert = null;
 	IEAndroidPage dbspage1 = null;
-
+ 
+	HashSet<String> error=null;
 	public IE_AndroidTest() throws Exception {
 		super();
 		Assert = new Asserts();
+		//error= new HashSet<String>();
+	//	error.add(device_udid)
 	}
 	
 	Logger logger = Logger.getLogger(IE_AndroidTest.class.getName());
@@ -58,7 +68,7 @@ public class IE_AndroidTest extends UserBaseTest {
 	@Feature(value =  "validating Epaper wall for non subcriber user" ) 
 	@Story("Login with setting")
 	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 7, enabled = true, description = "TestCase02 validating premium Wall with non Subscriber user", retryAnalyzer = RetryAnalyzer.class)
+	@Test(priority = 2, enabled = true, description = "TestCase02 validating premium Wall with non Subscriber user", retryAnalyzer = RetryAnalyzer.class)
 	@Author(name = "Shafqat Ali")
 	public void TestCase02_verifyPremiumForNonSubscriber(String userName, String password , String app_Name) throws Exception {
 		try {
@@ -159,6 +169,30 @@ public class IE_AndroidTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute TestCase04 \" validating validating premium Wall and Epaper wall with combo Subscriber user Script \" "+e.getMessage());
 		}
 	}
+	
+//	@Story("Login with setting")
+//	@Parameters({ "userName", "password", "app_Name" })
+//	@AfterClass(description = "sending Mail")
+//	@Author(name = "Shafqat Ali")
+//	public void SendAlert(String userName, String password , String app_Name) throws Exception {
+//		try {
+//			CommonAlertHtml createReport = new CommonAlertHtml();
+//            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+//            Date dt =  new Date();
+//            createReport.createReport(error, "<b>Date & Time:</b> "+format.format(dt), "IE Login Check", "IE Login Report", "ie_login_check.html");
+//            System.out.println("Report is created.");
+//            String USER_EMAIL = "mayur.pundir@indianexpress.com, mohit.gupta@indianexpress.com, akshit.goel@indianexpress.com, vaibhav.khanna@indianexpress.com, shyamal.datta@indianexpress.com,";
+////                  + "saurabh.dagar@indianexpress.com,kinjal.priyadarshi@indianexpress.com, nitin.Chaudhary@indianexpress.com, akshay.chirigidi@evolok.com";
+//            CommonMailer mailer = new CommonMailer();
+//            mailer.send_email(USER_EMAIL, "IE Login Chcek", "Indian Express Login Check.", "ie_login_check.html");
+//			
+//		} catch (HandleException e) {
+//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
+//		}
+//		catch (Exception e) {
+//			Asserts.assertFail( "Unable to execute TestCase04 \" validating validating premium Wall and Epaper wall with combo Subscriber user Script \" "+e.getMessage());
+//		}
+//	}
 	
 //	@Epic("Log In with different Senario")
 //	@Feature(value =  "Login" ) 

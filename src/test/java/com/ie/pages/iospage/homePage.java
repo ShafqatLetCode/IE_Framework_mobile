@@ -67,6 +67,33 @@ public class homePage extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"E-Paper\"]")
 	private MobileElement Epaper;
 		
+	@ElementDescription(value = "home buttom icon")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Home\"]")
+	private MobileElement homeButtomNavTab;
+	
+	@ElementDescription(value = "home page Container")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeNavigationBar//following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther")
+	private MobileElement homepagePageContainer;
+	
+	@ElementDescription(value = "premium tag")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Premium\"]")
+	private MobileElement premiumTag;
+	
+	@ElementDescription(value = "premium tag Article")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Premium\"]/parent::XCUIElementTypeOther/parent::XCUIElementTypeOther/parent::XCUIElementTypeOther/preceding-sibling::XCUIElementTypeStaticText")
+	private MobileElement premiumArticleTag;
+	
+	@ElementDescription(value = "premium tag Article")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeScrollView//XCUIElementTypeScrollView")
+	private MobileElement articlepagePageContainer;
+	
+	@ElementDescription(value = "premium tag Article")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Subscribe now\"]")
+	private MobileElement registerButtonOnPremiumArticle;
+	
+	@ElementDescription(value = "premium Article wall")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[contains(@name,'You need a subscription to read on')]")
+	private MobileElement premiumArticleWall;
 	
 	@Step("Verify Home Page After Launch")
 	public void VerifyHomePage() throws Exception {
@@ -161,6 +188,154 @@ public class homePage extends CommonAppiumTest{
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
 					" Failed to click on Epaper Icon ", e);
+		}
+	}
+	
+	@Step("Click on Bottom Nav")
+	public void ClickOnBottomNaHome() throws Exception {
+		try {
+			wait.waitForElement(homeButtomNavTab, 
+					12,
+					"Home bottom nav icon",
+					"verifiying on home tab"
+				);
+			
+			clickOn(homeButtomNavTab, 
+					"home Buttom NavTab option",
+					"clicking from homepage"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Home buttom nav Icon ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Home buttom nav Icon ", e);
+		}
+	}
+	
+	@Step("Scroll to Premium article")
+	public void scrollToPremiumArticle() throws Exception {
+		try {
+			wait.waitForElement(homepagePageContainer, 
+					5,
+					"Page container",
+					"Home page"
+				);
+			
+			gesture.scrollDownto(
+					homepagePageContainer, 
+					premiumTag,
+					(float) 0.5,
+					"Premium tag",
+					"Home page");
+			
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Scroll to premium tag ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Scroll to premium tag  ", e);
+		}
+	}
+
+	@Step("Click on Premium Article")
+	public void ClickOnPremiumArticle() throws Exception {
+		try {
+			wait.waitForElement(premiumArticleTag, 
+					5,
+					"Premium Article Tag",
+					"verifiying on Homepage"
+				);
+			
+			clickOn(premiumArticleTag, 
+					"Premium Article Tag",
+					"clicking from homepage"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Premium Article ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on Premium Article ", e);
+		}
+	}
+	
+	@Step("Scroll to register button on Premium article")
+	public void scrollToPremiumRegisterButton() throws Exception {
+		try {
+			wait.waitForElement(articlepagePageContainer, 
+					5,
+					"Page container",
+					"article page"
+				);
+			
+			gesture.scrollDownto(
+					articlepagePageContainer, 
+					registerButtonOnPremiumArticle,
+					(float) 0.5,
+					"registration button",
+					"premium article");
+			
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Scroll to register button on premium article ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Scroll to register button on premium article  ", e);
+		}
+	}
+	
+	@Step("Validating Premium Wall")
+	public void validatingPremiumArticleWall() throws Exception {
+		try {
+			wait.waitForElementBoolean(premiumArticleWall, 
+					5,
+					"premium article",
+					"article Detail page"
+				);
+			
+			String getTitle=premiumArticleWall.getText().toString().toLowerCase();
+			Assert.assertContains(getTitle,"You need a subscription to read on");
+			
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Scroll to register button on premium article ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Scroll to register button on premium article  ", e);
+		}
+	}
+	
+	@Step("Scroll to down to page to check Premium wall doesnt Exist")
+	public void scrollToCheckPremiumRegisterWallDoesntExist() throws Exception {
+		try {
+			wait.waitForElement(articlepagePageContainer, 
+					5,
+					"Page container",
+					"article page"
+				);
+			
+			gesture.scrollDowntoCheckElementDoesntExist(
+					articlepagePageContainer, 
+					registerButtonOnPremiumArticle,
+					(float) 0.5,
+					"registration button",
+					"premium article");
+			
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed As premium Wall found on premium article ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed As premium Wall found on premium article  ", e);
 		}
 	}
 }

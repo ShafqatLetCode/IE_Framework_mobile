@@ -191,8 +191,6 @@ public class WaitUtils extends CommandPrompt {
 			throw e;
 		}
 	}
-	
-
 	/**
 	 * This method will wait until the given title is present
 	 * @param title

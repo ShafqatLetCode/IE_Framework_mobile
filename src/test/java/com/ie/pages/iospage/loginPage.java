@@ -74,6 +74,15 @@ public class loginPage extends CommonAppiumTest{
 	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name=\"View Plans\"]")
 	private MobileElement viewPlan;
 	
+	@ElementDescription(value = "login page header")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name=\"SignIn\"]")
+	private MobileElement loginPageHeader;
+	
+	@ElementDescription(value = "login page header")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"ic close\"]")
+	private MobileElement loginPageSkippedButton;
+	
+
 	@Step("Entering Email")
 	public void enterTextInEmailField(String email) throws Exception {
 		try {
@@ -268,6 +277,47 @@ public class loginPage extends CommonAppiumTest{
 		} catch (Exception e) {
 			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
 					" Failed to Validate login ", e);
+		}
+	}
+	
+	
+	@Step("Skipping the login page")
+	public void skippingLoginPage() throws Exception {
+		try {
+			
+			boolean flag=wait.waitForElementBoolean(loginPageHeader, 
+					5,
+					"Login Header",
+					"Login page"
+				);
+			
+			if(flag) 
+			{
+				wait.waitForElement(loginPageSkippedButton, 
+						5,
+						"Login skip button",
+						"Login page"
+					);
+				
+				clickOn(loginPageSkippedButton, 
+						"Login skip button",
+						"Login page"
+					);
+			}
+			
+//			wait.waitForNoElement(progressBar, 
+//					5,
+//					"progress Bar",
+//					"Home Page"
+//				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to skip login ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to skip login ", e);
 		}
 	}
 	

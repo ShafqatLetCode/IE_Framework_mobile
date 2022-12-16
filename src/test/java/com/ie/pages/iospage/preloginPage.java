@@ -1,6 +1,7 @@
 package com.ie.pages.iospage;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -16,6 +17,7 @@ import com.ie.pages.androidpage.settingPage;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import io.qameta.allure.Step;
@@ -44,34 +46,104 @@ public class preloginPage extends CommonAppiumTest{
 			throw e;
 		}
 	}
+	
+//	@ElementDescription(value = "Progress Bar")
+//	@iOSXCUITFindBy(xpath = "")
+//	private MobileElement progressBar;
 
-	@ElementDescription(value = "login Button on PreloginPage")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Log In']")
-	private MobileElement logInButton_OnPreloginPage;
+	@ElementDescription(value = "city title")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name=\"Select your city\"]")
+	private MobileElement cityTitle;
 	
-	@ElementDescription(value = "change Server button")
-	@iOSXCUITFindBy(xpath = "(//XCUIElementTypeCell)[1]")
-	private MobileElement changeServerButton;
+//	@ElementDescription(value = "city option")
+//	@iOSXCUITFindBy(xpath = "")
+//	private List<MobileElement> cityOption;
 	
-	@ElementDescription(value = "More on Prelogin")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='More']")
-	private MobileElement moreOnPreLogin;
+	@ElementDescription(value = "continue button")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Continue\"]")
+	private MobileElement continueButton;
 	
-	@ElementDescription(value = "save button")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='SAVE']")
-	private MobileElement saveButton;
+	@ElementDescription(value = "interest title")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name=\"Select Interests\"]")
+	private MobileElement interestTitle;
 	
-	@ElementDescription(value = "log In Button On launch Page")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name='LOG IN']")
-	private MobileElement logInButton_launchPage;
+	@Step("Handling city selection page")
+	public boolean isCustomiseJourneyPresent() throws Exception {
+		boolean flag = false;
+		try {
+
+			flag= wait.waitForElementBoolean(cityTitle, 
+					6,
+					"Select Title",
+					"city selection page"
+				);
+
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to handle city selection page ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to handle city selection page  ", e);
+		}
+		return flag;
+	}
 	
-	@ElementDescription(value = "Tap and hold to PEEK BALANCE")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Tap and hold to PEEK BALANCE']")
-	private MobileElement peekBalance;
+	@Step("Click on continue button")
+	public void continueButton() throws Exception {
+		try {
+			wait.waitForElement(continueButton, 
+					5,
+					"continue button",
+					"verifiying on continue button"
+				);
+			
+			clickOn(continueButton, 
+					"continue button",
+					"continue button fron select city"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on continue button ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to click on continue button ", e);
+		}
+	}
 	
-	@ElementDescription(value = "Tap and hold to PEEK BALANCE")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeImage[@name='peekBal_rightIcon']/preceding-sibling::XCUIElementTypeStaticText")
-	private MobileElement peekBalance1;
+	@Step("handling select interest page")
+	public void handlingSelectInterest() throws Exception {
+		try {
+			
+//			wait.waitForNoElement(progressBar, 
+//					5,
+//					"progress Bar",
+//					"city selection page"
+//				);
+			
+			wait.waitForElement(interestTitle, 
+					5,
+					"Interest Title",
+					"Interest selection page"
+				);
+			
+			wait.waitForElement(continueButton, 
+					5,
+					"continue button",
+					"verifiying on continue button"
+				);
+			
+			clickOn(continueButton, 
+					"continue button",
+					"continue button fron select city"
+				);
+	        
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION", " Failed to handle select interest page", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION", " Failed to hanlde select interest page " , e);
+		}
+	}
 	
 //	@Step("Verify Visibility of Peek Balance on Login Page.")
 //	public void VerifyPeekBalanceEnabilityOnLogInPage(String peekBalanceSubtitle) throws Exception {
