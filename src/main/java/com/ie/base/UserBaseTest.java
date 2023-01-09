@@ -383,7 +383,7 @@ public class UserBaseTest extends TestListenerAdapter implements ITestListener {
 			capabilities.setCapability("platformName", "ios");
 			capabilities.setCapability("deviceName", "iPhone 13");
 			capabilities.setCapability("platformVersion", "15");
-			capabilities.setCapability("app", "lt://APP10160551841661845556047490");
+			capabilities.setCapability("app", "lt://APP10160571881668587449562517");
 			capabilities.setCapability("isRealMobile", true);
 
 			break;
