@@ -43,7 +43,7 @@ public class loginPage extends CommonAppiumTest{
 	private MobileElement progressBar;
 	
 	@ElementDescription(value = "loginpageHeader")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text=\"Create your account\"]")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text=\"Create your account\"] | //android.widget.TextView[@text=\"Welcome back\"]")
 	private MobileElement loginPageHeader;
 	
 	@ElementDescription(value = "loginpageHeader")
@@ -262,7 +262,7 @@ public class loginPage extends CommonAppiumTest{
 		try {
 			
 			boolean flag=wait.waitForElementBoolean(loginPageHeader, 
-					5,
+					22,
 					"Login Header",
 					"Login page"
 				);

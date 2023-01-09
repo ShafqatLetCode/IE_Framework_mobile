@@ -65,7 +65,7 @@ public class homePage extends CommonAppiumTest {
 	private MobileElement headerTitle;
 	
 	@ElementDescription(value = "Setting option")
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text=\"Settings\"]/preceding-sibling::android.widget.ImageView")
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text=\"Settings\"]/preceding-sibling::android.widget.ImageView | //android.widget.TextView[@text=\"Login\"]/preceding-sibling::android.widget.ImageView")
 	private MobileElement settingOption;
 	
 	@ElementDescription(value = "Epaper icon")
@@ -107,6 +107,77 @@ public class homePage extends CommonAppiumTest {
 	@ElementDescription(value = "Premium article wall")
 	@AndroidFindBy(xpath = "//android.widget.TextView[contains(@resource-id,'evolokTV2')]")
 	private MobileElement premiumArticleWall;
+	
+	//nav bar element
+	@ElementDescription(value = "NavBar")
+	@AndroidFindBy(xpath = "//android.widget.HorizontalScrollView/android.widget.LinearLayout")
+	private MobileElement navBar;
+	
+	@ElementDescription(value = "Audio section")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"Audio\"]")
+	private MobileElement audioSection;
+	
+	@ElementDescription(value = "Political Pulse")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"Political Pulse\"]")
+	private MobileElement politicalPulse;
+	
+	@ElementDescription(value = "India")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"India\"]")
+	private MobileElement india;
+	
+	@ElementDescription(value = "Opinion")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"Opinion\"]")
+	private MobileElement opinion;
+	
+	@ElementDescription(value = "Explained")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"Explained\"]")
+	private MobileElement explained;
+	
+	@ElementDescription(value = "Entertainment")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"Entertainment\"]")
+	private MobileElement entertainment;
+	
+	@ElementDescription(value = "Sports")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"Sports\"]")
+	private MobileElement sports;
+	
+	@ElementDescription(value = "Lifestyle")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"Lifestyle\"]")
+	private MobileElement lifestyle;
+	
+	@ElementDescription(value = "World")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"World\"]")
+	private MobileElement world;
+	
+	@ElementDescription(value = "Technology")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"Technology\"]")
+	private MobileElement technology;
+	
+	@ElementDescription(value = "Viral")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"Viral\"]")
+	private MobileElement viral;
+	
+	@ElementDescription(value = "Express Premium")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"Express Premium\"]")
+	private MobileElement expressPremium;
+	
+	@ElementDescription(value = "Videos")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"Videos\"]")
+	private MobileElement videos;
+	
+	@ElementDescription(value = "Photos")
+	@AndroidFindBy(xpath = "//android.widget.LinearLayout[@content-desc=\"Photos\"]")
+	private MobileElement photos;
+	
+	@ElementDescription(value = "First Article Date")
+	@AndroidFindBy(xpath = "(//android.widget.LinearLayout/following-sibling::android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.TextView[contains(@resource-id, 'id/date')])[1]")
+	private MobileElement firstArticleDate;
+	
+	@ElementDescription(value = "First Article Date")
+	@AndroidFindBy(xpath = "(//android.widget.LinearLayout/following-sibling::android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.TextView[contains(@resource-id, 'id/date')])[2]")
+	private MobileElement secondArticleDate;
+	
+	//android.widget.HorizontalScrollView/android.widget.LinearLayout
 	
 	@Step("Verify Home Page After Launch")
 	public void VerifyHomePage() throws Exception {
@@ -383,4 +454,464 @@ public class homePage extends CommonAppiumTest {
 					" Failed to click on sign in on premium article ", e);
 		}
 	}
+	
+	@Step("swiping to Audio section on NavBar")
+	public void swipingAudioSectionNavBar() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					navBar, 
+					5,
+					"Nav Bar",
+					"verifiying on Section On NavBar"
+				);
+			
+			gesture.SwipeLeftToRightDownTo(
+					navBar, 
+					audioSection,
+					(float) 0.5,
+					"Navigation bar",
+					"audio section"
+				);
+
+			
+			clickOn(audioSection, 
+					"Audio Button",
+					"Navigation bar"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to Audio section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to Audio section ", e);
+		}
+	}
+	
+	@Step("swiping to politicalPulse section on NavBar")
+	public void swipingPoliticalPulseSectionNavBar() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					navBar, 
+					5,
+					"Nav Bar",
+					"verifiying on Section On NavBar"
+				);
+			
+			gesture.SwipeLeftToRightDownTo(
+					navBar, 
+					politicalPulse,
+					(float) 0.5,
+					"Navigation bar",
+					"politicalPulse section"
+				);
+
+			
+			clickOn(politicalPulse, 
+					"politicalPulse Button",
+					"Navigation bar"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to politicalPulse section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to politicalPulse section ", e);
+		}
+	}
+	
+	@Step("swiping to india section on NavBar")
+	public void swipingIndiaSectionNavBar() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					navBar, 
+					5,
+					"Nav Bar",
+					"verifiying on Section On NavBar"
+				);
+			
+			gesture.SwipeLeftToRightDownTo(
+					navBar, 
+					india,
+					(float) 0.5,
+					"Navigation bar",
+					"india section"
+				);
+
+			
+			clickOn(india, 
+					"india Button",
+					"Navigation bar"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to india section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to india section ", e);
+		}
+	}
+	
+	@Step("swiping to opinion section on NavBar")
+	public void swipingOpinionSectionNavBar() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					navBar, 
+					5,
+					"Nav Bar",
+					"verifiying on Section On NavBar"
+				);
+			
+			gesture.SwipeLeftToRightDownTo(
+					navBar, 
+					opinion,
+					(float) 0.5,
+					"Navigation bar",
+					"india section"
+				);
+
+			
+			clickOn(opinion, 
+					"opinion Button",
+					"Navigation bar"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to opinion section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to opinion section ", e);
+		}
+	}
+	
+	@Step("Swiping to Explained section on NavBar")
+	public void swipingExplainedSectionNavBar() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					navBar, 
+					5,
+					"Nav Bar",
+					"verifiying on Section On NavBar"
+				);
+			
+			gesture.SwipeLeftToRightDownTo(
+					navBar, 
+					explained,
+					(float) 0.5,
+					"Navigation bar",
+					"explained section"
+				);
+
+			
+			clickOn(explained, 
+					"explained Button",
+					"Navigation bar"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to explained section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to explained section ", e);
+		}
+	}
+	//entertainment
+	
+	@Step("Swiping to Entertainment section on NavBar")
+	public void swipingEntertainmentSectionNavBar() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					navBar, 
+					5,
+					"Nav Bar",
+					"verifiying on Section On NavBar"
+				);
+			
+			gesture.SwipeLeftToRightDownTo(
+					navBar, 
+					entertainment,
+					(float) 0.5,
+					"Navigation bar",
+					"entertainment section"
+				);
+
+			
+			clickOn(entertainment, 
+					"entertainment Button",
+					"Navigation bar"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to entertainment section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to entertainment section ", e);
+		}
+	}
+	
+	@Step("Swiping to sports section on NavBar")
+	public void swipingSportsSectionNavBar() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					navBar, 
+					5,
+					"Nav Bar",
+					"verifiying on Section On NavBar"
+				);
+			
+			gesture.SwipeLeftToRightDownTo(
+					navBar, 
+					sports,
+					(float) 0.5,
+					"Navigation bar",
+					"sports section"
+				);
+
+			
+			clickOn(sports, 
+					"sports Button",
+					"Navigation bar"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to sports section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to sports section ", e);
+		}
+	}
+	
+	@Step("Swiping to world section on NavBar")
+	public void swipingWorldSectionNavBar() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					navBar, 
+					5,
+					"Nav Bar",
+					"verifiying on Section On NavBar"
+				);
+			
+			gesture.SwipeLeftToRightDownTo(
+					navBar, 
+					world,
+					(float) 0.5,
+					"Navigation bar",
+					"world section"
+				);
+
+			
+			clickOn(world, 
+					"world Button",
+					"Navigation bar"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to world section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to world section ", e);
+		}
+	}
+	
+	@Step("Swiping to Technology section on NavBar")
+	public void swipingTechnologySectionNavBar() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					navBar, 
+					5,
+					"Nav Bar",
+					"verifiying on Section On NavBar"
+				);
+			
+			gesture.SwipeLeftToRightDownTo(
+					navBar, 
+					technology,
+					(float) 0.5,
+					"Navigation bar",
+					"technology section"
+				);
+
+			
+			clickOn(technology, 
+					"technology Button",
+					"Navigation bar"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to technology section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to technology section ", e);
+		}
+	}
+	
+	@Step("Swiping to viral section on NavBar")
+	public void swipingViralSectionNavBar() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					navBar, 
+					5,
+					"Nav Bar",
+					"verifiying on Section On NavBar"
+				);
+			
+			gesture.SwipeLeftToRightDownTo(
+					navBar, 
+					viral,
+					(float) 0.5,
+					"Navigation bar",
+					"viral section"
+				);
+
+			
+			clickOn(viral, 
+					"viral Button",
+					"Navigation bar"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to viral section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to viral section ", e);
+		}
+	}
+	
+	@Step("Swiping to videos section on NavBar")
+	public void swipingVideosSectionNavBar() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					navBar, 
+					5,
+					"Nav Bar",
+					"verifiying on Section On NavBar"
+				);
+			
+			gesture.SwipeLeftToRightDownTo(
+					navBar, 
+					videos,
+					(float) 0.5,
+					"Navigation bar",
+					"videos section"
+				);
+
+			
+			clickOn(videos, 
+					"videos Button",
+					"Navigation bar"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to videos section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to videos section ", e);
+		}
+	}
+	
+	@Step("Swiping to photos section on NavBar")
+	public void swipingPhotosSectionNavBar() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					navBar, 
+					5,
+					"Nav Bar",
+					"verifiying on Section On NavBar"
+				);
+			
+			gesture.SwipeLeftToRightDownTo(
+					navBar, 
+					photos,
+					(float) 0.5,
+					"Navigation bar",
+					"photos section"
+				);
+
+			
+			clickOn(photos, 
+					"photos Button",
+					"Navigation bar"
+				);
+
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to photos section ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Swipe to photos section ", e);
+		}
+	}
+	
+	@Step("Comparing 1st Article Date with 2nd Article Date")
+	public void comapringArticleDate() throws Exception {
+		try {
+			
+			wait.waitForElement(
+					firstArticleDate, 
+					5,
+					"First Article Update date",
+					"verifiying on Section page"
+				);
+			
+			String[] firstdate=getTexOfElement(firstArticleDate).split(" ");
+			String[] seconddate=getTexOfElement(firstArticleDate).split(" ");
+			
+			if(firstdate[1].equalsIgnoreCase("hours") && seconddate[1].equalsIgnoreCase("hours"))
+			{
+				if(Integer.parseInt(firstdate[0]) > Integer.parseInt(seconddate[0]))
+					Asserts.assertFail("2nd Article date is less than 1st Article");
+			}
+			else if(firstdate[1].equalsIgnoreCase("minutes") && seconddate[1].equalsIgnoreCase("minutes"))
+			{
+				if(Integer.parseInt(firstdate[0]) > Integer.parseInt(seconddate[0]))
+					Asserts.assertFail("2nd Article date is less than 1st Article");
+			}
+			else if(firstdate[1].equalsIgnoreCase("hours") && seconddate[1].equalsIgnoreCase("minute"))
+			{
+					Asserts.assertFail("2nd Article date is less than 1st Article");
+			}
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("FUNCTIONAL_EXCEPTION",
+					" Failed to Comparing 1st Article Date with 2nd Article Date ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("FUNCTIONAL_EXCEPTION",
+					" Failed to Comparing 1st Article Date with 2nd Article Date ", e);
+		}
+	}
+	
 }

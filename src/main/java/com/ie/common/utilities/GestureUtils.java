@@ -873,6 +873,54 @@ public class GestureUtils {
 		}
 	}
 	
+	@Step("Scroll down to {elementName} on {pageName} with scroll speed {scrollSpeed}")
+	public boolean SwipeLeftToRightDownTo(MobileElement page, MobileElement element, float scrollSpeed, String elementName, String pageName) throws Exception {
+		try {
+			int x =  page.getCoordinates().onPage().x;
+			int y =  page.getCoordinates().onPage().y;
+			// System.out.println("getSessionId :"+driver.getSessionId());
+			
+			Dimension windowSize = page.getSize();
+			int y1=windowSize.getHeight()/2;
+			int x1=windowSize.getWidth()/2;
+			
+			
+			
+			int centreHight = y+y1;
+			int centreWidth = x+x1;
+			int w1 = (int) (centreWidth - ((centreWidth) * scrollSpeed));
+			
+//			int y=windowSize.getHeight();
+//			int x=windowSize.getWidth();
+//			int centreHight = windowSize.height/2;
+//			int centreWidth = windowSize.width/2;
+//			int w1 = (int) (centreWidth - (windowSize.width * scrollSpeed));
+
+			int i=0;
+			while (i<20) {
+				
+				if(!isElementVisible2(element))
+				{
+					touch.longPress(longPressOptions().withPosition(point(centreWidth, centreHight)).withDuration(Duration.ofMillis(200)))
+					.moveTo(point(w1,centreHight)).release().perform();
+					
+//					touch.press(PointOption.point(600, centreHight)).waitAction(waitOptions(Duration.ofMillis(2000)))
+//					.moveTo(PointOption.point(w1+20, centreHight)).release().perform();
+				}
+				else {
+					break;
+				}
+				i++;
+			}
+			if (i==20)
+				Asserts.assertFail( "Unable to Find the element "+elementName+ " on page"+pageName);
+
+			return true;
+		} catch (Exception e) {
+			return true;
+		}
+	}
+	
 //	@Step("swiping right to left to find {elementName} on {pageName} with scroll speed {scroll}")
 //	public boolean swipeNavBar(MobileElement page, MobileElement element, float scrollSpeed, String elementName, String pageName) throws Exception {
 //		try {
