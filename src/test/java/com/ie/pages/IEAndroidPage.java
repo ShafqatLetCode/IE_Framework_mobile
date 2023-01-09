@@ -431,6 +431,55 @@ public class IEAndroidPage extends CommonAppiumTest {
 		}
 	}
 	
+	@Step(" move back to homepage")
+	public void ClickOnBottomNaHome()
+			throws Exception {
+		try {
+			homepage.ClickOnBottomNaHome();
+			//homepage.swipingEachSectionNavBar();
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to move back to homepage ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to move back to homepage ", e);
+		}
+	}
+	
+	@Step(" Swiping to navBar each section page ")
+	public void swipingThroughEachSection()
+			throws Exception {
+		try {
+			homepage.swipingPoliticalPulseSectionNavBar();
+			homepage.comapringArticleDate();
+			homepage.swipingIndiaSectionNavBar();
+			homepage.comapringArticleDate();
+			homepage.swipingOpinionSectionNavBar();
+			homepage.comapringArticleDate();
+			homepage.swipingEntertainmentSectionNavBar();
+			homepage.comapringArticleDate();
+			homepage.swipingSportsSectionNavBar();
+			homepage.comapringArticleDate();
+			homepage.swipingWorldSectionNavBar();
+			homepage.comapringArticleDate();
+			homepage.swipingTechnologySectionNavBar();
+			homepage.comapringArticleDate();
+			homepage.swipingViralSectionNavBar();
+			homepage.comapringArticleDate();
+			homepage.swipingExplainedSectionNavBar();
+			homepage.comapringArticleDate();
+			homepage.swipingVideosSectionNavBar();
+			homepage.comapringArticleDate();
+			homepage.swipingPhotosSectionNavBar();
+			homepage.comapringArticleDate();
+			homepage.swipingAudioSectionNavBar();
+			homepage.comapringArticleDate();
+			
+			
+		} catch (HandleException e) {
+			obj_handleexception.throwHandleException("TESTCASE_EXCEPTION", " Failed to Swiping to navBar each section page ", e);
+		} catch (Exception e) {
+			obj_handleexception.throwException("TESTCASE_EXCEPTION", " Failed to Swiping to navBar each section page ", e);
+		}
+	}
 	
 	
 //	@Step("logout from the setting")
