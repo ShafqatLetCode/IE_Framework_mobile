@@ -25,9 +25,9 @@ public class DigestMailers {
 
 
 	private static final String FROM = "qa@indianexpressdigital.in";
-	private static final String SMTP_USERNAME = "AKIAYFPJANSJR6JXONXB";
-	private static final String SMTP_PASS = "BE5Z5oQ6LDXnyF7eeeghAajyq4oBq6Wmo79LIdanNdUo";  
-	private static final String HOST = "email-smtp.ap-south-1.amazonaws.com";
+	private static final String SMTP_USERNAME = "AKIAYFPJANSJUJYNBVGX";
+	private static final String SMTP_PASS = "BP4W7bXxGEjKoek3I6ec9FTQplEJZKfn31mKb68DfHuK";  
+	private static final String HOST = "email-smtp.ap-southeast-1.amazonaws.com";
 
 
 	public void sendAttachmentEmail(Session session, String toEmail, String subject, String messageBody, String reportFileName)  {
