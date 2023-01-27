@@ -232,7 +232,7 @@ public class IE_AndroidTest extends UserBaseTest {
 	          CommonHtml createReport = new CommonHtml();
 	          method = new CommonAppiumTest(driver);
 	          createReport.createReport(failedUrl.getTableHeadings(), url_failed_list, "codes_check.html", 
-	                    "Indian Express", "Subscription Wall Test Detail Report:- http://3.6.231.137:8080/job/IE_Automation_IOS/allure/", "Shafqat Ali", "Codes Alert", method.getLogo("indianexpress"));
+	                    "Indian Express - Android", "Subscription Wall Test Detail Report:- http://3.6.231.137:8080/job/IE_Automation_IOS/allure/", "Shafqat Ali", "Codes Alert", method.getLogo("indianexpress"));
 	          CommonMailer mailer = new CommonMailer();
 	          mailer.send_email(USER_EMAIL, "Codes Checks", "Codes check.", "codes_check.html");
 		}

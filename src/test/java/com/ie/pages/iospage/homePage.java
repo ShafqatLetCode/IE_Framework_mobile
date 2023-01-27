@@ -60,7 +60,7 @@ public class homePage extends CommonAppiumTest{
 	private MobileElement headerTitle;
 	
 	@ElementDescription(value = "Setting option")
-	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Settings\"]")
+	@iOSXCUITFindBy(xpath = "//XCUIElementTypeButton[@name=\"Settings\"] | //XCUIElementTypeButton[@name=\"Login\"]")
 	private MobileElement settingOption;
 	
 	@ElementDescription(value = "Epaper icon")

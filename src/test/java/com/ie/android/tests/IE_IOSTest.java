@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -16,7 +15,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import com.ie.annotation.values.Author;
 import com.ie.appium.utils.CommonAppiumTest;
 import com.ie.base.UserBaseTest;
@@ -191,7 +189,7 @@ public class IE_IOSTest extends UserBaseTest {
 	          CommonHtml createReport = new CommonHtml();
 	          method = new CommonAppiumTest(driver);
 	          createReport.createReport(failedUrl.getTableHeadings(), url_failed_list, "codes_check.html", 
-	                    "Indian Express", "Subscription Wall Test Detail Report:- http://3.6.231.137:8080/job/IE_Automation_IOS/allure/", "Shafqat Ali", "Codes Alert", method.getLogo("indianexpress"));
+	                    "Indian Express - iOS", "Subscription Wall Test Detail Report:- http://3.6.231.137:8080/job/IE_Automation_IOS/allure/", "Shafqat Ali", "Codes Alert", method.getLogo("indianexpress"));
 	          CommonMailer mailer = new CommonMailer();
 	          mailer.send_email(USER_EMAIL, "Codes Checks", "Codes check.", "codes_check.html");
 		}
