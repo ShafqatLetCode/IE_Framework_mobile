@@ -3,17 +3,22 @@ package com.ie.android.tests;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.ie.annotation.values.Author;
+import com.ie.appium.utils.CommonAppiumTest;
 import com.ie.base.UserBaseTest;
 import com.ie.common.utilities.Asserts;
 import com.ie.common.utilities.HandleException;
@@ -21,9 +26,9 @@ import com.ie.listeners.RetryAnalyzer;
 import com.ie.listeners.TestListener;
 import com.ie.pages.IEAndroidPage;
 import com.ie.pages.IE_IOSpage;
-
 import emailer.CommonMailer;
-import html.CommonAlertHtml;
+import emailer.FailedUrl;
+import html.CommonHtml;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -33,9 +38,21 @@ public class IE_IOSTest extends UserBaseTest {
 
 	Logger logger = Logger.getLogger(IE_AndroidTest.class.getName());
 	IE_IOSpage IEPgaeObject1 = null;
-	static final String USER_EMAIL = "mayur.pundir@indianexpress.com, shafqat.ali@indianexpress.com";
-//          + "saurabh.dagar@indianexpress.com,kinjal.priyadarshi@indianexpress.com, nitin.Chaudhary@indianexpress.com, akshay.chirigidi@evolok.com";
-	HashSet<String> error;
+	static final String USER_EMAIL = "mayur.pundir@indianexpress.com, shafqat.ali@indianexpress.com"
+		    + "saurabh.dagar@indianexpress.com,kinjal.priyadarshi@indianexpress.com, nitin.Chaudhary@indianexpress.com, akshay.chirigidi@evolok.com";
+	Asserts Assert = null;
+	IEAndroidPage dbspage1 = null;
+    CommonAppiumTest method=null;
+	HashSet<String> error=null;
+	FailedUrl failedUrl; 
+	List<ArrayList<String>> url_failed_list;
+	
+	public IE_IOSTest() throws Exception {
+		super();
+		Assert = new Asserts();
+		failedUrl = new FailedUrl();
+		url_failed_list = new ArrayList<ArrayList<String>>();
+	}
 	/******************Start Test Script For IE App************************************/
 	
 	@Epic("Log In with different Senario")
@@ -164,28 +181,29 @@ public class IE_IOSTest extends UserBaseTest {
 		}
 	}
 	
-	@Epic("Email Sending")
-	@Feature(value =  "Sending Allure report" ) 
-	@Story("Daily cron report")
+	@Story("Mailers")
 	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 6, enabled = true, description = "sending email", retryAnalyzer = RetryAnalyzer.class)
+	@AfterClass(description = "Sending Mail")
 	@Author(name = "Shafqat Ali")
-	public void emailer(String userName, String password , String app_Name) throws Exception {
+	public void SendAlert(String userName, String password , String app_Name) throws Exception {
 		try {
-			
-			CommonAlertHtml createReport = new CommonAlertHtml();
-			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-			Date dt= new Date();
-			error= new HashSet<>();
-			error.add("http://3.6.231.137:8080/job/IE_Automation_IOS/allure/");
-			createReport.createReport(error, "<b>Date & Time:</b> "+format.format(dt), "IE Login Check", "IE Login Report", "ie_login_check.html");
-			CommonMailer mailer = new CommonMailer();
-			mailer.send_email(USER_EMAIL, "IE Login Chcek", "Indian Express Login Check.", "ie_login_check.html");
-		} 
+			  url_failed_list = failedUrl.getUrlFailedList();
+	          CommonHtml createReport = new CommonHtml();
+	          method = new CommonAppiumTest(driver);
+	          createReport.createReport(failedUrl.getTableHeadings(), url_failed_list, "codes_check.html", 
+	                    "Indian Express", "Subscription Wall Test Detail Report:- http://3.6.231.137:8080/job/IE_Automation_IOS/allure/", "Shafqat Ali", "Codes Alert", method.getLogo("indianexpress"));
+	          CommonMailer mailer = new CommonMailer();
+	          mailer.send_email(USER_EMAIL, "Codes Checks", "Codes check.", "codes_check.html");
+		}
 		catch (Exception e) {
-			Asserts.assertFail( "Unable to execute \" For sending the mail \" "+e.getMessage());
+			Asserts.assertFail( "Unable to execute Sending mailer "+e.getMessage());
 		}
 	}
+	
+	@AfterMethod
+    public void addUrls(ITestResult testResult) throws Exception {
+        failedUrl.addUrlToList(testResult, testResult.getMethod().getMethodName(), testResult.getMethod().getDescription());
+    }
 	
 	
 }

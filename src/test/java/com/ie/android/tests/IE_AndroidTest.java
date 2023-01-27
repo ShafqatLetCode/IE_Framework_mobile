@@ -1,23 +1,29 @@
 package com.ie.android.tests;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.logging.Logger;
+
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.ie.annotation.values.Author;
+import com.ie.appium.utils.CommonAppiumTest;
 import com.ie.base.UserBaseTest;
 import com.ie.common.utilities.Asserts;
-import com.ie.common.utilities.CommonTestData;
 import com.ie.common.utilities.HandleException;
 import com.ie.listeners.RetryAnalyzer;
 import com.ie.listeners.TestListener;
 import com.ie.pages.IEAndroidPage;
-import com.ie.pages.IE_IOSpage;
 import emailer.CommonMailer;
+import emailer.FailedUrl;
 import html.CommonAlertHtml;
+import html.CommonHtml;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
@@ -25,21 +31,23 @@ import io.qameta.allure.Story;
 @Listeners(TestListener.class)
 public class IE_AndroidTest extends UserBaseTest {
 	
+	Logger logger = Logger.getLogger(IE_AndroidTest.class.getName());
 	Asserts Assert = null;
 	IEAndroidPage dbspage1 = null;
- 
+    CommonAppiumTest method=null;
 	HashSet<String> error=null;
-	static final String USER_EMAIL = "mayur.pundir@indianexpress.com, shafqat.ali@indianexpress.com";
-//  + "saurabh.dagar@indianexpress.com,kinjal.priyadarshi@indianexpress.com, nitin.Chaudhary@indianexpress.com, akshay.chirigidi@evolok.com";
-
+	static final String USER_EMAIL = "mayur.pundir@indianexpress.com, shafqat.ali@indianexpress.com"
+    + "saurabh.dagar@indianexpress.com,kinjal.priyadarshi@indianexpress.com, nitin.Chaudhary@indianexpress.com, akshay.chirigidi@evolok.com";
+	FailedUrl failedUrl; 
+	List<ArrayList<String>> url_failed_list;
 	public IE_AndroidTest() throws Exception {
 		super();
 		Assert = new Asserts();
-		//error= new HashSet<String>();
-	//	error.add(device_udid)
+		failedUrl = new FailedUrl();
+		url_failed_list = new ArrayList<ArrayList<String>>();
 	}
 	
-	Logger logger = Logger.getLogger(IE_AndroidTest.class.getName());
+	
 	
 	/******************Start Test Script For IE App************************************/
 	
@@ -214,225 +222,29 @@ public class IE_AndroidTest extends UserBaseTest {
 	}
 	
 	
-//	@Story("Login with setting")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@AfterClass(description = "sending Mail")
-//	@Author(name = "Shafqat Ali")
-//	public void SendAlert(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			CommonAlertHtml createReport = new CommonAlertHtml();
-//            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-//            Date dt =  new Date();
-//            createReport.createReport(error, "<b>Date & Time:</b> "+format.format(dt), "IE Login Check", "IE Login Report", "ie_login_check.html");
-//            System.out.println("Report is created.");
-//            String USER_EMAIL = "mayur.pundir@indianexpress.com, mohit.gupta@indianexpress.com, akshit.goel@indianexpress.com, vaibhav.khanna@indianexpress.com, shyamal.datta@indianexpress.com,";
-////                  + "saurabh.dagar@indianexpress.com,kinjal.priyadarshi@indianexpress.com, nitin.Chaudhary@indianexpress.com, akshay.chirigidi@evolok.com";
-//            CommonMailer mailer = new CommonMailer();
-//            mailer.send_email(USER_EMAIL, "IE Login Chcek", "Indian Express Login Check.", "ie_login_check.html");
-//			
-//		} catch (HandleException e) {
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			Asserts.assertFail( "Unable to execute TestCase04 \" validating validating premium Wall and Epaper wall with combo Subscriber user Script \" "+e.getMessage());
-//		}
-//	}
+	@Story("Mailers")
+	@Parameters({ "userName", "password", "app_Name" })
+	@AfterClass(description = "Sending Mail")
+	@Author(name = "Shafqat Ali")
+	public void SendAlert(String userName, String password , String app_Name) throws Exception {
+		try {
+			  url_failed_list = failedUrl.getUrlFailedList();
+	          CommonHtml createReport = new CommonHtml();
+	          method = new CommonAppiumTest(driver);
+	          createReport.createReport(failedUrl.getTableHeadings(), url_failed_list, "codes_check.html", 
+	                    "Indian Express", "Subscription Wall Test Detail Report:- http://3.6.231.137:8080/job/IE_Automation_IOS/allure/", "Shafqat Ali", "Codes Alert", method.getLogo("indianexpress"));
+	          CommonMailer mailer = new CommonMailer();
+	          mailer.send_email(USER_EMAIL, "Codes Checks", "Codes check.", "codes_check.html");
+		}
+		catch (Exception e) {
+			Asserts.assertFail( "Unable to execute Sending mailer "+e.getMessage());
+		}
+	}
 	
-//	@Epic("Log In with different Senario")
-//	@Feature(value =  "Login" ) 
-//	@Story("Varify non subscription After Login")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 3, enabled = true, description = "TestCase02 varify Non Subcription After Login", retryAnalyzer = RetryAnalyzer.class)
-//	@Author(name = "Shafqat Ali")
-//	public void TestCase02_varifyNonSubcriptionAfterLogin(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			IEAndroidPage IEpage = new IEAndroidPage(driver);
-//		    IEpage.loginApp("nonsubscriberuser@mailinator.com","87654321",app_Name);
-//		    IEpage.validateNonSubscription();
-//		} catch (HandleException e) {
-//			dbspage1.verifyAlertPresent();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail( "Unable to execute TestCase03 Script "+e.getMessage());
-//		}
-//	}
-//	
-//	@Epic("Log In with different Senario")
-//	@Feature(value =  "Login" ) 
-//	@Story("Varify non subscription After Login")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 3, enabled = true, description = "TestCase03 varify Non Subcription Epaper After Login", retryAnalyzer = RetryAnalyzer.class)
-//	@Author(name = "Shafqat Ali")
-//	public void TestCase03_varifyNonSubcriptionEpaperAfterLogin(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			IEAndroidPage IEpage = new IEAndroidPage(driver);
-//		    IEpage.loginApp("demo12345@mailinator.com","87654321",app_Name);
-//		    IEpage.validateNonSubscriptionForEpaper();
-//		} catch (HandleException e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail( "Unable to execute TestCase03 Script "+e.getMessage());
-//		}
-//	}
-//	
-//	@Epic("Log out from app")
-//	@Feature(value =  "Logout" ) 
-//	@Story("verify logout")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 3, enabled = true, description = "TestCase04 Logout from the app", retryAnalyzer = RetryAnalyzer.class)
-//	@Author(name = "Shafqat Ali")
-//	public void TestCase04_LogoutFromtheApp(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			IEAndroidPage IEpage = new IEAndroidPage(driver);
-//		    IEpage.loginApp("demo12345@mailinator.com","87654321",app_Name);
-//		    IEpage.logoutApp();
-//		} catch (HandleException e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail( "Unable to execute TestCase04 Script "+e.getMessage());
-//		}
-//	}
-//	
-//	@Epic("Log In with different Senario")
-//	@Feature(value =  "Login" ) 
-//	@Story("verify epaper login from non subscription")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 3, enabled = true, description = "TestCase05 Login from epaper non subsciption", retryAnalyzer = RetryAnalyzer.class)
-//	@Author(name = "Shafqat Ali")
-//	public void TestCase05_LoginFromEpaperNonSubscription(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			IEAndroidPage IEpage = new IEAndroidPage(driver);
-//			IEpage.launchApp();
-//		    IEpage.validateEpaperwall();
-//		    IEpage.LoginFromEpaper("demo12345@mailinator.com","87654321", app_Name);
-//		    IEpage.validateNonSubscriptionForEpaperwall();
-//		} catch (HandleException e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail( "Unable to execute TestCase05 Script "+e.getMessage());
-//		}
-//	}
-//	
-//	@Epic("Log In with different Senario")
-//	@Feature(value =  "Login" ) 
-//	@Story("verify epaper login from  subscription")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 6, enabled = true, description = "TestCase06 Login from epaper subsciption", retryAnalyzer = RetryAnalyzer.class)
-//	@Author(name = "Shafqat Ali")
-//	public void TestCase05_LoginFromEpaperSubscription(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			IEAndroidPage IEpage = new IEAndroidPage(driver);
-//			IEpage.launchApp();
-//		    IEpage.validateEpaperwall();
-//		    IEpage.LoginFromEpaper("mohit10@mailinator.com","123456", app_Name);
-//		    IEpage.validateSubscriptionForEpaperwall();
-//		} catch (HandleException e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail( "Unable to execute TestCase05 Script "+e.getMessage());
-//		}
-//	}
-//
-//	@Epic("Log In with different Senario")
-//	@Feature(value =  "Login" ) 
-//	@Story("verify epaper login from  subscription")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 7, enabled = true, description = "TestCase07 Login from premium Article subsciption", retryAnalyzer = RetryAnalyzer.class)
-//	@Author(name = "Shafqat Ali")
-//	public void TestCase07_LoginFromPremiumArticleSubscription(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			IEAndroidPage IEpage = new IEAndroidPage(driver);
-//			IEpage.launchApp();
-//		    IEpage.validatePremiumTagAndClickOnAricle();
-//		    IEpage.signInFromPremiumWall("mohit30@mailinator.com","123456", app_Name);
-//		} catch (HandleException e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail( "Unable to execute TestCase05 Script "+e.getMessage());
-//		}
-//	}
-//	@Epic("Log In with different Senario")
-//	@Feature(value =  "Login" ) 
-//	@Story("verify epaper login from  subscription")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 3, enabled = true, description = "TestCase06 Login from epaper subsciption", retryAnalyzer = RetryAnalyzer.class)
-//	@Author(name = "Shafqat Ali")
-//	public void TestCase06_LoginFromEpaperSubscription(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			IEAndroidPage IEpage = new IEAndroidPage(driver);
-//			IEpage.launchApp();
-//		    IEpage.validateEpaperwall();
-//		    IEpage.LoginFromEpaper("mohit10@mailinator.com","123456", app_Name);
-//		    IEpage.validateSubscriptionForEpaperwall();
-//		} catch (HandleException e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail( "Unable to execute TestCase06 Script "+e.getMessage());
-//		}
-//	}
-//	
-//	@Epic("Log In with different Senario")
-//	@Feature(value =  "Login" ) 
-//	@Story("verify epaper login from  subscription")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 3, enabled = true, description = "TestCase08 Login from epaper subsciption and checking e-wall", retryAnalyzer = RetryAnalyzer.class)
-//	@Author(name = "Shafqat Ali")
-//	public void TestCase07_bugcatcher(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			IEAndroidPage IEpage = new IEAndroidPage(driver);
-//			IEpage.launchApp();
-//		    IEpage.validateEpaperwall();
-//		    IEpage.LoginFromEpaper("mohit10@mailinator.com","123456", app_Name);
-//		    IEpage.backFromEpaperAndValidateSignIn("mohit10@mailinator.com","123456", app_Name);
-//		} catch (HandleException e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			//dbspage1.verifyAlertPresent();
-//			Asserts.assertFail( "Unable to execute TestCase07 Script "+e.getMessage());
-//		}
-//	}
-//	
-//	@Epic("Log In with different Senario")
-//	@Feature(value =  "Login" ) 
-//	@Story("Selecting City, Interest on post Launch")
-//	@Parameters({ "userName", "password", "app_Name" })
-//	@Test(priority = 1, enabled = true, description = "PostLaunch Login", retryAnalyzer = RetryAnalyzer.class)
-//	@Author(name = "Shafqat Ali")
-//	public void TestCase01_PostLaunchSetup(String userName, String password , String app_Name) throws Exception {
-//		try {
-//			IEAndroidPage IEpage = new IEAndroidPage(driver);
-//		    IEpage.preLogin();
-//		    IEpage.loginApp("mohit10@mailinator.com", "123456");
-//		} catch (HandleException e) {
-//			dbspage1.verifyAlertPresent();
-//			Asserts.assertFail(e.getCode()+"--> "+ e.getMessage());
-//		}
-//		catch (Exception e) {
-//			dbspage1.verifyAlertPresent();
-//			Asserts.assertFail( "Unable to execute TestCase01 Script "+e.getMessage());
-//		}
-//	}
+	@AfterMethod
+    public void addUrls(ITestResult testResult) throws Exception {
+        failedUrl.addUrlToList(testResult, testResult.getMethod().getMethodName(), testResult.getMethod().getDescription());
+    }
+    
 	/******************End Test Script For IE App************************************/
 }

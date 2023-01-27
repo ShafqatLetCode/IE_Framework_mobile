@@ -537,4 +537,59 @@ public class CommonAppiumTest extends CommandPrompt {
 		
 		}
 	}
+		@Step("Logo - {domain}")
+		public String getLogo(String domain)
+		{
+			String commonLogo = "https://www.exchange4media.com/news-photo/93037-IndianExpressflame.jpg";
+			String iebLogo = "https://bengali.indianexpress.com/wp-content/themes/ie-network-theme/assets/src/img/logo/bengali.svg";
+			String iemLogo = "https://malayalam.indianexpress.com/wp-content/themes/vip/iemalyalam-child/images/ie_malyalam_black.svg";
+			String ieLogo = "https://indianexpress.com/wp-content/themes/indianexpress/images/indian-express-logo-n.svg";
+			String feLogo = "https://www.financialexpress.com/wp-content/themes/vip/financialexpress/assets/images/fe-logo-with-read-to-lead-reverse.svg";
+			String jsLogo = "https://www.jansatta.com/wp-content/themes/vip/jansatta2015/images/logo.png";
+			String lsLogo = "https://www.loksatta.com/wp-content/themes/vip/loksatta/images/logo-new.png";
+			String ietLogo = "https://tamil.indianexpress.com/wp-content/themes/vip/iebhasha/images/ie-website-logo.svg";
+
+			if(domain.equals("indianexpress"))
+				return ieLogo;
+			if(domain.equals("bengali"))
+				return iebLogo;
+			if(domain.equals("tamil"))
+				return ietLogo;
+			if(domain.equals("malayalam"))
+				return iemLogo;
+			if(domain.equals("jansatta"))
+				return jsLogo;
+			if(domain.equals("loksatta"))
+				return lsLogo;
+			if(domain.equals("financialexpress"))
+				return feLogo;
+			return commonLogo;
+		}
+		/**
+		 * Get domain
+		 * @param url
+		 * @return
+		 */
+		@Step("domain - {url}")
+		public String getDomain(String url)
+		{
+			String domain;
+
+			if(url.contains("jansatta"))
+				domain = "JANSATTA";
+			else if(url.contains("tamil"))
+				domain = "TAMIL";
+			else if(url.contains("malayalam"))
+				domain = "MALAYALAM";
+			else if (url.contains("bengali"))
+				domain = "BENGALI";
+			else if (url.contains("loksatta"))
+				domain = "LOKSATTA";
+			else if (url.contains("financialexpress"))
+				domain = "FINANCIAL EXPRESS";
+			else
+				domain = "INDIAN EXPRESS";
+
+			return domain;
+		}
 }

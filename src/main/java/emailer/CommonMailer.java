@@ -29,8 +29,8 @@ public class CommonMailer {
 
 	static final String FROM = "qa@indianexpressdigital.in";
 	static final String SMTP_USERNAME = "AKIAYFPJANSJR6JXONXB";
-	static final String SMTP_PASSWORD = "BE5Z5oQ6LDXnyF7eeeghAajyq4oBq6Wmo79LIdanNdUo";  
-	static final String HOST = "email-smtp.ap-south-1.amazonaws.com";
+	static final String SMTP_PASSWORD = "BP4W7bXxGEjKoek3I6ec9FTQplEJZKfn31mKb68DfHuK";  
+	static final String HOST = "email-smtp.ap-southeast-1.amazonaws.com";
 
 	public void sendAttachmentEmail(Session session, String toEmail, String subject, String reportFileName)  {
 		try{
