@@ -197,31 +197,7 @@ public class IE_AndroidTest extends UserBaseTest {
 			Asserts.assertFail( "Unable to execute TestCase07 \" Validating All section page article update time is validate \" "+e.getMessage());
 		}
 	}
-	
-	@Epic("Email Sending")
-	@Feature(value =  "Sending Allure report" ) 
-	@Story("Daily cron report")
-	@Parameters({ "userName", "password", "app_Name" })
-	@Test(priority = 10, enabled = true, description = "sending email", retryAnalyzer = RetryAnalyzer.class)
-	@Author(name = "Shafqat Ali")
-	public void emailer(String userName, String password , String app_Name) throws Exception {
-		try {
-			
-			CommonAlertHtml createReport = new CommonAlertHtml();
-			SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-			Date dt= new Date();
-			error= new HashSet<>();
-			error.add("http://3.6.231.137:8080/job/IE_Automation_IOS/allure/");
-			createReport.createReport(error, "<b>Date & Time:</b> "+format.format(dt), "IE Login Check", "IE Login Report", "ie_login_check.html");
-			CommonMailer mailer = new CommonMailer();
-			mailer.send_email(USER_EMAIL, "IE Login Chcek", "Indian Express Login Check.", "ie_login_check.html");
-		} 
-		catch (Exception e) {
-			Asserts.assertFail( "Unable to execute \" For sending the mail \" "+e.getMessage());
-		}
-	}
-	
-	
+
 	@Story("Mailers")
 	@Parameters({ "userName", "password", "app_Name" })
 	@AfterClass(description = "Sending Mail")
