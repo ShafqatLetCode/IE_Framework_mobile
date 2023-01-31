@@ -36,8 +36,8 @@ public class IE_IOSTest extends UserBaseTest {
 
 	Logger logger = Logger.getLogger(IE_AndroidTest.class.getName());
 	IE_IOSpage IEPgaeObject1 = null;
-	static final String USER_EMAIL = "mayur.pundir@indianexpress.com, shafqat.ali@indianexpress.com"
-		    + "saurabh.dagar@indianexpress.com,kinjal.priyadarshi@indianexpress.com, nitin.Chaudhary@indianexpress.com, akshay.chirigidi@evolok.com";
+	static final String USER_EMAIL = "mayur.pundir@indianexpress.com, shafqat.ali@indianexpress.com,"
+		    + "saurabh.dagar@indianexpress.com, abhishek.kumar@indianexpress.com";
 	Asserts Assert = null;
 	IEAndroidPage dbspage1 = null;
     CommonAppiumTest method=null;
@@ -189,7 +189,7 @@ public class IE_IOSTest extends UserBaseTest {
 	          CommonHtml createReport = new CommonHtml();
 	          method = new CommonAppiumTest(driver);
 	          createReport.createReport(failedUrl.getTableHeadings(), url_failed_list, "codes_check.html", 
-	                    "Indian Express - iOS", "Subscription Wall Test Detail Report:- http://3.6.231.137:8080/job/IE_Automation_IOS/allure/", "Shafqat Ali", "Codes Alert", method.getLogo("indianexpress"));
+	                    "Indian Express - iOS", "http://3.6.231.137:8080/job/IE_Automation_IOS/allure/", "Shafqat Ali", "Codes Alert", method.getLogo("indianexpress"));
 	          CommonMailer mailer = new CommonMailer();
 	          mailer.send_email(USER_EMAIL, "Codes Checks", "Codes check.", "codes_check.html");
 		}

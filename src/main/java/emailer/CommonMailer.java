@@ -27,10 +27,10 @@ public class CommonMailer {
 	public static String failed_count;
 	public static String skip_count;
 
-	static final String FROM = "qa@indianexpressdigital.in";
-	static final String SMTP_USERNAME = "AKIAYFPJANSJR6JXONXB";
-	static final String SMTP_PASSWORD = "BP4W7bXxGEjKoek3I6ec9FTQplEJZKfn31mKb68DfHuK";  
-	static final String HOST = "email-smtp.ap-southeast-1.amazonaws.com";
+	static final String FROM = "qa@indianexpressdigital.net";
+	static final String SMTP_USERNAME = "AKIAYFPJANSJ6IKES5EZ";
+	static final String SMTP_PASSWORD = "BP4Sy5e5mGo5oBww4y59X+cEGU39NJAbsE2bGN0NjB/j";  
+	static final String HOST = "email-smtp.ap-southeast-2.amazonaws.com";
 
 	public void sendAttachmentEmail(Session session, String toEmail, String subject, String reportFileName)  {
 		try{

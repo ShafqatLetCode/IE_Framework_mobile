@@ -37,7 +37,7 @@ public class IE_AndroidTest extends UserBaseTest {
     CommonAppiumTest method=null;
 	HashSet<String> error=null;
 	static final String USER_EMAIL = "mayur.pundir@indianexpress.com, shafqat.ali@indianexpress.com"
-    + "saurabh.dagar@indianexpress.com,kinjal.priyadarshi@indianexpress.com, nitin.Chaudhary@indianexpress.com, akshay.chirigidi@evolok.com";
+		    + "saurabh.dagar@indianexpress.com, abhishek.kumar@indianexpress.com";
 	FailedUrl failedUrl; 
 	List<ArrayList<String>> url_failed_list;
 	public IE_AndroidTest() throws Exception {
@@ -46,9 +46,7 @@ public class IE_AndroidTest extends UserBaseTest {
 		failedUrl = new FailedUrl();
 		url_failed_list = new ArrayList<ArrayList<String>>();
 	}
-	
-	
-	
+
 	/******************Start Test Script For IE App************************************/
 	
 	@Epic("Log In with different Senario")
@@ -208,7 +206,7 @@ public class IE_AndroidTest extends UserBaseTest {
 	          CommonHtml createReport = new CommonHtml();
 	          method = new CommonAppiumTest(driver);
 	          createReport.createReport(failedUrl.getTableHeadings(), url_failed_list, "codes_check.html", 
-	                    "Indian Express - Android", "Subscription Wall Test Detail Report:- http://3.6.231.137:8080/job/IE_Automation_IOS/allure/", "Shafqat Ali", "Codes Alert", method.getLogo("indianexpress"));
+	                    "Indian Express - Android", "http://3.6.231.137:8080/job/IE_Automation/allure/", "Shafqat Ali", "Codes Alert", method.getLogo("indianexpress"));//Subscription Wall Test Detail Report:- 
 	          CommonMailer mailer = new CommonMailer();
 	          mailer.send_email(USER_EMAIL, "Codes Checks", "Codes check.", "codes_check.html");
 		}
